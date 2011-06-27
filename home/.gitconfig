@@ -23,3 +23,5 @@
 	prompt = false
 [diff]
 	tool = Kaleidoscope
+[github]
+	user = grassdog
