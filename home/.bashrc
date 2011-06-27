@@ -1,3 +1,3 @@
-. ~/.homesick/dotfiles/bash/env
-. ~/.homesick/dotfiles/bash/config
-. ~/.homesick/dotfiles/bash/aliases
+. ~/.homesick/repos/dotfiles/bash/env
+. ~/.homesick/repos/dotfiles/bash/config
+. ~/.homesick/repos/dotfiles/bash/aliases
