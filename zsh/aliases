@@ -1,0 +1,222 @@
+# Command Enhancements
+
+# Playup code
+alias pup="cd ~/code/playup/puge"
+
+# rvm stuff
+alias rvl="rvm list gemsets"
+
+# Utility
+alias ea='vim -f ~/bin/dotfiles/zsh/aliases && source ~/bin/dotfiles/zsh/aliases' # Edit aliases
+
+# CD to parent dir of previous file
+alias cdp='cd `dirname !$`' 
+
+# Common
+alias cls='clear; l'
+function cdc() { 
+    cd $1; ls
+}
+alias h='history -40'
+alias l.='ls -d .[^.]*'
+alias l='ls -ohGF'  # -l long listing
+                    # -G color
+alias lh="ls -lh"
+alias ll='ls -lhG'  # -l long listing, human readable, no group info
+alias lt='ls -lt' # sort with recently modified first
+alias la="ls -A -l -G"
+alias tl="tree | less -S" # Tree view
+
+alias md='mkdir -p'
+
+# no spelling corrections  (man zshbuiltins)
+alias mv='nocorrect mv'
+alias cp='nocorrect cp'
+alias mkdir='nocorrect mkdir'
+alias rm='nocorrect rm'
+
+alias pd=pushd
+
+function take() {
+    mkdir -p "$1"
+    cd "$1" 
+}
+
+function jpuge() {
+  rvm use 1.4.1@puge
+  export JAVA_OPTS='-d32 -client'
+  export JAVA_MEM='-Xmx1g'
+  export JAVA_STACK='-Xss2048k'
+}
+
+# Look up something on wikipedia
+function wiki() {
+  dig +short txt $1.wp.dg.cx
+}
+
+alias le='less -SR'
+alias v='vim'
+alias g='mvim'
+alias gv='mvim'
+alias gvn='mvim -n'
+alias m='mate'
+
+function markdown() { 
+ $HOME/bin/Markdown.pl $1 > $1.html
+}
+
+# Processes
+alias k9="killall -9"
+function killnamed () { 
+    ps ax | grep $1 | cut -d ' ' -f 2 | xargs kill 
+}
+alias psu='ps auxw' # Wide ps sorted by CPU usage
+alias psf='ps ax --forest'
+alias tu='top -o cpu' # cpu
+alias tm='top -o vsize' # memory
+
+# Bundler
+alias be="bundle exec"
+
+# Colourful grep
+alias cgrep='grep --color=auto'
+
+# Finder
+alias o='open . &'
+ff()     {  open -a "/Applications/Firefox.app" "$@"  }
+safari() {  open -a Safari "$@"  }
+alias apps='open /Applications'
+
+# Git
+alias ungit="find . -name '.git' -exec rm -rf {} \;"
+alias ga='git add'
+alias gb='git branch'
+alias gba='git branch -a'
+alias gc='git commit -v'
+alias gca='git commit -v -a'
+
+function git_current_branch() {
+  git symbolic-ref HEAD 2> /dev/null | sed -e 's/refs\/heads\///'
+}
+
+alias gpthis='git push origin HEAD:$(git_current_branch)'
+alias grb='git rebase -p'
+alias gup='git fetch origin && grb origin/$(git_current_branch)'
+alias gm='git merge --no-ff'
+
+# Commit pending changes and quote all args as message
+function gg() {
+    git commit -v -a -m "$*"
+}
+
+# Commit staged changes and quote all args as message
+function gcm() {
+    git commit -v -m "$*"
+}
+
+alias gco='git checkout'
+alias gdt='git difftool'
+alias gdm='git diff master'
+#alias gl='git pull'
+alias gnp="git-notpushed"
+#alias gp='git push'
+alias gst='git status'
+alias gs='git status -s'
+
+# Setup a tracking branch from [remote] [branch_name]
+function gbt() { 
+  git branch --track $2 $1/$2 && git checkout $2 
+}
+
+# Quickly clobber a file and checkout
+function grf() {
+  rm $1
+  git checkout $1
+}
+
+# Run any specs that have been modified
+function gitspec() {
+  git diff --name-only ${1:-git-svn} | grep _spec.rb | xargs spec
+}
+
+# Run rspec with specdoc formatter
+function specdoc() {
+  spec -c -f s $1
+}
+
+# Setup a tunnel
+function haproxyssh() {
+  ssh -L7997:127.0.0.1:7997 deploy@$1.com
+}
+
+# Syntax check Javascript
+function jsc() {
+  jsl -conf ~/bin/jsl.default.conf -process $1
+}
+
+# Nginx
+function nginx_stop() {
+    ps ax | grep nginx | cut -d " " -f 1 | xargs sudo kill -9
+}
+function nginx_start() {
+    sudo /opt/nginx/sbin/nginx
+}
+
+# Serve up the current directory with webrick
+function rserve() {
+  ruby -rwebrick -e"s = WEBrick::HTTPServer.new(:Port => 3000,  :DocumentRoot => Dir.pwd); trap('INT') { s.shutdown }; s.start"
+}
+
+# Find files
+function f() {
+    find . -name $1 -print
+}
+
+# Remove a bunch of files
+function clean() {
+  if [ $# -eq 1 ]
+  then
+    find . -name $1 -exec rm {} \;
+  else
+    echo "No args passed so doing nothing"
+  fi
+}
+
+# From http://github.com/suztomo/dotfiles
+function rmf(){
+    for file in $*
+    do
+        __rm_single_file $file
+    done
+}
+
+function __rm_single_file(){
+    if ! [ -d ~/.Trash/ ]
+    then
+        command /bin/mkdir ~/.Trash
+    fi
+
+    if ! [ $# -eq 1 ]
+    then
+        echo "__rm_single_file: 1 argument required but $# passed."
+        exit
+    fi
+
+    if [ -e $1 ]
+    then
+        BASENAME=`basename $1`
+        NAME=$BASENAME
+        COUNT=0
+        while [ -e ~/.Trash/$NAME ]
+        do
+            COUNT=$(($COUNT+1))
+            NAME="$BASENAME.$COUNT"
+        done
+
+        command /bin/mv $1 ~/.Trash/$NAME
+    else
+        echo "No such file or directory: $file"
+    fi
+}
+
+

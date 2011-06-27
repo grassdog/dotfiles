@@ -1,0 +1,78 @@
+autoload -U colors
+colors
+setopt prompt_subst
+
+PROMPT='%{$fg[green]%}$(date "+%a %H:%M:%S") %{$fg[cyan]%}%n@%m:%{$reset_color%}%{$fg[yellow]%}${PWD/#$HOME/~}%{$reset_color%} %{$fg[blue]%}$(vcprompt)%{$fg[green]%}$(rvm-prompt i v g)
+%{$fg[green]%}→ %{$reset_color%}'
+
+fpath=($HOME/.zsh/Completion $fpath)
+
+#############################
+# Other Options
+
+# setopt PRINT_EXIT_VALUE
+
+# I don't want corrections
+setopt NOCORRECT
+setopt NOCORRECTALL # Only want commands not args
+setopt CLOBBER      # Allow redirect to clobber files
+
+setopt hist_ignore_dups     # ignore duplication command history list
+#setopt share_history        # share command history data
+setopt HIST_IGNORE_SPACE
+setopt APPEND_HISTORY # write history only when closing
+setopt EXTENDED_HISTORY # add more info
+
+# Other tabbing options
+# setopt NO_AUTO_MENU
+# setopt BASH_AUTO_LIST
+
+setopt autopushd pushdminus pushdtohome autocd pushdignoredups
+
+#############################
+# Variables
+
+# Quote pasted URLs
+autoload url-quote-magic
+zle -N self-insert url-quote-magic
+
+# Allow for file truncation
+NULLCMD=:
+
+HISTFILE=~/.zsh_history
+SAVEHIST=1000000
+HISTSIZE=1000000
+
+REPORTTIME=10 # Show elapsed time if command took more than X seconds
+LISTMAX=0 # ask to complete if top of list would scroll off screen
+
+# Load completions for Ruby, Git, etc.
+autoload compinit
+compinit
+
+# Make CTRL-W delete after other chars, not just spaces
+#WORDCHARS=${WORDCHARS//[&=\/;\!#%\{]}
+WORDCHARS='*?[]~=&;!#$%^(){}'
+
+# Emacs key bindings
+bindkey -e
+
+bindkey "\e[1~" beginning-of-line
+bindkey "\e[2~" quoted-insert
+bindkey "\e[3~" delete-char
+bindkey "\e[4~" end-of-line
+bindkey "\e[5~" beginning-of-history
+bindkey "\e[6~" end-of-history
+bindkey "\e[7~" beginning-of-line
+bindkey "\e[8~" end-of-line
+bindkey "\e[H" beginning-of-line
+bindkey "\e[F" end-of-line
+bindkey "\eOH" beginning-of-line
+bindkey "\eOF" end-of-line
+bindkey "\eOd" backward-word
+bindkey "\eOc" forward-word 
+
+# mappings for Ctrl/Option-left-arrow and Ctrl/Option-right-arrow for word moving
+#bindkey "\e\e[C"  forward-word
+#bindkey "\e\e[D"  backward-word
+

@@ -1,0 +1,21 @@
+if has("gui_macvim")
+  set guifont=Menlo:h12
+
+  " Duplicate current line
+  map <D-d> yyp
+endif
+
+" Show my current line
+set cursorline
+
+" No left scrollbar
+set go-=l
+set go-=L
+
+" Default gui color scheme
+set background=dark
+colorscheme molokai
+
+" Hide mouse after chars typed
+set mousehide
+

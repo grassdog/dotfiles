@@ -1,0 +1,50 @@
+
+# bash, please
+shell bash
+
+# Don't display startup message
+startup_message off
+
+# Allow quick switch
+bind o other
+
+# Support alternate screens so that, for example, when you
+# quit out of vi, the display is redrawn as it was before vi
+# redrew the full screen.
+altscreen on
+defbce on
+nonblock on
+vbell off
+
+escape ^Xx
+
+# more scrollback
+defscrollback 30000
+
+autodetach on
+
+multiuser on
+
+logfile ~/.screen/log
+
+# Put a nice status bar on the bottom with colours.
+hardstatus on
+hardstatus alwayslastline
+hardstatus string "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..Y} %H %{..Y} %d/%m %C%a "
+
+# Use the terminal scrollback we've got
+termcapinfo xterm* ti@:te@
+
+bell_msg '^GBell in window %n'
+activity '^GActivity in window %n (%t) [%w:%s]~'
+
+# screen will launch commands as specified
+# screen [-flag] [window name] [window number] [program to run in window]
+#         -t title
+#         -M monitor
+screen -t rocco 0 bash
+screen -t rocco 1 bash
+
+# Go to the first window
+select 0
+

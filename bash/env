@@ -1,0 +1,28 @@
+# Set my environment variables
+
+#EDITOR='mate'
+EDITOR='vim'
+PAGER='less'
+
+# MacPorts: adding an appropriate PATH variable for use with MacPorts.
+#export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/System/Library/Frameworks/JavaVM.framework/Versions/1.6/Home/bin:~/bin:$PATH
+
+export PATH="~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/opt/local/bin:/opt/local/sbin:/System/Library/Frameworks/JavaVM.framework/Versions/1.6/Home/bin:$PATH"
+#export PATH="~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:$PATH"
+
+# MacPorts: adding an appropriate MANPATH variable for use with MacPorts.
+export MANPATH=/opt/local/share/man:$MANPATH
+
+export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.6/Home
+#export CATALINA_HOME=/opt/local/share/java/tomcat6
+export CATALINA_HOME=/Users/ray/tools/tomcat6
+export PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME} -  ${PWD}\007"'
+#export PROMPT_COMMAND='echo -ne "\033]0;${PWD}\007"'
+
+#Make my history more interesting
+export HISTCONTROL=erasedups
+export HISTSIZE=10000
+shopt -s histappend
+
+#Add python 3 to my path
+alias p3='export PATH=/Library/Frameworks/Python.framework/Versions/3.0/bin:$PATH'

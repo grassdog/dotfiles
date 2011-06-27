@@ -1,0 +1,25 @@
+[user]
+	name = Ray Grasso
+	email = ray.grasso@gmail.com
+[color]
+	ui = auto
+[core]
+	excludesfile = ~/.gitignore_global
+	editor = /usr/bin/vim
+	quotepath = false
+#[diff]
+#	external = $HOME/bin/git-diff-wrapper.sh
+[alias]
+	unstage = reset HEAD
+[rerere]
+  enabled = 1
+# Always rebase when pulling into tracking branches
+#[branch]
+#  autosetuprebase = always
+
+[difftool "Kaleidoscope"]
+	cmd = ksdiff-wrapper git \"$LOCAL\" \"$REMOTE\"
+[difftool]
+	prompt = false
+[diff]
+	tool = Kaleidoscope
