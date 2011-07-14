@@ -1,6 +1,5 @@
 
-# bash, please
-shell bash
+shell zsh
 
 # Don't display startup message
 startup_message off
@@ -42,8 +41,8 @@ activity '^GActivity in window %n (%t) [%w:%s]~'
 # screen [-flag] [window name] [window number] [program to run in window]
 #         -t title
 #         -M monitor
-screen -t rocco 0 bash
-screen -t rocco 1 bash
+screen 0 zsh
+screen 1 zsh
 
 # Go to the first window
 select 0
