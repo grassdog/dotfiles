@@ -2,7 +2,7 @@ autoload -U colors
 colors
 setopt prompt_subst
 
-PROMPT='%{$fg[green]%}$(date "+%a %H:%M:%S") %{$fg[cyan]%}%n@%m:%{$reset_color%}%{$fg[yellow]%}${PWD/#$HOME/~}%{$reset_color%} %{$fg[blue]%}$(vcprompt)%{$fg[green]%}$(rvm-prompt i v g)
+PROMPT='%{$fg[green]%}$(date "+%a %H:%M:%S") %{$fg[cyan]%}%n@%m:%{$reset_color%}%{$fg[yellow]%}${PWD/#$HOME/~}%{$reset_color%} %{$fg[blue]%}$(vcprompt)%{$fg[green]%}$($HOME/.rvm/bin/rvm-prompt i v g)
 %{$fg[green]%}→ %{$reset_color%}'
 
 fpath=($HOME/.zsh/Completion $fpath)
