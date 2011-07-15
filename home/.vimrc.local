@@ -16,6 +16,9 @@ set shortmess=atI
 " No Noise or bell
 set visualbell t_vb=
 
+" Yank to the end of the line
+map Y y$
+
 "function s:setupMarkup()
 "  call s:setupWrapping()
 "  map <buffer> <Leader>p :Mm <CR>
