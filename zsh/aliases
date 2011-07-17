@@ -70,6 +70,9 @@ alias k9="killall -9"
 function killnamed () { 
     ps ax | grep $1 | cut -d ' ' -f 2 | xargs kill 
 }
+function psg() {
+  ps aux | grep $1
+}
 alias psu='ps auxw' # Wide ps sorted by CPU usage
 alias psf='ps ax --forest'
 alias tu='top -o cpu' # cpu
