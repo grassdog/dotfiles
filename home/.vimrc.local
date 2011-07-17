@@ -19,10 +19,6 @@ set visualbell t_vb=
 " Yank to the end of the line
 map Y y$
 
-" Override wrap so we get a soft wrap instead of a hard one
-au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} set wrap linebreak textwidth=0
-au BufRead,BufNewFile *.txt set wrap linebreak textwidth=0
-
 " Set up syntax for highlighting
 au BufNewFile,BufRead *.less set filetype=less
 au BufRead,BufNewFile *.scss set filetype=scss
