@@ -107,6 +107,15 @@ alias grb='git rebase -p'
 alias gup='git fetch origin && grb origin/$(git_current_branch)'
 alias gm='git merge --no-ff'
 
+# Usage: new-github grassdog project_name
+function new-github() {
+	git remote add origin git@github.com:$1/$2.git
+	git push origin master
+	git config branch.master.remote origin
+	git config branch.master.merge refs/heads/master
+	git config push.default current
+}
+
 # Commit pending changes and quote all args as message
 function gg() {
     git commit -v -a -m "$*"
