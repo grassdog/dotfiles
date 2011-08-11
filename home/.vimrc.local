@@ -19,6 +19,15 @@ set visualbell t_vb=
 " Yank to the end of the line
 map Y y$
 
+" Don't highlight searches
+set nohls
+
+"allow bs, del to cross lines
+set whichwrap+=<,>,h,l
+
+set bs=2
+
+
 " Set up syntax for highlighting
 au BufNewFile,BufRead *.less set filetype=less
 au BufRead,BufNewFile *.scss set filetype=scss
