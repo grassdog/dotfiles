@@ -23,7 +23,7 @@ map Y y$
 set nohls
 
 "allow bs, del to cross lines
-set whichwrap+=<,>,h,l
+set whichwrap+=<,>,h,l,[,]
 
 set bs=2
 
