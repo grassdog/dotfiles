@@ -27,6 +27,8 @@ set whichwrap+=<,>,h,l,[,]
 
 set bs=2
 
+" Truncate (kill) line
+map <leader>k cc<esc>
 
 " Set up syntax for highlighting
 au BufNewFile,BufRead *.less set filetype=less
@@ -122,8 +124,8 @@ inoremap <F8> <ESC>:R<CR>
 nnoremap <F8> :R<CR>
 vnoremap <F8> :R<CR>
 
-" remove highlighting
-map <leader><space> :noh<cr>
+" Toggle highlighting
+map <leader><space> :set hlsearch! hlsearch?<CR>
 
 " Open recently edited files
 nmap <leader>er :MRU<cr>
