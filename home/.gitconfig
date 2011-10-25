@@ -11,6 +11,7 @@
 #	external = $HOME/bin/git-diff-wrapper.sh
 [alias]
 	unstage = reset HEAD
+  ll = log ORIG_HEAD..HEAD --pretty=oneline
 [rerere]
   enabled = 1
 # Always rebase when pulling into tracking branches
