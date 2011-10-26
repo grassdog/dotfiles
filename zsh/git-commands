@@ -1,15 +1,20 @@
-# Git
+# Git aliases and commands
 alias ga='git add'
 alias gb='git branch'
 alias gc='git commit -v'
 alias gca='git commit -v -a'
+alias gco='git checkout'
+alias gdt='git difftool'
+alias gdm='git diff master'
+alias gnp="git-notpushed"
+alias gst='git status'
+alias gs='git status -s'
+alias grb='git rebase -p'
+alias gm='git merge --no-ff'
 
 function git_current_branch() {
   git symbolic-ref HEAD 2> /dev/null | sed -e 's/refs\/heads\///'
 }
-
-alias grb='git rebase -p'
-alias gm='git merge --no-ff'
 
 # Usage: new-github grassdog project_name
 function new-github() {
@@ -30,13 +35,6 @@ function gcm() {
     git commit -v -m "$*"
 }
 
-alias gco='git checkout'
-alias gdt='git difftool'
-alias gdm='git diff master'
-alias gnp="git-notpushed"
-alias gst='git status'
-alias gs='git status -s'
-
 # Setup a tracking branch from [remote] [branch_name]
 function gbt() {
   git branch --track $2 $1/$2 && git checkout $2
@@ -52,5 +50,4 @@ function grf() {
 function gitspec() {
   git diff --name-only ${1:-git-svn} | grep _spec.rb | xargs spec
 }
-
 
