@@ -26,6 +26,16 @@ alias gvn='mvim -n'
 alias m='mate'
 alias be="bundle exec" # Bundler
 
+###############
+# OSX Specific
+###############
+
+if [[ $(uname) == Darwin ]]; then
+  alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+  alias o='open . &'
+  safari() {  open -a Safari "$@"  }
+  alias apps='open /Applications'
+fi
 
 ############
 # Processes
@@ -41,15 +51,6 @@ function psg() {
 alias psu='ps auxw'         # Wide ps sorted by CPU usage
 alias tu='top -o cpu'       # cpu
 alias tm='top -o vsize'     # memory
-
-
-##########
-# Finder
-##########
-
-alias o='open . &'
-safari() {  open -a Safari "$@"  }
-alias apps='open /Applications'
 
 
 #########
