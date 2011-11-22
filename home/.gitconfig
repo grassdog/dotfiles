@@ -4,7 +4,7 @@
 [color]
 	ui = auto
 [core]
-	excludesfile = ~/.gitignore_global
+	excludesfile = $HOME/.gitignore_global
 	editor = /usr/bin/vim
 	quotepath = false
 #[diff]
@@ -26,3 +26,9 @@
 	tool = Kaleidoscope
 [github]
 	user = grassdog
+[difftool "sourcetree"]
+	cmd = /Applications/Kaleidoscope.app/Contents/MacOS/ksdiff -w \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true

@@ -11,6 +11,7 @@ alias gst='git status'
 alias gs='git status -s'
 alias grb='git rebase -p'
 alias gm='git merge --no-ff'
+alias gl='git log --graph --pretty="format:%C(yellow)%h%Cblue%d%Creset %s %C(green) %an, %ar%Creset"'
 
 function git_current_branch() {
   git symbolic-ref HEAD 2> /dev/null | sed -e 's/refs\/heads\///'
