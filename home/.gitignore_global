@@ -38,8 +38,9 @@ dontgitify
 # Vim temp files
 *.swp
 
+# Ctags files
+.tags
+
 # Compiled Python
 *.pyc
 
-# Ctags files
-tags
