@@ -4,7 +4,7 @@
 [color]
 	ui = auto
 [core]
-	excludesfile = ~/.gitignore_global
+	excludesfile = ~/.cvsignore
 	editor = /usr/bin/vim
 	quotepath = false
 #[diff]
