@@ -20,8 +20,8 @@ function take() {
   cd "$1"
 }
 
+alias v='vim'
 alias le='less -SR'
-alias v='mvim -n'
 alias be="bundle exec" # Bundler
 
 ###############
@@ -29,6 +29,7 @@ alias be="bundle exec" # Bundler
 ###############
 
 if [[ $(uname) == Darwin ]]; then
+  alias v='mvim'
   alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
   alias o='open . &'
   safari() {  open -a Safari "$@"  }
