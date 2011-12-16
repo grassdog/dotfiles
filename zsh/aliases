@@ -21,9 +21,7 @@ function take() {
 }
 
 alias le='less -SR'
-alias gv='mvim'
-alias gvn='mvim -n'
-alias m='mate'
+alias v='mvim -n'
 alias be="bundle exec" # Bundler
 
 ###############
