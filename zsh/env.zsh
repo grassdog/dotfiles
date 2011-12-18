@@ -10,7 +10,7 @@ SVN_EDITOR='vim'
 # Paths
 ##########
 
-export PATH="${HOME}/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH"
+export PATH="${HOME}/bin:${HOME}/.bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH"
 
 # Add Java 6 to my environment
 export PATH="$PATH:/System/Library/Frameworks/JavaVM.framework/Versions/1.6/Home/bin"
