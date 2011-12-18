@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Shamelessly stolen from tagoe
+# Script that will create and maintain cookie file
+
+COOKIE_FILE=/var/tmp/kwget.`whoami`.cookie
+
+if [ ! -r $COOKIE_FILE ]
+then
+    rm -f $COOKIE_FILE
+    touch $COOKIE_FILE
+    EXPIRY_DATE=0
+else
+    EXPIRY_DATE=`grep SMSESSION $COOKIE_FILE | awk '{print $5}'`
+fi 
+
+chmod 0600 $COOKIE_FILE
+NOW=`/bin/date +%s`
+
+if [ $NOW -gt $EXPIRY_DATE ]
+then
+    curl -c $COOKIE_FILE --negotiate -ufake:upass "http://blah"
+fi
+
+wget --cookies=on --keep-session-cookies --save-cookies=$COOKIE_FILE --load-cookies=$COOKIE_FILE $@

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+mysqldump -u root --add-drop-table --no-create-db $1 > $1.sql
+

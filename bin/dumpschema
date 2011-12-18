@@ -1,0 +1,5 @@
+#!/bin/sh
+
+mysqldump -u root --add-drop-table --no-create-db --no-data $1 > schema.sql
+
+
