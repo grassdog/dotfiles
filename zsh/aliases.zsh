@@ -29,12 +29,13 @@ alias be="bundle exec" # Bundler
 ###############
 
 if [[ $(uname) == Darwin ]]; then
-  alias v='mvim'
-  alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+  alias gv='mvim'
   alias o='open . &'
   safari() {  open -a Safari "$@"  }
   alias apps='open /Applications'
 fi
+
+alias tmux="TERM=screen-256color-bce tmux"
 
 ############
 # Processes
