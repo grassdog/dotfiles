@@ -29,7 +29,7 @@ alias be="bundle exec" # Bundler
 ###############
 
 if [[ $(uname) == Darwin ]]; then
-  alias gv='mvim'
+  alias m='mvim'
   alias o='open . &'
   safari() {  open -a Safari "$@"  }
   alias apps='open /Applications'
