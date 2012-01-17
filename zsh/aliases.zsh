@@ -20,7 +20,7 @@ function take() {
   cd "$1"
 }
 
-alias v='vim'
+alias vi='vim'
 alias le='less -SR'
 alias be="bundle exec" # Bundler
 
@@ -29,10 +29,13 @@ alias be="bundle exec" # Bundler
 ###############
 
 if [[ $(uname) == Darwin ]]; then
-  alias m='mvim'
+  alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
+  alias s="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
+  alias v='mvim'
   alias o='open . &'
   safari() {  open -a Safari "$@"  }
   alias apps='open /Applications'
+  alias csub='cd ~/Library/Application\ Support/Sublime\ Text\ 2/Packages'
 fi
 
 alias tmux="TERM=screen-256color-bce tmux"

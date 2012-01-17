@@ -2,9 +2,14 @@
 # Editors
 ##########
 
-EDITOR='vim'
-PAGER='less'
-SVN_EDITOR='vim'
+export EDITOR='vim'
+export PAGER='less'
+export SVN_EDITOR='vim'
+export BUNDLER_EDITOR="vim"
+
+if [[ $(uname) == Darwin ]]; then
+  export BUNDLER_EDITOR="mvim"
+fi
 
 ##########
 # Paths
@@ -19,6 +24,7 @@ export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Versions/1.6/Home"
 
 # Adding an appropriate MANPATH variable for use with MacPorts.
 export MANPATH=/opt/local/share/man:$MANPATH
+
 
 ##########
 # History
