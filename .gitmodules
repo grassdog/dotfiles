@@ -1,0 +1,3 @@
+[submodule "bin/.source/js-beautify"]
+	path = bin/.source/js-beautify
+	url = https://github.com/einars/js-beautify.git
