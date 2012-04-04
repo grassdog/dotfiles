@@ -23,6 +23,7 @@ function take() {
 alias vi='vim'
 alias le='less -SR'
 alias be="bundle exec" # Bundler
+alias e='emacs -nw'
 
 ###############
 # OSX Specific
