@@ -10,6 +10,8 @@ PAGER='less'
 export PATH="~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/opt/local/bin:/opt/local/sbin:/System/Library/Frameworks/JavaVM.framework/Versions/1.6/Home/bin:$PATH"
 #export PATH="~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:$PATH"
 
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
 # MacPorts: adding an appropriate MANPATH variable for use with MacPorts.
 export MANPATH=/opt/local/share/man:$MANPATH
 
