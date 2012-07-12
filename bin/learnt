@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+# Little script to pull my learnings out of my journal and display them in Marked.app
+
+journal = File.read(File.join(ENV['HOME'], 'Dropbox/Notes/Journal.md'))
+
+days = journal.split(/# \d\d\d\d-\d\d-\d\d/)
+
+# Ignore preamble
+days = days.slice(1..-1)
+
+learnings = days.map do |day|
+  learning = day.split('## TIL')[1]
+  learning + "---\n" if learning
+end.compact
+
+# Add a heading
+learnings = [ "# Learnings" ] + learnings
+
+File.open('/var/tmp/learnings.md', 'w') do |file|
+  file.puts learnings
+end
+
+# Open it up in Marked
+system %{open -a Marked.app /var/tmp/learnings.md}
