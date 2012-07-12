@@ -15,7 +15,7 @@ fi
 # Paths
 ##########
 
-export PATH="${HOME}/bin:${HOME}/.bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:${PATH}"
+export PATH="${HOME}/bin:${HOME}/.bin:/usr/local/bin:/usr/local/sbin:${HOME}/.rvm/bin:/usr/local/share/npm/bin:${PATH}"
 
 # Add Java to my environment
 export PATH="${PATH}:/System/Library/Frameworks/JavaVM.framework/Versions/1.6/Home/bin"
