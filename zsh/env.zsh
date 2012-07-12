@@ -24,6 +24,9 @@ export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Versions/1.6/Home"
 # Adding Homebrew man path
 export MANPATH="/usr/local/share/man:${MANPATH}"
 
+export NODEPATH="/usr/local/lib/node_modules"
+export SUBLHOME="${HOME}/Library/Application Support/Sublime Text 2/Packages/User"
+
 ##########
 # History
 ##########
