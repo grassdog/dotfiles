@@ -15,7 +15,7 @@ fi
 # Paths
 ##########
 
-export PATH="${HOME}/bin:${HOME}/.bin:/usr/local/bin:/usr/local/sbin:${HOME}/.rvm/bin:/usr/local/share/npm/bin:${PATH}"
+export PATH="${HOME}/bin:${HOME}/.bin:/usr/local/bin:/usr/local/sbin:${HOME}/.rbenv/bin:/usr/local/share/npm/bin:${PATH}"
 
 # Add Java to my environment
 export PATH="${PATH}:/System/Library/Frameworks/JavaVM.framework/Versions/1.6/Home/bin"
@@ -26,6 +26,9 @@ export MANPATH="/usr/local/share/man:${MANPATH}"
 
 export NODEPATH="/usr/local/lib/node_modules"
 export SUBLHOME="${HOME}/Library/Application Support/Sublime Text 2/Packages/User"
+
+# Keep CC around for ruby-build
+export CC="/usr/local/bin/gcc-4.2"
 
 ##########
 # History
@@ -48,7 +51,7 @@ autoload -U colors
 colors
 setopt prompt_subst
 
-PROMPT='%{$fg[green]%}$(date "+%a %H:%M:%S") %{$fg[cyan]%}%n@%m:%{$reset_color%}%{$fg[yellow]%}${PWD/#$HOME/~}%{$reset_color%} %{$fg[blue]%}$(vcprompt)%{$fg[green]%}$(rvm-prompt i v g)
+PROMPT='%{$fg[green]%}$(date "+%a %H:%M:%S") %{$fg[cyan]%}%n@%m:%{$reset_color%}%{$fg[yellow]%}${PWD/#$HOME/~}%{$reset_color%} %{$fg[blue]%}$(vcprompt)%{$fg[green]%}$(rbenv version-name)
 %{$fg[green]%}→ %{$reset_color%}'
 
 
@@ -101,10 +104,5 @@ bindkey "\eOF" end-of-line
 bindkey "\eOd" backward-word
 bindkey "\eOc" forward-word
 
-
-# Add RVM to PATH for scripting
-PATH=$PATH:$HOME/.rvm/bin
-
-# Add rvm to my environment
-[[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
-
+# Get rbenv up and runnin
+eval "$(rbenv init -)"
