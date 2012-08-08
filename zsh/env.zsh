@@ -30,6 +30,12 @@ export SUBLHOME="${HOME}/Library/Application Support/Sublime Text 2/Packages/Use
 # Keep CC around for ruby-build
 export CC="/usr/local/bin/gcc-4.2"
 
+# Get Z working
+. "${HOME}/.dotfiles/z/z.sh"
+function precmd () {
+  _z --add "$(pwd -P)"
+}
+
 ##########
 # History
 ##########

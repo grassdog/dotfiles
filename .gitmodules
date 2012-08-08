@@ -1,3 +1,6 @@
 [submodule "bin/.source/js-beautify"]
 	path = bin/.source/js-beautify
 	url = https://github.com/einars/js-beautify.git
+[submodule "z"]
+	path = z
+	url = https://github.com/rupa/z.git
