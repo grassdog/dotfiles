@@ -4,7 +4,7 @@ require 'rake'
 desc "install the dot files into $HOME"
 task :install , :update do
   replace_all = false
-  Dir['*'].each do |file|
+  Dir['*'].reject {|i| ['z'].include? i }.each do |file|
     next if %w[Rakefile README.md].include? file
 
     puts file
