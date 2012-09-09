@@ -2,7 +2,7 @@
 require 'rake'
 
 desc "install the dot files into $HOME"
-task :install do
+task :install , :update do
   replace_all = false
   Dir['*'].each do |file|
     next if %w[Rakefile README.md].include? file
@@ -33,6 +33,11 @@ task :install do
       link_file(file)
     end
   end
+end
+
+desc 'Update git submodules'
+task :update do
+  sh 'git submodule init && git submodule update'
 end
 
 def replace_file(file)
