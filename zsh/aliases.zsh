@@ -73,7 +73,7 @@ function any() {
 
 # Find files
 function f() {
-  find . -name $1 -print
+  find . -name "*$1*" -print
 }
 
 # Remove a bunch of files
