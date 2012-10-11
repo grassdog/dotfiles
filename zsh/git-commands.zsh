@@ -28,7 +28,7 @@ function new-github() {
 
 # Commit pending changes and quote all args as message
 function gg() {
-    git commit -v -a -m "$*"
+    git commit -a -m "$*"
 }
 
 # Commit staged changes and quote all args as message
