@@ -18,17 +18,22 @@
 #[branch]
 #  autosetuprebase = always
 
-[difftool "Kaleidoscope"]
-  cmd = ksdiff-wrapper git \"$LOCAL\" \"$REMOTE\"
+[diff]
+  tool = chdiff
 [difftool]
   prompt = false
-[diff]
-  tool = Kaleidoscope
+[difftool "chdiff"]
+  cmd = /usr/bin/env chdiff \"$LOCAL\" \"$REMOTE\"
+
 [github]
   user = grassdog
-[difftool "sourcetree"]
-	cmd = /Applications/Kaleidoscope.app/Contents/MacOS/ksdiff -w \"$LOCAL\" \"$REMOTE\"
-	path = 
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+
+[merge]
+   tool = chdiff
+[mergetool "chdiff"]
+   cmd = /usr/bin/env chdiff --wait "$LOCAL" "$REMOTE"
+   keepBackup = false
+   trustExitCode = false

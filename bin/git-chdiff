@@ -2,16 +2,15 @@
 
 ########################################################################################################
 # Usage:                                                                                               #
-#  gitfdiff [-r:] [repository]                                                   #
+#  gitchdiff [-r:] [repository]                                                   #
 #                                                                                                      #
 # Example:                                                                                             #
-#  gitfdiff                                       # == gitfdiff -rHEAD^:HEAD .                       #
-#  gitfdiff -rHEAD^^:HEAD                         # == gitfdiff -rHEAD^^:HEAD .                      #
-#  gitfdiff -rmaster:origin/master                # == gitfdiff -rmaster:origin/master .             #
-#  gitfdiff /path/to/git/repository               # == gitfdiff -rHEAD^:HEAD /path/to/git/repository #
-#  gitfdiff -rHEAD^:HEAD /path/to/git/repository  # == gitfdiff -rHEAD^:HEAD /path/to/git/repository #
+#  gitchdiff                                       # == gitchdiff -rHEAD^:HEAD .                       #
+#  gitchdiff -rHEAD^^:HEAD                         # == gitchdiff -rHEAD^^:HEAD .                      #
+#  gitchdiff -master:origin/master                 # == gitchdiff -rmaster:origin/master .             #
+#  gitchdiff /path/to/git/repository               # == gitchdiff -rHEAD^:HEAD /path/to/git/repository #
+#  gitchdiff -rHEAD^:HEAD /path/to/git/repository  # == gitchdiff -rHEAD^:HEAD /path/to/git/repository #
 #                                                                                                      #
-# Taken gitchdiff and modified it to work with opendiff instead
 # Authored by Simon Menke, with minor optimizations by Jonathan del Strother                           #
 ########################################################################################################
 
@@ -30,7 +29,7 @@ def diff(origin, revs={})
   revs = {:left=>"HEAD^",:right=>"HEAD"}.merge(revs)
   left  = checkout origin, revs[:left]
   right = checkout origin, revs[:right]
-  system "opendiff '#{left}' '#{right}'"
+  system "chdiff '#{left}' '#{right}'"
 end
 
 revs     = {}
@@ -53,4 +52,3 @@ ARGV.each do |arg|
 end
 
 diff(git_dir, revs)
-
