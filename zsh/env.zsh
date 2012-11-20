@@ -28,7 +28,7 @@ export NODEPATH="/usr/local/lib/node_modules"
 export SUBLHOME="${HOME}/Library/Application Support/Sublime Text 2/Packages/User"
 
 # Keep CC around for ruby-build
-export CC="/usr/local/bin/gcc-4.2"
+#export CC="/usr/local/bin/gcc-4.2"
 
 # Get Z working
 . "${HOME}/.dotfiles/z/z.sh"
