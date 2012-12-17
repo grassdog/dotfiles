@@ -31,6 +31,9 @@ alias ed="/usr/local/Cellar/emacs/24.2/bin/emacs --daemon"
 alias e="emacsclient -t"
 alias ec="emacsclient -c"
 
+
+alias tableize="/usr/local/Cellar/multimarkdown/3.6/Support/Utilities/table_cleanup.pl"
+
 ###############
 # OSX Specific
 ###############
