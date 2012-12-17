@@ -6,6 +6,7 @@ alias gca='git commit -v -a'
 alias gco='git checkout'
 alias gdt='git difftool'
 alias gd='git diff --word-diff'
+alias gpo='git push origin master'
 alias gnp="git-notpushed"
 alias gst='git status'
 alias gs='git status -s'
