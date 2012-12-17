@@ -23,7 +23,13 @@ function take() {
 alias vi='vim'
 alias le='less -SR'
 alias be="bundle exec" # Bundler
-alias e='emacs -nw'
+
+# Emacs
+alias emacs="/usr/local/Cellar/emacs/24.2/bin/emacs"
+alias emacsclient="/usr/local/Cellar/emacs/24.2/bin/emacsclient"
+alias ed="/usr/local/Cellar/emacs/24.2/bin/emacs --daemon"
+alias e="emacsclient -t"
+alias ec="emacsclient -c"
 
 ###############
 # OSX Specific
