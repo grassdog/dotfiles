@@ -1,4 +1,7 @@
+#
 # Git aliases and commands
+#
+
 alias ga='git add'
 alias gb='git branch'
 alias gc='git commit -v'
@@ -16,15 +19,6 @@ alias gl='git log --graph --pretty="format:%C(yellow)%h%Cblue%d%Creset %s %C(gre
 
 function git_current_branch() {
   git symbolic-ref HEAD 2> /dev/null | sed -e 's/refs\/heads\///'
-}
-
-# Usage: new-github grassdog project_name
-function new-github() {
-  git remote add origin git@github.com:$1/$2.git
-  git push origin master
-  git config branch.master.remote origin
-  git config branch.master.merge refs/heads/master
-  git config push.default current
 }
 
 # Commit pending changes and quote all args as message
@@ -49,7 +43,6 @@ function grf() {
 }
 
 # Run any specs that have been modified
-function gitspec() {
+function git-spec() {
   git diff --name-only ${1:-git-svn} | grep _spec.rb | xargs spec
 }
-

@@ -2,14 +2,13 @@
 # Common commands
 ##################
 
-alias cls='clear; l'
 alias h='history -40'
 alias l.='ls -d .[^.]*'
 alias l='ls -ohGF'  # -l long listing, -G color
 alias lt='ls -lt'   # sort with recently modified first
 alias la="ls -AlG"
 
-# no spelling corrections  (man zshbuiltins)
+# no spelling corrections (man zshbuiltins)
 alias mv='nocorrect mv'
 alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
@@ -24,25 +23,29 @@ alias vi='vim'
 alias le='less -SR'
 alias be="bundle exec" # Bundler
 
+# Give me context
+alias ag='ag -C'
+
 # Emacs
-alias emacs="/usr/local/Cellar/emacs/24.2/bin/emacs"
-alias emacsclient="/usr/local/Cellar/emacs/24.2/bin/emacsclient"
-alias ed="/usr/local/Cellar/emacs/24.2/bin/emacs --daemon"
-alias e="emacsclient -t"
-alias ec="emacsclient -c"
+
+alias ed="emacs --daemon"
+alias e="emacsclient -n -t"
+alias ec="emacsclient -n -c"
 
 ###############
 # OSX Specific
 ###############
 
 if [[ $(uname) == Darwin ]]; then
+  alias emacs="/usr/local/Cellar/emacs/24.2/bin/emacs"
+  alias emacsclient="/usr/local/Cellar/emacs/24.2/bin/emacsclient"
+
   alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
   alias s="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
+
   alias v='mvim'
   alias o='open . &'
   safari() {  open -a Safari "$@"  }
-  alias apps='open /Applications'
-  alias csub='cd ~/Library/Application\ Support/Sublime\ Text\ 2/Packages'
 fi
 
 alias tmux="TERM=screen-256color-bce tmux"
@@ -96,45 +99,3 @@ function clean() {
 function rserve() {
   ruby -rwebrick -e"s = WEBrick::HTTPServer.new(:Port => 3000,  :DocumentRoot => Dir.pwd); trap('INT') { s.shutdown }; s.start"
 }
-
-######################################################
-# Safe rm (from http://github.com/suztomo/dotfiles)
-######################################################
-
-function rmf(){
-    for file in $*
-    do
-        __rm_single_file $file
-    done
-}
-
-function __rm_single_file(){
-    if ! [ -d ~/.Trash/ ]
-    then
-        command /bin/mkdir ~/.Trash
-    fi
-
-    if ! [ $# -eq 1 ]
-    then
-        echo "__rm_single_file: 1 argument required but $# passed."
-        exit
-    fi
-
-    if [ -e $1 ]
-    then
-        BASENAME=`basename $1`
-        NAME=$BASENAME
-        COUNT=0
-        while [ -e ~/.Trash/$NAME ]
-        do
-            COUNT=$(($COUNT+1))
-            NAME="$BASENAME.$COUNT"
-        done
-
-        command /bin/mv $1 ~/.Trash/$NAME
-    else
-        echo "No such file or directory: $file"
-    fi
-}
-
-
