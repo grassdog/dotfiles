@@ -4,8 +4,8 @@
 
 export EDITOR='vim'
 export PAGER='less'
-export SVN_EDITOR='vim'
-export BUNDLER_EDITOR="vim"
+export SVN_EDITOR=$EDITOR
+export BUNDLER_EDITOR=$EDITOR
 
 if [[ $(uname) == Darwin ]]; then
   export BUNDLER_EDITOR="mvim"
