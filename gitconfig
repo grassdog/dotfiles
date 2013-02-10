@@ -5,7 +5,7 @@
   ui = auto
 [core]
   excludesfile = ~/.cvsignore
-  editor = /usr/bin/vim
+  editor = /usr/local/bin/vim
   quotepath = false
 [push]
     default = tracking
