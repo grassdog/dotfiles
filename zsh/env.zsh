@@ -65,7 +65,7 @@ PROMPT='%{$fg[green]%}$(date "+%a %H:%M:%S") %{$fg[cyan]%}%n@%m:%{$reset_color%}
 setopt NOCORRECT    # I don't want corrections
 setopt NOCORRECTALL # Only correct commands not args
 
-setopt AUTOPUSHD PUSHDMINUS PUSHDTOHOME AUTOCD PUSHDIGNOREDUPS
+setopt PUSHDIGNOREDUPS
 
 # Correctly escape pasted URLs
 autoload url-quote-magic
