@@ -45,6 +45,9 @@
   lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
   le = log --oneline --decorate
 
+  # History on a single file
+  ff = log --follow -p
+
   # File log
   filelog = log -u
   fl = log -u
