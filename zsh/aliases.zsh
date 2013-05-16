@@ -46,6 +46,7 @@ if [[ $(uname) == Darwin ]]; then
   alias v='mvim'
   alias o='open . &'
   safari() {  open -a Safari "$@"  }
+  alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
 fi
 
 alias tmux="TERM=screen-256color-bce tmux"
