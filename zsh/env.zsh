@@ -54,7 +54,11 @@ autoload -U colors
 colors
 setopt prompt_subst
 
-PROMPT='%{$fg[green]%}$(date "+%a %H:%M:%S") %{$fg[cyan]%}%n@%m:%{$reset_color%}%{$fg[yellow]%}${PWD/#$HOME/~}%{$reset_color%} %{$fg[blue]%}$(vcprompt)%{$fg[green]%}$(rbenv version-name)
+function get_ruby_version() {
+  ruby --version | cut -d' ' -f 1-2
+}
+
+PROMPT='%{$fg[green]%}$(date "+%a %H:%M:%S") %{$fg[cyan]%}%n@%m:%{$reset_color%}%{$fg[yellow]%}${PWD/#$HOME/~}%{$reset_color%} %{$fg[blue]%}$(vcprompt)%{$fg[green]%}$(get_ruby_version)
 %{$fg[green]%}→ %{$reset_color%}'
 
 
@@ -107,5 +111,9 @@ bindkey "\eOF" end-of-line
 bindkey "\eOd" backward-word
 bindkey "\eOc" forward-word
 
-# Get rbenv up and runnin
-eval "$(rbenv init -)"
+# Chruby
+if [[ -e /usr/local/opt/chruby/share/chruby/chruby.sh ]]; then
+  source /usr/local/opt/chruby/share/chruby/chruby.sh
+  source /usr/local/opt/chruby/share/chruby/auto.sh
+  chruby $(cat ~/.ruby-version)
+fi

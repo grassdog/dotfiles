@@ -96,7 +96,16 @@ function clean() {
   fi
 }
 
+# Build ruby
+function build_ruby() {
+  ruby-build $1 ~/.rubies/$1
+}
+
 # Serve up the current directory with webrick
 function rserve() {
   ruby -rwebrick -e"s = WEBrick::HTTPServer.new(:Port => 3000,  :DocumentRoot => Dir.pwd); trap('INT') { s.shutdown }; s.start"
+}
+
+function trash() {
+  mv "$@" ~/.Trash
 }
