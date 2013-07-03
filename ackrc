@@ -30,3 +30,6 @@ rdoc=.rdoc
 --noxcode
 --ignore-dir=.idea
 --ignore-dir=vendor/bundle
+
+--type-set
+powershell=.ps1,.psm
