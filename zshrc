@@ -1,39 +1,4 @@
 ##########
-# Editors
-##########
-
-export EDITOR='vim'
-export PAGER='less'
-export SVN_EDITOR=$EDITOR
-export BUNDLER_EDITOR=$EDITOR
-
-if [[ $(uname) == Darwin ]]; then
-  export BUNDLER_EDITOR="mvim"
-fi
-
-##########
-# Paths
-##########
-
-export PATH="${HOME}/bin:${HOME}/.bin:/usr/local/bin:/usr/local/sbin:${HOME}/.rbenv/bin:/usr/local/share/npm/bin:/usr/local/heroku/bin:${PATH}"
-
-# Add Java to my environment
-export PATH="${PATH}:/System/Library/Frameworks/JavaVM.framework/Versions/1.6/Home/bin"
-export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Versions/1.6/Home"
-
-# Adding Homebrew man path
-export MANPATH="/usr/local/share/man:${MANPATH}"
-
-export NODEPATH="/usr/local/lib/node_modules"
-export SUBLHOME="${HOME}/Library/Application Support/Sublime Text 2/Packages/User"
-
-# Keep CC around for ruby-build
-#export CC="/usr/local/bin/gcc-4.2"
-
-# Get Z working
-. "${HOME}/.dotfiles/z/z.sh"
-
-##########
 # History
 ##########
 
@@ -69,6 +34,7 @@ PROMPT='%{$fg[green]%}$(date "+%a %H:%M:%S") %{$fg[cyan]%}%n@%m:%{$reset_color%}
 setopt NOCORRECT    # I don't want corrections
 setopt NOCORRECTALL # Only correct commands not args
 
+# Ignore dups in the directory stack
 setopt PUSHDIGNOREDUPS
 
 # Correctly escape pasted URLs
@@ -117,3 +83,6 @@ if [[ -e /usr/local/opt/chruby/share/chruby/chruby.sh ]]; then
   source /usr/local/opt/chruby/share/chruby/auto.sh
   chruby $(cat ~/.ruby-version)
 fi
+
+# Get my aliases
+source ~/.zsh/aliases.zsh
