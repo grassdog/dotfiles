@@ -8,12 +8,6 @@ alias l='ls -ohGF'  # -l long listing, -G color
 alias lt='ls -lt'   # sort with recently modified first
 alias la="ls -AlG"
 
-# no spelling corrections (man zshbuiltins)
-alias mv='nocorrect mv'
-alias cp='nocorrect cp'
-alias mkdir='nocorrect mkdir'
-alias rm='nocorrect rm'
-
 function take() {
   mkdir -p "$1"
   cd "$1"
@@ -27,7 +21,6 @@ alias be="bundle exec" # Bundler
 alias ag='ag -C'
 
 # Emacs
-
 alias ed="emacs --daemon"
 alias e="emacsclient -n -t"
 alias ec="emacsclient -n -c"
@@ -45,12 +38,10 @@ if [[ $(uname) == Darwin ]]; then
 
   alias v='mvim'
   alias o='open . &'
-  safari() {  open -a Safari "$@"  }
   alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
 fi
 
 alias tmux="TERM=screen-256color-bce tmux"
-
 
 #######
 # Git
@@ -75,19 +66,13 @@ function git-grep-commits() {
   git grep "$1" $(git rev-list --all)
 }
 
-function git_current_branch() {
+function git-current-branch() {
   git symbolic-ref HEAD 2> /dev/null | sed -e 's/refs\/heads\///'
 }
 
 # Commit staged changes and quote all args as message
 function gcm() {
     git commit -v -m "$*"
-}
-
-# Quickly clobber a file and checkout
-function grf() {
-  rm $1
-  git checkout $1
 }
 
 # Run any specs that have been modified
@@ -99,18 +84,11 @@ function git-spec() {
 # Processes
 ############
 
-alias k9="killall -9"
-function killnamed () {
-  ps ax | grep $1 | cut -d ' ' -f 2 | xargs kill
-}
-function psg() {
-  ps aux | grep $1
-}
 alias psu='ps auxw'         # Wide ps sorted by CPU usage
-alias tu='top -o cpu'       # cpu
-alias tm='top -o vsize'     # memory
+alias tu='top -o cpu'       # By cpu
+alias tm='top -o vsize'     # By memory
 
-function any() {
+function psg() {
   emulate -L zsh
   unsetopt KSH_ARRAYS
   if [[ -z "$1" ]] ; then
@@ -140,13 +118,17 @@ function clean() {
   fi
 }
 
+function g() {
+  grep -ri $1 $2
+}
+
 # Build ruby
-function build_ruby() {
+function build-ruby() {
   ruby-build $1 ~/.rubies/$1
 }
 
 # Serve up the current directory with webrick
-function rserve() {
+function serve-dir() {
   ruby -rwebrick -e"s = WEBrick::HTTPServer.new(:Port => 3000,  :DocumentRoot => Dir.pwd); trap('INT') { s.shutdown }; s.start"
 }
 
