@@ -4,6 +4,7 @@
 
 export EDITOR='vim'
 export PAGER='less'
+export VISUAL=$EDITOR
 export SVN_EDITOR=$EDITOR
 export BUNDLER_EDITOR=$EDITOR
 
@@ -30,3 +31,5 @@ export SUBLHOME="${HOME}/Library/Application Support/Sublime Text 2/Packages/Use
 
 export ANDROID_HOME="/usr/local/opt/android-sdk"
 
+# password-containing environment variables
+[[ -r "$HOME/.secrets" ]] && source "$HOME/.secrets"
