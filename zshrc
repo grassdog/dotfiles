@@ -8,8 +8,8 @@ setopt INC_APPEND_HISTORY   # write history on each command
 setopt SHARE_HISTORY        # share history across sessions
 setopt EXTENDED_HISTORY     # add more info
 export HISTFILE=~/.zsh_history
-export SAVEHIST=1000000
-export HISTSIZE=1000000
+export SAVEHIST=100000
+export HISTSIZE=100000
 
 ##########
 # Prompt
