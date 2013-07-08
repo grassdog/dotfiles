@@ -14,6 +14,7 @@ function take() {
 }
 
 alias vi='vim'
+alias v='vim'
 alias le='less -SR'
 alias be="bundle exec" # Bundler
 
@@ -36,7 +37,7 @@ if [[ $(uname) == Darwin ]]; then
   alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
   alias s="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
 
-  alias v='mvim'
+  alias vm='mvim'
   alias o='open . &'
   alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
 fi
