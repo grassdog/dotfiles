@@ -62,6 +62,8 @@ alias gst='git status'
 alias gs='git status -s'
 alias gl='git log --graph --pretty="format:%C(yellow)%h%Cblue%d%Creset %s %C(green) %an, %ar%Creset"'
 
+alias git-update-modules='git submodule foreach git pull'
+
 # Grep through commit history for a string
 function git-grep-commits() {
   git grep "$1" $(git rev-list --all)
