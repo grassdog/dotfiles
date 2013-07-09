@@ -11,6 +11,9 @@ export HISTFILE=~/.zsh_history
 export SAVEHIST=100000
 export HISTSIZE=100000
 
+# Get Z working
+source "${HOME}/.dotfiles/z/z.sh"
+
 ##########
 # Prompt
 ##########
