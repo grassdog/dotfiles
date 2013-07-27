@@ -1,5 +1,55 @@
+--exclude=.git
+--exclude=.hg
+--exclude=log
+--exclude=*.min.js
+
+--languages=-javascript,sql
+
 --langdef=markdown
 --langmap=markdown:.mkd
 --regex-markdown=/^#[ \t]+(.*)/\1/h,Heading_L1/
 --regex-markdown=/^##[ \t]+(.*)/\1/i,Heading_L2/
 --regex-markdown=/^###[ \t]+(.*)/\1/k,Heading_L3/
+
+--langdef=clojure
+--langmap=clojure:.clj
+--regex-clojure=/\([ \t]*create-ns[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/n,namespace/
+--regex-clojure=/\([ \t]*def[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/d,definition/
+--regex-clojure=/\([ \t]*defn-?[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/f,function/
+--regex-clojure=/\([ \t]*defmacro[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/m,macro/
+--regex-clojure=/\([ \t]*definline[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/i,inline/
+--regex-clojure=/\([ \t]*defmulti[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/a,multimethod definition/
+--regex-clojure=/\([ \t]*defmethod[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/b,multimethod instance/
+--regex-clojure=/\([ \t]*defonce[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/c,definition (once)/
+--regex-clojure=/\([ \t]*defstruct[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/s,struct/
+--regex-clojure=/\([ \t]*intern[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/v,intern/
+--regex-clojure=/\([ \t]*ns[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/n,namespace/
+
+--langdef=coffee
+--langmap=coffee:.coffee
+--regex-coffee=/(^|=[ \t])*class ([A-Za-z]+\.)*([A-Za-z]+)( extends [A-Za-z_.]+)?$/\3/c,class/
+--regex-coffee=/^[ \t]*(module\.)?(exports\.)?@?([A-Za-z_.]+):.*[-=]>.*$/\3/m,method/
+--regex-coffee=/^[ \t]*(module\.)?(exports\.)?([A-Za-z_.]+)[ \t]+=.*[-=]>.*$/\3/f,function/
+--regex-coffee=/^[ \t]*([A-Za-z_.]+)[ \t]+=[^->\n]*$/\1/v,variable/
+--regex-coffee=/^[ \t]*@([A-Za-z_.]+)[ \t]+=[^->\n]*$/\1/f,field/
+--regex-coffee=/^[ \t]*@([A-Za-z_.]+):[^->\n]*$/\1/f,static field/
+--regex-coffee=/^[ \t]*([A-Za-z_.]+):[^->\n]*$/\1/f,field/
+
+--regex-ruby=/.*alias(_method)?[[:space:]]+:([[:alnum:]_=!?]+),?[[:space:]]+:([[:alnum:]_=!]+)/\2/f,function/
+
+--regex-ruby=/(^|[:;])[ \t]*([A-Z][[:alnum:]_]+) *=/\2/c,class,constant/
+--regex-ruby=/(^|;)[ \t]*(has_many|belongs_to|has_one|has_and_belongs_to_many)\(? *:([[:alnum:]_]+)/\3/f,function,association/
+--regex-ruby=/(^|;)[ \t]*(named_)?scope\(? *:([[:alnum:]_]+)/\3/f,function,named_scope/
+--regex-ruby=/(^|;)[ \t]*expose\(? *:([[:alnum:]_]+)/\2/f,function,exposure/
+--regex-ruby=/(^|;)[ \t]*event\(? *:([[:alnum:]_]+)/\2/f,function,aasm_event/
+--regex-ruby=/(^|;)[ \t]*event\(? *:([[:alnum:]_]+)/\2!/f,function,aasm_event/
+--regex-ruby=/(^|;)[ \t]*event\(? *:([[:alnum:]_]+)/\2?/f,function,aasm_event/
+
+--langdef=js
+--langmap=js:.js
+--regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\{/\1/,object/
+--regex-js=/([A-Za-z0-9._$()]+)[ \t]*[:=][ \t]*function[ \t]*\(/\1/,function/
+--regex-js=/function[ \t]+([A-Za-z0-9._$]+)[ \t]*\(([^)])\)/\1/,function/
+--regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\[/\1/,array/
+--regex-js=/([^= ]+)[ \t]*=[ \t]*[^"]'[^']*/\1/,string/
+--regex-js=/([^= ]+)[ \t]*=[ \t]*[^']"[^"]*/\1/,string/

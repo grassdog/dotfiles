@@ -83,6 +83,8 @@ function git-spec() {
   git diff --name-only ${1:-git-svn} | grep _spec.rb | xargs spec
 }
 
+alias gtags='~/.git_template/hooks/ctags'
+
 ############
 # Processes
 ############
