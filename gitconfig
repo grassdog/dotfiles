@@ -62,4 +62,7 @@
 
   # List aliases
   la = "!git config -l | grep alias | cut -c 7-"
+	ctags = !.git/hooks/ctags
 
+[init]
+	templatedir = ~/.git_template
