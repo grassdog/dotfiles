@@ -113,11 +113,16 @@ function f() {
   find . -name "*$1*" -print
 }
 
+# Find biggest files
+function biggest() {
+  find . -type f -print0 | xargs -0 du -s | sort -n | tail -150 | cut -f2 | xargs -I{} du -sh {}
+}
+
 # Remove a bunch of files
 function clean() {
   if [ $# -eq 1 ]
   then
-    find . -name $1 -exec rm {} \;
+    find . -name $1 -exec trash {} \;
   else
     echo "No args passed so doing nothing"
   fi

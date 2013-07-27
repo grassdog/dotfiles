@@ -31,5 +31,7 @@ export SUBLHOME="${HOME}/Library/Application Support/Sublime Text 2/Packages/Use
 
 export ANDROID_HOME="/usr/local/opt/android-sdk"
 
+export NLTK_DATA='/Users/rgrasso/.nltk_data'
+
 # password-containing environment variables
 [[ -r "$HOME/.secrets" ]] && source "$HOME/.secrets"
