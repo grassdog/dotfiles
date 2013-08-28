@@ -80,12 +80,5 @@ bindkey "\eOF" end-of-line
 bindkey "\eOd" backward-word
 bindkey "\eOc" forward-word
 
-# Chruby
-if [[ -e /usr/local/opt/chruby/share/chruby/chruby.sh ]]; then
-  source /usr/local/opt/chruby/share/chruby/chruby.sh
-  source /usr/local/opt/chruby/share/chruby/auto.sh
-  chruby $(cat ~/.ruby-version)
-fi
-
 # Get my aliases
 source ~/.zsh/aliases.zsh
