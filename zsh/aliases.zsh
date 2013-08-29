@@ -120,12 +120,12 @@ function biggest() {
 
 # Remove a bunch of files
 function clean() {
-  if [ $# -eq 1 ]
-  then
-    find . -name $1 -exec trash {} \;
-  else
-    echo "No args passed so doing nothing"
+  if [ $# -ne 1 ]; then
+    echo "Usage: clean file-name-to-clean"
+    return 1
   fi
+
+  find . -name $1 -exec mv \{\} ~/.Trash \;
 }
 
 function g() {
