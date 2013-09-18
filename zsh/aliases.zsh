@@ -2,11 +2,18 @@
 # Common commands
 ##################
 
+LSC='--color=auto'
+
+if [[ $(uname) == Darwin ]]; then
+  LSC='-G'
+fi
+
+alias l.="ls $LSC -d .[^.]*"
+alias l="ls $LSC -ohF"
+alias lt="ls $LSC -lt"   # sort with recently modified first
+alias la="ls $LSC -Al"
+
 alias h='history -40'
-alias l.='ls -d .[^.]*'
-alias l='ls -ohGF'  # -l long listing, -G color
-alias lt='ls -lt'   # sort with recently modified first
-alias la="ls -AlG"
 
 function take() {
   mkdir -p "$1"
@@ -37,9 +44,12 @@ if [[ $(uname) == Darwin ]]; then
   alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
   alias s="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
 
-  alias vm='mvim'
-  alias o='open . &'
+  alias gv='mvim'
   alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
+
+  alias play="osascript -e 'tell app \"iTunes\" to playpause'"
+  alias next="osascript -e 'tell app \"iTunes\" to next track'"
+  alias prev="osascript -e 'tell app \"iTunes\" to previous track'"
 fi
 
 alias tmux="TERM=screen-256color-bce tmux"
@@ -55,9 +65,10 @@ alias gca='git commit -v -a'
 alias gco='git checkout'
 alias gdt='git difftool'
 alias gd='git diff --word-diff'
-alias gpo='git push origin master'
-alias gpl='git pull origin master'
-alias gnp="git-notpushed"
+alias gpo='git push'
+alias gpl='git pull'
+alias gpr='git pull --rebase'
+alias gnp='git-notpushed'
 alias gst='git status'
 alias gs='git status -s'
 alias gl='git log --graph --pretty="format:%C(yellow)%h%Cblue%d%Creset %s %C(green) %an, %ar%Creset"'
@@ -85,6 +96,13 @@ function git-spec() {
 
 alias gtags='~/.git_template/hooks/ctags'
 
+#########
+# Java
+#########
+
+alias j6="export JAVA_HOME=$(/usr/libexec/java_home -v 1.6)"
+alias j7="export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)"
+
 ############
 # Processes
 ############
@@ -107,6 +125,10 @@ function psg() {
 #########
 # Utils
 #########
+
+alias netlisteners='lsof -i -P | grep LISTEN'
+
+alias profileme="history 1 | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -nr | head -n 20"
 
 # Find files
 function f() {
@@ -139,7 +161,7 @@ function build-ruby() {
 
 # Serve up the current directory with webrick
 function serve-dir() {
-  ruby -rwebrick -e"s = WEBrick::HTTPServer.new(:Port => 3000,  :DocumentRoot => Dir.pwd); trap('INT') { s.shutdown }; s.start"
+  ruby -rwebrick -e"s = WEBrick::HTTPServer.new(:Port => 8888,  :DocumentRoot => Dir.pwd); trap('INT') { s.shutdown }; s.start"
 }
 
 function trash() {
