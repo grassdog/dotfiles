@@ -132,7 +132,7 @@ alias profileme="history 1 | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}
 
 # Find files
 function f() {
-  find . -name "*$1*" -print
+  find "${2-.}" -name "*$1*" -print
 }
 
 # Find biggest files
