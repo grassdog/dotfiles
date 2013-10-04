@@ -23,7 +23,8 @@ function take() {
 alias vi='vim'
 alias v='vim'
 alias le='less -SR'
-alias be="bundle exec" # Bundler
+alias be="bundle exec"
+alias bi="bundle install"
 
 # Give me context
 alias ag='ag -C'
