@@ -152,7 +152,7 @@ function clean() {
 }
 
 function g() {
-  grep -ri $1 $2
+  grep -ri $1 ${2-.}
 }
 
 # Build ruby
