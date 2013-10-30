@@ -39,9 +39,6 @@ alias ec="emacsclient -n -c"
 ###############
 
 if [[ $(uname) == Darwin ]]; then
-  alias emacs="/usr/local/Cellar/emacs/24.2/bin/emacs"
-  alias emacsclient="/usr/local/Cellar/emacs/24.2/bin/emacsclient"
-
   alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
   alias s="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
 
