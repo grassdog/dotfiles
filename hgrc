@@ -1,0 +1,12 @@
+[ui]
+username = Ray Grasso <rgrasso@thoughtworks.com>
+
+[extensions]
+color =
+shelve = ~/.hgext/hgshelve.py
+collapse = ~/.hgext/collapse.py
+hgext.purge=
+rebase =
+
+[color]
+mode = ansi
