@@ -1,17 +1,14 @@
-
 require 'rake'
 
-desc "install the dot files into $HOME"
-task :install , :update do
+desc "Install dot files into $HOME"
+task :install => [:update] do
   replace_all = false
-  Dir['*'].reject {|i| ['z'].include? i }.each do |file|
-    next if %w[Rakefile README.md].include? file
+  Dir['*'].reject {|i| %w[Rakefile README.md z].include? i }.each do |file|
+    puts "\n** #{file} **"
+    destination = File.join(ENV['HOME'], ".#{file}")
 
-    puts file
-    puts File.join(ENV['HOME'], ".#{file}")
-
-    if File.exist?(File.join(ENV['HOME'], ".#{file}"))
-      if File.identical? file, File.join(ENV['HOME'], ".#{file}")
+    if File.exist?(destination)
+      if File.identical? file, destination
         puts "identical ~/.#{file}"
       elsif replace_all
         replace_file(file)
