@@ -13,7 +13,9 @@ alias l="ls $LSC -ohF"
 alias lt="ls $LSC -lt"   # sort with recently modified first
 alias la="ls $LSC -Al"
 
-alias h='history -40'
+alias h="history -40"
+
+alias c="cd ~/code"
 
 function take() {
   mkdir -p "$1"
