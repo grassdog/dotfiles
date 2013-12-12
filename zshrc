@@ -5,7 +5,7 @@
 setopt HIST_IGNORE_DUPS     # Ignore adjacent duplication command history list
 setopt HIST_IGNORE_SPACE    # Don't store commands with a leading space into history
 setopt INC_APPEND_HISTORY   # write history on each command
-setopt SHARE_HISTORY        # share history across sessions
+# setopt SHARE_HISTORY        # share history across sessions
 setopt EXTENDED_HISTORY     # add more info
 export HISTFILE=~/.zsh_history
 export SAVEHIST=100000
