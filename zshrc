@@ -55,9 +55,10 @@ export LISTMAX=0           # Ask to complete if top of list would scroll off scr
 ###############
 
 # Load completions for Ruby, Git, etc.
+fpath=("$HOME/.zsh/Completion" $fpath)
+fpath=("/usr/local/share/zsh/site-functions" $fpath)
 autoload compinit
 compinit
-fpath=($HOME/.zsh/Completion $fpath)
 
 # Make CTRL-W delete after other chars, not just spaces
 export WORDCHARS='*?[]~=&;!#$%^(){}'
