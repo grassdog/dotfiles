@@ -16,6 +16,7 @@ alias la="ls $LSC -Al"
 alias h="history -40"
 
 alias c="cd ~/code"
+alias p="cd ~/code/projects"
 
 function take() {
   mkdir -p "$1"
