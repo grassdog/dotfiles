@@ -55,7 +55,6 @@ export LISTMAX=0           # Ask to complete if top of list would scroll off scr
 ###############
 
 # Load completions for Ruby, Git, etc.
-fpath=("$HOME/.zsh/completions" $fpath)
 fpath=("/usr/local/share/zsh/site-functions" $fpath)
 autoload compinit
 compinit
