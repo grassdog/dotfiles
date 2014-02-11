@@ -1,7 +1,10 @@
 require 'rake'
 
+desc "Install files"
+task :install => [:update, :dotfiles, :services]
+
 desc "Install dot files into $HOME"
-task :install => [:update] do
+task :dotfiles do
   replace_all = false
   Dir['*'].reject {|i| %w[Rakefile README.md z].include? i }.each do |file|
     puts "\n** #{file} **"
@@ -29,6 +32,15 @@ task :install => [:update] do
     else
       link_file(file)
     end
+  end
+end
+
+desc 'Install mac services'
+task :services do
+  require 'fileutils'
+  mkdir_p "#{ENV['HOME']}/Library/Services"
+  Dir['services/*'].each do |d|
+    cp_r d, "#{ENV['HOME']}/Library/Services"
   end
 end
 
