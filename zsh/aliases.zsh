@@ -132,6 +132,7 @@ function psg() {
 # Utils
 #########
 
+alias wifi="networksetup -setairportpower en0"
 alias netlisteners='lsof -i -P | grep LISTEN'
 
 alias profileme="history 1 | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -nr | head -n 20"
