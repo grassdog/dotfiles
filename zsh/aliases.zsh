@@ -31,6 +31,10 @@ alias bi="bundle install"
 
 # Give me context
 alias ag='ag -C'
+# Only search over git files
+function gag() {
+  ag -C "$*" $(git ls-files)
+}
 
 # Emacs
 alias ed="emacs --daemon"
