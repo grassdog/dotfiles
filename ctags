@@ -27,13 +27,22 @@
 
 --langdef=coffee
 --langmap=coffee:.coffee
---regex-coffee=/(^|=[ \t])*class ([A-Za-z]+\.)*([A-Za-z]+)( extends [A-Za-z_.]+)?$/\3/c,class/
---regex-coffee=/^[ \t]*(module\.)?(exports\.)?@?([A-Za-z_.]+)(:|=).*[-=]>.*$/\3/m,method/
---regex-coffee=/^[ \t]*(module\.)?(exports\.)?([A-Za-z_.]+)[ \t]+=.*[-=]>.*$/\3/f,function/
---regex-coffee=/^[ \t]*([A-Za-z_.]+)[ \t]+=[^->\n]*$/\1/v,variable/
---regex-coffee=/^[ \t]*@([A-Za-z_.]+)[ \t]+=[^->\n]*$/\1/f,field/
---regex-coffee=/^[ \t]*@([A-Za-z_.]+):[^->\n]*$/\1/f,static field/
---regex-coffee=/^[ \t]*([A-Za-z_.]+):[^->\n]*$/\1/f,field/
+--regex-coffee=/^[ \t]*(@?[a-zA-Z$_\.1-9]+)[ \t]*(=|\:)[ \t]*(\(.*\))?[ \t]*(-|=)>/\1/f,function/
+--regex-coffee=/^[ \t]*([a-zA-Z$_1-9]+\:\:[a-zA-Z$_\.1-9]+)[ \t]*(=|\:)[ \t]*(\(.*\))?[ \t]*(-|=)>/\1/f,function/
+--regex-coffee=/^[ \t]*describe[ \t]"(.+)"[ \t]*,[ \t]+[-=]>/\1/f,function/
+--regex-coffee=/^[ \t]*describe[ \t]'(.+)'[ \t]*,[ \t]+[-=]>/\1/f,function/
+--regex-coffee=/^[ \t]*it[ \t]"([^"]+)"[ \t]*,[ \t]+[-=]>/\1/f,function/
+--regex-coffee=/^[ \t]*it[ \t]'([^']+)'[ \t]*,[ \t]+[-=]>/\1/f,function/
+--regex-coffee=/^[ \t]*f+describe[ \t]"(.+)"[ \t]*,[ \t]+[-=]>/focused\: \1/f,function/
+--regex-coffee=/^[ \t]*f+describe[ \t]'(.+)'[ \t]*,[ \t]+[-=]>/focused: \1/f,function/
+--regex-coffee=/^[ \t]*f+it[ \t]"([^"]+)"[ \t]*,[ \t]+[-=]>/focused: \1/f,function/
+--regex-coffee=/^[ \t]*f+it[ \t]'([^']+)'[ \t]*,[ \t]+[-=]>/focused: \1/f,function/
+--regex-coffee=/^[ \t]*xdescribe[ \t]"(.+)"[ \t]*,[ \t]+[-=]>/disabled\: \1/f,function/
+--regex-coffee=/^[ \t]*xdescribe[ \t]'(.+)'[ \t]*,[ \t]+[-=]>/disabled: \1/f,function/
+--regex-coffee=/^[ \t]*xit[ \t]"([^"]+)"[ \t]*,[ \t]+[-=]>/disabled: \1/f,function/
+--regex-coffee=/^[ \t]*xit[ \t]'([^']+)'[ \t]*,[ \t]+[-=]>/disabled: \1/f,function/
+--regex-coffee=/^[ \t]*class[ \t]*([a-zA-Z$_\.1-9]+)[ \t]*/\1/f,function/
+
 
 --regex-ruby=/.*alias(_method)?[[:space:]]+:([[:alnum:]_=!?]+),?[[:space:]]+:([[:alnum:]_=!]+)/\2/f,function/
 
@@ -53,3 +62,15 @@
 --regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\[/\1/,array/
 --regex-js=/([^= ]+)[ \t]*=[ \t]*[^"]'[^']*/\1/,string/
 --regex-js=/([^= ]+)[ \t]*=[ \t]*[^']"[^"]*/\1/,string/
+
+--langdef=Css
+--langmap=Css:.css
+--langmap=Css:+.less
+--langmap=Css:+.sass
+--langmap=Css:+.scss
+--regex-Css=/^[ \t]*(.+)[ \t]*\{/\1/f,function/
+--regex-Css=/^[ \t]*(.+)[ \t]*,[ \t]*$/\1/f,function/
+
+--langmap=C++:+.mm
+
+--langmap=Ruby:+(Rakefile)
