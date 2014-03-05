@@ -23,6 +23,11 @@ function take() {
   cd "$1"
 }
 
+# Set iterm title
+function title() {
+  echo -ne "\e]1;$1\a"
+}
+
 alias vi='vim'
 alias v='vim'
 alias le='less -SR'
