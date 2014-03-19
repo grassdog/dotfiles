@@ -83,6 +83,7 @@ alias gnp='git-notpushed'
 alias gst='git status'
 alias gs='git status -s'
 alias gl='git log --graph --pretty="format:%C(yellow)%h%Cblue%d%Creset %s %C(green) %an, %ar%Creset"'
+alias gup='git up'
 
 alias git-update-modules='git submodule foreach git pull'
 
