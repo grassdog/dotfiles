@@ -12,7 +12,7 @@ export SAVEHIST=100000
 export HISTSIZE=100000
 
 # Get Z working
-source "${HOME}/.dotfiles/z/z.sh"
+source `brew --prefix`/etc/profile.d/z.sh
 
 ##########
 # Prompt
