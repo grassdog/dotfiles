@@ -14,8 +14,9 @@ task :link_files do
   end
 end
 
-task :link_lein_profiles do
-  mkdir_p File.join HOME, ".lein"
+directory File.join(HOME, ".lein")
+
+task :link_lein_profiles => File.join(HOME, ".lein") do
   link_file("profiles.clj") { |file| File.join(HOME, ".lein/#{file}") }
 end
 
