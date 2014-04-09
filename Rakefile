@@ -1,60 +1,55 @@
 require 'rake'
 
-desc "Install files"
-task :install => [:update, :dotfiles, :services]
+DOTFILES_ROOT = `pwd`.chomp
+HOME = ENV['HOME']
 
-desc "Install dot files into $HOME"
-task :dotfiles do
-  replace_all = false
-  Dir['*'].reject {|i| %w[Rakefile README.md z].include? i }.each do |file|
-    puts "\n** #{file} **"
-    destination = File.join(ENV['HOME'], ".#{file}")
+UNLINKED = %w[Rakefile Brewfile README.md profiles.clj services]
 
-    if File.exist?(destination)
-      if File.identical? file, destination
-        puts "identical ~/.#{file}"
-      elsif replace_all
-        replace_file(file)
-      else
-        print "overwrite ~/.#{file}? [ynaq] "
-        case $stdin.gets.chomp
-        when 'a'
-          replace_all = true
-          replace_file(file)
-        when 'y'
-          replace_file(file)
-        when 'q'
-          exit
-        else
-          puts "skipping ~/.#{file}"
-        end
-      end
-    else
-      link_file(file)
-    end
+desc "Link dotfiles into $HOME directory"
+task :link_files do
+  source_files = Rake::FileList.new("*").exclude(*UNLINKED)
+
+  source_files.each do |file|
+    link_file(file)
   end
 end
 
-desc 'Install mac services'
-task :services do
-  require 'fileutils'
-  mkdir_p "#{ENV['HOME']}/Library/Services"
+task :link_lein_profiles do
+  mkdir_p File.join HOME, ".lein"
+  link_file("profiles.clj") { |file| File.join(HOME, ".lein/#{file}") }
+end
+
+desc "Install mac services"
+task :install_services do
+  mkdir_p File.join(HOME, "Library/Services")
   Dir['services/*'].each do |d|
-    cp_r d, "#{ENV['HOME']}/Library/Services"
+    cp_r d, File.join(HOME, "Library/Services")
   end
 end
 
-desc 'Update git submodules'
-task :update do
-  sh 'git submodule init && git submodule update'
+desc "Install Homebrew"
+task :install_brew do
+  sh 'ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"'
 end
 
-def replace_file(file)
-  system %Q{rm -rf "$HOME/.#{file}"}
-  link_file(file)
+desc "Install Homebrew packages"
+task :install_brew_packages do
+  sh "brew bundle Brewfile"
 end
 
-def link_file(file)
-  puts "linking ~/.#{file}"
-  system %Q{ln -s "$PWD/#{file}" "$HOME/.#{file}"}
+desc "Bootstrap the world"
+task :bootstrap => [:link_files, :link_lein_profiles, :install_services, :install_brew, :install_brew_packages]
+
+def link_file(src, &resolve_dest_path)
+  resolve_dest_path ||= ->(file) { File.join(HOME, ".#{file}") }
+
+  src_path  = File.join(DOTFILES_ROOT, "#{src}")
+  dest_path = resolve_dest_path.call(src)
+
+  if File.exist?(dest_path)
+    puts "Skipping: '#{dest_path}' exists"
+  else
+    sh "ln -s #{src_path} #{dest_path}"
+  end
 end
+
