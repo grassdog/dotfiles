@@ -1,7 +1,10 @@
 require 'rake'
 
 DOTFILES_ROOT = `pwd`.chomp
-HOME = ENV['HOME']
+HOME          = ENV['HOME']
+
+LEIN_DIR      = File.join(HOME, ".lein")
+SERVICES_DIR  = File.join(HOME, "Library/Services")
 
 UNLINKED = %w[Rakefile Brewfile README.md profiles.clj services]
 
@@ -14,15 +17,16 @@ task :link_files do
   end
 end
 
-directory File.join(HOME, ".lein")
+directory LEIN_DIR
 
-task :link_lein_profiles => File.join(HOME, ".lein") do
+task :link_lein_profiles => LEIN_DIR do
   link_file("profiles.clj") { |file| File.join(HOME, ".lein/#{file}") }
 end
 
+directory SERVICES_DIR
+
 desc "Install mac services"
-task :install_services do
-  mkdir_p File.join(HOME, "Library/Services")
+task :install_services => SERVICES_DIR do
   Dir['services/*'].each do |d|
     cp_r d, File.join(HOME, "Library/Services")
   end
