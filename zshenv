@@ -18,7 +18,7 @@ fi
 
 export PATH="${HOME}/.bin:/usr/local/bin:/Applications/Postgres.app/Contents/Versions/9.3/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:${PATH}"
 
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.7.0_13.jdk/Contents/Home"
+export JAVA_HOME=$(echo /Library/Java/JavaVirtualMachines/jdk1.7.0*.jdk/Contents/Home)
 
 # Adding Homebrew man path
 export MANPATH="/usr/local/share/man:${MANPATH}"
