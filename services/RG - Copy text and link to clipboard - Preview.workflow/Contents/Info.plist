@@ -8,10 +8,15 @@
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
-				<string>RG - Copy text and link to clipboard</string>
+				<string>RG - Copy text and link to clipboard - Preview</string>
 			</dict>
 			<key>NSMessage</key>
 			<string>runWorkflowAsService</string>
+			<key>NSRequiredContext</key>
+			<dict>
+				<key>NSApplicationIdentifier</key>
+				<string>com.apple.Preview</string>
+			</dict>
 			<key>NSSendTypes</key>
 			<array>
 				<string>public.utf8-plain-text</string>

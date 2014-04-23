@@ -51,7 +51,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>source</key>
-					<string>on run {input, parameters}	set copiedText to input as string		tell application "System Events"		set myApp to name of first application process whose frontmost is true	end tell		if myApp is "Safari" then		tell application "Safari"			set theURL to URL of front document			set theTitle to name of front document		end tell	else if myApp is "Google Chrome" then		tell application "Google Chrome"			set theURL to URL of active tab of front window			set theTitle to title of active tab of front window		end tell	else if myApp is "Preview" then		tell application "Preview"			set theURL to (path of document 1) as text			set theURL to "file://" &amp; theURL			set theTitle to (name of document 1)		end tell	else		set theURL to ""		set theTitle to ""	end if			set theResult to "[" &amp; theTitle &amp; "]" &amp; "(" &amp; theURL &amp; ")" &amp; return &amp; return &amp; "&gt; " &amp; copiedText as string		set the clipboard to theResult		return theResultend run</string>
+					<string>on run {input, parameters}	set copiedText to input as string		tell application "Preview"		set theURL to (path of document 1) as text		set theURL to "file://" &amp; theURL		set theTitle to (name of document 1)	end tell		set theResult to "[" &amp; theTitle &amp; "]" &amp; "(" &amp; theURL &amp; ")" &amp; return &amp; return &amp; "&gt; " &amp; copiedText as string		set the clipboard to theResult		return theResultend run</string>
 				</dict>
 				<key>BundleIdentifier</key>
 				<string>com.apple.Automator.RunScript</string>
@@ -117,6 +117,10 @@ end run</string>
 	<dict/>
 	<key>workflowMetaData</key>
 	<dict>
+		<key>serviceApplicationBundleID</key>
+		<string>com.apple.Preview</string>
+		<key>serviceApplicationPath</key>
+		<string>/Applications/Preview.app</string>
 		<key>serviceInputTypeIdentifier</key>
 		<string>com.apple.Automator.text</string>
 		<key>serviceOutputTypeIdentifier</key>
