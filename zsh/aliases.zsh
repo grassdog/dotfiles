@@ -165,6 +165,16 @@ function g() {
   grep -ri $1 ${2-.}
 }
 
+# Syntax highlight a file and copy onto clipboard
+function hl() {
+  highlight -O rtf -t 2 -K 40 -k 'Source Code Pro' --style twilight $1 | pbcopy
+}
+
+# Readline wrapped scheme
+function scheme-rl() {
+  rlwrap -r -c -f "$HOME/.tools/mit_scheme_bindings.txt" scheme
+}
+
 # Build ruby
 function build-ruby() {
   ruby-build $1 ~/.rubies/$1
