@@ -12,6 +12,8 @@ install wget --enable-iri
 install git
 install mercurial
 install vcprompt
+install netcat
+install rlwrap
 
 install ctags
 install tree
