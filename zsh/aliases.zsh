@@ -85,6 +85,8 @@ alias gl='git log --graph --pretty="format:%C(yellow)%h%Cblue%d%Creset %s %C(gre
 
 alias git-update-modules='git submodule foreach git pull'
 
+alias git-most-changed='git log --pretty=format: --name-only | sort | uniq -c | sort -rg | head -10'
+
 # Grep through commit history for a string
 function git-grep-commits() {
   git grep "$1" $(git rev-list --all)
