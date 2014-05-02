@@ -6,7 +6,7 @@ HOME          = ENV['HOME']
 LEIN_DIR      = File.join(HOME, ".lein")
 SERVICES_DIR  = File.join(HOME, "Library/Services")
 
-UNLINKED = %w[Rakefile Brewfile README.md profiles.clj services osx_apps.rb osx_settings.rb .git]
+UNLINKED = %w[Rakefile Brewfile README.md profiles.clj services osx_apps.rb osx_settings.rb .git vim]
 
 desc "Link dotfiles into $HOME directory"
 task :link_files, :force do |t, args|
@@ -46,8 +46,13 @@ task :install_brew_packages do
   sh "brew bundle Brewfile"
 end
 
+desc "Setup Vim"
+task :setup_vim do
+  sh "cd vim && rake setup"
+end
+
 desc "Bootstrap the world"
-task :bootstrap => [:link_files, :link_lein_profiles, :install_services, :install_brew, :install_brew_packages]
+task :bootstrap => [:link_files, :link_lein_profiles, :install_services, :install_brew, :install_brew_packages, :setup_vim]
 
 def link_file(src, force=false, &resolve_dest_path)
   resolve_dest_path ||= ->(file) { File.join(HOME, ".#{file}") }
