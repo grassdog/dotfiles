@@ -9,7 +9,8 @@ end
 
 desc 'Install plugins via Vundle'
 task :install do
-  sh 'vim +BundleInstall +qall'
+  sh 'git clone https://github.com/gmarik/Vundle.vim.git bundle/Vundle.vim'
+  sh 'vim +PluginInstall +qall'
 end
 
 desc 'Create tmp directories'
