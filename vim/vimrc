@@ -271,11 +271,10 @@ if has('persistent_undo')
   set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
 endif
 
-set undodir=~/.vim/tmp/undo/
+set undodir=~/.cache/vim/tmp/undo/
 set backup
-set backupdir=~/.vim/tmp/backups
+set backupdir=~/.cache/vim/tmp/backups
 set noswapfile
-set directory=~/.vim/tmp/swaps
 set writebackup
 
 set autoread                  " Just load a changed file
