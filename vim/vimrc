@@ -98,6 +98,7 @@ Plugin 'tpope/vim-liquid'
 Plugin 'groenewege/vim-less'
 Plugin 'b4winckler/vim-objc'
 Plugin 'kovisoft/slimv'
+Plugin 'mxw/vim-jsx'
 
 call vundle#end()
 
