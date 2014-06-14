@@ -898,8 +898,8 @@ command! WorkLog :normal :silent! edit ~/Dropbox/Notes/Work\ Log.md<cr>
 command! Scratch :normal :silent! edit ~/Dropbox/Notes/Scratch.md<cr>
 
 " Directory shortcuts in command mode
-cnoremap <expr> nn  getcmdtype() == ':' ? fnameescape('~/Dropbox/Notes').'/' : 'nn'
-cnoremap <expr> pp  getcmdtype() == ':' ? fnameescape('~/code/projects').'/' : 'pp'
+cnoremap <expr> %n  getcmdtype() == ':' ? fnameescape('~/Dropbox/Notes').'/' : '%n'
+cnoremap <expr> %p  getcmdtype() == ':' ? fnameescape('~/code/projects').'/' : '%p'
 
 
 """"""""""""""""""""""" }}}
