@@ -138,6 +138,7 @@ function psg() {
 # Utils
 #########
 
+alias synctapas="rsync -rtvu ~/Movies/Learning/ruby-tapas/ /Volumes/Bitshack/Movies/Learning/ruby-tapas/"
 alias wifi="networksetup -setairportpower en0"
 alias netlisteners='lsof -i -P | grep LISTEN'
 
