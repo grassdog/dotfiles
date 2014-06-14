@@ -623,7 +623,7 @@ augroup grass_html
 augroup END
 
 " Highlight fenced code
-let g:markdown_fenced_languages = ['ruby', 'javascript', 'clojure']
+let g:markdown_fenced_languages = ['ruby', 'javascript', 'clojure', 'json']
 
 " Disable useless HTML5 stuff
 let g:event_handler_attributes_complete = 0
@@ -686,6 +686,9 @@ augroup grass_clojure
 
   " Eval and print current element and return cursor to where it was
   autocmd filetype clojure nnoremap <buffer> <leader>ce :normal cpie``<cr>
+
+  " Eval and print current element and return cursor to where it was
+  autocmd filetype clojure nnoremap <buffer> <leader>ca :%Eval<cr>
 
   " Better ctag matching
   autocmd filetype clojure nnoremap <buffer> <c-]> :call JumpToClojureSymbolWithoutNamespace()<CR>
