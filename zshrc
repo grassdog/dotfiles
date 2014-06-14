@@ -29,6 +29,18 @@ function get_ruby_version() {
 PROMPT='%{$fg[green]%}$(date "+%a %H:%M:%S") %{$fg[cyan]%}%n@%m:%{$reset_color%}%{$fg[yellow]%}${PWD/#$HOME/~}%{$reset_color%} %{$fg[blue]%}$(vcprompt)%{$fg[green]%}$(get_ruby_version)
 %{$fg[green]%}→ %{$reset_color%}'
 
+function cabal_sandbox_info() {
+  cabal_files=(*.cabal(N))
+  if [ $#cabal_files -gt 0 ]; then
+    if [ -f cabal.sandbox.config ]; then
+      echo "%{$fg[green]%}sandboxed%{$reset_color%}"
+    else
+      echo "%{$fg[red]%}not sandboxed%{$reset_color%}"
+    fi
+  fi
+}
+
+#RPROMPT="\$(cabal_sandbox_info) $RPROMPT"
 
 #################
 # Corrections

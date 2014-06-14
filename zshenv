@@ -16,7 +16,11 @@ fi
 # Paths
 ##########
 
-export PATH="${HOME}/.bin:/usr/local/bin:/Applications/Postgres.app/Contents/Versions/9.3/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:${PATH}"
+export GHC_APP="/Applications/ghc-7.8.2.app/Contents"
+
+export PATH="/usr/local/bin:/Applications/Postgres.app/Contents/Versions/9.3/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:${PATH}"
+export PATH="${HOME}/.cabal/bin:${GHC_APP}/bin:${PATH}"
+export PATH="${HOME}/.bin:${PATH}"
 
 export JAVA_HOME=$(echo /Library/Java/JavaVirtualMachines/jdk1.7.0*.jdk/Contents/Home)
 
