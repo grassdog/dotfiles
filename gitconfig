@@ -60,7 +60,7 @@
   # List aliases
   la = "!git config -l | grep alias | cut -c 7-"
   ctags = !.git/hooks/ctags
-  up = "!git remote update -p; git merge --ff-only @{u}"
+  update = "!git remote update -p; git merge --ff-only @{u}"
 
 [init]
   templatedir = ~/.git_template
