@@ -36,30 +36,38 @@
   unstage = reset HEAD
 
   # List commands
-  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
-  ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
-  lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
-  lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
-  le = log --oneline --decorate
+  ls = log --graph --pretty=format:"%C(yellow)%h%Cblue%d%Creset\\ %s\\ %C(green)\\ %an,\\ %ar%Creset"
+  ll = log --graph --pretty=format:"%C(yellow)%h%Cblue%d%Creset\\ %s\\ %C(green)\\ %an,\\ %ar%Creset" --numstat
 
-  # History on a single file
+  # No colour
+  lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
+
+  # Details of last commit
+  dl = "!git ll -1"
+
+  # Follow file (history on a single file)
   ff = log --follow -p
 
-  # File log
+  # File log (diff details with commit log)
   filelog = log -u
   fl = log -u
 
   # Diff
-  dl = "!git ll -1"
   dlc = diff --cached HEAD^
   dtlc = difftool --cached HEAD^
+
+  # Diff a revision
   dr  = "!f() { git diff "$1"^.."$1"; }; f"
-  lc  = "!f() { git ll "$1"^.."$1"; }; f"
   diffr  = "!f() { git diff "$1"^.."$1"; }; f"
+  dtr = "!f() { git difftool "$1"^.."$1"; }; f"
 
   # List aliases
   la = "!git config -l | grep alias | cut -c 7-"
+
+  # Run ctags command
   ctags = !.git/hooks/ctags
+
+  # Safer pull
   update = "!git remote update -p; git merge --ff-only @{u}"
 
 [init]
