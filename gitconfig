@@ -37,7 +37,12 @@
 
   # List commands
   ls = log --graph --pretty=format:"%C(yellow)%h%Cblue%d%Creset\\ %s\\ %C(green)\\ %an,\\ %ar%Creset"
-  ll = log --graph --pretty=format:"%C(yellow)%h%Cblue%d%Creset\\ %s\\ %C(green)\\ %an,\\ %ar%Creset" --numstat
+
+  # List with patches
+  ll = log --graph --pretty=format:"%C(yellow)%h%Cblue%d%Creset\\ %s\\ %C(green)\\ %an,\\ %ar%Creset" -p
+
+  # List with files changed
+  lf = log --graph --pretty=format:"%C(yellow)%h%Cblue%d%Creset\\ %s\\ %C(green)\\ %an,\\ %ar%Creset" --numstat
 
   # No colour
   lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
