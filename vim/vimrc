@@ -601,31 +601,31 @@ endfun
 augroup grass_html
   autocmd!
 
+  "override .md for markdown instead of modula2
+  au BufNewFile,BufRead *.md set filetype=markdown
+
   au FileType html setlocal foldmethod=manual
 
   " match (:),[:],{:} in html
   au FileType html,eruby let b:match_words = '(:),[:],{:},' . b:match_words
 
   " Fold current html tag
-  autocmd FileType html nnoremap <buffer> <leader>z Vatzf
-
-  " Reformat HTML files
-  autocmd FileType html nnoremap <buffer> <leader>rff <Esc>:% !tidy -quiet  -indent --indent-spaces 2 --wrap 80<CR>
+  au FileType html nnoremap <buffer> <leader>z Vatzf
 
   " Indent current tag
   au FileType html,eruby nnoremap <buffer> <leader>= Vat=
 
   " Change tab width and wrap for markdown
-  autocmd FileType markdown setlocal wrap softtabstop=4 tabstop=4 shiftwidth=4 spell
+  au FileType markdown setlocal wrap softtabstop=4 tabstop=4 shiftwidth=4 spell
 
-  autocmd FileType markdown call ExtendMarkdownSyntax()
+  au FileType markdown call ExtendMarkdownSyntax()
 
   " Preview markdown files in Marked.app
-  autocmd FileType markdown nnoremap <buffer> <leader>pm :silent !open -a Marked.app '%:p'<cr>
+  au FileType markdown nnoremap <buffer> <leader>pm :silent !open -a Marked.app '%:p'<cr>
 augroup END
 
 " Highlight fenced code
-let g:markdown_fenced_languages = ['ruby', 'javascript', 'clojure', 'json']
+let g:markdown_fenced_languages = ['ruby', 'javascript', 'clojure', 'json', 'sql']
 
 " Disable useless HTML5 stuff
 let g:event_handler_attributes_complete = 0
