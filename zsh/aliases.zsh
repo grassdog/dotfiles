@@ -46,6 +46,9 @@ alias ed="emacs --daemon"
 alias e="emacsclient -n -t"
 alias ec="emacsclient -n -c"
 
+# Tasks
+alias t='taskmeister -t ~/Dropbox/Notes/Tasks'
+
 ###############
 # OSX Specific
 ###############
