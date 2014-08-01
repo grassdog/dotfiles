@@ -47,7 +47,9 @@ alias e="emacsclient -n -t"
 alias ec="emacsclient -n -c"
 
 # Tasks
-alias t='taskmeister -t ~/Dropbox/Notes/Tasks'
+export TASKS="${HOME}/Dropbox/Notes/Tasks"
+alias t="taskmeister -t ${TASKS}"
+alias tg="taskmeister -t ${TASKS} -l general.md"
 
 ###############
 # OSX Specific
