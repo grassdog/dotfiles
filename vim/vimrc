@@ -146,7 +146,9 @@ set expandtab                         " use spaces, not tabs
 set autoindent
 set shiftround                        " round indent to multiples of shiftwidth
 
-set textwidth=80
+" auto-wrap comments, auto insert comment header, allow formatting of comments with "gq"
+" long lines are not broken in insert mode, don't break a line after a one letter word
+" remove comment leader when joining lines
 set formatoptions=crql1j
 
 " Fast terminal please
@@ -618,6 +620,9 @@ augroup grass_html
   " Change tab width and wrap for markdown
   au FileType markdown setlocal wrap softtabstop=4 tabstop=4 shiftwidth=4 spell
 
+  " Setup hard wrapping
+  au FileType markdown setlocal textwidth=80 wrapmargin=0 formatoptions+=cqt
+
   au FileType markdown call ExtendMarkdownSyntax()
 
   " Preview markdown files in Marked.app
@@ -870,6 +875,9 @@ augroup grass_miscfiles
 
   " Set wrap and shift size for text files
   autocmd BufRead,BufNewFile *.txt setlocal wrap tabstop=4 softtabstop=4 shiftwidth=4
+
+  " Setup hard wrapping
+  au BufRead,BufNewFile *.txt setlocal textwidth=80 wrapmargin=0 formatoptions+=cqt
 
   " In Makefiles, use real tabs, not tabs expanded to spaces
   autocmd FileType make set noexpandtab
