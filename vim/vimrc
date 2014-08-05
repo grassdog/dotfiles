@@ -626,7 +626,7 @@ augroup grass_html
   au FileType markdown call ExtendMarkdownSyntax()
 
   " Preview markdown files in Marked.app
-  au FileType markdown nnoremap <buffer> <leader>pm :silent !open -a Marked.app '%:p'<cr>
+  au FileType markdown nnoremap <buffer> <leader>pm :silent !open -a 'Marked 2.app' '%:p'<cr>
 augroup END
 
 " Highlight fenced code
