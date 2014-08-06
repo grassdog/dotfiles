@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+if [[ ! $1 ]]; then
+  echo "Usage: $(basename $0) image_files"
+  echo ""
+  echo "Shrink the size of images"
+  exit 0
+fi
+
+for f in "$@"
+do
+  echo $filename
+
+  H=$(sips -g pixelHeight "$f" | grep 'pixelHeight' | cut -d: -f2)
+  W=$(sips -g pixelWidth "$f" | grep 'pixelWidth' | cut -d: -f2)
+
+  H50=$(($H / 2))
+  W50=$(($W / 2))
+
+  sips --resampleHeight "$H50" "$f" >/dev/null
+done
