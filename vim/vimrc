@@ -60,6 +60,7 @@ Plugin 'EasyGrep'
 Plugin 'mileszs/ack.vim'
 Plugin 'rking/ag.vim'
 Plugin 'henrik/vim-open-url'
+Plugin 'szw/vim-tags'
 
 " Ruby
 Plugin 'tpope/vim-rails'
@@ -519,10 +520,11 @@ let g:ctrlp_match_window_reversed = 0
 let g:ctrlp_split_window = 0
 let g:ctrlp_max_height = 20
 let g:ctrlp_use_caching = 0
+let g:ctrlp_extensions = ['tag']
 
 nnoremap <leader>d :CtrlPCurFile<cr>
 nnoremap <leader>o :CtrlPBuffer<cr>
-
+nnoremap <leader>t :CtrlPTag<cr>
 
 """"""""""""""""""""""" }}}
 " Git                   {{{
@@ -558,6 +560,13 @@ command! ListTagFiles :call ListTagFiles()
 function! ListTagFiles()
   echo join(split(&tags, ","), "\n")
 endfunction
+
+" No need for language or to use dispatch
+let g:vim_tags_use_vim_dispatch = 0
+let g:vim_tags_use_language_field = 0
+
+" No gem file indexing thanks
+let g:vim_tags_gems_tags_command = "true"
 
 " Let me select my tags
 nnoremap <c-]> g<c-]>
@@ -793,10 +802,10 @@ let ruby_fold = 1
 
 let g:blockle_mapping = '<leader>['
 
-" Rspec
-map <Leader>tc :call RunCurrentSpecFile()<CR>
-map <Leader>tn :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
+" Rspec (do I need these?)
+map <Leader>rc :call RunCurrentSpecFile()<CR>
+map <Leader>rn :call RunNearestSpec()<CR>
+map <Leader>rl :call RunLastSpec()<CR>
 let g:rspec_command = "!rspec --format doc --no-color {spec}"
 
 
