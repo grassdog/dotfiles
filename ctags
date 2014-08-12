@@ -2,6 +2,8 @@
 --exclude=.hg
 --exclude=log
 --exclude=*.min.js
+--exclude=vendor
+--exclude=source/assets/js/vendor
 
 --languages=-javascript,sql
 
@@ -63,14 +65,6 @@
 --regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\[/\1/,array/
 --regex-js=/([^= ]+)[ \t]*=[ \t]*[^"]'[^']*/\1/,string/
 --regex-js=/([^= ]+)[ \t]*=[ \t]*[^']"[^"]*/\1/,string/
-
---langdef=Css
---langmap=Css:.css
---langmap=Css:+.less
---langmap=Css:+.sass
---langmap=Css:+.scss
---regex-Css=/^[ \t]*(.+)[ \t]*\{/\1/f,function/
---regex-Css=/^[ \t]*(.+)[ \t]*,[ \t]*$/\1/f,function/
 
 --langmap=C++:+.mm
 
