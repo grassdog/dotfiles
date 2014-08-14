@@ -1,14 +1,14 @@
 --exclude=.git
 --exclude=.hg
 --exclude=log
+--exclude=tmp
 --exclude=*.min.js
---exclude=vendor
---exclude=source/assets/js/vendor
+--exclude=*vendor
 
 --languages=-javascript,sql
 
 --langdef=markdown
---langmap=markdown:.mkd
+--langmap=markdown:.md
 --regex-markdown=/^#[ \t]+(.*)/\1/h,Heading_L1/
 --regex-markdown=/^##[ \t]+(.*)/\1/i,Heading_L2/
 --regex-markdown=/^###[ \t]+(.*)/\1/k,Heading_L3/
@@ -57,6 +57,8 @@
 --regex-ruby=/(^|;)[ \t]*event\(? *:([[:alnum:]_]+)/\2!/f,function,aasm_event/
 --regex-ruby=/(^|;)[ \t]*event\(? *:([[:alnum:]_]+)/\2?/f,function,aasm_event/
 
+--langmap=Ruby:+(Rakefile)
+
 --langdef=js
 --langmap=js:.js
 --regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\{/\1/,object/
@@ -66,6 +68,14 @@
 --regex-js=/([^= ]+)[ \t]*=[ \t]*[^"]'[^']*/\1/,string/
 --regex-js=/([^= ]+)[ \t]*=[ \t]*[^']"[^"]*/\1/,string/
 
+--langdef=JSX
+--langmap=jsx:.jsx
+--regex-jsx=/^[ \t]*import[ \t]+([^;]+)/\1/r,import,imports/
+--regex-jsx=/^[ \t]*([a-z]+[ \t]+)*function[ \t]+([A-Za-z0-9_]+[ \t]*[^{;]*)/\2/f,function,functions/
+--regex-jsx=/^[ \t]*([a-z]+[ \t]+)*class[ \t]+([A-Za-z0-9_]+)[ \t]*([^)])/\2/c,class,classes/
+--regex-jsx=/^[ \t]*([a-z]+[ \t]+)*interface[ \t]+([A-Za-z0-9_]+)[ \t]*([^)])/\2/i,interface,interfaces/
+--regex-jsx=/^[ \t]*([a-z]+[ \t]+)*mixin[ \t]+([A-Za-z0-9_]+)[ \t]*([^)])/\2/m,mixin,mixins/
+--regex-jsx=/^[ \t]*(@?[a-zA-Z$_\.1-9]+)[ \t]*(=|\:)[ \t]React.createClass/\1/c,class,classes/
+
 --langmap=C++:+.mm
 
---langmap=Ruby:+(Rakefile)
