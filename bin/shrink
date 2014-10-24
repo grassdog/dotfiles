@@ -9,7 +9,7 @@ fi
 
 for f in "$@"
 do
-  echo $filename
+  echo $f
 
   H=$(sips -g pixelHeight "$f" | grep 'pixelHeight' | cut -d: -f2)
   W=$(sips -g pixelWidth "$f" | grep 'pixelWidth' | cut -d: -f2)
