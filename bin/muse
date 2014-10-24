@@ -1,0 +1,85 @@
+#!/usr/bin/env ruby
+
+Activities = {
+  productive: {
+    "Chores" => [
+      "Omnifocus backlog",
+      "Weed and yard upkeep"
+    ],
+    "Coding" => [
+      "Existing project",
+      "Code spike"
+    ],
+    "Blogging" => [
+      "Write a blog post",
+      "Check my referrers in Analytics"
+    ],
+    "Study" => [
+      "Read technical papers from \"To Read\" folder on Dropbox",
+      "Read code repos or papers listed in Omnifocus",
+      "Read @todo or @swdev in TW Email",
+      "Work through 4clojure problems",
+      "Work through SICP chapters and exercises",
+      "Read random man page"
+    ],
+    "Watch Code Videos" => [
+      "Watch Programming Languages course videos",
+      "Watch Ruby Tapas",
+      "Watch Instpaper Video",
+    ],
+    "Photography" => [
+      "Take some photos"
+    ],
+    "Exercise" => [
+      "Running",
+      "Walking",
+      "Seven Minute Workout"
+    ],
+    "Meditation" => [
+      "Meditate for 15 minutes"
+    ]
+  },
+  lazy: {
+    "Surfing" => [
+      "Trawl Tumblr, Twitter, Facebook",
+      "Read Instapaper articles",
+      "Surf through photos on Flickr or 500px",
+      "Read Google groups",
+      "Surf Youtube videos",
+      "Browse through Chrome bookmarks"
+    ],
+    "Fun Reading" => [
+      "Scan through a book on the bookshelf",
+      "Read a comic in Comixology",
+      "Read book on Kindle",
+      "Read book on iBooks"
+    ],
+    "Games" => [
+      "Play Legend of Grimlock",
+      "Play Steam game",
+      "Play Playstation game"
+    ],
+    "Watch TW" => [
+      "Watch a show on Plex or iTunes"
+    ],
+    "Music" => [
+      "Listen to an Artist on shuffle",
+      "Listen to a random album",
+      "Play guitar"
+    ],
+    "Hanging with Cath" => [
+      "Watch movie",
+      "Go for a walk"
+    ]
+  }
+}
+
+options = Activities[:productive].entries + Activities[:lazy].entries
+
+option = options.sample
+
+puts
+puts "Why not try '#{option.first.to_s}'?"
+puts
+puts option[1].map {|o| "- #{o}" }
+puts

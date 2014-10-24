@@ -1,0 +1,3 @@
+#!/bin/sh
+# Quick view images from the console
+qlmanage -p "$@"
