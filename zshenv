@@ -25,7 +25,8 @@ fi
 
 export PATH="${HOME}/.bin:${PATH}"
 
-export JAVA_HOME=$(echo /Library/Java/JavaVirtualMachines/jdk1.7*.jdk/Contents/Home)
+#export JAVA_HOME=$(echo /Library/Java/JavaVirtualMachines/jdk1.7*.jdk/Contents/Home)
+# ls -v | tail -n 1
 
 # Adding Homebrew man path
 export MANPATH="/usr/local/share/man:${MANPATH}"
@@ -45,6 +46,8 @@ export NLTK_DATA='/Users/rgrasso/.nltk_data'
 if [[ -e /usr/local/opt/chruby/share/chruby/chruby.sh ]]; then
   source /usr/local/opt/chruby/share/chruby/chruby.sh
   source /usr/local/opt/chruby/share/chruby/auto.sh
-  chruby $(cat ~/.ruby-version)
+  if [[ -e ~/.ruby-version ]]; then
+    chruby $(cat ~/.ruby-version)
+  fi
 fi
 
