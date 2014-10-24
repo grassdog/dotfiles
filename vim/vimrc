@@ -82,6 +82,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'claco/jasmine.vim'
 Plugin 'JSON.vim'
+Plugin 'slim-template/vim-slim.git'
 
 " Clojure
 Plugin 'guns/vim-clojure-static'
@@ -260,6 +261,9 @@ set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz " Disable archive files
 " Ignore bundler and sass cache
 set wildignore+=**/vendor/gems/*,**/vendor/bundle/*,**/vendor/cache/*,**/.bundle/*,**/b/*,.sass-cache/*,doc/**,**/tmp/**
 
+" Ignore middleman build
+set wildignore+=build
+
 set wildignore+=*.luac                           " Lua byte code
 set wildignore+=*.pyc                            " Python byte code
 set wildignore+=*.orig                           " Merge resolution files
@@ -384,6 +388,9 @@ nnoremap <leader><leader> <c-^>
 " Text manipulation     {{{
 """""""""""""""""""""""
 
+" Shift-tab in insert mode goes backward
+inoremap <s-tab> <c-d>
+
 " Indent or outdent and maintain selection in visual mode
 vnoremap >> >gv
 vnoremap << <gv
@@ -393,6 +400,9 @@ noremap Y y$
 
 " Yank to system clipboard
 map <leader>y "*y
+
+" Move past the end of lines in visual block edit
+set virtualedit=block
 
 " Bubble lines up and down
 " http://vim.wikia.com/wiki/Moving_lines_up_or_down
@@ -856,9 +866,8 @@ augroup grass_js
   " Reformat JSON
   autocmd FileType json noremap <buffer> <leader>rff <Esc>:% !js-beautify -f - -s 2 --brace-style=expand<CR>
 
-  " Indent folding for coffee (off by default) and undo vim-coffeescript
-  " screwing with my formatoptions
-  autocmd BufNewFile,BufReadPost *.coffee setlocal foldmethod=indent nofoldenable formatoptions-=o
+  " Undo vim-coffeescript screwing with my formatoptions and keep manual folding
+  autocmd BufNewFile,BufReadPost *.coffee setlocal foldmethod=manual formatoptions-=o
 
 augroup END
 
