@@ -25,7 +25,7 @@ fi
 
 export PATH="${HOME}/.bin:${PATH}"
 
-export JAVA_HOME=$(echo /Library/Java/JavaVirtualMachines/jdk1.7.0*.jdk/Contents/Home)
+export JAVA_HOME=$(echo /Library/Java/JavaVirtualMachines/jdk1.7*.jdk/Contents/Home)
 
 # Adding Homebrew man path
 export MANPATH="/usr/local/share/man:${MANPATH}"
