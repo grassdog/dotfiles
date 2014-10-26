@@ -103,6 +103,7 @@ Plugin 'groenewege/vim-less'
 Plugin 'b4winckler/vim-objc'
 Plugin 'kovisoft/slimv'
 Plugin 'mxw/vim-jsx'
+Plugin 'vimoutliner/vimoutliner'
 
 call vundle#end()
 
