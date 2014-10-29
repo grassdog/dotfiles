@@ -117,7 +117,13 @@ alias gtags='~/.git_template/hooks/ctags'
 # Java
 #########
 
-alias j7="export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)"
+function j7() {
+  export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
+}
+
+function j8() {
+  export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+}
 
 ############
 # Processes
