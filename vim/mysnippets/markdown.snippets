@@ -38,3 +38,18 @@ endsnippet
 snippet link "Link to something" !
 [${1:${VISUAL:Text}}](${2:${VISUAL:Url}})$0
 endsnippet
+
+snippet iid "taskmeister id"
+# $0 [∞](#`!v strftime("%S%M%H%d%m%Y")`)
+endsnippet
+
+snippet ffront "blog post frontmatter"
+---
+title: $1
+date: `!v strftime("%Y-%m-%d %H:%M %z")`
+tags:
+published: false
+---
+
+$0
+endsnippet
