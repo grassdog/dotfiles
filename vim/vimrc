@@ -39,6 +39,7 @@ Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'scrooloose/nerdtree'
 Plugin 'grassdog/RemoveFile.vim'
 Plugin 'mbbill/undotree'
+Plugin 'terryma/vim-expand-region'
 
 " Text objects and motions
 Plugin 'kana/vim-textobj-user'
