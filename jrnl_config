@@ -3,7 +3,7 @@
   "timeformat": "%Y-%m-%d %H:%M",
   "linewrap": 80,
   "encrypt": false,
-  "editor": "",
+  "editor": "vim",
   "default_minute": 0,
   "highlight": true,
   "password": "",
