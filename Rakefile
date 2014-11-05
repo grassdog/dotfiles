@@ -6,7 +6,7 @@ HOME          = ENV['HOME']
 LEIN_DIR      = File.join(HOME, ".lein")
 SERVICES_DIR  = File.join(HOME, "Library/Services")
 
-UNLINKED = %w[Rakefile Brewfile README.md profiles.clj services osx_apps.rb osx_settings.rb .git vim]
+UNLINKED = %w[Rakefile README.md profiles.clj services .git vim]
 
 desc "Link dotfiles into $HOME directory"
 task :link_files, :force do |t, args|
