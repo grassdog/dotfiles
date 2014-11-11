@@ -1,14 +1,15 @@
 {
-  "default_hour": 9,
-  "timeformat": "%Y-%m-%d %H:%M",
-  "linewrap": 80,
-  "encrypt": false,
-  "editor": "vim",
-  "default_minute": 0,
-  "highlight": true,
-  "password": "",
+  "default_hour": 9, 
+  "linewrap": 80, 
+  "encrypt": false, 
+  "default_minute": 0, 
+  "tagsymbols": "@", 
+  "editor": "vim", 
+  "timeformat": "%Y-%m-%d %H:%M", 
+  "highlight": true, 
+  "password": "", 
   "journals": {
-    "default": "/Users/rgrasso/Dropbox/Apps/Day One/Journal.dayone"
-  },
-  "tagsymbols": "@"
+    "default": "/Users/rgrasso/Dropbox/Apps/Day One/Journal.dayone", 
+    "work": "~/work.txt"
+  }
 }
