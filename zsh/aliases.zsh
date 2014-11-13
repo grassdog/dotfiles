@@ -15,13 +15,12 @@ alias la="ls $LSC -Al"
 
 alias h="history -40"
 
-alias c="cd ~/code"
-alias p="cd ~/code/projects"
-
 function take() {
   mkdir -p "$1"
   cd "$1"
 }
+
+alias ea='vim ~/.zsh/aliases.zsh'
 
 # Set iterm title
 function title() {
@@ -29,7 +28,7 @@ function title() {
 }
 
 alias vi='vim'
-alias v='vim'
+alias v='f -t -e vim -b viminfo'
 alias le='less -SR'
 alias be="bundle exec"
 alias bi="bundle install"
@@ -37,7 +36,7 @@ alias bi="bundle install"
 # Give me context
 alias ag='ag -C'
 # Only search over git files
-function gag() {
+function agg() {
   ag -C "$*" $(git ls-files)
 }
 
