@@ -40,6 +40,8 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'grassdog/RemoveFile.vim'
 Plugin 'mbbill/undotree'
 Plugin 'terryma/vim-expand-region'
+Plugin 'YankRing.vim'
+Plugin 'bogado/file-line'
 
 " Text objects and motions
 Plugin 'kana/vim-textobj-user'
@@ -105,6 +107,7 @@ Plugin 'b4winckler/vim-objc'
 Plugin 'kovisoft/slimv'
 Plugin 'mxw/vim-jsx'
 Plugin 'wting/rust.vim'
+Plugin 'cespare/vim-toml'
 
 call vundle#end()
 
@@ -942,6 +945,16 @@ cnoremap <expr> %p  getcmdtype() == ':' ? fnameescape('~/code/projects').'/' : '
 let g:UltiSnipsSnippetDirectories    = ["UltiSnips", "mysnippets"]
 " Overcome Vundle runtime path so snippet overrides work
 let g:UltiSnipsDontReverseSearchPath = "1"
+
+
+""""""""""""""""""""""" }}}
+" Yank-Ring             {{{
+"""""""""""""""""""""""
+
+let g:yankring_replace_n_pkey = '<c-b>'
+function! YRRunAfterMaps()
+  nnoremap <silent> Y  :<C-U>YRYankCount 'y$'<CR>
+endfunction
 
 
 """"""""""""""""""""""" }}}
