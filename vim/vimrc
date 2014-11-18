@@ -51,7 +51,7 @@ Plugin 'kana/vim-textobj-line'
 Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'bkad/CamelCaseMotion'
 Plugin 'argtextobj.vim'
-Plugin 'nelstrom/vim-textobj-rubyblock'
+Plugin 'rhysd/vim-textobj-ruby'
 
 " Completions and Snippets
 Plugin 'SirVer/ultisnips'
