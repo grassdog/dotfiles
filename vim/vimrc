@@ -548,8 +548,8 @@ nnoremap <leader>t :CtrlPTag<cr>
 " Highlight VCS conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
-" Find merge conflict markers
-nnoremap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
+" Search for merge conflict markers
+nnoremap <silent> <leader>sc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 
 
 """"""""""""""""""""""" }}}
