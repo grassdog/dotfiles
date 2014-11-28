@@ -45,8 +45,6 @@ export NLTK_DATA='/Users/rgrasso/.nltk_data'
 if [[ -e /usr/local/opt/chruby/share/chruby/chruby.sh ]]; then
   source /usr/local/opt/chruby/share/chruby/chruby.sh
   source /usr/local/opt/chruby/share/chruby/auto.sh
-  if [[ -e ~/.ruby-version ]]; then
-    chruby $(cat ~/.ruby-version)
-  fi
+  [[ -r ~/.ruby-version ]] && chruby $(cat ~/.ruby-version)
+  [[ -r ./.ruby-version ]] && chruby $(cat ./.ruby-version)
 fi
-
