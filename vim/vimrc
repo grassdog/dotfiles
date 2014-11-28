@@ -71,7 +71,6 @@ Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-bundler'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'jgdavey/vim-blockle'
-Plugin 'thoughtbot/vim-rspec'
 Plugin 'tpope/vim-cucumber'
 
 " Web
@@ -817,11 +816,27 @@ let ruby_fold = 1
 
 let g:blockle_mapping = '<leader>['
 
-" Rspec (do I need these?)
-map <Leader>rc :call RunCurrentSpecFile()<CR>
-map <Leader>rn :call RunNearestSpec()<CR>
-map <Leader>rl :call RunLastSpec()<CR>
-let g:rspec_command = "!rspec --format doc --no-color {spec}"
+
+" Some RSpec helpers
+function! RunAllSpecs()
+  let l:spec = @%
+  call RunSpecs(l:spec)
+endfunction
+
+function! RunClosestSpec()
+  let l:spec = @% . ":" . line(".")
+  call RunSpecs(l:spec)
+endfunction
+
+function! RunSpecs(spec)
+  execute ':w | !bundle exec rspec --no-color ' . a:spec
+endfunction
+
+" Run all specs in file
+nnoremap <leader>ra :call RunAllSpecs()<cr>
+
+" Run closest spec
+nnoremap <leader>rc :call RunClosestSpec()<cr>
 
 
 """"""""""""""""""""""" }}}
