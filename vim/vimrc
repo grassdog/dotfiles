@@ -823,33 +823,33 @@ let g:blockle_mapping = '<leader>['
 
 
 " Some RSpec helpers
-" Adapted from https://github.com/garybernhardt/dotfiles/blob/master/.vimrc
 
-function! RunTestFile(...)
-  if a:0
-    let command_suffix = a:1
-  else
-    let command_suffix = ""
-  endif
+function! RunTestFile()
+  call SetAndRunTests(expand('%'))
+endfunction
 
-  " Run the tests for the previously-marked file.
-  let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\)$') != -1
-  if in_test_file
-    call SetTestFile()
-  elseif !exists("t:rg_test_file")
-    return
+function! RunNearestTestInFile()
+  call SetAndRunTests(expand('%') . ":" . line('.'))
+endfunction
+
+function! RunAllTests()
+  call SetAndRunTests('')
+endfunction
+
+function! RunLastTest()
+  if exists("t:rg_test_file")
+    call RunTests(t:rg_test_file)
   end
-  call RunTests(t:rg_test_file . command_suffix)
 endfunction
 
-function! RunClosestTest()
-  let spec_line_number = line('.')
-  call RunTestFile(":" . spec_line_number)
+function! SetAndRunTests(filename)
+  call SetTestFile(a:filename)
+  call RunTests(a:filename)
 endfunction
 
-function! SetTestFile()
-  " Set the spec file that tests will be run for.
-  let t:rg_test_file=@%
+" Set the last run spec file.
+function! SetTestFile(filename)
+  let t:rg_test_file=a:filename
 endfunction
 
 function! RunTests(filename)
@@ -858,35 +858,36 @@ function! RunTests(filename)
     :w
   end
 
-  if match(a:filename, '\.feature$') != -1
-    if filereadable("Gemfile")
-      exec ":!bundle exec cucumber " . a:filename
-    else
-      exec ":!cucumber " . a:filename
-    end
+  if has("gui_running") && has("gui_macvim")
+    let l:flags = "--no-color "
   else
-    if has("gui_running") && has("gui_macvim")
-      let t:rspec_flags = "--no-color "
-    else
-      let t:rspec_flags = "--color "
-    endif
+    let l:flags = "--color "
+  endif
 
-    if filereadable("Gemfile")
-      exec ":!bundle exec rspec " . t:rspec_flags . a:filename
-    else
-      exec ":!rspec " . t:rspec_flags . a:filename
-    end
+  if filereadable("Gemfile")
+    let l:prefix = 'bundle exec '
+  else
+    let l:prefix = ''
+  end
+
+  if match(a:filename, '\.feature\(:\d\)\?$') != -1
+    exec ":!" . l:prefix . "cucumber " . l:flags . a:filename
+  else
+    exec ":!" . l:prefix . "rspec " . l:flags . a:filename
   end
 endfunction
 
-" Run all specs in file
-nnoremap <leader>ra :call RunTests('')<cr>
+" Run all tests
+nnoremap <leader>ra :call RunAllTests()<cr>
 
-" Run closest spec
-nnoremap <leader>rc :call RunClosestTest()<cr>
+" Run all tests in file
+nnoremap <leader>rt :call RunTestFile()<cr>
 
-" Rerun last spec
-nnoremap <leader>rr :call RunTestFile()<cr>
+" Run closest test
+nnoremap <leader>rn :call RunNearestTestInFile()<cr>
+
+" Re-Run last test
+nnoremap <leader>rr :call RunLastTest()<cr>
 
 
 """"""""""""""""""""""" }}}
