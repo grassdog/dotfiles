@@ -823,25 +823,70 @@ let g:blockle_mapping = '<leader>['
 
 
 " Some RSpec helpers
-function! RunAllSpecs()
-  let l:spec = @%
-  call RunSpecs(l:spec)
+" Adapted from https://github.com/garybernhardt/dotfiles/blob/master/.vimrc
+
+function! RunTestFile(...)
+  if a:0
+    let command_suffix = a:1
+  else
+    let command_suffix = ""
+  endif
+
+  " Run the tests for the previously-marked file.
+  let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\)$') != -1
+  if in_test_file
+    call SetTestFile()
+  elseif !exists("t:rg_test_file")
+    return
+  end
+  call RunTests(t:rg_test_file . command_suffix)
 endfunction
 
-function! RunClosestSpec()
-  let l:spec = @% . ":" . line(".")
-  call RunSpecs(l:spec)
+function! RunClosestTest()
+  let spec_line_number = line('.')
+  call RunTestFile(":" . spec_line_number)
 endfunction
 
-function! RunSpecs(spec)
-  execute ':w | !bundle exec rspec --no-color ' . a:spec
+function! SetTestFile()
+  " Set the spec file that tests will be run for.
+  let t:rg_test_file=@%
+endfunction
+
+function! RunTests(filename)
+  " Write the file and run tests for the given filename
+  if expand("%") != ""
+    :w
+  end
+
+  if match(a:filename, '\.feature$') != -1
+    if filereadable("Gemfile")
+      exec ":!bundle exec cucumber " . a:filename
+    else
+      exec ":!cucumber " . a:filename
+    end
+  else
+    if has("gui_running") && has("gui_macvim")
+      let t:rspec_flags = "--no-color "
+    else
+      let t:rspec_flags = "--color "
+    endif
+
+    if filereadable("Gemfile")
+      exec ":!bundle exec rspec " . t:rspec_flags . a:filename
+    else
+      exec ":!rspec " . t:rspec_flags . a:filename
+    end
+  end
 endfunction
 
 " Run all specs in file
-nnoremap <leader>ra :call RunAllSpecs()<cr>
+nnoremap <leader>ra :call RunTests('')<cr>
 
 " Run closest spec
-nnoremap <leader>rc :call RunClosestSpec()<cr>
+nnoremap <leader>rc :call RunClosestTest()<cr>
+
+" Rerun last spec
+nnoremap <leader>rr :call RunTestFile()<cr>
 
 
 """"""""""""""""""""""" }}}
