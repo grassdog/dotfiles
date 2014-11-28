@@ -540,6 +540,7 @@ nnoremap <leader>d :CtrlPCurFile<cr>
 nnoremap <leader>o :CtrlPBuffer<cr>
 nnoremap <leader>t :CtrlPTag<cr>
 
+
 """"""""""""""""""""""" }}}
 " Git                   {{{
 """""""""""""""""""""""
@@ -585,6 +586,10 @@ let g:vim_tags_gems_tags_command = "true"
 " Let me select my tags
 nnoremap <c-]> g<c-]>
 nnoremap g<c-]> <c-]>
+
+" Open tag for word under cursor in a new vsplit
+map <c-\> :vsp<CR>:exec("tag ".expand("<cword>"))<cr>
+
 
 
 """"""""""""""""""""""" }}}
