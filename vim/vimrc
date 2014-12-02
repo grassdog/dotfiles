@@ -815,6 +815,9 @@ augroup grass_ruby
 
   " Arb
   autocmd BufNewFile,BufRead *.arb set filetype=ruby
+
+  " No comment extending with open
+  au FileType ruby setlocal formatoptions-=o
 augroup END
 
 let ruby_fold = 1
@@ -883,7 +886,7 @@ nnoremap <leader>ra :call RunAllTests()<cr>
 " Run all tests in file
 nnoremap <leader>rt :call RunTestFile()<cr>
 
-" Run closest test
+" Run nearest test
 nnoremap <leader>rn :call RunNearestTestInFile()<cr>
 
 " Re-Run last test
