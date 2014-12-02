@@ -596,6 +596,16 @@ map <c-\> :vsp<CR>:exec("tag ".expand("<cword>"))<cr>
 " All files             {{{
 """""""""""""""""""""""
 
+function! SetHardWrap()
+  setlocal textwidth=80 wrapmargin=0 formatoptions+=cqt
+endfunction
+command! SetHardWrap :call SetHardWrap()
+
+function! SetNoHardWrap()
+  setlocal formatoptions-=cqt
+endfunction
+command! SetNoHardWrap :call SetNoHardWrap()
+
 augroup grass_allfiles
   autocmd!
 
@@ -648,9 +658,6 @@ augroup grass_html
 
   " Change tab width and wrap for markdown
   au FileType markdown setlocal wrap softtabstop=4 tabstop=4 shiftwidth=4 spell
-
-  " Setup hard wrapping
-  au FileType markdown setlocal textwidth=80 wrapmargin=0 formatoptions+=cqt
 
   au FileType markdown call ExtendMarkdownSyntax()
 
@@ -970,9 +977,6 @@ augroup grass_miscfiles
 
   " Set wrap and shift size for text files
   autocmd BufRead,BufNewFile *.txt setlocal wrap tabstop=4 softtabstop=4 shiftwidth=4
-
-  " Setup hard wrapping
-  au BufRead,BufNewFile *.txt setlocal textwidth=80 wrapmargin=0 formatoptions+=cqt
 
   " In Makefiles, use real tabs, not tabs expanded to spaces
   autocmd FileType make set noexpandtab
