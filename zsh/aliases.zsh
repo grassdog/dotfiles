@@ -35,10 +35,6 @@ alias bi="bundle install"
 
 # Give me context
 alias ag='ag -C'
-# Only search over git files
-function agg() {
-  ag -C "$*" $(git ls-files)
-}
 
 # Emacs
 alias ed="emacs --daemon"
@@ -82,8 +78,8 @@ alias gd='git diff --word-diff'
 alias gdc='git diff --word-diff --cached'
 alias gpu='git push'
 alias gpl='git update'
+alias grom='git rebase origin/master'
 alias gnp='git-notpushed'
-alias gst='git status'
 alias gs='git status -s'
 alias gl='git ls'
 
@@ -110,7 +106,6 @@ function git-spec() {
   git diff --name-only ${1:-git-svn} | grep _spec.rb | xargs spec
 }
 
-alias gtags='~/.git_template/hooks/ctags'
 
 #########
 # Java
