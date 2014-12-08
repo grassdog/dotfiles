@@ -11,7 +11,7 @@ desc 'Install plugins via Vundle'
 task :install do
   sh 'git clone https://github.com/gmarik/Vundle.vim.git bundle/Vundle.vim' unless File.exist?("bundle/Vundle.vim")
   puts 'Installing Vim plugins. This can take a while...'
-  sh 'vim +PluginInstall +qall' do
+  sh 'vim +PluginInstall! +qall! &> /dev/null' do
     # Ignore errors
   end
 end
