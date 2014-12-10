@@ -565,6 +565,12 @@ let NERDTreeDirArrows = 1
 let NERDChristmasTree = 1
 
 
+" Close vim if only nerdtree is left open
+augroup grass_nerdtree
+  autocmd!
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+augroup END
+
 """"""""""""""""""""""" }}}
 " Ctags                 {{{
 """""""""""""""""""""""
