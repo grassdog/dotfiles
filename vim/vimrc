@@ -954,8 +954,7 @@ augroup grass_js
   autocmd FileType json noremap <buffer> <leader>rff <Esc>:% !js-beautify -f - -s 2 --brace-style=expand<CR>
 
   " Undo vim-coffeescript screwing with my formatoptions and keep manual folding
-  autocmd BufNewFile,BufReadPost *.coffee setlocal foldmethod=manual formatoptions-=o
-
+  autocmd BufNewFile,BufReadPost *.coffee setlocal foldmethod=manual formatoptions-=o iskeyword=@,39,.,48-57,_,192-255,$
 augroup END
 
 
