@@ -23,6 +23,6 @@ def reveal_load_sim(debugger):
 def reveal_start(debugger):
   debugger.HandleCommand('expr [(NSNotificationCenter*)[NSNotificationCenter defaultCenter] postNotificationName:@"IBARevealRequestStart" object:nil];')
 
-  # Sends a notification to the reveal server so that it stops (if you'd want that)
-  def reveal_stop(debugger):
+# Sends a notification to the reveal server so that it stops (if you'd want that)
+def reveal_stop(debugger):
   debugger.HandleCommand('expr [(NSNotificationCenter*)[NSNotificationCenter defaultCenter] postNotificationName:@"IBARevealRequestStop" object:nil];')
