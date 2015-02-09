@@ -51,7 +51,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>source</key>
-					<string>on run {input, parameters}	set copiedText to input as string		tell application "Preview"		set theURL to (path of document 1) as text		set theURL to "file://" &amp; theURL		set theTitle to (name of document 1)	end tell		set theResult to "[" &amp; theTitle &amp; "]" &amp; "(" &amp; theURL &amp; ")" &amp; return &amp; return &amp; "&gt; " &amp; copiedText as string		set the clipboard to theResult		return theResultend run</string>
+					<string>on run {input, parameters}	set copiedText to input as string		tell application "Preview"		set theURL to (path of document 1) as text		set theURL to "file://" &amp; theURL		set theTitle to (name of document 1)	end tell		set theResult to "[" &amp; theTitle &amp; "]" &amp; "(" &amp; theURL &amp; "):" &amp; return &amp; return &amp; "&gt; " &amp; copiedText as string		set the clipboard to theResult		return theResultend run</string>
 				</dict>
 				<key>BundleIdentifier</key>
 				<string>com.apple.Automator.RunScript</string>
