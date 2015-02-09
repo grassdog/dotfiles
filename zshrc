@@ -11,9 +11,8 @@ export HISTFILE=~/.zsh_history
 export SAVEHIST=100000
 export HISTSIZE=100000
 
-# Get fasd working
-# eval "$(fasd --init auto)"
-eval "$(fasd --init posix-alias zsh-hook)"
+# Get Z going
+. `brew --prefix`/etc/profile.d/z.sh
 
 ##########
 # Prompt
