@@ -18,7 +18,8 @@ fi
 
 export PATH="/usr/local/bin:/Applications/Postgres.app/Contents/Versions/9.3/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:${PATH}"
 
-export GHC_DOT_APP="/Applications/ghc-7.8.3.app"
+GHC_DOT_APP=(/Applications/ghc*.app)
+export GHC_DOT_APP
 if [ -d "$GHC_DOT_APP" ]; then
   export PATH="${HOME}/.cabal/bin:${GHC_DOT_APP}/Contents/bin:${PATH}"
 fi
