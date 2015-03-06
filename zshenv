@@ -72,3 +72,9 @@ if [[ -n "$ZSH_VERSION" ]]; then
     preexec_functions+=("add_trusted_local_bin_to_path")
   fi
 fi
+
+export NVM_DIR=~/.nvm
+
+if [[ -e $(brew --prefix nvm)/nvm.sh ]]; then
+  source $(brew --prefix nvm)/nvm.sh
+fi
