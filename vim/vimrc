@@ -72,6 +72,7 @@ Plugin 'tpope/vim-bundler'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'jgdavey/vim-blockle'
 Plugin 'tpope/vim-cucumber'
+Plugin 'nelstrom/vim-textobj-rubyblock'
 
 " Web
 Plugin 'tpope/vim-haml'
