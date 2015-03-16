@@ -16,7 +16,7 @@ fi
 # Paths
 ##########
 
-export PATH="/usr/local/bin:/Applications/Postgres.app/Contents/Versions/9.3/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:${PATH}"
+export PATH="/usr/local/bin:/Applications/Postgres.app/Contents/Versions/9.4/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:${PATH}"
 
 GHC_DOT_APP=(/Applications/ghc*.app)
 export GHC_DOT_APP
