@@ -2,15 +2,23 @@ snippet dbg "debugger"
 debugger
 endsnippet
 
+snippet uss "use strict"
+"use strict";
+endsnippet
+
+snippet req "require a module"
+var ${1:name} = require("${2:path}");
+endsnippet
+
 snippet ### "banner comment"
 //
 // $0
 //
 endsnippet
 
-snippet get "Get Elements"
-getElement${1/(T)|.*/(?1:s)/}By${1:T}${1/(T)|(I)|.*/(?1:agName)(?2:d)/}('$2')
-endsnippet
+#
+# Literals
+#
 
 snippet '':f "object method string"
 '${1:${2:#thing}:${3:click}}': function(element) {
@@ -39,17 +47,9 @@ ${1:class_name}.prototype.${2:method_name} = function(${3:first_argument}) {
 
 endsnippet
 
-snippet for "for (...) {...} (counting up)" b
-for (var ${1:i} = 0, ${2:len} = ${3:Things.length}; $1 < $2; $1++) {
-	${VISUAL}$0
-}
-endsnippet
-
-snippet ford "for (...) {...} (counting down, faster)" b
-for (var ${2:i} = ${1:Things.length} - 1; $2 >= 0; $2--) {
-	${VISUAL}$0
-}
-endsnippet
+#
+# Functions
+#
 
 snippet fun "function (fun)"
 function ${1:function_name}(${2:argument}) {
@@ -63,8 +63,10 @@ ${1:var }${2:function_name} = function $2(${3}) {
 };
 endsnippet
 
-snippet iife "Immediately-Invoked Function Expression (iife)"
+snippet iif "Immediately-Invoked Function Expression (iif)"
 (function (${1:argument}) {
+	"use strict";
+
 	${VISUAL}$0
 }(${2:$1}));
 endsnippet
@@ -83,7 +85,9 @@ for (${1:prop} in ${2:obj}){
 }
 endsnippet
 
+#
 # Snippets for Console Debug Output
+#
 
 snippet ca "console.assert" b
 console.assert(${1:assertion}, ${2:"${3:message}"});
@@ -155,15 +159,5 @@ endsnippet
 
 snippet cw "console.warn" b
 console.warn(${1:"${2:value}"});
-endsnippet
-
-# AMD (Asynchronous Module Definition) snippets
-
-snippet def "define an AMD module"
-define(${1:optional_name, }[${2:'jquery'}], ${3:callback});
-endsnippet
-
-snippet req "require an AMD module"
-require([${1:'dependencies'}], ${2:callback});
 endsnippet
 
