@@ -269,6 +269,9 @@ set wildignore+=**/vendor/gems/*,**/vendor/bundle/*,**/vendor/cache/*,**/.bundle
 " Ignore middleman build
 set wildignore+=build
 
+" Ignore middleman build
+set wildignore+=node_modules
+
 set wildignore+=*.luac                           " Lua byte code
 set wildignore+=*.pyc                            " Python byte code
 set wildignore+=*.orig                           " Merge resolution files
@@ -1021,7 +1024,9 @@ cnoremap <expr> %p  getcmdtype() == ':' ? fnameescape('~/code/projects').'/' : '
 " Snippets              {{{
 """""""""""""""""""""""
 
+" <c-j> and <c-k> for moving through placeholders
 let g:UltiSnipsSnippetDirectories    = ["UltiSnips", "mysnippets"]
+
 " Overcome Vundle runtime path so snippet overrides work
 let g:UltiSnipsDontReverseSearchPath = "1"
 
