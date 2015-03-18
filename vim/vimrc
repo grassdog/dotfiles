@@ -108,6 +108,7 @@ Plugin 'kovisoft/slimv'
 Plugin 'mxw/vim-jsx'
 Plugin 'wting/rust.vim'
 Plugin 'cespare/vim-toml'
+Plugin 'reedes/vim-wordy'
 
 call vundle#end()
 
@@ -1040,6 +1041,21 @@ let g:yankring_history_file = '.yankring_history_file'
 function! YRRunAfterMaps()
   nnoremap <silent> Y  :<C-U>YRYankCount 'y$'<CR>
 endfunction
+
+
+""""""""""""""""""""""" }}}
+" Wordy                 {{{
+"""""""""""""""""""""""
+
+let g:wordy#ring = [
+  \ 'weak',
+  \ ['being', 'passive-voice', ],
+  \ 'weasel',
+  \ ['problematic', 'redundant', ],
+  \ ['colloquial', 'idiomatic', 'similies', ],
+  \ ]
+
+nnoremap <silent> <F11> :NextWordy<cr>
 
 
 """"""""""""""""""""""" }}}
