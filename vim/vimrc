@@ -68,7 +68,6 @@ Plugin 'szw/vim-tags'
 " Ruby
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-bundler'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'jgdavey/vim-blockle'
 Plugin 'tpope/vim-cucumber'
@@ -961,6 +960,9 @@ augroup grass_js
 
   " Undo vim-coffeescript screwing with my formatoptions and keep manual folding
   autocmd BufNewFile,BufReadPost *.coffee setlocal foldmethod=manual formatoptions-=o iskeyword=@,39,.,48-57,_,192-255,$
+
+  " Some plugin is messing with this so undo their work
+  autocmd FileType javascript setlocal formatoptions-=o
 augroup END
 
 
