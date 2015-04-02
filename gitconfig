@@ -45,7 +45,7 @@
   ll = log --graph --pretty=format:"%C(yellow)%h%Cblue%d%Creset\\ %s\\ %C(green)\\ %an,\\ %ar%Creset" -p
 
   # Details of last commit
-  lc = "!git ll -1"
+  l1 = "!git ll -1"
 
   # Grep
   g = "!f() { git log -G$1; }; f"
