@@ -82,7 +82,7 @@ Plugin 'othree/html5.vim'
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'kchmck/vim-coffee-script'
-Plugin 'claco/jasmine.vim'
+Bundle 'glanotte/vim-jasmine'
 Plugin 'JSON.vim'
 Plugin 'slim-template/vim-slim.git'
 
