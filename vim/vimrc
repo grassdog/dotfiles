@@ -588,11 +588,12 @@ endfunction
 
 " No need for language or to use dispatch
 let g:vim_tags_use_vim_dispatch = 0
-let g:vim_tags_use_language_field = 0
+let g:vim_tags_use_language_field = 1
+let g:vim_tags_auto_generate = 0
 
 " No gem file indexing thanks
 let g:vim_tags_gems_tags_command = "true"
-let g:vim_tags_ignore_files = ['.gitignore', '.svnignore', '.cvsignore', 'node_modules']
+let g:vim_tags_ignore_files = ['.gitignore', '.svnignore', '.cvsignore']
 
 " Let me select my tags
 nnoremap <c-]> g<c-]>
