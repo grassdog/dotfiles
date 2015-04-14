@@ -2,11 +2,6 @@
 --exclude=.hg
 --exclude=log
 --exclude=tmp
---exclude=node_modules
---exclude=*.min.js
---exclude=*vendor
-
---fields=+l
 
 --languages=-javascript,sql
 
