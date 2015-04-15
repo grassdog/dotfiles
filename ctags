@@ -70,7 +70,7 @@
 --regex-js=/([A-Za-z0-9._$]+)\.prototype[ \t.=]/\1/c,class/
 --regex-js=/([A-Za-z0-9._$]+)[ \t]*=[ \t]*\(function\(\)/\1/c,class/
 --regex-js=/['"]*([A-Za-z0-9_$]+)['"]*:[ \t]*\(function\(\)/\1/c,class/
---regex-js=/var[ \t]*([A-Za-z$][A-Za-z0-9_$()]+)[ \t]*=[ \t]*function[ \t]*\(/\1/f,function/
+--regex-js=/var[ \t]+([A-Za-z$][A-Za-z0-9_$()]+)[ \t]*=[ \t]*function[ \t]*\(/\1/f,function/
 
 --regex-js=/function[ \t]+([A-Za-z$][A-Za-z0-9_$]+)[ \t]*\([^)]*\)/\1/f,function/
 --regex-js=/[ \t]*([A-Za-z$][A-Za-z0-9_$]+)[ \t]*\([^)]*\)[ \t]*\{/\1/f,function/
@@ -82,7 +82,8 @@
 --regex-js=/['"]*([A-Za-z$][A-Za-z0-9_$]+)['"]*:[ \t]*\[/\1/a,array/
 --regex-js=/([A-Za-z0-9._$]+)\[["']([A-Za-z0-9_$]+)["']\][ \t]*=[ \t]*\[/\1\.\2/a,array/
 --regex-js=/class[ \t]+([A-Za-z0-9._$]+)[ \t]*/\1/c,class/
---regex-js=/var[ \t]*([A-Za-z$][A-Za-z0-9_$()]+)[ \t]*=[ \t]*[Rr]eact.createClass[ \t]*\(/\1/c,class/
+--regex-js=/var[ \t]+([A-Za-z$][A-Za-z0-9_$()]+)[ \t]*=[ \t]*[Rr]eact.createClass[ \t]*\(/\1/c,class/
+--regex-js=/var[ \t]+([A-Z][A-Za-z0-9_$]+)[ \t]*=[ \t]*[A-Za-z0-9_$]*[ \t]*[{(]/\1/c,class/
 
 
 --langdef=haskell

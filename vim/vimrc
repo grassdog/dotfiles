@@ -580,8 +580,7 @@ augroup END
 " Ctags                 {{{
 """""""""""""""""""""""
 
-" No need for language or to use dispatch
-"let g:tagman_ctags_binary = "gtags"
+let g:tagman_ctags_binary = "gtags"
 
 " Let me select my tags
 nnoremap <c-]> g<c-]>
