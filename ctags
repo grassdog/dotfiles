@@ -5,12 +5,6 @@
 
 --languages=-javascript,sql
 
---langdef=markdown
---langmap=markdown:.md
---regex-markdown=/^#[ \t]+(.*)/\1/h,Heading_L1/
---regex-markdown=/^##[ \t]+(.*)/\1/i,Heading_L2/
---regex-markdown=/^###[ \t]+(.*)/\1/k,Heading_L3/
-
 --langdef=clojure
 --langmap=clojure:.clj
 --regex-clojure=/\([ \t]*create-ns[ \t]+([-[:alnum:]*+!_:\/.?]+)/\1/n,namespace/
