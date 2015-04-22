@@ -616,15 +616,9 @@ augroup END
 """""""""""""""""""""""
 
 function! ExtendMarkdownSyntax()
-  " Define some sytax groups that won't be spell checked
-  " To be matched: Camel CCase CamelCase allDay
-  " To be ignored: Hi there
-  syntax match RGMixedCase /\v<(\u{-2,}\w*)|(\u+\w*\u+\w*)>/
-  syntax match RGCamelCase /\v<\l+\u+\w+>/
-  syntax match RGBareURL /https\?:\/\/\(\w\+\(:\w\+\)\?@\)\?\([A-Za-z][-_0-9A-Za-z]*\.\)\{1,}\(\w\{2,}\.\?\)\{1,}\(:[0-9]\{1,5}\)\?\S*/
-
   " Highlight bare urls in markdown
   hi def link RGBareURL markdownUrl
+  match RGBareURL /https\?:\/\/\(\w\+\(:\w\+\)\?@\)\?\([A-Za-z][-_0-9A-Za-z]*\.\)\{1,}\(\w\{2,}\.\?\)\{1,}\(:[0-9]\{1,5}\)\?\S*/
 endfun
 
 augroup grass_html
@@ -632,6 +626,8 @@ augroup grass_html
 
   "override .md for markdown instead of modula2
   au BufNewFile,BufRead *.md set filetype=markdown
+
+  au BufNewFile,BufRead *.md :call ExtendMarkdownSyntax()
 
   au FileType html setlocal foldmethod=manual
 
@@ -646,8 +642,6 @@ augroup grass_html
 
   " Change tab width and wrap for markdown
   au FileType markdown setlocal wrap softtabstop=4 tabstop=4 shiftwidth=4 spell
-
-  au FileType markdown call ExtendMarkdownSyntax()
 
   " Preview markdown files in Marked.app
   au FileType markdown nnoremap <buffer> <leader>pm :silent !open -a 'Marked 2.app' '%:p'<cr>
