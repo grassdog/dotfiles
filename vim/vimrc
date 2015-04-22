@@ -206,18 +206,7 @@ set showcmd
 " Setup my language
 set spelllang=en_au
 
-"   /usr/share/dict/words
-"
-"   ~/.vim/custom-dictionary.utf-8.add
-"   Custom words (version-controlled)
-"
-"   ~/.vim-local-dictionary.utf-8.add
-"   More custom words (*not* version controlled)
-"
-set spellfile=~/.vim/custom-dictionary.utf-8.add,~/.vim-local-dictionary.utf-8.add
-
-" Add word to the local dict
-nnoremap zG 2zg
+set spellfile=~/Dropbox/Backups/Vim/custom-dictionary.utf-8.add
 
 " Toggle spelling
 noremap <F9> :setlocal spell! spell?<CR>
