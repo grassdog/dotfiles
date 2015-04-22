@@ -203,6 +203,10 @@ function posts() {
   mvim $(find ~/code/projects/raygrasso.com/source/posts -maxdepth 1 -type f | selecta)
 }
 
+function note() {
+  mvim $(find ~/Dropbox/Notes -maxdepth 3 -type f | selecta)
+}
+
 alias findpid="ps axww -o pid,user,%cpu,%mem,start,time,command | selecta | sed 's/^ *//' | cut -f1 -d' '"
 
 # By default, ^S freezes terminal output and ^Q resumes it. Disable that so
