@@ -254,7 +254,12 @@ set wildignore+=*.obj,*.rbc,*.class,*.gem        " Disable output and VCS files
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz " Disable archive files
 
 " Ignore bundler and sass cache
-set wildignore+=**/vendor/gems/*,**/vendor/bundle/*,**/vendor/cache/*,**/.bundle/*,**/b/*,.sass-cache/*,doc/**,**/tmp/**
+set wildignore+=**/vendor/gems/*,**/vendor/bundle/*,**/vendor/cache/*,**/.bundle/*,.sass-cache/*,doc/**
+set wildignore+=*/tmp/*
+set wildignore+=*/spec/vcr/*
+set wildignore+=*/coverage/*
+set wildignore+=*.otf,*.woff,*.orig
+
 
 " Ignore middleman build
 set wildignore+=build
