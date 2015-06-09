@@ -60,7 +60,6 @@ Plugin 'kien/ctrlp.vim'
 
 " Tools
 Plugin 'EasyGrep'
-Plugin 'mileszs/ack.vim'
 Plugin 'rking/ag.vim'
 Plugin 'henrik/vim-open-url'
 " Plugin 'szw/vim-tags'
