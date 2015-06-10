@@ -68,6 +68,10 @@ fi
 
 alias tmux="TERM=screen-256color-bce tmux"
 alias ts="tmux-start"
+alias tss="tmux switch -t"
+function tssl() {
+  tmux switch -t $(tmux list-sessions | cut -d ' ' -f 1 | selecta)
+}
 
 #######
 # Git
