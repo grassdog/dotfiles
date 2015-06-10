@@ -24,7 +24,11 @@ alias ea='vim ~/.zsh/aliases.zsh'
 
 # Set iterm title
 function title() {
-  echo -ne "\e]1;$1\a"
+  if [ "$TMUX" == "" ]; then
+    echo -ne "\e]0;$1\a"
+  else
+    echo -ne "\033k$1\033\\"
+  fi
 }
 
 alias vi='vim'
@@ -63,6 +67,7 @@ if [[ $(uname) == Darwin ]]; then
 fi
 
 alias tmux="TERM=screen-256color-bce tmux"
+alias ts="tmux-start"
 
 #######
 # Git
