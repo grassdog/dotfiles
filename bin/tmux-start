@@ -5,7 +5,7 @@ export PATH=$PATH:/usr/local/bin
 [ "$TMUX" == "" ] || exit 0
 
 # startup a "default" session if none currently exists
-tmux has-session -t _default || tmux new-session -s _default -d
+tmux has-session -t default || tmux new-session -s default -d
 
 # present menu for user to choose which workspace to open
 PS3="Please choose your session: "
