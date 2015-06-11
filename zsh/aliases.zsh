@@ -50,6 +50,9 @@ export TASKS="${HOME}/Dropbox/Notes/Tasks"
 alias t="taskmeister -t ${TASKS}"
 alias tg="taskmeister -t ${TASKS} -l general.md"
 
+# tmux
+alias tmux="TERM=screen-256color-bce tmux"
+
 ###############
 # OSX Specific
 ###############
@@ -65,10 +68,6 @@ if [[ $(uname) == Darwin ]]; then
   alias next="osascript -e 'tell app \"iTunes\" to next track'"
   alias prev="osascript -e 'tell app \"iTunes\" to previous track'"
 fi
-
-alias tmux="TERM=screen-256color-bce tmux"
-alias ts="tmux-start"
-alias tss="tmux switch -t"
 
 #######
 # Git
