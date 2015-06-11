@@ -1014,7 +1014,7 @@ let g:UltiSnipsDontReverseSearchPath = "1"
 " Yank-Ring             {{{
 """""""""""""""""""""""
 
-let g:yankring_replace_n_pkey = '<c-b>'
+let g:yankring_replace_n_pkey = '<c-q>'
 let g:yankring_history_file = '.yankring_history_file'
 function! YRRunAfterMaps()
   nnoremap <silent> Y  :<C-U>YRYankCount 'y$'<CR>
