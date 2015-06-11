@@ -1036,6 +1036,16 @@ let g:wordy#ring = [
 
 nnoremap <silent> <F11> :NextWordy<cr>
 
+""""""""""""""""""""""" }}}
+" Mouse                 {{{
+"""""""""""""""""""""""
+
+set mouse=nicra " Allow mouse scrolling in terminal
+" Allow mouse selection in tmux
+if &term =~ '^screen'
+  " tmux knows the extended mouse mode
+  set ttymouse=xterm2
+endif
 
 """"""""""""""""""""""" }}}
 " GUI                   {{{
