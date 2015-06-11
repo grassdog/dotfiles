@@ -42,6 +42,7 @@ Plugin 'mbbill/undotree'
 Plugin 'terryma/vim-expand-region'
 Plugin 'YankRing.vim'
 Plugin 'bogado/file-line'
+Plugin 'sjl/vitality.vim'
 
 " Text objects and motions
 Plugin 'kana/vim-textobj-user'
