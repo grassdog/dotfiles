@@ -137,8 +137,6 @@ set notimeout
 set ttimeout
 set ttimeoutlen=10
 
-set nopaste
-
 " Normally, Vim messes with iskeyword when you open a shell file. This can
 " leak out, polluting other file types even after a 'set ft=' change. This
 " variable prevents the iskeyword change so it can't hurt anyone.
@@ -176,6 +174,37 @@ set nrformats=
 set scrolloff=3       " Always show at least three lines below cursor
 set mat=3             " Blink matching brackets for 3 tenths of a second
 set visualbell t_vb=  " No Noise or bell
+
+
+"""""""""""""""""""""""" }}}
+" Paste and the terminal {{{
+""""""""""""""""""""""""
+
+set nopaste
+
+" Automatically toggle paste mode in terminal with tmux
+" https://coderwall.com/p/if9mda/automatically-set-paste-mode-in-vim-when-pasting-in-insert-mode
+function! WrapForTmux(s)
+  if !exists('$TMUX')
+    return a:s
+  endif
+
+  let tmux_start = "\<Esc>Ptmux;"
+  let tmux_end = "\<Esc>\\"
+
+  return tmux_start . substitute(a:s, "\<Esc>", "\<Esc>\<Esc>", 'g') . tmux_end
+endfunction
+
+let &t_SI .= WrapForTmux("\<Esc>[?2004h")
+let &t_EI .= WrapForTmux("\<Esc>[?2004l")
+
+function! XTermPasteBegin()
+  set pastetoggle=<Esc>[201~
+  set paste
+  return ""
+endfunction
+
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
 
 """"""""""""""""""""""" }}}
