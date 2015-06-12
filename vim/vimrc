@@ -309,7 +309,7 @@ set history=1000
 
 " Undo, swap, and backup files
 if has('persistent_undo')
-  set undofile                " So is persistent undo ...
+  set undofile
   set undolevels=1000         " Maximum number of changes that can be undone
   set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
 endif
@@ -371,9 +371,6 @@ noremap gk k
 noremap <down> gj
 noremap <up> gk
 
-" Quicker escape
-inoremap jj <ESC>
-
 " Hard mode
 let g:HardMode_on = 0
 
@@ -393,6 +390,15 @@ if g:HardMode_on
   vnoremap <Left> <nop>
   vnoremap <Right> <nop>
 end
+
+let g:ToughMode_on = 1
+
+if g:ToughMode_on
+  inoremap <Up> <nop>
+  inoremap <Down> <nop>
+  inoremap <Left> <nop>
+  inoremap <Right> <nop>
+endif
 
 " Move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
@@ -528,9 +534,6 @@ command! SetProjectDir :call s:setcwd()
 """""""""""""""""""""""
 
 iabbrev teh the
-
-command! InsertTime :normal a<c-r>=strftime('%F %H:%M:%S.0 %z')<cr>
-command! InsertDate :normal a<c-r>=strftime('%F')<cr>
 
 " Create a new dayone post from the buffer
 command! NewDayonePost :w !dayone new
@@ -1066,7 +1069,7 @@ let g:wordy#ring = [
 nnoremap <silent> <F11> :NextWordy<cr>
 
 """"""""""""""""""""""" }}}
-" Mouse                 {{{
+" Mouse and terminal    {{{
 """""""""""""""""""""""
 
 set mouse=nicra " Allow mouse scrolling in terminal
