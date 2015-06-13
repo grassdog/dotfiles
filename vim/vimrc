@@ -64,7 +64,6 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'EasyGrep'
 Plugin 'rking/ag.vim'
 Plugin 'henrik/vim-open-url'
-" Plugin 'szw/vim-tags'
 Plugin 'grassdog/tagman.vim'
 
 " Ruby
@@ -678,7 +677,7 @@ augroup grass_xml
   " Reformat XML files
   au FileType xml noremap <buffer> <leader>rff <Esc>:% !xmllint --format -<CR>
 
-  " Use <localleader>f to fold the current tag.
+  " Use <localleader>z to fold the current tag.
   au FileType xml nnoremap <buffer> <leader>z Vatzf
 
   " Indent current tag
@@ -996,12 +995,7 @@ command! Cheats :normal :silent! tabnew ~/Dropbox/Notes/Vim.md<cr>
 " Edit hot files
 command! Myrc :normal :edit $MYVIMRC<cr>
 command! Notes :normal :silent! vsplit ~/Dropbox/Notes<cr>4j
-command! WorkLog :normal :silent! edit ~/Dropbox/Notes/Work\ Log.md<cr>
 command! Scratch :normal :silent! edit ~/Dropbox/Notes/Scratch.md<cr>
-
-" Directory shortcuts in command mode
-cnoremap <expr> %n  getcmdtype() == ':' ? fnameescape('~/Dropbox/Notes').'/' : '%n'
-cnoremap <expr> %p  getcmdtype() == ':' ? fnameescape('~/code/projects').'/' : '%p'
 
 
 """"""""""""""""""""""" }}}
