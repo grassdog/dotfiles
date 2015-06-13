@@ -343,7 +343,7 @@ noremap <down> gj
 noremap <up> gk
 
 " Hard mode
-let g:HardMode_on = 0
+let g:HardMode_on = 1
 
 if g:HardMode_on
   nnoremap <Left> <Nop>
