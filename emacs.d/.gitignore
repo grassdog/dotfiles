@@ -13,5 +13,7 @@ ede-projects.el
 .DS_Store
 places
 .smex-items
-history/
+savefile/
 .mc-lists.el
+projectile.cache
+ido.last

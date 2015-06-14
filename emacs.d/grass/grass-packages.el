@@ -1,8 +1,8 @@
 (require 'package)
 
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+; (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+; (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 
 ; Don't autoload packages
 (setq package-enable-at-startup nil)
@@ -16,9 +16,13 @@
     zenburn-theme
     yasnippet
 
-    ag
     helm
     helm-projectile
+    flx-ido
+    ido-ubiquitous
+    smex
+
+    ag
     magit
 
     evil
@@ -53,8 +57,7 @@
 
     ;; Clojure
     clojure-mode
-    clojure-test-mode
-    nrepl
+    cider
 
     sml-mode
     haskell-mode
@@ -73,17 +76,23 @@
     )
   "A list of packages to ensure are installed at launch.")
 
-;; install the missing packages
-(defun grass-install-packages ()
-  "Ensure all of my required packages are installed"
-  (interactive)
-  (dolist (package grass-packages)
-    (when (not (package-installed-p package))
-      (package-install package))))
 
-;; fetch the list of packages available
-(when (not package-archive-contents)
-  (package-refresh-contents)
-  (grass-install-packages))
+
+(defun grass-ensure-packages-installed (packages)
+  "Assure every package is installed, ask for installation if it’s not.
+
+Return a list of installed packages or nil for every skipped package."
+  (mapcar
+   (lambda (package)
+     (if (package-installed-p package)
+         nil
+       (package-install package)))
+   packages))
+
+;; Make sure to have downloaded archive description.
+(or (file-exists-p package-user-dir)
+    (package-refresh-contents))
+
+(grass-ensure-packages-installed grass-packages)
 
 (provide 'grass-packages)
