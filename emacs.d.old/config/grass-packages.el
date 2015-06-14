@@ -1,29 +1,30 @@
 (require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(setq package-user-dir (expand-file-name "elpa" grass-root-dir))
+
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+
+(setq package-enable-at-startup nil)
 (package-initialize)
 
 (defvar grass-packages
-  '(elisp-slime-nav
-    exec-path-from-shell
-    expand-region
-    flycheck
-    dash
-    gist
+  '(
+    exec-path-from-shell   ; Use my shell's path
+    volatile-highlights    ; Highlight activities in the UI
     solarized-theme
-    volatile-highlights
+    zenburn-theme
     yasnippet
 
-    ;; TODO: This guy screws the mini buffer
-    wrap-region
-    multiple-cursors
-
+    ag
     helm
     helm-projectile
-
     magit
-    melpa
+
+    evil
+    evil
+    evil-surround
+    evil-leader
+    ;evil-rebellion
 
     rainbow-mode
     paredit
@@ -32,19 +33,19 @@
     coffee-mode
     css-mode
     feature-mode
-
+    web-mode
     haml-mode
-    haskell-mode
     markdown-mode
-    python
-    puppet-mode
+    scss-mode
+    slim-mode
+    yaml-mode
 
     ;; Ruby
     ruby-end
     ruby-block
     ruby-tools
     inf-ruby
-    yari
+    chruby
 
     ;; Clojure
     clojure-mode
@@ -52,14 +53,23 @@
     nrepl
 
     sml-mode
+    haskell-mode
+    python
+    puppet-mode
+    rust-mode
 
-    scss-mode
-    slim-mode
-    yaml-mode)
+    ;; Wait list
+
+    ; elisp-slime-nav
+    ; expand-region
+    ; dash
+    ; flycheck
+    ; wrap-region
+    ; multiple-cursors
+
+    )
   "A list of packages to ensure are installed at launch.")
 
-;; Packages to try
-;; ack-and-a-half
 
 ;; install the missing packages
 (defun grass-install-packages ()
@@ -74,7 +84,4 @@
   (package-refresh-contents)
   (grass-install-packages))
 
-(require 'dash)
-
 (provide 'grass-packages)
-;;; grass-packages ends here
