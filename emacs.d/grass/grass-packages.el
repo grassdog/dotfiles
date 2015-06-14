@@ -18,6 +18,7 @@
 
     helm
     helm-projectile
+    helm-ag
     flx-ido
     ido-ubiquitous
     smex
@@ -29,6 +30,7 @@
     evil
     evil-surround
     evil-leader
+    ;evil-args
     ;evil-rebellion
 
     rainbow-mode

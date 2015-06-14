@@ -102,13 +102,7 @@
 (require 'helm-projectile)
 
 (setq helm-buffers-fuzzy-matching t)
-;(setq helm-split-window-in-side-p           t
-;      helm-buffers-fuzzy-matching           t
-;      helm-move-to-line-cycle-in-source     t
-;      helm-ff-search-library-in-sexp        t
-;      helm-ff-file-name-history-use-recentf t)
-
-(global-set-key (kbd "C-c h") 'helm-command-prefix)
+; (helm-autoresize-mode 1)
 
 
 ;; Project file management
