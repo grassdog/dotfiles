@@ -4,12 +4,13 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 
+; Don't autoload packages
 (setq package-enable-at-startup nil)
+
 (package-initialize)
 
 (defvar grass-packages
-  '(
-    exec-path-from-shell   ; Use my shell's path
+  '(exec-path-from-shell   ; Use my shell's path
     volatile-highlights    ; Highlight activities in the UI
     solarized-theme
     zenburn-theme
@@ -30,21 +31,24 @@
     paredit
     rainbow-delimiters
 
-    coffee-mode
     css-mode
-    feature-mode
     web-mode
-    haml-mode
-    markdown-mode
     scss-mode
     slim-mode
+
+    js2-mode
+    coffee-mode
+
+    markdown-mode
+    haml-mode
+
     yaml-mode
+    feature-mode
 
     ;; Ruby
     ruby-end
     ruby-block
     ruby-tools
-    inf-ruby
     chruby
 
     ;; Clojure
@@ -62,14 +66,12 @@
 
     ; elisp-slime-nav
     ; expand-region
-    ; dash
     ; flycheck
     ; wrap-region
     ; multiple-cursors
 
     )
   "A list of packages to ensure are installed at launch.")
-
 
 ;; install the missing packages
 (defun grass-install-packages ()
