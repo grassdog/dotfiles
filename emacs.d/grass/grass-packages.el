@@ -1,8 +1,8 @@
 (require 'package)
 
-; (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-; (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 
 ; Don't autoload packages
 (setq package-enable-at-startup nil)
@@ -11,22 +11,25 @@
 
 (defvar grass-packages
   '(exec-path-from-shell   ; Use my shell's path
+
     volatile-highlights    ; Highlight activities in the UI
     solarized-theme
-    zenburn-theme
+
+    ethan-wspace
+
     yasnippet
 
     helm
     helm-projectile
     helm-ag
     flx-ido
+    ; ido-vertical-mode
     ido-ubiquitous
     smex
 
     ag
     magit
 
-    evil
     evil
     evil-surround
     evil-leader
@@ -55,6 +58,9 @@
     ruby-end
     ruby-block
     ruby-tools
+    ;; TODO Get these working
+    enh-ruby-mode
+    rspec-mode
     chruby
 
     ;; Clojure
