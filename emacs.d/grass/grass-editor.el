@@ -6,6 +6,7 @@
 ;; Follow symlinks by default
 (setq vc-follow-symlinks t)
 
+;; Selections and other actions
 (delete-selection-mode t)
 (transient-mark-mode t)
 (setq x-select-enable-clipboard t)
@@ -48,9 +49,6 @@
 (show-paren-mode +1)
 (setq show-paren-style 'parenthesis)
 
-;; Highlight the current line
-(global-hl-line-mode +1)
-
 ;; UI highlight search and other actions
 (require 'volatile-highlights)
 (volatile-highlights-mode t)
@@ -72,19 +70,17 @@
 (ido-mode +1)
 (ido-ubiquitous-mode +1)
 
-;;; smarter fuzzy matching for ido
+;; Smarter fuzzy matching for ido
 (flx-ido-mode +1)
 ;; disable ido faces to see flx highlights
 (setq ido-use-faces nil)
 
-;;; smex, remember recently and most frequently used commands
+;; smex, remember recently and most frequently used commands
 (require 'smex)
 (setq smex-save-file (expand-file-name ".smex-items" grass-savefile-dir))
 (smex-initialize)
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
-
-
 
 
 ;; Trojan horse maneuver
@@ -96,35 +92,6 @@
 
 (require 'evil)
 (evil-mode t)
-
-;; Interactive list refinement
-(require 'helm-config)
-(require 'helm-projectile)
-
-(setq helm-buffers-fuzzy-matching t)
-; (helm-autoresize-mode 1)
-
-
-;; Project file management
-(require 'projectile)
-(setq projectile-enable-caching t)
-(projectile-global-mode t)
-
-(setq projectile-completion-system 'helm)
-(helm-projectile-on)
-
-
-;; Common files
-
-(defun grass-open-cheats ()
-  "Open Emacs cheats file"
-  (interactive)
-  (find-file "~/Dropbox/Notes/Emacs.md"))
-
-(defun grass-open-reboot ()
-  "Open Emacs reboot org file"
-  (interactive)
-  (find-file "~/Dropbox/Notes/Emacs Reboot.org"))
 
 (provide 'grass-editor)
 

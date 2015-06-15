@@ -36,10 +36,10 @@
       '("" invocation-name " - " (:eval (if (buffer-file-name)
                                             (abbreviate-file-name (buffer-file-name))
                                           "%b"))))
-
-;; Use Solarized when in GUI mode
+;; GUI Mode settings
 (when (display-graphic-p)
-      (load-theme 'solarized-dark t))
-
+      (load-theme 'solarized-dark t)
+      ;; Highlight the current line
+      (global-hl-line-mode +1))
 
 (provide 'grass-ui)
