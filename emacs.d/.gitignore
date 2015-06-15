@@ -16,4 +16,5 @@ places
 savefile/
 .mc-lists.el
 projectile.cache
+projectile-bookmarks.eld
 ido.last
