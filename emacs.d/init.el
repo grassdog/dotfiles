@@ -1,4 +1,9 @@
 
+;; UTF-8 Thanks
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+
 ;; File paths
 (defvar grass-dotfiles-dir (file-name-directory load-file-name)
   "The root dir of my Emacs config.")
