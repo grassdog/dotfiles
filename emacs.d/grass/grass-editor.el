@@ -49,5 +49,5 @@
 (require 'volatile-highlights)
 (volatile-highlights-mode t)
 
-(provide 'grass-editor)
 
+(provide 'grass-editor)

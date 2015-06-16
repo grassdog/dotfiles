@@ -17,21 +17,14 @@
 ;; We never want to edit Rubinius bytecode
 (add-to-list 'completion-ignored-extensions ".rbc")
 
-(eval-after-load 'ruby-mode
-  '(progn
-     (defun grass-ruby-mode-defaults ()
-       (inf-ruby-setup-keybindings)
-       ;; turn off the annoying input echo in irb
-       (setq comint-process-echoes t)
-       (ruby-block-mode t)
-       (ruby-end-mode +1)
-       (ruby-tools-mode +1)
-       ;; CamelCase aware editing operations
-       (subword-mode +1))
-
-     (setq grass-ruby-mode-hook 'grass-ruby-mode-defaults)
-
-     (add-hook 'ruby-mode-hook (lambda ()
-                                 (run-hooks 'grass-ruby-mode-hook)))))
+(add-hook 'ruby-mode-hook
+ (lambda ()
+  ;; turn off the annoying input echo in irb
+  (setq comint-process-echoes t)
+  (ruby-block-mode t)
+  (ruby-end-mode +1)
+  (ruby-tools-mode +1)
+  ;; CamelCase aware editing operations
+  (subword-mode +1)))
 
 (provide 'grass-ruby)

@@ -36,6 +36,10 @@
       '("" invocation-name " - " (:eval (if (buffer-file-name)
                                             (abbreviate-file-name (buffer-file-name))
                                           "%b"))))
+;; Line numbers
+(require 'linum)
+(global-linum-mode 1)
+
 ;; GUI Mode settings
 (when (display-graphic-p)
       (load-theme 'solarized-dark t)
