@@ -49,5 +49,8 @@
 (require 'volatile-highlights)
 (volatile-highlights-mode t)
 
+;; Use shift + arrow keys to switch between visible buffers
+(require 'windmove)
+(windmove-default-keybindings)
 
 (provide 'grass-editor)

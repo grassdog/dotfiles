@@ -2,7 +2,7 @@
 (defun grass-recompile-init ()
   "Byte-compile all your dotfiles again."
   (interactive)
-  (byte-recompile-directory grass-root-dir 0))
+  (byte-recompile-directory grass-dotfiles-dir 0))
 
 ;; Quick buffer switch
 (defun switch-to-previous-buffer ()

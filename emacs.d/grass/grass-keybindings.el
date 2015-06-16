@@ -1,5 +1,5 @@
 
-(evil-leader/set-key "ff" 'dired-jump)
+(evil-leader/set-key "d" 'dired-jump)
 (evil-leader/set-key "e" 'pp-eval-last-sexp)
 
 ;; Create file in dired

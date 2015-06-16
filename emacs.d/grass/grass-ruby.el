@@ -1,4 +1,4 @@
-(require 'ruby-block)
+;; (require 'ruby-block)
 (require 'ruby-end)
 (require 'ruby-tools)
 

@@ -9,6 +9,9 @@
 (require 'evil-commentary)
 (evil-commentary-mode)
 
+(require 'evil-matchit)
+(global-evil-matchit-mode 1)
+
 (require 'evil)
 (evil-mode t)
 

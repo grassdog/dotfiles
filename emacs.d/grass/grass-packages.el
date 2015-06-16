@@ -34,6 +34,7 @@
     evil-surround
     evil-leader
     evil-commentary
+    evil-matchit
     ;evil-args
     ;evil-rebellion
 

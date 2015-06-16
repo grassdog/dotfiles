@@ -37,4 +37,7 @@
 (require 'grass-projectile)
 (require 'grass-orgmode)
 (require 'grass-ruby)
+(require 'grass-js)
+(require 'grass-webmode)
+(require 'grass-markdown)
 (require 'grass-osx)
