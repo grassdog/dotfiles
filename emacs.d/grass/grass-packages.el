@@ -33,6 +33,7 @@
     evil
     evil-surround
     evil-leader
+    evil-commentary
     ;evil-args
     ;evil-rebellion
 

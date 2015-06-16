@@ -6,6 +6,9 @@
 (evil-leader/set-leader ",")
 (global-evil-leader-mode)
 
+(require 'evil-commentary)
+(evil-commentary-mode)
+
 (require 'evil)
 (evil-mode t)
 
