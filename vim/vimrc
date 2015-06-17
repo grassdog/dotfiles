@@ -609,6 +609,9 @@ augroup grass_allfiles
   au InsertEnter * :set listchars-=trail:·
   au InsertLeave * :set listchars+=trail:·
 
+  " Highlight TODOs
+  au WinEnter,VimEnter * :silent! call matchadd('Todo', 'TODO', -1)
+
   " Remember last location in file, but not for commit messages.
   " see :help last-position-jump
   autocmd BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
