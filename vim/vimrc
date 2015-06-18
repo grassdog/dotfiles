@@ -362,7 +362,7 @@ if g:HardMode_on
   vnoremap <Right> <nop>
 end
 
-let g:ToughMode_on = 1
+let g:ToughMode_on = 0
 
 if g:ToughMode_on
   inoremap <Up> <nop>
