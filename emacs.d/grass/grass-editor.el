@@ -53,4 +53,9 @@
 (require 'windmove)
 (windmove-default-keybindings)
 
+;; flyspell-mode does spell-checking on the fly as you type
+(require 'flyspell)
+(setq ispell-program-name "aspell" ; use aspell instead of ispell
+      ispell-extra-args '("--lang=en_AU --sug-mode=ultra"))
+
 (provide 'grass-editor)

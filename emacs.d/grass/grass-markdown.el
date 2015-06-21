@@ -16,7 +16,8 @@
 
 (add-hook 'markdown-mode-hook
           (lambda ()
-            (setq imenu-generic-expression markdown-imenu-generic-expression)))
+            (setq imenu-generic-expression markdown-imenu-generic-expression)
+            (flyspell-mode +1)))
 
 ;; Preview markdown file in Marked.app
 (defun markdown-preview-file ()
