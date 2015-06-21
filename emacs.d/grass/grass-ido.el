@@ -3,7 +3,7 @@
 (require 'ido)
 (require 'ido-ubiquitous)
 (require 'flx-ido)
-;; (require 'ido-vertical-mode)
+(require 'ido-vertical-mode)
 
 (setq ido-enable-prefix nil
       ido-enable-flex-matching t
@@ -16,7 +16,7 @@
       org-completion-use-ido t)
 (ido-mode +1)
 (ido-ubiquitous-mode +1)
-;; (ido-vertical-mode 1)
+(ido-vertical-mode 1)
 
 ;; Smarter fuzzy matching for ido
 (flx-ido-mode +1)
