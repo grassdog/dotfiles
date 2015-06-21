@@ -58,4 +58,12 @@
 (setq ispell-program-name "aspell" ; use aspell instead of ispell
       ispell-extra-args '("--lang=en_AU --sug-mode=ultra"))
 
+;; 80 char wide paragraphs please
+(setq-default fill-column 80)
+
+;; Autofill where possible but only in comments when coding
+;; http://stackoverflow.com/questions/4477357/how-to-turn-on-emacs-auto-fill-mode-only-for-code-comments
+;; (auto-fill-mode 1)
+;; (setq comment-auto-fill-only-comments t)
+
 (provide 'grass-editor)

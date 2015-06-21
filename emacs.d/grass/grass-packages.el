@@ -23,7 +23,7 @@
     helm-projectile
     helm-ag
     flx-ido
-    ; ido-vertical-mode
+    ;; ido-vertical-mode
     ido-ubiquitous
     smex
 

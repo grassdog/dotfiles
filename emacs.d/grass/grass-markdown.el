@@ -15,16 +15,15 @@
         ("fn"   "^\\[\\^\\(.*\\)\\]" 1)))
 
 (add-hook 'markdown-mode-hook
-          (lambda ()
-            (setq imenu-generic-expression markdown-imenu-generic-expression)
-            (flyspell-mode +1)))
+  (lambda ()
+    (setq imenu-generic-expression markdown-imenu-generic-expression)))
 
 ;; Preview markdown file in Marked.app
 (defun markdown-preview-file ()
   "run Marked.app on the current file and revert the buffer"
   (interactive)
   (shell-command
-   (format "open -a /Applications/Marked.app %s"
+   (format "open -a 'Marked 2' %s"
            (shell-quote-argument (buffer-file-name)))))
 
 (global-set-key (kbd "C-c m") 'markdown-preview-file)
