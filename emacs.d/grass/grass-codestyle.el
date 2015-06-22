@@ -34,10 +34,7 @@
 (setq sentence-end-double-space nil)
 
 ;; Enforce proper whitespace
-(require 'ethan-wspace)
-(setq mode-require-final-newline nil)
-(setq require-final-newline nil)
-(global-ethan-wspace-mode 1)
+(setq require-final-newline t)
+(add-hook 'before-save-hook 'whitespace-cleanup)
 
 (provide 'grass-codestyle)
-

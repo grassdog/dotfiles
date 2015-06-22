@@ -9,13 +9,26 @@
 
 (package-initialize)
 
+;; Detect online status, from ESK
+(require 'cl)
+(defun esk-online? ()
+  (if (and (functionp 'network-interface-list)
+           (network-interface-list))
+      (some (lambda (iface) (unless (equal "lo" (car iface))
+                         (member 'up (first (last (network-interface-info
+                                                   (car iface)))))))
+            (network-interface-list))
+    t))
+
+;; ELPA
+(when (esk-online?)
+  (unless package-archive-contents (package-refresh-contents)))
+
 (defvar grass-packages
   '(exec-path-from-shell   ; Use my shell's path
 
     volatile-highlights    ; Highlight activities in the UI
     solarized-theme
-
-    ethan-wspace
 
     yasnippet
 
