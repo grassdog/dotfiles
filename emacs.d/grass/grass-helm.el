@@ -13,7 +13,7 @@
 ;; action, such as *Help* window.
 (require 'popwin)
 (popwin-mode 1)
-(push '("^\*helm.+\*$" :regexp t :height 20) popwin:special-display-config)
+(push '("^\*helm.+\*$" :regexp t :height 25) popwin:special-display-config)
 (add-hook 'helm-after-initialize-hook (lambda ()
                                          (popwin:display-buffer helm-buffer t)
                                          (popwin-mode -1)))
