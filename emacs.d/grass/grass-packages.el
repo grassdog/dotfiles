@@ -68,6 +68,8 @@
     markdown-mode
     haml-mode
 
+    auto-complete
+
     yaml-mode
     feature-mode
 

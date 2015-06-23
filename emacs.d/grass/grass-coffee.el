@@ -35,10 +35,13 @@
           (setq indent-size (+ curindent coffee-tab-width) ))
     (coffee--indent-insert-spaces indent-size)))))
 
+(add-to-list 'ac-modes 'coffee-mode)
+
 (add-hook 'coffee-mode-hook
   (lambda ()
     (set (make-local-variable 'tab-width) 2)
     (setq indent-line-function 'grass/coffee-indent-line)
+    (auto-complete-mode)
     (setq evil-shift-width coffee-tab-width)))
 
 (provide 'grass-coffee)
