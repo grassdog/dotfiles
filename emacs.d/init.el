@@ -28,6 +28,7 @@
 (require 'grass-packages)
 (require 'grass-ui)
 (require 'grass-editor)
+(require 'grass-coding)
 (require 'grass-codestyle)
 (require 'grass-evil)
 (require 'grass-ido)
