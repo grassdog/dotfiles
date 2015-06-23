@@ -34,7 +34,13 @@
 (setq sentence-end-double-space nil)
 
 ;; Enforce proper whitespace
+(require 'whitespace)
+
 (setq require-final-newline t)
 (add-hook 'before-save-hook 'whitespace-cleanup)
+
+;; Only show bad whitespace (Ignore empty lines at start and end of buffer)
+(setq whitespace-style '(face tabs trailing space-before-tab indentation space-after-tab))
+(global-whitespace-mode t)
 
 (provide 'grass-codestyle)
