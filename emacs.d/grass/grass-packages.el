@@ -43,6 +43,8 @@
     ag
     magit
 
+    typo
+
     evil
     evil-surround
     evil-leader

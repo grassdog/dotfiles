@@ -66,6 +66,10 @@
 ;; (auto-fill-mode 1)
 ;; (setq comment-auto-fill-only-comments t)
 
+;; Easy insert of quotes and dashes
+(require 'typo)
+(typo-global-mode 1)
+(add-hook 'text-mode-hook 'typo-mode)
 
 (defun grass/auto-save-all()
   "Save all modified buffers that point to files."
