@@ -38,6 +38,7 @@
     flx-ido
     ido-vertical-mode
     ido-ubiquitous
+    popwin
 
     ag
     magit
