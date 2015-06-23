@@ -66,4 +66,18 @@
 ;; (auto-fill-mode 1)
 ;; (setq comment-auto-fill-only-comments t)
 
+
+(defun grass-auto-save-all()
+  "Save all modified buffers that point to files."
+  (interactive)
+  (save-excursion
+    (dolist (buf (buffer-list))
+      (set-buffer buf)
+      (if (and (buffer-file-name) (buffer-modified-p))
+        (basic-save-buffer)))))
+
+(add-hook 'auto-save-hook 'grass-auto-save-all)
+(add-hook 'mouse-leave-buffer-hook 'grass-auto-save-all)
+(add-hook 'focus-out-hook 'grass-auto-save-all)
+
 (provide 'grass-editor)
