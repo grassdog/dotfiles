@@ -24,7 +24,7 @@
 (when (esk-online?)
   (unless package-archive-contents (package-refresh-contents)))
 
-(defvar grass-packages
+(defvar grass/packages
   '(exec-path-from-shell   ; Use my shell's path
 
     volatile-highlights    ; Highlight activities in the UI
@@ -38,7 +38,6 @@
     flx-ido
     ido-vertical-mode
     ido-ubiquitous
-    smex
 
     ag
     magit
@@ -101,7 +100,7 @@
 
 
 
-(defun grass-ensure-packages-installed (packages)
+(defun grass/ensure-packages-installed (packages)
   "Assure every package is installed, ask for installation if it’s not.
 
 Return a list of installed packages or nil for every skipped package."
@@ -116,6 +115,6 @@ Return a list of installed packages or nil for every skipped package."
 (or (file-exists-p package-user-dir)
     (package-refresh-contents))
 
-(grass-ensure-packages-installed grass-packages)
+(grass/ensure-packages-installed grass/packages)
 
 (provide 'grass-packages)

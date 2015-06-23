@@ -20,7 +20,7 @@
 (electric-pair-mode t)
 
 ;; Saveplace remembers your location in a file when saving files
-(setq save-place-file (expand-file-name "saveplace" grass-savefile-dir))
+(setq save-place-file (expand-file-name "saveplace" grass/savefile-dir))
 ;; activate it for all buffers
 (setq-default save-place t)
 (require 'saveplace)
@@ -32,11 +32,11 @@
       ;; save every minute
       savehist-autosave-interval 60
       ;; keep the home clean
-      savehist-file (expand-file-name "savehist" grass-savefile-dir))
+      savehist-file (expand-file-name "savehist" grass/savefile-dir))
 (savehist-mode t)
 
 ;; Save recent files
-(setq recentf-save-file (expand-file-name "recentf" grass-savefile-dir)
+(setq recentf-save-file (expand-file-name "recentf" grass/savefile-dir)
       recentf-max-saved-items 200
       recentf-max-menu-items 15)
 (recentf-mode t)
@@ -67,7 +67,7 @@
 ;; (setq comment-auto-fill-only-comments t)
 
 
-(defun grass-auto-save-all()
+(defun grass/auto-save-all()
   "Save all modified buffers that point to files."
   (interactive)
   (save-excursion
@@ -76,8 +76,8 @@
       (if (and (buffer-file-name) (buffer-modified-p))
         (basic-save-buffer)))))
 
-(add-hook 'auto-save-hook 'grass-auto-save-all)
-(add-hook 'mouse-leave-buffer-hook 'grass-auto-save-all)
-(add-hook 'focus-out-hook 'grass-auto-save-all)
+(add-hook 'auto-save-hook 'grass/auto-save-all)
+(add-hook 'mouse-leave-buffer-hook 'grass/auto-save-all)
+(add-hook 'focus-out-hook 'grass/auto-save-all)
 
 (provide 'grass-editor)

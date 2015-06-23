@@ -4,8 +4,8 @@
 
 ;; Move lines
 ;; TODO Apply this in a hook
-(global-set-key (kbd "<C-S-up>") 'grass-move-line-up)
-(global-set-key (kbd "<C-S-down>")  'grass-move-line-down)
+(global-set-key (kbd "<C-S-up>") 'grass/move-line-up)
+(global-set-key (kbd "<C-S-down>")  'grass/move-line-down)
 
 ;; Create file in dired
 (evil-leader/set-key-for-mode 'dired-mode "c" 'find-file)

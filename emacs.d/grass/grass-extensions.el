@@ -1,8 +1,8 @@
 
-(defun grass-recompile-init ()
+(defun grass/recompile-init ()
   "Byte-compile all your dotfiles again."
   (interactive)
-  (byte-recompile-directory grass-dotfiles-dir 0))
+  (byte-recompile-directory grass/dotfiles-dir 0))
 
 ;; Quick buffer switch
 (defun switch-to-previous-buffer ()
@@ -26,13 +26,13 @@ Repeated invocations toggle between the two most recently open buffers."
           (rename-file filename new-name t)
           (set-visited-file-name new-name t t)))))))
 
-(defun grass-move-line-up ()
+(defun grass/move-line-up ()
   "Move the current line up."
   (interactive)
   (transpose-lines 1)
   (forward-line -2))
 
-(defun grass-move-line-down ()
+(defun grass/move-line-down ()
   "Move the current line down."
   (interactive)
   (forward-line 1)
@@ -41,12 +41,12 @@ Repeated invocations toggle between the two most recently open buffers."
 
 ;; Common files
 
-(defun grass-open-cheats ()
+(defun grass/open-cheats ()
   "Open Emacs cheats file"
   (interactive)
   (find-file "~/Dropbox/Notes/Emacs.md"))
 
-(defun grass-open-reboot ()
+(defun grass/open-reboot ()
   "Open Emacs reboot org file"
   (interactive)
   (find-file "~/Dropbox/Notes/Emacs Reboot.org"))

@@ -18,13 +18,13 @@
         ad-do-it)
     ad-do-it))
 
-(defun grass-web-mode-hook ()
+(defun grass/web-mode-hook ()
   "Hooks for Web mode."
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
   (setq web-mode-enable-current-element-highlight t))
 
-(add-hook 'web-mode-hook  'grass-web-mode-hook)
+(add-hook 'web-mode-hook  'grass/web-mode-hook)
 
 (provide 'grass-webmode)
