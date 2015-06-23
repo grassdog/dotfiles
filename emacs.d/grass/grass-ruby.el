@@ -24,6 +24,7 @@
   (ruby-block-mode t)
   (ruby-end-mode +1)
   (ruby-tools-mode +1)
+  (setq evil-shift-width ruby-indent-level)
   ;; CamelCase aware editing operations
   (subword-mode +1)))
 

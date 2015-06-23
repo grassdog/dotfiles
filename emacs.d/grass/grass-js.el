@@ -9,9 +9,15 @@
      (setq mode-name "JS2")
      (setq js2-global-externs '("require" "module" "jest" "jasmine"
                                 "it" "expect" "describe" "beforeEach"))
+
+     (setq evil-shift-width js-indent-level)
      (js2-imenu-extras-mode +1)))
 
 
 (require 'coffee-mode)
+
+(add-hook 'coffee-mode-hook
+  (lambda ()
+     (setq evil-shift-width coffee-tab-width)))
 
 (provide 'grass-js)
