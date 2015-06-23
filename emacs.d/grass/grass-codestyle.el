@@ -15,6 +15,10 @@
 ;; JSON
 (setq-default js-indent-level 2)
 
+;; Sass
+(setq css-indent-offset 2)
+(setq scss-indent-offset 2)
+
 ;; Coffeescript
 (setq coffee-tab-width 2)
 
