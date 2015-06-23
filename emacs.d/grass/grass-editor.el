@@ -17,7 +17,7 @@
 (global-auto-revert-mode t)
 
 ;; Smart pairing for all
-(electric-pair-mode t)
+; (electric-pair-mode t)
 
 ;; Saveplace remembers your location in a file when saving files
 (setq save-place-file (expand-file-name "saveplace" grass/savefile-dir))
