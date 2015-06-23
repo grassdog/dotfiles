@@ -38,6 +38,7 @@
 (require 'grass-orgmode)
 (require 'grass-ruby)
 (require 'grass-js)
+(require 'grass-coffee)
 (require 'grass-webmode)
 (require 'grass-markdown)
 (require 'grass-osx)
