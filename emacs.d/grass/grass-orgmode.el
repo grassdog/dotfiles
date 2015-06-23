@@ -9,8 +9,6 @@
 
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 
-
-
 (evil-leader/set-key-for-mode 'org-mode "t" 'org-todo)
 
 ; (setq org-todo-keywords '((sequence "TODO" "WAIT" "|" "DONE" "CANCELED")))

@@ -19,6 +19,9 @@
 
 (evil-mode t)
 
+;; Yank till end of line
+(define-key evil-normal-state-map (kbd "Y") (kbd "y$"))
+
 ;; Make movement keys work like they should
 (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
 (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
@@ -35,10 +38,8 @@
 (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
 
 ;; Overload shifts so that they don't lose the selection
-(define-key evil-visual-state-map (kbd ">") 'grass/evil-shift-right-visual)
-(define-key evil-visual-state-map (kbd "<") 'grass/evil-shift-left-visual)
-(define-key evil-visual-state-map [tab] 'grass/evil-shift-right-visual)
-(define-key evil-visual-state-map [S-tab] 'grass/evil-shift-left-visual)
+(define-key evil-visual-state-map (kbd ">>") 'grass/evil-shift-right-visual)
+(define-key evil-visual-state-map (kbd "<<") 'grass/evil-shift-left-visual)
 
 (defun grass/evil-shift-left-visual ()
   (interactive)

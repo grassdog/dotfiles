@@ -14,5 +14,6 @@
 (evil-leader/set-key "f" 'helm-find-files)
 (evil-leader/set-key "b" 'helm-buffers-list)
 (evil-leader/set-key "x" 'helm-M-x)
+(evil-leader/set-key "r" 'helm-recentf)
 
 (provide 'grass-helm)
