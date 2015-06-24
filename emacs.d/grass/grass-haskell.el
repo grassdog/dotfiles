@@ -48,4 +48,7 @@
 ; (autoload 'ghc-debug "ghc" nil t)
 ; (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
 
+; (add-to-list 'company-backends 'company-ghc)
+; (custom-set-variables '(company-ghc-show-info t))
+
 (provide 'grass-haskell)

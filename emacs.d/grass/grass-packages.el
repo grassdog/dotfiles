@@ -90,6 +90,7 @@
     haskell-mode
     hi2
     ghc
+    company-ghc
 
     python
     puppet-mode
