@@ -27,10 +27,6 @@
 ;; disable ido faces to see flx highlights
 (setq ido-use-faces nil)
 
-(global-set-key (kbd "M-x") 'helm-M-x)
-;; This is the old M-x.
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
 ;; Bind `~` to go to homedir when in ido-find-file;
 ;; http://whattheemacsd.com/setup-ido.el-02.html
 (add-hook 'ido-setup-hook
