@@ -39,6 +39,7 @@
     ido-vertical-mode
     ido-ubiquitous
     popwin
+    dired-single
 
     ag
     magit
@@ -50,7 +51,6 @@
     evil-leader
     evil-commentary
     evil-matchit
-    ;evil-args
     ;evil-rebellion
 
     rainbow-mode
