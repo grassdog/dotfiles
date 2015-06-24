@@ -42,4 +42,7 @@
 (require 'grass-coffee)
 (require 'grass-webmode)
 (require 'grass-markdown)
+(require 'grass-haskell)
+(require 'grass-lisp)
+(require 'grass-clojure)
 (require 'grass-osx)
