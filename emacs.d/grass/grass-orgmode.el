@@ -10,11 +10,14 @@
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 
 (evil-leader/set-key-for-mode 'org-mode "t" 'org-todo)
+(evil-leader/set-key-for-mode 'org-mode "a" 'org-todo-list)
 
 ; (setq org-todo-keywords '((sequence "TODO" "WAIT" "|" "DONE" "CANCELED")))
 
-;; Make windmove work in org-mode:
+;; Make windmove work in org-mode
 (setq org-replace-disputed-keys t)
+(setq org-return-follows-link t)
+(setq org-agenda-files '("~/Dropbox/Notes"))
 
 (add-hook 'org-mode-hook
  (lambda ()
