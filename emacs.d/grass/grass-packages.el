@@ -88,6 +88,9 @@
 
     sml-mode
     haskell-mode
+    hi2
+    ghc
+
     python
     puppet-mode
     rust-mode
