@@ -3,6 +3,6 @@
 (when (eq system-type 'darwin)
   (exec-path-from-shell-initialize)
   ;; Default font thanks
-  (set-default-font "Menlo-12"))
+  (set-frame-font "Menlo-12"))
 
 (provide 'grass-osx)
