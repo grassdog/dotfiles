@@ -22,8 +22,10 @@
 (add-hook 'helm-cleanup-hook (lambda () (popwin-mode 1)))
 
 (evil-leader/set-key "f" 'helm-find-files)
-(evil-leader/set-key "b" 'helm-buffers-list)
+(evil-leader/set-key "o" 'helm-buffers-list)
+(global-set-key (kbd "C-, o") 'helm-buffers-list)
 (evil-leader/set-key "x" 'helm-M-x)
 (evil-leader/set-key "r" 'helm-recentf)
+(global-set-key (kbd "C-, r") 'helm-recentf)
 
 (provide 'grass-helm)

@@ -5,13 +5,15 @@
   (byte-recompile-directory grass/dotfiles-dir 0))
 
 ;; Quick buffer switch
-(defun switch-to-previous-buffer ()
+(defun grass/switch-to-previous-buffer ()
   "Switch to previously open buffer.
 Repeated invocations toggle between the two most recently open buffers."
   (interactive)
   (switch-to-buffer (other-buffer (current-buffer) 1)))
 
-(evil-leader/set-key "," 'switch-to-previous-buffer)
+;; Switch buffers, even in non evil modes
+(evil-leader/set-key "," 'grass/switch-to-previous-buffer)
+(global-set-key (kbd "C-, ,") 'grass/switch-to-previous-buffer)
 
 (defun rename-file-and-buffer ()
   "Rename the current buffer and file it is visiting."

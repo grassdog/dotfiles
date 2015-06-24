@@ -13,6 +13,9 @@
 
 ; (setq org-todo-keywords '((sequence "TODO" "WAIT" "|" "DONE" "CANCELED")))
 
+;; Make windmove work in org-mode:
+(setq org-replace-disputed-keys t)
+
 (add-hook 'org-mode-hook
  (lambda ()
    ;; No auto indent please
