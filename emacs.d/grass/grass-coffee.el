@@ -35,8 +35,6 @@
           (setq indent-size (+ curindent coffee-tab-width) ))
     (coffee--indent-insert-spaces indent-size)))))
 
-(add-to-list 'ac-modes 'coffee-mode)
-
 (add-hook 'coffee-mode-hook
   (lambda ()
     (set (make-local-variable 'tab-width) 2)

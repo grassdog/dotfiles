@@ -68,7 +68,7 @@
     markdown-mode
     haml-mode
 
-    auto-complete
+    company
 
     yaml-mode
     feature-mode

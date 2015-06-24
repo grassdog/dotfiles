@@ -8,11 +8,12 @@ This functions should be added to the hooks of major modes for programming."
 
 (add-hook 'prog-mode-hook 'font-lock-comment-annotations)
 
-(require 'auto-complete)
-(ac-config-default)
-(ac-set-trigger-key "TAB")
-(setq ac-auto-start nil)
-(define-key ac-completing-map "\t" 'ac-complete)
-(define-key ac-completing-map "\r" 'ac-complete)
+(require 'company)
+(add-hook 'after-init-hook 'global-company-mode)
+(defun complete-or-indent ()
+  (interactive)
+  (if (company-manual-begin)
+      (company-complete-common)
+    (indent-according-to-mode)))
 
 (provide 'grass-coding)
