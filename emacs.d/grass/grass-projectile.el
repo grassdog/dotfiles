@@ -12,7 +12,8 @@
 (helm-projectile-on)
 
 (evil-leader/set-key "p" 'helm-projectile)
-(evil-leader/set-key "a" 'helm-projectile-ag)
+(global-set-key (kbd "C-, p") 'helm-projectile)
+(evil-leader/set-key "a" 'projectile-ag)
 (evil-leader/set-key "s" 'helm-projectile-switch-project)
 
 (provide 'grass-projectile)
