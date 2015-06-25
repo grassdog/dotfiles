@@ -7,6 +7,7 @@
 (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
 (add-hook 'clojure-mode-hook #'paredit-mode)
 (add-hook 'cider-repl-mode-hook #'paredit-mode)
+(add-hook 'scheme-mode-hook #'paredit-mode)
 
 ;; hl-sexp: minor mode to highlight s-expression
 (require 'hl-sexp)
@@ -14,6 +15,12 @@
 (add-hook 'clojure-mode-hook #'hl-sexp-mode)
 (add-hook 'lisp-mode-hook #'hl-sexp-mode)
 (add-hook 'emacs-lisp-mode-hook #'hl-sexp-mode)
+(add-hook 'scheme-mode-hook #'paredit-mode)
+
+(add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'lisp-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'scheme-mode-hook #'rainbow-delimiters-mode)
 
 ;; Cider
 
@@ -59,7 +66,6 @@
 (add-hook 'clojure-mode-hook
   (lambda ()
     (subword-mode +1)
-    (rainbow-delimiters-mode +1)
     (clj-refactor-mode 1)
     ;; insert keybinding setup here
     (cljr-add-keybindings-with-prefix "C-c RET")))
