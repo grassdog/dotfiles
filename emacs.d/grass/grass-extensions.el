@@ -4,6 +4,32 @@
   (interactive)
   (byte-recompile-directory grass/dotfiles-dir 0))
 
+(defun grass/view-url ()
+  "Open a new buffer containing the contents of URL."
+  (interactive)
+  (let* ((default (thing-at-point-url-at-point))
+         (url (read-from-minibuffer "URL: " default)))
+    (switch-to-buffer (url-retrieve-synchronously url))
+    (rename-buffer url t)
+    (cond ((search-forward "<?xml" nil t) (xml-mode))
+          ((search-forward "<html" nil t) (html-mode)))))
+
+(defun grass/indent-buffer ()
+  "Indents the entire buffer."
+  (indent-region (point-min) (point-max)))
+
+(defun grass/indent-region-or-buffer ()
+  "Indents a region if selected, otherwise the whole buffer."
+  (interactive)
+  (save-excursion
+    (if (region-active-p)
+        (progn
+          (indent-region (region-beginning) (region-end))
+          (message "Indented selected region."))
+      (progn
+        (grass/indent-buffer)
+        (message "Indented buffer.")))))
+
 ;; Quick buffer switch
 (defun grass/switch-to-previous-buffer ()
   "Switch to previously open buffer.

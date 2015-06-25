@@ -22,8 +22,6 @@
 ;; Restore popwin-mode after a Helm session finishes.
 (add-hook 'helm-cleanup-hook (lambda () (popwin-mode 1)))
 
-(evil-leader/set-key "f" 'helm-find-files)
-
 (evil-leader/set-key "o" 'helm-buffers-list)
 (global-set-key (kbd "C-, o") 'helm-buffers-list)
 
