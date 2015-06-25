@@ -103,4 +103,9 @@
   (add-hook 'dired-load-hook 'my-dired-init))
 (put 'dired-find-alternate-file 'disabled nil)
 
+;; Snippets
+
+(require 'yasnippet)
+(yas-global-mode 1)
+
 (provide 'grass-editor)
