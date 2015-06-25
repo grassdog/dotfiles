@@ -12,6 +12,9 @@
 (require 'evil-matchit)
 (global-evil-matchit-mode 1)
 
+(require 'evil-surround)
+(global-evil-surround-mode 1)
+
 (require 'evil)
 
 ; Make horizontal movement cross lines
