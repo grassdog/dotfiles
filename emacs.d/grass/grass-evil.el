@@ -15,6 +15,13 @@
 (require 'evil-surround)
 (global-evil-surround-mode 1)
 
+(require 'evil-visualstar)
+(global-evil-visualstar-mode)
+
+(require 'evil-search-highlight-persist)
+(global-evil-search-highlight-persist t)
+(evil-search-highlight-persist -1)
+
 (require 'evil)
 
 ; Make horizontal movement cross lines

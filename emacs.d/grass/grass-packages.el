@@ -51,6 +51,8 @@
     evil-leader
     evil-commentary
     evil-matchit
+    evil-visualstar
+    evil-search-highlight-persist
 
     ; rainbow-mode
     paredit
