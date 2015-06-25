@@ -9,10 +9,6 @@
 
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 
-(evil-leader/set-key-for-mode 'org-mode "t" 'org-todo)
-(evil-leader/set-key-for-mode 'org-mode "a" 'org-todo-list)
-(evil-leader/set-key-for-mode 'org-mode "l" 'org-insert-link)
-
 ; (setq org-todo-keywords '((sequence "TODO" "WAIT" "|" "DONE" "CANCELED")))
 
 ;; Make windmove work in org-mode

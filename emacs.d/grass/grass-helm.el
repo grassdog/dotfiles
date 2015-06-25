@@ -22,14 +22,4 @@
 ;; Restore popwin-mode after a Helm session finishes.
 (add-hook 'helm-cleanup-hook (lambda () (popwin-mode 1)))
 
-(evil-leader/set-key "o" 'helm-buffers-list)
-(global-set-key (kbd "C-, o") 'helm-buffers-list)
-
-(evil-leader/set-key "r" 'helm-recentf)
-(global-set-key (kbd "C-, r") 'helm-recentf)
-
-(global-set-key (kbd "M-x") 'helm-M-x)
-;; Bind the old M-x.
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
 (provide 'grass-helm)

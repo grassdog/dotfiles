@@ -16,6 +16,7 @@
 
 (add-hook 'markdown-mode-hook
   (lambda ()
+    (global-set-key (kbd "C-c m") 'markdown-preview-file)
     (setq imenu-generic-expression markdown-imenu-generic-expression)))
 
 ;; Preview markdown file in Marked.app
@@ -26,7 +27,6 @@
    (format "open -a 'Marked 2' %s"
            (shell-quote-argument (buffer-file-name)))))
 
-(global-set-key (kbd "C-c m") 'markdown-preview-file)
 
 (add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))

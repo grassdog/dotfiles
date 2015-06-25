@@ -37,10 +37,6 @@ Repeated invocations toggle between the two most recently open buffers."
   (interactive)
   (switch-to-buffer (other-buffer (current-buffer) 1)))
 
-;; Switch buffers, even in non evil modes
-(evil-leader/set-key "," 'grass/switch-to-previous-buffer)
-(global-set-key (kbd "C-, ,") 'grass/switch-to-previous-buffer)
-
 (defun rename-file-and-buffer ()
   "Rename the current buffer and file it is visiting."
   (interactive)
