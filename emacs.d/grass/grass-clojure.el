@@ -1,32 +1,75 @@
 (require 'clojure-mode)
 (require 'cider)
 
-(eval-after-load 'clojure-mode
-  '(progn
-     (defun grass/clojure-mode-defaults ()
-       (subword-mode +1)
-       (paredit-mode +1)
-       (rainbow-delimiters-mode +1))
+;; Paredit
+(require 'paredit)
+(add-hook 'lisp-mode-hook #'paredit-mode)
+(add-hook 'emacs-lisp-mode-hook #'paredit-mode)
+(add-hook 'clojure-mode-hook #'paredit-mode)
+(add-hook 'cider-repl-mode-hook #'paredit-mode)
 
-     (setq grass/clojure-mode-hook 'grass/clojure-mode-defaults)
+;; hl-sexp: minor mode to highlight s-expression
+(require 'hl-sexp)
 
-     (add-hook 'clojure-mode-hook (lambda ()
-                                    (run-hooks 'grass/clojure-mode-hook)))))
+(add-hook 'clojure-mode-hook #'hl-sexp-mode)
+(add-hook 'lisp-mode-hook #'hl-sexp-mode)
+(add-hook 'emacs-lisp-mode-hook #'hl-sexp-mode)
 
-(eval-after-load 'cider
-  '(progn
-     (setq nrepl-log-messages t)
+;; Cider
 
-     (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+;; Clojure IDE and REPL for Emacs
+(require 'cider)
 
-     (defun grass/cider-repl-mode-defaults ()
-       (subword-mode +1)
-       (rainbow-delimeters-mode +1)
-       (whitespace-mode -1))
+;; autocompletion
+(require 'company)
 
-     (setq grass/cider-repl-mode-hook 'grass/cider-repl-mode-defaults)
+;; REPL related stuff
 
-     (add-hook 'cider-repl-mode-hook (lambda ()
-                                       (run-hooks 'grass/cider-repl-mode-hook)))))
+;; REPL history file
+(setq cider-repl-history-file "~/.emacs.d/cider-history")
+
+;; nice pretty printing
+(setq cider-repl-use-pretty-printing t)
+
+;; nicer font lock in REPL
+(setq cider-repl-use-clojure-font-lock t)
+
+;; result prefix for the REPL
+(setq cider-repl-result-prefix ";; => ")
+
+;; never ending REPL history
+(setq cider-repl-wrap-history t)
+
+;; looong history
+(setq cider-repl-history-size 3000)
+
+;; eldoc for clojure
+(add-hook 'cider-mode-hook #'eldoc-mode)
+
+;; error buffer not popping up
+(setq cider-show-error-buffer nil)
+
+;; company mode for completion
+(add-hook 'cider-repl-mode-hook #'company-mode)
+(add-hook 'cider-mode-hook #'company-mode)
+
+;; clj-refactor and dependencies
+(require 'clj-refactor)
+
+(add-hook 'clojure-mode-hook
+  (lambda ()
+    (subword-mode +1)
+    (rainbow-delimiters-mode +1)
+    (clj-refactor-mode 1)
+    ;; insert keybinding setup here
+    (cljr-add-keybindings-with-prefix "C-c RET")))
+
+(add-hook 'clojure-mode-hook #'yas-minor-mode)
+
+;; no auto sort
+(setq cljr-auto-sort-ns nil)
+
+;; do not prefer prefixes when using clean-ns
+(setq cljr-favor-prefix-notation nil)
 
 (provide 'grass-clojure)

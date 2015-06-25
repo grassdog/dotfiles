@@ -84,6 +84,8 @@
     ;; Clojure
     clojure-mode
     cider
+    hl-sexp
+    clj-refactor
 
     sml-mode
     haskell-mode
