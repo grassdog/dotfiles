@@ -39,7 +39,6 @@
   (lambda ()
     (set (make-local-variable 'tab-width) 2)
     (setq indent-line-function 'grass/coffee-indent-line)
-    (auto-complete-mode)
     (setq evil-shift-width coffee-tab-width)))
 
 (provide 'grass-coffee)
