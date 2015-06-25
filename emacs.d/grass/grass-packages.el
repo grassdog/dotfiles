@@ -51,9 +51,8 @@
     evil-leader
     evil-commentary
     evil-matchit
-    ;evil-rebellion
 
-    rainbow-mode
+    ; rainbow-mode
     paredit
     rainbow-delimiters
 
