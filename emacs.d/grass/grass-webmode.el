@@ -25,6 +25,10 @@
   (setq web-mode-code-indent-offset 2)
   (setq web-mode-enable-current-element-highlight t))
 
+(add-hook 'scss-mode-hook
+  (lambda ()
+    (setq evil-shift-width css-indent-offset)))
+
 (add-hook 'web-mode-hook  'grass/web-mode-hook)
 
 (provide 'grass-webmode)
