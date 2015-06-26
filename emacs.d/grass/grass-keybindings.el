@@ -4,6 +4,7 @@
 (evil-leader/set-key "f" 'ido-find-file)
 (evil-leader/set-key "t" 'ido-goto-symbol)
 (evil-leader/set-key "k" 'kill-this-buffer)
+(evil-leader/set-key "S" 'ispell-word)
 
 
 (evil-leader/set-key "y" 'bury-buffer)
