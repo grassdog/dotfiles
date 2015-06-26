@@ -62,6 +62,7 @@
     web-mode
     scss-mode
     slim-mode
+    web-beautify
 
     js2-mode
     coffee-mode

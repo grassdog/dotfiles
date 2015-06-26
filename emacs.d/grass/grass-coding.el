@@ -18,6 +18,8 @@ This functions should be added to the hooks of major modes for programming."
     (indent-according-to-mode)))
 
 
+(require 'web-beautify)
+
 ;; Line numbers for coding please
 (setq on-console (null window-system))
 (setq linum-format (if on-console "%4d " "%4d"))
