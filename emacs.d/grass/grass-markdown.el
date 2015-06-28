@@ -1,34 +1,32 @@
 
-(require 'markdown-mode)
+(use-package markdown-mode
+  :ensure t
+  :mode ("\\.markdown$" "\\.md$")
+  :config
+  (setq-default markdown-command "pandoc -S -s --self-contained -f markdown -t html5 ")
 
-(setq-default markdown-command "pandoc -S -s --self-contained -f markdown -t html5 ")
+  (setq markdown-imenu-generic-expression
+        '(("title"  "^\\(.*\\)[\n]=+$" 1)
+          ("h2-"    "^\\(.*\\)[\n]-+$" 1)
+          ("h1"   "^# \\(.*\\)$" 1)
+          ("h2"   "^## \\(.*\\)$" 1)
+          ("h3"   "^### \\(.*\\)$" 1)
+          ("h4"   "^#### \\(.*\\)$" 1)
+          ("h5"   "^##### \\(.*\\)$" 1)
+          ("h6"   "^###### \\(.*\\)$" 1)
+          ("fn"   "^\\[\\^\\(.*\\)\\]" 1)))
+  :init
+  (add-hook 'markdown-mode-hook
+            (lambda ()
+              (global-set-key (kbd "C-c m") 'markdown-preview-file)
+              (setq imenu-generic-expression markdown-imenu-generic-expression)))
 
-(setq markdown-imenu-generic-expression
-      '(("title"  "^\\(.*\\)[\n]=+$" 1)
-        ("h2-"    "^\\(.*\\)[\n]-+$" 1)
-        ("h1"   "^# \\(.*\\)$" 1)
-        ("h2"   "^## \\(.*\\)$" 1)
-        ("h3"   "^### \\(.*\\)$" 1)
-        ("h4"   "^#### \\(.*\\)$" 1)
-        ("h5"   "^##### \\(.*\\)$" 1)
-        ("h6"   "^###### \\(.*\\)$" 1)
-        ("fn"   "^\\[\\^\\(.*\\)\\]" 1)))
-
-(add-hook 'markdown-mode-hook
-  (lambda ()
-    (global-set-key (kbd "C-c m") 'markdown-preview-file)
-    (setq imenu-generic-expression markdown-imenu-generic-expression)))
-
-;; Preview markdown file in Marked.app
-(defun markdown-preview-file ()
-  "run Marked.app on the current file and revert the buffer"
-  (interactive)
-  (shell-command
-   (format "open -a 'Marked 2' %s"
-           (shell-quote-argument (buffer-file-name)))))
-
-
-(add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+  ;; Preview markdown file in Marked.app
+  (defun markdown-preview-file ()
+    "run Marked.app on the current file and revert the buffer"
+    (interactive)
+    (shell-command
+     (format "open -a 'Marked 2' %s"
+             (shell-quote-argument (buffer-file-name))))))
 
 (provide 'grass-markdown)

@@ -8,7 +8,7 @@
 (evil-leader/set-key "h" 'evil-search-highlight-persist-remove-all)
 
 ;; Clean files
-(evil-leader/set-key "c" 'grass/indent-region-or-buffer)
+(evil-leader/set-key "i" 'grass/indent-region-or-buffer)
 (evil-leader/set-key-for-mode 'js2-mode "c" 'web-beautify-js)
 ; (evil-leader/set-key-for-mode 'web-mode "c" 'web-beautify-html)
 ; (evil-leader/set-key-for-mode 'css-mode "c" 'web-beautify-css)

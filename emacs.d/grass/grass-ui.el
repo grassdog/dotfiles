@@ -36,12 +36,25 @@
       '("" invocation-name " - " (:eval (if (buffer-file-name)
                                             (abbreviate-file-name (buffer-file-name))
                                           "%b"))))
-(require 'solarized-theme)
 
 ;; GUI Mode settings
 (when (display-graphic-p)
-      (load-theme 'solarized-dark t)
-      ;; Highlight the current line
-      (global-hl-line-mode +1))
+  (use-package solarized
+               :ensure solarized-theme
+               :defer t
+               :init (load-theme 'solarized-dark 'no-confirm)
+               :config
+               ;; Disable variable pitch fonts in Solarized theme
+               (setq solarized-use-variable-pitch nil
+                     ;; Don't add too much colours to the fringe
+                     solarized-emphasize-indicators nil
+                     ;; Keep font sizes the same
+                     solarized-height-minus-1 1.0
+                     solarized-height-plus-1 1.0
+                     solarized-height-plus-2 1.0
+                     solarized-height-plus-3 1.0
+                     solarized-height-plus-4 1.0))
+  ;; Highlight the current line
+  (global-hl-line-mode +1))
 
 (provide 'grass-ui)

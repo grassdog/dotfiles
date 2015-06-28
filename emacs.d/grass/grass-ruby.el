@@ -1,6 +1,15 @@
-;; (require 'ruby-block)
-(require 'ruby-end)
-(require 'ruby-tools)
+
+(use-package ruby-end
+  :ensure t)
+
+(use-package ruby-tools
+  :ensure t)
+
+
+;; TODO Get these working
+;; enh-ruby-mode
+;; rspec-mode
+;; chruby
 
 ;; Rake files are ruby, too, as are gemspecs, rackup files, and gemfiles.
 (add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))

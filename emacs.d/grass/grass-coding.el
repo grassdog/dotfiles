@@ -8,17 +8,20 @@ This functions should be added to the hooks of major modes for programming."
 
 (add-hook 'prog-mode-hook 'font-lock-comment-annotations)
 
-(require 'company)
-(setq company-idle-delay 0.2)
-(add-hook 'after-init-hook 'global-company-mode)
-(defun complete-or-indent ()
-  (interactive)
-  (if (company-manual-begin)
-      (company-complete-common)
-    (indent-according-to-mode)))
+(use-package company
+  :ensure t
+  :init
+    (setq company-idle-delay 0.4)
+    (add-hook 'after-init-hook 'global-company-mode)
+  :config
+    (defun complete-or-indent ()
+    (interactive)
+    (if (company-manual-begin)
+        (company-complete-common)
+        (indent-according-to-mode))))
 
-
-(require 'web-beautify)
+(use-package web-beautify
+  :ensure t)
 
 ;; Line numbers for coding please
 (setq on-console (null window-system))
@@ -30,5 +33,13 @@ This functions should be added to the hooks of major modes for programming."
 ;; Show current function in modeline
 (which-function-mode)
 
+(use-package puppet-mode
+  :ensure t)
+
+(use-package rust-mode
+  :ensure t)
+
+(use-package python
+  :ensure t)
 
 (provide 'grass-coding)

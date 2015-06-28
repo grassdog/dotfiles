@@ -17,7 +17,7 @@
 (global-auto-revert-mode t)
 
 ;; Smart pairing for all
-; (electric-pair-mode t)
+                                        ; (electric-pair-mode t)
 
 ;; Saveplace remembers your location in a file when saving files
 (setq save-place-file (expand-file-name "saveplace" grass/savefile-dir))
@@ -46,8 +46,10 @@
 (setq show-paren-style 'parenthesis)
 
 ;; UI highlight search and other actions
-(require 'volatile-highlights)
-(volatile-highlights-mode t)
+(use-package volatile-highlights
+  :ensure t
+  :config
+  (volatile-highlights-mode t))
 
 ;; Use shift + arrow keys to switch between visible buffers
 (require 'windmove)
@@ -67,9 +69,13 @@
 ;; (setq comment-auto-fill-only-comments t)
 
 ;; Easy insert of quotes and dashes
-(require 'typo)
-(typo-global-mode 1)
-(add-hook 'text-mode-hook 'typo-mode)
+(use-package typo
+  :ensure t
+  :config
+  (typo-global-mode t)
+  :init
+  (add-hook 'text-mode-hook 'typo-mode))
+
 
 (defun grass/auto-save-all()
   "Save all modified buffers that point to files."
@@ -78,7 +84,7 @@
     (dolist (buf (buffer-list))
       (set-buffer buf)
       (if (and (buffer-file-name) (buffer-modified-p))
-        (basic-save-buffer)))))
+          (basic-save-buffer)))))
 
 (add-hook 'auto-save-hook 'grass/auto-save-all)
 (add-hook 'mouse-leave-buffer-hook 'grass/auto-save-all)
@@ -86,26 +92,31 @@
 
 
 ;; Reuse the same buffer for dired windows
-(require 'dired-single)
-(defun my-dired-init ()
-  "Bunch of stuff to run for dired, either immediately or when it's loaded."
-  (define-key dired-mode-map [return] 'dired-single-buffer)
-  (define-key dired-mode-map [mouse-1] 'dired-single-buffer-mouse)
-  (define-key dired-mode-map "^"
-    (function
-      (lambda nil (interactive) (dired-single-buffer "..")))))
+(use-package dired-single
+  :ensure t
+  :config
+  (defun my-dired-init ()
+    "Bunch of stuff to run for dired, either immediately or when it's loaded."
+    (define-key dired-mode-map [return] 'dired-single-buffer)
+    (define-key dired-mode-map [mouse-1] 'dired-single-buffer-mouse)
+    (define-key dired-mode-map "^"
+      (function
+       (lambda nil (interactive) (dired-single-buffer "..")))))
 
-;; if dired's already loaded, then the keymap will be bound
-(if (boundp 'dired-mode-map)
-  ;; we're good to go; just add our bindings
-  (my-dired-init)
-  ;; it's not loaded yet, so add our bindings to the load-hook
-  (add-hook 'dired-load-hook 'my-dired-init))
-(put 'dired-find-alternate-file 'disabled nil)
+  ;; if dired's already loaded, then the keymap will be bound
+  (if (boundp 'dired-mode-map)
+      ;; we're good to go; just add our bindings
+      (my-dired-init)
+    ;; it's not loaded yet, so add our bindings to the load-hook
+    (add-hook 'dired-load-hook 'my-dired-init))
+  (put 'dired-find-alternate-file 'disabled nil)
+  )
 
 ;; Snippets
-
-(require 'yasnippet)
-(yas-global-mode 1)
+(use-package yasnippet
+  :ensure t
+  :defer 3
+  :config
+  (yas-global-mode 1))
 
 (provide 'grass-editor)

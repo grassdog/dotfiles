@@ -1,34 +1,43 @@
-(require 'web-mode)
+(use-package web-mode
+  :ensure t
+  :mode ("\\.html?\\'" "\\.jsx$\\'" "\\.erb\\'" "\\.as[cp]x\\'" "\\.mustache\\'" "\\.djhtml\\'")
+  :init
+  (progn
 
-(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+    (defadvice web-mode-highlight-part (around tweak-jsx activate)
+      (if (equal web-mode-content-type "jsx")
+          (let ((web-mode-enable-part-face nil))
+            ad-do-it)
+        ad-do-it))
 
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+    (defun grass/web-mode-hook ()
+      "Hooks for Web mode."
+      (setq web-mode-markup-indent-offset 2)
+      (setq web-mode-css-indent-offset 2)
+      (setq web-mode-code-indent-offset 2)
+      (setq web-mode-enable-current-element-highlight t))
 
-(add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
+    (add-hook 'web-mode-hook  'grass/web-mode-hook)
+    )
+  )
 
-(defadvice web-mode-highlight-part (around tweak-jsx activate)
-  (if (equal web-mode-content-type "jsx")
-      (let ((web-mode-enable-part-face nil))
-        ad-do-it)
-    ad-do-it))
+(use-package scss-mode
+  :ensure t
+  :init
+  (add-hook 'scss-mode-hook
+            (lambda ()
+              (setq evil-shift-width css-indent-offset))))
 
-(defun grass/web-mode-hook ()
-  "Hooks for Web mode."
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2)
-  (setq web-mode-enable-current-element-highlight t))
+(use-package css-mode
+  :ensure t)
 
-(add-hook 'scss-mode-hook
-  (lambda ()
-    (setq evil-shift-width css-indent-offset)))
+(use-package yaml-mode
+  :ensure t)
 
-(add-hook 'web-mode-hook  'grass/web-mode-hook)
+;; (use-package haml-mode
+;;   :ensure t)
+
+(use-package feature-mode
+  :ensure t)
 
 (provide 'grass-webmode)

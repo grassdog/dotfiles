@@ -1,4 +1,23 @@
 
+(require 'package)
+(setq package-enable-at-startup nil)
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+
+(package-initialize)
+
+;; Bootstrap `use-package'
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+;; Debug package loads
+;; (setq use-package-verbose t)
+
+(eval-when-compile
+  (require 'use-package))
+
+(require 'bind-key)
+
 ;; UTF-8 Thanks
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
@@ -25,7 +44,7 @@
 ;; Set up load paths
 (add-to-list 'load-path grass/config-dir)
 
-(require 'grass-packages)
+;; (require 'grass-packages)
 (require 'grass-ui)
 (require 'grass-editor)
 (require 'grass-coding)
