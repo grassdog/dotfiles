@@ -6,17 +6,33 @@
   :init
   (progn
     (require 'helm-config)
-    (helm-mode 1))
+    (helm-mode 1)
+    ;; Helm
+    (evil-leader/set-key "o" 'helm-buffers-list)
+    (global-set-key (kbd "C-, o") 'helm-buffers-list)
+
+    (evil-leader/set-key "r" 'helm-recentf)
+    (global-set-key (kbd "C-, r") 'helm-recentf)
+
+    (global-set-key (kbd "M-x") 'helm-M-x))
+
+    ;; Bind the old M-x.
+    (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
   :config
-  (setq helm-buffers-fuzzy-matching t)
-  (setq helm-buffers-fuzzy-matching t)
-  (setq helm-M-x-fuzzy-match t))
+    (setq helm-buffers-fuzzy-matching t)
+    (setq helm-buffers-fuzzy-matching t)
+    (setq helm-M-x-fuzzy-match t))
 
 (use-package helm-projectile
   :ensure t)
 
 (use-package helm-ag
   :ensure t)
+
+;; Up in dired
+(add-hook 'dired-mode-hook
+          (lambda () (local-set-key (kbd "U") 'dired-up-directory)))
 
 ;; Force helm to always open from bottom
 ;; disable popwin-mode in an active Helm session It should be disabled

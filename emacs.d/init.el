@@ -44,7 +44,6 @@
 ;; Set up load paths
 (add-to-list 'load-path grass/config-dir)
 
-;; (require 'grass-packages)
 (require 'grass-ui)
 (require 'grass-editor)
 (require 'grass-coding)
@@ -52,7 +51,6 @@
 (require 'grass-evil)
 (require 'grass-ido)
 (require 'grass-extensions)
-(require 'grass-keybindings)
 (require 'grass-helm)
 (require 'grass-projectile)
 (require 'grass-orgmode)

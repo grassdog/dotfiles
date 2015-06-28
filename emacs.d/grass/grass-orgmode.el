@@ -21,8 +21,13 @@
     (setq org-agenda-files '("~/Dropbox/Notes"))
 
     (add-hook 'org-mode-hook
-    (lambda ()
-    ;; No auto indent please
-    (setq evil-auto-indent nil))))
+      (lambda ()
+        ;; No auto indent please
+        (setq evil-auto-indent nil)
+
+        ;; Org
+        (evil-leader/set-key-for-mode 'org-mode "t" 'org-todo)
+        (evil-leader/set-key-for-mode 'org-mode "a" 'org-todo-list)
+        (evil-leader/set-key-for-mode 'org-mode "l" 'org-insert-link))))
 
 (provide 'grass-orgmode)
