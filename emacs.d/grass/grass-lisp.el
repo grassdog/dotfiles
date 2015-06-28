@@ -14,15 +14,14 @@
   (add-hook 'cider-repl-mode-hook #'paredit-mode)
   (add-hook 'scheme-mode-hook #'paredit-mode))
 
-;; TODO Fix this
-;; (defun grass/set-shift-width
-;;     (setq evil-shift-width 2))
+(defun grass/set-shift-width ()
+   (setq evil-shift-width 2))
 
-;; (add-hook 'lisp-mode-hook 'grass/set-shift-width)
-;; (add-hook 'emacs-lisp-mode-hook 'grass/set-shift-width)
-;; (add-hook 'clojure-mode-hook 'grass/set-shift-width)
-;; (add-hook 'cider-repl-mode-hook 'grass/set-shift-width)
-;; (add-hook 'scheme-mode-hook 'grass/set-shift-width)
+(add-hook 'lisp-mode-hook 'grass/set-shift-width)
+(add-hook 'emacs-lisp-mode-hook 'grass/set-shift-width)
+(add-hook 'clojure-mode-hook 'grass/set-shift-width)
+(add-hook 'cider-repl-mode-hook 'grass/set-shift-width)
+(add-hook 'scheme-mode-hook 'grass/set-shift-width)
 
 ;; Override background colour to work better with Solarized
 (custom-set-faces
