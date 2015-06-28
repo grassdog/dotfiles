@@ -62,5 +62,5 @@
 (require 'grass-webmode)
 (require 'grass-markdown)
 (require 'grass-haskell)
-(require 'grass-clojure)
+(require 'grass-lisp)
 (require 'grass-osx)

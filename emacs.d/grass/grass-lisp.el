@@ -3,6 +3,7 @@
   :init
   (add-hook 'clojure-mode-hook #'yas-minor-mode))
 
+
 ;; Paredit
 (use-package paredit
   :ensure t
@@ -28,10 +29,10 @@
   :ensure t
   :init
   (setq hl-sexp-background-color "#002b36")
-  (add-hook 'clojure-mode-hook #'hl-sexp-mode)
-  (add-hook 'lisp-mode-hook #'hl-sexp-mode)
-  (add-hook 'emacs-lisp-mode-hook #'hl-sexp-mode)
-  (add-hook 'scheme-mode-hook #'paredit-mode))
+  (add-hook 'clojure-mode-hook 'hl-sexp-mode)
+  (add-hook 'lisp-mode-hook 'hl-sexp-mode)
+  (add-hook 'emacs-lisp-mode-hook 'hl-sexp-mode)
+  (add-hook 'scheme-mode-hook 'hl-sexp-mode))
 
 
 (use-package rainbow-delimiters
@@ -67,7 +68,9 @@
 
   ;; error buffer not popping up
   (setq cider-show-error-buffer nil)
+
   :init
+
   ;; eldoc for clojure
   (add-hook 'cider-mode-hook #'eldoc-mode)
 
@@ -93,4 +96,4 @@
               ;; insert keybinding setup here
               (cljr-add-keybindings-with-prefix "C-c RET"))))
 
-(provide 'grass-clojure)
+(provide 'grass-lisp)
