@@ -15,6 +15,7 @@
 
     ;; Projectile
     (global-set-key (kbd "C-, p") 'helm-projectile)
+    (evil-leader/set-key "f"   'helm-projectile)
     (evil-leader/set-key "p p" 'helm-projectile)
     (evil-leader/set-key "p a" 'projectile-ag)
     (evil-leader/set-key "p r" 'projectile-replace)
