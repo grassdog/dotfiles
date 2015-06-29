@@ -109,8 +109,11 @@
       (my-dired-init)
     ;; it's not loaded yet, so add our bindings to the load-hook
     (add-hook 'dired-load-hook 'my-dired-init))
-  (put 'dired-find-alternate-file 'disabled nil)
-  )
+  (put 'dired-find-alternate-file 'disabled nil))
+
+
+(global-set-key (kbd "<home>") 'move-beginning-of-line)
+(global-set-key (kbd "<end>") 'move-end-of-line)
 
 ;; Snippets
 (use-package yasnippet
