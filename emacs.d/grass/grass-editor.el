@@ -115,7 +115,7 @@
 (add-hook 'dired-mode-hook
           (lambda ()
             (local-set-key (kbd "U") 'dired-up-directory)
-            (local-set-key (kbd ",t") 'helm-projectile)
+            (local-set-key (kbd ",p") 'helm-projectile)
             (local-set-key (kbd ",o") 'helm-buffers-list)
             (local-set-key (kbd ",,") 'grass/switch-to-previous-buffer)))
 
