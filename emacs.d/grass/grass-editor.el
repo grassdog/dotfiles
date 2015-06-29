@@ -94,7 +94,7 @@
 ;; Reuse the same buffer for dired windows
 (use-package dired-single
   :ensure t
-  :config
+  :init
   (defun my-dired-init ()
     "Bunch of stuff to run for dired, either immediately or when it's loaded."
     (define-key dired-mode-map [return] 'dired-single-buffer)
@@ -116,6 +116,7 @@
           (lambda ()
             (local-set-key (kbd "U") 'dired-up-directory)
             (local-set-key (kbd ",f") 'helm-projectile)
+            (local-set-key (kbd ",o") 'helm-buffers-list)
             (local-set-key (kbd ",,") 'grass/switch-to-previous-buffer)))
 
 

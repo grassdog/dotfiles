@@ -1,5 +1,5 @@
 # -*- mode: snippet; require-final-newline: nil -*-
-# name: todo
-# key: t
+# name: debugger
+# key: dbg
 # --
-`(yas-with-comment " TODO ")`
+debugger
