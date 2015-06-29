@@ -111,6 +111,10 @@
     (add-hook 'dired-load-hook 'my-dired-init))
   (put 'dired-find-alternate-file 'disabled nil))
 
+;; Up in dired
+(add-hook 'dired-mode-hook
+          (lambda () (local-set-key (kbd "U") 'dired-up-directory)))
+
 
 (global-set-key (kbd "<home>") 'move-beginning-of-line)
 (global-set-key (kbd "<end>") 'move-end-of-line)

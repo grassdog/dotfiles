@@ -30,10 +30,6 @@
 (use-package helm-ag
   :ensure t)
 
-;; Up in dired
-(add-hook 'dired-mode-hook
-          (lambda () (local-set-key (kbd "U") 'dired-up-directory)))
-
 ;; Force helm to always open from bottom
 ;; disable popwin-mode in an active Helm session It should be disabled
 ;; otherwise it will conflict with other window opened by Helm persistent
