@@ -113,7 +113,10 @@
 
 ;; Up in dired
 (add-hook 'dired-mode-hook
-          (lambda () (local-set-key (kbd "U") 'dired-up-directory)))
+          (lambda ()
+            (local-set-key (kbd "U") 'dired-up-directory)
+            (local-set-key (kbd ",f") 'helm-projectile)
+            (local-set-key (kbd ",,") 'grass/switch-to-previous-buffer)))
 
 
 (global-set-key (kbd "<home>") 'move-beginning-of-line)
