@@ -41,7 +41,6 @@
 (when (display-graphic-p)
   (use-package solarized
                :ensure solarized-theme
-               :defer t
                :init (load-theme 'solarized-dark 'no-confirm)
                :config
                ;; Disable variable pitch fonts in Solarized theme

@@ -126,7 +126,6 @@
 ;; Snippets
 (use-package yasnippet
   :ensure t
-  :defer 3
   :config
   (yas-global-mode 1))
 
