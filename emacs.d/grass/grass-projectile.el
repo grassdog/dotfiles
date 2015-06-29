@@ -15,9 +15,9 @@
 
     ;; Projectile
     (global-set-key (kbd "C-, p") 'helm-projectile)
-    (evil-leader/set-key "f"   'helm-projectile)
+    (evil-leader/set-key "t"   'helm-projectile)
+    (evil-leader/set-key "a" 'projectile-ag)
     (evil-leader/set-key "p p" 'helm-projectile)
-    (evil-leader/set-key "p a" 'projectile-ag)
     (evil-leader/set-key "p r" 'projectile-replace)
     (evil-leader/set-key "p s" 'helm-projectile-switch-project)
     (evil-leader/set-key "p b" 'projectile-switch-to-buffer)

@@ -12,7 +12,7 @@
     ;; Key bindings
     (evil-leader/set-key "d" 'dired-jump)
     (evil-leader/set-key "e" 'pp-eval-last-sexp)
-    (evil-leader/set-key "t" 'ido-find-file)
+    (evil-leader/set-key "f" 'ido-find-file)
     (evil-leader/set-key "k" 'kill-this-buffer)
     (evil-leader/set-key "S" 'ispell-word)
     (evil-leader/set-key "y" 'bury-buffer)

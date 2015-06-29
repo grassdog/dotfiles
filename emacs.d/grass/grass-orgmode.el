@@ -26,7 +26,7 @@
         (setq evil-auto-indent nil)
 
         ;; Org
-        (evil-leader/set-key-for-mode 'org-mode "t" 'org-todo)
+        (evil-leader/set-key-for-mode 'org-mode "c" 'org-todo)
         (evil-leader/set-key-for-mode 'org-mode "a" 'org-todo-list)
         (evil-leader/set-key-for-mode 'org-mode "l" 'org-insert-link))))
 
