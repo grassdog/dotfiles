@@ -6,8 +6,16 @@
   :ensure t)
 
 (use-package enh-ruby-mode
-  :ensure t
-  :mode ("\\.rb\\'"  "\\.rake\\'" "Rakefile\\'" "\\.gemspec\\'" "\\.ru\\'" "Gemfile\\'" "Guardfile\\'" "Capfile\\'" "\\.thor\\'" "Thorfile\\'" "Vagrantfile\\'")
+  :mode (("\\.rb$"        . enh-ruby-mode)
+         ("\\.ru$"        . enh-ruby-mode)
+         ("\\.rake$"      . enh-ruby-mode)
+         ("\\.gemspec$"   . enh-ruby-mode)
+         ("\\.?pryrc$"    . enh-ruby-mode)
+         ("/Gemfile$"     . enh-ruby-mode)
+         ("/Guardfile$"   . enh-ruby-mode)
+         ("/Capfile$"     . enh-ruby-mode)
+         ("/Vagrantfile$" . enh-ruby-mode)
+         ("/Rakefile$"    . enh-ruby-mode))
   :interpreter "ruby"
   :init
   (add-hook 'enh-ruby-mode-hook

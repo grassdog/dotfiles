@@ -1,6 +1,11 @@
 (use-package web-mode
   :ensure t
-  :mode ("\\.html?\\'" "\\.jsx$\\'" "\\.erb\\'" "\\.as[cp]x\\'" "\\.mustache\\'" "\\.djhtml\\'")
+  :mode  (("\\.html?\\'"    . js2-mode)
+          ("\\.jsx$"        . js2-mode)
+          ("\\.erb\\'"      . js2-mode)
+          ("\\.as[cp]x\\'"  . js2-mode)
+          ("\\.mustache\\'" . js2-mode)
+          ("\\.dhtml\\'"    . js2-mode))
   :init
   (progn
 
@@ -17,9 +22,7 @@
       (setq web-mode-code-indent-offset 2)
       (setq web-mode-enable-current-element-highlight t))
 
-    (add-hook 'web-mode-hook  'grass/web-mode-hook)
-    )
-  )
+    (add-hook 'web-mode-hook  'grass/web-mode-hook)))
 
 (use-package scss-mode
   :ensure t

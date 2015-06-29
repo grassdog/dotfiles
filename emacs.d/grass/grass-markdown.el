@@ -1,7 +1,8 @@
 
 (use-package markdown-mode
   :ensure t
-  :mode ("\\.markdown$" "\\.md$")
+  :mode (("\\.markdown\\'"    . markdown-mode)
+         ("\\.md\\'"    . markdown-mode))
   :config
   (setq-default markdown-command "pandoc -S -s --self-contained -f markdown -t html5 ")
 

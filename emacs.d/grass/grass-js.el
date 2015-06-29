@@ -1,6 +1,7 @@
 (use-package js2-mode
   :ensure t
-  :mode ("\\.js\\'" "\\.json\\'")
+  :mode  (("\\.js$"        . js2-mode)
+          ("\\.json$"        . js2-mode))
   :interpreter "node"
   :init
     (add-hook 'js2-mode-hook
