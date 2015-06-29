@@ -1,11 +1,11 @@
 (use-package web-mode
   :ensure t
-  :mode  (("\\.html?\\'"    . js2-mode)
-          ("\\.jsx$"        . js2-mode)
-          ("\\.erb\\'"      . js2-mode)
-          ("\\.as[cp]x\\'"  . js2-mode)
-          ("\\.mustache\\'" . js2-mode)
-          ("\\.dhtml\\'"    . js2-mode))
+  :mode  (("\\.html?\\'"    . web-mode)
+          ("\\.jsx$"        . web-mode)
+          ("\\.erb\\'"      . web-mode)
+          ("\\.as[cp]x\\'"  . web-mode)
+          ("\\.mustache\\'" . web-mode)
+          ("\\.dhtml\\'"    . web-mode))
   :init
   (progn
 
