@@ -20,8 +20,8 @@
       (setq web-mode-markup-indent-offset 2)
       (setq web-mode-css-indent-offset 2)
       (setq web-mode-code-indent-offset 2)
+      (setq evil-shift-width 2)
       (setq web-mode-enable-current-element-highlight t))
-
     (add-hook 'web-mode-hook  'grass/web-mode-hook)))
 
 (use-package scss-mode
