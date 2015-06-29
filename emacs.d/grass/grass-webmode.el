@@ -37,8 +37,9 @@
 (use-package yaml-mode
   :ensure t)
 
-;; (use-package haml-mode
-;;   :ensure t)
+(use-package haml-mode
+  :ensure t
+  :disabled t)
 
 (use-package rainbow-mode
   :ensure t
@@ -51,6 +52,7 @@
               (rainbow-mode +1))))
 
 (use-package feature-mode
-  :ensure t)
+  :ensure t
+  :disabled t)
 
 (provide 'grass-webmode)
