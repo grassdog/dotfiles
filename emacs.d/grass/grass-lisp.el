@@ -23,10 +23,6 @@
 (add-hook 'cider-repl-mode-hook 'grass/set-shift-width)
 (add-hook 'scheme-mode-hook 'grass/set-shift-width)
 
-;; Override background colour to work better with Solarized
-(custom-set-faces
- '(hl-sexp-face ((t (:background "#073642")))))
-
 ;; hl-sexp: minor mode to highlight s-expression
 (use-package hl-sexp
   :ensure t
