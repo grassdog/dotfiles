@@ -40,6 +40,16 @@
 ;; (use-package haml-mode
 ;;   :ensure t)
 
+(use-package rainbow-mode
+  :ensure t
+  :init
+  (add-hook 'scss-mode-hook
+            (lambda ()
+              (rainbow-mode +1)))
+  (add-hook 'css-mode-hook
+            (lambda ()
+              (rainbow-mode +1))))
+
 (use-package feature-mode
   :ensure t)
 
