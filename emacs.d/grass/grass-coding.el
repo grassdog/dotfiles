@@ -12,6 +12,7 @@ This functions should be added to the hooks of major modes for programming."
   :ensure t
   :init
     (setq company-idle-delay 0.3)
+    (setq company-minimum-prefix-length 2)
     (add-hook 'after-init-hook 'global-company-mode)
   :config
     (defun complete-or-indent ()
