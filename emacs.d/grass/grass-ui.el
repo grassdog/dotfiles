@@ -56,4 +56,10 @@
   ;; Highlight the current line
   (global-hl-line-mode +1))
 
+(when (not (display-graphic-p))
+  (use-package zenburn-theme
+     :ensure t
+     :init
+     (load-theme 'zenburn)))
+
 (provide 'grass-ui)
