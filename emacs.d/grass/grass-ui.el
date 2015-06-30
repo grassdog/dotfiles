@@ -45,6 +45,12 @@
   (setq sml/theme 'respectful)
   (sml/setup))
 
+;; Ignore certain files
+(use-package ignoramus
+  :ensure t
+  :init
+  (ignoramus-setup))
+
 ;; GUI Mode settings
 (when (display-graphic-p)
   (use-package solarized
