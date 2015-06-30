@@ -1,9 +1,11 @@
 
 (use-package ruby-end
-  :ensure t)
+  :ensure t
+  :diminish ruby-end-mode)
 
 (use-package ruby-tools
-  :ensure t)
+  :ensure t
+  :diminish ruby-tools-mode)
 
 (use-package enh-ruby-mode
   :mode (("\\.rb$"        . enh-ruby-mode)

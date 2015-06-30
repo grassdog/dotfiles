@@ -17,6 +17,9 @@
 ;; No bell thanks
 (setq ring-bell-function 'ignore)
 
+; Text mode by default for scratch buffer
+;(setq initial-major-mode 'text-mode)
+
 ;; Nice scrolling
 (setq scroll-margin 4
       scroll-conservatively 100000
@@ -50,6 +53,8 @@
   :ensure t
   :init
   (ignoramus-setup))
+
+(diminish 'abbrev-mode)
 
 ;; GUI Mode settings
 (when (display-graphic-p)
