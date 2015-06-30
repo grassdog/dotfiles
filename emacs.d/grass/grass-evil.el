@@ -56,7 +56,7 @@
   :init
   (global-evil-search-highlight-persist t)
   (evil-search-highlight-persist -1)
-  (evil-leader/set-key "<space>" 'evil-search-highlight-persist-remove-all))
+  (evil-leader/set-key "<SPC>" 'evil-search-highlight-persist-remove-all))
 
 (use-package evil
   :ensure t
