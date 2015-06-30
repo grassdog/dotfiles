@@ -39,8 +39,13 @@ This functions should be added to the hooks of major modes for programming."
 (setq on-console (null window-system))
 (setq linum-format (if on-console "%4d " "%4d"))
 
+(require 'hideshow)
+(diminish 'hs-minor-mode)
+
 (add-hook 'prog-mode-hook
-  (lambda () (linum-mode 1)))
+  (lambda ()
+    (linum-mode 1)
+    (hs-minor-mode t)))
 
 ;; Show current function in modeline
 (which-function-mode)
