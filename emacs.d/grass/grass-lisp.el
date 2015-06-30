@@ -7,6 +7,7 @@
 ;; Paredit
 (use-package paredit
   :ensure t
+  :diminish paredit-mode
   :init
   (add-hook 'lisp-mode-hook #'paredit-mode)
   (add-hook 'emacs-lisp-mode-hook #'paredit-mode)

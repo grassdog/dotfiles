@@ -38,6 +38,7 @@
 
 ;; Enforce proper whitespace
 (require 'whitespace)
+(diminish 'global-whitespace-mode)
 
 (setq require-final-newline t)
 (add-hook 'before-save-hook 'whitespace-cleanup)

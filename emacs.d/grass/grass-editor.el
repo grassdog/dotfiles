@@ -48,6 +48,7 @@
 ;; UI highlight search and other actions
 (use-package volatile-highlights
   :ensure t
+  :diminish volatile-highlights-mode
   :config
   (volatile-highlights-mode t))
 
@@ -126,6 +127,7 @@
 ;; Snippets
 (use-package yasnippet
   :ensure t
+  :diminish yas-minor-mode
   :config
   (yas-global-mode 1))
 

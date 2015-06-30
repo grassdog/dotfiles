@@ -17,6 +17,7 @@
   (require 'use-package))
 
 (require 'bind-key)
+(require 'diminish)
 
 ;; UTF-8 Thanks
 (set-terminal-coding-system 'utf-8)

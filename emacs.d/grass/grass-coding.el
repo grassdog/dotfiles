@@ -10,6 +10,7 @@ This functions should be added to the hooks of major modes for programming."
 
 (use-package company
   :ensure t
+  :diminish company-mode
   :init
     (setq company-idle-delay 0.3)
     (setq company-minimum-prefix-length 2)

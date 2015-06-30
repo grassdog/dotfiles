@@ -6,6 +6,8 @@
   (setq projectile-enable-caching t)
   (setq projectile-completion-system 'helm)
   (setq helm-projectile-fuzzy-match t)
+  ;; Shorter mode line
+  (setq projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
   :init
   (progn
     (projectile-global-mode t)

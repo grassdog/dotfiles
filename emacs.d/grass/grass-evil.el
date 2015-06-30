@@ -33,6 +33,7 @@
 
 (use-package evil-commentary
   :ensure t
+  :diminish evil-commentary-mode
   :init
   (evil-commentary-mode))
 
@@ -61,7 +62,7 @@
 (use-package evil
   :ensure t
   :config
-                                        ; Make horizontal movement cross lines
+  ; Make horizontal movement cross lines
   (setq-default evil-cross-lines t)
   (setq evil-shift-width 2)
   :init
@@ -153,5 +154,7 @@
                                 (dired-mode . emacs)
                                 (wdired-mode . normal))
         do (evil-set-initial-state mode state)))
+
+(diminish 'undo-tree-mode)
 
 (provide 'grass-evil)
