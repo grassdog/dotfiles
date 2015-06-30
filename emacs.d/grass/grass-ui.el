@@ -37,6 +37,14 @@
                                             (abbreviate-file-name (buffer-file-name))
                                           "%b"))))
 
+(use-package smart-mode-line
+  :ensure t
+  :init
+  (setq sml/no-confirm-load-theme t)
+  (setq sml/shorten-modes nil)
+  (setq sml/theme 'respectful)
+  (sml/setup))
+
 ;; GUI Mode settings
 (when (display-graphic-p)
   (use-package solarized
