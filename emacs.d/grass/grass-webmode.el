@@ -22,6 +22,7 @@
       (setq web-mode-code-indent-offset 2)
       (setq evil-shift-width 2)
       (setq web-mode-enable-current-element-highlight t))
+      (define-key evil-normal-state-map "za" 'web-mode-fold-or-unfold)
     (add-hook 'web-mode-hook  'grass/web-mode-hook)))
 
 (use-package scss-mode

@@ -145,7 +145,7 @@
                                 (git-commit-mode . insert)
                                 (git-rebase-mode . emacs)
                                 (term-mode . emacs)
-                                (help-mode . emacs)
+                                ; (help-mode . emacs)
                                 (helm-grep-mode . emacs)
                                 (grep-mode . emacs)
                                 (bc-menu-mode . emacs)
