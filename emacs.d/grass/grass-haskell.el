@@ -15,15 +15,22 @@
       '(define-key haskell-mode-map [f8] 'haskell-navigate-imports))
 
     (setq haskell-indentation-disable-show-indentations t)
+
+    ; Set interpreter to be "stack ghci"
+    (setq haskell-process-type 'ghci)
+    (setq haskell-process-path-ghci "stack")
+    (setq haskell-process-args-ghci '("ghci"))
+
+    ; Set interpreter to be "cabal repl"
+    ;(setq haskell-process-type 'cabal-repl)
+
     (custom-set-variables
      ; Set up hasktags
      '(haskell-tags-on-save t)
      ; Set up interactive mode
      '(haskell-process-auto-import-loaded-modules t)
      '(haskell-process-log t)
-     '(haskell-process-suggest-remove-import-lines t)
-     ; Set interpreter to be "cabal repl"
-     '(haskell-process-type 'cabal-repl))
+     '(haskell-process-suggest-remove-import-lines t))
 
     ; Add key combinations for interactive haskell-mode
     (eval-after-load 'haskell-mode '(progn
@@ -40,7 +47,12 @@
                                        (define-key haskell-cabal-mode-map (kbd "C-c C-z") 'haskell-interactive-switch)
                                        (define-key haskell-cabal-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
                                        (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
-                                       (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)))
+                                       (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)
+
+                                       ; Set interpreter to be "stack ghci"
+                                       (setq haskell-process-type 'ghci)
+                                       (setq haskell-process-path-ghci "stack")
+                                       (setq haskell-process-args-ghci '("ghci"))))
 
     (eval-after-load 'haskell-mode
       '(define-key haskell-mode-map (kbd "C-c C-o") 'haskell-compile))
