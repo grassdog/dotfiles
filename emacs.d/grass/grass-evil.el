@@ -141,7 +141,7 @@
                                 (nrepl-mode . insert)
                                 (pylookup-mode . emacs)
                                 (comint-mode . normal)
-                                (shell-mode . insert)
+                                (shell-mode . emacs)
                                 (git-commit-mode . insert)
                                 (git-rebase-mode . emacs)
                                 (term-mode . emacs)
