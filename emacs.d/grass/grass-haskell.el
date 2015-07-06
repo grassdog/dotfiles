@@ -20,6 +20,7 @@
     (setq haskell-process-type 'ghci)
     (setq haskell-process-path-ghci "stack")
     (setq haskell-process-args-ghci '("ghci"))
+    (setq tab-always-indent t)
 
     ; Set interpreter to be "cabal repl"
     ;(setq haskell-process-type 'cabal-repl)
