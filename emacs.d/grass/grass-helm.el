@@ -7,7 +7,7 @@
   (progn
     (require 'helm-config)
     ;; Show full buffer names please
-    (setq helm-buffer-max-length nil)
+    (setq helm-buffer-max-length 40)
     (setq helm-buffers-fuzzy-matching t)
     (setq helm-buffers-fuzzy-matching t)
     (setq helm-M-x-fuzzy-match t)
