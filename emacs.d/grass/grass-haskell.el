@@ -71,7 +71,6 @@
 
 (use-package ghc
   :ensure t
-  :disabled t
   :init
   (autoload 'ghc-init "ghc" nil t)
   (autoload 'ghc-debug "ghc" nil t)
