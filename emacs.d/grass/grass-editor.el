@@ -25,6 +25,9 @@
 (setq-default save-place t)
 (require 'saveplace)
 
+;; Don't make tab indent a line
+(setq tab-always-indent nil)
+
 ;; Savehist keeps track of some history
 (setq savehist-additional-variables
       ;; search entries
