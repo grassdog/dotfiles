@@ -6,6 +6,11 @@
   :init
   (progn
     (require 'helm-config)
+    ;; Show full buffer names please
+    (setq helm-buffer-max-length nil)
+    (setq helm-buffers-fuzzy-matching t)
+    (setq helm-buffers-fuzzy-matching t)
+    (setq helm-M-x-fuzzy-match t)
     (helm-mode 1)
     ;; Helm
     (evil-leader/set-key "o" 'helm-buffers-list)
@@ -17,12 +22,7 @@
     (global-set-key (kbd "M-x") 'helm-M-x))
 
     ;; Bind the old M-x.
-    (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
-  :config
-    (setq helm-buffers-fuzzy-matching t)
-    (setq helm-buffers-fuzzy-matching t)
-    (setq helm-M-x-fuzzy-match t))
+    (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command))
 
 (use-package helm-projectile
   :ensure t)
