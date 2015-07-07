@@ -145,6 +145,7 @@
                                 (git-commit-mode . insert)
                                 (git-rebase-mode . emacs)
                                 (term-mode . emacs)
+                                (haskell-interactive-mode . emacs)
                                 ; (help-mode . emacs)
                                 (helm-grep-mode . emacs)
                                 (grep-mode . emacs)
@@ -154,6 +155,7 @@
                                 (dired-mode . emacs)
                                 (wdired-mode . normal))
         do (evil-set-initial-state mode state)))
+
 
 (diminish 'undo-tree-mode)
 
