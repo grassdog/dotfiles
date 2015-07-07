@@ -51,6 +51,7 @@
                                        (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)
 
                                        ; Set interpreter to be "stack ghci"
+                                       (setq haskell-interactive-popup-errors nil)
                                        (setq haskell-process-type 'ghci)
                                        (setq haskell-process-path-ghci "stack")
                                        (setq haskell-process-args-ghci '("ghci"))))
