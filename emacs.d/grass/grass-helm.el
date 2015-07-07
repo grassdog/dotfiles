@@ -12,6 +12,7 @@
     (setq helm-buffers-fuzzy-matching t)
     (setq helm-M-x-fuzzy-match t)
     (add-to-list 'recentf-exclude "\\ido.hist\\'")
+    (add-to-list 'recentf-exclude "\\TAGS\\'")
     (helm-mode 1)
     ;; Helm
     (evil-leader/set-key "o" 'helm-buffers-list)
