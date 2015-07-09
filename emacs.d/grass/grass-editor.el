@@ -75,11 +75,12 @@
 ;; Easy insert of quotes and dashes
 (use-package typo
   :ensure t
-  :config
-  (typo-global-mode t)
   :init
-  (add-hook 'text-mode-hook 'typo-mode))
-
+  (add-hook 'text-mode-hook
+    (lambda ()
+      (typo-mode 1)
+      ;; Let backtick be itself
+      (define-key typo-mode-map (kbd "`") 'self-insert-command))))
 
 (defun grass/auto-save-all()
   "Save all modified buffers that point to files."
