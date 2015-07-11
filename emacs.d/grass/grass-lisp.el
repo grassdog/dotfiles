@@ -24,6 +24,10 @@
 (add-hook 'cider-repl-mode-hook 'grass/set-shift-width)
 (add-hook 'scheme-mode-hook 'grass/set-shift-width)
 
+(add-hook 'emacs-lisp-mode-hook
+  (lambda ()
+    (define-key global-map (kbd "C-c C-e") 'eval-print-last-sexp)))
+
 ;; hl-sexp: minor mode to highlight s-expression
 (use-package hl-sexp
   :ensure t
