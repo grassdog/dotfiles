@@ -144,6 +144,7 @@
                                 (shell-mode . emacs)
                                 (git-commit-mode . insert)
                                 (git-rebase-mode . emacs)
+                                (calculator-mode . emacs)
                                 (term-mode . emacs)
                                 (haskell-interactive-mode . emacs)
                                 ; (help-mode . emacs)
