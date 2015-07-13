@@ -20,6 +20,7 @@
     (evil-leader/set-key "p"   'helm-projectile)
     (evil-leader/set-key "a" 'projectile-ag)
     (evil-leader/set-key "t p" 'helm-projectile)
+    (evil-leader/set-key "t f" 'projectile-find-file-dwim)
     (evil-leader/set-key "t r" 'projectile-replace)
     (evil-leader/set-key "t s" 'helm-projectile-switch-project)
     (evil-leader/set-key "t b" 'projectile-switch-to-buffer)
