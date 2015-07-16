@@ -44,6 +44,7 @@ Plugin 'YankRing.vim'
 Plugin 'bogado/file-line'
 Plugin 'tmux-plugins/vim-tmux-focus-events'
 Plugin 'ConradIrwin/vim-bracketed-paste'
+Plugin 'tpope/vim-vinegar'
 
 " Text objects and motions
 Plugin 'kana/vim-textobj-user'
@@ -236,8 +237,8 @@ let g:EasyGrepReplaceWindowMode=2
 " Wildmenu completion   {{{
 """""""""""""""""""""""
 
-" use zsh-style tab completion when selecting files, etc
-set wildmode=full
+" tab completion for file selection
+set wildmode=longest:full,full
 
 " make tab completion for files/buffers act like bash
 set wildmenu
@@ -248,7 +249,7 @@ set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
 set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.spl                            " compiled spelling word lists
 set wildignore+=*.sw?                            " Vim swap files
-set wildignore+=*.DS_Store                       " OSX
+set wildignore+=.DS_Store                        " OSX
 
 set wildignore+=*.obj,*.rbc,*.class,*.gem        " Disable output and VCS files
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz " Disable archive files
@@ -516,7 +517,8 @@ command! NewDayonePost :w !dayone new
 
 " No Netrw menu
 let g:netrw_menu      = 0
-let g:netrw_list_hide= '.DS_Store$'
+" let g:netrw_list_hide= '.DS_Store$'
+let g:netrw_liststyle=3
 
 " Preview in a vertical split
 let g:netrw_preview   = 1
@@ -524,6 +526,7 @@ let g:netrw_winsize   = 30
 
 " Remove netrw history files
 let g:netrw_dirhistmax = 0
+let g:netrw_keepdir=1
 
 
 """"""""""""""""""""""" }}}
