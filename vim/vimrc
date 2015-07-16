@@ -540,7 +540,8 @@ let g:ctrlp_extensions = ['tag']
 
 nnoremap <leader>d :CtrlPCurFile<cr>
 nnoremap <leader>o :CtrlPBuffer<cr>
-nnoremap <leader>t :CtrlPTag<cr>
+nnoremap <leader>T :CtrlPTag<cr>
+nnoremap <leader>m :CtrlPMRU<cr>
 
 
 """"""""""""""""""""""" }}}
@@ -881,16 +882,16 @@ function! RunTests(filename)
 endfunction
 
 " Run all tests
-nnoremap <leader>ra :call RunAllTests()<cr>
+nnoremap <leader>ta :call RunAllTests()<cr>
 
 " Run all tests in file
-nnoremap <leader>rt :call RunTestFile()<cr>
+nnoremap <leader>tf :call RunTestFile()<cr>
 
 " Run nearest test
-nnoremap <leader>rn :call RunNearestTestInFile()<cr>
+nnoremap <leader>tn :call RunNearestTestInFile()<cr>
 
 " Re-Run last test
-nnoremap <leader>rr :call RunLastTest()<cr>
+nnoremap <leader>tt :call RunLastTest()<cr>
 
 
 """"""""""""""""""""""" }}}
