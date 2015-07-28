@@ -92,7 +92,7 @@ Plugin 'slim-template/vim-slim.git'
 Plugin 'guns/vim-clojure-static'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'tpope/vim-fireplace'
-Plugin 'tpope/vim-leiningen'
+" Plugin 'tpope/vim-salve'
 Plugin 'guns/vim-sexp'
 Plugin 'tpope/vim-sexp-mappings-for-regular-people'
 
