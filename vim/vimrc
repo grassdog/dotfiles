@@ -615,6 +615,8 @@ augroup grass_allfiles
 
   " Highlight TODOs
   au WinEnter,VimEnter * :silent! call matchadd('Todo', 'TODO', -1)
+  au WinEnter,VimEnter * :silent! call matchadd('Todo', 'DEBUG', -1)
+  au WinEnter,VimEnter * :silent! call matchadd('Todo', 'XXX', -1)
 
   " Remember last location in file, but not for commit messages.
   " see :help last-position-jump
