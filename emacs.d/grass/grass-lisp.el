@@ -4,17 +4,6 @@
   (add-hook 'clojure-mode-hook #'yas-minor-mode))
 
 
-;; Paredit
-(use-package paredit
-  :ensure t
-  :diminish paredit-mode
-  :init
-  (add-hook 'lisp-mode-hook #'paredit-mode)
-  (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
-  (add-hook 'clojure-mode-hook #'paredit-mode)
-  (add-hook 'cider-repl-mode-hook #'paredit-mode)
-  (add-hook 'scheme-mode-hook #'paredit-mode))
-
 (defun grass/set-shift-width ()
    (setq evil-shift-width 2))
 

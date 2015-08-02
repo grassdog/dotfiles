@@ -39,6 +39,19 @@ This functions should be added to the hooks of major modes for programming."
 (setq on-console (null window-system))
 (setq linum-format (if on-console "%4d " "%4d"))
 
+(use-package smartparens
+  :ensure t
+  :diminish smartparens-mode
+  :init
+  (require 'smartparens-config)
+  (sp-use-smartparens-bindings)
+  (add-hook 'enh-ruby-mode-hook #'smartparens-mode)
+  (add-hook 'lisp-mode-hook #'smartparens-mode)
+  (add-hook 'emacs-lisp-mode-hook #'smartparens-mode)
+  (add-hook 'clojure-mode-hook #'smartparens-mode)
+  (add-hook 'cider-repl-mode-hook #'smartparens-mode)
+  (add-hook 'scheme-mode-hook #'smartparens-mode))
+
 (require 'hideshow)
 (diminish 'hs-minor-mode)
 
