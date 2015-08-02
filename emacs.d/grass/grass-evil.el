@@ -147,6 +147,7 @@
                                 (calculator-mode . emacs)
                                 (term-mode . emacs)
                                 (haskell-interactive-mode . emacs)
+                                (cider-repl-mode . emacs)
                                 ; (help-mode . emacs)
                                 (helm-grep-mode . emacs)
                                 (grep-mode . emacs)
