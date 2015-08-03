@@ -16,11 +16,15 @@
           ("h5"   "^##### \\(.*\\)$" 1)
           ("h6"   "^###### \\(.*\\)$" 1)
           ("fn"   "^\\[\\^\\(.*\\)\\]" 1)))
+
   :init
   (add-hook 'markdown-mode-hook
-            (lambda ()
-              (global-set-key (kbd "C-c m") 'markdown-preview-file)
-              (setq imenu-generic-expression markdown-imenu-generic-expression)))
+      (lambda ()
+        ;; Remove for now as they interfere with indentation
+        (define-key yas-minor-mode-map [(tab)] nil)
+        (define-key yas-minor-mode-map (kbd "TAB") nil)
+        (global-set-key (kbd "C-, m") 'markdown-preview-file)
+        (setq imenu-generic-expression markdown-imenu-generic-expression)))
 
   ;; Preview markdown file in Marked.app
   (defun markdown-preview-file ()
