@@ -4,6 +4,7 @@
           ("\\.json$" . js2-mode))
   :interpreter "node"
   :init
+    (add-hook 'js2-mode-hook 'js2-imenu-extras-mode)
     (add-hook 'js2-mode-hook
     (lambda ()
         (setq mode-name "JS2")

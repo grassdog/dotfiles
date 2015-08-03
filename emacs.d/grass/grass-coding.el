@@ -57,6 +57,8 @@ This functions should be added to the hooks of major modes for programming."
 ;; Show current function in modeline
 (which-function-mode)
 
+(set-default 'imenu-auto-rescan t)
+
 (global-set-key (kbd "C-, i") 'imenu)
 
 (use-package puppet-mode
