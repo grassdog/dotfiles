@@ -132,17 +132,18 @@
 (global-set-key (kbd "C-c u") 'grass/view-url)
 (global-set-key (kbd "C-c r") 'grass/indent-region-or-buffer)
 
-
-;; TODO Work a few more of these out
-;; (evil-leader/set-key "e" 'pp-eval-last-sexp)
-;; (evil-leader/set-key "S" 'ispell-word)
-;; (evil-leader/set-key "y" 'bury-buffer)
-
-
 (global-set-key (kbd "C-, =") 'balance-windows)
 
 ;; Quick switch buffers
 (global-set-key (kbd "C-, C-,") 'grass/switch-to-previous-buffer)
+
+(use-package multiple-cursors
+  :ensure t
+  :init
+  (global-set-key (kbd "C-, m s") 'mc/edit-lines)
+  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+  (global-set-key (kbd "C-, m a") 'mc/mark-all-like-this-dwim))
 
 ;; Snippets
 (use-package yasnippet
