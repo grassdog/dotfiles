@@ -15,16 +15,12 @@
     (add-to-list 'recentf-exclude "\\TAGS\\'")
     (helm-mode 1)
     ;; Helm
-    (evil-leader/set-key "o" 'helm-buffers-list)
+    (global-set-key (kbd "C-, r") 'helm-recentf)
     (global-set-key (kbd "C-, o") 'helm-buffers-list)
 
-    (evil-leader/set-key "r" 'helm-recentf)
-    (global-set-key (kbd "C-, r") 'helm-recentf)
-
-    (global-set-key (kbd "M-x") 'helm-M-x))
-
+    (global-set-key (kbd "M-x") 'helm-M-x)
     ;; Bind the old M-x.
-    (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command))
+    (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)))
 
 (use-package helm-projectile
   :ensure t)

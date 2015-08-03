@@ -1,36 +1,6 @@
 
 ;; Trojan horse maneuver
 
-;; Leaders
-(use-package evil-leader
-  :ensure t
-  :init
-  (progn
-    (global-evil-leader-mode)
-    (evil-leader/set-leader ",")
-
-    ;; Key bindings
-    (evil-leader/set-key "d" 'dired-jump)
-    (evil-leader/set-key "e" 'pp-eval-last-sexp)
-    (evil-leader/set-key "f" 'ido-find-file)
-    (evil-leader/set-key "k" 'kill-this-buffer)
-    (evil-leader/set-key "S" 'ispell-word)
-    (evil-leader/set-key "y" 'bury-buffer)
-    (evil-leader/set-key "s" 'occur)
-
-    ;; Move lines
-    (global-set-key (kbd "<C-S-up>") 'grass/move-line-up)
-    (global-set-key (kbd "<C-S-down>")  'grass/move-line-down)
-
-    (global-set-key (kbd "C-c u") 'grass/view-url)
-    (global-set-key (kbd "C-c r") 'grass/indent-region-or-buffer)
-
-    ; (global-set-key (kbd "C-w =") 'balance-windows)
-
-    ;; Switch buffers, even in non evil modes
-    (evil-leader/set-key "," 'grass/switch-to-previous-buffer)
-    (global-set-key (kbd "C-, ,") 'grass/switch-to-previous-buffer)))
-
 (use-package evil-commentary
   :ensure t
   :diminish evil-commentary-mode
@@ -57,7 +27,8 @@
   :init
   (global-evil-search-highlight-persist t)
   (evil-search-highlight-persist -1)
-  (evil-leader/set-key "<SPC>" 'evil-search-highlight-persist-remove-all))
+
+  (define-key evil-normal-state-map (kbd "SPC") 'evil-search-highlight-persist-remove-all))
 
 (use-package evil
   :ensure t
@@ -148,7 +119,7 @@
                                 (term-mode . emacs)
                                 (haskell-interactive-mode . emacs)
                                 (cider-repl-mode . emacs)
-                                ; (help-mode . emacs)
+                                (help-mode . emacs)
                                 (helm-grep-mode . emacs)
                                 (grep-mode . emacs)
                                 (bc-menu-mode . emacs)

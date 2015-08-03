@@ -21,10 +21,10 @@
       (setq web-mode-css-indent-offset 2)
       (setq web-mode-code-indent-offset 2)
       (setq evil-shift-width 2)
-      ;; Be case sensitive on my matches please
-      (setq company-dabbrev-downcase nil)
+      (setq company-dabbrev-downcase nil) ;; Be case sensitive on my matches please
+      (global-set-key (kbd "C-, f") 'web-beautify-html)
+      (global-set-key (kbd "C-, z") 'web-mode-fold-or-unfold)
       (setq web-mode-enable-current-element-highlight t))
-      (define-key evil-normal-state-map "za" 'web-mode-fold-or-unfold)
     (add-hook 'web-mode-hook  'grass/web-mode-hook)))
 
 (use-package scss-mode
@@ -35,7 +35,12 @@
               (setq evil-shift-width css-indent-offset))))
 
 (use-package css-mode
-  :ensure t)
+  :ensure t
+  :init
+  (add-hook 'css-mode-hook
+            (lambda ()
+              (global-set-key (kbd "C-, f") 'web-beautify-css))))
+
 
 (use-package yaml-mode
   :ensure t)

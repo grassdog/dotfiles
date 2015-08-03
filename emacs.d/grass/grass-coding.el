@@ -23,13 +23,7 @@ This functions should be added to the hooks of major modes for programming."
         (indent-according-to-mode))))
 
 (use-package web-beautify
-  :ensure t
-  :init
-  ;; Clean files
-  ;(evil-leader/set-key-for-mode 'web-mode "c" 'web-beautify-html)
-  ;(evil-leader/set-key-for-mode 'css-mode "c" 'web-beautify-css)
-  (evil-leader/set-key "i" 'grass/indent-region-or-buffer)
-  (evil-leader/set-key-for-mode 'js2-mode "c" 'web-beautify-js))
+  :ensure t)
 
 (use-package magit
   :ensure t

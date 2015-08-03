@@ -14,22 +14,6 @@
     (add-to-list 'projectile-globally-ignored-directories "gems")
     (add-to-list 'projectile-globally-ignored-directories "node_modules")
     (add-to-list 'projectile-globally-ignored-directories "dist")
-
-    ;; Projectile
-    (global-set-key (kbd "C-, p") 'helm-projectile)
-    (evil-leader/set-key "p"   'helm-projectile)
-    (evil-leader/set-key "a" 'projectile-ag)
-    (evil-leader/set-key "t p" 'helm-projectile)
-    (evil-leader/set-key "t f" 'projectile-find-file-dwim)
-    (evil-leader/set-key "t r" 'projectile-replace)
-    (evil-leader/set-key "t s" 'helm-projectile-switch-project)
-    (evil-leader/set-key "t b" 'projectile-switch-to-buffer)
-    (evil-leader/set-key "t d" 'projectile-find-dir)
-    (evil-leader/set-key "t D" 'projectile-dired)
-    (evil-leader/set-key "t t" 'projectile-find-tag)
-    (evil-leader/set-key "t k" 'projectile-kill-buffers)
-    (evil-leader/set-key "t T" 'projectile-regenerate-tags)
-    (evil-leader/set-key "t R" 'helm-projectile-recentf)
     (helm-projectile-on)))
 
 (provide 'grass-projectile)

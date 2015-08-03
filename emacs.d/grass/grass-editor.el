@@ -118,15 +118,31 @@
 
 ;; Up in dired
 (add-hook 'dired-mode-hook
-          (lambda ()
-            (local-set-key (kbd "U") 'dired-up-directory)
-            (local-set-key (kbd ",p") 'helm-projectile)
-            (local-set-key (kbd ",o") 'helm-buffers-list)
-            (local-set-key (kbd ",,") 'grass/switch-to-previous-buffer)))
+  (lambda ()
+    (local-set-key (kbd "U") 'dired-up-directory)))
 
-
+;; Some key bindings
 (global-set-key (kbd "<home>") 'move-beginning-of-line)
 (global-set-key (kbd "<end>") 'move-end-of-line)
+
+;; Move lines
+(global-set-key (kbd "<C-S-up>") 'grass/move-line-up)
+(global-set-key (kbd "<C-S-down>")  'grass/move-line-down)
+
+(global-set-key (kbd "C-c u") 'grass/view-url)
+(global-set-key (kbd "C-c r") 'grass/indent-region-or-buffer)
+
+
+;; TODO Work a few more of these out
+;; (evil-leader/set-key "e" 'pp-eval-last-sexp)
+;; (evil-leader/set-key "S" 'ispell-word)
+;; (evil-leader/set-key "y" 'bury-buffer)
+
+
+(global-set-key (kbd "C-, =") 'balance-windows)
+
+;; Quick switch buffers
+(global-set-key (kbd "C-, C-,") 'grass/switch-to-previous-buffer)
 
 ;; Snippets
 (use-package yasnippet
