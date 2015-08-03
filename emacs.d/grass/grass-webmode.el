@@ -22,7 +22,7 @@
       (setq web-mode-code-indent-offset 2)
       (setq evil-shift-width 2)
       (setq company-dabbrev-downcase nil) ;; Be case sensitive on my matches please
-      (global-set-key (kbd "C-, f") 'web-beautify-html)
+      (global-set-key (kbd "C-, F") 'web-beautify-html)
       (global-set-key (kbd "C-, z") 'web-mode-fold-or-unfold)
       (setq web-mode-enable-current-element-highlight t))
     (add-hook 'web-mode-hook  'grass/web-mode-hook)))
@@ -39,7 +39,7 @@
   :init
   (add-hook 'css-mode-hook
             (lambda ()
-              (global-set-key (kbd "C-, f") 'web-beautify-css))))
+              (global-set-key (kbd "C-, F") 'web-beautify-css))))
 
 
 (use-package yaml-mode
