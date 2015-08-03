@@ -11,6 +11,7 @@
     (setq helm-buffers-fuzzy-matching t)
     (setq helm-buffers-fuzzy-matching t)
     (setq helm-M-x-fuzzy-match t)
+    (setq helm-split-window-in-side-p t)
     (add-to-list 'recentf-exclude "\\ido.hist\\'")
     (add-to-list 'recentf-exclude "\\TAGS\\'")
     (helm-mode 1)
@@ -28,22 +29,16 @@
 (use-package helm-ag
   :ensure t)
 
-;; Force helm to always open from bottom
-;; disable popwin-mode in an active Helm session It should be disabled
-;; otherwise it will conflict with other window opened by Helm persistent
-;; action, such as *Help* window.
-(use-package popwin
+(use-package helm-swoop
   :ensure t
-  :config
-  (progn
-    (popwin-mode 1)
-    (push '("^\*helm.+\*$" :regexp t :height 25) popwin:special-display-config)
-    (push '("^\*ag.+\*$" :regexp t :height 25) popwin:special-display-config)
-    (add-hook 'helm-after-initialize-hook (lambda ()
-                                            (popwin:display-buffer helm-buffer t)
-                                            (popwin-mode -1)))
+  :init
+  (global-set-key (kbd "C-, s") 'helm-swoop))
 
-    ;; Restore popwin-mode after a Helm session finishes.
-    (add-hook 'helm-cleanup-hook (lambda () (popwin-mode 1)))))
+;; Force helm to always open at the bottom
+(add-to-list 'display-buffer-alist
+                    `(,(rx bos "*helm" (* not-newline) "*" eos)
+                         (display-buffer-in-side-window)
+                         (inhibit-same-window . t)
+                         (window-height . 0.4)))
 
 (provide 'grass-helm)
