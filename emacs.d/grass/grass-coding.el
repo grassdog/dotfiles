@@ -27,7 +27,7 @@ This functions should be added to the hooks of major modes for programming."
 
 (use-package magit
   :ensure t
-  :bind ("C-x g" . magit-status))
+  :bind ("C-, g" . magit-status))
 
 ;; Line numbers for coding please
 (setq on-console (null window-system))
