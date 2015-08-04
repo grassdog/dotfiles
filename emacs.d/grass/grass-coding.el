@@ -52,7 +52,14 @@ This functions should be added to the hooks of major modes for programming."
 (add-hook 'prog-mode-hook
   (lambda ()
     (linum-mode 1)
-    (hs-minor-mode t)))
+    (hs-minor-mode t)
+    (global-set-key (kbd "C-, a =")
+      (lambda () (interactive)
+        (grass/align-to-equals (region-beginning) (region-end))))
+
+    (global-set-key (kbd "C-, a :")
+      (lambda () (interactive)
+        (grass/align-to-colon (region-beginning) (region-end))))))
 
 ;; Show current function in modeline
 (which-function-mode)

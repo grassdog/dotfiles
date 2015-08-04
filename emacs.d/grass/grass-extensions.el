@@ -101,14 +101,6 @@ Repeated invocations toggle between the two most recently open buffers."
   (align-regexp begin end
                 (rx (group (zero-or-more (syntax whitespace))) ",") 1 1 ))
 
-(local-set-key (kbd "C-, a =")
-  (lambda () (interactive)
-    (grass/align-to-equals (region-beginning) (region-end))))
-
-(local-set-key (kbd "C-, a :")
-  (lambda () (interactive)
-    (grass/align-to-colon (region-beginning) (region-end))))
-
 (defun grass/what-face (pos)
   (interactive "d")
   (let ((face (or (get-char-property (point) 'read-face-name)
