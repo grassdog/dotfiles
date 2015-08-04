@@ -15,7 +15,7 @@
     (add-to-list 'projectile-globally-ignored-directories "node_modules")
     (add-to-list 'projectile-globally-ignored-directories "dist")
 
-    (global-set-key (kbd "C-, f") 'projectile-find-file)
+    (global-set-key (kbd "C-, f") 'helm-projectile)
     (helm-projectile-on)))
 
 (provide 'grass-projectile)
