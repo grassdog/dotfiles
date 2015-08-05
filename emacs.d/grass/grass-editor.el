@@ -138,6 +138,28 @@
 ;; Quick switch buffers
 (global-set-key (kbd "C-, C-,") 'grass/switch-to-previous-buffer)
 
+;;
+;; Make windows sticky http://stackoverflow.com/a/5182111
+;;
+(defadvice pop-to-buffer (before cancel-other-window first)
+  (ad-set-arg 1 nil))
+
+(ad-activate 'pop-to-buffer)
+
+;; Toggle window dedication
+(defun toggle-window-dedicated ()
+  "Toggle whether the current active window is dedicated or not"
+  (interactive)
+  (message
+   (if (let (window (get-buffer-window (current-buffer)))
+         (set-window-dedicated-p window
+                                 (not (window-dedicated-p window))))
+       "Window '%s' is dedicated"
+     "Window '%s' is normal")
+   (current-buffer)))
+
+(global-set-key (kbd "C-, W") 'toggle-window-dedicated)
+
 (use-package multiple-cursors
   :ensure t
   :init
