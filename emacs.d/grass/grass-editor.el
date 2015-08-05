@@ -132,7 +132,7 @@
 (global-set-key (kbd "<C-S-up>") 'grass/move-line-up)
 (global-set-key (kbd "<C-S-down>")  'grass/move-line-down)
 
-(global-set-key (kbd "C-c u") 'grass/view-url)
+(global-set-key (kbd "C-c u") 'browse-url)
 (global-set-key (kbd "C-c r") 'grass/indent-region-or-buffer)
 
 ;; Quick switch buffers
