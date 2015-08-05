@@ -121,6 +121,9 @@
   (lambda ()
     (local-set-key (kbd "U") 'dired-up-directory)))
 
+;; Make files with the same name have unique buffer names
+(setq uniquify-buffer-name-style 'forward)
+
 ;; Some key bindings
 (global-set-key (kbd "<home>") 'move-beginning-of-line)
 (global-set-key (kbd "<end>") 'move-end-of-line)
@@ -131,8 +134,6 @@
 
 (global-set-key (kbd "C-c u") 'grass/view-url)
 (global-set-key (kbd "C-c r") 'grass/indent-region-or-buffer)
-
-(global-set-key (kbd "C-, =") 'balance-windows)
 
 ;; Quick switch buffers
 (global-set-key (kbd "C-, C-,") 'grass/switch-to-previous-buffer)

@@ -15,6 +15,7 @@
     (add-to-list 'projectile-globally-ignored-directories "node_modules")
     (add-to-list 'projectile-globally-ignored-directories "dist")
 
+    (global-set-key (kbd "C-p") 'helm-projectile)
     (global-set-key (kbd "C-, p") 'helm-projectile)
     (helm-projectile-on)))
 
