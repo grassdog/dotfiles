@@ -33,6 +33,11 @@ This functions should be added to the hooks of major modes for programming."
 (setq on-console (null window-system))
 (setq linum-format (if on-console "%4d " "%4d"))
 
+(use-package string-inflection
+  :ensure t
+  :init
+  (global-set-key (kbd "C-, C-u") 'string-inflection-cycle))
+
 (use-package smartparens
   :ensure t
   :diminish smartparens-mode
