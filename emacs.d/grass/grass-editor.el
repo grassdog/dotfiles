@@ -82,6 +82,7 @@
       ;; Let backtick be itself
       (define-key typo-mode-map (kbd "`") 'self-insert-command))))
 
+;; Auto save on focus lost
 (defun grass/auto-save-all()
   "Save all modified buffers that point to files."
   (interactive)
@@ -119,6 +120,7 @@
 ;; Up in dired
 (add-hook 'dired-mode-hook
   (lambda ()
+    (dired-hide-details-mode t)
     (local-set-key (kbd "U") 'dired-up-directory)))
 
 ;; Make files with the same name have unique buffer names
