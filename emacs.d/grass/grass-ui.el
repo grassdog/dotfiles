@@ -43,21 +43,21 @@
 (use-package tabbar
   :ensure t
   :init
-
-  (setq tabbar-ruler-global-tabbar nil)
-  (setq tabbar-ruler-global-ruler nil)
-  (setq tabbar-ruler-popup-menu nil)
-  (setq tabbar-ruler-popup-toolbar nil)
-  (setq tabbar-ruler-popup-scrollbar nil)
-
-  (require 'tabbar-ruler)
-  (tabbar-ruler-group-by-projectile-project)
-
   (global-set-key (kbd "s-{") 'tabbar-backward-tab)
   (global-set-key (kbd "s-}") 'tabbar-forward-tab)
   (global-set-key (kbd "<s-right>") 'tabbar-forward-group)
   (global-set-key (kbd "<s-left>") 'tabbar-backward-group)
-  (global-set-key (kbd "<s-up>") 'tabbar-press-home))
+  (global-set-key (kbd "<s-up>") 'tabbar-press-home)
+  (global-set-key (kbd "s-t") 'tabbar-mode))
+
+(setq tabbar-ruler-global-tabbar nil)
+(setq tabbar-ruler-global-ruler nil)
+(setq tabbar-ruler-popup-menu nil)
+(setq tabbar-ruler-popup-toolbar nil)
+(setq tabbar-ruler-popup-scrollbar nil)
+
+(require 'tabbar-ruler)
+(tabbar-ruler-group-by-projectile-project)
 
 
 (use-package smart-mode-line

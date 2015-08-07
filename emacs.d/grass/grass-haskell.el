@@ -27,7 +27,7 @@
 
     (custom-set-variables
      ; Set up hasktags
-     '(haskell-tags-on-save t)
+     '(haskell-tags-on-save nil)
      ; Set up interactive mode
      '(haskell-process-auto-import-loaded-modules t)
      '(haskell-process-log t)
