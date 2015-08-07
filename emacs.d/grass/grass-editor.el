@@ -136,8 +136,8 @@
 (global-set-key (kbd "<C-S-up>") 'grass/move-line-up)
 (global-set-key (kbd "<C-S-down>")  'grass/move-line-down)
 
-(global-set-key (kbd "C-c u") 'browse-url)
-(global-set-key (kbd "C-c r") 'grass/indent-region-or-buffer)
+(global-set-key (kbd "C-, u") 'browse-url)
+(global-set-key (kbd "C-, i") 'grass/indent-region-or-buffer)
 
 ;; Quick switch buffers
 (global-set-key (kbd "C-, C-,") 'grass/switch-to-previous-buffer)
@@ -162,7 +162,7 @@
      "Window '%s' is normal")
    (current-buffer)))
 
-(global-set-key (kbd "C-, W") 'toggle-window-dedicated)
+(global-set-key (kbd "C-, w") 'toggle-window-dedicated)
 
 (use-package multiple-cursors
   :ensure t
