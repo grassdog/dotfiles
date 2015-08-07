@@ -40,6 +40,24 @@
                                             (abbreviate-file-name (buffer-file-name))
                                           "%b"))))
 
+(use-package tabbar
+  :ensure t
+  :init
+  (setq tabbar-ruler-global-tabbar nil)
+  (setq tabbar-ruler-global-ruler nil)
+  (setq tabbar-ruler-popup-menu nil)
+  (setq tabbar-ruler-popup-toolbar nil)
+  (setq tabbar-ruler-popup-scrollbar t)
+  (require 'tabbar-ruler)
+  (tabbar-mode 1)
+  (global-set-key (kbd "s-{") 'tabbar-backward-tab)
+  (global-set-key (kbd "s-}") 'tabbar-forward-tab)
+  (global-set-key (kbd "<s-right>") 'tabbar-forward-group)
+  (global-set-key (kbd "<s-left>") 'tabbar-backward-group)
+  (global-set-key (kbd "<s-up>") 'tabbar-press-home))
+
+
+
 (use-package smart-mode-line
   :ensure t
   :init
@@ -79,6 +97,6 @@
   (use-package zenburn-theme
      :ensure t
      :init
-     (load-theme 'zenburn)))
+     (load-theme 'zenburn 'no-confirm)))
 
 (provide 'grass-ui)
