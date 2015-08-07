@@ -47,7 +47,32 @@
   (setq tabbar-ruler-global-ruler nil)
   (setq tabbar-ruler-popup-menu nil)
   (setq tabbar-ruler-popup-toolbar nil)
-  (setq tabbar-ruler-popup-scrollbar t)
+  (setq tabbar-ruler-popup-scrollbar nil)
+
+  ;; Custom grouping code to try later
+  ;; (defun tabbar-buffer-groups-by-dir ()
+  ;;         "Put all files in the same directory into the same tab bar"
+  ;;         (with-current-buffer (current-buffer)
+  ;;           (let ((dir (expand-file-name default-directory)))
+  ;;             (cond ;; assign group name until one clause succeeds, so the order is important
+  ;;             ((eq major-mode 'dired-mode)
+  ;;               (list "Dired"))
+  ;;             ((memq major-mode
+  ;;                     '(help-mode apropos-mode Info-mode Man-mode))
+  ;;               (list "Help"))
+  ;;             ((string-match-p "\*.*\*" (buffer-name))
+  ;;               (list "Misc"))
+  ;;             (t (list dir))))))
+
+  ;; (defun tabbar-switch-grouping-method (&optional arg)
+  ;;   "Changes grouping method of tabbar to grouping by dir.
+  ;; With a prefix arg, changes to grouping by major mode."
+  ;;   (interactive "P")
+  ;;   (ignore-errors
+  ;;     (if arg
+  ;;       (setq tabbar-buffer-groups-function 'tabbar-buffer-groups) ;; the default setting
+  ;;         (setq tabbar-buffer-groups-function 'tabbar-buffer-groups-by-dir))))
+
   (require 'tabbar-ruler)
   (tabbar-mode 1)
   (global-set-key (kbd "s-{") 'tabbar-backward-tab)
