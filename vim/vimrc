@@ -635,7 +635,7 @@ augroup END
 function! ExtendMarkdownSyntax()
   " Highlight bare urls in markdown
   hi def link RGBareURL markdownUrl
-  match RGBareURL /https\?:\/\/\(\w\+\(:\w\+\)\?@\)\?\([A-Za-z][-_0-9A-Za-z]*\.\)\{1,}\(\w\{2,}\.\?\)\{1,}\(:[0-9]\{1,5}\)\?\S*/
+  match RGBareURL /[^(]https\?:\/\/\(\w\+\(:\w\+\)\?@\)\?\([A-Za-z][-_0-9A-Za-z]*\.\)\{1,}\(\w\{2,}\.\?\)\{1,}\(:[0-9]\{1,5}\)\?\S*/
 endfun
 
 augroup grass_html
