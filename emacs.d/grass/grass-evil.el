@@ -37,6 +37,8 @@
   (setq-default evil-cross-lines t)
   (setq evil-shift-width 2)
   :init
+  (require 'evil-little-word)
+
   (evil-mode t)
 
   ;; Yank till end of line

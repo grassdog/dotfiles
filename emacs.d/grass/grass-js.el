@@ -11,7 +11,6 @@
         (setq js2-global-externs '("require" "module" "jest" "jasmine"
                                     "it" "expect" "describe" "beforeEach"))
         (setq evil-shift-width js-indent-level)
-        (subword-mode +1)
         (global-set-key (kbd "C-, f") 'web-beautify-js)
         (js2-imenu-extras-mode +1))))
 

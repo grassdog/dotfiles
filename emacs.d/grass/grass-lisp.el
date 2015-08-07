@@ -77,7 +77,6 @@
   :init
   (add-hook 'clojure-mode-hook
             (lambda ()
-              (subword-mode +1)
               (clj-refactor-mode 1)
 
               ;; no auto sort

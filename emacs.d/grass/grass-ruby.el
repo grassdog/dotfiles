@@ -21,9 +21,7 @@
       ;; turn off the annoying input echo in irb
       (setq comint-process-echoes t)
       (ruby-tools-mode +1)
-      (setq evil-shift-width ruby-indent-level)
-      ;; CamelCase aware editing operations
-      (subword-mode +1))))
+      (setq evil-shift-width ruby-indent-level))))
 
 (use-package inf-ruby
   :ensure t
