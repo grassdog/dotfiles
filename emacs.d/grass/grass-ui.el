@@ -1,5 +1,8 @@
 ;; UI config
 
+;; Faster
+(setq font-lock-verbose nil)
+
 ;; Get rid of chrome
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
@@ -50,7 +53,7 @@
   (global-set-key (kbd "<s-up>") 'tabbar-press-home)
   (global-set-key (kbd "s-t") 'tabbar-mode))
 
-(setq tabbar-ruler-global-tabbar nil)
+(setq tabbar-ruler-global-tabbar t)
 (setq tabbar-ruler-global-ruler nil)
 (setq tabbar-ruler-popup-menu nil)
 (setq tabbar-ruler-popup-toolbar nil)
