@@ -11,7 +11,9 @@
   '(tabbar-unselected-modified ((t :inherit tabbar-unselected))))
 
 (custom-set-variables
- '(haskell-process-auto-import-loaded-modules t)
- '(haskell-process-log t)
- '(haskell-process-suggest-remove-import-lines t)
- '(haskell-tags-on-save t))
+  ; Set up hasktags
+  '(haskell-tags-on-save nil)
+  ; Set up interactive mode
+  '(haskell-process-auto-import-loaded-modules t)
+  '(haskell-process-log t)
+  '(haskell-process-suggest-remove-import-lines t))

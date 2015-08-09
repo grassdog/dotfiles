@@ -25,14 +25,6 @@
     ; Set interpreter to be "cabal repl"
     ;(setq haskell-process-type 'cabal-repl)
 
-    (custom-set-variables
-     ; Set up hasktags
-     '(haskell-tags-on-save nil)
-     ; Set up interactive mode
-     '(haskell-process-auto-import-loaded-modules t)
-     '(haskell-process-log t)
-     '(haskell-process-suggest-remove-import-lines t))
-
     ; Add key combinations for interactive haskell-mode
     (eval-after-load 'haskell-mode '(progn
                                       (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
