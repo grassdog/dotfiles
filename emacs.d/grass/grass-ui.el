@@ -3,6 +3,9 @@
 ;; Faster
 (setq font-lock-verbose nil)
 
+;; no jerky scrolling
+(setq scroll-conservatively 101)
+
 ;; Get rid of chrome
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
