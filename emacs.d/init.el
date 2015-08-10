@@ -45,6 +45,8 @@
 ;; Set up load paths
 (add-to-list 'load-path grass/config-dir)
 
+(require 'cl)
+
 (require 'grass-ui)
 (require 'grass-editor)
 (require 'grass-coding)

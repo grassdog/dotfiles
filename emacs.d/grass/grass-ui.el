@@ -45,7 +45,6 @@
       '("" invocation-name " - " (:eval (if (buffer-file-name)
                                             (abbreviate-file-name (buffer-file-name))
                                           "%b"))))
-
 (use-package bs-ext
   :ensure t
   :init
