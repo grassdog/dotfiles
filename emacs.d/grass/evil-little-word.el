@@ -115,16 +115,22 @@ list of categories."
   "Select inner little word."
   (evil-select-inner-object 'evil-little-word beg end type count))
 
-(define-key evil-motion-state-map (kbd "glw") 'evil-forward-little-word-begin)
-(define-key evil-motion-state-map (kbd "glb") 'evil-backward-little-word-begin)
+;; RG: Clear out reverse search motion mapping and add my own motion mappings for little word.
+(define-key evil-motion-state-map "," nil)
+(define-key evil-motion-state-map (kbd ",w") 'evil-forward-little-word-begin)
+(define-key evil-motion-state-map (kbd ",b") 'evil-backward-little-word-begin)
+;; (define-key evil-motion-state-map (kbd "glw") 'evil-forward-little-word-begin)
+;; (define-key evil-motion-state-map (kbd "glb") 'evil-backward-little-word-begin)
+
 (define-key evil-motion-state-map (kbd "glW") 'evil-forward-little-word-end)
 (define-key evil-motion-state-map (kbd "glB") 'evil-backward-little-word-end)
+
+;; RG: My preferred mappings for text objects.
+(define-key evil-outer-text-objects-map (kbd ",w") 'evil-a-little-word)
+(define-key evil-inner-text-objects-map (kbd ",w") 'evil-inner-little-word)
 ; (define-key evil-outer-text-objects-map (kbd "lw") 'evil-a-little-word)
 ; (define-key evil-inner-text-objects-map (kbd "lw") 'evil-inner-little-word)
 
-;; My preferred mappings.
-(define-key evil-outer-text-objects-map (kbd ",w") 'evil-a-little-word)
-(define-key evil-inner-text-objects-map (kbd ",w") 'evil-inner-little-word)
 
 (provide 'evil-little-word)
 ;;; evil-little-word.el ends here
