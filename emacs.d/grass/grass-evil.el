@@ -120,6 +120,7 @@
                                 (calculator-mode . emacs)
                                 (term-mode . emacs)
                                 (haskell-interactive-mode . emacs)
+                                (undo-tree-mode . emacs)
                                 (cider-repl-mode . emacs)
                                 (help-mode . emacs)
                                 (helm-grep-mode . emacs)
