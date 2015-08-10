@@ -33,6 +33,8 @@
   "A house for snippets.")
 (defvar grass/savefile-dir (expand-file-name "savefile" grass/dotfiles-dir)
   "This folder stores all the automatically generated save/history-files.")
+(defvar grass/undo-dir (expand-file-name "undo" grass/dotfiles-dir)
+  "Undo files.")
 
 ;; Ensure savefile directory exists
 (unless (file-exists-p grass/savefile-dir)

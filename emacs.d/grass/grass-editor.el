@@ -16,9 +16,6 @@
 ;; Revert buffers automatically when underlying files are changed externally
 (global-auto-revert-mode t)
 
-;; Smart pairing for all
-                                        ; (electric-pair-mode t)
-
 ;; Saveplace remembers your location in a file when saving files
 (setq save-place-file (expand-file-name "saveplace" grass/savefile-dir))
 ;; activate it for all buffers
@@ -30,12 +27,12 @@
 
 ;; Savehist keeps track of some history
 (setq savehist-additional-variables
-      ;; search entries
-      '(search ring regexp-search-ring)
-      ;; save every minute
-      savehist-autosave-interval 60
-      ;; keep the home clean
-      savehist-file (expand-file-name "savehist" grass/savefile-dir))
+  ;; search entries
+  '(search ring regexp-search-ring)
+  ;; save every minute
+  savehist-autosave-interval 60
+  ;; keep the home clean
+  savehist-file (expand-file-name "savehist" grass/savefile-dir))
 (savehist-mode t)
 
 ;; Save recent files
@@ -164,9 +161,15 @@
 
 (global-set-key (kbd "C-, w") 'toggle-window-dedicated)
 
+
 (use-package undo-tree
   :ensure t
   :init
+  (setq undo-tree-auto-save-history t)
+  (setq undo-tree-history-directory-alist `((".*" . ,grass/undo-dir)))
+  (defadvice undo-tree-make-history-save-file-name
+    (after undo-tree activate)
+    (setq ad-return-value (concat ad-return-value ".gz")))
   (global-undo-tree-mode))
 
 (use-package multiple-cursors
