@@ -143,6 +143,7 @@
                                 (magit-stashes-mode-map . emacs)
                                 (magit-status-mode-map . emacs)
                                 (rdictcc-buffer-mode . emacs)
+                                (bs-mode . emacs)
                                 (dired-mode . emacs)
                                 (wdired-mode . normal))
         do (evil-set-initial-state mode state)))

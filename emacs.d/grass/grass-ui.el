@@ -46,6 +46,11 @@
                                             (abbreviate-file-name (buffer-file-name))
                                           "%b"))))
 
+(use-package bs-ext
+  :ensure t
+  :init
+  (setq bs-default-sort-name "by name")
+  (global-set-key (kbd "s-t") 'bs-show))
 
 (use-package smart-mode-line
   :ensure t
