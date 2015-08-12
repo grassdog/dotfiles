@@ -65,6 +65,12 @@
   :init
   (ignoramus-setup))
 
+(use-package default-text-scale
+  :ensure t
+  :init
+  (global-set-key (kbd "C-M-=") 'default-text-scale-increase)
+  (global-set-key (kbd "C-M--") 'default-text-scale-decrease))
+
 (diminish 'abbrev-mode)
 
 ;; GUI Mode settings
