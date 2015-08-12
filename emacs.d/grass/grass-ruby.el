@@ -20,7 +20,9 @@
     (lambda ()
       ;; turn off the annoying input echo in irb
       (setq comint-process-echoes t)
+      ; (chruby-use-corresponding)
       (ruby-tools-mode +1)
+      ; (flycheck-mode t)
       (setq evil-shift-width ruby-indent-level))))
 
 (use-package inf-ruby
