@@ -40,6 +40,7 @@
     (add-hook 'coffee-mode-hook
               (lambda ()
                 (set (make-local-variable 'tab-width) 2)
+                (flycheck-mode t)
                 (setq indent-line-function 'grass/coffee-indent-line)
                 (setq evil-shift-width coffee-tab-width)))))
 
