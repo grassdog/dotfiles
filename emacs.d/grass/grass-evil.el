@@ -62,6 +62,8 @@
   ;; Overload shifts so that they don't lose the selection
   (define-key evil-visual-state-map (kbd ">>") 'grass/evil-shift-right-visual)
   (define-key evil-visual-state-map (kbd "<<") 'grass/evil-shift-left-visual)
+  (define-key evil-visual-state-map (kbd "<S-down>") 'evil-next-visual-line)
+  (define-key evil-visual-state-map (kbd "<S-up>") 'evil-previous-visual-line)
 
   (defun grass/evil-shift-left-visual ()
     (interactive)
