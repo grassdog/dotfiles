@@ -25,6 +25,9 @@ This functions should be added to the hooks of major modes for programming."
 (use-package web-beautify
   :ensure t)
 
+(use-package flycheck
+  :ensure t)
+
 (use-package magit
   :ensure t
   :bind ("C-, g" . magit-status))
