@@ -19,15 +19,15 @@
     (global-set-key (kbd "C-, r") 'helm-recentf)
     (global-set-key (kbd "C-, o") 'helm-buffers-list)
 
-    (global-set-key (kbd "M-x") 'helm-M-x)
-    ;; Bind the old M-x.
-    (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)))
+    (global-set-key (kbd "M-x") 'helm-M-x)))
 
 (use-package helm-projectile
   :ensure t)
 
 (use-package helm-ag
-  :ensure t)
+  :ensure t
+  :init
+  (setq helm-ag-insert-at-point 'symbol))
 
 (use-package helm-swoop
   :ensure t
@@ -39,6 +39,6 @@
                     `(,(rx bos "*helm" (* not-newline) "*" eos)
                          (display-buffer-in-side-window)
                          (inhibit-same-window . t)
-                         (window-height . 0.4)))
+                         (window-height . 0.5)))
 
 (provide 'grass-helm)
