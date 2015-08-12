@@ -45,11 +45,82 @@
       '("" invocation-name " - " (:eval (if (buffer-file-name)
                                             (abbreviate-file-name (buffer-file-name))
                                           "%b"))))
-(use-package bs-ext
-  :ensure t
-  :init
-  (setq bs-default-sort-name "by name")
-  (global-set-key (kbd "s-t") 'bs-show))
+
+(use-package ibuffer
+  :commands ibuffer
+  :config
+  (progn
+    (setq ibuffer-saved-filter-groups
+          '(("Config" (or
+                       (filename . ".dotfiles/")
+                       (filename . ".emacs.d/")))
+            ("Shell"  (or
+                       (mode . eshell-mode)
+                       (mode . shell-mode)))
+            ("Dired"  (mode . dired-mode))
+            ("Prose"  (or
+                       (mode . tex-mode)
+                       (mode . plain-tex-mode)
+                       (mode . latex-mode)
+                       (mode . rst-mode)
+                       (mode . markdown-mode)))
+            ("Org"    (mode . org-mode))
+            ("Emacs"  (name . "^\\*.*\\*$")))
+          ibuffer-show-empty-filter-groups nil
+          ibuffer-expert nil)
+    (setq ibuffer-default-sorting-mode 'filename/process)
+    (global-set-key (kbd "C-, o") 'ibuffer)
+    (global-set-key (kbd "C-x C-b") 'ibuffer)
+
+    ; (use-package ibuffer-projectile
+    ;   :ensure t
+    ;   :init
+
+      ; (add-hook 'ibuffer-hook
+      ;   (lambda ()
+      ;     (ibuffer-projectile-set-filter-groups)
+      ;     (unless (eq ibuffer-sorting-mode 'alphabetic)
+      ;       (ibuffer-do-sort-by-alphabetic)))))
+
+      ; (progn
+      ;   (defun grass/ibuffer-apply-filter-groups ()
+      ;     "Combine my saved ibuffer filter groups with those generated
+     ; by `ibuffer-vc-generate-filter-groups-by-vc-root'"
+      ;     (interactive)
+      ;     (setq ibuffer-filter-groups
+      ;           (append (ibuffer-projectile-generate-filter-groups)
+      ;                   ibuffer-saved-filter-groups))
+      ;     (message "ibuffer-vc: groups set")
+      ;     (let ((ibuf (get-buffer "*Ibuffer*")))
+      ;       (when ibuf
+      ;         (with-current-buffer ibuf
+      ;           (pop-to-buffer ibuf)
+      ;           (ibuffer-update nil t)))))
+
+      ;   (add-hook 'ibuffer-hook 'grass/ibuffer-apply-filter-groups)))))
+    (use-package ibuffer-vc
+      :ensure t
+      :commands ibuffer-vc-generate-filter-groups-by-vc-root
+      :init
+      (progn
+        (defun grass/ibuffer-apply-filter-groups ()
+          "Combine my saved ibuffer filter groups with those generated
+     by `ibuffer-vc-generate-filter-groups-by-vc-root'"
+          (interactive)
+          (setq ibuffer-filter-groups
+                (append (ibuffer-vc-generate-filter-groups-by-vc-root)
+                        ibuffer-saved-filter-groups))
+          (message "ibuffer-vc: groups set")
+          (let ((ibuf (get-buffer "*Ibuffer*")))
+            (when ibuf
+              (with-current-buffer ibuf
+                (pop-to-buffer ibuf)
+                (ibuffer-update nil t)))))
+
+        (add-hook 'ibuffer-hook 'grass/ibuffer-apply-filter-groups)
+        ))))
+      
+
 
 (use-package smart-mode-line
   :ensure t

@@ -15,10 +15,7 @@
     (add-to-list 'recentf-exclude "\\ido.hist\\'")
     (add-to-list 'recentf-exclude "\\TAGS\\'")
     (helm-mode 1)
-    ;; Helm
     (global-set-key (kbd "C-, r") 'helm-recentf)
-    (global-set-key (kbd "C-, o") 'helm-buffers-list)
-
     (global-set-key (kbd "M-x") 'helm-M-x)))
 
 (use-package helm-projectile
