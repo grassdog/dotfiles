@@ -70,6 +70,15 @@
           ibuffer-show-empty-filter-groups nil
           ibuffer-expert t
           ibuffer-auto-mode 1)
+    (setq ibuffer-formats 
+      '((mark modified read-only " "
+              (name 30 30 :left :elide) ; change: 30s were originally 18s
+              " "
+              (mode 16 16 :left :elide)
+              " " filename-and-process)
+        (mark " "
+              (name 16 -1)
+              " " filename)))
     (setq ibuffer-default-sorting-mode 'filename/process)
     (global-set-key (kbd "C-, o") 'ibuffer)
     (global-set-key (kbd "C-x C-b") 'ibuffer)
