@@ -59,18 +59,13 @@
                        (mode . eshell-mode)
                        (mode . shell-mode)))
             ("Dired"  (mode . dired-mode))
-            ("Prose"  (or
-                       (mode . tex-mode)
-                       (mode . plain-tex-mode)
-                       (mode . latex-mode)
-                       (mode . rst-mode)
-                       (mode . markdown-mode)))
+            ("Notes"  (filename . "^.*Dropbox\\/Notes.*$"))
             ("Org"    (mode . org-mode))
             ("Emacs"  (name . "^\\*.*\\*$")))
           ibuffer-show-empty-filter-groups nil
           ibuffer-expert t
           ibuffer-auto-mode 1)
-    (setq ibuffer-formats 
+    (setq ibuffer-formats
       '((mark modified read-only " "
               (name 30 30 :left :elide) ; change: 30s were originally 18s
               " "
