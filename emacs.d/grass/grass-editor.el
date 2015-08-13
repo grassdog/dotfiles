@@ -69,15 +69,8 @@
 ;; (auto-fill-mode 1)
 ;; (setq comment-auto-fill-only-comments t)
 
-;; Easy insert of quotes and dashes
-(use-package typo
-  :ensure t
-  :init
-  (add-hook 'text-mode-hook
-    (lambda ()
-      (typo-mode 1)
-      ;; Let backtick be itself
-      (define-key typo-mode-map (kbd "`") 'self-insert-command))))
+;; Base 10 for inserting quoted chars please
+(setq read-quoted-char-radix 10)
 
 ;; Auto save on focus lost
 (defun grass/auto-save-all()
