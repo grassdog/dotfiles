@@ -72,6 +72,10 @@
 ;; Base 10 for inserting quoted chars please
 (setq read-quoted-char-radix 10)
 
+;; Dashes
+(global-set-key (kbd "C-, -") (function (lambda nil (interactive) (insert "–")))) ;; Insert en dash
+(global-set-key (kbd "C-, =") (function (lambda nil (interactive) (insert "—")))) ;; Insert em dash
+
 ;; Auto save on focus lost
 (defun grass/auto-save-all()
   "Save all modified buffers that point to files."
