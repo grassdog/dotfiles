@@ -75,7 +75,6 @@
               (name 16 -1)
               " " filename)))
     (setq ibuffer-default-sorting-mode 'filename/process)
-    (global-set-key (kbd "C-, o") 'ibuffer)
     (global-set-key (kbd "C-x C-b") 'ibuffer)
 
     (use-package ibuffer-vc
