@@ -182,6 +182,7 @@
   :ensure t
   :diminish yas-minor-mode
   :config
+  (setq yas-verbosity 1)
   (yas-global-mode 1))
 
 (provide 'grass-editor)
