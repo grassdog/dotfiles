@@ -128,6 +128,7 @@
                                 (helm-grep-mode . emacs)
                                 (grep-mode . emacs)
                                 (bc-menu-mode . emacs)
+                                (erc-mode . emacs)
                                 (magit-branch-manager-mode . emacs)
                                 (magit-blame-mode-map . emacs)
                                 (magit-cherry-mode-map . emacs)
