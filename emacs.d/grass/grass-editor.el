@@ -136,6 +136,8 @@
 ;; Quick switch buffers
 (global-set-key (kbd "C-, C-,") 'grass/switch-to-previous-buffer)
 
+(put 'set-goal-column 'disabled nil)
+
 ;;
 ;; Make windows sticky http://stackoverflow.com/a/5182111
 ;;
