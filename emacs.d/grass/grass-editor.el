@@ -171,6 +171,7 @@
 (use-package expand-region
   :ensure t
   :init
+  (global-set-key (kbd "C-+") 'er/contract-region)
   (global-set-key (kbd "C-=") 'er/expand-region))
 
 (use-package undo-tree
@@ -187,7 +188,8 @@
 (use-package yasnippet
   :ensure t
   :diminish yas-minor-mode
-  :config
+  :init
+  (global-set-key (kbd "C-, e") 'yas/expand)
   (setq yas-verbosity 1)
   (yas-global-mode 1))
 
