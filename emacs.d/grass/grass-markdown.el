@@ -23,7 +23,6 @@
         ;; Remove for now as they interfere with indentation
         (define-key yas-minor-mode-map [(tab)] nil)
         (define-key yas-minor-mode-map (kbd "TAB") nil)
-        (global-set-key (kbd "C-, l") 'markdown-preview-file)
         (setq imenu-generic-expression markdown-imenu-generic-expression)))
 
   ;; Preview markdown file in Marked.app
