@@ -140,7 +140,11 @@
 (global-set-key (kbd "C-, C-s") 'isearch-forward-regexp)
 (global-set-key (kbd "C-, C-r") 'isearch-reverse-regexp)
 
+;; Enable some stuff
 (put 'set-goal-column 'disabled nil)
+(put 'narrow-to-defun  'disabled nil)
+(put 'narrow-to-page   'disabled nil)
+(put 'narrow-to-region 'disabled nil)
 
 ;;
 ;; Make windows sticky http://stackoverflow.com/a/5182111
