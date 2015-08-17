@@ -99,10 +99,10 @@
   :ensure t
   :init
   (multiple-cursors/enable-compat)
-  (global-set-key (kbd "C-, m s") 'mc/edit-lines)
+  (global-set-key (kbd "C-, m l") 'mc/edit-lines)
+  (global-set-key (kbd "C-, m a") 'mc/mark-all-like-this-dwim)
   (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-  (global-set-key (kbd "C-, m a") 'mc/mark-all-like-this-dwim))
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this))
 
 
 (provide 'grass-multiple-cursors)
