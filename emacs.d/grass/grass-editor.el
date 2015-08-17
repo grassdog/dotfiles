@@ -168,6 +168,10 @@
 
 (global-set-key (kbd "C-, w") 'toggle-window-dedicated)
 
+(use-package expand-region
+  :ensure t
+  :init
+  (global-set-key (kbd "C-=") 'er/expand-region))
 
 (use-package undo-tree
   :ensure t
