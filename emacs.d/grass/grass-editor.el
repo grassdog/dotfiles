@@ -136,9 +136,9 @@
 ;; Quick switch buffers
 (global-set-key (kbd "C-, C-,") 'grass/switch-to-previous-buffer)
 
-(global-set-key (kbd "C-, C-l") 'query-replace-regexp)
-(global-set-key (kbd "C-, C-s") 'isearch-forward-regexp)
-(global-set-key (kbd "C-, C-r") 'isearch-reverse-regexp)
+(global-set-key (kbd "C-, s r") 'query-replace-regexp)
+(global-set-key (kbd "C-, s f") 'isearch-forward-regexp)
+(global-set-key (kbd "C-, s b") 'isearch-reverse-regexp)
 
 ;; Enable some stuff
 (put 'set-goal-column 'disabled nil)

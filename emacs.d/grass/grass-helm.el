@@ -31,7 +31,7 @@
 (use-package helm-swoop
   :ensure t
   :init
-  (global-set-key (kbd "C-, s") 'helm-swoop))
+  (global-set-key (kbd "C-, s s") 'helm-swoop))
 
 ;; Force helm to always open at the bottom
 (add-to-list 'display-buffer-alist
