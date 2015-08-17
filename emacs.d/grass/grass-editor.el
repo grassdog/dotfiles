@@ -179,14 +179,6 @@
     (setq ad-return-value (concat ad-return-value ".gz")))
   (global-undo-tree-mode))
 
-(use-package multiple-cursors
-  :ensure t
-  :init
-  (global-set-key (kbd "C-, m s") 'mc/edit-lines)
-  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-  (global-set-key (kbd "C-, m a") 'mc/mark-all-like-this-dwim))
-
 ;; Snippets
 (use-package yasnippet
   :ensure t

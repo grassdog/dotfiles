@@ -54,6 +54,7 @@
 (require 'grass-coding)
 (require 'grass-codestyle)
 (require 'grass-evil)
+(require 'grass-multiple-cursors)
 (require 'grass-ido)
 (require 'grass-extensions)
 (require 'grass-helm)
