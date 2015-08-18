@@ -39,6 +39,9 @@
 ;; Enable y/n answers
 (fset 'yes-or-no-p 'y-or-n-p)
 
+;; Echo commands quickly
+(setq echo-keystrokes 0.02)
+
 ;; A more useful frame title, that show either a file or a
 ;; buffer name (if the buffer isn't visiting a file)
 (setq frame-title-format

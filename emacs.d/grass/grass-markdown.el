@@ -26,7 +26,7 @@
         (setq imenu-generic-expression markdown-imenu-generic-expression)))
 
   ;; Preview markdown file in Marked.app
-  (defun markdown-preview-file ()
+  (defun grass/markdown-open-marked ()
     "run Marked.app on the current file and revert the buffer"
     (interactive)
     (shell-command
