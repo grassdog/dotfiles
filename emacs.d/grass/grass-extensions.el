@@ -114,9 +114,4 @@ Repeated invocations toggle between the two most recently open buffers."
   (interactive)
   (find-file "~/Dropbox/Notes/Emacs.md"))
 
-(defun grass/open-reboot ()
-  "Open Emacs reboot org file"
-  (interactive)
-  (find-file "~/Dropbox/Notes/Emacs Reboot.org"))
-
 (provide 'grass-extensions)
