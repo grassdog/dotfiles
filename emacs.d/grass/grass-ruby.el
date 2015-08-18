@@ -38,6 +38,12 @@
 (use-package rspec-mode
   :ensure t)
 
+(use-package projectile-rails
+  :ensure t
+  :init
+  (setq projectile-rails-expand-snippet nil)
+  (add-hook 'projectile-mode-hook 'projectile-rails-on))
+
 ;; We never want to edit Rubinius bytecode
 (add-to-list 'completion-ignored-extensions ".rbc")
 
