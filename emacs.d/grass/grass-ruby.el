@@ -1,8 +1,4 @@
 
-(use-package ruby-tools
-  :ensure t
-  :diminish ruby-tools-mode)
-
 (use-package enh-ruby-mode
   :mode (("\\.rb$"        . enh-ruby-mode)
          ("\\.ru$"        . enh-ruby-mode)
@@ -21,13 +17,13 @@
       ;; turn off the annoying input echo in irb
       (setq comint-process-echoes t)
       (chruby-use-corresponding)
-      (ruby-tools-mode +1)
       ; (flycheck-mode t)
       (setq evil-shift-width ruby-indent-level))))
 
 (use-package inf-ruby
   :ensure t
   :init
+  (setq inf-ruby-default-implementation "pry")
   (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode))
 
 (use-package chruby
