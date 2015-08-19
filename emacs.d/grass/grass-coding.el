@@ -10,20 +10,21 @@ This functions should be added to the hooks of major modes for programming."
 
 (use-package company
   :diminish company-mode
-  :init
+  :config
     (setq company-idle-delay 0.2)
     (setq company-minimum-prefix-length 2)
     (add-hook 'after-init-hook 'global-company-mode)
-  :config
     (defun complete-or-indent ()
-    (interactive)
-    (if (company-manual-begin)
-        (company-complete-common)
-        (indent-according-to-mode))))
+      (interactive)
+      (if (company-manual-begin)
+          (company-complete-common)
+          (indent-according-to-mode))))
 
-(use-package web-beautify)
+(use-package web-beautify
+  :commands (web-beautify-js web-beautify-css web-beautify-html))
 
-(use-package flycheck)
+(use-package flycheck
+  :defer t)
 
 (use-package magit
   :bind ("C-, g" . magit-status))
@@ -33,12 +34,12 @@ This functions should be added to the hooks of major modes for programming."
 (setq linum-format (if on-console "%4d " "%4d"))
 
 (use-package string-inflection
-  :init
-  (global-set-key (kbd "C-, C-u") 'string-inflection-cycle))
+  :bind ("C-, C-u" . string-inflection-cycle))
 
 (use-package smartparens
+  :defer t
   :diminish smartparens-mode
-  :init
+  :config
   (require 'smartparens-config)
   (sp-use-smartparens-bindings)
   (add-hook 'enh-ruby-mode-hook #'smartparens-mode)
@@ -51,6 +52,7 @@ This functions should be added to the hooks of major modes for programming."
 (require 'hideshow)
 (diminish 'hs-minor-mode)
 
+;;Alignment
 (add-hook 'prog-mode-hook
   (lambda ()
     (linum-mode 1)
@@ -70,10 +72,13 @@ This functions should be added to the hooks of major modes for programming."
 
 (global-set-key (kbd "C-, i") 'imenu)
 
-(use-package puppet-mode)
+(use-package puppet-mode
+  :defer t)
 
-(use-package rust-mode)
+(use-package rust-mode
+  :defer t)
 
-(use-package python)
+(use-package python
+  :defer t)
 
 (provide 'grass-coding)

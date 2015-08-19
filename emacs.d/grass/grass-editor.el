@@ -167,12 +167,12 @@
 (global-set-key (kbd "C-, w") 'toggle-window-dedicated)
 
 (use-package expand-region
-  :init
-  (global-set-key (kbd "C-+") 'er/contract-region)
-  (global-set-key (kbd "C-=") 'er/expand-region))
+  :bind (("C-+" . er/contract-region)
+         ("C-=" . er/expand-region)))
 
 (use-package undo-tree
-  :init
+  :diminish undo-tree-mode
+  :config
   (setq undo-tree-auto-save-history t)
   (setq undo-tree-history-directory-alist `((".*" . ,grass/undo-dir)))
   (defadvice undo-tree-make-history-save-file-name
@@ -180,13 +180,12 @@
     (setq ad-return-value (concat ad-return-value ".gz")))
   (global-undo-tree-mode))
 
-(diminish 'undo-tree-mode)
 
 ;; Snippets
 (use-package yasnippet
   :diminish yas-minor-mode
-  :init
-  (global-set-key (kbd "C-, e") 'yas/expand)
+  :bind ("C-, e" . yas/expand)
+  :config
   (setq yas-verbosity 1)
   (yas-global-mode 1))
 

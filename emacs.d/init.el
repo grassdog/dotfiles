@@ -20,6 +20,7 @@
 
 (require 'bind-key)
 (require 'diminish)
+(require 'cl)
 
 ;; UTF-8 Thanks
 (set-terminal-coding-system 'utf-8)
