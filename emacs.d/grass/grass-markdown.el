@@ -20,6 +20,7 @@
   :init
   (add-hook 'markdown-mode-hook
       (lambda ()
+        (company-mode nil)
         ;; Remove for now as they interfere with indentation
         (define-key yas-minor-mode-map [(tab)] nil)
         (define-key yas-minor-mode-map (kbd "TAB") nil)

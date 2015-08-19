@@ -24,6 +24,7 @@
     (lambda ()
       ;; No auto indent please
       (setq evil-auto-indent nil)
+      (company-mode nil)
       ;; Let me keep my prefix key binding
       (define-key org-mode-map (kbd "C-,") nil)
       (define-key org-mode-map (kbd "C-, a") 'org-cycle-agenda-files))))
