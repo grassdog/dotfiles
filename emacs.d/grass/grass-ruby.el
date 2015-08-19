@@ -18,9 +18,7 @@
     (setq inf-ruby-default-implementation "pry")
     (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode))
 
-  (use-package chruby
-    :config
-    (chruby))
+  (use-package rspec-mode)
 
   (use-package projectile-rails
     :config
@@ -43,11 +41,11 @@
     (lambda ()
       ;; turn off the annoying input echo in irb
       (setq comint-process-echoes t)
-      (chruby-use-corresponding)
       ; (flycheck-mode t)
       (setq evil-shift-width ruby-indent-level))))
 
-(use-package rspec-mode
-  :defer t)
+(use-package chruby
+  :config
+  (add-hook 'projectile-switch-project-hook #'chruby-use-corresponding))
 
 (provide 'grass-ruby)

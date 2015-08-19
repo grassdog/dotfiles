@@ -2,8 +2,27 @@
 ;; cabal update && cabal install happy hasktags stylish-haskell present ghc-mod hlint
 
 (use-package haskell-mode
-  :init
+  :defer t
+  :config
   (progn
+
+    ;; Use hi2 for indentation
+    (use-package hi2
+      :config
+      (setq hi2-show-indentations nil)
+      (add-hook 'haskell-mode-hook 'turn-on-hi2))
+
+    (use-package ghc
+      :config
+      (autoload 'ghc-init "ghc" nil t)
+      (autoload 'ghc-debug "ghc" nil t)
+      (add-hook 'haskell-mode-hook (lambda () (ghc-init))))
+
+    (use-package company-ghc
+      :disabled t
+      :config
+      (add-to-list 'company-backends 'company-ghc) (custom-set-variables '(company-ghc-show-info t)))
+
     ; Make Emacs look in Cabal directory for binaries
     (let ((my-cabal-path (expand-file-name "~/.cabal/bin")))
       (setenv "PATH" (concat my-cabal-path path-separator (getenv "PATH")))
@@ -53,22 +72,5 @@
       '(define-key haskell-cabal-mode-map (kbd "C-c C-o") 'haskell-compile))))
 
 
-;; Use hi2 for indentation
-(use-package hi2
-  :config
-  (setq hi2-show-indentations nil)
-  :init
-  (add-hook 'haskell-mode-hook 'turn-on-hi2))
-
-(use-package ghc
-  :init
-  (autoload 'ghc-init "ghc" nil t)
-  (autoload 'ghc-debug "ghc" nil t)
-  (add-hook 'haskell-mode-hook (lambda () (ghc-init))))
-
-(use-package company-ghc
-  :disabled t
-  :init
-  (add-to-list 'company-backends 'company-ghc) (custom-set-variables '(company-ghc-show-info t)))
 
 (provide 'grass-haskell)

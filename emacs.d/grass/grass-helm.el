@@ -15,15 +15,15 @@
     (setq helm-buffers-fuzzy-matching t)
     (setq helm-M-x-fuzzy-match t)
     (setq helm-split-window-in-side-p t)
+
     (add-to-list 'recentf-exclude "\\ido.hist\\'")
     (add-to-list 'recentf-exclude "\\TAGS\\'")
-    (helm-mode 1)
-    ))
 
-(use-package helm-ag
-  :defer t
-  :config
-  (setq helm-ag-insert-at-point 'symbol))
+    (use-package helm-ag
+      :config
+      (setq helm-ag-insert-at-point 'symbol))
+
+    (helm-mode 1)))
 
 (use-package helm-swoop
   :bind ("C-, s s" . helm-swoop))

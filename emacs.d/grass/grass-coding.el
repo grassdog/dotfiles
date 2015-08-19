@@ -37,9 +37,8 @@ This functions should be added to the hooks of major modes for programming."
   :bind ("C-, C-u" . string-inflection-cycle))
 
 (use-package smartparens
-  :defer t
   :diminish smartparens-mode
-  :config
+  :init
   (require 'smartparens-config)
   (sp-use-smartparens-bindings)
   (add-hook 'enh-ruby-mode-hook #'smartparens-mode)
