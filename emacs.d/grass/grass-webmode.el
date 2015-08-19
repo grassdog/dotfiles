@@ -5,7 +5,7 @@
           ("\\.as[cp]x\\'"  . web-mode)
           ("\\.mustache\\'" . web-mode)
           ("\\.dhtml\\'"    . web-mode))
-  :init
+  :config
   (progn
 
     (defadvice web-mode-highlight-part (around tweak-jsx activate)
@@ -29,31 +29,28 @@
     (add-hook 'web-mode-hook  'grass/web-mode-hook)))
 
 (use-package scss-mode
-  :init
+  :mode "\\.scss$"
+  :config
+  (use-package rainbow-mode)
   (add-hook 'scss-mode-hook
             (lambda ()
+              (rainbow-mode +1)
               (setq evil-shift-width css-indent-offset))))
 
 (use-package css-mode
-  :init
+  :mode "\\.css$"
+  :config
+  (use-package rainbow-mode)
   (add-hook 'css-mode-hook
             (lambda ()
+              (rainbow-mode +1)
               (global-set-key (kbd "C-, f") 'web-beautify-css))))
 
-
-(use-package yaml-mode)
+(use-package yaml-mode
+  :defer t)
 
 (use-package haml-mode
   :disabled t)
-
-(use-package rainbow-mode
-  :init
-  (add-hook 'scss-mode-hook
-            (lambda ()
-              (rainbow-mode +1)))
-  (add-hook 'css-mode-hook
-            (lambda ()
-              (rainbow-mode +1))))
 
 (use-package feature-mode
   :disabled t)

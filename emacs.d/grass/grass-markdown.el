@@ -16,7 +16,6 @@
           ("h6"   "^###### \\(.*\\)$" 1)
           ("fn"   "^\\[\\^\\(.*\\)\\]" 1)))
 
-  :init
   (add-hook 'markdown-mode-hook
       (lambda ()
         (company-mode nil)

@@ -1,37 +1,40 @@
 
 ;; Trojan horse maneuver
 
-(use-package evil-commentary
-  :diminish evil-commentary-mode
-  :init
-  (evil-commentary-mode))
-
-(use-package evil-matchit
-  :init
-  (global-evil-matchit-mode 1))
-
-(use-package evil-surround
-  :init
-  (global-evil-surround-mode 1))
-
-(use-package evil-visualstar
-  :init
-  (global-evil-visualstar-mode))
-
-(use-package evil-search-highlight-persist
-  :init
-  (global-evil-search-highlight-persist t)
-  (evil-search-highlight-persist -1)
-
-  (define-key evil-normal-state-map (kbd "SPC") 'evil-search-highlight-persist-remove-all))
-
 (use-package evil
   :config
+
+  ;; Evil plugins
+  (use-package evil-commentary
+    :diminish evil-commentary-mode
+    :init
+    (evil-commentary-mode))
+
+  (use-package evil-matchit
+    :init
+    (global-evil-matchit-mode 1))
+
+  (use-package evil-surround
+    :init
+    (global-evil-surround-mode 1))
+
+  (use-package evil-visualstar
+    :init
+    (global-evil-visualstar-mode))
+
+  (use-package evil-search-highlight-persist
+    :init
+    (global-evil-search-highlight-persist t)
+    (evil-search-highlight-persist -1)
+
+  ;; Evil config
+
   ; Make horizontal movement cross lines
   (setq-default evil-cross-lines t)
   (setq evil-shift-width 2)
-  :init
   (require 'evil-little-word)
+
+  (define-key evil-normal-state-map (kbd "SPC") 'evil-search-highlight-persist-remove-all))
 
   (evil-mode t)
 
@@ -105,7 +108,6 @@
   ;;(define-key evil-normal-state-map (kbd "TAB") 'evil-undefine)
 
   ;; Set our default modes
-  (require 'cl)
   (loop for (mode . state) in '((inferior-emacs-lisp-mode . emacs)
                                 (nrepl-mode . insert)
                                 (pylookup-mode . emacs)

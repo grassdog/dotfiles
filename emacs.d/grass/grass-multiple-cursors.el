@@ -1,15 +1,5 @@
 ;;; funcs.el --- multiple-cursors Layer functions File
-;;
-;; Copyright (c) 2012-2014 Jean-Christophe Petkovich
-;; Copyright (c) 2014-2015 Jean-Christophe Petkovich & Contributors
-;;
-;; Author: Jean-Christophe Petkovich <jcpetkovich@gmail.com>
 ;; URL: https://github.com/jcpetkovich/spacemacs.multiple-cursors
-;;
-;; This file is not part of GNU Emacs.
-;;
-;;; License: GPLv3
-
 ;; add multiple-cursors compat functions
 (defvar multiple-cursors/evil-prev-state nil)
 (defvar multiple-cursors/mark-was-active nil)
@@ -17,7 +7,7 @@
 (defun multiple-cursors/evil-visual-or-normal-p ()
   "True if evil mode is enabled, and we are in normal or visual mode."
   (and (bound-and-true-p evil-mode)
-       (not (memq evil-state '(insert emacs)))))
+      (not (memq evil-state '(insert emacs)))))
 
 (defun multiple-cursors/switch-to-emacs-state ()
   (when (multiple-cursors/evil-visual-or-normal-p)
@@ -53,7 +43,7 @@
 
 (defadvice mc/edit-lines (before change-point-by-1 disable)
   " When running edit-lines, point will return (position + 1) as
- a result of how evil deals with regions"
+a result of how evil deals with regions"
   (when (multiple-cursors/evil-visual-or-normal-p)
     (if (> (point) (mark))
         (goto-char (1- (point)))
@@ -87,21 +77,21 @@
 
 (defun multiple-cursors/disable-compat ()
   (remove-hook 'multiple-cursors-mode-enabled-hook
-               'multiple-cursors/switch-to-emacs-state)
+              'multiple-cursors/switch-to-emacs-state)
   (remove-hook 'multiple-cursors-mode-disabled-hook
-               'multiple-cursors/back-to-previous-state)
+              'multiple-cursors/back-to-previous-state)
   (remove-hook 'rectangular-region-mode-hook 'multiple-cursors/rectangular-switch-state)
 
   (ad-disable-advice 'mc/edit-lines 'before 'change-point-by-1))
 
-
 (use-package multiple-cursors
+  :bind (("C-, m l" . mc/edit-lines)
+         ("C-, m a" . mc/mark-all-like-this-dwim)
+         ("C->" . mc/mark-next-like-this)
+         ("C-<" . mc/mark-previous-like-this))
+
   :init
-  (multiple-cursors/enable-compat)
-  (global-set-key (kbd "C-, m l") 'mc/edit-lines)
-  (global-set-key (kbd "C-, m a") 'mc/mark-all-like-this-dwim)
-  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this))
+    (multiple-cursors/enable-compat))
 
 
 (provide 'grass-multiple-cursors)

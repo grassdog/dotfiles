@@ -2,7 +2,11 @@
 ;; Interactive list refinement
 (use-package helm
   :diminish helm-mode
-  :init
+  :bind (("C-, o" . helm-buffers-list)
+         ("C-, r" . helm-recentf)
+         ("M-y" . helm-show-kill-ring)
+         ("M-x" . helm-M-x))
+  :config
   (progn
     (require 'helm-config)
     ;; Show full buffer names please
@@ -14,20 +18,15 @@
     (add-to-list 'recentf-exclude "\\ido.hist\\'")
     (add-to-list 'recentf-exclude "\\TAGS\\'")
     (helm-mode 1)
-    (global-set-key (kbd "C-, o") 'helm-buffers-list)
-    (global-set-key (kbd "C-, r") 'helm-recentf)
-    (global-set-key (kbd "M-y") 'helm-show-kill-ring)
-    (global-set-key (kbd "M-x") 'helm-M-x)))
-
-(use-package helm-projectile)
+    ))
 
 (use-package helm-ag
-  :init
+  :defer t
+  :config
   (setq helm-ag-insert-at-point 'symbol))
 
 (use-package helm-swoop
-  :init
-  (global-set-key (kbd "C-, s s") 'helm-swoop))
+  :bind ("C-, s s" . helm-swoop))
 
 ;; Force helm to always open at the bottom
 (add-to-list 'display-buffer-alist

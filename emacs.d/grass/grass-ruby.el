@@ -11,7 +11,34 @@
          ("/Vagrantfile$" . enh-ruby-mode)
          ("/Rakefile$"    . enh-ruby-mode))
   :interpreter "ruby"
-  :init
+  :config
+
+  (use-package inf-ruby
+    :config
+    (setq inf-ruby-default-implementation "pry")
+    (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode))
+
+  (use-package chruby
+    :config
+    (chruby))
+
+  (use-package projectile-rails
+    :config
+    (setq projectile-rails-expand-snippet nil)
+    (add-hook 'projectile-mode-hook 'projectile-rails-on))
+
+
+  ;; We never want to edit Rubinius bytecode
+  (add-to-list 'completion-ignored-extensions ".rbc")
+
+  ;; Set up hs-mode (HideShow) for Ruby
+  (add-to-list 'hs-special-modes-alist
+              `(enh-ruby-mode
+                ,(rx (or "def" "class" "module" "do")) ; Block start
+                ,(rx (or "end"))                       ; Block end
+                ,(rx (or "#" "=begin"))                ; Comment start
+                enh-ruby-forward-sexp nil))
+
   (add-hook 'enh-ruby-mode-hook
     (lambda ()
       ;; turn off the annoying input echo in irb
@@ -20,31 +47,7 @@
       ; (flycheck-mode t)
       (setq evil-shift-width ruby-indent-level))))
 
-(use-package inf-ruby
-  :init
-  (setq inf-ruby-default-implementation "pry")
-  (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode))
-
-(use-package chruby
-  :init
-  (chruby))
-
-(use-package rspec-mode)
-
-(use-package projectile-rails
-  :init
-  (setq projectile-rails-expand-snippet nil)
-  (add-hook 'projectile-mode-hook 'projectile-rails-on))
-
-;; We never want to edit Rubinius bytecode
-(add-to-list 'completion-ignored-extensions ".rbc")
-
-;; Set up hs-mode (HideShow) for Ruby
-(add-to-list 'hs-special-modes-alist
-             `(enh-ruby-mode
-               ,(rx (or "def" "class" "module" "do")) ; Block start
-               ,(rx (or "end"))                       ; Block end
-               ,(rx (or "#" "=begin"))                ; Comment start
-               enh-ruby-forward-sexp nil))
+(use-package rspec-mode
+  :defer t)
 
 (provide 'grass-ruby)

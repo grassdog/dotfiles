@@ -8,7 +8,8 @@
     (insert (make-string indent ?\s))))
 
 (use-package coffee-mode
-  :init
+  :mode  "\\.coffee$"
+  :config
   (progn
     ;; Proper indents when we evil-open-below etc...
     (defun grass/coffee-indent ()

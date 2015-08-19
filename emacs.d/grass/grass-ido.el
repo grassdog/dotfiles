@@ -33,16 +33,14 @@
   :config
     ;; disable ido faces to see flx highlights
     (setq ido-use-faces nil)
-  :init
     ;; Smarter fuzzy matching for ido
     (flx-ido-mode +1))
 
-(require 'ido-vertical-mode)
 (use-package ido-ubiquitous
   :config
+    (require 'ido-vertical-mode)
     ;; Allow up and down arrow to work for navigation
     (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
-  :init
     (ido-vertical-mode 1))
 
 (provide 'grass-ido)
