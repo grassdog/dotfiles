@@ -20,14 +20,15 @@
   (setq org-return-follows-link t)
   (setq org-agenda-files '("~/Dropbox/Notes"))
 
+  ;; Use pandoc for exports
+  (use-package ox-pandoc)
+
   (add-hook 'org-mode-hook
     (lambda ()
       ;; No auto indent please
       (setq evil-auto-indent nil)
       (company-mode nil)
       (setq org-export-html-postamble nil)
-      (require 'ox-md)
-      (require 'ox-odt)
       ;; Let me keep my prefix key binding
       (define-key org-mode-map (kbd "C-,") nil)
       (define-key org-mode-map (kbd "C-, a") 'org-cycle-agenda-files))))
