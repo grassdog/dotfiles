@@ -26,12 +26,10 @@
 (ido-mode +1)
 
 (use-package ido-ubiquitous
-  :ensure t
   :init
     (ido-ubiquitous-mode +1))
 
 (use-package flx-ido
-  :ensure t
   :config
     ;; disable ido faces to see flx highlights
     (setq ido-use-faces nil)
@@ -41,7 +39,6 @@
 
 (require 'ido-vertical-mode)
 (use-package ido-ubiquitous
-  :ensure t
   :config
     ;; Allow up and down arrow to work for navigation
     (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)

@@ -21,21 +21,17 @@
       (setq evil-shift-width ruby-indent-level))))
 
 (use-package inf-ruby
-  :ensure t
   :init
   (setq inf-ruby-default-implementation "pry")
   (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode))
 
 (use-package chruby
-  :ensure t
   :init
   (chruby))
 
-(use-package rspec-mode
-  :ensure t)
+(use-package rspec-mode)
 
 (use-package projectile-rails
-  :ensure t
   :init
   (setq projectile-rails-expand-snippet nil)
   (add-hook 'projectile-mode-hook 'projectile-rails-on))

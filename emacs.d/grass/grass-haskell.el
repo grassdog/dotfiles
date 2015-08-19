@@ -2,7 +2,6 @@
 ;; cabal update && cabal install happy hasktags stylish-haskell present ghc-mod hlint
 
 (use-package haskell-mode
-  :ensure t
   :init
   (progn
     ; Make Emacs look in Cabal directory for binaries
@@ -56,21 +55,18 @@
 
 ;; Use hi2 for indentation
 (use-package hi2
-  :ensure t
   :config
   (setq hi2-show-indentations nil)
   :init
   (add-hook 'haskell-mode-hook 'turn-on-hi2))
 
 (use-package ghc
-  :ensure t
   :init
   (autoload 'ghc-init "ghc" nil t)
   (autoload 'ghc-debug "ghc" nil t)
   (add-hook 'haskell-mode-hook (lambda () (ghc-init))))
 
 (use-package company-ghc
-  :ensure t
   :disabled t
   :init
   (add-to-list 'company-backends 'company-ghc) (custom-set-variables '(company-ghc-show-info t)))

@@ -1,5 +1,4 @@
 (use-package js2-mode
-  :ensure t
   :mode  (("\\.js$"   . js2-mode)
           ("\\.json$" . js2-mode))
   :interpreter "node"
@@ -14,7 +13,7 @@
                                    "clearInterval" "location" "__dirname" "console" "JSON"))
         (setq evil-shift-width js-indent-level)
 
-        (setq js2-show-parse-errors nil) ;; Rely on flycheck instead... 
+        (setq js2-show-parse-errors nil) ;; Rely on flycheck instead...
         (flycheck-mode t)
         (global-set-key (kbd "C-, f") 'web-beautify-js)
         (js2-imenu-extras-mode +1))))

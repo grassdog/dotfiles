@@ -9,7 +9,6 @@ This functions should be added to the hooks of major modes for programming."
 (add-hook 'prog-mode-hook 'font-lock-comment-annotations)
 
 (use-package company
-  :ensure t
   :diminish company-mode
   :init
     (setq company-idle-delay 0.2)
@@ -22,14 +21,11 @@ This functions should be added to the hooks of major modes for programming."
         (company-complete-common)
         (indent-according-to-mode))))
 
-(use-package web-beautify
-  :ensure t)
+(use-package web-beautify)
 
-(use-package flycheck
-  :ensure t)
+(use-package flycheck)
 
 (use-package magit
-  :ensure t
   :bind ("C-, g" . magit-status))
 
 ;; Line numbers for coding please
@@ -37,12 +33,10 @@ This functions should be added to the hooks of major modes for programming."
 (setq linum-format (if on-console "%4d " "%4d"))
 
 (use-package string-inflection
-  :ensure t
   :init
   (global-set-key (kbd "C-, C-u") 'string-inflection-cycle))
 
 (use-package smartparens
-  :ensure t
   :diminish smartparens-mode
   :init
   (require 'smartparens-config)
@@ -76,13 +70,10 @@ This functions should be added to the hooks of major modes for programming."
 
 (global-set-key (kbd "C-, i") 'imenu)
 
-(use-package puppet-mode
-  :ensure t)
+(use-package puppet-mode)
 
-(use-package rust-mode
-  :ensure t)
+(use-package rust-mode)
 
-(use-package python
-  :ensure t)
+(use-package python)
 
 (provide 'grass-coding)

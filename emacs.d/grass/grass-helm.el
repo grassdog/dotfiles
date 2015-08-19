@@ -1,7 +1,6 @@
 
 ;; Interactive list refinement
 (use-package helm
-  :ensure t
   :diminish helm-mode
   :init
   (progn
@@ -20,16 +19,13 @@
     (global-set-key (kbd "M-y") 'helm-show-kill-ring)
     (global-set-key (kbd "M-x") 'helm-M-x)))
 
-(use-package helm-projectile
-  :ensure t)
+(use-package helm-projectile)
 
 (use-package helm-ag
-  :ensure t
   :init
   (setq helm-ag-insert-at-point 'symbol))
 
 (use-package helm-swoop
-  :ensure t
   :init
   (global-set-key (kbd "C-, s s") 'helm-swoop))
 

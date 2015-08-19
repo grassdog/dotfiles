@@ -96,7 +96,6 @@
 
 
 (use-package multiple-cursors
-  :ensure t
   :init
   (multiple-cursors/enable-compat)
   (global-set-key (kbd "C-, m l") 'mc/edit-lines)

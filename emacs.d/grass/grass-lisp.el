@@ -1,5 +1,4 @@
 (use-package clojure-mode
-  :ensure t
   :init
   (add-hook 'clojure-mode-hook #'yas-minor-mode))
 
@@ -19,7 +18,6 @@
 
 ;; hl-sexp: minor mode to highlight s-expression
 (use-package hl-sexp
-  :ensure t
   :init
   (add-hook 'clojure-mode-hook 'hl-sexp-mode)
   (add-hook 'lisp-mode-hook 'hl-sexp-mode)
@@ -28,7 +26,6 @@
 
 
 (use-package rainbow-delimiters
-  :ensure t
   :init
   (add-hook 'haskell-mode-hook #'rainbow-delimiters-mode)
   (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
@@ -38,7 +35,6 @@
 
 
 (use-package cider
-  :ensure t
   :config
   ;; REPL history file
   (setq cider-repl-history-file "~/.emacs.d/cider-history")
@@ -73,7 +69,6 @@
 
 ;; clj-refactor and dependencies
 (use-package clj-refactor
-  :ensure t
   :init
   (add-hook 'clojure-mode-hook
             (lambda ()

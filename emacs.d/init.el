@@ -13,6 +13,8 @@
 ;; Debug package loads
 ;; (setq use-package-verbose t)
 
+(setq use-package-always-ensure t)
+
 (eval-when-compile
   (require 'use-package))
 
@@ -49,6 +51,7 @@
 
 (require 'cl)
 
+(require 'grass-osx)
 (require 'grass-ui)
 (require 'grass-editor)
 (require 'grass-coding)
@@ -67,4 +70,3 @@
 (require 'grass-markdown)
 (require 'grass-haskell)
 (require 'grass-lisp)
-(require 'grass-osx)

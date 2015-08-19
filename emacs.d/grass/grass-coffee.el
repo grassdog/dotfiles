@@ -8,7 +8,6 @@
     (insert (make-string indent ?\s))))
 
 (use-package coffee-mode
-  :ensure t
   :init
   (progn
     ;; Proper indents when we evil-open-below etc...

@@ -13,7 +13,7 @@
 
   (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 
-                                        ; (setq org-todo-keywords '((sequence "TODO" "WAIT" "|" "DONE" "CANCELED")))
+  ; (setq org-todo-keywords '((sequence "TODO" "WAIT" "|" "DONE" "CANCELED")))
 
   ;; Make windmove work in org-mode
   (setq org-replace-disputed-keys t)

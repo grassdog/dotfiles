@@ -2,28 +2,23 @@
 ;; Trojan horse maneuver
 
 (use-package evil-commentary
-  :ensure t
   :diminish evil-commentary-mode
   :init
   (evil-commentary-mode))
 
 (use-package evil-matchit
-  :ensure t
   :init
   (global-evil-matchit-mode 1))
 
 (use-package evil-surround
-  :ensure t
   :init
   (global-evil-surround-mode 1))
 
 (use-package evil-visualstar
-  :ensure t
   :init
   (global-evil-visualstar-mode))
 
 (use-package evil-search-highlight-persist
-  :ensure t
   :init
   (global-evil-search-highlight-persist t)
   (evil-search-highlight-persist -1)
@@ -31,7 +26,6 @@
   (define-key evil-normal-state-map (kbd "SPC") 'evil-search-highlight-persist-remove-all))
 
 (use-package evil
-  :ensure t
   :config
   ; Make horizontal movement cross lines
   (setq-default evil-cross-lines t)
@@ -151,8 +145,5 @@
                                 (dired-mode . emacs)
                                 (wdired-mode . normal))
         do (evil-set-initial-state mode state)))
-
-
-(diminish 'undo-tree-mode)
 
 (provide 'grass-evil)

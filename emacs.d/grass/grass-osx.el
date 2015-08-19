@@ -2,7 +2,6 @@
 ;; Fix our shell environment on OSX
 (when (eq system-type 'darwin)
   (use-package exec-path-from-shell
-    :ensure t
     :init
     (exec-path-from-shell-initialize))
   ;; Default font thanks

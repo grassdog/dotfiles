@@ -1,7 +1,6 @@
 
 ;; Project file management
 (use-package projectile
-  :ensure t
   :diminish projectile-mode
   :config
   (setq projectile-enable-caching t)

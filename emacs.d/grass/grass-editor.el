@@ -47,7 +47,6 @@
 
 ;; UI highlight search and other actions
 (use-package volatile-highlights
-  :ensure t
   :diminish volatile-highlights-mode
   :config
   (volatile-highlights-mode t))
@@ -93,7 +92,6 @@
 
 ;; Reuse the same buffer for dired windows
 (use-package dired-single
-  :ensure t
   :init
   (defun my-dired-init ()
     "Bunch of stuff to run for dired, either immediately or when it's loaded."
@@ -169,13 +167,11 @@
 (global-set-key (kbd "C-, w") 'toggle-window-dedicated)
 
 (use-package expand-region
-  :ensure t
   :init
   (global-set-key (kbd "C-+") 'er/contract-region)
   (global-set-key (kbd "C-=") 'er/expand-region))
 
 (use-package undo-tree
-  :ensure t
   :init
   (setq undo-tree-auto-save-history t)
   (setq undo-tree-history-directory-alist `((".*" . ,grass/undo-dir)))
@@ -184,9 +180,10 @@
     (setq ad-return-value (concat ad-return-value ".gz")))
   (global-undo-tree-mode))
 
+(diminish 'undo-tree-mode)
+
 ;; Snippets
 (use-package yasnippet
-  :ensure t
   :diminish yas-minor-mode
   :init
   (global-set-key (kbd "C-, e") 'yas/expand)

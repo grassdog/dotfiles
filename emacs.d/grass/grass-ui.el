@@ -53,7 +53,6 @@
                                           "%b"))))
 
 (use-package ibuffer
-  :ensure t
   :commands ibuffer
   :config
   (progn
@@ -84,7 +83,6 @@
     (global-set-key (kbd "C-x C-b") 'ibuffer)
 
     (use-package ibuffer-vc
-      :ensure t
       :commands ibuffer-vc-generate-filter-groups-by-vc-root
       :init
       (progn
@@ -105,7 +103,6 @@
 
 
 (use-package smart-mode-line
-  :ensure t
   :init
   (setq sml/no-confirm-load-theme t)
   (setq sml/shorten-modes nil)
@@ -114,12 +111,10 @@
 
 ;; Ignore certain files
 (use-package ignoramus
-  :ensure t
   :init
   (ignoramus-setup))
 
 (use-package default-text-scale
-  :ensure t
   :init
   (global-set-key (kbd "C-M-=") 'default-text-scale-increase)
   (global-set-key (kbd "C-M--") 'default-text-scale-decrease))
@@ -147,7 +142,6 @@
 
 (when (not (display-graphic-p))
   (use-package zenburn-theme
-     :ensure t
      :init
      (load-theme 'zenburn 'no-confirm)))
 

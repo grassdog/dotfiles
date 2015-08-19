@@ -1,5 +1,4 @@
 (use-package web-mode
-  :ensure t
   :mode  (("\\.html?\\'"    . web-mode)
           ("\\.jsx$"        . web-mode)
           ("\\.erb\\'"      . web-mode)
@@ -30,29 +29,24 @@
     (add-hook 'web-mode-hook  'grass/web-mode-hook)))
 
 (use-package scss-mode
-  :ensure t
   :init
   (add-hook 'scss-mode-hook
             (lambda ()
               (setq evil-shift-width css-indent-offset))))
 
 (use-package css-mode
-  :ensure t
   :init
   (add-hook 'css-mode-hook
             (lambda ()
               (global-set-key (kbd "C-, f") 'web-beautify-css))))
 
 
-(use-package yaml-mode
-  :ensure t)
+(use-package yaml-mode)
 
 (use-package haml-mode
-  :ensure t
   :disabled t)
 
 (use-package rainbow-mode
-  :ensure t
   :init
   (add-hook 'scss-mode-hook
             (lambda ()
@@ -62,7 +56,6 @@
               (rainbow-mode +1))))
 
 (use-package feature-mode
-  :ensure t
   :disabled t)
 
 (provide 'grass-webmode)
