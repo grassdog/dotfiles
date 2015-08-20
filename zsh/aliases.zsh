@@ -41,9 +41,15 @@ alias bi="bundle install"
 alias ag='ag -C'
 
 # Emacs
-alias e="emacsclient -t"
-alias eg="emacsclient -n -c"
 alias ed="emacs --daemon"
+
+function e() {
+  emacsclient --alternate-editor="" -t "$@"
+}
+
+function eg() {
+  emacsclient --alternate-editor="" -c -n "$@"
+}
 
 # Tasks
 export TASKS="${HOME}/Dropbox/Notes/Tasks"
