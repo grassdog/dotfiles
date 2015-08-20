@@ -41,9 +41,9 @@ alias bi="bundle install"
 alias ag='ag -C'
 
 # Emacs
+alias e="emacsclient -t"
+alias eg="emacsclient -n -c"
 alias ed="emacs --daemon"
-alias e="emacsclient -n -t"
-alias ec="emacsclient -n -c"
 
 # Tasks
 export TASKS="${HOME}/Dropbox/Notes/Tasks"

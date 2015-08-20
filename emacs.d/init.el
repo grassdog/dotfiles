@@ -52,6 +52,12 @@
 
 (require 'cl)
 
+(use-package server
+  :if window-system
+  :config
+  (unless (server-running-p)
+    (server-start)))
+
 (require 'grass-osx)
 (require 'grass-ui)
 (require 'grass-editor)
