@@ -20,7 +20,7 @@
     (add-to-list 'recentf-exclude "\\TAGS\\'")
 
     (use-package helm-ag
-      :config
+      :init
       (setq helm-ag-insert-at-point 'symbol))
 
     (helm-mode 1)))
