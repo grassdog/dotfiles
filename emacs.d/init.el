@@ -53,6 +53,7 @@
 (require 'cl)
 
 (use-package server
+  :disabled t
   :if window-system
   :config
   (unless (server-running-p)
