@@ -117,6 +117,9 @@
   :init
   (ignoramus-setup))
 
+(use-package browse-kill-ring
+  :bind ("M-y" . browse-kill-ring))
+
 (use-package default-text-scale
   :bind (("C-M-=" . default-text-scale-increase)
          ("C-M--" . default-text-scale-decrease)))

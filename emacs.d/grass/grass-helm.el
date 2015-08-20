@@ -4,7 +4,6 @@
   :diminish helm-mode
   :bind (("C-, o" . helm-buffers-list)
          ("C-, r" . helm-recentf)
-         ("M-y" . helm-show-kill-ring)
          ("M-x" . helm-M-x))
   :config
   (progn
