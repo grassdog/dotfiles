@@ -146,6 +146,8 @@
      (load-theme 'zenburn 'no-confirm)))
 
 ;; Some terminal mapping hackery
-(define-key input-decode-map "\e[1;," (kbd "C-,"))
+(defadvice terminal-init-xterm
+  (after map-C-comma-escape-sequence activate)
+  (define-key input-decode-map "\e[1;," (kbd "C-,")))
 
 (provide 'grass-ui)
