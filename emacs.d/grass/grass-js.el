@@ -18,4 +18,14 @@
       (global-set-key (kbd "C-, f") 'web-beautify-js)
       (js2-imenu-extras-mode +1))))
 
+(use-package typescript-mode
+  :mode "\\.ts$"
+  :config
+  (use-package tss
+    :config
+    ;(setq tss-popup-help-key "C-:")
+    ;(setq tss-jump-to-definition-key "C->")
+    ;(setq tss-implement-definition-key "C-c i")
+    (tss-config-default)))
+
 (provide 'grass-js)
