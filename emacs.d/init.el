@@ -11,7 +11,7 @@
   (package-install 'use-package))
 
 ;; Debug package loads
-;; (setq use-package-verbose t)
+(setq use-package-verbose t)
 
 (setq use-package-always-ensure t)
 
