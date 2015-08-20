@@ -67,8 +67,6 @@ if [[ $(uname) == Darwin ]]; then
   alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
   alias s="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
 
-  alias eg="open -a Emacs.app"
-
   alias gv='mvim'
   alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
 
