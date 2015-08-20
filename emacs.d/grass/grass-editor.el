@@ -124,9 +124,9 @@
 (global-set-key (kbd "<home>") 'move-beginning-of-line)
 (global-set-key (kbd "<end>") 'move-end-of-line)
 
-;; Move lines
-(global-set-key (kbd "<C-S-up>") 'grass/move-line-up)
-(global-set-key (kbd "<C-S-down>")  'grass/move-line-down)
+(use-package move-text
+  :bind (("<C-S-up>" . move-text-up)
+         ("<C-S-down>" . move-text-down)))
 
 (global-set-key (kbd "C-, u") 'browse-url)
 (global-set-key (kbd "C-, i") 'grass/indent-region-or-buffer)

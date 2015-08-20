@@ -50,19 +50,6 @@ Repeated invocations toggle between the two most recently open buffers."
           (rename-file filename new-name t)
           (set-visited-file-name new-name t t)))))))
 
-(defun grass/move-line-up ()
-  "Move the current line up."
-  (interactive)
-  (transpose-lines 1)
-  (forward-line -2))
-
-(defun grass/move-line-down ()
-  "Move the current line down."
-  (interactive)
-  (forward-line 1)
-  (transpose-lines 1)
-  (forward-line -1))
-
 ;; Some alignment commands https://gist.github.com/WaYdotNET/700416
 (defun grass/align-to-colon (begin end)
   "Align region to colon"
