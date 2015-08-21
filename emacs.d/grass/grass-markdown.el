@@ -16,12 +16,17 @@
           ("h6"   "^###### \\(.*\\)$" 1)
           ("fn"   "^\\[\\^\\(.*\\)\\]" 1)))
 
+  (use-package pandoc-mode
+    :diminish pandoc-mode)
+
   (add-hook 'markdown-mode-hook
       (lambda ()
         ;; Remove for now as they interfere with indentation
         (define-key yas-minor-mode-map [(tab)] nil)
         (define-key yas-minor-mode-map (kbd "TAB") nil)
         (setq imenu-generic-expression markdown-imenu-generic-expression)))
+
+  (add-hook 'markdown-mode-hook 'pandoc-mode)
 
   ;; Preview markdown file in Marked.app
   (defun grass/markdown-open-marked ()
