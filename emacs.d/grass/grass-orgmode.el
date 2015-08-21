@@ -1,6 +1,11 @@
 
 (use-package org
   :defer t
+  :init
+  ;; Make windmove work in org-mode
+  (setq org-replace-disputed-keys t)
+  (setq org-return-follows-link t)
+  (setq org-agenda-files '("~/Dropbox/Notes"))
   :config
 
   ;; Start up fully open
@@ -15,14 +20,9 @@
 
   ;(setq org-todo-keywords '((sequence "TODO" "WAIT" "|" "DONE" "CANCELED")))
 
-  ;; Make windmove work in org-mode
-  (setq org-replace-disputed-keys t)
-  (setq org-return-follows-link t)
-  (setq org-agenda-files '("~/Dropbox/Notes"))
 
   ;; Use pandoc for exports
-  (use-package ox-pandoc
-    :defer t)
+  (use-package ox-pandoc)
 
   (add-hook 'org-mode-hook
     (lambda ()
