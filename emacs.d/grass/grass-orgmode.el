@@ -24,6 +24,17 @@
   ;; Use pandoc for exports
   (use-package ox-pandoc)
 
+  ;; Code blocks
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (js . t)
+     (ruby . t)
+     (sh . t)))
+  (setq org-src-fontify-natively t
+        org-src-tab-acts-natively t
+        org-confirm-babel-evaluate nil)
+
   (add-hook 'org-mode-hook
     (lambda ()
       ;; No auto indent please
