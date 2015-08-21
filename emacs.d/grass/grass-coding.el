@@ -13,6 +13,8 @@ This functions should be added to the hooks of major modes for programming."
   :config
     (setq company-idle-delay 0.2)
     (setq company-minimum-prefix-length 2)
+    (setq company-global-modes
+      '(not eshell-mode markdown-mode org-mode erc-mode))
     (add-hook 'after-init-hook 'global-company-mode)
     (defun complete-or-indent ()
       (interactive)
