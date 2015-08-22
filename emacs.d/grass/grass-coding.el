@@ -26,7 +26,13 @@ This functions should be added to the hooks of major modes for programming."
   :commands (web-beautify-js web-beautify-css web-beautify-html))
 
 (use-package flycheck
-  :defer t)
+  :defer t
+  :config
+  (use-package flycheck-pos-tip
+    :init
+    (eval-after-load 'flycheck
+      '(custom-set-variables
+        '(flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))))
 
 (use-package magit
   :bind ("C-, g" . magit-status))

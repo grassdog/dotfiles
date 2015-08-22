@@ -2,9 +2,15 @@
   :defer t
   :config
 
+  (use-package flycheck-clojure
+    :init
+    (eval-after-load 'flycheck '(flycheck-clojure-setup)))
+
+  (add-hook 'clojure-mode-hook #'flycheck-mode)
+
   (use-package cider
     :pin melpa-stable
-    :config
+    :init
     ;; REPL history file
     (setq cider-repl-history-file "~/.emacs.d/cider-history")
 
@@ -35,7 +41,7 @@
 
   (use-package clj-refactor
     :pin melpa-stable
-    :config
+    :init
     (add-hook 'clojure-mode-hook
               (lambda ()
                 (clj-refactor-mode 1)
