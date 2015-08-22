@@ -3,6 +3,7 @@
   :config
 
   (use-package cider
+    :pin melpa-stable
     :config
     ;; REPL history file
     (setq cider-repl-history-file "~/.emacs.d/cider-history")
@@ -33,6 +34,7 @@
     (add-hook 'cider-mode-hook #'company-mode))
 
   (use-package clj-refactor
+    :pin melpa-stable
     :config
     (add-hook 'clojure-mode-hook
               (lambda ()
