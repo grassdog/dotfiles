@@ -173,11 +173,12 @@
 (use-package undo-tree
   :diminish undo-tree-mode
   :config
-  (setq undo-tree-auto-save-history t)
-  (setq undo-tree-history-directory-alist `((".*" . ,grass/undo-dir)))
-  (defadvice undo-tree-make-history-save-file-name
-    (after undo-tree activate)
-    (setq ad-return-value (concat ad-return-value ".gz")))
+  ;; Persistent undo sometimes borks. Disable for now
+  ;; (setq undo-tree-auto-save-history t)
+  ;; (setq undo-tree-history-directory-alist `((".*" . ,grass/undo-dir)))
+  ;; (defadvice undo-tree-make-history-save-file-name
+  ;;   (after undo-tree activate)
+  ;;   (setq ad-return-value (concat ad-return-value ".gz")))
   (global-undo-tree-mode))
 
 
