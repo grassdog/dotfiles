@@ -6,7 +6,11 @@
   (setq org-replace-disputed-keys t)
   (setq org-return-follows-link t)
   (setq org-agenda-files '("~/Dropbox/Notes"))
+
   :config
+
+  ;; Use pandoc for exports
+  (use-package ox-pandoc)
 
   ;; Start up fully open
   (setq org-startup-folded nil)
@@ -19,10 +23,6 @@
   (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 
   ;(setq org-todo-keywords '((sequence "TODO" "WAIT" "|" "DONE" "CANCELED")))
-
-
-  ;; Use pandoc for exports
-  (use-package ox-pandoc)
 
   ;; Code blocks
   (org-babel-do-load-languages
@@ -37,6 +37,7 @@
 
   (add-hook 'org-mode-hook
     (lambda ()
+
       ;; No auto indent please
       (setq evil-auto-indent nil)
       (company-mode nil)
