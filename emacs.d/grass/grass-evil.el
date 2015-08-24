@@ -2,6 +2,9 @@
 ;; Trojan horse maneuver
 
 (use-package evil
+  :preface
+  (setq evil-search-module 'evil-search)
+
   :config
 
   ;; Evil plugins
@@ -28,6 +31,7 @@
     (evil-search-highlight-persist -1)
 
   ;; Evil config
+
 
   ; Make horizontal movement cross lines
   (setq-default evil-cross-lines t)
