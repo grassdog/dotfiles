@@ -56,6 +56,7 @@
 
 (use-package ibuffer
   :commands ibuffer
+  :bind ("C-x C-b" . ibuffer)
   :config
   (progn
     (setq ibuffer-saved-filter-groups
@@ -82,7 +83,6 @@
               (name 16 -1)
               " " filename)))
     (setq ibuffer-default-sorting-mode 'filename/process)
-    (global-set-key (kbd "C-x C-b") 'ibuffer)
 
     (use-package ibuffer-vc
       :commands ibuffer-vc-generate-filter-groups-by-vc-root
