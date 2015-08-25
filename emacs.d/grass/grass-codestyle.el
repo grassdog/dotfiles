@@ -41,7 +41,14 @@
 (diminish 'global-whitespace-mode)
 
 (setq require-final-newline t)
-(add-hook 'before-save-hook 'whitespace-cleanup)
+
+(defun grass/enable-whitespace-cleanup ()
+  "Enables whitespace-cleanup on save."
+  (interactive)
+  (add-hook 'before-save-hook 'whitespace-cleanup))
+
+(define-key global-map (kbd "C-, w") 'whitespace-cleanup)
+
 
 ;; Only show bad whitespace (Ignore empty lines at start and end of buffer)
 (setq whitespace-style '(face tabs trailing space-before-tab indentation space-after-tab))
