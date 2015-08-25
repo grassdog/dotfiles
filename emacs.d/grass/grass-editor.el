@@ -72,8 +72,19 @@
 (setq read-quoted-char-radix 10)
 
 ;; Dashes
-(global-set-key (kbd "C-, -") (function (lambda nil (interactive) (insert "–")))) ;; Insert en dash
-(global-set-key (kbd "C-, =") (function (lambda nil (interactive) (insert "—")))) ;; Insert em dash
+(defun grass/insert-en-dash
+  "Insert an en dash"
+  (interactive)
+  (insert "–"))
+
+(defun grass/insert-em-dash
+  "Insert an en dash"
+  (interactive)
+  (insert "—"))
+
+;; Dashes
+(global-set-key (kbd "C-, -") 'grass/insert-en-dash)
+(global-set-key (kbd "C-, =") 'grass/insert-em-dash)
 
 ;; Auto save on focus lost
 (defun grass/auto-save-all()
@@ -164,7 +175,7 @@
      "Window '%s' is normal")
    (current-buffer)))
 
-(global-set-key (kbd "C-, w") 'toggle-window-dedicated)
+(global-set-key (kbd "C-, q") 'toggle-window-dedicated)
 
 (use-package expand-region
   :bind (("C-+" . er/contract-region)
