@@ -67,8 +67,8 @@
 
 ;; Autofill where possible but only in comments when coding
 ;; http://stackoverflow.com/questions/4477357/how-to-turn-on-emacs-auto-fill-mode-only-for-code-comments
+(setq comment-auto-fill-only-comments t)
 ;; (auto-fill-mode 1)
-;; (setq comment-auto-fill-only-comments t)
 
 ;; Base 10 for inserting quoted chars please
 (setq read-quoted-char-radix 10)
