@@ -147,7 +147,86 @@
 ;; Quick switch buffers
 (global-set-key (kbd "C-, C-,") 'grass/switch-to-previous-buffer)
 
-(global-set-key (kbd "C-, s r") 'query-replace-regexp)
+;; Search and replace
+
+(defun grass/replace-string (from-string to-string &optional delimited start end)
+  "This is a modified version of `replace-string'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
+  (interactive
+   (let ((common
+      (query-replace-read-args
+       (concat "Replace"
+           (if current-prefix-arg " word" "")
+           (if (and transient-mark-mode mark-active) " in region" ""))
+       nil)))
+     (list (nth 0 common) (nth 1 common) (nth 2 common)
+       (if (and transient-mark-mode mark-active)
+           (region-beginning)
+         (buffer-end -1))
+       (if (and transient-mark-mode mark-active)
+           (region-end)
+         (buffer-end 1)))))
+  (perform-replace from-string to-string nil nil delimited nil nil start end))
+
+(defun grass/replace-regexp (regexp to-string &optional delimited start end)
+  "This is a modified version of `replace-regexp'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
+  (interactive
+   (let ((common
+      (query-replace-read-args
+       (concat "Replace"
+           (if current-prefix-arg " word" "")
+           " regexp"
+           (if (and transient-mark-mode mark-active) " in region" ""))
+       t)))
+     (list (nth 0 common) (nth 1 common) (nth 2 common)
+       (if (and transient-mark-mode mark-active)
+           (region-beginning)
+         (buffer-end -1))
+       (if (and transient-mark-mode mark-active)
+           (region-end)
+         (buffer-end 1)))))
+  (perform-replace regexp to-string nil t delimited nil nil start end))
+
+(defun grass/query-replace-regexp (regexp to-string &optional delimited start end)
+  "This is a modified version of `query-replace-regexp'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
+  (interactive
+   (let ((common
+      (query-replace-read-args
+       (concat "Replace"
+           (if current-prefix-arg " word" "")
+           " regexp"
+           (if (and transient-mark-mode mark-active) " in region" ""))
+       t)))
+     (list (nth 0 common) (nth 1 common) (nth 2 common)
+       (if (and transient-mark-mode mark-active)
+           (region-beginning)
+         (buffer-end -1))
+       (if (and transient-mark-mode mark-active)
+           (region-end)
+         (buffer-end 1)))))
+  (perform-replace regexp to-string t t delimited nil nil start end))
+
+(defun grass/query-replace-string (from-string to-string &optional delimited start end)
+  "This is a modified version of `query-replace-string'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
+  (interactive
+   (let ((common
+      (query-replace-read-args
+       (concat "Replace"
+           (if current-prefix-arg " word" "")
+           (if (and transient-mark-mode mark-active) " in region" ""))
+       nil)))
+     (list (nth 0 common) (nth 1 common) (nth 2 common)
+       (if (and transient-mark-mode mark-active)
+           (region-beginning)
+         (buffer-end -1))
+       (if (and transient-mark-mode mark-active)
+           (region-end)
+         (buffer-end 1)))))
+  (perform-replace from-string to-string t nil delimited nil nil start end))
+
+(global-set-key (kbd "C-, s r") 'grass/replace-string)
+(global-set-key (kbd "C-, s R") 'grass/replace-regexp)
+(global-set-key (kbd "C-, s q") 'grass/query-replace-string)
+(global-set-key (kbd "C-, s Q") 'grass/query-replace-regexp)
 (global-set-key (kbd "C-, s f") 'isearch-forward-regexp)
 (global-set-key (kbd "C-, s b") 'isearch-reverse-regexp)
 
