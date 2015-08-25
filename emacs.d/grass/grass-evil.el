@@ -28,17 +28,22 @@
   (use-package evil-search-highlight-persist
     :init
     (global-evil-search-highlight-persist t)
-    (evil-search-highlight-persist -1)
+
+    (defun grass/remove-search-highlights ()
+      "Remove all highlighted search terms."
+      (interactive)
+      (lazy-highlight-cleanup)
+      (evil-search-highlight-persist-remove-all)
+      (evil-ex-nohighlight))
+
+    (define-key evil-normal-state-map (kbd "SPC") 'grass/remove-search-highlights))
 
   ;; Evil config
-
 
   ; Make horizontal movement cross lines
   (setq-default evil-cross-lines t)
   (setq evil-shift-width 2)
   (require 'evil-little-word)
-
-  (define-key evil-normal-state-map (kbd "SPC") 'evil-search-highlight-persist-remove-all))
 
   (evil-mode t)
 

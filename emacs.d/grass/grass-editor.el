@@ -45,6 +45,8 @@
 (show-paren-mode +1)
 (setq show-paren-style 'parenthesis)
 
+(require 'highlight)
+
 ;; UI highlight search and other actions
 (use-package volatile-highlights
   :diminish volatile-highlights-mode
