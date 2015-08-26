@@ -41,6 +41,7 @@
     (lambda ()
       ;; turn off the annoying input echo in irb
       (setq comint-process-echoes t)
+      (modify-syntax-entry ?_ "w")
       ; (flycheck-mode t)
       (setq evil-shift-width ruby-indent-level))))
 

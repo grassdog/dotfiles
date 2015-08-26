@@ -41,6 +41,7 @@
               (lambda ()
                 (set (make-local-variable 'tab-width) 2)
                 (flycheck-mode t)
+                (modify-syntax-entry ?_ "w")
                 (setq indent-line-function 'grass/coffee-indent-line)
                 (setq evil-shift-width coffee-tab-width)))))
 
