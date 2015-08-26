@@ -3,6 +3,11 @@
           ("\\.json$" . js2-mode))
   :interpreter "node"
   :config
+    (use-package js2-refactor
+      :init
+      (add-hook 'js2-mode-hook #'js2-refactor-mode)
+      (js2r-add-keybindings-with-prefix "C-c RET"))
+
     (add-hook 'js2-mode-hook 'js2-imenu-extras-mode)
     (add-hook 'js2-mode-hook
     (lambda ()
