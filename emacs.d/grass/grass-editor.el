@@ -277,7 +277,7 @@
 ;; Snippets
 (use-package yasnippet
   :diminish yas-minor-mode
-  :bind ("C-, e" . yas/expand)
+  :bind ("C-, e" . yas-expand)
   :config
   (setq yas-verbosity 1)
   (yas-global-mode 1))
