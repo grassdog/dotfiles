@@ -8,6 +8,8 @@
 
   (add-hook 'clojure-mode-hook #'flycheck-mode)
 
+  (use-package clojure-snippets)
+ 
   (use-package cider
     :pin melpa-stable
     :init
