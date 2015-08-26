@@ -87,8 +87,11 @@ a result of how evil deals with regions"
 (use-package multiple-cursors
   :bind (("C-, m l" . mc/edit-lines)
          ("C-, m a" . mc/mark-all-like-this-dwim)
-         ("C->" . mc/mark-next-like-this)
-         ("C-<" . mc/mark-previous-like-this))
+         ("C-, m e" . mc/mark-more-like-this-extended)
+         ("C->"     . mc/mark-next-like-this)
+         ("C-<"     . mc/mark-previous-like-this)
+         ("C-, m n" . mc/mark-next-like-this)
+         ("C-, m p" . mc/mark-previous-like-this))
 
   :init
     (multiple-cursors/enable-compat))
