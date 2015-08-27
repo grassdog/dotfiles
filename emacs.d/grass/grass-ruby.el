@@ -20,11 +20,14 @@
 
   (use-package rspec-mode)
 
+  (use-package ruby-end
+    :disabled t)
+
   (use-package projectile-rails
+    :disabled t
     :config
     (setq projectile-rails-expand-snippet nil)
     (add-hook 'projectile-mode-hook 'projectile-rails-on))
-
 
   ;; We never want to edit Rubinius bytecode
   (add-to-list 'completion-ignored-extensions ".rbc")
@@ -42,9 +45,14 @@
       ;; turn off the annoying input echo in irb
       (setq comint-process-echoes t)
       (modify-syntax-entry ?_ "w")
-      (setq company-dabbrev-downcase nil) ;; Be case sensitive on my matches please
+      ;; Be case sensitive on my matches please
+      (setq company-dabbrev-downcase nil)
+      ;; Abbrev mode seems broken for some reason
+      (abbrev-mode -1)
       ; (flycheck-mode t)
-      (setq evil-shift-width ruby-indent-level))))
+      (setq ruby-indent-level 2)
+      (setq evil-shift-width 2))))
+
 
 (use-package chruby
   :config

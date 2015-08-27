@@ -22,9 +22,6 @@
 (setq-default save-place t)
 (require 'saveplace)
 
-;; Don't make tab indent a line
-(setq tab-always-indent nil)
-
 ;; Savehist keeps track of some history
 (setq savehist-additional-variables
   ;; search entries
@@ -40,6 +37,9 @@
       recentf-max-saved-items 200
       recentf-max-menu-items 15)
 (recentf-mode t)
+
+;; Don't make tab indent a line
+(setq tab-always-indent nil)
 
 ;; Subtle highlighting of matching parens (global-mode)
 (show-paren-mode +1)
@@ -249,6 +249,9 @@
 
 (ad-activate 'pop-to-buffer)
 
+;; Don't combine tag tables thanks
+(setq tags-add-tables nil)
+
 ;; Toggle window dedication
 (defun toggle-window-dedicated ()
   "Toggle whether the current active window is dedicated or not"
@@ -277,14 +280,5 @@
   ;;   (after undo-tree activate)
   ;;   (setq ad-return-value (concat ad-return-value ".gz")))
   (global-undo-tree-mode))
-
-
-;; Snippets
-(use-package yasnippet
-  :diminish yas-minor-mode
-  :bind ("C-, e" . yas-expand)
-  :config
-  (setq yas-verbosity 1)
-  (yas-global-mode 1))
 
 (provide 'grass-editor)

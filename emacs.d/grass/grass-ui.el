@@ -102,12 +102,12 @@
 
 
 
-(use-package smart-mode-line
-  :init
-  (setq sml/no-confirm-load-theme t)
-  (setq sml/shorten-modes nil)
-  (setq sml/theme 'respectful)
-  (sml/setup))
+;; (use-package smart-mode-line
+;;   :init
+;;   (setq sml/no-confirm-load-theme t)
+;;   (setq sml/shorten-modes nil)
+;;   (setq sml/theme 'respectful)
+;;   (sml/setup))
 
 ;; Ignore certain files
 (use-package ignoramus

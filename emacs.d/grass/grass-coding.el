@@ -15,12 +15,90 @@ This functions should be added to the hooks of major modes for programming."
     (setq company-minimum-prefix-length 2)
     (setq company-global-modes
       '(not markdown-mode org-mode erc-mode))
-    (add-hook 'after-init-hook 'global-company-mode)
-    (defun complete-or-indent ()
-      (interactive)
-      (if (company-manual-begin)
-          (company-complete-common)
-          (indent-according-to-mode))))
+    (add-hook 'after-init-hook 'global-company-mode))
+
+(use-package yasnippet
+  :config
+  (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
+
+  :diminish yas-minor-mode
+  :init
+
+  (defun grass/do-yas-expand ()
+    (let ((yas/fallback-behavior 'return-nil))
+      (yas-expand)))
+
+  (defun grass/check-expansion ()
+    (save-excursion
+      (if (looking-at "\\_>") t
+        (backward-char 1)
+        (if (looking-at "\\.") t
+          (backward-char 1)
+          (if (looking-at "->") t nil)))))
+
+  (defun grass/tab-indent-or-complete ()
+    (interactive)
+    (cond
+     ((minibufferp)
+      (minibuffer-complete))
+     (t
+      (indent-for-tab-command)
+      (if (or (not yas-minor-mode)
+              (null (grass/do-yas-expand)))
+          (if (grass/check-expansion)
+              (progn
+                (company-manual-begin)
+                (if (null company-candidates)
+                    (progn
+                      (company-abort)
+                      (indent-for-tab-command)))))))))
+
+  (defun grass/tab-complete-or-next-field ()
+    (interactive)
+    (if (or (not yas-minor-mode)
+            (null (grass/do-yas-expand)))
+        (if company-candidates
+            (company-complete-selection)
+          (if (grass/check-expansion)
+              (progn
+                (company-manual-begin)
+                (if (null company-candidates)
+                    (progn
+                      (company-abort)
+                      (yas-next-field))))
+            (yas-next-field)))))
+
+  (defun grass/expand-snippet-or-complete-selection ()
+    (interactive)
+    (if (or (not yas-minor-mode)
+            (null (grass/do-yas-expand))
+            (company-abort))
+        (company-complete-selection)))
+
+  (defun grass/abort-company-or-yas ()
+    (interactive)
+    (if (null company-candidates)
+        (yas-abort-snippet)
+      (company-abort)))
+                
+  (setq yas-verbosity 1)
+  (yas-global-mode 1)
+
+  (global-set-key [tab] 'grass/tab-indent-or-complete)
+  (global-set-key (kbd "TAB") 'grass/tab-indent-or-complete)
+  (global-set-key [(control return)] 'company-complete-common)
+
+  (define-key company-active-map [tab] 'grass/expand-snippet-or-complete-selection)
+  (define-key company-active-map (kbd "TAB") 'grass/expand-snippet-or-complete-selection)
+
+  (define-key yas-minor-mode-map [tab] nil)
+  (define-key yas-minor-mode-map (kbd "TAB") nil)
+
+  (define-key yas-keymap [tab] 'grass/tab-complete-or-next-field)
+  (define-key yas-keymap (kbd "TAB") 'grass/tab-complete-or-next-field)
+  (define-key yas-keymap [(control tab)] 'yas-next-field)
+  (define-key yas-keymap (kbd "C-g") 'grass/abort-company-or-yas)
+  (define-key yas-minor-mode-map (kbd "C-, e") 'yas-expand))
 
 (use-package web-beautify
   :commands (web-beautify-js web-beautify-css web-beautify-html))
@@ -49,6 +127,7 @@ This functions should be added to the hooks of major modes for programming."
   :init
   (require 'smartparens-config)
   (sp-use-smartparens-bindings)
+
   (add-hook 'enh-ruby-mode-hook #'smartparens-mode)
   (add-hook 'lisp-mode-hook #'smartparens-mode)
   (add-hook 'emacs-lisp-mode-hook #'smartparens-mode)
