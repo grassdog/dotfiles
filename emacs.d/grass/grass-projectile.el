@@ -10,6 +10,7 @@
     :init
       (helm-projectile-on))
 
+    (setq projectile-tags-command "getags")
     (setq projectile-enable-caching t)
     (setq projectile-completion-system 'helm)
     (setq helm-projectile-fuzzy-match t)

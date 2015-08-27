@@ -42,6 +42,7 @@
       ;; turn off the annoying input echo in irb
       (setq comint-process-echoes t)
       (modify-syntax-entry ?_ "w")
+      (setq company-dabbrev-downcase nil) ;; Be case sensitive on my matches please
       ; (flycheck-mode t)
       (setq evil-shift-width ruby-indent-level))))
 

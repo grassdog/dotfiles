@@ -1,0 +1,150 @@
+#!/usr/bin/env ruby
+
+if RUBY_VERSION < "1.9.3"
+  abort "error: #{$PROGRAM_NAME} requires Ruby 1.9.3 or higher."
+end
+
+require "optparse"
+
+class GrassTags
+  VERSION = [1, 0, 0]
+
+  TAG_COMMAND = "ctags"
+
+  def run
+    config = Configuration.from_environment(ARGV)
+    build_tags config
+    # filter_tags config
+  rescue Interrupt
+    exit(1)
+  end
+
+  private
+
+  def build_tags(config)
+    # command = "#{TAG_COMMAND} -e -R --fields=+l -f #{config.outpath} #{config.excludes} ."
+    command = "#{TAG_COMMAND} -e -R --fields=+l #{config.excludes} ."
+    system command
+  end
+
+  def filter_tags(config)
+    if config.emacs_mode
+      filter_emacs_tags(config.outpath)
+    else
+      filter_vim_tags(config.outpath)
+    end
+  end
+
+  def filter_emacs_tags(tagfile)
+    filtered_lines = File.readlines(tagfile)
+        .reject { |l| l =~ /function.\d+,\d+\z/ }
+        .reject { |l| l =~ /var\s+.*=.*require\(/ }
+
+    File.open(tagfile, 'w') do |file|
+      file.puts filtered_lines
+    end
+  end
+
+  def filter_vim_tags(tagfile)
+    # # Filter out false matches from class method regex
+    # sed -i '' -E '/^(if|switch|function|module\.exports|it|describe)	.+language:js$/d' $FILE
+
+    # # Filter out false matches from object definition regex
+    # sed -i '' -E '/var[   ]+[a-zA-Z0-9_$]+[   ]+=[    ]+require\(.+language:js$/d' $FILE
+  end
+end
+
+class Configuration < Struct.new(:outfile, :ignores, :outdir)
+  IGNORED_PATHS =["node_modules", "*vendor", "*.min.js"]
+
+  #tagman_library_tag_paths = "`bundle show --paths` node_modules vendor"
+
+  # Files that contain paths to be ignored
+  IGNORE_FILES = [".gitignore", ".svnignore", ".cvsignore"]
+
+  def self.from_environment(argv)
+    options = Options.parse(argv)
+    ignores = Ignores.from_current_directory
+    new(options.fetch(:outfile), ignores.fetch(:ignores), ignores.fetch(:outdir))
+  end
+
+  def outpath
+    File.join(outdir, outfile)
+  end
+
+  def excludes
+    ignores.map { |i| "--exclude=#{i}" }.join(" ")
+  end
+end
+
+class Options
+  def self.parse(argv)
+    options = {}
+
+    parser = OptionParser.new do |opts|
+      opts.banner = "Usage: #{$PROGRAM_NAME} [options]\n\tAn etags generator that takes vcs ignore files into consideration."
+
+      opts.on_tail("-h", "--help", "Show this message") do |v|
+        puts opts
+        exit
+      end
+
+      opts.on_tail("--version", "Show version") do
+        puts GrassTags::VERSION.join('.')
+        exit
+      end
+
+      options[:outfile] = "TAGS"
+      opts.on("-o", "--outfile FILENAME", "Output name for file (default is TAGS)") do |outfile|
+        options[:outfile] = outfile
+      end
+    end
+
+    begin
+      parser.parse!(argv)
+    rescue OptionParser::InvalidOption => e
+      $stderr.puts e
+      $stderr.puts parser
+      exit 1
+    end
+
+    options
+  end
+end
+
+class Ignores
+  # Directories to store the tag file
+  TAG_DIRECTORIES = [".git", ".hg", ".svn", "CVS"]
+
+  # Fixed set of paths to ignore
+  IGNORED_PATHS =["node_modules", "*vendor", "*.min.js"]
+
+  # Files that contain paths to be ignored
+  IGNORE_FILES = [".gitignore", ".hgignore", ".svnignore", ".cvsignore"]
+
+  def self.from_current_directory
+    ignores = {}
+
+    file_ignores = parse_ignores(IGNORE_FILES.find { |p| File.exist?(p) })
+
+    ignores[:ignores] = IGNORED_PATHS.concat file_ignores
+
+    ignores[:outdir] = TAG_DIRECTORIES.find { |d| File.directory?(d) } || "."
+
+    ignores
+  end
+
+  def self.parse_ignores(ignore_file)
+    return [] unless ignore_file
+
+    File.readlines(ignore_file)
+        .map(&:chomp)
+        .reject { |l| l =~ /\A#/ }
+        .reject { |l| l =~ /\A\s*\z/ }
+        .map { |l| l.strip.gsub(/\A\//, "") }
+  end
+end
+
+if $0 == __FILE__
+  GrassTags.new.run
+end

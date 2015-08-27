@@ -43,6 +43,7 @@ dontgitify
 .tags
 .gems.tags
 tags
+TAGS
 
 # Compiled Python
 *.pyc
