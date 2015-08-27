@@ -1,0 +1,3 @@
+(define-abbrev-table 'global-abbrev-table '(
+	("teh" "the" nil 1)
+	))

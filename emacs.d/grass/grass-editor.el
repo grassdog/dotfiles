@@ -102,6 +102,11 @@
 (add-hook 'mouse-leave-buffer-hook 'grass/auto-save-all)
 (add-hook 'focus-out-hook 'grass/auto-save-all)
 
+;; abbrev mode for common typos
+(setq abbrev-file-name "~/.emacs.d/abbrev_defs")
+(diminish 'abbrev-mode)
+(setq-default abbrev-mode t)
+
 
 ;; Reuse the same buffer for dired windows
 (use-package dired-single

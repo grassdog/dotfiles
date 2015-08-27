@@ -51,9 +51,6 @@
       '("" invocation-name " - " (:eval (if (buffer-file-name)
                                             (abbreviate-file-name (buffer-file-name))
                                           "%b"))))
-
-(diminish 'abbrev-mode)
-
 (use-package ibuffer
   :commands ibuffer
   :bind ("C-x C-b" . ibuffer)
