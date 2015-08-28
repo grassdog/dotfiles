@@ -12,7 +12,7 @@ This functions should be added to the hooks of major modes for programming."
   :diminish company-mode
   :config
     (setq company-idle-delay 0.2)
-    (setq company-minimum-prefix-length 2)
+    (setq company-minimum-prefix-length 3)
     (setq company-global-modes
       '(not markdown-mode org-mode erc-mode))
     (add-hook 'after-init-hook 'global-company-mode))
