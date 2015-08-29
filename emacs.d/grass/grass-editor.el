@@ -270,6 +270,9 @@
   :bind (("C-+" . er/contract-region)
          ("C-=" . er/expand-region)))
 
+(use-package ag
+  :commands ag-project)
+
 (use-package undo-tree
   :diminish undo-tree-mode
   :config
