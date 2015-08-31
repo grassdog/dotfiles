@@ -8,6 +8,12 @@
       (add-hook 'js2-mode-hook #'js2-refactor-mode)
       (js2r-add-keybindings-with-prefix "C-c RET"))
 
+    ;; Rely on flycheck instead...
+    (setq js2-show-parse-errors nil)
+    ;;(setq js2-strict-missing-semi-warning nil)
+    ;; jshint does not warn about this now for some reason
+    (setq js2-strict-trailing-comma-warning t)
+
     (add-hook 'js2-mode-hook 'js2-imenu-extras-mode)
     (add-hook 'js2-mode-hook
     (lambda ()
@@ -18,8 +24,8 @@
                                  "clearInterval" "location" "__dirname" "console" "JSON"))
       (setq evil-shift-width js-indent-level)
 
-      (setq js2-show-parse-errors nil) ;; Rely on flycheck instead...
-      (flycheck-mode t)
+
+      (flycheck-mode 1)
       (global-set-key (kbd "C-, f") 'web-beautify-js)
       (js2-imenu-extras-mode +1))))
 

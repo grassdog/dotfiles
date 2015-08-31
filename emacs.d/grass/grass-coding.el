@@ -80,7 +80,7 @@ This functions should be added to the hooks of major modes for programming."
     (if (null company-candidates)
         (yas-abort-snippet)
       (company-abort)))
-                
+
   (setq yas-verbosity 1)
   (yas-global-mode 1)
 
@@ -103,14 +103,16 @@ This functions should be added to the hooks of major modes for programming."
 (use-package web-beautify
   :commands (web-beautify-js web-beautify-css web-beautify-html))
 
+
+
 (use-package flycheck
   :defer t
   :config
-  (use-package flycheck-pos-tip
-    :init
-    (eval-after-load 'flycheck
-      '(custom-set-variables
-        '(flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))))
+  (use-package flycheck-pos-tip))
+
+(eval-after-load 'flycheck
+  '(setq flycheck-display-errors-function
+         #'flycheck-pos-tip-error-messages))
 
 (use-package magit
   :bind ("C-, g" . magit-status))
