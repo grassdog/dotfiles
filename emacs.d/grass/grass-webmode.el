@@ -28,6 +28,13 @@
       (setq web-mode-enable-current-element-highlight t))
     (add-hook 'web-mode-hook  'grass/web-mode-hook)))
 
+(use-package jade-mode
+  :mode "\\.jade$"
+  :init
+  (require 'sws-mode)
+  (require 'stylus-mode)
+  (add-to-list 'auto-mode-alist '("\\.styl\\'" . stylus-mode)))
+
 (use-package scss-mode
   :mode "\\.scss$"
   :config
