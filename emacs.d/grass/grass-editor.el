@@ -147,7 +147,7 @@
          ("<C-S-down>" . move-text-down)))
 
 (global-set-key (kbd "C-, u") 'browse-url)
-(global-set-key (kbd "C-, i") 'grass/indent-region-or-buffer)
+(global-set-key (kbd "C-, f") 'grass/indent-region-or-buffer)
 
 ;; Quick switch buffers
 (global-set-key (kbd "C-, C-,") 'grass/switch-to-previous-buffer)
