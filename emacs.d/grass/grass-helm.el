@@ -20,7 +20,8 @@
 
     (use-package helm-ag
       :init
-      (setq helm-ag-insert-at-point 'symbol))
+      ;; (setq helm-ag-insert-at-point 'symbol)
+      )
 
     (helm-mode 1)))
 
