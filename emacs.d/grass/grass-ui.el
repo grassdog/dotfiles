@@ -100,7 +100,8 @@
 
         (add-hook 'ibuffer-hook 'grass/ibuffer-apply-filter-groups)))))
 
-
+(use-package highlight-indentation
+  :commands highlight-indentation-mode)
 
 (use-package smart-mode-line
   :disabled t
