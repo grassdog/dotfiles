@@ -34,12 +34,13 @@
   (require 'sws-mode)
   (require 'stylus-mode)
   (add-to-list 'auto-mode-alist '("\\.styl\\'" . stylus-mode))
-  (add-hook 'jade-mode-hook
-            (lambda ()
-              (highlight-indentation-mode t)))
-  (add-hook 'stylus-mode-hook
-            (lambda ()
-              (highlight-indentation-mode t))))
+  ;; (add-hook 'jade-mode-hook
+  ;;           (lambda ()
+  ;;             (highlight-indentation-mode t)))
+  ;; (add-hook 'stylus-mode-hook
+  ;;           (lambda ()
+  ;;             (highlight-indentation-mode t)))
+  )
 
 (use-package scss-mode
   :mode "\\.scss$"
