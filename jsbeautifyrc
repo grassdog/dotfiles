@@ -4,7 +4,7 @@
     "eol": "\n",
     "indent_level": 0,
     "indent_with_tabs": false,
-    "preserve_newlines": true,
+    "preserve_newlines": false,
     "max_preserve_newlines": 10,
     "jslint_happy": false,
     "space_after_anon_function": false,
