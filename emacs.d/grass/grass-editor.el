@@ -271,6 +271,7 @@
          ("C-=" . er/expand-region)))
 
 (use-package ag
+  :bind (("C-, s a" . ag-project)
   :commands ag-project)
 
 (use-package undo-tree
