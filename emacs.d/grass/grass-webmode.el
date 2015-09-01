@@ -23,7 +23,7 @@
       (setq web-mode-enable-comment-keywords t)
       (setq web-mode-comment-style 2)     ;; Use server stye comments
       (setq company-dabbrev-downcase nil) ;; Be case sensitive on my matches please
-      (global-set-key (kbd "C-, f") 'web-beautify-html)
+      (global-set-key (kbd "C-, b") 'web-beautify-html)
       (global-set-key (kbd "C-, z") 'web-mode-fold-or-unfold)
       (setq web-mode-enable-current-element-highlight t))
     (add-hook 'web-mode-hook  'grass/web-mode-hook)))
@@ -58,7 +58,7 @@
   (add-hook 'css-mode-hook
             (lambda ()
               (rainbow-mode +1)
-              (global-set-key (kbd "C-, f") 'web-beautify-css))))
+              (global-set-key (kbd "C-, b") 'web-beautify-css))))
 
 (use-package yaml-mode
   :defer t)
