@@ -40,6 +40,8 @@
     (tss-config-default)))
 
 (use-package elm-mode
-  :mode "\\.elm$")
+  :mode "\\.elm$"
+  :config
+  (add-hook 'elm-mode-hook #'elm-oracle-setup-completion))
 
 (provide 'grass-js)
