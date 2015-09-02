@@ -128,8 +128,8 @@
   :bind ("M-y" . browse-kill-ring))
 
 (use-package default-text-scale
-  :bind (("C-M-=" . default-text-scale-increase)
-         ("C-M--" . default-text-scale-decrease)))
+  :bind (("s-=" . default-text-scale-increase)
+         ("s--" . default-text-scale-decrease)))
 
 ;; GUI Mode settings
 (when (display-graphic-p)
