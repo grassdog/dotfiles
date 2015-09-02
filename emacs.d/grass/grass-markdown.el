@@ -22,8 +22,8 @@
   (add-hook 'markdown-mode-hook
       (lambda ()
         ;; Remove for now as they interfere with indentation
-        (define-key yas-minor-mode-map [(tab)] nil)
-        (define-key yas-minor-mode-map (kbd "TAB") nil)
+        ;; (define-key yas-minor-mode-map [(tab)] nil)
+        ;; (define-key yas-minor-mode-map (kbd "TAB") nil)
         (setq imenu-generic-expression markdown-imenu-generic-expression)))
 
   (add-hook 'markdown-mode-hook 'pandoc-mode)
