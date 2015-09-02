@@ -129,6 +129,7 @@ This functions should be added to the hooks of major modes for programming."
   :init
   (require 'smartparens-config)
   (sp-use-smartparens-bindings)
+  (show-smartparens-global-mode t)
 
   (add-hook 'enh-ruby-mode-hook #'smartparens-mode)
   (add-hook 'lisp-mode-hook #'smartparens-mode)
@@ -204,6 +205,9 @@ the right."
     (global-set-key (kbd "C-, a (") 'align-repeat-left-paren)
     (global-set-key (kbd "C-, a )") 'align-repeat-right-paren)))
 
+(use-package rainbow-delimiters
+  :init
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 ;; Show current function in modeline
 (which-function-mode)

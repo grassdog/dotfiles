@@ -77,12 +77,4 @@
   (add-hook 'emacs-lisp-mode-hook 'hl-sexp-mode)
   (add-hook 'scheme-mode-hook 'hl-sexp-mode))
 
-(use-package rainbow-delimiters
-  :init
-  (add-hook 'haskell-mode-hook #'rainbow-delimiters-mode)
-  (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
-  (add-hook 'lisp-mode-hook #'rainbow-delimiters-mode)
-  (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
-  (add-hook 'scheme-mode-hook #'rainbow-delimiters-mode))
-
 (provide 'grass-lisp)
