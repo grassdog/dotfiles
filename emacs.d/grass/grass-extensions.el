@@ -50,44 +50,6 @@ Repeated invocations toggle between the two most recently open buffers."
           (rename-file filename new-name t)
           (set-visited-file-name new-name t t)))))))
 
-;; Some alignment commands https://gist.github.com/WaYdotNET/700416
-(defun grass/align-to-colon (begin end)
-  "Align region to colon"
-  (interactive "r")
-  (align-regexp begin end
-       (rx ":" (group (zero-or-more (syntax whitespace))) ) 1 1 ))
-
-(defun grass/align-to-colon-after (begin end)
-  "Align region to colon (:) signs"
-  (interactive "r")
-  (align-regexp begin end
-                (rx (group (zero-or-more (syntax whitespace))) ":") 1 1 ))
-
-(defun grass/align-to-comma (begin end)
-  "Align region to comma signs"
-  (interactive "r")
-  (align-regexp begin end
-                (rx "," (group (zero-or-more (syntax whitespace))) ) 1 1 ))
-
-
-(defun grass/align-to-equals (begin end)
-  "Align region to equal signs"
-  (interactive "r")
-  (align-regexp begin end
-                (rx (group (zero-or-more (syntax whitespace))) "=") 1 1 ))
-
-(defun grass/align-to-hash (begin end)
-  "Align region to hash ( => ) signs"
-  (interactive "r")
-  (align-regexp begin end
-                (rx (group (zero-or-more (syntax whitespace))) "=>") 1 1 ))
-
-(defun grass/align-to-comma-before (begin end)
-  "Align region to equal signs"
-  (interactive "r")
-  (align-regexp begin end
-                (rx (group (zero-or-more (syntax whitespace))) ",") 1 1 ))
-
 (defun grass/what-face (pos)
   (interactive "d")
   (let ((face (or (get-char-property (point) 'read-face-name)
