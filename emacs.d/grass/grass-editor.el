@@ -59,8 +59,11 @@
 
 ;; flyspell-mode does spell-checking on the fly as you type
 (require 'flyspell)
-(setq ispell-program-name "aspell" ; use aspell instead of ispell
-      ispell-extra-args '("--lang=en_AU --sug-mode=ultra"))
+(setq-default ispell-program-name "aspell")
+(setq-default ispell-dictionary "english")
+(setq-default ispell-extra-args '("--lang=en_AU --sug-mode=ultra"))
+
+(global-set-key (kbd "C-, S n") 'flyspell-goto-next-error)
 
 ;; 80 char wide paragraphs please
 (setq-default fill-column 80)

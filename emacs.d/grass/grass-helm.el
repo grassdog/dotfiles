@@ -35,4 +35,9 @@
                          (inhibit-same-window . t)
                          (window-height . 0.5)))
 
+(use-package helm-flyspell
+  :commands helm-flyspell-correct
+  :bind ("C-, S c" . helm-flyspell-correct))
+
+
 (provide 'grass-helm)
