@@ -39,4 +39,7 @@
     ;(setq tss-implement-definition-key "C-c i")
     (tss-config-default)))
 
+(use-package elm-mode
+  :mode "\\.elm$")
+
 (provide 'grass-js)
