@@ -26,6 +26,19 @@
 ; Text mode by default for scratch buffer
 ;(setq initial-major-mode 'text-mode)
 
+;; Save clipboard contents into kill-ring before replace them
+(setq save-interprogram-paste-before-kill t)
+
+;; Single space between sentences is more widespread than double
+(setq-default sentence-end-double-space nil)
+
+;; scratch buffer empty
+(setq initial-scratch-message nil)
+
+;; No continuation characters
+(setq-default fringe-indicator-alist
+              '((truncation . nil) (continuation . nil)))
+
 ;; Nice scrolling
 (setq scroll-margin 4
       scroll-conservatively 100000
