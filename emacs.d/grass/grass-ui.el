@@ -103,6 +103,14 @@
 (use-package highlight-indentation
   :commands highlight-indentation-mode)
 
+
+(use-package guide-key
+  :init
+  (setq guide-key/popup-window-position 'bottom)
+  (setq guide-key/guide-key-sequence t)
+  (setq guide-key/idle-delay 0.4)
+  (guide-key-mode 1))
+
 (use-package smart-mode-line
   :disabled t
   :init
