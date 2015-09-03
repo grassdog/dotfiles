@@ -129,7 +129,6 @@ This functions should be added to the hooks of major modes for programming."
   :init
   (require 'smartparens-config)
   (sp-use-smartparens-bindings)
-  (show-smartparens-global-mode t)
 
   (add-hook 'enh-ruby-mode-hook #'smartparens-mode)
   (add-hook 'lisp-mode-hook #'smartparens-mode)
