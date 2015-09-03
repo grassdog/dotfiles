@@ -45,6 +45,13 @@
 (show-paren-mode +1)
 (setq show-paren-style 'parenthesis)
 
+
+(add-to-list 'recentf-exclude "\\ido.hist\\'")
+(add-to-list 'recentf-exclude "/TAGS")
+(add-to-list 'recentf-exclude "/.autosaves/")
+(add-to-list 'recentf-exclude "/emacs.d/elpa/")
+
+
 (require 'highlight)
 
 ;; UI highlight search and other actions

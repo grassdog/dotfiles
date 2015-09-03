@@ -18,8 +18,9 @@
     (add-to-list 'projectile-globally-ignored-directories "gems")
     (add-to-list 'projectile-globally-ignored-directories "node_modules")
     (add-to-list 'projectile-globally-ignored-directories "dist")
-    (add-to-list 'projectile-globally-ignored-directories "elpa")
+    (add-to-list 'projectile-globally-ignored-directories "/emacs.d/elpa/")
     (add-to-list 'projectile-globally-ignored-files ".keep")
+    (add-to-list 'projectile-globally-ignored-files "TAGS")
     (projectile-global-mode t)))
 
 (provide 'grass-projectile)

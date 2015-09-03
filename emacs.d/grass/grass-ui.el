@@ -116,7 +116,6 @@
 (use-package highlight-indentation
   :commands highlight-indentation-mode)
 
-
 (use-package guide-key
   :init
   (setq guide-key/popup-window-position 'bottom)

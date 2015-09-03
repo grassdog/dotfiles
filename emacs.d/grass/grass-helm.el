@@ -15,9 +15,6 @@
     (setq helm-M-x-fuzzy-match t)
     (setq helm-split-window-in-side-p t)
 
-    (add-to-list 'recentf-exclude "\\ido.hist\\'")
-    (add-to-list 'recentf-exclude "\\TAGS\\'")
-
     (use-package helm-ag
       :init
       ;; (setq helm-ag-insert-at-point 'symbol)
