@@ -50,6 +50,7 @@
 
 ;; Set up load paths
 (add-to-list 'load-path grass/config-dir)
+(add-to-list 'load-path (expand-file-name "site-lisp" grass/dotfiles-dir))
 
 (require 'cl)
 
