@@ -145,10 +145,9 @@
 
 ;; GUI Mode settings
 (when (display-graphic-p)
-  (use-package solarized-theme
-               :load-path "site-lisp/solarized-theme/"
-               :ensure nil
-               :config
+  (use-package solarized
+               :ensure solarized-theme
+               :init
                ;; Disable variable pitch fonts in Solarized theme
                (setq solarized-use-variable-pitch nil
                      ;; Don't add too much colours to the fringe
@@ -158,9 +157,8 @@
                      solarized-height-plus-1 1.0
                      solarized-height-plus-2 1.0
                      solarized-height-plus-3 1.0
-                     solarized-height-plus-4 1.0))
-
-  (load-theme 'solarized-dark 'no-confirm)
+                     solarized-height-plus-4 1.0)
+               (load-theme 'solarized-dark 'no-confirm))
 
   ;; Highlight the current line
   (global-hl-line-mode +1))
