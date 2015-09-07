@@ -1,5 +1,6 @@
 [ui]
 username = Ray Grasso <rgrasso@thoughtworks.com>
+ignore = ~/.hgignore_global
 
 [extensions]
 color =
