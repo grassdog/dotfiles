@@ -1,6 +1,5 @@
 (use-package js2-mode
-  :mode  (("\\.js$"   . js2-mode)
-          ("\\.json$" . js2-mode))
+  :mode  "\\.js$"
   :interpreter "node"
   :config
     (use-package js2-refactor
@@ -28,6 +27,10 @@
         (flycheck-mode 1)
         (global-set-key (kbd "C-, b") 'web-beautify-js)
         (js2-imenu-extras-mode +1))))
+
+(use-package json-mode
+  :mode "\\.json$"
+  :bind ("C-, b" . json-reformat))
 
 (use-package typescript-mode
   :mode "\\.ts$"
