@@ -128,7 +128,7 @@ This functions should be added to the hooks of major modes for programming."
 
 (use-package smartparens
   :diminish smartparens-mode
-  :init
+  :config
   (require 'smartparens-config)
   (sp-use-smartparens-bindings)
 
@@ -209,7 +209,7 @@ the right."
     (global-set-key (kbd "C-, a )") 'align-repeat-right-paren)))
 
 (use-package rainbow-delimiters
-  :init
+  :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 (use-package auto-highlight-symbol

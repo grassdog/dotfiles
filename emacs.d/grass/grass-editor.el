@@ -120,7 +120,7 @@
 
 ;; Reuse the same buffer for dired windows
 (use-package dired-single
-  :init
+  :config
   (defun my-dired-init ()
     "Bunch of stuff to run for dired, either immediately or when it's loaded."
     (define-key dired-mode-map [return] 'dired-single-buffer)

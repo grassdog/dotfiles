@@ -6,7 +6,6 @@
          ("C-, r" . helm-recentf)
          ("M-x" . helm-M-x))
   :config
-  (progn
     (require 'helm-config)
     ;; Show full buffer names please
     (setq helm-buffer-max-length 40)
@@ -16,11 +15,11 @@
     (setq helm-split-window-in-side-p t)
 
     (use-package helm-ag
-      :init
+      :commands helm-ag
       ;; (setq helm-ag-insert-at-point 'symbol)
       )
 
-    (helm-mode 1)))
+    (helm-mode 1))
 
 (use-package helm-swoop
   :bind ("C-, s s" . helm-swoop))

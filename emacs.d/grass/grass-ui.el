@@ -68,7 +68,6 @@
   :commands ibuffer
   :bind ("C-x C-b" . ibuffer)
   :config
-  (progn
     (setq ibuffer-saved-filter-groups
           '(("Config" (or
                        (filename . ".dotfiles/")
@@ -111,7 +110,7 @@
                 (pop-to-buffer ibuf)
                 (ibuffer-update nil t)))))
 
-        (add-hook 'ibuffer-hook 'grass/ibuffer-apply-filter-groups)))))
+        (add-hook 'ibuffer-hook 'grass/ibuffer-apply-filter-groups))))
 
 (use-package highlight-indentation
   :commands highlight-indentation-mode)
