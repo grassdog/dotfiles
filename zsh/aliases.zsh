@@ -47,7 +47,7 @@ function e() {
   emacsclient --alternate-editor="" -t "$@"
 }
 
-function eg() {
+function egg() {
   emacsclient --alternate-editor="" -c -n "$@"
 }
 
@@ -69,6 +69,10 @@ if [[ $(uname) == Darwin ]]; then
 
   alias gv='mvim'
   alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
+
+  function eg() {
+    /Applications/Emacs.app/Contents/MacOS/Emacs -c -n "$@"
+  }
 
   alias play="osascript -e 'tell app \"iTunes\" to playpause'"
   alias next="osascript -e 'tell app \"iTunes\" to next track'"
