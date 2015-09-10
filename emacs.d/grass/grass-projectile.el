@@ -6,7 +6,7 @@
 
   (use-package helm-projectile
     :bind (("C-, C-p" . helm-projectile)
-          ("C-, p" . helm-projectile))
+          ("C-, p" . helm-projectile-find-file))
     :init
       (helm-projectile-on))
 
