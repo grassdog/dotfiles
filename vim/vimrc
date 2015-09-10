@@ -919,6 +919,7 @@ let g:slimv_leader = '\'
 let g:slimv_disable_clojure = 1
 let g:slimv_repl_split = 4
 
+let g:paredit_mode = 0
 let g:paredit_disable_clojure = 1
 let g:paredit_electric_return = 0
 
