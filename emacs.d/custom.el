@@ -7,10 +7,6 @@
  '(ahs-face ((t (:foreground "magenta" :background unspecified :slant normal))))
  '(hl-sexp-face ((t (:background "#616161")))))
 
-(if (display-graphic-p)
-  (custom-set-faces
-   '(hl-sexp-face ((t (:background "#073642"))))))
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

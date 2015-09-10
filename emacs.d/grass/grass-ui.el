@@ -142,6 +142,16 @@
   :bind (("s-=" . default-text-scale-increase)
          ("s--" . default-text-scale-decrease)))
 
+(defun grass/set-gui-config ()
+  "Enable my GUI settings"
+
+  (custom-set-faces
+   '(hl-sexp-face ((t (:background "#073642")))))
+
+  (load-theme 'solarized-dark 'no-confirm)
+  ;; Highlight the current line
+  (global-hl-line-mode +1))
+
 ;; GUI Mode settings
 (when (display-graphic-p)
   (use-package solarized
@@ -156,16 +166,26 @@
                      solarized-height-plus-1 1.0
                      solarized-height-plus-2 1.0
                      solarized-height-plus-3 1.0
-                     solarized-height-plus-4 1.0)
-               (load-theme 'solarized-dark 'no-confirm))
+                     solarized-height-plus-4 1.0))
+  (grass/set-gui-config))
 
-  ;; Highlight the current line
-  (global-hl-line-mode +1))
-
-(when (not (display-graphic-p))
+(unless (display-graphic-p)
   (use-package zenburn-theme
      :init
      (load-theme 'zenburn 'no-confirm)))
+
+(defun grass/frame-config (&optional frame)
+  "Establish settings for the current terminal."
+  (if (display-graphic-p frame)
+    (grass/set-gui-config))
+
+  (unless (display-graphic-p frame)
+    ;; enable mouse reporting for terminal emulators
+    (xterm-mouse-mode 1)))
+
+;; Only need to set frame config if we are in daemon mode
+(if (daemonp)
+  (add-hook 'after-make-frame-functions 'grass/frame-config))
 
 ;; Some terminal mapping hackery
 (defadvice terminal-init-xterm
