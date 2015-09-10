@@ -15,6 +15,8 @@ This functions should be added to the hooks of major modes for programming."
     (setq company-minimum-prefix-length 3)
     (setq company-global-modes
       '(not markdown-mode org-mode erc-mode))
+
+    (define-key company-active-map [escape] 'company-abort)
     (add-hook 'after-init-hook 'global-company-mode))
 
 (use-package yasnippet
