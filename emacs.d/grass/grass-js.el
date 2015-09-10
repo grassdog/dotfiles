@@ -28,9 +28,16 @@
         (global-set-key (kbd "C-, b") 'web-beautify-js)
         (js2-imenu-extras-mode +1))))
 
+
 (use-package json-mode
   :mode "\\.json$"
-  :bind ("C-, b" . json-reformat))
+  :bind ("C-, b" . json-reformat)
+  :config
+  (use-package flymake-json
+    :init
+    (add-hook 'json-mode 'flymake-json-load))
+
+  (flycheck-mode 1))
 
 (use-package typescript-mode
   :mode "\\.ts$"
