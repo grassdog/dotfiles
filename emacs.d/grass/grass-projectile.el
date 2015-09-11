@@ -14,6 +14,8 @@
     (setq projectile-enable-caching t)
     (setq projectile-completion-system 'helm)
     (setq helm-projectile-fuzzy-match t)
+    ;; Show unadded files also
+    (setq projectile-hg-command "hg st -A -n -0")
 
     (add-to-list 'projectile-globally-ignored-directories "gems")
     (add-to-list 'projectile-globally-ignored-directories "node_modules")
