@@ -223,8 +223,8 @@ function posts() {
   eg $(find ~/code/projects/raygrasso.com/source/posts -maxdepth 1 -type f | selecta)
 }
 
-function note() {
-  eg $(find ~/Dropbox/Notes -maxdepth 3 -type f | selecta)
+function notes() {
+  eg "$(find ~/Dropbox/Notes -maxdepth 3 -type f | grep -v '/\.' | selecta)"
 }
 
 alias findpid="ps axww -o pid,user,%cpu,%mem,start,time,command | selecta | sed 's/^ *//' | cut -f1 -d' '"
