@@ -230,6 +230,10 @@ the right."
 (use-package puppet-mode
   :defer t)
 
+(use-package powershell
+  :mode  (("\\.ps1$" . powershell-mode)
+          ("\\.psm$" . powershell-mode)))
+
 (use-package rust-mode
   :defer t)
 
