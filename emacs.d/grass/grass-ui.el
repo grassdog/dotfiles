@@ -146,10 +146,23 @@
 (defun grass/set-gui-config ()
   "Enable my GUI settings"
 
-  (custom-set-faces
-   '(hl-sexp-face ((t (:background "#073642")))))
-
   (load-theme 'solarized-dark 'no-confirm)
+
+  (solarized-with-color-variables 'dark
+    (custom-theme-set-faces
+      'solarized-dark
+      `(hl-sexp-face ((,class (:background ,s-mode-line-bg))))
+      `(mode-line
+         ((,class (:foreground ,s-mode-line-fg
+                   :background ,s-mode-line-bg
+                   :box (:color ,s-mode-line-fg :line-width 1)
+                   ))))
+      `(mode-line-inactive
+         ((,class (:foreground ,s-mode-line-inactive-fg
+                   :background ,s-mode-line-inactive-bg
+                   :box (:color ,s-mode-line-inactive-fg :line-width 1)
+                   ))))))
+
   ;; Highlight the current line
   (global-hl-line-mode +1))
 
