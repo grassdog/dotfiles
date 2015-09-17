@@ -4,7 +4,7 @@
   (interactive)
   (byte-recompile-directory grass/dotfiles-dir 0))
 
-(defun grass/view-url ()
+(defun grass/view-url-in-buffer ()
   "Open a new buffer containing the contents of URL."
   (interactive)
   (let* ((default (thing-at-point-url-at-point))
