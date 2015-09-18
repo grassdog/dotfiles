@@ -83,7 +83,8 @@
   (add-hook 'flyspell-mode-hook
     (lambda ()
       (define-key flyspell-mode-map [(control ?\,)] nil)
-      (global-set-key (kbd "C-, S n") 'flyspell-goto-next-error))))
+      (global-set-key (kbd "C-, S n") 'flyspell-goto-next-error)
+      (global-set-key (kbd "C-, S w") 'ispell-word))))
 
 
 ;; 80 char wide paragraphs please
