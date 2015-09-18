@@ -5,6 +5,18 @@
   :config
   (setq-default markdown-command "pandoc -S -s --self-contained -f markdown -t html5 ")
 
+  (defun grass/markdown-enter-key-dwim ()
+    "If in a list enter a new list item, otherwise insert enter key as normal."
+    (interactive)
+    (let ((bounds (markdown-cur-list-item-bounds)))
+      (if bounds
+          ;; In a list
+          (call-interactively #'markdown-insert-list-item)
+        ;; Not in a list
+        (markdown-enter-key))))
+
+  (define-key markdown-mode-map (kbd "RET") 'grass/markdown-enter-key-dwim)
+
   (setq markdown-imenu-generic-expression
         '(("title"  "^\\(.*\\)[\n]=+$" 1)
           ("h2-"    "^\\(.*\\)[\n]-+$" 1)
