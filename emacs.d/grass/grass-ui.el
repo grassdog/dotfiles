@@ -7,12 +7,9 @@
 (setq scroll-conservatively 101)
 
 ;; Get rid of chrome
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-
-;; No menu bar if we're in the console
-(unless (display-graphic-p)
-  (if (fboundp 'menu-bar-mode) (menu-bar-mode -1)))
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(menu-bar-mode -1)
 
 ;; No blinking cursor
 (blink-cursor-mode -1)
@@ -145,9 +142,10 @@
 
 (defun grass/set-gui-config ()
   "Enable my GUI settings"
-
+  (interactive)
   (load-theme 'solarized-dark 'no-confirm)
 
+  ;; Override a few theme settings
   (solarized-with-color-variables 'dark
     (custom-theme-set-faces
       'solarized-dark
@@ -166,36 +164,41 @@
   ;; Highlight the current line
   (global-hl-line-mode +1))
 
-;; GUI Mode settings
-(when (display-graphic-p)
-  (use-package solarized
-               :ensure solarized-theme
-               :init
-               ;; Disable variable pitch fonts in Solarized theme
-               (setq solarized-use-variable-pitch nil
-                     ;; Don't add too much colours to the fringe
-                     solarized-emphasize-indicators nil
-                     ;; Keep font sizes the same
-                     solarized-height-minus-1 1.0
-                     solarized-height-plus-1 1.0
-                     solarized-height-plus-2 1.0
-                     solarized-height-plus-3 1.0
-                     solarized-height-plus-4 1.0))
-  (grass/set-gui-config))
+;; Disable themes before loading them (in daemon mode esp.)
+(defadvice load-theme (before theme-dont-propagate activate)
+  (mapc #'disable-theme custom-enabled-themes))
 
-(unless (display-graphic-p)
-  (use-package zenburn-theme
-     :init
-     (load-theme 'zenburn 'no-confirm)))
+(defun grass/set-terminal-config ()
+  "Enable my terminal settings"
+  (interactive)
+  (xterm-mouse-mode 1)
+  (menu-bar-mode -1)
+  (load-theme 'zenburn 'no-confirm))
+
+(use-package solarized
+  :ensure solarized-theme
+  :init
+  ;; Disable variable pitch fonts in Solarized theme
+  (setq solarized-use-variable-pitch nil
+        ;; Don't add too much colours to the fringe
+        solarized-emphasize-indicators nil
+        ;; Keep font sizes the same
+        solarized-height-minus-1 1.0
+        solarized-height-plus-1 1.0
+        solarized-height-plus-2 1.0
+        solarized-height-plus-3 1.0
+        solarized-height-plus-4 1.0))
+
+(use-package zenburn-theme)
 
 (defun grass/frame-config (&optional frame)
   "Establish settings for the current terminal."
   (if (display-graphic-p frame)
-    (grass/set-gui-config))
+      (grass/set-gui-config)
+    (grass/set-terminal-config)))
 
-  (unless (display-graphic-p frame)
-    ;; enable mouse reporting for terminal emulators
-    (xterm-mouse-mode 1)))
+;; Load theme on app creation
+(grass/frame-config)
 
 ;; Only need to set frame config if we are in daemon mode
 (if (daemonp)
