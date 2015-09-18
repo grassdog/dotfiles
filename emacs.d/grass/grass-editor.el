@@ -16,27 +16,39 @@
 ;; Revert buffers automatically when underlying files are changed externally
 (global-auto-revert-mode t)
 
-;; Saveplace remembers your location in a file when saving files
-(setq save-place-file (expand-file-name "saveplace" grass/savefile-dir))
-;; activate it for all buffers
-(setq-default save-place t)
-(require 'saveplace)
+(use-package saveplace
+  :config
+  ;; Saveplace remembers your location in a file when saving files
+  (setq save-place-file (expand-file-name "saveplace" grass/savefile-dir))
+  ;; activate it for all buffers
+  (setq-default save-place t)
+  ;; Savehist keeps track of some history
+  (setq savehist-additional-variables
+    ;; search entries
+    '(search ring regexp-search-ring)
+    ;; save every minute
+    savehist-autosave-interval 60
+    ;; keep the home clean
+    savehist-file (expand-file-name "savehist" grass/savefile-dir))
+  :init
+  (savehist-mode t))
 
-;; Savehist keeps track of some history
-(setq savehist-additional-variables
-  ;; search entries
-  '(search ring regexp-search-ring)
-  ;; save every minute
-  savehist-autosave-interval 60
-  ;; keep the home clean
-  savehist-file (expand-file-name "savehist" grass/savefile-dir))
-(savehist-mode t)
 
-;; Save recent files
-(setq recentf-save-file (expand-file-name "recentf" grass/savefile-dir)
-      recentf-max-saved-items 200
-      recentf-max-menu-items 15)
-(recentf-mode t)
+(use-package recentf
+  :defer t
+  :init
+  ;; lazy load recentf
+  (add-hook 'find-file-hook (lambda () (unless recentf-mode
+                                         (recentf-mode)
+                                         (recentf-track-opened-file))))
+  :config
+  (add-to-list 'recentf-exclude "\\ido.hist\\'")
+  (add-to-list 'recentf-exclude "/TAGS")
+  (add-to-list 'recentf-exclude "/.autosaves/")
+  (add-to-list 'recentf-exclude "emacs.d/elpa/")
+  (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
+  (setq recentf-save-file (expand-file-name "recentf" grass/savefile-dir))
+  (setq recentf-max-saved-items 100))
 
 ;; Don't make tab indent a line
 (setq tab-always-indent nil)
