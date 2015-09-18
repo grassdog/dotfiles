@@ -13,6 +13,8 @@ This functions should be added to the hooks of major modes for programming."
   :config
     (setq company-idle-delay 0.2)
     (setq company-minimum-prefix-length 3)
+    (setq company-dabbrev-ignore-case nil)
+    (setq company-dabbrev-downcase nil)
     (setq company-global-modes
       '(not markdown-mode org-mode erc-mode))
 

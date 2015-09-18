@@ -45,8 +45,6 @@
       ;; turn off the annoying input echo in irb
       (setq comint-process-echoes t)
       (modify-syntax-entry ?_ "w")
-      ;; Be case sensitive on my matches please
-      (setq company-dabbrev-downcase nil)
       ;; Abbrev mode seems broken for some reason
       (abbrev-mode -1)
       ; (flycheck-mode t)

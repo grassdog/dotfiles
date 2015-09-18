@@ -24,7 +24,6 @@
       (setq evil-shift-width 2)
       (setq web-mode-enable-comment-keywords t)
       (setq web-mode-comment-style 2)     ;; Use server stye comments
-      (setq company-dabbrev-downcase nil) ;; Be case sensitive on my matches please
       (global-set-key (kbd "C-, b") 'web-beautify-html)
       (global-set-key (kbd "C-, z") 'web-mode-fold-or-unfold)
       (setq web-mode-enable-current-element-highlight t))
