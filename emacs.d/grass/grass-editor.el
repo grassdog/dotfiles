@@ -57,32 +57,34 @@
 (show-paren-mode +1)
 (setq show-paren-style 'parenthesis)
 
-
-(add-to-list 'recentf-exclude "\\ido.hist\\'")
-(add-to-list 'recentf-exclude "/TAGS")
-(add-to-list 'recentf-exclude "/.autosaves/")
-(add-to-list 'recentf-exclude "/emacs.d/elpa/")
-
-
-(require 'highlight)
-
 ;; UI highlight search and other actions
 (use-package volatile-highlights
   :diminish volatile-highlights-mode
   :config
+  (require 'highlight)
   (volatile-highlights-mode t))
 
 ;; Use shift + arrow keys to switch between visible buffers
-(require 'windmove)
-(windmove-default-keybindings)
+(use-package windmove
+  :init
+  (windmove-default-keybindings))
 
-;; flyspell-mode does spell-checking on the fly as you type
-(require 'flyspell)
-(setq-default ispell-program-name "aspell")
-(setq-default ispell-dictionary "english")
-(setq-default ispell-extra-args '("--lang=en_AU --sug-mode=ultra"))
+(use-package flyspell
+  :defer t
+  :diminish (flyspell-mode . " S")
+  :init
+  (setq-default ispell-program-name "aspell")
+  (setq-default ispell-dictionary "english")
+  (setq-default ispell-extra-args '("--lang=en_AU"))
 
-(global-set-key (kbd "C-, S n") 'flyspell-goto-next-error)
+  (add-hook 'markdown-mode-hook (lambda () (flyspell-mode 1)))
+  (add-hook 'text-mode-hook (lambda () (flyspell-mode 1)))
+
+  (add-hook 'flyspell-mode-hook
+    (lambda ()
+      (define-key flyspell-mode-map [(control ?\,)] nil)
+      (global-set-key (kbd "C-, S n") 'flyspell-goto-next-error))))
+
 
 ;; 80 char wide paragraphs please
 (setq-default fill-column 80)
