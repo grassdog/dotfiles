@@ -273,9 +273,6 @@
 
 (ad-activate 'pop-to-buffer)
 
-;; Don't combine tag tables thanks
-(setq tags-add-tables nil)
-
 ;; Toggle window dedication
 (defun toggle-window-dedicated ()
   "Toggle whether the current active window is dedicated or not"
@@ -289,6 +286,9 @@
    (current-buffer)))
 
 (global-set-key (kbd "C-, q") 'toggle-window-dedicated)
+
+;; Don't combine tag tables thanks
+(setq tags-add-tables nil)
 
 (use-package expand-region
   :bind (("C-+" . er/contract-region)
