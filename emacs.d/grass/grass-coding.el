@@ -107,16 +107,15 @@ This functions should be added to the hooks of major modes for programming."
 (use-package web-beautify
   :commands (web-beautify-js web-beautify-css web-beautify-html))
 
-
-
 (use-package flycheck
   :defer t
   :config
-  (use-package flycheck-pos-tip))
+  (use-package flycheck-pos-tip
+    :init
+    (eval-after-load 'flycheck
+      '(setq flycheck-display-errors-function
+            #'flycheck-pos-tip-error-messages))))
 
-(eval-after-load 'flycheck
-  '(setq flycheck-display-errors-function
-         #'flycheck-pos-tip-error-messages))
 
 (use-package magit
   :bind ("C-, g" . magit-status))
@@ -141,9 +140,12 @@ This functions should be added to the hooks of major modes for programming."
   (add-hook 'cider-repl-mode-hook #'smartparens-mode)
   (add-hook 'scheme-mode-hook #'smartparens-mode))
 
-(require 'hideshow)
-(diminish 'hs-minor-mode)
+(use-package hideshow
+  :diminish hs-minor-mode)
 
+;;;;;;;;;;;;;
+;; Alignment
+;;;;;;;;;;;;;
 
 ;; modified function from http://emacswiki.org/emacs/AlignCommands
 (defun align-repeat (start end regexp &optional justify-right after)
