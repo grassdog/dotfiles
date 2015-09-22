@@ -197,6 +197,8 @@ the right."
   (lambda ()
     (linum-mode 1)
     (hs-minor-mode t)
+    ;; Treat underscore as a word character
+    (modify-syntax-entry ?_ "w")
 
     (global-set-key (kbd "C-, a a") 'align)
     (global-set-key (kbd "C-, a r") 'align-repeat)
