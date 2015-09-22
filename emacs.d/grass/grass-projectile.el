@@ -19,6 +19,7 @@
 
     (add-to-list 'projectile-globally-ignored-directories "gems")
     (add-to-list 'projectile-globally-ignored-directories "node_modules")
+    (add-to-list 'projectile-globally-ignored-directories "bower_components")
     (add-to-list 'projectile-globally-ignored-directories "dist")
     (add-to-list 'projectile-globally-ignored-directories "/emacs.d/elpa/")
     (add-to-list 'projectile-globally-ignored-files ".keep")
