@@ -147,6 +147,7 @@
 (defun grass/set-gui-config ()
   "Enable my GUI settings"
   (interactive)
+  (setq solarized-distinct-fringe-background t)
   (load-theme 'solarized-dark t)
 
   ;; Override a few theme settings
