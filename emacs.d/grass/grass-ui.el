@@ -161,6 +161,7 @@
                    :box (:color ,s-mode-line-inactive-fg :line-width 1)
                    ))))))
 
+  (menu-bar-mode +1)
   ;; Highlight the current line
   (global-hl-line-mode +1))
 
