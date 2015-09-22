@@ -140,10 +140,14 @@
   :bind (("s-=" . default-text-scale-increase)
          ("s--" . default-text-scale-decrease)))
 
+;; Disable themes before loading them (in daemon mode esp.)
+(defadvice load-theme (before theme-dont-propagate activate)
+  (mapc #'disable-theme custom-enabled-themes))
+
 (defun grass/set-gui-config ()
   "Enable my GUI settings"
   (interactive)
-  (load-theme 'solarized-dark 'no-confirm)
+  (load-theme 'solarized-dark t)
 
   ;; Override a few theme settings
   (solarized-with-color-variables 'dark
@@ -165,16 +169,12 @@
   ;; Highlight the current line
   (global-hl-line-mode +1))
 
-;; Disable themes before loading them (in daemon mode esp.)
-(defadvice load-theme (before theme-dont-propagate activate)
-  (mapc #'disable-theme custom-enabled-themes))
-
 (defun grass/set-terminal-config ()
   "Enable my terminal settings"
   (interactive)
   (xterm-mouse-mode 1)
   (menu-bar-mode -1)
-  (load-theme 'zenburn 'no-confirm))
+  (load-theme 'zenburn t))
 
 (use-package solarized
   :ensure solarized-theme
@@ -192,18 +192,22 @@
 
 (use-package zenburn-theme)
 
-(defun grass/frame-config (&optional frame)
-  "Establish settings for the current terminal."
-  (if (display-graphic-p frame)
+(defun grass/set-ui ()
+  (if (display-graphic-p)
       (grass/set-gui-config)
     (grass/set-terminal-config)))
 
-;; Load theme on app creation
-(grass/frame-config)
+(defun grass/set-frame-config (&optional frame)
+  "Establish settings for the current terminal."
+  (with-selected-frame frame
+    (grass/set-ui)))
 
 ;; Only need to set frame config if we are in daemon mode
 (if (daemonp)
-  (add-hook 'after-make-frame-functions 'grass/frame-config))
+    (add-hook 'after-make-frame-functions 'grass/set-frame-config)
+  ;; Load theme on app creation
+  (grass/set-ui))
+
 
 ;; Some terminal mapping hackery
 (defadvice terminal-init-xterm
