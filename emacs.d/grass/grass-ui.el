@@ -147,7 +147,6 @@
 (defun grass/set-gui-config ()
   "Enable my GUI settings"
   (interactive)
-  (setq solarized-distinct-fringe-background t)
   (load-theme 'solarized-dark t)
 
   ;; Override a few theme settings
@@ -180,10 +179,14 @@
 (use-package solarized
   :ensure solarized-theme
   :init
-  ;; Disable variable pitch fonts in Solarized theme
+        ;; Don't change the font for some headings and titles
   (setq solarized-use-variable-pitch nil
         ;; Don't add too much colours to the fringe
-        solarized-emphasize-indicators nil
+        ;;solarized-emphasize-indicators nil
+
+        ;; Make edges of buffer easier to see
+        solarized-distinct-fringe-background t
+
         ;; Keep font sizes the same
         solarized-height-minus-1 1.0
         solarized-height-plus-1 1.0
