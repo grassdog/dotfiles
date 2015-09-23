@@ -191,15 +191,9 @@ the right."
 (create-align-repeat-x "left-paren" "(")
 (create-align-repeat-x "right-paren" ")" t)
 
-
-;;Alignment
+;; Alignment
 (add-hook 'prog-mode-hook
   (lambda ()
-    (linum-mode 1)
-    (hs-minor-mode t)
-    ;; Treat underscore as a word character
-    (modify-syntax-entry ?_ "w")
-
     (global-set-key (kbd "C-, a a") 'align)
     (global-set-key (kbd "C-, a r") 'align-repeat)
     (global-set-key (kbd "C-, a m") 'align-repeat-math-oper)
@@ -213,6 +207,13 @@ the right."
     (global-set-key (kbd "C-, a |") 'align-repeat-bar)
     (global-set-key (kbd "C-, a (") 'align-repeat-left-paren)
     (global-set-key (kbd "C-, a )") 'align-repeat-right-paren)))
+
+(add-hook 'prog-mode-hook
+  (lambda ()
+    (linum-mode)
+    (hs-minor-mode t)
+    ;; Treat underscore as a word character
+    (modify-syntax-entry ?_ "w")))
 
 (use-package rainbow-delimiters
   :config
