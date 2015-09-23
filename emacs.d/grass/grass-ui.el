@@ -178,6 +178,7 @@
 
 (use-package solarized
   :ensure solarized-theme
+  :defer t
   :init
         ;; Don't change the font for some headings and titles
   (setq solarized-use-variable-pitch nil
@@ -194,7 +195,8 @@
         solarized-height-plus-3 1.0
         solarized-height-plus-4 1.0))
 
-(use-package zenburn-theme)
+(use-package zenburn-theme
+  :defer t)
 
 (defun grass/set-ui ()
   (if (display-graphic-p)
