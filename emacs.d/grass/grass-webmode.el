@@ -49,6 +49,7 @@
   (use-package rainbow-mode)
   (add-hook 'scss-mode-hook
             (lambda ()
+              (linum-mode)
               (rainbow-mode +1)
               (setq evil-shift-width css-indent-offset))))
 
@@ -58,6 +59,7 @@
   (use-package rainbow-mode)
   (add-hook 'css-mode-hook
             (lambda ()
+              (linum-mode)
               (rainbow-mode +1)
               (global-set-key (kbd "C-, b") 'web-beautify-css))))
 
