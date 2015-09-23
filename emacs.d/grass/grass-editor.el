@@ -3,8 +3,8 @@
 (setq vc-follow-symlinks t)
 
 ;; Selections and other actions
-(delete-selection-mode t)
-(transient-mark-mode t)
+(delete-selection-mode t) ;; Delete selected regions
+(transient-mark-mode t)   ;; Shift and arrows create regions
 (setq x-select-enable-clipboard t)
 
 ;; Store all backup and autosave files in the tmp dir
@@ -15,6 +15,11 @@
 
 ;; Revert buffers automatically when underlying files are changed externally
 (global-auto-revert-mode t)
+
+;; C-w kill the current line if there is no region selected
+(use-package whole-line-or-region
+  :init
+  (whole-line-or-region-mode))
 
 (use-package saveplace
   :config
