@@ -18,6 +18,7 @@
 
 ;; C-w kill the current line if there is no region selected
 (use-package whole-line-or-region
+  :diminish whole-line-or-region-mode
   :init
   (whole-line-or-region-mode))
 
