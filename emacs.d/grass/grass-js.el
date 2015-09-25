@@ -51,7 +51,9 @@
 
 (use-package elm-mode
   :mode "\\.elm$"
-  :config
-  (add-hook 'elm-mode-hook #'elm-oracle-setup-completion))
+  ;; Reenable elm oracle once it's start up cost doesn't smash editor performance
+  ;; :config
+  ;; (add-hook 'elm-mode-hook #'elm-oracle-setup-completion)
+  )
 
 (provide 'grass-js)
