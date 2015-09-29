@@ -77,11 +77,10 @@
 
 (use-package flyspell
   :defer t
-  :diminish (flyspell-mode . " S")
+  :diminish (flyspell-mode . " spl")
   :init
   (setq-default ispell-program-name "aspell")
-  (setq-default ispell-dictionary "english")
-  (setq-default ispell-extra-args '("--lang=en_AU"))
+  (ispell-change-dictionary "en_GB" t)
 
   (add-hook 'markdown-mode-hook (lambda () (flyspell-mode 1)))
   (add-hook 'text-mode-hook (lambda () (flyspell-mode 1)))
