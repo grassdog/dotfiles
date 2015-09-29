@@ -2,12 +2,10 @@
 (use-package projectile
   :diminish projectile-mode
   :config
-  (progn
-
   (use-package helm-projectile
     :bind (("C-, C-p" . helm-projectile)
-          ("C-, p" . helm-projectile-find-file))
-    :init
+           ("C-, p" . helm-projectile-find-file))
+    :config
       (helm-projectile-on))
 
     (setq projectile-tags-command "getags")
@@ -22,8 +20,9 @@
     (add-to-list 'projectile-globally-ignored-directories "bower_components")
     (add-to-list 'projectile-globally-ignored-directories "dist")
     (add-to-list 'projectile-globally-ignored-directories "/emacs.d/elpa/")
+
     (add-to-list 'projectile-globally-ignored-files ".keep")
     (add-to-list 'projectile-globally-ignored-files "TAGS")
-    (projectile-global-mode t)))
+    (projectile-global-mode t))
 
 (provide 'grass-projectile)
