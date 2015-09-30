@@ -85,6 +85,9 @@
   (add-hook 'markdown-mode-hook (lambda () (flyspell-mode 1)))
   (add-hook 'text-mode-hook (lambda () (flyspell-mode 1)))
 
+  ;; Spell checking in comments
+  ;;(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+
   (add-hook 'flyspell-mode-hook
     (lambda ()
       (define-key flyspell-mode-map [(control ?\,)] nil)

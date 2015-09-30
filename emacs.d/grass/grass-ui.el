@@ -154,6 +154,10 @@
     (custom-theme-set-faces
       'solarized-dark
       `(hl-sexp-face ((,class (:background ,s-mode-line-bg))))
+
+      `(helm-match ((,class (:inherit match :foreground ,blue-hc))))
+      `(company-tooltip-common ((,class (:inherit company-tooltip :weight bold :underline nil))))
+      `(company-tooltip-common-selection ((,class (:inherit company-tooltip-selection :weight bold :underline nil))))
       `(mode-line
          ((,class (:foreground ,s-mode-line-fg
                    :background ,s-mode-line-bg
