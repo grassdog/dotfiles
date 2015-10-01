@@ -187,7 +187,7 @@
         ;; Don't change the font for some headings and titles
   (setq solarized-use-variable-pitch nil
         ;; Don't add too much colours to the fringe
-        ;;solarized-emphasize-indicators nil
+        solarized-emphasize-indicators nil
 
         ;; Make edges of buffer easier to see
         solarized-distinct-fringe-background t
