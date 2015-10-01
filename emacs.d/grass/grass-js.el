@@ -51,9 +51,19 @@
 
 (use-package elm-mode
   :mode "\\.elm$"
+  :config
+
+  (use-package flycheck-elm
+   :init
+   (eval-after-load 'flycheck
+    '(add-hook 'flycheck-mode-hook #'flycheck-elm-setup)))
+
   ;; Reenable elm oracle once it's start up cost doesn't smash editor performance
   ;; :config
   ;; (add-hook 'elm-mode-hook #'elm-oracle-setup-completion)
-  )
+
+  (add-hook 'elm-mode-hook #'flycheck-mode))
+
+
 
 (provide 'grass-js)
