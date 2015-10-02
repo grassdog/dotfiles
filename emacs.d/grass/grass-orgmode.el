@@ -6,7 +6,8 @@
   (setq org-replace-disputed-keys t)
   (setq org-return-follows-link t)
   (setq org-agenda-files '("~/Dropbox/Notes"))
-
+  ;; prevent demoting heading also shifting text inside sections
+  (setq org-adapt-indentation nil)
   :config
 
   ;; Use pandoc for exports
@@ -31,6 +32,8 @@
      (js . t)
      (ruby . t)
      (sh . t)))
+
+  ;; Highlight source blocks
   (setq org-src-fontify-natively t
         org-src-tab-acts-natively t
         org-confirm-babel-evaluate nil)
