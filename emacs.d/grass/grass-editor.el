@@ -175,7 +175,8 @@
        (lambda nil (interactive) (dired-single-buffer ".."))))
     (define-key dired-mode-map "^"
       (function
-       (lambda nil (interactive) (dired-single-buffer "..")))))
+       (lambda nil (interactive) (dired-single-buffer ".."))))
+    (setq dired-use-ls-dired nil))
 
   ;; if dired's already loaded, then the keymap will be bound
   (if (boundp 'dired-mode-map)
@@ -186,9 +187,12 @@
   (put 'dired-find-alternate-file 'disabled nil))
 
 ;; Up in dired
+(use-package dired+
+  :bind ("C-x C-j" . dired-jump))
+
 (add-hook 'dired-mode-hook
-  (lambda ()
-    (dired-hide-details-mode t)))
+    (lambda ()
+      (dired-hide-details-mode t)))
 
 ;; Make files with the same name have unique buffer names
 (setq uniquify-buffer-name-style 'forward)
