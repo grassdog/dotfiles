@@ -112,6 +112,11 @@
                                 ("America/New_York" "New York")
                                 ("America/Los_Angeles" "San Francisco")))
 
+;; Utilities
+(global-set-key (kbd "C-, U t") 'display-time-world)
+(global-set-key (kbd "C-, U c") 'quick-calc)
+
+
 ;; 80 char wide paragraphs please
 (setq-default fill-column 80)
 
