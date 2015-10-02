@@ -21,7 +21,7 @@
 (setq ring-bell-function 'ignore)
 
 ; Text mode by default for scratch buffer
-;(setq initial-major-mode 'text-mode)
+(setq initial-major-mode 'text-mode)
 
 ;; Save clipboard contents into kill-ring before replace them
 (setq save-interprogram-paste-before-kill t)
