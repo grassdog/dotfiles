@@ -105,6 +105,12 @@
       (global-set-key (kbd "C-, S n") 'flyspell-goto-next-error)
       (global-set-key (kbd "C-, S w") 'ispell-word))))
 
+;; World times
+(setq display-time-world-list '(("Australia/Brisbane" "Brisbane")
+                                ("Australia/Melbourne" "Melbourne")
+                                ("Europe/London" "London")
+                                ("America/New_York" "New York")
+                                ("America/Los_Angeles" "San Francisco")))
 
 ;; 80 char wide paragraphs please
 (setq-default fill-column 80)
