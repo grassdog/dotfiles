@@ -110,7 +110,12 @@ This functions should be added to the hooks of major modes for programming."
 (use-package flycheck
   :defer t
   :config
+
+  (use-package flycheck-tip
+    :bind ("C-, C-n" . 'flycheck-tip-cycle))
+
   (use-package flycheck-pos-tip
+    :disabled
     :init
     (eval-after-load 'flycheck
       '(setq flycheck-display-errors-function
