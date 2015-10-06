@@ -205,7 +205,7 @@
   :bind (("<C-S-up>" . move-text-up)
          ("<C-S-down>" . move-text-down)))
 
-(global-set-key (kbd "C-, u") 'browse-url)
+(global-set-key (kbd "C-, U u") 'browse-url)
 (global-set-key (kbd "C-, f") 'grass/indent-region-or-buffer)
 
 ;; Quick switch buffers
