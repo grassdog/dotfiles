@@ -1,6 +1,7 @@
 
 (use-package org
   :defer t
+  :bind ("C-c a" . org-agenda)
   :init
   ;; Make windmove work in org-mode
   (setq org-replace-disputed-keys t)
@@ -23,7 +24,7 @@
 
   (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 
-  ;(setq org-todo-keywords '((sequence "TODO" "WAIT" "|" "DONE" "CANCELED")))
+  (setq org-todo-keywords '((sequence "TODO(t)" "DONE(d)")))
 
   ;; Code blocks
   (org-babel-do-load-languages
