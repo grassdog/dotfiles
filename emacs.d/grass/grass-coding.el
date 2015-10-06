@@ -112,7 +112,7 @@ This functions should be added to the hooks of major modes for programming."
   :config
 
   (use-package flycheck-tip
-    :bind ("C-, C-n" . 'flycheck-tip-cycle))
+    :bind ("C-, C-n" . flycheck-tip-cycle))
 
   (use-package flycheck-pos-tip
     :disabled
