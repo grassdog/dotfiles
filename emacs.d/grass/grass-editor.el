@@ -114,6 +114,7 @@
 
 ;; Utilities
 (global-set-key (kbd "C-, U t") 'display-time-world)
+(global-set-key (kbd "C-, U b") 'comment-box)
 (global-set-key (kbd "C-, U c") 'quick-calc)
 
 
