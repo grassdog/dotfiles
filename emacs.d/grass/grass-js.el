@@ -39,9 +39,28 @@
 
   (flycheck-mode 1))
 
+(use-package tide
+  :disabled
+  :mode "\\.ts$"
+  :config
+  (setq typescript-indent-level 2
+        typescript-expr-indent-offset 2)
+  (add-hook 'typescript-mode-hook
+     (lambda ()
+       (tide-setup)
+       (flycheck-mode t)
+       (setq flycheck-check-syntax-automatically '(save mode-enabled))
+       (eldoc-mode nil)))
+
+  ;; aligns annotation to the right hand side
+  ;; (setq company-tooltip-align-annotations t)
+            )
+
 (use-package typescript-mode
   :mode "\\.ts$"
   :config
+  (setq typescript-indent-level 2)
+  (setq typescript-expr-indent-offset 2)
   (use-package tss
     :config
     ;(setq tss-popup-help-key "C-:")
