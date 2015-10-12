@@ -1,10 +1,12 @@
 
 (use-package projectile
   :diminish projectile-mode
+  :commands projectile-mode
+  :bind (("C-c p p" . projectile-switch-project)
+         ("C-, C-p" . helm-projectile)
+         ("C-, p" . helm-projectile-find-file))
   :config
   (use-package helm-projectile
-    :bind (("C-, C-p" . helm-projectile)
-           ("C-, p" . helm-projectile-find-file))
     :config
       (helm-projectile-on))
 
