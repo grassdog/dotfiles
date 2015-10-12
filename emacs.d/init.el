@@ -62,6 +62,9 @@
 
 (require 'cl)
 
+(setq user-full-name "Ray Grasso"
+      user-mail-address "ray.grasso@gmail.com")
+
 (use-package server
   :disabled t
   :if window-system
