@@ -22,6 +22,7 @@
     (add-to-list 'projectile-globally-ignored-directories "bower_components")
     (add-to-list 'projectile-globally-ignored-directories "dist")
     (add-to-list 'projectile-globally-ignored-directories "/emacs.d/elpa/")
+    (add-to-list 'projectile-globally-ignored-directories "elm-stuff")
 
     (add-to-list 'projectile-globally-ignored-files ".keep")
     (add-to-list 'projectile-globally-ignored-files "TAGS")
