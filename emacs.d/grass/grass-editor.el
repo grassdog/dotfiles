@@ -326,6 +326,10 @@
 ;; Don't combine tag tables thanks
 (setq tags-add-tables nil)
 
+;; Wrap lines for text modes
+(setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+
 (use-package expand-region
   :bind (("C-+" . er/contract-region)
          ("C-=" . er/expand-region)))
