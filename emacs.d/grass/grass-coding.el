@@ -196,22 +196,20 @@ the right."
 (create-align-repeat-x "left-paren" "(")
 (create-align-repeat-x "right-paren" ")" t)
 
-;; Alignment
-(add-hook 'prog-mode-hook
-  (lambda ()
-    (global-set-key (kbd "C-, a a") 'align)
-    (global-set-key (kbd "C-, a r") 'align-repeat)
-    (global-set-key (kbd "C-, a m") 'align-repeat-math-oper)
-    (global-set-key (kbd "C-, a .") 'align-repeat-decimal)
-    (global-set-key (kbd "C-, a ,") 'align-repeat-comma)
-    (global-set-key (kbd "C-, a ;") 'align-repeat-semicolon)
-    (global-set-key (kbd "C-, a :") 'align-repeat-colon)
-    (global-set-key (kbd "C-, a =") 'align-repeat-equal)
-    (global-set-key (kbd "C-, a >") 'align-repeat-hash)
-    (global-set-key (kbd "C-, a &") 'align-repeat-ampersand)
-    (global-set-key (kbd "C-, a |") 'align-repeat-bar)
-    (global-set-key (kbd "C-, a (") 'align-repeat-left-paren)
-    (global-set-key (kbd "C-, a )") 'align-repeat-right-paren)))
+;; Bindings
+(global-set-key (kbd "C-, a a") 'align)
+(global-set-key (kbd "C-, a r") 'align-repeat)
+(global-set-key (kbd "C-, a m") 'align-repeat-math-oper)
+(global-set-key (kbd "C-, a .") 'align-repeat-decimal)
+(global-set-key (kbd "C-, a ,") 'align-repeat-comma)
+(global-set-key (kbd "C-, a ;") 'align-repeat-semicolon)
+(global-set-key (kbd "C-, a :") 'align-repeat-colon)
+(global-set-key (kbd "C-, a =") 'align-repeat-equal)
+(global-set-key (kbd "C-, a >") 'align-repeat-hash)
+(global-set-key (kbd "C-, a &") 'align-repeat-ampersand)
+(global-set-key (kbd "C-, a |") 'align-repeat-bar)
+(global-set-key (kbd "C-, a (") 'align-repeat-left-paren)
+(global-set-key (kbd "C-, a )") 'align-repeat-right-paren)
 
 (add-hook 'prog-mode-hook
   (lambda ()

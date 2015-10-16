@@ -82,7 +82,7 @@
 
       (setq elm-indent-offset 2)
       (setq evil-shift-width 2)
-      (elm-indent-mode -1)
+      (elm-indent-mode -1) ;; This is getting in the way more than not at the moment
       (flycheck-mode t))))
 
 
