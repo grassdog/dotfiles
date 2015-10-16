@@ -28,7 +28,6 @@
         (global-set-key (kbd "C-, b") 'web-beautify-js)
         (js2-imenu-extras-mode +1))))
 
-
 (use-package json-mode
   :mode "\\.json$"
   :bind ("C-, b" . json-reformat)
@@ -50,11 +49,10 @@
        (tide-setup)
        (flycheck-mode t)
        (setq flycheck-check-syntax-automatically '(save mode-enabled))
-       (eldoc-mode nil)))
 
-  ;; aligns annotation to the right hand side
-  ;; (setq company-tooltip-align-annotations t)
-            )
+       ;; aligns annotation to the right hand side
+       ;; (setq company-tooltip-align-annotations t)
+       (eldoc-mode nil))))
 
 (use-package typescript-mode
   :mode "\\.ts$"
@@ -73,16 +71,19 @@
   :config
 
   (use-package flycheck-elm
-   :init
-   (eval-after-load 'flycheck
-    '(add-hook 'flycheck-mode-hook #'flycheck-elm-setup)))
+    :init
+    (eval-after-load 'flycheck
+      '(add-hook 'flycheck-mode-hook #'flycheck-elm-setup)))
 
-  ;; Reenable elm oracle once it's start up cost doesn't smash editor performance
-  ;; :config
-  ;; (add-hook 'elm-mode-hook #'elm-oracle-setup-completion)
+  (add-hook 'elm-mode-hook
+    (lambda ()
+      ;; Reenable elm oracle once it's start up cost doesn't smash editor performance
+      ;; (add-hook 'elm-mode-hook #'elm-oracle-setup-completion)
 
-  (add-hook 'elm-mode-hook #'flycheck-mode))
-
+      (setq elm-indent-offset 2)
+      (setq evil-shift-width 2)
+      (elm-indent-mode -1)
+      (flycheck-mode t))))
 
 
 (provide 'grass-js)
