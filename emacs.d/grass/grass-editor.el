@@ -130,12 +130,12 @@
 (setq read-quoted-char-radix 10)
 
 ;; Dashes
-(defun grass/insert-en-dash
+(defun grass/insert-en-dash ()
   "Insert an en dash"
   (interactive)
   (insert "–"))
 
-(defun grass/insert-em-dash
+(defun grass/insert-em-dash ()
   "Insert an en dash"
   (interactive)
   (insert "—"))
