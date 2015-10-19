@@ -220,7 +220,7 @@ function proj() {
 }
 
 function posts() {
-  eg $(find ~/code/projects/raygrasso.com/source/posts -maxdepth 1 -type f | selecta)
+  eg $(find ~/code/projects/dance.computer/source/posts -maxdepth 1 -type f | selecta)
 }
 
 function notes() {
