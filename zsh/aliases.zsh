@@ -71,7 +71,7 @@ if [[ $(uname) == Darwin ]]; then
   alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
 
   function egg() {
-    /Applications/Emacs.app/Contents/MacOS/Emacs -c -n "$@"
+    /Applications/Emacs.app/Contents/MacOS/Emacs "$@" &
   }
 
   alias play="osascript -e 'tell app \"iTunes\" to playpause'"
