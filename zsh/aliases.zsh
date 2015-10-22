@@ -43,7 +43,7 @@ alias ag='ag -C'
 # Emacs
 alias ed="emacs --daemon"
 
-function e() {
+function et() {
   emacsclient --alternate-editor="" -t "$@"
 }
 
@@ -70,7 +70,7 @@ if [[ $(uname) == Darwin ]]; then
   alias gv='mvim'
   alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
 
-  function egg() {
+  function e() {
     /Applications/Emacs.app/Contents/MacOS/Emacs "$@" &
   }
 
@@ -220,11 +220,11 @@ function proj() {
 }
 
 function posts() {
-  eg $(find ~/code/projects/dance.computer/source/posts -maxdepth 1 -type f | selecta)
+  e $(find ~/code/projects/dance.computer/source/posts -maxdepth 1 -type f | selecta)
 }
 
 function notes() {
-  eg "$(find ~/Dropbox/Notes -maxdepth 3 -type f | grep -v '/\.' | selecta)"
+  e "$(find ~/Dropbox/Notes -maxdepth 3 -type f | grep -v '/\.' | selecta)"
 }
 
 alias findpid="ps axww -o pid,user,%cpu,%mem,start,time,command | selecta | sed 's/^ *//' | cut -f1 -d' '"
