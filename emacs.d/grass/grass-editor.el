@@ -86,6 +86,10 @@
   :init
   (windmove-default-keybindings))
 
+(use-package smart-quotes
+  :ensure nil
+  :commands smart-quotes-mode)
+
 (use-package flyspell
   :defer t
   :diminish (flyspell-mode . " spl")
