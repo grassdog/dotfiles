@@ -14,6 +14,11 @@
   ;; Use pandoc for exports
   (use-package ox-pandoc)
 
+  (use-package org-mac-link
+    :init
+    (add-hook 'org-mode-hook (lambda ()
+                               (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link))))
+
   ;; Show raw link text
   (setq org-descriptive-links nil)
   ;; Start up fully open
