@@ -117,9 +117,9 @@
                                 ("America/Los_Angeles" "San Francisco")))
 
 ;; Utilities
-(global-set-key (kbd "C-, U t") 'display-time-world)
-(global-set-key (kbd "C-, U b") 'comment-box)
-(global-set-key (kbd "C-, U c") 'quick-calc)
+(global-set-key (kbd "C-, u t") 'display-time-world)
+(global-set-key (kbd "C-, u b") 'comment-box)
+(global-set-key (kbd "C-, u c") 'quick-calc)
 
 
 ;; 80 char wide paragraphs please
@@ -210,7 +210,7 @@
   :bind (("<C-S-up>" . move-text-up)
          ("<C-S-down>" . move-text-down)))
 
-(global-set-key (kbd "C-, U u") 'browse-url)
+(global-set-key (kbd "C-, u u") 'browse-url)
 (global-set-key (kbd "C-, f") 'grass/indent-region-or-buffer)
 
 ;; Quick switch buffers
