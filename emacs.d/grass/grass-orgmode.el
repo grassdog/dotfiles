@@ -14,6 +14,8 @@
   ;; Use pandoc for exports
   (use-package ox-pandoc)
 
+  ;; Show raw link text
+  (setq org-descriptive-links nil)
   ;; Start up fully open
   (setq org-startup-folded nil)
 
