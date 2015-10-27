@@ -2,14 +2,17 @@
 (use-package org
   :defer t
   :bind ("C-c a" . org-agenda)
-  :init
+
+  :config
   ;; Make windmove work in org-mode
   (setq org-replace-disputed-keys t)
   (setq org-return-follows-link t)
+  ;; Show indents
+  (setq org-startup-indented t)
+  (setq org-hide-leading-stars t)
   (setq org-agenda-files '("~/Dropbox/Notes"))
   ;; prevent demoting heading also shifting text inside sections
   (setq org-adapt-indentation nil)
-  :config
 
   ;; Use pandoc for exports
   (use-package ox-pandoc)
@@ -22,9 +25,7 @@
     (use-package htmlize))
 
   (use-package org-mac-link
-    :init
-    (add-hook 'org-mode-hook (lambda ()
-                               (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link))))
+    :bind ("C-c g" . org-mac-grab-link))
 
   ;; Show raw link text
   (setq org-descriptive-links nil)
