@@ -14,6 +14,13 @@
   ;; Use pandoc for exports
   (use-package ox-pandoc)
 
+  ;; Create reveal js presentations in org mode.
+  (use-package ox-reveal
+    :init
+    (setq org-reveal-root (concat "file://" (expand-file-name "~/Dropbox/Backups/Reveal/reveal.js")))
+    ;; Use htmlize to highlight source code block using my emacs theme
+    (use-package htmlize))
+
   (use-package org-mac-link
     :init
     (add-hook 'org-mode-hook (lambda ()
@@ -48,7 +55,6 @@
 
   (add-hook 'org-mode-hook
     (lambda ()
-
       ;; No auto indent please
       (setq evil-auto-indent nil)
       (setq org-export-html-postamble nil)
