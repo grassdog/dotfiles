@@ -2,8 +2,8 @@
 (use-package projectile
   :diminish projectile-mode
   :commands projectile-mode
-  :bind (("C-c p p" . projectile-switch-project)
-         ("C-, C-p" . helm-projectile)
+  :bind-keymap ("C-c p" . projectile-command-map)
+  :bind (("C-, C-p" . helm-projectile)
          ("C-, p" . helm-projectile-find-file))
   :config
   (use-package helm-projectile
