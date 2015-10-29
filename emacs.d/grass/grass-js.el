@@ -11,7 +11,7 @@
     (setq js2-show-parse-errors nil)
     ;;(setq js2-strict-missing-semi-warning nil)
     ;; jshint does not warn about this now for some reason
-    (setq js2-strict-trailing-comma-warning t)
+    (setq js2-strict-trailing-comma-warning nil)
 
     (add-hook 'js2-mode-hook 'js2-imenu-extras-mode)
     (add-hook 'js2-mode-hook
