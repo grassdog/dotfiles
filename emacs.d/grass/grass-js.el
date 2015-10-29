@@ -66,6 +66,39 @@
     ;(setq tss-implement-definition-key "C-c i")
     (tss-config-default)))
 
+;; Flow
+(define-derived-mode flow-mode typescript-mode "Flow"
+  "JavaScript with Flow type checking")
+;; (define-key flow-mode-map (kbd ":") nil)
+;;(add-to-list 'auto-mode-alist '("\\.jsx$" . flow-mode))
+
+;; (use-package f)
+;; (require 'json)
+;; (defun flycheck-parse-flow (output checker buffer)
+;;   (let ((json-array-type 'list))
+;;     (let ((o (json-read-from-string output)))
+;;       (mapcar #'(lambda (errp)
+;;                   (let ((err (cadr (assoc 'message errp))))
+;;                     (flycheck-error-new
+;;                      :line (cdr (assoc 'line err))
+;;                      :column (cdr (assoc 'start err))
+;;                      :level 'error
+;;                      :message (cdr (assoc 'descr err))
+;;                      :filename (f-relative
+;;                                 (cdr (assoc 'path err))
+;;                                 (f-dirname (file-truename
+;;                                             (buffer-file-name))))
+;;                      :buffer buffer
+;;                      :checker checker)))
+;;               (cdr (assoc 'errors o))))))
+
+;; (flycheck-define-checker javascript-flow
+;;   "Static type checking using Flow."
+;;   :command ("flow" "--json" source-original)
+;;   :error-parser flycheck-parse-flow
+;;   :modes flow-mode)
+;; (add-to-list 'flycheck-checkers 'javascript-flow)
+
 (use-package elm-mode
   :mode "\\.elm$"
   :config
