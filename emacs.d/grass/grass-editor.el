@@ -355,4 +355,7 @@
   ;;   (setq ad-return-value (concat ad-return-value ".gz")))
   (global-undo-tree-mode))
 
+;; Don't clobber the clipboard with killed text
+(setq save-interprogram-paste-before-kill t)
+
 (provide 'grass-editor)
