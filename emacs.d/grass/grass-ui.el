@@ -121,7 +121,6 @@
   (guide-key-mode 1))
 
 (use-package smart-mode-line
-  :disabled t
   :init
   (setq sml/no-confirm-load-theme t)
   (setq sml/shorten-modes nil)
