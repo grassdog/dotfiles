@@ -6,6 +6,6 @@
     (exec-path-from-shell-initialize))
 
   ;; Default font thanks
-  (set-frame-font "Menlo-12"))
+  (set-frame-font "Hack-12"))
 
 (provide 'grass-osx)
