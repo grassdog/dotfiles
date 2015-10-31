@@ -42,10 +42,31 @@
 
 (setq require-final-newline t)
 
-(defun grass/enable-whitespace-cleanup ()
+;; Auto whitespace cleanup
+(defgroup grass nil "Grass config."
+  :group 'tools)
+
+(defcustom grass/auto-whitespace-cleanup t
+  "Non-nil means cleanup whitespace on save."
+  :group 'grass
+  :type 'boolean)
+
+(defun grass/cleanup-whitespace-if-enabled ()
+  (interactive)
+  (when grass/auto-whitespace-cleanup
+    (whitespace-cleanup)))
+
+(add-hook 'before-save-hook 'grass/cleanup-whitespace-if-enabled)
+
+(defun grass/disable-whitespace-cleanup ()
+  "Disabled whitespace-cleanup on save."
+  (interactive)
+  (setq grass/auto-whitespace-cleanup nil))
+
+(defun grass/disable-whitespace-cleanup ()
   "Enables whitespace-cleanup on save."
   (interactive)
-  (add-hook 'before-save-hook 'whitespace-cleanup))
+  (setq grass/auto-whitespace-cleanup t))
 
 (define-key global-map (kbd "C-, w") 'whitespace-cleanup)
 
