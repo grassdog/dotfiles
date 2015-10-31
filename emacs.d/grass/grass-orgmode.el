@@ -41,6 +41,12 @@
 
   (setq org-todo-keywords '((sequence "TODO(t)" "DONE(d)")))
 
+  ;; Allow bind in files to enable export overrides
+  (setq org-export-allow-bind-keywords t)
+  (defun grass/html-filter-remove-src-blocks (text backend info)
+    "Remove source blocks from html export."
+    (when (org-export-derived-backend-p backend 'html) ""))
+
   ;; Code blocks
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -54,6 +60,11 @@
         org-src-tab-acts-natively t
         org-confirm-babel-evaluate nil)
 
+ (add-hook 'org-shiftup-final-hook 'windmove-up)
+ (add-hook 'org-shiftleft-final-hook 'windmove-left)
+ (add-hook 'org-shiftdown-final-hook 'windmove-down)
+ (add-hook 'org-shiftright-final-hook 'windmove-right)
+
   (add-hook 'org-mode-hook
     (lambda ()
       ;; No auto indent please
@@ -61,6 +72,8 @@
       (setq org-export-html-postamble nil)
       ;; Let me keep my prefix key binding
       (define-key org-mode-map (kbd "C-,") nil)
+      ;; (org-hide-block-all)
+      ;; (define-key org-mode-map (kbd "C-c t") 'org-hide-block-toggle)
       (define-key org-mode-map (kbd "C-, a") 'org-cycle-agenda-files))))
 
 (provide 'grass-orgmode)
