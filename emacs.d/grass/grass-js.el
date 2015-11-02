@@ -1,5 +1,6 @@
 (use-package js2-mode
-  :mode  "\\.js$"
+  :mode  (("\\.js$" . js2-mode)
+          ("\\.es6$" . js2-mode))
   :interpreter "node"
   :config
     (use-package js2-refactor
