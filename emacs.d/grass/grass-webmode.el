@@ -74,7 +74,12 @@
   :defer t)
 
 (use-package haml-mode
-  :disabled t)
+  :mode "\\.haml$"
+  :config
+  (add-hook 'haml-mode-hook
+    (lambda ()
+      (set (make-local-variable 'tab-width) 2)
+      (setq evil-shift-width 2))))
 
 (use-package feature-mode
   :disabled t)
