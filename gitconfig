@@ -44,6 +44,9 @@
   # List with patches
   ll = log --graph --pretty=format:"%C(yellow)%h%Cblue%d%Creset\\ %s\\ %C(green)\\ %an,\\ %ar%Creset" -p
 
+  # Log showing the graph
+  lg = log --all --graph --oneline --decorate
+
   # Details of last commit
   l1 = "!git ll -1"
 
