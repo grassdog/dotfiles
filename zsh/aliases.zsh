@@ -209,10 +209,6 @@ function serve-dir() {
   ruby -rwebrick -e"s = WEBrick::HTTPServer.new(:Port => 8888,  :DocumentRoot => Dir.pwd); trap('INT') { s.shutdown }; s.start"
 }
 
-function trash() {
-  mv "$@" ~/.Trash
-}
-
 # Some selecta-based helpers
 
 function proj() {
