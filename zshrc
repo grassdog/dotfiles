@@ -94,3 +94,20 @@ bindkey "\eOc" forward-word
 
 # Get my aliases
 source ~/.zsh/aliases.zsh
+
+# Oblique Strategies for MOTD
+function obliq () {
+  if [ -e ~/.obliq.txt ]; then
+      local rnd=1
+      fn=~/.obliq.txt
+      lns=$(wc -l $fn | sed 's|[ ]*\([0-9]*\).*|\1|')
+      if [ "$lns" = 0 ]; then
+        rnd=1
+      else
+        rnd=$(( (RANDOM % (lns + 1)) + 1 ))
+      fi
+      sed -n ${rnd}p $fn
+  fi
+}
+
+obliq
