@@ -218,7 +218,15 @@
 ;; Quick switch buffers
 (global-set-key (kbd "C-, C-,") 'grass/switch-to-previous-buffer)
 
-;; Search and replace
+;; Easier key binding for shell replace command
+(defun grass/shell-command-with-prefix-arg ()
+  (interactive)
+  (setq current-prefix-arg '(4)) ; C-u
+  (call-interactively 'shell-command-on-region))
+
+(global-set-key (kbd "C-, !") 'grass/shell-command-with-prefix-arg)
+
+;; Search and Replace
 
 (defun grass/replace-string (from-string to-string &optional delimited start end)
   "This is a modified version of `replace-string'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
