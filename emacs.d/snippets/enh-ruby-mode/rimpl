@@ -1,0 +1,5 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: raise implement me
+# key: rimpl
+# --
+raise "TODO: Implement me."
