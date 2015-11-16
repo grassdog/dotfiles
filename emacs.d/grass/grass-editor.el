@@ -315,6 +315,25 @@
 (put 'narrow-to-page   'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 
+;; http://stackoverflow.com/a/8257269/62023
+(defun grass/minibuffer-insert-word-at-point ()
+  "Get word at point in original buffer and insert it to minibuffer."
+  (interactive)
+  (let (word beg)
+    (with-current-buffer (window-buffer (minibuffer-selected-window))
+      (save-excursion
+        (skip-syntax-backward "w_")
+        (setq beg (point))
+        (skip-syntax-forward "w_")
+        (setq word (buffer-substring-no-properties beg (point)))))
+    (when word
+      (insert word))))
+
+(defun grass/minibuffer-setup-hook ()
+  (local-set-key (kbd "C-w") 'grass/minibuffer-insert-word-at-point))
+
+(add-hook 'minibuffer-setup-hook 'grass/minibuffer-setup-hook)
+
 ;;
 ;; Make windows sticky http://stackoverflow.com/a/5182111
 ;;
