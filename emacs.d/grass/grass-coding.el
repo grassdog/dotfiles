@@ -137,6 +137,7 @@ This functions should be added to the hooks of major modes for programming."
   :config
   (require 'smartparens-config)
   (sp-use-smartparens-bindings)
+  (setq sp-wrap-entire-symbol nil)
 
   (add-hook 'enh-ruby-mode-hook #'smartparens-mode)
   (add-hook 'lisp-mode-hook #'smartparens-mode)
@@ -149,14 +150,14 @@ This functions should be added to the hooks of major modes for programming."
 (defmacro def-pairs (pairs)
   `(progn
      ,@(loop for (key . val) in pairs
-          collect
-            `(defun ,(read (concat
-                            "wrap-with-"
-                            (prin1-to-string key)
-                            "s"))
-                 (&optional arg)
-               (interactive "p")
-               (sp-wrap-with-pair ,val)))))
+             collect
+             `(defun ,(read (concat
+                             "wrap-with-"
+                             (prin1-to-string key)
+                             "s"))
+                  (&optional arg)
+                (interactive "p")
+                (sp-wrap-with-pair ,val)))))
 
 (def-pairs ((paren        . "(")
             (bracket      . "[")
@@ -167,13 +168,15 @@ This functions should be added to the hooks of major modes for programming."
 
 (bind-keys
  :map smartparens-mode-map
- ("C-, ] ("  . wrap-with-parens)
- ("C-, ] ["  . wrap-with-brackets)
- ("C-, ] {"  . wrap-with-braces)
- ("C-, ] '"  . wrap-with-single-quotes)
- ("C-, ] \"" . wrap-with-double-quotes)
- ("C-, ] _"  . wrap-with-underscores)
- ("C-, ] `"  . wrap-with-back-quotes))
+ ("C-, l r"  . sp-rewrap-sexp)
+
+ ("C-, l ("  . wrap-with-parens)
+ ("C-, l ["  . wrap-with-brackets)
+ ("C-, l {"  . wrap-with-braces)
+ ("C-, l '"  . wrap-with-single-quotes)
+ ("C-, l \"" . wrap-with-double-quotes)
+ ("C-, l _"  . wrap-with-underscores)
+ ("C-, l `"  . wrap-with-back-quotes))
 
 (use-package hideshow
   :diminish hs-minor-mode)
