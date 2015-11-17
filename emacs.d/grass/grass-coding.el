@@ -145,6 +145,36 @@ This functions should be added to the hooks of major modes for programming."
   (add-hook 'cider-repl-mode-hook #'smartparens-mode)
   (add-hook 'scheme-mode-hook #'smartparens-mode))
 
+;; Wrapping
+(defmacro def-pairs (pairs)
+  `(progn
+     ,@(loop for (key . val) in pairs
+          collect
+            `(defun ,(read (concat
+                            "wrap-with-"
+                            (prin1-to-string key)
+                            "s"))
+                 (&optional arg)
+               (interactive "p")
+               (sp-wrap-with-pair ,val)))))
+
+(def-pairs ((paren        . "(")
+            (bracket      . "[")
+            (brace        . "{")
+            (single-quote . "'")
+            (double-quote . "\"")
+            (back-quote   . "`")))
+
+(bind-keys
+ :map smartparens-mode-map
+ ("C-, ] ("  . wrap-with-parens)
+ ("C-, ] ["  . wrap-with-brackets)
+ ("C-, ] {"  . wrap-with-braces)
+ ("C-, ] '"  . wrap-with-single-quotes)
+ ("C-, ] \"" . wrap-with-double-quotes)
+ ("C-, ] _"  . wrap-with-underscores)
+ ("C-, ] `"  . wrap-with-back-quotes))
+
 (use-package hideshow
   :diminish hs-minor-mode)
 
