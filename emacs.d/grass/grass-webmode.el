@@ -56,6 +56,9 @@
   (use-package rainbow-mode)
   (add-hook 'scss-mode-hook
             (lambda ()
+              ;; Treat dollar and hyphen as a word character
+              (modify-syntax-entry ?$ "w")
+              (modify-syntax-entry ?- "w")
               (linum-mode)
               (rainbow-mode +1)
               (setq evil-shift-width css-indent-offset))))
