@@ -22,10 +22,19 @@
     (setq helm-buffers-fuzzy-matching t)
     (setq helm-split-window-in-side-p t)
 
+    (use-package helm-fuzzier
+      :init
+      (helm-fuzzier-mode 1))
+
+    (use-package helm-flx
+      :init
+      (helm-flx-mode +1))
+
     (use-package helm-ag
       :commands helm-ag
+      ;;:config
       ;; Prepopulate search with the symbol under point
-      ;; (setq helm-ag-insert-at-point 'symbol)
+      ;;(setq helm-ag-insert-at-point 'symbol)
       )
 
     (helm-mode 1))
