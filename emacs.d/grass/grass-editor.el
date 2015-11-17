@@ -399,7 +399,10 @@
   ;;   (setq ad-return-value (concat ad-return-value ".gz")))
   (global-undo-tree-mode))
 
-;; Don't clobber the clipboard with killed text
-(setq save-interprogram-paste-before-kill t)
+;; Keep system clipboard separate from kill ring
+(use-package simpleclip
+  :init
+  (simpleclip-mode 1))
+
 
 (provide 'grass-editor)
