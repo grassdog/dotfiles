@@ -98,6 +98,17 @@ This functions should be added to the hooks of major modes for programming."
   (define-key yas-minor-mode-map [tab] nil)
   (define-key yas-minor-mode-map (kbd "TAB") nil)
 
+  (defvar smartparens-enabled-initially t
+    "Stored whether smartparens is originally enabled or not.")
+
+  (add-hook 'yas-before-expand-snippet-hook (lambda ()
+                                              ;; If enabled, smartparens will mess snippets expanded by `hippie-expand`
+                                              (setq smartparens-enabled-initially smartparens-mode)
+                                              (smartparens-mode -1)))
+  (add-hook 'yas-after-exit-snippet-hook (lambda ()
+                                           (when smartparens-enabled-initially
+                                             (smartparens-mode 1))))
+
   (define-key yas-keymap [tab] 'grass/tab-complete-or-next-field)
   (define-key yas-keymap (kbd "TAB") 'grass/tab-complete-or-next-field)
   (define-key yas-keymap [(control tab)] 'yas-next-field)
