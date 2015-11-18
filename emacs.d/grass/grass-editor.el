@@ -71,8 +71,9 @@
 (setq tab-always-indent nil)
 
 ;; Subtle highlighting of matching parens (global-mode)
-(show-paren-mode +1)
-(setq show-paren-style 'parenthesis)
+(add-hook 'prog-mode-hook (lambda ()
+                            (show-paren-mode +1)
+                            (setq show-paren-style 'parenthesis)))
 
 ;; UI highlight search and other actions
 (use-package volatile-highlights
