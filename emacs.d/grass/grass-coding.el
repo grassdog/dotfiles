@@ -137,7 +137,16 @@ This functions should be added to the hooks of major modes for programming."
   :config
   (require 'smartparens-config)
   (sp-use-smartparens-bindings)
+
+  ;; Wrap an entire symbol
   (setq sp-wrap-entire-symbol nil)
+
+  ;; Don't autoescape when inside a quote
+  ;; (setq sp-autoescape-string-quote nil)
+
+  ;; No auto pairing of quotes thanks
+  ;; (sp-local-pair 'enh-ruby-mode "'" nil :actions '(:rem insert))
+  ;; (sp-local-pair 'enh-ruby-mode "\"" nil :actions '(:rem insert))
 
   (add-hook 'enh-ruby-mode-hook #'smartparens-mode)
   (add-hook 'lisp-mode-hook #'smartparens-mode)
@@ -169,6 +178,7 @@ This functions should be added to the hooks of major modes for programming."
 (bind-keys
  :map smartparens-mode-map
  ("C-, l r"  . sp-rewrap-sexp)
+ ("C-, l d"  . sp-unwrap-sexp)
 
  ("C-, l ("  . wrap-with-parens)
  ("C-, l ["  . wrap-with-brackets)
