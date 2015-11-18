@@ -152,6 +152,7 @@
   (solarized-with-color-variables 'dark
     (custom-theme-set-faces
       'solarized-dark
+      `(minibuffer-prompt ((t (:height 1.1))))
       `(hl-sexp-face ((,class (:background ,s-mode-line-bg))))
       `(helm-match ((,class (:inherit match :foreground ,blue-hc))))
       `(company-tooltip-common ((,class (:inherit company-tooltip :weight bold :underline nil))))
