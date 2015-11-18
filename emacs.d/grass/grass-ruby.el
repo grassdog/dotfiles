@@ -44,11 +44,21 @@
     (lambda ()
       ;; turn off the annoying input echo in irb
       (setq comint-process-echoes t)
-      ;; Abbrev mode seems broken for some reason
-      (abbrev-mode -1)
-      ; (flycheck-mode t)
+
+      ;; Indentation
       (setq ruby-indent-level 2)
-      (setq evil-shift-width 2))))
+      (setq ruby-deep-indent-paren nil)
+      (setq enh-ruby-bounce-deep-indent t)
+      (setq enh-ruby-hanging-brace-indent-level 2)
+      (setq enh-ruby-indent-level 2)
+      (setq enh-ruby-deep-indent-paren nil)
+      (setq evil-shift-width 2)
+
+      (define-key enh-ruby-mode-map [backtab] 'evil-shift-left-line)
+
+      ;; (flycheck-mode t)
+      ;; Abbrev mode seems broken for some reason
+      (abbrev-mode -1))))
 
 
 (use-package chruby
