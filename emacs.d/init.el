@@ -75,8 +75,6 @@
 (require 'grass-osx)
 (require 'grass-ui)
 (require 'grass-editor)
-(require 'grass-coding)
-(require 'grass-codestyle)
 (require 'grass-evil)
 (require 'grass-multiple-cursors)
 (require 'grass-ido)
