@@ -276,14 +276,6 @@ the right."
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
-(use-package auto-highlight-symbol
-  :defer t
-  :init
-  (add-hook 'prog-mode-hook #'auto-highlight-symbol-mode)
-  :config
-  '(ahs-case-fold-search nil)
-  '(ahs-default-range (quote ahs-range-whole-buffer)))
-
 ;; Show current function in modeline
 (which-function-mode)
 
