@@ -41,12 +41,12 @@
   (setq-default save-place t)
   ;; Savehist keeps track of some history
   (setq savehist-additional-variables
-    ;; search entries
-    '(search ring regexp-search-ring)
-    ;; save every minute
-    savehist-autosave-interval 60
-    ;; keep the home clean
-    savehist-file (expand-file-name "savehist" grass/savefile-dir))
+        ;; search entries
+        '(search ring regexp-search-ring)
+        ;; save every minute
+        savehist-autosave-interval 60
+        ;; keep the home clean
+        savehist-file (expand-file-name "savehist" grass/savefile-dir))
   :init
   (savehist-mode t))
 
@@ -107,10 +107,10 @@
   ;;(add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
   (add-hook 'flyspell-mode-hook
-    (lambda ()
-      (define-key flyspell-mode-map [(control ?\,)] nil)
-      (global-set-key (kbd "C-, S n") 'flyspell-goto-next-error)
-      (global-set-key (kbd "C-, S w") 'ispell-word))))
+            (lambda ()
+              (define-key flyspell-mode-map [(control ?\,)] nil)
+              (global-set-key (kbd "C-, S n") 'flyspell-goto-next-error)
+              (global-set-key (kbd "C-, S w") 'ispell-word))))
 
 ;; World times
 (setq display-time-world-list '(("Australia/Brisbane" "Brisbane")
@@ -199,8 +199,8 @@
   :bind ("C-x C-j" . dired-jump))
 
 (add-hook 'dired-mode-hook
-    (lambda ()
-      (dired-hide-details-mode t)))
+          (lambda ()
+            (dired-hide-details-mode t)))
 
 ;; Make files with the same name have unique buffer names
 (setq uniquify-buffer-name-style 'forward)
@@ -233,74 +233,74 @@
   "This is a modified version of `replace-string'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
   (interactive
    (let ((common
-      (query-replace-read-args
-       (concat "Replace"
-           (if current-prefix-arg " word" "")
-           (if (and transient-mark-mode mark-active) " in region" ""))
-       nil)))
+          (query-replace-read-args
+           (concat "Replace"
+                   (if current-prefix-arg " word" "")
+                   (if (and transient-mark-mode mark-active) " in region" ""))
+           nil)))
      (list (nth 0 common) (nth 1 common) (nth 2 common)
-       (if (and transient-mark-mode mark-active)
-           (region-beginning)
-         (buffer-end -1))
-       (if (and transient-mark-mode mark-active)
-           (region-end)
-         (buffer-end 1)))))
+           (if (and transient-mark-mode mark-active)
+               (region-beginning)
+             (buffer-end -1))
+           (if (and transient-mark-mode mark-active)
+               (region-end)
+             (buffer-end 1)))))
   (perform-replace from-string to-string nil nil delimited nil nil start end))
 
 (defun grass/replace-regexp (regexp to-string &optional delimited start end)
   "This is a modified version of `replace-regexp'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
   (interactive
    (let ((common
-      (query-replace-read-args
-       (concat "Replace"
-           (if current-prefix-arg " word" "")
-           " regexp"
-           (if (and transient-mark-mode mark-active) " in region" ""))
-       t)))
+          (query-replace-read-args
+           (concat "Replace"
+                   (if current-prefix-arg " word" "")
+                   " regexp"
+                   (if (and transient-mark-mode mark-active) " in region" ""))
+           t)))
      (list (nth 0 common) (nth 1 common) (nth 2 common)
-       (if (and transient-mark-mode mark-active)
-           (region-beginning)
-         (buffer-end -1))
-       (if (and transient-mark-mode mark-active)
-           (region-end)
-         (buffer-end 1)))))
+           (if (and transient-mark-mode mark-active)
+               (region-beginning)
+             (buffer-end -1))
+           (if (and transient-mark-mode mark-active)
+               (region-end)
+             (buffer-end 1)))))
   (perform-replace regexp to-string nil t delimited nil nil start end))
 
 (defun grass/query-replace-regexp (regexp to-string &optional delimited start end)
   "This is a modified version of `query-replace-regexp'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
   (interactive
    (let ((common
-      (query-replace-read-args
-       (concat "Replace"
-           (if current-prefix-arg " word" "")
-           " regexp"
-           (if (and transient-mark-mode mark-active) " in region" ""))
-       t)))
+          (query-replace-read-args
+           (concat "Replace"
+                   (if current-prefix-arg " word" "")
+                   " regexp"
+                   (if (and transient-mark-mode mark-active) " in region" ""))
+           t)))
      (list (nth 0 common) (nth 1 common) (nth 2 common)
-       (if (and transient-mark-mode mark-active)
-           (region-beginning)
-         (buffer-end -1))
-       (if (and transient-mark-mode mark-active)
-           (region-end)
-         (buffer-end 1)))))
+           (if (and transient-mark-mode mark-active)
+               (region-beginning)
+             (buffer-end -1))
+           (if (and transient-mark-mode mark-active)
+               (region-end)
+             (buffer-end 1)))))
   (perform-replace regexp to-string t t delimited nil nil start end))
 
 (defun grass/query-replace-string (from-string to-string &optional delimited start end)
   "This is a modified version of `query-replace-string'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
   (interactive
    (let ((common
-      (query-replace-read-args
-       (concat "Replace"
-           (if current-prefix-arg " word" "")
-           (if (and transient-mark-mode mark-active) " in region" ""))
-       nil)))
+          (query-replace-read-args
+           (concat "Replace"
+                   (if current-prefix-arg " word" "")
+                   (if (and transient-mark-mode mark-active) " in region" ""))
+           nil)))
      (list (nth 0 common) (nth 1 common) (nth 2 common)
-       (if (and transient-mark-mode mark-active)
-           (region-beginning)
-         (buffer-end -1))
-       (if (and transient-mark-mode mark-active)
-           (region-end)
-         (buffer-end 1)))))
+           (if (and transient-mark-mode mark-active)
+               (region-beginning)
+             (buffer-end -1))
+           (if (and transient-mark-mode mark-active)
+               (region-end)
+             (buffer-end 1)))))
   (perform-replace from-string to-string t nil delimited nil nil start end))
 
 (global-set-key (kbd "C-, s r") 'grass/replace-string)
@@ -347,18 +347,18 @@
 (defun grass/unfill-region (begin end)
   "Change isolated newlines in region into spaces."
   (interactive (if (use-region-p)
-           (list (region-beginning)
-             (region-end))
-         (list nil nil)))
+                   (list (region-beginning)
+                         (region-end))
+                 (list nil nil)))
   (save-restriction
     (narrow-to-region (or begin (point-min))
-              (or end (point-max)))
+                      (or end (point-max)))
     (goto-char (point-min))
     (while (search-forward "\n" nil t)
       (if (eq (char-after) ?\n)
-      (skip-chars-forward "\n")
-    (delete-char -1)
-    (insert ?\s)))))
+          (skip-chars-forward "\n")
+        (delete-char -1)
+        (insert ?\s)))))
 
 ;; Toggle window dedication
 (defun toggle-window-dedicated ()
