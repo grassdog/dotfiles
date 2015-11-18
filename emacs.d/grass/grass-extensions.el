@@ -37,7 +37,7 @@ Repeated invocations toggle between the two most recently open buffers."
   (interactive)
   (switch-to-buffer (other-buffer (current-buffer) 1)))
 
-(defun grass/rename-this-buffer-and-file ()
+(defun grass/rename-file-and-buffer ()
   "Renames current buffer and file it is visiting."
   (interactive)
   (let ((name (buffer-name))
