@@ -11,15 +11,15 @@ This functions should be added to the hooks of major modes for programming."
 (use-package company
   :diminish company-mode
   :config
-    (setq company-idle-delay 0.2)
-    (setq company-minimum-prefix-length 3)
-    (setq company-dabbrev-ignore-case nil)
-    (setq company-dabbrev-downcase nil)
-    (setq company-global-modes
-      '(not markdown-mode org-mode erc-mode))
+  (setq company-idle-delay 0.2)
+  (setq company-minimum-prefix-length 3)
+  (setq company-dabbrev-ignore-case nil)
+  (setq company-dabbrev-downcase nil)
+  (setq company-global-modes
+        '(not markdown-mode org-mode erc-mode))
 
-    (define-key company-active-map [escape] 'company-abort)
-    (add-hook 'after-init-hook 'global-company-mode))
+  (define-key company-active-map [escape] 'company-abort)
+  (add-hook 'after-init-hook 'global-company-mode))
 
 (use-package yasnippet
   :config
@@ -130,7 +130,7 @@ This functions should be added to the hooks of major modes for programming."
     :init
     (eval-after-load 'flycheck
       '(setq flycheck-display-errors-function
-            #'flycheck-pos-tip-error-messages))))
+             #'flycheck-pos-tip-error-messages))))
 
 
 (use-package magit
@@ -266,11 +266,11 @@ the right."
 (global-set-key (kbd "C-, a )") 'align-repeat-right-paren)
 
 (add-hook 'prog-mode-hook
-  (lambda ()
-    (linum-mode)
-    (hs-minor-mode t)
-    ;; Treat underscore as a word character
-    (modify-syntax-entry ?_ "w")))
+          (lambda ()
+            (linum-mode)
+            (hs-minor-mode t)
+            ;; Treat underscore as a word character
+            (modify-syntax-entry ?_ "w")))
 
 (use-package rainbow-delimiters
   :config
@@ -279,10 +279,10 @@ the right."
 (use-package auto-highlight-symbol
   :defer t
   :init
-    (add-hook 'prog-mode-hook #'auto-highlight-symbol-mode)
+  (add-hook 'prog-mode-hook #'auto-highlight-symbol-mode)
   :config
-    '(ahs-case-fold-search nil)
-    '(ahs-default-range (quote ahs-range-whole-buffer)))
+  '(ahs-case-fold-search nil)
+  '(ahs-default-range (quote ahs-range-whole-buffer)))
 
 ;; Show current function in modeline
 (which-function-mode)
