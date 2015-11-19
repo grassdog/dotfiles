@@ -121,8 +121,31 @@
 
 ;; Utilities
 (global-set-key (kbd "C-, u t") 'display-time-world)
-(global-set-key (kbd "C-, u b") 'comment-box)
 (global-set-key (kbd "C-, u c") 'quick-calc)
+
+;; http://stackoverflow.com/a/21051395/62023
+(defun grass/comment-box (beg end &optional arg)
+  (interactive "*r\np")
+  ;; (when (not (region-active-p))
+  (when (not (and transient-mark-mode mark-active))
+    (setq beg (point-at-bol))
+    (setq end (point-at-eol)))
+  (let ((fill-column (- fill-column 6)))
+    (fill-region beg end))
+  (comment-box beg end arg)
+  (grass/move-point-forward-out-of-comment))
+
+(defun grass/point-is-in-comment-p ()
+  "t if point is in comment or at the beginning of a commented line, otherwise nil"
+  (or (nth 4 (syntax-ppss))
+      (looking-at "^\\s *\\s<")))
+
+(defun grass/move-point-forward-out-of-comment ()
+  "Move point forward until it's no longer in a comment"
+  (while (grass/point-is-in-comment-p)
+    (forward-char)))
+
+(global-set-key (kbd "C-, u b") 'grass/comment-box)
 
 
 ;; 80 char wide paragraphs please
