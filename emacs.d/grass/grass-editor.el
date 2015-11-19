@@ -653,7 +653,7 @@ This functions should be added to the hooks of major modes for programming."
   :bind ("C-, g" . magit-status))
 
 (use-package string-inflection
-  :bind ("C-, C-u" . string-inflection-cycle))
+  :bind ("C-, C-i" . string-inflection-cycle))
 
 (use-package hideshow
   :diminish hs-minor-mode)
