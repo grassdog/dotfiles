@@ -2,10 +2,43 @@
 ;; Follow symlinks by default
 (setq vc-follow-symlinks t)
 
-;; Selections and other actions
-(delete-selection-mode t) ;; Delete selected regions
+;; Don't make tab indent a line
+(setq tab-always-indent nil)
+
+;; Don't combine tag tables thanks
+(setq tags-add-tables nil)
+
+;; Wrap lines for text modes
+(setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+
+;; Line numbers for coding please
+(setq on-console (null window-system))
+(setq linum-format (if on-console "%4d " "%4d"))
+
+;; Show current function in modeline
+(which-function-mode)
+
+(set-default 'imenu-auto-rescan t)
+
+(global-set-key (kbd "C-, i") 'imenu)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Selections and other actions ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;; Delete selected regions
+(delete-selection-mode t)
 (transient-mark-mode t)
 (setq x-select-enable-clipboard t)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Backups and editing history ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 ;; Store all backup and autosave files in the tmp dir
 (setq backup-directory-alist
@@ -15,23 +48,6 @@
 
 ;; Revert buffers automatically when underlying files are changed externally
 (global-auto-revert-mode t)
-
-;; If no region kill or copy current line
-;; http://emacs.stackexchange.com/questions/2347/kill-or-copy-current-line-with-minimal-keystrokes
-(defadvice kill-region (before slick-cut activate compile)
-  "When called interactively with no active region, kill a single line instead."
-  (interactive
-   (if mark-active
-       (list (region-beginning) (region-end))
-     (list (line-beginning-position) (line-beginning-position 2)))))
-
-(defadvice kill-ring-save (before slick-copy activate compile)
-  "When called interactively with no active region, copy a single line instead."
-  (interactive
-   (if mark-active
-       (list (region-beginning) (region-end))
-     (message "Copied line")
-     (list (line-beginning-position) (line-beginning-position 2)))))
 
 (use-package saveplace
   :config
@@ -50,7 +66,6 @@
   :init
   (savehist-mode t))
 
-
 (use-package recentf
   :defer t
   :init
@@ -67,8 +82,34 @@
   (setq recentf-save-file (expand-file-name "recentf" grass/savefile-dir))
   (setq recentf-max-saved-items 100))
 
-;; Don't make tab indent a line
-(setq tab-always-indent nil)
+
+;;;;;;;;;;;;;;;;;;;;;;;
+;; Sane line killing ;;
+;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;; If no region kill or copy current line
+;; http://emacs.stackexchange.com/questions/2347/kill-or-copy-current-line-with-minimal-keystrokes
+(defadvice kill-region (before slick-cut activate compile)
+  "When called interactively with no active region, kill a single line instead."
+  (interactive
+   (if mark-active
+       (list (region-beginning) (region-end))
+     (list (line-beginning-position) (line-beginning-position 2)))))
+
+(defadvice kill-ring-save (before slick-copy activate compile)
+  "When called interactively with no active region, copy a single line instead."
+  (interactive
+   (if mark-active
+       (list (region-beginning) (region-end))
+     (message "Copied line")
+     (list (line-beginning-position) (line-beginning-position 2)))))
+
+
+;;;;;;;;;;;;;;;;;;
+;; Highlighting ;;
+;;;;;;;;;;;;;;;;;;
+
 
 ;; Subtle highlighting of matching parens (global-mode)
 (add-hook 'prog-mode-hook (lambda ()
@@ -86,10 +127,6 @@
 (use-package windmove
   :init
   (windmove-default-keybindings))
-
-(use-package smart-quotes
-  :ensure nil
-  :commands smart-quotes-mode)
 
 (use-package flyspell
   :defer t
@@ -122,6 +159,13 @@
 ;; Utilities
 (global-set-key (kbd "C-, u t") 'display-time-world)
 (global-set-key (kbd "C-, u c") 'quick-calc)
+(global-set-key (kbd "C-, u u") 'browse-url)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Comments and filling ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 ;; http://stackoverflow.com/a/21051395/62023
 (defun grass/comment-box (beg end &optional arg)
@@ -147,7 +191,6 @@
 
 (global-set-key (kbd "C-, u b") 'grass/comment-box)
 
-
 ;; 80 char wide paragraphs please
 (setq-default fill-column 80)
 
@@ -156,8 +199,34 @@
 (setq comment-auto-fill-only-comments t)
 ;; (auto-fill-mode 1)
 
+;; From http://mbork.pl/2015-11-14_A_simple_unfilling_function
+(defun grass/unfill-region (begin end)
+  "Change isolated newlines in region into spaces."
+  (interactive (if (use-region-p)
+                   (list (region-beginning)
+                         (region-end))
+                 (list nil nil)))
+  (save-restriction
+    (narrow-to-region (or begin (point-min))
+                      (or end (point-max)))
+    (goto-char (point-min))
+    (while (search-forward "\n" nil t)
+      (if (eq (char-after) ?\n)
+          (skip-chars-forward "\n")
+        (delete-char -1)
+        (insert ?\s)))))
+
+;;;;;;;;;;;;;;;;;;;;;;
+;; Symbol insertion ;;
+;;;;;;;;;;;;;;;;;;;;;;
+
+
 ;; Base 10 for inserting quoted chars please
 (setq read-quoted-char-radix 10)
+
+(use-package smart-quotes
+  :ensure nil
+  :commands smart-quotes-mode)
 
 ;; Dashes
 (defun grass/insert-en-dash ()
@@ -174,7 +243,12 @@
 (global-set-key (kbd "C-, -") 'grass/insert-en-dash)
 (global-set-key (kbd "C-, =") 'grass/insert-em-dash)
 
-;; Auto save on focus lost
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Auto save on focus lost ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 (defun grass/auto-save-all()
   "Save all modified buffers that point to files."
   (interactive)
@@ -188,10 +262,16 @@
 (add-hook 'mouse-leave-buffer-hook 'grass/auto-save-all)
 (add-hook 'focus-out-hook 'grass/auto-save-all)
 
+
 ;; abbrev mode for common typos
 (setq abbrev-file-name "~/.emacs.d/abbrev_defs")
 (diminish 'abbrev-mode)
 (setq-default abbrev-mode t)
+
+
+;;;;;;;;;;;
+;; Dired ;;
+;;;;;;;;;;;
 
 
 ;; Reuse the same buffer for dired windows
@@ -228,6 +308,7 @@
 ;; Make files with the same name have unique buffer names
 (setq uniquify-buffer-name-style 'forward)
 
+
 ;; Some key bindings
 (global-set-key (kbd "<home>") 'move-beginning-of-line)
 (global-set-key (kbd "<end>") 'move-end-of-line)
@@ -236,7 +317,6 @@
   :bind (("<C-S-up>" . move-text-up)
          ("<C-S-down>" . move-text-down)))
 
-(global-set-key (kbd "C-, u u") 'browse-url)
 (global-set-key (kbd "C-, f") 'grass/indent-region-or-buffer)
 
 ;; Quick switch buffers
@@ -250,7 +330,11 @@
 
 (global-set-key (kbd "C-, !") 'grass/shell-command-with-prefix-arg)
 
-;; Search and Replace
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; Search and Replace ;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 (defun grass/replace-string (from-string to-string &optional delimited start end)
   "This is a modified version of `replace-string'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
@@ -339,6 +423,12 @@
 (put 'narrow-to-page   'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Insert current word into minibuffer ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 ;; http://stackoverflow.com/a/8257269/62023
 (defun grass/minibuffer-insert-word-at-point ()
   "Get word at point in original buffer and insert it to minibuffer."
@@ -358,30 +448,17 @@
 
 (add-hook 'minibuffer-setup-hook 'grass/minibuffer-setup-hook)
 
-;;
-;; Make windows sticky http://stackoverflow.com/a/5182111
-;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Make windows sticky http://stackoverflow.com/a/5182111 ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 (defadvice pop-to-buffer (before cancel-other-window first)
   (ad-set-arg 1 nil))
 
 (ad-activate 'pop-to-buffer)
 
-;; From http://mbork.pl/2015-11-14_A_simple_unfilling_function
-(defun grass/unfill-region (begin end)
-  "Change isolated newlines in region into spaces."
-  (interactive (if (use-region-p)
-                   (list (region-beginning)
-                         (region-end))
-                 (list nil nil)))
-  (save-restriction
-    (narrow-to-region (or begin (point-min))
-                      (or end (point-max)))
-    (goto-char (point-min))
-    (while (search-forward "\n" nil t)
-      (if (eq (char-after) ?\n)
-          (skip-chars-forward "\n")
-        (delete-char -1)
-        (insert ?\s)))))
 
 ;; Toggle window dedication
 (defun toggle-window-dedicated ()
@@ -397,12 +474,10 @@
 
 (global-set-key (kbd "C-, q") 'toggle-window-dedicated)
 
-;; Don't combine tag tables thanks
-(setq tags-add-tables nil)
+;;;;;;;;;;;;;;;;;;;;;;
+;; Region selection ;;
+;;;;;;;;;;;;;;;;;;;;;;
 
-;; Wrap lines for text modes
-(setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
-(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
 (use-package expand-region
   :bind (("C-+" . er/contract-region)
@@ -441,6 +516,12 @@ This functions should be added to the hooks of major modes for programming."
           1 font-lock-warning-face t))))
 
 (add-hook 'prog-mode-hook 'font-lock-comment-annotations)
+
+
+;;;;;;;;;;;;;;;;;;
+;; Autocomplete ;;
+;;;;;;;;;;;;;;;;;;
+
 
 (use-package company
   :diminish company-mode
@@ -532,6 +613,7 @@ This functions should be added to the hooks of major modes for programming."
   (define-key yas-minor-mode-map [tab] nil)
   (define-key yas-minor-mode-map (kbd "TAB") nil)
 
+  ;; Don't enable smartparens when expanding
   (defvar smartparens-enabled-initially t
     "Stored whether smartparens is originally enabled or not.")
 
@@ -570,12 +652,17 @@ This functions should be added to the hooks of major modes for programming."
 (use-package magit
   :bind ("C-, g" . magit-status))
 
-;; Line numbers for coding please
-(setq on-console (null window-system))
-(setq linum-format (if on-console "%4d " "%4d"))
-
 (use-package string-inflection
   :bind ("C-, C-u" . string-inflection-cycle))
+
+(use-package hideshow
+  :diminish hs-minor-mode)
+
+
+;;;;;;;;;;;;;;
+;; Wrapping ;;
+;;;;;;;;;;;;;;
+
 
 (use-package smartparens
   :diminish smartparens-mode
@@ -601,7 +688,6 @@ This functions should be added to the hooks of major modes for programming."
   (add-hook 'cider-repl-mode-hook #'smartparens-mode)
   (add-hook 'scheme-mode-hook #'smartparens-mode))
 
-;; Wrapping
 (defmacro def-pairs (pairs)
   `(progn
      ,@(loop for (key . val) in pairs
@@ -634,8 +720,6 @@ This functions should be added to the hooks of major modes for programming."
  ("C-, l _"  . wrap-with-underscores)
  ("C-, l `"  . wrap-with-back-quotes))
 
-(use-package hideshow
-  :diminish hs-minor-mode)
 
 ;;;;;;;;;;;;;
 ;; Alignment
@@ -700,6 +784,11 @@ the right."
 (global-set-key (kbd "C-, a (") 'align-repeat-left-paren)
 (global-set-key (kbd "C-, a )") 'align-repeat-right-paren)
 
+
+;;;;;;;;;;;;;;;
+;; Prog mode ;;
+;;;;;;;;;;;;;;;
+
 (add-hook 'prog-mode-hook
           (lambda ()
             (linum-mode)
@@ -710,13 +799,6 @@ the right."
 (use-package rainbow-delimiters
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
-
-;; Show current function in modeline
-(which-function-mode)
-
-(set-default 'imenu-auto-rescan t)
-
-(global-set-key (kbd "C-, i") 'imenu)
 
 (use-package puppet-mode
   :defer t)
@@ -731,7 +813,11 @@ the right."
 (use-package python
   :defer t)
 
-;; Indentation styles et al for all modes in one central location
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Indentation styles et al ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 ;; Don't use tabs to indent
 (setq-default indent-tabs-mode nil)
@@ -769,7 +855,12 @@ the right."
 
 (setq sentence-end-double-space nil)
 
-;; Enforce proper whitespace
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Enforce proper whitespace ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 (require 'whitespace)
 (diminish 'global-whitespace-mode)
 
@@ -789,7 +880,6 @@ the right."
 (grass/enable-auto-whitespace-cleanup)
 
 (define-key global-map (kbd "C-, w") 'whitespace-cleanup)
-
 
 ;; Only show bad whitespace (Ignore empty lines at start and end of buffer)
 (setq whitespace-style '(face tabs trailing space-before-tab indentation space-after-tab))
