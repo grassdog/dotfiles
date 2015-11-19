@@ -96,7 +96,7 @@
   :diminish (flyspell-mode . " spl")
   :init
   (setq-default ispell-program-name "aspell")
-  ; Silently save my personal dictionary when new items are added
+                                        ; Silently save my personal dictionary when new items are added
   (setq ispell-silently-savep t)
   (ispell-change-dictionary "en_GB" t)
 
@@ -594,6 +594,7 @@ This functions should be added to the hooks of major modes for programming."
   ;; (sp-local-pair 'enh-ruby-mode "\"" nil :actions '(:rem insert))
 
   (add-hook 'enh-ruby-mode-hook #'smartparens-mode)
+  (add-hook 'js2-mode-hook #'smartparens-mode)
   (add-hook 'lisp-mode-hook #'smartparens-mode)
   (add-hook 'emacs-lisp-mode-hook #'smartparens-mode)
   (add-hook 'clojure-mode-hook #'smartparens-mode)
@@ -793,5 +794,6 @@ the right."
 ;; Only show bad whitespace (Ignore empty lines at start and end of buffer)
 (setq whitespace-style '(face tabs trailing space-before-tab indentation space-after-tab))
 (global-whitespace-mode t)
+
 
 (provide 'grass-editor)
