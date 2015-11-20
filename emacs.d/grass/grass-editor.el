@@ -160,6 +160,7 @@
 (global-set-key (kbd "C-, u t") 'display-time-world)
 (global-set-key (kbd "C-, u c") 'quick-calc)
 (global-set-key (kbd "C-, u u") 'browse-url)
+(global-set-key (kbd "C-, u r") 'grass/rename-file-and-buffer)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
