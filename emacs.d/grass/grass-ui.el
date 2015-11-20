@@ -133,7 +133,7 @@
   (ignoramus-setup))
 
 (use-package browse-kill-ring
-  :bind ("M-y" . browse-kill-ring))
+  :bind ("C-, y" . browse-kill-ring))
 
 (use-package default-text-scale
   :bind (("s-=" . default-text-scale-increase)
