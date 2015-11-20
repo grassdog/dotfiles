@@ -482,7 +482,9 @@
 
 (use-package expand-region
   :bind (("C-+" . er/contract-region)
-         ("C-=" . er/expand-region)))
+         ("C-=" . er/expand-region)
+         ("<s-down>" . er/contract-region)
+         ("<s-up>" . er/expand-region)))
 
 (use-package ag
   :bind (("C-, s a" . ag-project))
