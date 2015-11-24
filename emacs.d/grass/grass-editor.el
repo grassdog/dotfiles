@@ -694,6 +694,11 @@ This functions should be added to the hooks of major modes for programming."
       (sp-local-pair "do" "end"
                      :when '(("SPC" "RET"))
                      :post-handlers '(:add my-elixir-do-end-close-action)
+                     :actions '(insert))
+
+      (sp-local-pair "fn" "end"
+                     :when '(("SPC" "RET"))
+                     :post-handlers '(:add my-elixir-do-end-close-action)
                      :actions '(insert))))
 
   (add-hook 'enh-ruby-mode-hook #'smartparens-mode)
