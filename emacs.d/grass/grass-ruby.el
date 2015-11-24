@@ -24,8 +24,7 @@
     :disabled t)
 
   (use-package projectile-rails
-    :disabled t
-    :config
+    :init
     (setq projectile-rails-expand-snippet nil)
     (add-hook 'projectile-mode-hook 'projectile-rails-on))
 
