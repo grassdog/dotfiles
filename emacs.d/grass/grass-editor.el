@@ -683,7 +683,21 @@ This functions should be added to the hooks of major modes for programming."
   ;; (sp-local-pair 'enh-ruby-mode "'" nil :actions '(:rem insert))
   ;; (sp-local-pair 'enh-ruby-mode "\"" nil :actions '(:rem insert))
 
+  (progn
+    (defun my-elixir-do-end-close-action (id action context)
+      (when (eq action 'insert)
+        (newline-and-indent)
+        (previous-line)
+        (indent-according-to-mode)))
+
+    (sp-with-modes '(elixir-mode)
+      (sp-local-pair "do" "end"
+                     :when '(("SPC" "RET"))
+                     :post-handlers '(:add my-elixir-do-end-close-action)
+                     :actions '(insert))))
+
   (add-hook 'enh-ruby-mode-hook #'smartparens-mode)
+  (add-hook 'elixir-mode-hook #'smartparens-mode)
   (add-hook 'js2-mode-hook #'smartparens-mode)
   (add-hook 'lisp-mode-hook #'smartparens-mode)
   (add-hook 'emacs-lisp-mode-hook #'smartparens-mode)
@@ -894,5 +908,11 @@ the right."
 
 (use-package speed-type
   :commands (speed-type-text speed-type-buffer))
+
+(use-package elixir-mode
+  :mode (("\\.exs?\\'"   . elixir-mode)
+         ("\\.elixer\\'" . elixir-mode))
+  :config
+  (use-package alchemist))
 
 (provide 'grass-editor)
