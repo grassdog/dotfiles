@@ -888,5 +888,11 @@ the right."
 (setq whitespace-style '(face tabs trailing space-before-tab indentation space-after-tab))
 (global-whitespace-mode t)
 
+;;;;;;;;;;;;
+;; Typing ;;
+;;;;;;;;;;;;
+
+(use-package speed-type
+  :commands (speed-type-text speed-type-buffer))
 
 (provide 'grass-editor)
