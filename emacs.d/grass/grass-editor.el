@@ -705,6 +705,7 @@ This functions should be added to the hooks of major modes for programming."
   (add-hook 'enh-ruby-mode-hook #'smartparens-mode)
   (add-hook 'elixir-mode-hook #'smartparens-mode)
   (add-hook 'js2-mode-hook #'smartparens-mode)
+  (add-hook 'elm-mode-hook #'smartparens-mode)
   (add-hook 'lisp-mode-hook #'smartparens-mode)
   (add-hook 'emacs-lisp-mode-hook #'smartparens-mode)
   (add-hook 'clojure-mode-hook #'smartparens-mode)
