@@ -564,7 +564,6 @@ This functions should be added to the hooks of major modes for programming."
      ((minibufferp)
       (minibuffer-complete))
      (t
-      (indent-for-tab-command)
       (if (or (not yas-minor-mode)
               (null (grass/do-yas-expand)))
           (if (grass/check-expansion)
@@ -573,7 +572,9 @@ This functions should be added to the hooks of major modes for programming."
                 (if (null company-candidates)
                     (progn
                       (company-abort)
-                      (indent-for-tab-command)))))))))
+                      (indent-for-tab-command))))
+            (indent-for-tab-command))
+        (indent-for-tab-command)))))
 
   (defun grass/tab-complete-or-next-field ()
     (interactive)
