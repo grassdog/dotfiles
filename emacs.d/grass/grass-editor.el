@@ -681,8 +681,8 @@ This functions should be added to the hooks of major modes for programming."
   ;; (setq sp-autoescape-string-quote nil)
 
   ;; No auto pairing of quotes thanks
-  ;; (sp-local-pair 'enh-ruby-mode "'" nil :actions '(:rem insert))
-  ;; (sp-local-pair 'enh-ruby-mode "\"" nil :actions '(:rem insert))
+  (sp-pair "'" nil :actions '(:rem insert))
+  (sp-pair "\"" nil :actions '(:rem insert))
 
   (progn
     (defun my-elixir-do-end-close-action (id action context)
