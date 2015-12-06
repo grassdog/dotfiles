@@ -109,14 +109,26 @@
     (eval-after-load 'flycheck
       '(add-hook 'flycheck-mode-hook #'flycheck-elm-setup)))
 
+
   (add-hook 'elm-mode-hook
     (lambda ()
       ;; Reenable elm oracle once it's start up cost doesn't smash editor performance
       ;; (add-hook 'elm-mode-hook #'elm-oracle-setup-completion)
 
-      (setq elm-indent-offset 2)
-      (setq evil-shift-width 2)
-      (elm-indent-mode -1) ;; This is getting in the way more than not at the moment
+      ;; This is getting in the way more than not at the moment
+      (elm-indent-mode -1)
+      (if (fboundp 'electric-indent-local-mode)
+            (electric-indent-local-mode -1))
+      (setq evil-shift-width 4)
+      (setq tab-width 4)
+
+      ;; TODO Custom indent function
+      ;; - Look at previous line level
+      ;; - If it is one of the indenting words/characters add two to level
+      ;; - Steal from indent-relative
+      ;; (setq indent-line-function 'grass/elm-indent-line)
+
+      (define-key elm-mode-map [backtab] 'evil-shift-left-line)
       (flycheck-mode t))))
 
 
