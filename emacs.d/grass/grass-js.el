@@ -31,7 +31,7 @@
 
 (use-package json-mode
   :mode "\\.json$"
-  :bind ("C-, b" . json-reformat)
+  :bind ("C-, b" . json-pretty-print-buffer)
   :config
   (use-package flymake-json
     :init
