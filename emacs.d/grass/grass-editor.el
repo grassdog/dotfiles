@@ -300,7 +300,15 @@
 
 ;; Up in dired
 (use-package dired+
-  :bind ("C-x C-j" . dired-jump))
+  :bind ("C-x C-j" . dired-jump)
+  :config
+  (setq dired-omit-files
+      (rx (or (seq bol (? ".") "#")         ;; emacs autosave files
+              (seq "~" eol)                 ;; backup-files
+              (seq bol "CVS" eol)           ;; CVS dirs
+              (seq ".pyc" eol)
+              (seq bol ".DS_Store" eol)
+              ))))
 
 (add-hook 'dired-mode-hook
           (lambda ()
