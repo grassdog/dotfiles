@@ -10,7 +10,7 @@
 
     ;; Rely on flycheck instead...
     (setq js2-show-parse-errors nil)
-    ;;(setq js2-strict-missing-semi-warning nil)
+    (setq js2-strict-missing-semi-warning nil)
     ;; jshint does not warn about this now for some reason
     (setq js2-strict-trailing-comma-warning nil)
 
