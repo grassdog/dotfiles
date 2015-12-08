@@ -130,7 +130,8 @@
 ;; Ignore certain files
 (use-package ignoramus
   :init
-  (ignoramus-setup))
+  (ignoramus-setup '(comint completions grep ido
+                     nav pcomplete projectile speedbar vc)))
 
 (use-package browse-kill-ring
   :bind ("C-, y" . browse-kill-ring))
