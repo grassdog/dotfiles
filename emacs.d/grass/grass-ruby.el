@@ -53,8 +53,6 @@
       (setq enh-ruby-deep-indent-paren nil)
       (setq evil-shift-width 2)
 
-      (define-key enh-ruby-mode-map [backtab] 'evil-shift-left-line)
-
       ;; (flycheck-mode t)
       ;; Abbrev mode seems broken for some reason
       (abbrev-mode -1))))

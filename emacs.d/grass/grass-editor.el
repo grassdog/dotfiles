@@ -834,6 +834,13 @@ the right."
 ;; Indentation styles et al ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Simple indentation please
+(use-package clean-aindent-mode
+  :init
+  ; no electric indent, auto-indent is sufficient
+  (electric-indent-mode -1)
+  (clean-aindent-mode t)
+  (setq clean-aindent-is-simple-indent t))
 
 ;; Don't use tabs to indent
 (setq-default indent-tabs-mode nil)
@@ -841,8 +848,10 @@ the right."
 ;; Always newline-and-indent
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
+(define-key global-map [backtab] 'evil-shift-left-line)
+
 ;; Default indentation
-(setq-default tab-width 4)
+(setq-default tab-width 2)
 
 ;; Javascript
 (setq-default js2-basic-offset 2)
