@@ -1,6 +1,5 @@
 (use-package web-mode
   :mode  (("\\.html?\\'"    . web-mode)
-          ("\\.jsx$"        . web-mode)
           ("\\.erb\\'"      . web-mode)
           ("\\.ejs\\'"      . web-mode)
           ("\\.ect\\'"      . web-mode)
@@ -23,7 +22,8 @@
       (setq web-mode-code-indent-offset 2)
       (setq evil-shift-width 2)
       (setq web-mode-enable-comment-keywords t)
-      (setq web-mode-comment-style 2)     ;; Use server stye comments
+      ;; Use server style comments
+      (setq web-mode-comment-style 2)
       (global-set-key (kbd "C-, b") 'web-beautify-html)
       (global-set-key (kbd "C-, z") 'web-mode-fold-or-unfold)
       (setq web-mode-enable-current-element-highlight t))

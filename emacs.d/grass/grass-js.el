@@ -1,5 +1,5 @@
 (use-package js2-mode
-  :mode  (("\\.js$" . js2-mode)
+  :mode  (("\\.jsx?$" . js2-jsx-mode)
           ("\\.es6$" . js2-mode))
   :interpreter "node"
   :config
@@ -10,11 +10,13 @@
 
     ;; Rely on flycheck instead...
     (setq js2-show-parse-errors nil)
+    ;; Reduce the noise
     (setq js2-strict-missing-semi-warning nil)
     ;; jshint does not warn about this now for some reason
     (setq js2-strict-trailing-comma-warning nil)
 
     (add-hook 'js2-mode-hook 'js2-imenu-extras-mode)
+
     (add-hook 'js2-mode-hook
       (lambda ()
         (setq mode-name "JS2")
