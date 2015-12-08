@@ -702,15 +702,7 @@ This functions should be added to the hooks of major modes for programming."
                      :post-handlers '(:add my-elixir-do-end-close-action)
                      :actions '(insert))))
 
-  (add-hook 'enh-ruby-mode-hook #'smartparens-mode)
-  (add-hook 'elixir-mode-hook #'smartparens-mode)
-  (add-hook 'js2-mode-hook #'smartparens-mode)
-  (add-hook 'elm-mode-hook #'smartparens-mode)
-  (add-hook 'lisp-mode-hook #'smartparens-mode)
-  (add-hook 'emacs-lisp-mode-hook #'smartparens-mode)
-  (add-hook 'clojure-mode-hook #'smartparens-mode)
-  (add-hook 'cider-repl-mode-hook #'smartparens-mode)
-  (add-hook 'scheme-mode-hook #'smartparens-mode))
+  (add-hook 'prog-mode-hook #'smartparens-mode))
 
 (defmacro def-pairs (pairs)
   `(progn
