@@ -275,44 +275,57 @@
 ;;;;;;;;;;;
 
 
-;; Reuse the same buffer for dired windows
-(use-package dired-single
-  :config
-  (defun my-dired-init ()
-    "Bunch of stuff to run for dired, either immediately or when it's loaded."
-    (define-key dired-mode-map [return] 'dired-single-buffer)
-    (define-key dired-mode-map [mouse-1] 'dired-single-buffer-mouse)
-    (define-key dired-mode-map "/"
-      (function
-       (lambda nil (interactive) (dired-single-buffer ".."))))
-    (define-key dired-mode-map "^"
-      (function
-       (lambda nil (interactive) (dired-single-buffer ".."))))
-    (setq dired-use-ls-dired nil))
-
-  ;; if dired's already loaded, then the keymap will be bound
-  (if (boundp 'dired-mode-map)
-      ;; we're good to go; just add our bindings
-      (my-dired-init)
-    ;; it's not loaded yet, so add our bindings to the load-hook
-    (add-hook 'dired-load-hook 'my-dired-init))
-  (put 'dired-find-alternate-file 'disabled nil))
-
-;; Up in dired
-(use-package dired+
-  :bind ("C-x C-j" . dired-jump)
-  :config
-  (setq dired-omit-files
-      (rx (or (seq bol (? ".") "#")         ;; emacs autosave files
-              (seq "~" eol)                 ;; backup-files
-              (seq bol "CVS" eol)           ;; CVS dirs
-              (seq ".pyc" eol)
-              (seq bol ".DS_Store" eol)
-              ))))
-
 (add-hook 'dired-mode-hook
-          (lambda ()
-            (dired-hide-details-mode t)))
+  (lambda ()
+    (use-package dired-filter
+      :init
+      :bind (("C-, d d" . dired-filter-by-dot-files)
+             ("C-, d r" . dired-filter-by-regexp)
+             ("C-, d p" . dired-filter-pop)))
+
+    (use-package dired-open)
+    (use-package dired-ranger
+      :bind (("C-, d b" . dired-ranger-bookmark)
+             ("C-, d v" . dired-ranger-bookmark-visit)))
+
+    (use-package dired-rainbow)
+    (dired-rainbow-define-chmod executable-unix "#4e9a06" "-.*x.*")
+
+    ;; Reuse the same buffer for dired windows
+    (use-package dired-single
+      :init
+      (defun my-dired-init ()
+        "Bunch of stuff to run for dired, either immediately or when it's loaded."
+        (define-key dired-mode-map [return] 'dired-single-buffer)
+        (define-key dired-mode-map [mouse-1] 'dired-single-buffer-mouse)
+        (define-key dired-mode-map ","
+          (function
+          (lambda nil (interactive) (dired-single-buffer ".."))))
+        (define-key dired-mode-map "^"
+          (function
+          (lambda nil (interactive) (dired-single-buffer ".."))))
+        (setq dired-use-ls-dired nil))
+
+      ;; if dired's already loaded, then the keymap will be bound
+      (if (boundp 'dired-mode-map)
+          ;; we're good to go; just add our bindings
+          (my-dired-init)
+        ;; it's not loaded yet, so add our bindings to the load-hook
+        (add-hook 'dired-load-hook 'my-dired-init))
+      (put 'dired-find-alternate-file 'disabled nil))
+
+      (setq dired-omit-files
+          (rx (or (seq bol (? ".") "#")         ;; emacs autosave files
+                  (seq "~" eol)                 ;; backup-files
+                  (seq bol "CVS" eol)           ;; CVS dirs
+                  (seq ".pyc" eol)
+                  (seq bol ".DS_Store" eol))))
+      (dired-filter-by-omit)
+      (dired-hide-details-mode t)))
+
+(use-package dired+
+  :bind ("C-x C-j" . dired-jump))
+
 
 ;; Make files with the same name have unique buffer names
 (setq uniquify-buffer-name-style 'forward)
