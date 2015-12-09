@@ -278,7 +278,6 @@
 (add-hook 'dired-mode-hook
   (lambda ()
     (use-package dired-filter
-      :init
       :bind (("C-, d d" . dired-filter-by-dot-files)
              ("C-, d r" . dired-filter-by-regexp)
              ("C-, d p" . dired-filter-pop)))
@@ -320,7 +319,8 @@
                   (seq bol "CVS" eol)           ;; CVS dirs
                   (seq ".pyc" eol)
                   (seq bol ".DS_Store" eol))))
-      (dired-filter-by-omit)
+
+      (dired-filter-mode t)
       (dired-hide-details-mode t)))
 
 (use-package dired+
