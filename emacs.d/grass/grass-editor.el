@@ -326,6 +326,8 @@
 (use-package dired+
   :bind ("C-x C-j" . dired-jump))
 
+(use-package reveal-in-osx-finder
+  :bind ("C-, u f" . reveal-in-osx-finder))
 
 ;; Make files with the same name have unique buffer names
 (setq uniquify-buffer-name-style 'forward)
