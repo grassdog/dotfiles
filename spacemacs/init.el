@@ -42,9 +42,13 @@ values."
 
      elixir
      elm
-
      evil-snipe
      evil-commentary
+
+     evil-little-word
+
+     finance
+
      haskell
      html
      ibuffer
@@ -114,7 +118,7 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code  Pro"
+   dotspacemacs-default-font '("Hack" ;"Source Code  Pro"
                                :size 13
                                :weight normal
                                :width normal
@@ -230,28 +234,23 @@ layers configuration. You are free to put any user code."
   ;; Editing
   (setq require-final-newline t)
 
-  ;; Scale fonts
-  (global-set-key (kbd "C-+") 'text-scale-increase)
-  (global-set-key (kbd "C--") 'text-scale-decrease)
-
+  ;; Follow symlinks by default
+  (setq vc-follow-symlinks t)
 
   ;; Line numbers for coding please
-  ;; (setq linum-format (if on-console "%4d " "%4d"))
-  ;; (add-hook 'prog-mode-hook
-  ;;           (lambda ()
-  ;;             (linum-mode 1)
-  ;;             ;; (hs-minor-mode t)
-  ;;             ;; ;; Treat underscore as a word character
-  ;;             ;; (modify-syntax-entry ?_ "w")
-  ;;           ))
+  (add-hook 'prog-mode-hook
+            (lambda ()
+              (linum-mode 1)
+              ;; (hs-minor-mode t)
+              ;; ;; Treat underscore as a word character
+              ;; (modify-syntax-entry ?_ "w")
+            ))
+
+  ;; Make horizontal movement cross lines
+  (setq-default evil-cross-lines t)
+  (setq evil-shift-width 2)
 
   ;; Make evil-mode up/down operate in screen lines instead of logical lines
-  (define-key evil-motion-state-map "j" 'evil-next-visual-line)
-  (define-key evil-motion-state-map "k" 'evil-previous-visual-line)
-  (define-key evil-visual-state-map "j" 'evil-next-visual-line)
-  (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
-
-  ;; Make movement keys work like they should
   (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
   (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
   (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
