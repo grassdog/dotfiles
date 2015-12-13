@@ -32,7 +32,7 @@ values."
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
-     spell-checking
+     (spell-checking :variables spell-checking-enable-auto-dictionary t)
      syntax-checking
      version-control
 
@@ -40,7 +40,8 @@ values."
      dash
      dockerfile
 
-     elixir
+     ;; Re-enable once #644 is fixed
+     ;; elixir
      elm
      evil-snipe
      evil-commentary
@@ -237,6 +238,20 @@ layers configuration. You are free to put any user code."
   ;; Follow symlinks by default
   (setq vc-follow-symlinks t)
 
+  ;; Auto save on focus lost
+  (defun grass/auto-save-all()
+    "Save all modified buffers that point to files."
+    (interactive)
+    (save-excursion
+      (dolist (buf (buffer-list))
+        (set-buffer buf)
+        (if (and (buffer-file-name) (buffer-modified-p))
+            (basic-save-buffer)))))
+
+  (add-hook 'auto-save-hook 'grass/auto-save-all)
+  (add-hook 'mouse-leave-buffer-hook 'grass/auto-save-all)
+  (add-hook 'focus-out-hook 'grass/auto-save-all)
+
   ;; Line numbers for coding please
   (add-hook 'prog-mode-hook
             (lambda ()
@@ -257,15 +272,27 @@ layers configuration. You are free to put any user code."
   (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
 
   ;; Easier window switching
-  (global-set-key [s-left] 'windmove-left)
-  (global-set-key [s-right] 'windmove-right)
-  (global-set-key [s-up] 'windmove-up)
-  (global-set-key [s-down] 'windmove-down)
+  (global-set-key [S-left] 'windmove-left)
+  (global-set-key [S-right] 'windmove-right)
+  (global-set-key [S-up] 'windmove-up)
+  (global-set-key [S-down] 'windmove-down)
 
   ;; Javascript
   (setq js2-basic-offset 2
         js2-bounce-indent-p t
         js2-strict-missing-semi-warning nil)
+
+  ;; Spelling
+  (setq-default ispell-program-name "aspell")
+  ;; Silently save my personal dictionary when new items are added
+  (setq ispell-silently-savep t)
+  (ispell-change-dictionary "en_GB" t)
+
+  ;; Utils
+  (defun grass/open-cheats ()
+    "Open Emacs cheats file"
+    (interactive)
+    (find-file "~/Dropbox/Notes/Emacs.md"))
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
