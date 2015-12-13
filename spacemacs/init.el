@@ -32,7 +32,9 @@ values."
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
-     (spell-checking :variables spell-checking-enable-auto-dictionary t)
+     (spell-checking :variables
+                     spell-checking-enable-by-default nil
+                     spell-checking-enable-auto-dictionary t)
      syntax-checking
      version-control
 
@@ -91,7 +93,7 @@ values."
    ;; variable is `emacs' then the `holy-mode' is enabled at startup. `hybrid'
    ;; uses emacs key bindings for vim's insert mode, but otherwise leaves evil
    ;; unchanged. (default 'vim)
-   dotspacemacs-editing-style 'vim
+   dotspacemacs-editing-style 'hybrid
    ;; If non nil output loading progress in `*Messages*' buffer. (default nil)
    dotspacemacs-verbose-loading nil
    ;; Specify the startup banner. Default value is `official', it displays
@@ -119,7 +121,7 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Hack" ;"Source Code  Pro"
+   dotspacemacs-default-font '("Hack"
                                :size 13
                                :weight normal
                                :width normal
