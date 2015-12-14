@@ -23,7 +23,14 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     auto-completion
+     (auto-completion
+        :variables
+        ;; auto-completion-return-key-behavior nil
+        ;; auto-completion-tab-key-behavior 'cycle
+        auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/"
+        ;; :disabled-for org erc
+        :disabled-for erc
+        )
      better-defaults
      emacs-lisp
      git
@@ -72,7 +79,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(dired-single)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -258,10 +265,9 @@ layers configuration. You are free to put any user code."
   (add-hook 'prog-mode-hook
             (lambda ()
               (linum-mode 1)
-              ;; (hs-minor-mode t)
-              ;; ;; Treat underscore as a word character
-              ;; (modify-syntax-entry ?_ "w")
-            ))
+              ;; Treat underscore as a word character
+              ;; evil-little-word allows for finer grain editing
+              (modify-syntax-entry ?_ "w")))
 
   ;; Make horizontal movement cross lines
   (setq-default evil-cross-lines t)
@@ -279,16 +285,62 @@ layers configuration. You are free to put any user code."
   (global-set-key [S-up] 'windmove-up)
   (global-set-key [S-down] 'windmove-down)
 
+  (global-set-key (kbd "C-, C-,") 'spacemacs/alternate-buffer)
+  (global-set-key (kbd "C-, p") 'helm-projectile-find-file)
+  (global-set-key (kbd "C-, C-p") 'helm-projectile-find-file)
+
   ;; Javascript
   (setq js2-basic-offset 2
         js2-bounce-indent-p t
         js2-strict-missing-semi-warning nil)
+
+  (add-to-list 'auto-mode-alist '("\\.es6\\'" . js2-mode))
 
   ;; Spelling
   (setq-default ispell-program-name "aspell")
   ;; Silently save my personal dictionary when new items are added
   (setq ispell-silently-savep t)
   (ispell-change-dictionary "en_GB" t)
+
+  ;; Dired
+  (defun my-dired-init ()
+     "Bunch of stuff to run for dired, either immediately or when it's loaded."
+     (define-key dired-mode-map [return] 'dired-single-buffer)
+     (define-key dired-mode-map [mouse-1] 'dired-single-buffer-mouse)
+     (define-key dired-mode-map "^"
+       (function
+           (lambda nil (interactive) (dired-single-buffer "..")))))
+
+  ;; If dired's already loaded, then the keymap will be bound
+  (if (boundp 'dired-mode-map)
+    (my-dired-init)
+    ;; it's not loaded yet, so add our bindings to the load-hook
+    (add-hook 'dired-load-hook 'my-dired-init))
+  (setq dired-use-ls-dired nil)
+  (setq dired-omit-files
+        (rx (or (seq bol (? ".") "#")         ;; emacs autosave files
+                (seq "~" eol)                 ;; backup-files
+                (seq bol "CVS" eol)           ;; CVS dirs
+                (seq ".pyc" eol)
+                (seq bol ".DS_Store" eol))))
+  (add-hook 'dired-mode-hook
+            (lambda ()
+              (dired-hide-details-mode t)))
+
+  ;; Don't combine tag tables thanks
+  (setq tags-add-tables nil)
+
+  ;; Some file exclusions
+  (add-hook 'projectile-load-hook
+            (lambda ()
+              (add-to-list 'projectile-globally-ignored-files ".keep")
+              (add-to-list 'projectile-globally-ignored-files "TAGS")))
+
+  (add-hook 'recentf-load-hook
+    (lambda ()
+      (add-to-list 'recentf-exclude "\\ido.hist\\'")
+      (add-to-list 'recentf-exclude "/TAGS")
+      (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")))
 
   ;; Utils
   (defun grass/open-cheats ()
