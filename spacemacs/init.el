@@ -292,19 +292,23 @@ layers configuration. You are free to put any user code."
   (global-set-key (kbd "C-, C-i") 'string-inflection-cycle)
 
   ;; Smartparens
+  (bind-keys
+   :map smartparens-mode-map
+   ("C-<right>" . sp-forward-slurp-sexp)
+   ("C-<left>" . sp-forward-barf-sexp)
+   ("C-M-<left>" . sp-backward-slurp-sexp)
+   ("C-M-<right>" . sp-backward-barf-sexp)
 
-  ; (bind-keys
-  ;  :map smartparens-mode-map
-  ;  ("C-, l r"  . sp-rewrap-sexp)
-  ;  ("C-, l d"  . sp-unwrap-sexp)
-
-  ;  ("C-, l ("  . wrap-with-parens)
-  ;  ("C-, l ["  . wrap-with-brackets)
-  ;  ("C-, l {"  . wrap-with-braces)
-  ;  ("C-, l '"  . wrap-with-single-quotes)
-  ;  ("C-, l \"" . wrap-with-double-quotes)
-  ;  ("C-, l _"  . wrap-with-underscores)
-  ;  ("C-, l `"  . wrap-with-back-quotes))
+   ; Wrapping
+   ("C-, l r"  . sp-rewrap-sexp)
+   ("C-, l d"  . sp-unwrap-sexp)
+   ("C-, l ("  . wrap-with-parens)
+   ("C-, l ["  . wrap-with-brackets)
+   ("C-, l {"  . wrap-with-braces)
+   ("C-, l '"  . wrap-with-single-quotes)
+   ("C-, l \"" . wrap-with-double-quotes)
+   ("C-, l _"  . wrap-with-underscores)
+   ("C-, l `"  . wrap-with-back-quotes))
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
