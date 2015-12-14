@@ -21,7 +21,7 @@
      dired-single
      htmlize
      ox-reveal
-     org-mac-grab-link
+     org-mac-link
     ))
 
 ;; List of packages to exclude.
@@ -43,7 +43,7 @@
       (setq org-reveal-root (concat "file://" (expand-file-name "~/Dropbox/Backups/Reveal/reveal.js"))))))
 
 
-(defun grass/init-org-mac-grab-link ()
+(defun grass/init-org-mac-link ()
   (use-package org-mac-link))
 
 (defun grass/init-ignoramus ()

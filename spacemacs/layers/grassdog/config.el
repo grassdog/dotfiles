@@ -102,19 +102,6 @@
 ;; Org ;;
 ;;;;;;;;;
 
-;; TODO May need to do this:
-
-;; (spacemacs|use-package-add-hook helm
-;;   :pre-init
-;;   ;; Code
-;;   :post-init
-;;   ;; Code
-;;   :pre-config
-;;   ;; Code
-;;   :post-config
-;;   ;; Code
-;;   )
-
 (with-eval-after-load 'org
   ;; Show raw link text
   (setq org-descriptive-links nil)
@@ -148,22 +135,24 @@
         org-src-tab-acts-natively t
         org-confirm-babel-evaluate nil)
 
-  (add-hook 'org-mode-hook
-            (lambda ()
-              ;; No auto indent please
-              ;;(setq evil-auto-indent nil)
-              (setq org-export-html-postamble nil)
-              ;; Let me keep my prefix key binding
-              (define-key org-mode-map (kbd "C-,") nil)
-              (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link)
-              ;; (org-hide-block-all)
-              ;; (define-key org-mode-map (kbd "C-c t") 'org-hide-block-toggle)
-              ;;(define-key org-mode-map (kbd "C-, a") 'org-cycle-agenda-files)
-              ))
   (add-hook 'org-shiftup-final-hook 'windmove-up)
   (add-hook 'org-shiftleft-final-hook 'windmove-left)
   (add-hook 'org-shiftdown-final-hook 'windmove-down)
   (add-hook 'org-shiftright-final-hook 'windmove-right)
+
+  (require 'org-mac-link)
+  (add-hook 'org-mode-hook
+    (lambda ()
+      ;; No auto indent please
+      ;;(setq evil-auto-indent nil)
+      (setq org-export-html-postamble nil)
+      ;; Let me keep my prefix key binding
+      (define-key org-mode-map (kbd "C-,") nil)
+      (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link)
+      ;; (org-hide-block-all)
+      ;; (define-key org-mode-map (kbd "C-c t") 'org-hide-block-toggle)
+      ;;(define-key org-mode-map (kbd "C-, a") 'org-cycle-agenda-files)
+      ))
 )
 
 ;;;;;;;;;;;
