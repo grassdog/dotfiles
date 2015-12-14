@@ -32,6 +32,7 @@ values."
         ;; :disabled-for org erc
         :disabled-for erc
         )
+     grassdog
      better-defaults
      emacs-lisp
      git
@@ -80,7 +81,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(dired-single)
+   dotspacemacs-additional-packages '()
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -239,46 +240,14 @@ user code."
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
 
-  ;; Spacemacs
-  (setq powerline-default-separator 'arrow)
-
-  ;; Editing
-  (setq require-final-newline t)
-
-  ;; Follow symlinks by default
-  (setq vc-follow-symlinks t)
-
-  ;; Auto save on focus lost
-  (defun grass/auto-save-all()
-    "Save all modified buffers that point to files."
-    (interactive)
-    (save-excursion
-      (dolist (buf (buffer-list))
-        (set-buffer buf)
-        (if (and (buffer-file-name) (buffer-modified-p))
-            (basic-save-buffer)))))
-
-  (add-hook 'auto-save-hook 'grass/auto-save-all)
-  (add-hook 'mouse-leave-buffer-hook 'grass/auto-save-all)
-  (add-hook 'focus-out-hook 'grass/auto-save-all)
-
-  ;; Line numbers for coding please
-  (add-hook 'prog-mode-hook
-            (lambda ()
-              (linum-mode 1)
-              ;; Treat underscore as a word character
-              ;; evil-little-word allows for finer grain editing
-              (modify-syntax-entry ?_ "w")))
-
-  ;; Make horizontal movement cross lines
-  (setq-default evil-cross-lines t)
-  (setq evil-shift-width 2)
-
   ;; Make evil-mode up/down operate in screen lines instead of logical lines
   (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
   (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
   (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
   (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+
+  ;; Backtab
+  (define-key global-map [backtab] 'evil-shift-left-line)
 
   ;; Easier window switching
   (global-set-key [S-left] 'windmove-left)
@@ -286,70 +255,56 @@ layers configuration. You are free to put any user code."
   (global-set-key [S-up] 'windmove-up)
   (global-set-key [S-down] 'windmove-down)
 
+  ;; Old muscle memory
   (global-set-key (kbd "C-, C-,") 'spacemacs/alternate-buffer)
   (global-set-key (kbd "C-, p") 'helm-projectile-find-file)
   (global-set-key (kbd "C-, C-p") 'helm-projectile-find-file)
+  (global-set-key (kbd "C-, r") 'helm-recentf)
   (global-set-key (kbd "C-, o") 'helm-mini)
   (global-set-key (kbd "C-, e") 'hippie-expand)
 
-  ;; Javascript
-  (setq js2-basic-offset 2
-        js2-bounce-indent-p t
-        js2-strict-missing-semi-warning nil)
+  ;; Utilities
+  (global-set-key (kbd "C-, u t") 'display-time-world)
+  (global-set-key (kbd "C-, u b") 'grass/comment-box)
 
-  (add-to-list 'auto-mode-alist '("\\.es6\\'" . js2-mode))
+  ;; Shell
+  (global-set-key (kbd "C-, !") 'grass/shell-command-with-prefix-arg)
 
-  ;; Spelling
-  (setq-default ispell-program-name "aspell")
-  ;; Silently save my personal dictionary when new items are added
-  (setq ispell-silently-savep t)
-  (ispell-change-dictionary "en_GB" t)
+  ;; Move text
+  (global-set-key (kbd "<C-S-up>") 'move-text-up)
+  (global-set-key (kbd "<C-S-down>") 'move-text-down)
 
-  ;; Dired
-  (defun my-dired-init ()
-     "Bunch of stuff to run for dired, either immediately or when it's loaded."
-     (define-key dired-mode-map [return] 'dired-single-buffer)
-     (define-key dired-mode-map [mouse-1] 'dired-single-buffer-mouse)
-     (define-key dired-mode-map "^"
-       (function
-           (lambda nil (interactive) (dired-single-buffer "..")))))
+  ;; Cleanup
+  (global-set-key (kbd "C-, f") 'grass/indent-region-or-buffer)
+  (define-key global-map (kbd "C-, w") 'whitespace-cleanup)
 
-  ;; If dired's already loaded, then the keymap will be bound
-  (if (boundp 'dired-mode-map)
-    (my-dired-init)
-    ;; it's not loaded yet, so add our bindings to the load-hook
-    (add-hook 'dired-load-hook 'my-dired-init))
-  (setq dired-use-ls-dired nil)
-  (setq dired-omit-files
-        (rx (or (seq bol (? ".") "#")         ;; emacs autosave files
-                (seq "~" eol)                 ;; backup-files
-                (seq bol "CVS" eol)           ;; CVS dirs
-                (seq ".pyc" eol)
-                (seq bol ".DS_Store" eol))))
-  (add-hook 'dired-mode-hook
-            (lambda ()
-              (dired-hide-details-mode t)))
+  ;; Search and replace
+  (global-set-key (kbd "C-, s r") 'grass/replace-string)
+  (global-set-key (kbd "C-, s R") 'grass/replace-regexp)
+  (global-set-key (kbd "C-, s q") 'grass/query-replace-string)
+  (global-set-key (kbd "C-, s Q") 'grass/query-replace-regexp)
+  (global-set-key (kbd "C-, s f") 'isearch-forward-regexp)
+  (global-set-key (kbd "C-, s b") 'isearch-reverse-regexp)
 
-  ;; Don't combine tag tables thanks
-  (setq tags-add-tables nil)
+  (global-set-key (kbd "C-, s a") 'ag-project)
 
-  ;; Some file exclusions
-  (add-hook 'projectile-load-hook
-            (lambda ()
-              (add-to-list 'projectile-globally-ignored-files ".keep")
-              (add-to-list 'projectile-globally-ignored-files "TAGS")))
+  (global-set-key (kbd "C-, y") 'browse-kill-ring)
+  (global-set-key (kbd "C-, C-i") 'string-inflection-cycle)
 
-  (add-hook 'recentf-load-hook
-    (lambda ()
-      (add-to-list 'recentf-exclude "\\ido.hist\\'")
-      (add-to-list 'recentf-exclude "/TAGS")
-      (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")))
+  ;; Smartparens
 
-  ;; Utils
-  (defun grass/open-cheats ()
-    "Open Emacs cheats file"
-    (interactive)
-    (find-file "~/Dropbox/Notes/Emacs.md"))
+  ; (bind-keys
+  ;  :map smartparens-mode-map
+  ;  ("C-, l r"  . sp-rewrap-sexp)
+  ;  ("C-, l d"  . sp-unwrap-sexp)
+
+  ;  ("C-, l ("  . wrap-with-parens)
+  ;  ("C-, l ["  . wrap-with-brackets)
+  ;  ("C-, l {"  . wrap-with-braces)
+  ;  ("C-, l '"  . wrap-with-single-quotes)
+  ;  ("C-, l \"" . wrap-with-double-quotes)
+  ;  ("C-, l _"  . wrap-with-underscores)
+  ;  ("C-, l `"  . wrap-with-back-quotes))
 )
 
 ;; Do not write anything past this comment. This is where Emacs will

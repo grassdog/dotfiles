@@ -1,0 +1,243 @@
+;;;;;;;;;;;;;
+;; General ;;
+;;;;;;;;;;;;;
+
+;; Spacemacs
+(setq powerline-default-separator 'arrow)
+
+;; Editing
+(setq require-final-newline t)
+(setq sentence-end-double-space nil)
+
+;; Follow symlinks by default
+(setq vc-follow-symlinks t)
+
+;; Don't combine tag tables thanks
+(setq tags-add-tables nil)
+
+;; World times
+(setq display-time-world-list '(("Australia/Brisbane" "Brisbane")
+                                 ("Australia/Melbourne" "Melbourne")
+                                 ("Europe/London" "London")
+                                 ("America/New_York" "New York")
+                                 ("America/Los_Angeles" "San Francisco")))
+
+;; Some terminal mapping hackery to accept C-, key sequence mapping from iTerm
+(defadvice terminal-init-xterm
+  (after map-C-comma-escape-sequence activate)
+  (define-key input-decode-map "\e[1;," (kbd "C-,")))
+
+;; Easier key binding for shell replace command
+(defun grass/shell-command-with-prefix-arg ()
+  (interactive)
+  (setq current-prefix-arg '(4)) ; C-u
+  (call-interactively 'shell-command-on-region))
+
+;;;;;;;;;;;;;;
+;; Movement ;;
+;;;;;;;;;;;;;;
+
+;; Make horizontal movement cross lines
+(setq-default evil-cross-lines t)
+
+;;;;;;;;;;;;;;;;;
+;; Indentation ;;
+;;;;;;;;;;;;;;;;;
+
+(setq-default tab-width 2)
+(setq evil-shift-width 2)
+(setq lisp-indent-offset 2)
+(setq-default js2-basic-offset 2)
+(setq-default js-indent-level 2)
+(setq css-indent-offset 2)
+(setq coffee-tab-width 2)
+(setq-default py-indent-offset 2)
+(setq-default nxml-child-indent 2)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Auto save on focus lost ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun grass/auto-save-all()
+  "Save all modified buffers that point to files."
+  (interactive)
+  (save-excursion
+    (dolist (buf (buffer-list))
+      (set-buffer buf)
+      (if (and (buffer-file-name) (buffer-modified-p))
+        (basic-save-buffer)))))
+
+(add-hook 'auto-save-hook 'grass/auto-save-all)
+(add-hook 'mouse-leave-buffer-hook 'grass/auto-save-all)
+(add-hook 'focus-out-hook 'grass/auto-save-all)
+
+;; Line numbers for coding please
+(add-hook 'prog-mode-hook
+  (lambda ()
+    (linum-mode 1)
+    ;; Treat underscore as a word character
+    ;; evil-little-word allows for finer grain editing
+    (modify-syntax-entry ?_ "w")))
+
+;;;;;;;;;;;;;;;;
+;; Javascript ;;
+;;;;;;;;;;;;;;;;
+
+(setq js2-bounce-indent-p t
+  js2-strict-missing-semi-warning nil)
+
+(add-to-list 'auto-mode-alist '("\\.es6\\'" . js2-mode))
+
+;;;;;;;;;;;;;;
+;; Spelling ;;
+;;;;;;;;;;;;;;
+
+(setq-default ispell-program-name "aspell")
+;; Silently save my personal dictionary when new items are added
+(setq ispell-silently-savep t)
+(ispell-change-dictionary "en_GB" t)
+
+;;;;;;;;;
+;; Org ;;
+;;;;;;;;;
+
+;; TODO May need to do this:
+
+;; (spacemacs|use-package-add-hook helm
+;;   :pre-init
+;;   ;; Code
+;;   :post-init
+;;   ;; Code
+;;   :pre-config
+;;   ;; Code
+;;   :post-config
+;;   ;; Code
+;;   )
+
+(with-eval-after-load 'org
+  ;; Show raw link text
+  (setq org-descriptive-links nil)
+  ;; Start up fully open
+  (setq org-startup-folded nil)
+
+  ;; Make windmove work in org-mode
+  (setq org-replace-disputed-keys t)
+  (setq org-return-follows-link t)
+  ;; Show indents
+  (setq org-agenda-files '("~/Dropbox/Notes"))
+
+  ;; prevent demoting heading also shifting text inside sections
+  (setq org-adapt-indentation nil)
+  ;; Allow bind in files to enable export overrides
+  (setq org-export-allow-bind-keywords t)
+  (defun grass/html-filter-remove-src-blocks (text backend info)
+    "Remove source blocks from html export."
+    (when (org-export-derived-backend-p backend 'html) ""))
+
+  ;; Code blocks
+  ;; (org-babel-do-load-languages
+  ;;  'org-babel-load-languages
+  ;;  '((emacs-lisp . t)
+  ;;    (js . t)
+  ;;    (ruby . t)
+  ;;    (sh . t)))
+
+  ;; Highlight source blocks
+  (setq org-src-fontify-natively t
+        org-src-tab-acts-natively t
+        org-confirm-babel-evaluate nil)
+
+  (add-hook 'org-mode-hook
+            (lambda ()
+              ;; No auto indent please
+              ;;(setq evil-auto-indent nil)
+              (setq org-export-html-postamble nil)
+              ;; Let me keep my prefix key binding
+              (define-key org-mode-map (kbd "C-,") nil)
+              (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link)
+              ;; (org-hide-block-all)
+              ;; (define-key org-mode-map (kbd "C-c t") 'org-hide-block-toggle)
+              ;;(define-key org-mode-map (kbd "C-, a") 'org-cycle-agenda-files)
+              ))
+  (add-hook 'org-shiftup-final-hook 'windmove-up)
+  (add-hook 'org-shiftleft-final-hook 'windmove-left)
+  (add-hook 'org-shiftdown-final-hook 'windmove-down)
+  (add-hook 'org-shiftright-final-hook 'windmove-right)
+)
+
+;;;;;;;;;;;
+;; Dired ;;
+;;;;;;;;;;;
+
+(defun grass/dired-init ()
+    "Bunch of stuff to run for dired, either immediately or when it's loaded."
+    (define-key dired-mode-map [return] 'dired-single-buffer)
+    (define-key dired-mode-map [mouse-1] 'dired-single-buffer-mouse)
+    (define-key dired-mode-map "^"
+      (function
+          (lambda nil (interactive) (dired-single-buffer "..")))))
+
+(setq dired-use-ls-dired nil)
+(setq dired-omit-files
+      (rx (or (seq bol (? ".") "#")         ;; emacs autosave files
+              (seq "~" eol)                 ;; backup-files
+              (seq bol "CVS" eol)           ;; CVS dirs
+              (seq ".pyc" eol)
+              (seq bol ".DS_Store" eol))))
+
+;; If dired's already loaded, then the keymap will be bound
+(if (boundp 'dired-mode-map)
+  (grass/dired-init)
+  ;; it's not loaded yet, so add our bindings to the load-hook
+  (add-hook 'dired-load-hook 'grass/dired-init))
+
+(add-hook 'dired-mode-hook
+          (lambda ()
+            (dired-hide-details-mode t)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Projectile and ignored files ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(add-hook 'projectile-load-hook
+  (lambda ()
+    (setq projectile-tags-command "getags")
+    ;; (setq projectile-enable-caching t)
+    (setq projectile-hg-command "( hg locate -0 -I . ; hg st -u -n -0 )")
+    (add-to-list 'projectile-globally-ignored-directories "gems")
+    (add-to-list 'projectile-globally-ignored-directories "node_modules")
+    (add-to-list 'projectile-globally-ignored-directories "bower_components")
+    (add-to-list 'projectile-globally-ignored-directories "dist")
+    (add-to-list 'projectile-globally-ignored-directories "/emacs.d/elpa/")
+    (add-to-list 'projectile-globally-ignored-directories "elm-stuff")
+    (add-to-list 'projectile-globally-ignored-files ".keep")
+    (add-to-list 'projectile-globally-ignored-files "TAGS")))
+
+(add-hook 'recentf-load-hook
+  (lambda ()
+    (add-to-list 'recentf-exclude "\\ido.hist\\'")
+    (add-to-list 'recentf-exclude "/TAGS")
+    (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Sane line killing in Emacs mode ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;; If no region kill or copy current line
+;; http://emacs.stackexchange.com/questions/2347/kill-or-copy-current-line-with-minimal-keystrokes
+(defadvice kill-region (before slick-cut activate compile)
+  "When called interactively with no active region, kill a single line instead."
+  (interactive
+    (if mark-active
+      (list (region-beginning) (region-end))
+      (list (line-beginning-position) (line-beginning-position 2)))))
+
+(defadvice kill-ring-save (before slick-copy activate compile)
+  "When called interactively with no active region, copy a single line instead."
+  (interactive
+    (if mark-active
+      (list (region-beginning) (region-end))
+      (message "Copied line")
+      (list (line-beginning-position) (line-beginning-position 2)))))
