@@ -25,9 +25,10 @@ values."
      ;; ----------------------------------------------------------------
      (auto-completion
         :variables
-        ;; auto-completion-return-key-behavior nil
-        ;; auto-completion-tab-key-behavior 'cycle
+        auto-completion-return-key-behavior 'complete
+        auto-completion-tab-key-behavior 'complete
         auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/"
+        auto-completion-enable-snippets-in-popup t
         ;; :disabled-for org erc
         :disabled-for erc
         )
@@ -288,6 +289,8 @@ layers configuration. You are free to put any user code."
   (global-set-key (kbd "C-, C-,") 'spacemacs/alternate-buffer)
   (global-set-key (kbd "C-, p") 'helm-projectile-find-file)
   (global-set-key (kbd "C-, C-p") 'helm-projectile-find-file)
+  (global-set-key (kbd "C-, o") 'helm-mini)
+  (global-set-key (kbd "C-, e") 'hippie-expand)
 
   ;; Javascript
   (setq js2-basic-offset 2

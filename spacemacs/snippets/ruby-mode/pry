@@ -1,5 +1,5 @@
 # -*- mode: snippet; require-final-newline: nil -*-
-# name: pry
-# key: pry
+# name: binding.pry
+# key: bpry
 # --
 binding.pry
