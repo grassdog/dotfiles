@@ -240,6 +240,9 @@ user code."
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
 
+  ;; Spacemacs
+  (setq powerline-default-separator 'arrow)
+
   ;; Make evil-mode up/down operate in screen lines instead of logical lines
   (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
   (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)

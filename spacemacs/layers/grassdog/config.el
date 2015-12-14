@@ -2,9 +2,6 @@
 ;; General ;;
 ;;;;;;;;;;;;;
 
-;; Spacemacs
-(setq powerline-default-separator 'arrow)
-
 ;; Editing
 (setq require-final-newline t)
 (setq sentence-end-double-space nil)
