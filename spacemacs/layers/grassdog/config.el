@@ -97,8 +97,6 @@
 ;;;;;;;;;
 
 (with-eval-after-load 'org
-  ;; Show raw link text
-  (setq org-descriptive-links nil)
   ;; Start up fully open
   (setq org-startup-folded nil)
 
@@ -116,13 +114,11 @@
     "Remove source blocks from html export."
     (when (org-export-derived-backend-p backend 'html) ""))
 
-  ;; Code blocks
-  ;; (org-babel-do-load-languages
-  ;;  'org-babel-load-languages
-  ;;  '((emacs-lisp . t)
-  ;;    (js . t)
-  ;;    (ruby . t)
-  ;;    (sh . t)))
+  (spacemacs|add-toggle org-descriptive-links
+    :status nil
+    :on (org-toggle-link-display)
+    :documentation "Toggle display of link details in org mode."
+    :evil-leader "tO")
 
   ;; Highlight source blocks
   (setq org-src-fontify-natively t
