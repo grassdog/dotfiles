@@ -288,11 +288,6 @@ layers configuration. You are free to put any user code."
   (evil-leader/set-key "oee" 'yas-expand)
   (evil-leader/set-key "oei" 'string-inflection-cycle)
 
-  (evil-leader/set-key-for-mode 'dired-mode "md" 'dired-filter-by-dot-files)
-  (evil-leader/set-key-for-mode 'dired-mode "mr" 'dired-filter-by-regexp)
-  (evil-leader/set-key-for-mode 'dired-mode "mn" 'dired-filter-by-name)
-  (evil-leader/set-key-for-mode 'dired-mode "mp" 'dired-filter-pop)
-
   ;; Make evil-mode up/down operate in screen lines instead of logical lines
   (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
   (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
@@ -343,16 +338,6 @@ layers configuration. You are free to put any user code."
 
   (global-set-key (kbd "C-, y") 'browse-kill-ring)
   (global-set-key (kbd "C-, C-i") 'string-inflection-cycle)
-
-  ;; Dired
-  (add-hook 'dired-load-hook
-    (lambda ()
-      (bind-keys
-        :map dired-mode-map
-        ("C-, d d" . dired-filter-by-dot-files)
-        ("C-, d r" . dired-filter-by-regexp)
-        ("C-, d n" . dired-filter-by-name)
-        ("C-, d p" . dired-filter-pop))))
 
   ;; Smartparens
   (bind-keys
