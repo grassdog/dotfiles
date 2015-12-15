@@ -75,6 +75,16 @@
         (grass/indent-buffer)
         (message "Indented buffer.")))))
 
+;;;;;;;;;;;
+;; Shell ;;
+;;;;;;;;;;;
+
+;; Easier key binding for shell replace command
+(defun grass/shell-command-with-prefix-arg ()
+  (interactive)
+  (setq current-prefix-arg '(4)) ; C-u
+  (call-interactively 'shell-command-on-region))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Search and Replace ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;

@@ -3,14 +3,6 @@
 
 #+CAPTION: logo
 
-# The maximum height of the logo should be 200 pixels.
-[[img/grassdog.png]]
-
-* Table of Contents                                        :TOC_4_org:noexport:
- - [[Description][Description]]
- - [[Install][Install]]
- - [[Key bindings][Key bindings]]
-
 * Description
 My personal configuration.
 
@@ -21,8 +13,3 @@ To use this contribution add it to your =~/.spacemacs=
   (setq-default dotspacemacs-configuration-layers '(grassdog))
 #+end_src
 
-* Key bindings
-
-| Key Binding     | Description    |
-|-----------------+----------------|
-| ~<SPC> x x x~   | Does thing01   |

@@ -14,21 +14,18 @@
 
 ;; World times
 (setq display-time-world-list '(("Australia/Brisbane" "Brisbane")
-                                 ("Australia/Melbourne" "Melbourne")
-                                 ("Europe/London" "London")
-                                 ("America/New_York" "New York")
-                                 ("America/Los_Angeles" "San Francisco")))
+                                ("Australia/Melbourne" "Melbourne")
+                                ("Europe/London" "London")
+                                ("America/New_York" "New York")
+                                ("America/Los_Angeles" "San Francisco")))
 
 ;; Some terminal mapping hackery to accept C-, key sequence mapping from iTerm
 (defadvice terminal-init-xterm
   (after map-C-comma-escape-sequence activate)
   (define-key input-decode-map "\e[1;," (kbd "C-,")))
 
-;; Easier key binding for shell replace command
-(defun grass/shell-command-with-prefix-arg ()
-  (interactive)
-  (setq current-prefix-arg '(4)) ; C-u
-  (call-interactively 'shell-command-on-region))
+
+(setq linum-format "%4d ")
 
 ;;;;;;;;;;;;;;
 ;; Movement ;;
@@ -137,7 +134,6 @@
   (add-hook 'org-shiftdown-final-hook 'windmove-down)
   (add-hook 'org-shiftright-final-hook 'windmove-right)
 
-  (require 'org-mac-link)
   (add-hook 'org-mode-hook
     (lambda ()
       ;; No auto indent please
@@ -145,42 +141,37 @@
       (setq org-export-html-postamble nil)
       ;; Let me keep my prefix key binding
       (define-key org-mode-map (kbd "C-,") nil)
-      (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link)
-      ;; (org-hide-block-all)
-      ;; (define-key org-mode-map (kbd "C-c t") 'org-hide-block-toggle)
-      ;;(define-key org-mode-map (kbd "C-, a") 'org-cycle-agenda-files)
-      ))
-)
+      (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link))))
 
 ;;;;;;;;;;;
 ;; Dired ;;
 ;;;;;;;;;;;
 
 (defun grass/dired-init ()
-    "Bunch of stuff to run for dired, either immediately or when it's loaded."
-    (define-key dired-mode-map [return] 'dired-single-buffer)
-    (define-key dired-mode-map [mouse-1] 'dired-single-buffer-mouse)
-    (define-key dired-mode-map "^"
-      (function
-          (lambda nil (interactive) (dired-single-buffer "..")))))
+  "Bunch of stuff to run for dired, either immediately or when it's loaded."
 
-(setq dired-use-ls-dired nil)
-(setq dired-omit-files
-      (rx (or (seq bol (? ".") "#")         ;; emacs autosave files
-              (seq "~" eol)                 ;; backup-files
-              (seq bol "CVS" eol)           ;; CVS dirs
-              (seq ".pyc" eol)
-              (seq bol ".DS_Store" eol))))
+  (setq dired-use-ls-dired nil)
+  (setq dired-omit-files
+    (rx (or (seq bol (? ".") "#")         ;; emacs autosave files
+          (seq "~" eol)                 ;; backup-files
+          (seq bol "CVS" eol)           ;; CVS dirs
+          (seq ".pyc" eol)
+          (seq bol ".DS_Store" eol))))
 
-;; If dired's already loaded, then the keymap will be bound
+  (define-key dired-mode-map [return] 'dired-single-buffer)
+  (define-key dired-mode-map [mouse-1] 'dired-single-buffer-mouse)
+  (define-key dired-mode-map (kbd "<s-up>")
+    (function
+      (lambda nil (interactive) (dired-single-buffer "..")))))
+
 (if (boundp 'dired-mode-map)
   (grass/dired-init)
-  ;; it's not loaded yet, so add our bindings to the load-hook
   (add-hook 'dired-load-hook 'grass/dired-init))
 
 (add-hook 'dired-mode-hook
-          (lambda ()
-            (dired-hide-details-mode t)))
+  (lambda ()
+    (dired-hide-details-mode t)
+    (dired-filter-mode t)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Projectile and ignored files ;;

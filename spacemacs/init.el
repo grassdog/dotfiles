@@ -32,7 +32,6 @@ values."
         ;; :disabled-for org erc
         :disabled-for erc
         )
-     grassdog
      better-defaults
      emacs-lisp
      git
@@ -76,6 +75,8 @@ values."
      typescript
      vagrant
      yaml
+
+     grassdog
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -243,13 +244,57 @@ layers configuration. You are free to put any user code."
   ;; Spacemacs
   (setq powerline-default-separator 'arrow)
 
+  ;; My evil bindings
+  (spacemacs/declare-prefix "o" "personal")
+
+  (spacemacs/declare-prefix "ou" "utilities")
+  (evil-leader/set-key "out" 'display-time-world)
+  (evil-leader/set-key "ouc" 'quick-calc)
+  (evil-leader/set-key "ouu" 'browse-url)
+  (evil-leader/set-key "our" 'grass/rename-file-and-buffer)
+  (evil-leader/set-key "oub" 'grass/comment-box)
+  (evil-leader/set-key "ou!" 'grass/shell-command-with-prefix-arg)
+
+  (spacemacs/declare-prefix "os" "search-replace")
+  (evil-leader/set-key "osa" 'ag-project)
+  (evil-leader/set-key "osr" 'grass/replace-string)
+  (evil-leader/set-key "osR" 'grass/replace-regexp)
+  (evil-leader/set-key "osq" 'grass/query-replace-string)
+  (evil-leader/set-key "osQ" 'grass/query-replace-regexp)
+  (evil-leader/set-key "osf" 'isearch-forward-regexp)
+  (evil-leader/set-key "osb" 'isearch-reverse-regexp)
+
+  (spacemacs/declare-prefix "ow" "wrapping")
+  (evil-leader/set-key "owr" 'sp-rewrap-sexp)
+  (evil-leader/set-key "owd" 'sp-unwrap-sexp)
+  (evil-leader/set-key "ow(" 'wrap-with-parens)
+  (evil-leader/set-key "ow[" 'wrap-with-brackets)
+  (evil-leader/set-key "ow{" 'wrap-with-braces)
+  (evil-leader/set-key "ow'" 'wrap-with-single-quotes)
+  (evil-leader/set-key "ow\""'wrap-with-double-quotes)
+  (evil-leader/set-key "ow_" 'wrap-with-underscores)
+  (evil-leader/set-key "ow`" 'wrap-with-back-quotes)
+
+  (spacemacs/declare-prefix "of" "formatting")
+  (evil-leader/set-key "off" 'grass/indent-region-or-buffer)
+  (evil-leader/set-key "ofw" 'whitespace-cleanup)
+  (evil-leader/set-key "ofb" 'web-beautify-js)
+  (evil-leader/set-key "ofj" 'json-pretty-print-buffer)
+  (evil-leader/set-key "ofh" 'web-beautify-html)
+  (evil-leader/set-key "ofc" 'web-beautify-css)
+
+  (spacemacs/declare-prefix "oe" "editing")
+  (evil-leader/set-key "oey" 'browse-kill-ring)
+  (evil-leader/set-key "oee" 'yas-expand)
+  (evil-leader/set-key "oei" 'string-inflection-cycle)
+
   ;; Make evil-mode up/down operate in screen lines instead of logical lines
   (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
   (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
   (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
   (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
 
-  ;; Backtab
+  ;; Backtab to unindent
   (define-key global-map [backtab] 'evil-shift-left-line)
 
   ;; Easier window switching
@@ -312,6 +357,11 @@ layers configuration. You are free to put any user code."
    ("C-, l \"" . wrap-with-double-quotes)
    ("C-, l _"  . wrap-with-underscores)
    ("C-, l `"  . wrap-with-back-quotes))
+
+  ;; Clear prefix binding
+  (add-hook 'flyspell-mode-hook
+    (lambda ()
+      (define-key flyspell-mode-map (kbd "C-,") nil)))
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
