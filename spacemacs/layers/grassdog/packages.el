@@ -28,10 +28,9 @@
 
 (defun grassdog/init-dired-filter ()
   (use-package dired-filter
-    :bind (("C-, d d" . dired-filter-by-dot-files)
-           ("C-, d r" . dired-filter-by-regexp)
-           ("C-, d p" . dired-filter-pop)
-           ("C-, d p" . dired-filter-pop))))
+    :commands (dired-filter-by-dot-files
+                dired-filter-by-regexp
+                dired-filter-pop)))
 
 (defun grassdog/init-dired-single ()
   (use-package dired-single))
