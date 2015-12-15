@@ -218,3 +218,12 @@
       (list (region-beginning) (region-end))
       (message "Copied line")
       (list (line-beginning-position) (line-beginning-position 2)))))
+
+;;;;;;;;;;;;;;;;;
+;; Smartparens ;;
+;;;;;;;;;;;;;;;;;
+
+(with-eval-after-load 'smartparens
+  ;; No auto pairing of quotes thanks
+  (sp-pair "'" nil :actions '(:rem insert))
+  (sp-pair "\"" nil :actions '(:rem insert)))
