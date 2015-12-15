@@ -15,7 +15,6 @@
 (setq grassdog-packages
   '( ag
      string-inflection
-     ;; ignoramous
      browse-kill-ring
      dired-single
      dired-filter
@@ -52,13 +51,6 @@
 (defun grassdog/init-org-mac-link ()
   (use-package org-mac-link
     :commands org-mac-grab-link))
-
-;; ;; Ignore certain files
-;; (defun grassdog/init-ignoramus ()
-;;   (use-package ignoramus
-;;     :init
-;;     (ignoramus-setup '(comint completions grep ido
-;;                         nav pcomplete projectile speedbar vc))))
 
 (defun grassdog/init-browse-kill-ring ()
   (use-package browse-kill-ring
