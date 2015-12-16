@@ -318,6 +318,8 @@ layers configuration. You are free to put any user code."
   ;; Shell
   (global-set-key (kbd "C-, !") 'grass/shell-command-with-prefix-arg)
 
+  (global-set-key (kbd "C-, g") 'magit-status)
+
   ;; Move text
   (global-set-key (kbd "<C-S-up>") 'move-text-up)
   (global-set-key (kbd "<C-S-down>") 'move-text-down)
