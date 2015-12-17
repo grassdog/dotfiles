@@ -18,12 +18,12 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
-     ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
-     ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
-     ;; <M-m f e R> (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
-     (auto-completion
+      ;; ----------------------------------------------------------------
+      ;; Example of useful layers you may want to use right away.
+      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
+      ;; <M-m f e R> (Emacs style) to install them.
+      ;; ----------------------------------------------------------------
+      (auto-completion
         :variables
         auto-completion-return-key-behavior 'complete
         auto-completion-tab-key-behavior 'complete
@@ -32,53 +32,53 @@ values."
         ;; :disabled-for org erc
         :disabled-for erc
         )
-     better-defaults
-     emacs-lisp
-     git
-     markdown
-     org
-     (shell :variables
+      better-defaults
       colors
+      emacs-lisp
+      git
+      markdown
+      org
+      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
-     (spell-checking :variables
+      (spell-checking :variables
                      spell-checking-enable-by-default nil
                      spell-checking-enable-auto-dictionary t)
-     syntax-checking
-     version-control
+      syntax-checking
+      version-control
 
-     clojure
-     dash
-     dockerfile
+      clojure
+      dash
+      dockerfile
 
-     ;; Re-enable once #644 is fixed
-     ;; elixir
-     elm
-     evil-snipe
-     evil-commentary
+      ;; Re-enable once #644 is fixed
+      ;; elixir
+      elm
+      evil-snipe
+      evil-commentary
 
-     evil-little-word
+      evil-little-word
 
-     finance
+      finance
 
-     haskell
-     html
-     ibuffer
-     javascript
-     pandoc
-     osx
+      haskell
+      html
+      ibuffer
+      javascript
+      pandoc
+      osx
 
-     react
-     ruby
-     ruby-on-rails
-     rust
-     shell-scripts
-     typescript
-     vagrant
-     yaml
+      react
+      ruby
+      ruby-on-rails
+      rust
+      shell-scripts
+      typescript
+      vagrant
+      yaml
 
-     grassdog
-     )
+      grassdog
+    )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
