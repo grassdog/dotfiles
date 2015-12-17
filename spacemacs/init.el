@@ -381,6 +381,8 @@ layers configuration. You are free to put any user code."
   ;; (clean-aindent-mode t)
   ;; (setq clean-aindent-is-simple-indent t)
 
+  ;; (setq js2-bounce-indent-p nil)
+
   ;; Don't use tabs to indent
   ;; (setq-default indent-tabs-mode nil)
 
