@@ -346,10 +346,10 @@ layers configuration. You are free to put any user code."
     (bind-keys
       :map smartparens-mode-map
 
-      ("C-<right>" . sp-forward-slurp-sexp)
-      ("C-<left>" . sp-forward-barf-sexp)
-      ("C-M-<left>" . sp-backward-slurp-sexp)
-      ("C-M-<right>" . sp-backward-barf-sexp)
+      ("<s-right>" . sp-forward-slurp-sexp)
+      ("<s-left>" . sp-forward-barf-sexp)
+      ("<C-s-left>" . sp-backward-slurp-sexp)
+      ("<C-s-right>" . sp-backward-barf-sexp)
 
       ; Wrapping
       ("C-, l r"  . sp-rewrap-sexp)
