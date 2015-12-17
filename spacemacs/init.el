@@ -363,7 +363,7 @@ layers configuration. You are free to put any user code."
       ("C-, l _"  . wrap-with-underscores)
       ("C-, l `"  . wrap-with-back-quotes)))
 
-  ;; TODO Make this work with params
+  ;; TODO Make this work with params {|
   (sp-local-pair 'ruby-mode "{" nil :post-handlers
     '(:add (spacemacs/smartparens-pair-newline-and-indent "RET")))
 
@@ -397,3 +397,35 @@ layers configuration. You are free to put any user code."
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(hl-todo-keyword-faces
+ (quote
+   (("HOLD" . "#d0bf8f")
+     ("TODO" . "#cc9393")
+     ("NEXT" . "#dca3a3")
+     ("THEM" . "#dc8cc3")
+     ("PROG" . "#7cb8bb")
+     ("OKAY" . "#7cb8bb")
+     ("DONT" . "#5f7f5f")
+     ("FAIL" . "#8c5353")
+     ("DONE" . "#afd8af")
+     ("NOTE" . "#d0bf8f")
+     ("KLUDGE" . "#d0bf8f")
+     ("HACK" . "#d0bf8f")
+     ("FIXME" . "#cc9393")
+     ("XXX" . "#cc9393")
+     ("XXXX" . "#cc9393")
+     ("???" . "#cc9393")
+     ("DEBUG" . "#8c5353")
+     ("GRASS" . "#dc8cc3")))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
