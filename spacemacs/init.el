@@ -38,6 +38,7 @@ values."
      markdown
      org
      (shell :variables
+      colors
             shell-default-height 30
             shell-default-position 'bottom)
      (spell-checking :variables
@@ -382,6 +383,11 @@ layers configuration. You are free to put any user code."
 
   ;; Don't use tabs to indent
   ;; (setq-default indent-tabs-mode nil)
+
+  ;; Clear prefix binding
+  (add-hook 'css-mode-hook
+    (lambda ()
+      (rainbow-mode 1)))
 
   ;; Clear prefix binding
   (add-hook 'flyspell-mode-hook
