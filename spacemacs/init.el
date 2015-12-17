@@ -362,6 +362,27 @@ layers configuration. You are free to put any user code."
       ("C-, l _"  . wrap-with-underscores)
       ("C-, l `"  . wrap-with-back-quotes)))
 
+  ;; TODO Make this work with params
+  (sp-local-pair 'ruby-mode "{" nil :post-handlers
+    '(:add (spacemacs/smartparens-pair-newline-and-indent "RET")))
+
+  ;; How can I disable smart indentation in emacs? http://superuser.com/questions/268029/how-can-i-disable-smart-indentation-in-emacs-and-force-either-spaces-or-tabs
+  ;; (defvar just-tab-keymap (make-sparse-keymap) "Keymap for just-tab-mode")
+  ;; (define-minor-mode just-tab-mode
+  ;;   "Just want the TAB key to be a TAB"
+  ;;   :global t :lighter " TAB" :init-value 0 :keymap just-tab-keymap
+  ;;   (define-key just-tab-keymap (kbd "TAB") 'indent-for-tab-command))
+  ;; ;; Always newline-and-indent
+  ;; (define-key global-map (kbd "RET") 'newline-and-indent)
+
+  ;; no electric indent, auto-indent is sufficient
+  ;; (electric-indent-mode -1)
+  ;; (clean-aindent-mode t)
+  ;; (setq clean-aindent-is-simple-indent t)
+
+  ;; Don't use tabs to indent
+  ;; (setq-default indent-tabs-mode nil)
+
   ;; Clear prefix binding
   (add-hook 'flyspell-mode-hook
     (lambda ()

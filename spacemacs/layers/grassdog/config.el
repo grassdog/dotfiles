@@ -48,6 +48,25 @@
 (setq-default py-indent-offset 2)
 (setq-default nxml-child-indent 2)
 
+;; Default formatting style for C based modes
+(setq c-default-style "java")
+(setq-default c-basic-offset 2)
+
+;; This is getting in the way more than not at the moment
+(add-hook 'elm-mode-hook
+  (lambda ()
+    (elm-indent-mode -1)))
+
+;; Indentation
+(add-hook 'ruby-mode-hook
+  (lambda ()
+    (setq ruby-indent-level 2)
+    (setq ruby-deep-indent-paren nil)
+    ;; (setq enh-ruby-bounce-deep-indent t)
+    ;; (setq enh-ruby-hanging-brace-indent-level 2)
+    (setq ruby-deep-indent-paren nil)
+    (setq evil-shift-width 2)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Auto save on focus lost ;;
