@@ -184,7 +184,7 @@
       (insert word))))
 
 (defun grass/minibuffer-setup-hook ()
-  (local-set-key (kbd "C-S-w") 'grass/minibuffer-insert-word-at-point))
+  (local-set-key (kbd "s-w") 'grass/minibuffer-insert-word-at-point))
 
 (add-hook 'minibuffer-setup-hook 'grass/minibuffer-setup-hook)
 
