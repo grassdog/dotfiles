@@ -98,6 +98,7 @@
 ;;;;;;;;;;;;;;;;
 
 (setq js2-bounce-indent-p t
+  js2-strict-trailing-comma-warning nil
   js2-strict-missing-semi-warning nil)
 
 (add-to-list 'auto-mode-alist '("\\.es6\\'" . js2-mode))
