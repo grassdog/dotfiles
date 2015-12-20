@@ -379,6 +379,21 @@ layers configuration. You are free to put any user code."
   (add-hook 'flyspell-mode-hook
     (lambda ()
       (define-key flyspell-mode-map (kbd "C-,") nil)))
+
+  ;; Markdown
+  (add-hook 'markdown-mode-hook
+    (lambda ()
+      (defun grass/markdown-enter-key-dwim ()
+        "If in a list enter a new list item, otherwise insert enter key as normal."
+        (interactive)
+        (let ((bounds (markdown-cur-list-item-bounds)))
+          (if bounds
+            ;; In a list
+            (call-interactively #'markdown-insert-list-item)
+            ;; Not in a list
+            (markdown-enter-key))))
+
+      (define-key markdown-mode-map (kbd "RET") 'grass/markdown-enter-key-dwim)))
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
