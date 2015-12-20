@@ -101,7 +101,12 @@
   js2-strict-trailing-comma-warning nil
   js2-strict-missing-semi-warning nil)
 
+(setq-default js2-global-externs
+  '("module" "require" "__dirname" "process" "console" "define"
+    "JSON" "$" "_" "Backbone" "buster" "sinon" "moment" "_gaq"))
+
 (add-to-list 'auto-mode-alist '("\\.es6\\'" . js2-mode))
+
 
 ;;;;;;;;;;;;;;
 ;; Spelling ;;
