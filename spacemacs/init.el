@@ -342,8 +342,15 @@ layers configuration. You are free to put any user code."
   (global-set-key (kbd "C-, y") 'browse-kill-ring)
   (global-set-key (kbd "C-, C-i") 'string-inflection-cycle)
 
-  ;; Smartparens
   (with-eval-after-load 'smartparens
+    (defun grass/smartparens-ruby-brace (id action context)
+      (spacemacs/smartparens-pair-newline-and-indent id action context)
+      (previous-line)
+      (end-of-line))
+
+    (sp-local-pair 'ruby-mode "{" nil :post-handlers
+      '((grass/smartparens-ruby-brace "RET")))
+
     (bind-keys
       :map smartparens-mode-map
 
