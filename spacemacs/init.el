@@ -35,7 +35,9 @@ values."
       better-defaults
       colors
       emacs-lisp
+      erc
       git
+      github
       markdown
       org
       (shell :variables
