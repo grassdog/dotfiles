@@ -199,3 +199,10 @@
   (shell-command
     (format "open -a 'Marked 2' %s"
       (shell-quote-argument (buffer-file-name)))))
+
+(defun grass/today ()
+  (format-time-string "%Y-%m-%d"))
+
+(defun grass/insert-date ()
+  (interactive)
+  (insert (grass/today)))
