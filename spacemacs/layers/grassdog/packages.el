@@ -65,9 +65,6 @@
 
 (defun grassdog/init-seeing-is-believing ()
   (use-package seeing-is-believing
-    :commands (seeing-is-believing-run
-               seeing-is-believing-run-as-xmpfilter
-               seeing-is-believing-clear)
     :init
     ; (setq seeing-is-believing-prefix "C-c x")
 
