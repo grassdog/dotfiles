@@ -249,3 +249,16 @@
   ;; No auto pairing of quotes thanks
   (sp-pair "'" nil :actions '(:rem insert))
   (sp-pair "\"" nil :actions '(:rem insert)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; Better pop to mark ;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; When popping the mark, continue popping until the cursor actually moves
+;; http://endlessparentheses.com/faster-pop-to-mark-command.html
+(defadvice pop-to-mark-command (around ensure-new-position activate)
+  (let ((p (point)))
+    (dotimes (i 10)
+      (when (= p (point)) ad-do-it))))
+;; Multiple pop to marks via C-u C-SPC C-SPC
+(setq set-mark-command-repeat-pop t)
