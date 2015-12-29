@@ -248,7 +248,32 @@
 (with-eval-after-load 'smartparens
   ;; No auto pairing of quotes thanks
   (sp-pair "'" nil :actions '(:rem insert))
-  (sp-pair "\"" nil :actions '(:rem insert)))
+  (sp-pair "\"" nil :actions '(:rem insert))
+
+  (defun grass/elixir-do-end-close-action (id action context)
+    (when (eq action 'insert)
+      (newline-and-indent)
+      (previous-line)
+      (indent-according-to-mode)))
+
+  (defun grass/elixir-fn-end-close-action (id action context)
+    (when (eq action 'insert)
+      (newline-and-indent)
+      (previous-line)
+      (indent-according-to-mode)
+      (end-of-line)
+      (insert " ")))
+
+  (sp-with-modes '(elixir-mode)
+    (sp-local-pair "do" "end"
+                   :when '(("SPC" "RET"))
+                   :post-handlers '(:add grass/elixir-do-end-close-action)
+                   :actions '(insert))
+
+    (sp-local-pair "fn" "end"
+                   :when '(("SPC" "RET"))
+                   ;; :post-handlers '(:add grass/elixir-fn-end-close-action)
+                   :actions '(insert))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Better pop to mark ;;
