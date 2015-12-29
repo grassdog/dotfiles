@@ -2,6 +2,6 @@
 # name: date header 1
 # key: dh1
 # --
-# `(grass/today)`
+* `(grass/today)`
 
 $0

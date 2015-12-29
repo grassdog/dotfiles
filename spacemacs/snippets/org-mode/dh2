@@ -1,7 +1,7 @@
 # -*- mode: snippet; require-final-newline: nil -*-
-# name: date header 1
-# key: dh1
+# name: date header 2
+# key: dh2
 # --
-# `(grass/today)`
+** `(grass/today)`
 
 $0
