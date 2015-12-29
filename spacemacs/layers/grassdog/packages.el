@@ -66,14 +66,15 @@
 (defun grassdog/init-seeing-is-believing ()
   (use-package seeing-is-believing
     :init
-    ; (setq seeing-is-believing-prefix "C-c x")
-
-    (spacemacs/declare-prefix-for-mode 'ruby-mode "md" "debugging")
-    (evil-leader/set-key-for-mode 'ruby-mode
-      "ds" 'seeing-is-believing-run
-      "dx" 'seeing-is-believing-run-as-xmpfilter
-      "dc" 'seeing-is-believing-clear)
-    (add-hook 'ruby-mode-hook 'seeing-is-believing)))
+    (progn
+      ; (setq seeing-is-believing-prefix "C-c x")
+      (spacemacs|diminish seeing-is-believing " b" " b")
+      (spacemacs/declare-prefix-for-mode 'ruby-mode "md" "debugging")
+      (evil-leader/set-key-for-mode 'ruby-mode
+        "ds" 'seeing-is-believing-run
+        "dx" 'seeing-is-believing-run-as-xmpfilter
+        "dc" 'seeing-is-believing-clear)
+      (add-hook 'ruby-mode-hook 'seeing-is-believing))))
 
 ;; Often the body of an initialize function uses `use-package'
 ;; For more info on `use-package', see readme:
