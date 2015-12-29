@@ -21,6 +21,7 @@
      htmlize
      ox-reveal
      org-mac-link
+     seeing-is-believing
      ))
 
 ;; List of packages to exclude.
@@ -61,6 +62,21 @@
     :commands string-inflection-cycle))
 
 ;; Note that htmlize is already initialized elsewhere
+
+(defun grassdog/init-seeing-is-believing ()
+  (use-package seeing-is-believing
+    :commands (seeing-is-believing-run
+               seeing-is-believing-run-as-xmpfilter
+               seeing-is-believing-clear)
+    :init
+    ; (setq seeing-is-believing-prefix "C-c x")
+
+    (spacemacs/declare-prefix-for-mode 'ruby-mode "md" "debugging")
+    (evil-leader/set-key-for-mode 'ruby-mode
+      "ds" 'seeing-is-believing-run
+      "dx" 'seeing-is-believing-run-as-xmpfilter
+      "dc" 'seeing-is-believing-clear)
+    (add-hook 'ruby-mode-hook 'seeing-is-believing)))
 
 ;; Often the body of an initialize function uses `use-package'
 ;; For more info on `use-package', see readme:
