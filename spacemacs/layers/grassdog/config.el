@@ -179,6 +179,9 @@
           (seq ".pyc" eol)
           (seq bol ".DS_Store" eol))))
 
+  (evil-leader/set-key-for-mode 'dired-mode
+    "g" 'revert-buffer)
+
   (define-key dired-mode-map [return] 'dired-single-buffer)
   (define-key dired-mode-map [mouse-1] 'dired-single-buffer-mouse)
   (define-key dired-mode-map (kbd "<s-up>")
