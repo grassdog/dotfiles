@@ -128,8 +128,9 @@
   ;; Make windmove work in org-mode
   (setq org-replace-disputed-keys t)
   (setq org-return-follows-link t)
-  ;; Show indents
   (setq org-agenda-files '("~/Dropbox/Notes"))
+
+  (setq org-log-done nil)
 
   ;; prevent demoting heading also shifting text inside sections
   (setq org-adapt-indentation nil)
