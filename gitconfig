@@ -35,6 +35,9 @@
 [alias]
   unstage = reset HEAD
 
+  # What's changed since last pull
+  news = log -p HEAD@{1}..HEAD@{0}
+
   # Mark a repo as trusted
   trust = "!mkdir -p .git/safe"
 
