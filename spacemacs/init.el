@@ -311,7 +311,8 @@ layers configuration. You are free to put any user code."
   (global-set-key (kbd "C-, C-p") 'helm-projectile-find-file)
   (global-set-key (kbd "C-, r") 'helm-recentf)
   (global-set-key (kbd "C-, o") 'helm-mini)
-  (global-set-key (kbd "C-, e") 'hippie-expand)
+  (global-set-key (kbd "C-, e") 'yas-expand)
+  (global-set-key (kbd "s-e") 'yas-expand)
 
   ;; Utilities
   (global-set-key (kbd "C-, u t") 'display-time-world)
