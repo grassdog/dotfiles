@@ -22,6 +22,7 @@
      ox-reveal
      org-mac-link
      seeing-is-believing
+     simpleclip
      ))
 
 ;; List of packages to exclude.
@@ -75,6 +76,12 @@
         "dx" 'seeing-is-believing-run-as-xmpfilter
         "dc" 'seeing-is-believing-clear)
       (add-hook 'ruby-mode-hook 'seeing-is-believing))))
+
+;; Keep system clipboard separate from kill ring
+(defun grassdog/init-simpleclip ()
+  (use-package simpleclip
+    :init
+    (simpleclip-mode 1)))
 
 ;; Often the body of an initialize function uses `use-package'
 ;; For more info on `use-package', see readme:
