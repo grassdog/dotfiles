@@ -292,3 +292,17 @@
       (when (= p (point)) ad-do-it))))
 ;; Multiple pop to marks via C-u C-SPC C-SPC
 (setq set-mark-command-repeat-pop t)
+
+;;;;;;;;;;;;;;
+;; Web Mode ;;
+;;;;;;;;;;;;;;
+
+(add-hook 'web-mode-hook
+  (lambda ()
+    (setq web-mode-markup-indent-offset 2)
+    (setq web-mode-css-indent-offset 2)
+    (setq web-mode-code-indent-offset 2)
+    (setq evil-shift-width 2)
+    (setq web-mode-enable-comment-keywords t)
+    ;; Use server style comments
+    (setq web-mode-comment-style 2)))
