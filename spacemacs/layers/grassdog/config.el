@@ -178,7 +178,8 @@
           (seq "~" eol)                 ;; backup-files
           (seq bol "CVS" eol)           ;; CVS dirs
           (seq ".pyc" eol)
-          (seq bol ".DS_Store" eol))))
+          (seq bol ".DS_Store" eol)
+          (seq bol ".tern-port" eol))))
 
   (evil-leader/set-key-for-mode 'dired-mode
     "g" 'revert-buffer)
