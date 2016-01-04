@@ -132,7 +132,7 @@
 
   ;; Make windmove work in org-mode
   (setq org-replace-disputed-keys t)
-  (setq org-return-follows-link t)
+  (setq org-return-follows-link nil)
   (setq org-agenda-files '("~/Dropbox/Notes"))
 
   (setq org-log-done nil)
