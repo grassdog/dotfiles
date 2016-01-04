@@ -27,6 +27,9 @@
 
 (setq linum-format "%4d ")
 
+;; Soft line wrapping for text modes
+(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+
 ;;;;;;;;;;;;;;
 ;; Movement ;;
 ;;;;;;;;;;;;;;
