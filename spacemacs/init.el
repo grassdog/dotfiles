@@ -317,6 +317,7 @@ layers configuration. You are free to put any user code."
   ;; Utilities
   (global-set-key (kbd "C-, u t") 'display-time-world)
   (global-set-key (kbd "C-, u b") 'grass/comment-box)
+  (global-set-key (kbd "C-, u u") 'browse-url)
 
   ;; Shell
   (global-set-key (kbd "C-, !") 'grass/shell-command-with-prefix-arg)
