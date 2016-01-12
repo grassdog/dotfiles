@@ -68,9 +68,7 @@
   (lambda ()
     (setq ruby-indent-level 2)
     (setq ruby-deep-indent-paren nil)
-    ;; (setq enh-ruby-bounce-deep-indent t)
-    ;; (setq enh-ruby-hanging-brace-indent-level 2)
-    (setq ruby-deep-indent-paren nil)
+    (setq ruby-use-smie nil)
     (setq evil-shift-width 2)))
 
 
