@@ -71,6 +71,7 @@
     ;; (elm-indent-mode -1)
     ))
 
+(spacemacs|diminish rubocop-mode " R" " R")
 ;; Indentation
 (add-hook 'ruby-mode-hook
   (lambda ()
