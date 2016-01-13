@@ -58,10 +58,18 @@
 (setq c-default-style "java")
 (setq-default c-basic-offset 2)
 
+(spacemacs|diminish elm-indent-mode " i" " i")
 ;; This is getting in the way more than not at the moment
 (add-hook 'elm-mode-hook
   (lambda ()
-    (elm-indent-mode -1)))
+    (setq evil-shift-width 4)
+    (setq tab-width 4)
+    (setq elm-indent-offset 4)
+    ;; (electric-indent-mode -1)
+    ;; (clean-aindent-mode t)
+    ;; (setq clean-aindent-is-simple-indent t)
+    ;; (elm-indent-mode -1)
+    ))
 
 ;; Indentation
 (add-hook 'ruby-mode-hook
