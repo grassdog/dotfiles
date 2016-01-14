@@ -58,7 +58,6 @@
 (setq c-default-style "java")
 (setq-default c-basic-offset 2)
 
-(spacemacs|diminish elm-indent-mode " i" " i")
 ;; This is getting in the way more than not at the moment
 (add-hook 'elm-mode-hook
   (lambda ()
@@ -71,7 +70,6 @@
     ;; (elm-indent-mode -1)
     ))
 
-(spacemacs|diminish rubocop-mode " R" " R")
 ;; Indentation
 (add-hook 'ruby-mode-hook
   (lambda ()
@@ -80,6 +78,14 @@
     (setq ruby-use-smie nil)
     (setq evil-shift-width 2)))
 
+
+;;;;;;;;;;;;;;
+;; Diminish ;;
+;;;;;;;;;;;;;;
+
+(spacemacs|diminish tern-mode " T" " T")
+(spacemacs|diminish elm-indent-mode " i" " i")
+(spacemacs|diminish rubocop-mode " R" " R")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Auto save on focus lost ;;
