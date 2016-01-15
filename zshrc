@@ -110,4 +110,3 @@ function obliq () {
   fi
 }
 
-obliq
