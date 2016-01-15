@@ -1,12 +1,18 @@
 
-;;;;;;;;;;;;
-;; Cheats ;;
-;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;
+;; Common Files ;;
+;;;;;;;;;;;;;;;;;;
 
 (defun grass/open-cheats ()
   "Open Emacs cheats file"
   (interactive)
   (find-file "~/Dropbox/Notes/Emacs.md"))
+
+(defun grass/open-worklog ()
+  "Open Worklog file"
+  (interactive)
+  (find-file "~/Dropbox/Notes/Work Log.org"))
+
 
 ;;;;;;;;;;;;;;;;;
 ;; Comment box ;;
