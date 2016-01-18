@@ -86,6 +86,7 @@
 (spacemacs|diminish tern-mode " T" " T")
 (spacemacs|diminish elm-indent-mode " i" " i")
 (spacemacs|diminish rubocop-mode " R" " R")
+(spacemacs|diminish alchemist-mode " A" " A")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Auto save on focus lost ;;
