@@ -290,6 +290,11 @@ layers configuration. You are free to put any user code."
   (evil-leader/set-key "oee" 'yas-expand)
   (evil-leader/set-key "oei" 'string-inflection-cycle)
 
+  (spacemacs/declare-prefix "ob" "bookmarks")
+  (evil-leader/set-key "obc" 'grass/open-cheats)
+  (evil-leader/set-key "obw" 'grass/open-worklog)
+  (evil-leader/set-key "obn" 'grass/find-notes)
+
   ;; Make evil-mode up/down operate in screen lines instead of logical lines
   (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
   (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)

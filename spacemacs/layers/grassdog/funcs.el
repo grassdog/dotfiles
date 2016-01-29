@@ -13,6 +13,11 @@
   (interactive)
   (find-file "~/Dropbox/Notes/Work Log.org"))
 
+(defun grass/find-notes ()
+  "Find a note in Dropbox/Notes directory"
+  (interactive)
+  (helm-browse-project-find-files (expand-file-name "~/Dropbox/Notes")))
+
 
 ;;;;;;;;;;;;;;;;;
 ;; Comment box ;;
