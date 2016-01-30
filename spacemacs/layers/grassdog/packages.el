@@ -23,6 +23,7 @@
      org-mac-link
      seeing-is-believing
      simpleclip
+     char-menu
      ))
 
 ;; List of packages to exclude.
@@ -82,6 +83,14 @@
   (use-package simpleclip
     :init
     (simpleclip-mode 1)))
+
+(defun grassdog/init-char-menu ()
+  (use-package char-menu
+    ; Em-dash is first
+    :config (setq char-menu '("—" "‘’" "“”" "…" "«»" "–"
+                            ("Typography" "•" "©" "†" "‡" "°" "·" "§" "№" "★")
+                            ("Math"       "≈" "≡" "≠" "∞" "×" "±" "∓" "÷" "√")
+                            ("Arrows"     "←" "→" "↑" "↓" "⇐" "⇒" "⇑" "⇓")))))
 
 ;; Often the body of an initialize function uses `use-package'
 ;; For more info on `use-package', see readme:

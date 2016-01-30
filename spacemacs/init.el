@@ -295,6 +295,8 @@ layers configuration. You are free to put any user code."
   (evil-leader/set-key "obw" 'grass/open-worklog)
   (evil-leader/set-key "obn" 'grass/find-notes)
 
+  (evil-leader/set-key "oc" 'char-menu)
+
   ;; Make evil-mode up/down operate in screen lines instead of logical lines
   (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
   (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
@@ -349,6 +351,8 @@ layers configuration. You are free to put any user code."
 
   (global-set-key (kbd "C-, y") 'browse-kill-ring)
   (global-set-key (kbd "C-, C-i") 'string-inflection-cycle)
+
+  (global-set-key (kbd "C-, c") 'char-menu)
 
   (with-eval-after-load 'smartparens
     (defun grass/smartparens-ruby-brace (id action context)
