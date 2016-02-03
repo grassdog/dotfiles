@@ -353,6 +353,8 @@ layers configuration. You are free to put any user code."
   (global-set-key (kbd "C-, y") 'browse-kill-ring)
   (global-set-key (kbd "C-, C-i") 'string-inflection-cycle)
 
+  (global-set-key [s-up] 'dired-jump)
+
   (global-set-key (kbd "C-, c") 'char-menu)
 
   (with-eval-after-load 'smartparens
