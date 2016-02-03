@@ -26,7 +26,7 @@ function get_ruby_version() {
   ruby --version | cut -d' ' -f 1-2
 }
 
-PROMPT='%{$fg[green]%}$(date "+%a %H:%M:%S") %{$fg[cyan]%}%n@%m:%{$reset_color%}%{$fg[yellow]%}${PWD/#$HOME/~}%{$reset_color%} %{$fg[blue]%}$(vcprompt)%{$fg[green]%}$(get_ruby_version)
+PROMPT='%{$fg[green]%}$(date "+%a %H:%M:%S") %{$fg[cyan]%}%n@%m:%{$reset_color%}%{$fg[yellow]%}${PWD/#$HOME/~}%{$reset_color%} %{$fg[blue]%}$(vcprompt)
 %{$fg[green]%}→ %{$reset_color%}'
 
 function cabal_sandbox_info() {
