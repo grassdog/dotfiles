@@ -292,7 +292,8 @@ layers configuration. You are free to put any user code."
 
   (spacemacs/declare-prefix "ob" "bookmarks")
   (evil-leader/set-key "obc" 'grass/open-cheats)
-  (evil-leader/set-key "obw" 'grass/open-worklog)
+  (evil-leader/set-key "obw" 'grass/open-work-log)
+  (evil-leader/set-key "obs" 'grass/open-sideproject-log)
   (evil-leader/set-key "obn" 'grass/find-notes)
 
   (evil-leader/set-key "oc" 'char-menu)

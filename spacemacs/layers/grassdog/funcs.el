@@ -8,10 +8,15 @@
   (interactive)
   (find-file "~/Dropbox/Notes/Emacs.md"))
 
-(defun grass/open-worklog ()
+(defun grass/open-work-log ()
   "Open Worklog file"
   (interactive)
   (find-file "~/Dropbox/Notes/Work Log.org"))
+
+(defun grass/open-sideproject-log ()
+  "Open Worklog file"
+  (interactive)
+  (find-file "~/Dropbox/Notes/Sideproject Log.org"))
 
 (defun grass/find-notes ()
   "Find a note in Dropbox/Notes directory"
