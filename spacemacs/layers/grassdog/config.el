@@ -19,6 +19,12 @@
                                 ("America/New_York" "New York")
                                 ("America/Los_Angeles" "San Francisco")))
 
+;; Nicer frame title
+(setq frame-title-format
+      '("" invocation-name " - " (:eval (if (buffer-file-name)
+                                            (abbreviate-file-name (buffer-file-name))
+                                          "%b"))))
+
 ;; Some terminal mapping hackery to accept C-, key sequence mapping from iTerm
 (defadvice terminal-init-xterm
   (after map-C-comma-escape-sequence activate)
