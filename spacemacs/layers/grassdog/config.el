@@ -332,3 +332,11 @@
     (setq web-mode-enable-comment-keywords t)
     ;; Use server style comments
     (setq web-mode-comment-style 2)))
+
+;; Use js2-jsx-mode for React
+
+(add-to-list 'magic-mode-alist '("import React" . js2-jsx-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-jsx-mode))
+(add-to-list 'auto-mode-alist '("\\.react.js\\'" . js2-jsx-mode))
+(add-to-list 'auto-mode-alist '("\\index.android.js\\'" . js2-jsx-mode))
+(add-to-list 'auto-mode-alist '("\\index.ios.js\\'" . js2-jsx-mode))
