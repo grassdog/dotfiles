@@ -353,7 +353,10 @@ layers configuration. You are free to put any user code."
   (global-set-key (kbd "C-, y") 'browse-kill-ring)
   (global-set-key (kbd "C-, C-i") 'string-inflection-cycle)
 
+  ;; Quick buffer changing
   (global-set-key [s-up] 'dired-jump)
+  (global-set-key (kbd "s-}") 'next-buffer)
+  (global-set-key (kbd "s-{") 'previous-buffer)
 
   (global-set-key (kbd "C-, c") 'char-menu)
 
