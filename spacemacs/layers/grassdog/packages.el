@@ -24,6 +24,7 @@
      seeing-is-believing
      simpleclip
      char-menu
+     nlinum
      ))
 
 ;; List of packages to exclude.
@@ -91,6 +92,17 @@
                             ("Typography" "•" "©" "†" "‡" "°" "·" "§" "№" "★")
                             ("Math"       "≈" "≡" "≠" "∞" "×" "±" "∓" "÷" "√")
                             ("Arrows"     "←" "→" "↑" "↓" "⇐" "⇒" "⇑" "⇓")))))
+
+;; Keep system clipboard separate from kill ring
+(defun grassdog/init-nlinum ()
+  (use-package nlinum
+    :init
+    (setq nlinum-format "%4d ")
+
+    ;; Line numbers for coding please
+    (add-hook 'prog-mode-hook
+      (lambda ()
+        (nlinum-mode 1)))))
 
 ;; Often the body of an initialize function uses `use-package'
 ;; For more info on `use-package', see readme:

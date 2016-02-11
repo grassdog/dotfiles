@@ -114,7 +114,6 @@
 ;; Line numbers for coding please
 (add-hook 'prog-mode-hook
   (lambda ()
-    (linum-mode 1)
     ;; Treat underscore as a word character
     ;; evil-little-word allows for finer grain editing
     (modify-syntax-entry ?_ "w")))
