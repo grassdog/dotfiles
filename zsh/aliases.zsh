@@ -184,6 +184,15 @@ function g() {
   grep -ri $1 ${2-.}
 }
 
+# Dotfiles
+function dotpl() {
+  pushd ~/.dotfiles
+  git update
+  popd
+}
+
+alias dot="cd ~/.dotfiles"
+
 # Syntax highlight a file and copy onto clipboard
 function hl() {
   highlight -O rtf -t 2 -K 40 -k 'Source Code Pro' --style twilight $1 | pbcopy
