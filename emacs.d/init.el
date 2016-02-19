@@ -60,8 +60,6 @@
 (add-to-list 'load-path grass/config-dir)
 (add-to-list 'load-path (expand-file-name "site-lisp" grass/dotfiles-dir))
 
-(require 'cl)
-
 (setq user-full-name "Ray Grasso"
       user-mail-address "ray.grasso@gmail.com")
 
@@ -72,10 +70,6 @@
   (unless (server-running-p)
     (server-start)))
 
-;;;;;;;;;
-;; OSX ;;
-;;;;;;;;;
-
 ;; Fix our shell environment on OSX
 (when (eq system-type 'darwin)
   (use-package exec-path-from-shell
@@ -85,9 +79,14 @@
   ;; Default font thanks
   (set-frame-font "Hack-12"))
 
-;;;;;;;;;;;;;;;
-;; UI config ;;
-;;;;;;;;;;;;;;;
+;; Some terminal key sequence mapping hackery
+(defadvice terminal-init-xterm
+  (after map-C-comma-escape-sequence activate)
+  (define-key input-decode-map "\e[1;," (kbd "C-,")))
+
+;;;;;;;;;;;;;
+;; General ;;
+;;;;;;;;;;;;;
 
 ;; Faster
 (setq font-lock-verbose nil)
@@ -109,31 +108,29 @@
 ;; No bell thanks
 (setq ring-bell-function 'ignore)
 
-; Text mode by default for scratch buffer
-(setq initial-major-mode 'text-mode)
-
-;; Save clipboard contents into kill-ring before replace them
+;; Save clipboard contents into kill-ring before replacing them
 (setq save-interprogram-paste-before-kill t)
 
-;; Single space between sentences is more widespread than double
+;; Single space between sentences
 (setq-default sentence-end-double-space nil)
 
 ;; scratch buffer empty
 (setq initial-scratch-message nil)
 
-;; No continuation characters
-(setq-default fringe-indicator-alist
-              '((truncation . nil) (continuation . nil)))
+;; ;; No continuation characters
+;; (setq-default fringe-indicator-alist
+;;               '((truncation . nil) (continuation . nil)))
 
 ;; Nice scrolling
 (setq scroll-margin 4
       scroll-conservatively 100000
       scroll-preserve-screen-position 1)
 
-;; Mode line settings
-(line-number-mode t)
-(column-number-mode t)
-(size-indication-mode t)
+;; Enable some stuff
+(put 'set-goal-column 'disabled nil)
+(put 'narrow-to-defun  'disabled nil)
+(put 'narrow-to-page   'disabled nil)
+(put 'narrow-to-region 'disabled nil)
 
 ;; Enable y/n answers
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -150,6 +147,133 @@
       '("" invocation-name " - " (:eval (if (buffer-file-name)
                                             (abbreviate-file-name (buffer-file-name))
                                           "%b"))))
+
+;; Follow symlinks by default
+(setq vc-follow-symlinks t)
+
+;; Don't make tab indent a line
+(setq tab-always-indent nil)
+
+;; Don't combine tag tables thanks
+(setq tags-add-tables nil)
+
+;; Wrap lines for text modes
+(setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+
+;; Make files with the same name have unique buffer names
+(setq uniquify-buffer-name-style 'forward)
+
+;; Delete selected regions
+(delete-selection-mode t)
+(transient-mark-mode t)
+(setq x-select-enable-clipboard t)
+
+;; Revert buffers automatically when underlying files are changed externally
+(global-auto-revert-mode t)
+
+;; World times
+(setq display-time-world-list '(("Australia/Brisbane" "Brisbane")
+                                ("Australia/Melbourne" "Melbourne")
+                                ("Europe/London" "London")
+                                ("America/New_York" "New York")
+                                ("America/Los_Angeles" "San Francisco")))
+
+;; Base 10 for inserting quoted chars please
+(setq read-quoted-char-radix 10)
+
+
+;;;;;;;;;;;;
+;; Themes ;;
+;;;;;;;;;;;;
+
+(use-package spaceline
+  :init
+  (progn
+    (require 'spaceline-config)
+    (setq powerline-default-separator 'bar)
+    (spaceline-emacs-theme)
+    (spaceline-helm-mode)
+    (spaceline-info-mode)))
+
+;; Disable themes before loading them (in daemon mode esp.)
+(defadvice load-theme (before theme-dont-propagate activate)
+  (mapc #'disable-theme custom-enabled-themes))
+
+(defun grass/set-gui-config ()
+  "Enable my GUI settings"
+  (interactive)
+  (load-theme 'spacemacs-dark t)
+
+  (menu-bar-mode +1)
+  ;; Highlight the current line
+  (global-hl-line-mode +1))
+
+(defun grass/set-terminal-config ()
+  "Enable my terminal settings"
+  (interactive)
+  (xterm-mouse-mode 1)
+  (menu-bar-mode -1)
+  (load-theme 'zenburn t))
+
+(use-package spacemacs-theme)
+
+(use-package zenburn-theme
+  :defer t)
+
+(defun grass/set-ui ()
+  (if (display-graphic-p)
+      (grass/set-gui-config)
+    (grass/set-terminal-config)))
+
+(defun grass/set-frame-config (&optional frame)
+  "Establish settings for the current terminal."
+  (with-selected-frame frame
+    (grass/set-ui)))
+
+;; Only need to set frame config if we are in daemon mode
+(if (daemonp)
+    (add-hook 'after-make-frame-functions 'grass/set-frame-config)
+  ;; Load theme on app creation
+  (grass/set-ui))
+
+
+;;;;;;;;;;;;;;;
+;; UI & Help ;;
+;;;;;;;;;;;;;;;
+
+(use-package which-key
+  :diminish which-key-mode
+  :init
+  (setq which-key-idle-delay 0.4)
+  (which-key-mode 1))
+
+(use-package browse-kill-ring
+  :bind ("C-, y" . browse-kill-ring))
+
+;; Use shift + arrow keys to switch between visible buffers
+(use-package windmove
+  :init
+  (windmove-default-keybindings))
+
+
+;; Subtle highlighting of matching parens (global-mode)
+(add-hook 'prog-mode-hook (lambda ()
+                            (show-paren-mode +1)
+                            (setq show-paren-style 'parenthesis)))
+
+;; UI highlight search and other actions
+(use-package volatile-highlights
+  :diminish volatile-highlights-mode
+  :config
+  (require 'highlight)
+  (volatile-highlights-mode t))
+
+;; TODO Replace with a hydra
+(use-package default-text-scale
+  :bind (("s-=" . default-text-scale-increase)
+         ("s--" . default-text-scale-decrease)))
+
 (use-package ibuffer
   :commands ibuffer
   :bind ("C-x C-b" . ibuffer)
@@ -201,134 +325,20 @@
 (use-package highlight-indentation
   :commands highlight-indentation-mode)
 
-(use-package which-key
-  :diminish which-key-mode
-  :init
-  (setq which-key-idle-delay 0.4)
-  (which-key-mode 1))
-
-(use-package spaceline
-  :init
-  (progn
-    (require 'spaceline-config)
-    (setq powerline-default-separator 'bar)
-    (spaceline-emacs-theme)
-    (spaceline-helm-mode)
-    (spaceline-info-mode)))
-
-;; Ignore certain files
-(use-package ignoramus
-  :init
-  (ignoramus-setup '(comint completions grep ido
-                     nav pcomplete projectile speedbar vc)))
-
-(use-package browse-kill-ring
-  :bind ("C-, y" . browse-kill-ring))
-
-(use-package default-text-scale
-  :bind (("s-=" . default-text-scale-increase)
-         ("s--" . default-text-scale-decrease)))
-
-;; Disable themes before loading them (in daemon mode esp.)
-(defadvice load-theme (before theme-dont-propagate activate)
-  (mapc #'disable-theme custom-enabled-themes))
-
-(defun grass/set-gui-config ()
-  "Enable my GUI settings"
-  (interactive)
-  (load-theme 'spacemacs-dark t)
-
-  (menu-bar-mode +1)
-  ;; Highlight the current line
-  (global-hl-line-mode +1))
-
-(defun grass/set-terminal-config ()
-  "Enable my terminal settings"
-  (interactive)
-  (xterm-mouse-mode 1)
-  (menu-bar-mode -1)
-  (load-theme 'zenburn t))
-
-(use-package spacemacs-theme)
-
-(use-package zenburn-theme
-  :defer t)
-
-(defun grass/set-ui ()
-  (if (display-graphic-p)
-      (grass/set-gui-config)
-    (grass/set-terminal-config)))
-
-(defun grass/set-frame-config (&optional frame)
-  "Establish settings for the current terminal."
-  (with-selected-frame frame
-    (grass/set-ui)))
-
-;; Only need to set frame config if we are in daemon mode
-(if (daemonp)
-    (add-hook 'after-make-frame-functions 'grass/set-frame-config)
-  ;; Load theme on app creation
-  (grass/set-ui))
-
-
-;; Some terminal mapping hackery
-(defadvice terminal-init-xterm
-  (after map-C-comma-escape-sequence activate)
-  (define-key input-decode-map "\e[1;," (kbd "C-,")))
-
-;;;;;;;;;;;;
-;; Editor ;;
-;;;;;;;;;;;;
-
-;; Follow symlinks by default
-(setq vc-follow-symlinks t)
-
-;; Don't make tab indent a line
-(setq tab-always-indent nil)
-
-;; Don't combine tag tables thanks
-(setq tags-add-tables nil)
-
-;; Wrap lines for text modes
-(setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
-(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
-
-;; Line numbers for coding please
-(setq on-console (null window-system))
-(setq linum-format (if on-console "%4d " "%4d"))
-
-;; Show current function in modeline
-(which-function-mode)
-
+;; imenu
 (set-default 'imenu-auto-rescan t)
-
 (global-set-key (kbd "C-, i") 'imenu)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Selections and other actions ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-;; Delete selected regions
-(delete-selection-mode t)
-(transient-mark-mode t)
-(setq x-select-enable-clipboard t)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Backups and editing history ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;; Store all backup and autosave files in the tmp dir
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
-
-;; Revert buffers automatically when underlying files are changed externally
-(global-auto-revert-mode t)
 
 (use-package saveplace
   :config
@@ -363,11 +373,23 @@
   (setq recentf-save-file (expand-file-name "recentf" grass/savefile-dir))
   (setq recentf-max-saved-items 100))
 
+(use-package undo-tree
+  :diminish undo-tree-mode
+  :config
+  ;; Persistent undo sometimes borks. Disable for now
+  ;; (setq undo-tree-auto-save-history t)
+  ;; (setq undo-tree-history-directory-alist `((".*" . ,grass/undo-dir)))
+  ;; (defadvice undo-tree-make-history-save-file-name
+  ;;   (after undo-tree activate)
+  ;;   (setq ad-return-value (concat ad-return-value ".gz")))
+  (global-undo-tree-mode))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Sane line killing ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
 
+;; TODO Replace this with easy-kill
 
 ;; If no region kill or copy current line
 ;; http://emacs.stackexchange.com/questions/2347/kill-or-copy-current-line-with-minimal-keystrokes
@@ -387,27 +409,9 @@
      (list (line-beginning-position) (line-beginning-position 2)))))
 
 
-;;;;;;;;;;;;;;;;;;
-;; Highlighting ;;
-;;;;;;;;;;;;;;;;;;
-
-
-;; Subtle highlighting of matching parens (global-mode)
-(add-hook 'prog-mode-hook (lambda ()
-                            (show-paren-mode +1)
-                            (setq show-paren-style 'parenthesis)))
-
-;; UI highlight search and other actions
-(use-package volatile-highlights
-  :diminish volatile-highlights-mode
-  :config
-  (require 'highlight)
-  (volatile-highlights-mode t))
-
-;; Use shift + arrow keys to switch between visible buffers
-(use-package windmove
-  :init
-  (windmove-default-keybindings))
+;;;;;;;;;;;;;;
+;; Spelling ;;
+;;;;;;;;;;;;;;
 
 (use-package flyspell
   :defer t
@@ -430,48 +434,9 @@
               (global-set-key (kbd "C-, S n") 'flyspell-goto-next-error)
               (global-set-key (kbd "C-, S w") 'ispell-word))))
 
-;; World times
-(setq display-time-world-list '(("Australia/Brisbane" "Brisbane")
-                                ("Australia/Melbourne" "Melbourne")
-                                ("Europe/London" "London")
-                                ("America/New_York" "New York")
-                                ("America/Los_Angeles" "San Francisco")))
-
-;; Utilities
-(global-set-key (kbd "C-, u t") 'display-time-world)
-(global-set-key (kbd "C-, u c") 'quick-calc)
-(global-set-key (kbd "C-, u u") 'browse-url)
-(global-set-key (kbd "C-, u r") 'grass/rename-file-and-buffer)
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Comments and filling ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-;; http://stackoverflow.com/a/21051395/62023
-(defun grass/comment-box (beg end &optional arg)
-  (interactive "*r\np")
-  ;; (when (not (region-active-p))
-  (when (not (and transient-mark-mode mark-active))
-    (setq beg (point-at-bol))
-    (setq end (point-at-eol)))
-  (let ((fill-column (- fill-column 6)))
-    (fill-region beg end))
-  (comment-box beg end arg)
-  (grass/move-point-forward-out-of-comment))
-
-(defun grass/point-is-in-comment-p ()
-  "t if point is in comment or at the beginning of a commented line, otherwise nil"
-  (or (nth 4 (syntax-ppss))
-      (looking-at "^\\s *\\s<")))
-
-(defun grass/move-point-forward-out-of-comment ()
-  "Move point forward until it's no longer in a comment"
-  (while (grass/point-is-in-comment-p)
-    (forward-char)))
-
-(global-set-key (kbd "C-, u b") 'grass/comment-box)
 
 ;; 80 char wide paragraphs please
 (setq-default fill-column 80)
@@ -498,14 +463,86 @@
         (delete-char -1)
         (insert ?\s)))))
 
+;; http://stackoverflow.com/a/21051395/62023
+(defun grass/comment-box (beg end &optional arg)
+  (interactive "*r\np")
+  ;; (when (not (region-active-p))
+  (when (not (and transient-mark-mode mark-active))
+    (setq beg (point-at-bol))
+    (setq end (point-at-eol)))
+  (let ((fill-column (- fill-column 6)))
+    (fill-region beg end))
+  (comment-box beg end arg)
+  (grass/move-point-forward-out-of-comment))
+
+(defun grass/point-is-in-comment-p ()
+  "t if point is in comment or at the beginning of a commented line, otherwise nil"
+  (or (nth 4 (syntax-ppss))
+      (looking-at "^\\s *\\s<")))
+
+(defun grass/move-point-forward-out-of-comment ()
+  "Move point forward until it's no longer in a comment"
+  (while (grass/point-is-in-comment-p)
+    (forward-char)))
+
+;; Comment annotations
+(defun font-lock-comment-annotations ()
+  "Highlight a bunch of well known comment annotations.
+
+This functions should be added to the hooks of major modes for programming."
+  (font-lock-add-keywords
+   nil '(("\\<\\(FIX\\(ME\\)?\\|TODO\\|XXX\\|HACK\\|DEBUG\\|GRASS\\)"
+          1 font-lock-warning-face t))))
+
+(add-hook 'prog-mode-hook 'font-lock-comment-annotations)
+
+
+;;;;;;;;;;;;;;;;;
+;; Moving Text ;;
+;;;;;;;;;;;;;;;;;
+
+(use-package move-text
+  :bind (("<C-S-up>" . move-text-up)
+         ("<C-S-down>" . move-text-down)))
+
+;; Keep system clipboard separate from kill ring
+(use-package simpleclip
+  :init
+  (simpleclip-mode 1))
+
+(use-package web-beautify
+  :commands (web-beautify-js web-beautify-css web-beautify-html))
+
+(use-package string-inflection
+  :bind ("C-, C-i" . string-inflection-cycle))
+
+;;;;;;;;;;;;;;;
+;; Utilities ;;
+;;;;;;;;;;;;;;;
+
+(which-key-declare-prefixes "C-, u" "utilities")
+(global-set-key (kbd "C-, u t") 'display-time-world)
+(global-set-key (kbd "C-, u c") 'quick-calc)
+(global-set-key (kbd "C-, u u") 'browse-url)
+(global-set-key (kbd "C-, u r") 'grass/rename-file-and-buffer)
+(global-set-key (kbd "C-, u b") 'grass/comment-box)
+
+(use-package reveal-in-osx-finder
+  :bind ("C-, u f" . reveal-in-osx-finder))
+
+(use-package magit
+  :bind ("C-, g" . magit-status))
+
+;; (use-package hideshow
+;;   :diminish hs-minor-mode)
+
+
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Symbol insertion ;;
 ;;;;;;;;;;;;;;;;;;;;;;
 
 
-;; Base 10 for inserting quoted chars please
-(setq read-quoted-char-radix 10)
-
+;; TODO Replace this with char-map
 (use-package smart-quotes
   :ensure nil
   :commands smart-quotes-mode)
@@ -551,10 +588,11 @@
 (setq-default abbrev-mode t)
 
 
-;;;;;;;;;;;
-;; Dired ;;
-;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;
+;; Dired and files ;;
+;;;;;;;;;;;;;;;;;;;;;
 
+(which-key-declare-prefixes "C-, d" "dired")
 
 (add-hook 'dired-mode-hook
   (lambda ()
@@ -607,25 +645,12 @@
 (use-package dired+
   :bind ("C-x C-j" . dired-jump))
 
-(use-package reveal-in-osx-finder
-  :bind ("C-, u f" . reveal-in-osx-finder))
+;; Ignore certain files
+(use-package ignoramus
+  :init
+  (ignoramus-setup '(comint completions grep ido
+                     nav pcomplete projectile speedbar vc)))
 
-;; Make files with the same name have unique buffer names
-(setq uniquify-buffer-name-style 'forward)
-
-
-;; Some key bindings
-(global-set-key (kbd "<home>") 'move-beginning-of-line)
-(global-set-key (kbd "<end>") 'move-end-of-line)
-
-(use-package move-text
-  :bind (("<C-S-up>" . move-text-up)
-         ("<C-S-down>" . move-text-down)))
-
-(global-set-key (kbd "C-, f") 'grass/indent-region-or-buffer)
-
-;; Quick switch buffers
-(global-set-key (kbd "C-, C-,") 'grass/switch-to-previous-buffer)
 
 ;; Easier key binding for shell replace command
 (defun grass/shell-command-with-prefix-arg ()
@@ -639,7 +664,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Search and Replace ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 (defun grass/replace-string (from-string to-string &optional delimited start end)
   "This is a modified version of `replace-string'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
@@ -715,6 +739,7 @@
              (buffer-end 1)))))
   (perform-replace from-string to-string t nil delimited nil nil start end))
 
+(which-key-declare-prefixes "C-, s" "search/replace")
 (global-set-key (kbd "C-, s r") 'grass/replace-string)
 (global-set-key (kbd "C-, s R") 'grass/replace-regexp)
 (global-set-key (kbd "C-, s q") 'grass/query-replace-string)
@@ -722,17 +747,14 @@
 (global-set-key (kbd "C-, s f") 'isearch-forward-regexp)
 (global-set-key (kbd "C-, s b") 'isearch-reverse-regexp)
 
-;; Enable some stuff
-(put 'set-goal-column 'disabled nil)
-(put 'narrow-to-defun  'disabled nil)
-(put 'narrow-to-page   'disabled nil)
-(put 'narrow-to-region 'disabled nil)
+(use-package ag
+  :bind (("C-, s a" . ag-project))
+  :commands ag-project)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Insert current word into minibuffer ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;; http://stackoverflow.com/a/8257269/62023
 (defun grass/minibuffer-insert-word-at-point ()
@@ -779,10 +801,9 @@
 
 (global-set-key (kbd "C-, q") 'toggle-window-dedicated)
 
-;;;;;;;;;;;;;;;;;;;;;;
-;; Region selection ;;
-;;;;;;;;;;;;;;;;;;;;;;
-
+;;;;;;;;;;;;;;;
+;; Selection ;;
+;;;;;;;;;;;;;;;
 
 (use-package expand-region
   :bind (("C-+" . er/contract-region)
@@ -790,45 +811,11 @@
          ("<s-down>" . er/contract-region)
          ("<s-up>" . er/expand-region)))
 
-(use-package ag
-  :bind (("C-, s a" . ag-project))
-  :commands ag-project)
-
-(use-package undo-tree
-  :diminish undo-tree-mode
-  :config
-  ;; Persistent undo sometimes borks. Disable for now
-  ;; (setq undo-tree-auto-save-history t)
-  ;; (setq undo-tree-history-directory-alist `((".*" . ,grass/undo-dir)))
-  ;; (defadvice undo-tree-make-history-save-file-name
-  ;;   (after undo-tree activate)
-  ;;   (setq ad-return-value (concat ad-return-value ".gz")))
-  (global-undo-tree-mode))
-
-;; Keep system clipboard separate from kill ring
-(use-package simpleclip
-  :init
-  (simpleclip-mode 1))
-
-;;;;;;;;;;;;
-;; Coding ;;
-;;;;;;;;;;;;
-
-(defun font-lock-comment-annotations ()
-  "Highlight a bunch of well known comment annotations.
-
-This functions should be added to the hooks of major modes for programming."
-  (font-lock-add-keywords
-   nil '(("\\<\\(FIX\\(ME\\)?\\|TODO\\|XXX\\|HACK\\|DEBUG\\|GRASS\\)"
-          1 font-lock-warning-face t))))
-
-(add-hook 'prog-mode-hook 'font-lock-comment-annotations)
 
 
-;;;;;;;;;;;;;;;;;;
-;; Autocomplete ;;
-;;;;;;;;;;;;;;;;;;
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Autocomplete and snippets ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package company
   :diminish company-mode
@@ -939,8 +926,9 @@ This functions should be added to the hooks of major modes for programming."
   (define-key yas-keymap (kbd "C-g") 'grass/abort-company-or-yas)
   (define-key yas-minor-mode-map (kbd "C-, e") 'yas-expand))
 
-(use-package web-beautify
-  :commands (web-beautify-js web-beautify-css web-beautify-html))
+;;;;;;;;;;;;;;
+;; Flycheck ;;
+;;;;;;;;;;;;;;
 
 (use-package flycheck
   :defer t
@@ -957,20 +945,9 @@ This functions should be added to the hooks of major modes for programming."
              #'flycheck-pos-tip-error-messages))))
 
 
-(use-package magit
-  :bind ("C-, g" . magit-status))
-
-(use-package string-inflection
-  :bind ("C-, C-i" . string-inflection-cycle))
-
-(use-package hideshow
-  :diminish hs-minor-mode)
-
-
 ;;;;;;;;;;;;;;
 ;; Wrapping ;;
 ;;;;;;;;;;;;;;
-
 
 (use-package smartparens
   :diminish smartparens-mode
@@ -1026,6 +1003,8 @@ This functions should be added to the hooks of major modes for programming."
             (single-quote . "'")
             (double-quote . "\"")
             (back-quote   . "`")))
+
+;; TODO Look at other wrapping libraries
 
 (bind-keys
  :map smartparens-mode-map
@@ -1090,6 +1069,7 @@ the right."
 (create-align-repeat-x "right-paren" ")" t)
 
 ;; Bindings
+(which-key-declare-prefixes "C-, a" "alignment")
 (global-set-key (kbd "C-, a a") 'align)
 (global-set-key (kbd "C-, a r") 'align-repeat)
 (global-set-key (kbd "C-, a m") 'align-repeat-math-oper)
@@ -1120,23 +1100,10 @@ the right."
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
-(use-package puppet-mode
-  :defer t)
 
-(use-package powershell
-  :mode  (("\\.ps1$" . powershell-mode)
-          ("\\.psm$" . powershell-mode)))
-
-(use-package rust-mode
-  :defer t)
-
-(use-package python
-  :defer t)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Indentation styles et al ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;
+;; Indentation ;;
+;;;;;;;;;;;;;;;;;
 
 ;; Simple indentation please
 (use-package clean-aindent-mode
@@ -1182,14 +1149,13 @@ the right."
 (setq c-default-style "java")
 (setq-default c-basic-offset 2)
 
-(setq sentence-end-double-space nil)
+
+;;;;;;;;;;;;;;;;
+;; Whitespace ;;
+;;;;;;;;;;;;;;;;
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Enforce proper whitespace ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
+;;TODO Make this just clean up modified lines not whole file
 (require 'whitespace)
 (diminish 'global-whitespace-mode)
 
@@ -1218,14 +1184,8 @@ the right."
 ;; Typing ;;
 ;;;;;;;;;;;;
 
-(use-package speed-type
-  :commands (speed-type-text speed-type-buffer))
-
-(use-package elixir-mode
-  :mode (("\\.exs?\\'"   . elixir-mode)
-         ("\\.elixer\\'" . elixir-mode))
-  :config
-  (use-package alchemist))
+;; (use-package speed-type
+;;   :commands (speed-type-text speed-type-buffer))
 
 ;;;;;;;;;;
 ;; Evil ;;
@@ -1479,6 +1439,7 @@ a result of how evil deals with regions"
 
   (ad-disable-advice 'mc/edit-lines 'before 'change-point-by-1))
 
+(which-key-declare-prefixes "C-, m" "multiple-cursors")
 (use-package multiple-cursors
   :bind (("C-, m l" . mc/edit-lines)
          ("C-, m a" . mc/mark-all-like-this-dwim)
@@ -1487,7 +1448,6 @@ a result of how evil deals with regions"
          ("C-<"     . mc/mark-previous-like-this)
          ("C-, m n" . mc/mark-next-like-this)
          ("C-, m p" . mc/mark-previous-like-this))
-
   :init
     (multiple-cursors/enable-compat))
 
@@ -1544,9 +1504,10 @@ a result of how evil deals with regions"
       ;; Allow up and down arrow to work for navigation
       (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right))))
 
-;;;;;;;;;;;;;;;;
-;; Extensions ;;
-;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;
+;; Utility Functions ;;
+;;;;;;;;;;;;;;;;;;;;;;;
+
 
 (defun grass/recompile-init ()
   "Byte-compile all your dotfiles again."
@@ -1603,19 +1564,24 @@ Repeated invocations toggle between the two most recently open buffers."
                (set-buffer-modified-p nil)
                (message "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name))))))))
 
-
 (defun grass/what-face (pos)
+  "Identify the face under point"
   (interactive "d")
   (let ((face (or (get-char-property (point) 'read-face-name)
                   (get-char-property (point) 'face))))
     (if face (message "Face: %s" face) (message "No face at %d" pos))))
 
-;; Common files
+
+;;;;;;;;;;;;;;;;;;
+;; Common files ;;
+;;;;;;;;;;;;;;;;;;
 
 (defun grass/open-cheats ()
   "Open Emacs cheats file"
   (interactive)
   (find-file "~/Dropbox/Notes/Emacs.md"))
+
+;; TODO Add prefix binding and existing mappings
 
 ;;;;;;;;;;
 ;; Helm ;;
@@ -1627,7 +1593,9 @@ Repeated invocations toggle between the two most recently open buffers."
   :bind (("C-, o" . helm-buffers-list)
          ("C-, r" . helm-recentf)
          ("C-, C-f" . helm-find-files)
-         ("M-x" . helm-M-x))
+         ;; TODO Fix this
+         ;;("M-x" . helm-M-x)
+         )
   :config
   (require 'helm-config)
 
@@ -1675,9 +1643,9 @@ Repeated invocations toggle between the two most recently open buffers."
                (inhibit-same-window . t)
                (window-height . 0.5)))
 
-(use-package helm-flyspell
-  :commands helm-flyspell-correct
-  :bind ("C-, S c" . helm-flyspell-correct))
+;; (use-package helm-flyspell
+;;   :commands helm-flyspell-correct
+;;   :bind ("C-, S c" . helm-flyspell-correct))
 
 ;;;;;;;;;;;;;;;;
 ;; Projectile ;;
@@ -1818,8 +1786,8 @@ Repeated invocations toggle between the two most recently open buffers."
 
   (use-package rspec-mode)
 
-  (use-package ruby-end
-    :disabled t)
+  ;; (use-package ruby-end
+  ;;   :disabled t)
 
   (use-package projectile-rails
     :init
@@ -1830,12 +1798,12 @@ Repeated invocations toggle between the two most recently open buffers."
   (add-to-list 'completion-ignored-extensions ".rbc")
 
   ;; Set up hs-mode (HideShow) for Ruby
-  (add-to-list 'hs-special-modes-alist
-              `(enh-ruby-mode
-                ,(rx (or "def" "class" "module" "do")) ; Block start
-                ,(rx (or "end"))                       ; Block end
-                ,(rx (or "#" "=begin"))                ; Comment start
-                enh-ruby-forward-sexp nil))
+  ;; (add-to-list 'hs-special-modes-alist
+  ;;             `(enh-ruby-mode
+  ;;               ,(rx (or "def" "class" "module" "do")) ; Block start
+  ;;               ,(rx (or "end"))                       ; Block end
+  ;;               ,(rx (or "#" "=begin"))                ; Comment start
+  ;;               enh-ruby-forward-sexp nil))
 
   (add-hook 'enh-ruby-mode-hook
     (lambda ()
@@ -1851,7 +1819,6 @@ Repeated invocations toggle between the two most recently open buffers."
       (setq enh-ruby-deep-indent-paren nil)
       (setq evil-shift-width 2)
 
-      ;; (flycheck-mode t)
       ;; Abbrev mode seems broken for some reason
       (abbrev-mode -1))))
 
@@ -1860,9 +1827,10 @@ Repeated invocations toggle between the two most recently open buffers."
   :config
   (add-hook 'projectile-switch-project-hook #'chruby-use-corresponding))
 
-;;;;;;;;
-;; JS ;;
-;;;;;;;;
+
+;;;;;;;;;;;;;;;;
+;; Javascript ;;
+;;;;;;;;;;;;;;;;
 
 (use-package js2-mode
   :mode  (("\\.jsx?$" . js2-jsx-mode)
@@ -1892,7 +1860,6 @@ Repeated invocations toggle between the two most recently open buffers."
                                   "clearInterval" "location" "__dirname" "console" "JSON"))
         (setq evil-shift-width js-indent-level)
 
-
         (flycheck-mode 1)
         (global-set-key (kbd "C-, b") 'web-beautify-js)
         (js2-imenu-extras-mode +1))))
@@ -1906,22 +1873,6 @@ Repeated invocations toggle between the two most recently open buffers."
     (add-hook 'json-mode 'flymake-json-load))
 
   (flycheck-mode 1))
-
-(use-package tide
-  :disabled
-  :mode "\\.ts$"
-  :config
-  (setq typescript-indent-level 2
-        typescript-expr-indent-offset 2)
-  (add-hook 'typescript-mode-hook
-     (lambda ()
-       (tide-setup)
-       (flycheck-mode t)
-       (setq flycheck-check-syntax-automatically '(save mode-enabled))
-
-       ;; aligns annotation to the right hand side
-       ;; (setq company-tooltip-align-annotations t)
-       (eldoc-mode nil))))
 
 (use-package typescript-mode
   :mode "\\.ts$"
@@ -2117,20 +2068,6 @@ Repeated invocations toggle between the two most recently open buffers."
               (linum-mode)
               (rainbow-mode +1)
               (global-set-key (kbd "C-, b") 'web-beautify-css))))
-
-(use-package yaml-mode
-  :defer t)
-
-(use-package haml-mode
-  :mode "\\.haml$"
-  :config
-  (add-hook 'haml-mode-hook
-    (lambda ()
-      (set (make-local-variable 'tab-width) 2)
-      (setq evil-shift-width 2))))
-
-(use-package feature-mode
-  :disabled t)
 
 ;;;;;;;;;;;;;;
 ;; Markdown ;;
@@ -2338,11 +2275,53 @@ Repeated invocations toggle between the two most recently open buffers."
   (lambda ()
     (define-key global-map (kbd "C-c C-e") 'eval-print-last-sexp)))
 
-;; hl-sexp: minor mode to highlight s-expression
-(use-package hl-sexp
-  :init
-  (add-hook 'clojure-mode-hook 'hl-sexp-mode)
-  (add-hook 'lisp-mode-hook 'hl-sexp-mode)
-  (add-hook 'emacs-lisp-mode-hook 'hl-sexp-mode)
-  (add-hook 'scheme-mode-hook 'hl-sexp-mode))
 
+;;;;;;;;;;;;;;;;;;;;;
+;; Other Languages ;;
+;;;;;;;;;;;;;;;;;;;;;
+
+(use-package elixir-mode
+  :mode (("\\.exs?\\'"   . elixir-mode)
+         ("\\.elixer\\'" . elixir-mode))
+  :config
+  (use-package alchemist))
+
+(use-package puppet-mode
+  :defer t)
+
+(use-package powershell
+  :mode  (("\\.ps1$" . powershell-mode)
+          ("\\.psm$" . powershell-mode)))
+
+(use-package rust-mode
+  :defer t)
+
+(use-package python
+  :defer t)
+
+(use-package yaml-mode
+  :defer t)
+
+(use-package haml-mode
+  :mode "\\.haml$"
+  :config
+  (add-hook 'haml-mode-hook
+    (lambda ()
+      (set (make-local-variable 'tab-width) 2)
+      (setq evil-shift-width 2))))
+
+(use-package feature-mode
+  :disabled t)
+
+
+;;;;;;;;;;;;;;;;;;
+;; Key bindings ;;
+;;;;;;;;;;;;;;;;;;
+
+(global-set-key (kbd "<home>") 'move-beginning-of-line)
+(global-set-key (kbd "<end>") 'move-end-of-line)
+
+;; TODO place this behind prefix
+(global-set-key (kbd "C-, f") 'grass/indent-region-or-buffer)
+;; Quick switch buffers
+(global-set-key (kbd "C-, C-,") 'grass/switch-to-previous-buffer)
