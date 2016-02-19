@@ -617,6 +617,11 @@ there's a region, all lines that region covers will be duplicated."
     (global-set-key (kbd "C-M-z") #'crux-indent-defun)
     (global-set-key [(shift return)] #'crux-smart-open-line)))
 
+;; Better zap to char
+(use-package zop-to-char
+  :init
+  (global-set-key [remap zap-to-char] 'zop-to-char))
+
 
 ;;;;;;;;;;;;;;;
 ;; Utilities ;;
