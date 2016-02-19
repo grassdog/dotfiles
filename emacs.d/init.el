@@ -1518,10 +1518,18 @@ Repeated invocations toggle between the two most recently open buffers."
         org-src-tab-acts-natively t
         org-confirm-babel-evaluate nil)
 
- (add-hook 'org-shiftup-final-hook 'windmove-up)
- (add-hook 'org-shiftleft-final-hook 'windmove-left)
- (add-hook 'org-shiftdown-final-hook 'windmove-down)
- (add-hook 'org-shiftright-final-hook 'windmove-right)
+  (add-hook 'org-shiftup-final-hook 'windmove-up)
+  (add-hook 'org-shiftleft-final-hook 'windmove-left)
+  (add-hook 'org-shiftdown-final-hook 'windmove-down)
+  (add-hook 'org-shiftright-final-hook 'windmove-right)
+  (defhydra hydra-org (:color red :columns 3)
+    "Org Mode Movements"
+    ("n" outline-next-visible-heading "next heading")
+    ("p" outline-previous-visible-heading "prev heading")
+    ("N" org-forward-heading-same-level "next heading at same level")
+    ("P" org-backward-heading-same-level "prev heading at same level")
+    ("u" outline-up-heading "up heading")
+    ("g" org-goto "goto" :exit t))
 
   (add-hook 'org-mode-hook
     (lambda ()
@@ -1531,6 +1539,7 @@ Repeated invocations toggle between the two most recently open buffers."
       (define-key org-mode-map (kbd "C-,") nil)
       ;; (org-hide-block-all)
       ;; (define-key org-mode-map (kbd "C-c t") 'org-hide-block-toggle)
+      (define-key org-mode-map (kbd "C-, i") 'hydra-org/body)
       (define-key org-mode-map (kbd "C-, a") 'org-cycle-agenda-files))))
 
 ;;;;;;;;;;
