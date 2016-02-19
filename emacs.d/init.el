@@ -814,6 +814,10 @@ there's a region, all lines that region covers will be duplicated."
 (use-package helm-swoop
   :bind ("C-, s s" . helm-swoop))
 
+(use-package anzu
+  :init
+  (setq anzu-cons-mode-line-p nil)
+  (global-anzu-mode +1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Insert current word into minibuffer ;;
