@@ -1183,10 +1183,19 @@ the right."
 ;; Prog mode ;;
 ;;;;;;;;;;;;;;;
 
+(use-package nlinum
+  :pin manual
+  :config
+  (setq nlinum-format "%4d ")
+
+  ;; Line numbers for coding please
+  :init
+  (add-hook 'prog-mode-hook
+            (lambda ()
+              (nlinum-mode 1))))
+
 (add-hook 'prog-mode-hook
           (lambda ()
-            (linum-mode)
-            (hs-minor-mode t)
             ;; Treat underscore as a word character
             (modify-syntax-entry ?_ "w")))
 
@@ -1829,7 +1838,7 @@ Repeated invocations toggle between the two most recently open buffers."
               ;; Treat dollar and hyphen as a word character
               (modify-syntax-entry ?$ "w")
               (modify-syntax-entry ?- "w")
-              (linum-mode)
+              (nlinum-mode 1)
               (rainbow-mode +1))))
 
 (use-package css-mode
@@ -1838,7 +1847,7 @@ Repeated invocations toggle between the two most recently open buffers."
   (use-package rainbow-mode)
   (add-hook 'css-mode-hook
             (lambda ()
-              (linum-mode)
+              (nlinum-mode 1)
               (rainbow-mode +1))))
 
 ;;;;;;;;;;;;;;
