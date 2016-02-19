@@ -928,9 +928,6 @@ there's a region, all lines that region covers will be duplicated."
   (call-interactively 'set-mark-command)
   (end-of-line))
 
-(global-set-key (kbd "s-l") 'grass/mark-full-line)
-(global-set-key (kbd "s-w") 'mark-word)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Autocomplete and snippets ;;
@@ -1449,7 +1446,7 @@ Repeated invocations toggle between the two most recently open buffers."
   :bind (("C-, o" . helm-buffers-list)
          ("C-, r" . helm-recentf)
          ("C-, C-f" . helm-find-files)
-         ("M-x" . helm-M-x))
+         ("M-m" . helm-M-x))
   :config
   (require 'helm-config)
 
@@ -2123,3 +2120,7 @@ Repeated invocations toggle between the two most recently open buffers."
 ;; Make escape abort stuff
 (define-key isearch-mode-map [escape] 'isearch-abort)
 (global-set-key [escape] 'keyboard-escape-quit)
+
+(global-set-key (kbd "s-l") 'grass/mark-full-line)
+(global-set-key (kbd "s-w") 'kill-ring-save)
+(global-set-key (kbd "s-e") 'mark-word)
