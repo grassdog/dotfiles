@@ -2120,3 +2120,6 @@ Repeated invocations toggle between the two most recently open buffers."
 (global-set-key (kbd "C-, f h") 'web-beautify-html)
 (global-set-key (kbd "C-, f c") 'web-beautify-css)
 
+;; Make escape abort stuff
+(define-key isearch-mode-map [escape] 'isearch-abort)
+(global-set-key [escape] 'keyboard-escape-quit)
