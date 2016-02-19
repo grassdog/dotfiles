@@ -1293,7 +1293,27 @@ Repeated invocations toggle between the two most recently open buffers."
   (interactive)
   (find-file "~/Dropbox/Notes/Emacs.md"))
 
-;; TODO Add prefix binding and existing mappings
+(defun grass/open-work-log ()
+  "Open Worklog file"
+  (interactive)
+  (find-file "~/Dropbox/Notes/Work Log.org"))
+
+(defun grass/open-sideproject-log ()
+  "Open Worklog file"
+  (interactive)
+  (find-file "~/Dropbox/Notes/Sideproject Log.org"))
+
+(defun grass/find-notes ()
+  "Find a note in Dropbox/Notes directory"
+  (interactive)
+  (helm-browse-project-find-files (expand-file-name "~/Dropbox/Notes")))
+
+(which-key-declare-prefixes "C-, b" "bookmarks")
+(global-set-key (kbd "C-, b c") 'grass/open-cheats)
+(global-set-key (kbd "C-, b w") 'grass/open-work-log)
+(global-set-key (kbd "C-, b s") 'grass/open-sideproject-log)
+(global-set-key (kbd "C-, b n") 'grass/find-notes)
+
 
 ;;;;;;;;;;
 ;; Helm ;;
@@ -1941,7 +1961,13 @@ Repeated invocations toggle between the two most recently open buffers."
 (global-set-key (kbd "<home>") 'move-beginning-of-line)
 (global-set-key (kbd "<end>") 'move-end-of-line)
 
-;; TODO place this behind prefix
-(global-set-key (kbd "C-, f") 'grass/indent-region-or-buffer)
+
 ;; Quick switch buffers
 (global-set-key (kbd "C-, C-,") 'grass/switch-to-previous-buffer)
+
+(which-key-declare-prefixes "C-, f" "formatting")
+(global-set-key (kbd "C-, f f") 'grass/indent-region-or-buffer)
+(global-set-key (kbd "C-, f j") 'web-beautify-js)
+(global-set-key (kbd "C-, f h") 'web-beautify-html)
+(global-set-key (kbd "C-, f c") 'web-beautify-css)
+
