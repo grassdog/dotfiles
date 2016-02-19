@@ -391,6 +391,7 @@
   ;;   (setq ad-return-value (concat ad-return-value ".gz")))
   (global-undo-tree-mode))
 
+(which-key-declare-prefixes "C-, h" "history")
 (use-package goto-chg
   :init
   (defhydra goto-change-hydra (global-map "C-, h")
@@ -926,6 +927,14 @@ there's a region, all lines that region covers will be duplicated."
          ("C-=" . er/expand-region)
          ("<s-down>" . er/contract-region)
          ("<s-up>" . er/expand-region)))
+
+(defun grass/mark-full-line ()
+  "Set mark from point to beginning of line"
+  (interactive)
+  (call-interactively 'set-mark-command)
+  (beginning-of-line))
+
+(global-set-key (kbd "C-, SPC") 'grass/mark-full-line)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
