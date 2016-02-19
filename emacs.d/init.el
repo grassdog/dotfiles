@@ -391,6 +391,14 @@
   ;;   (setq ad-return-value (concat ad-return-value ".gz")))
   (global-undo-tree-mode))
 
+(use-package goto-chg
+  :init
+  (defhydra goto-change-hydra (global-map "C-, h")
+      "change history"
+      ("p" goto-last-change "previous")
+      ("n" goto-last-change-reverse "next")
+      ("q" nil "quit")))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Sane line killing ;;
