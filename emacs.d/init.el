@@ -2108,6 +2108,8 @@ Repeated invocations toggle between the two most recently open buffers."
 (global-set-key (kbd "<home>") 'move-beginning-of-line)
 (global-set-key (kbd "<end>") 'move-end-of-line)
 
+(global-set-key (kbd "s-g") 'beginning-of-buffer)
+(global-set-key (kbd "s-G") 'end-of-buffer)
 
 ;; Quick switch buffers
 (global-set-key (kbd "C-, C-,") 'grass/switch-to-previous-buffer)
