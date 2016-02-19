@@ -613,26 +613,14 @@ there's a region, all lines that region covers will be duplicated."
 ;; Symbol insertion ;;
 ;;;;;;;;;;;;;;;;;;;;;;
 
+(use-package char-menu
+    ; Em-dash is first
+    :config (setq char-menu '("—" "‘’" "“”" "…" "«»" "–"
+                            ("Typography" "•" "©" "†" "‡" "°" "·" "§" "№" "★")
+                            ("Math"       "≈" "≡" "≠" "∞" "×" "±" "∓" "÷" "√")
+                            ("Arrows"     "←" "→" "↑" "↓" "⇐" "⇒" "⇑" "⇓"))))
 
-;; TODO Replace this with char-map
-(use-package smart-quotes
-  :ensure nil
-  :commands smart-quotes-mode)
-
-;; Dashes
-(defun grass/insert-en-dash ()
-  "Insert an en dash"
-  (interactive)
-  (insert "–"))
-
-(defun grass/insert-em-dash ()
-  "Insert an en dash"
-  (interactive)
-  (insert "—"))
-
-;; Dashes
-(global-set-key (kbd "C-, -") 'grass/insert-en-dash)
-(global-set-key (kbd "C-, =") 'grass/insert-em-dash)
+(global-set-key (kbd "C-, c") 'char-menu)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
