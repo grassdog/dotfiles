@@ -180,6 +180,7 @@
 
 (diminish 'hs-minor-mode)
 
+
 ;;;;;;;;;;;;
 ;; Themes ;;
 ;;;;;;;;;;;;
@@ -1148,9 +1149,6 @@ the right."
 
 ;; Don't use tabs to indent
 (setq-default indent-tabs-mode nil)
-
-;; Always newline-and-indent
-(define-key global-map (kbd "RET") 'newline-and-indent)
 
 ;; Default indentation
 (setq-default tab-width 2)
