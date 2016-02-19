@@ -332,7 +332,9 @@
 
 ;; imenu
 (set-default 'imenu-auto-rescan t)
-(global-set-key (kbd "C-, i") 'imenu)
+(which-key-declare-prefixes "C-, g" "goto")
+(global-set-key (kbd "C-, g i") 'imenu)
+(global-set-key (kbd "C-, g l") 'goto-line)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -949,10 +951,12 @@ there's a region, all lines that region covers will be duplicated."
 (defun grass/mark-full-line ()
   "Set mark from point to beginning of line"
   (interactive)
+  (beginning-of-line)
   (call-interactively 'set-mark-command)
-  (beginning-of-line))
+  (end-of-line))
 
-(global-set-key (kbd "C-, SPC") 'grass/mark-full-line)
+(global-set-key (kbd "s-l") 'grass/mark-full-line)
+(global-set-key (kbd "s-w") 'mark-word)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1637,7 +1641,7 @@ Repeated invocations toggle between the two most recently open buffers."
       (define-key org-mode-map (kbd "C-,") nil)
       ;; (org-hide-block-all)
       ;; (define-key org-mode-map (kbd "C-c t") 'org-hide-block-toggle)
-      (define-key org-mode-map (kbd "C-, i") 'hydra-org/body)
+      (define-key org-mode-map (kbd "C-, g h") 'hydra-org/body)
       (define-key org-mode-map (kbd "C-, a") 'org-cycle-agenda-files))))
 
 ;;;;;;;;;;
