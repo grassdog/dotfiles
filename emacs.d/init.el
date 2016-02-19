@@ -502,9 +502,9 @@ This functions should be added to the hooks of major modes for programming."
 (add-hook 'prog-mode-hook 'font-lock-comment-annotations)
 
 
-;;;;;;;;;;;;;;;;;
-;; Moving Text ;;
-;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;
+;; Manipulating Text ;;
+;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package move-text
   :bind (("<C-S-up>" . move-text-up)
@@ -520,6 +520,75 @@ This functions should be added to the hooks of major modes for programming."
 
 (use-package string-inflection
   :bind ("C-, C-i" . string-inflection-cycle))
+
+;; Duplication of lines
+(defun grass/get-positions-of-line-or-region ()
+  "Return positions (beg . end) of the current line
+or region."
+  (let (beg end)
+    (if (and mark-active (> (point) (mark)))
+        (exchange-point-and-mark))
+    (setq beg (line-beginning-position))
+    (if mark-active
+        (exchange-point-and-mark))
+    (setq end (line-end-position))
+    (cons beg end)))
+
+(defun grass/duplicate-current-line-or-region (arg)
+  "Duplicates the current line or region ARG times.
+If there's no region, the current line will be duplicated.  However, if
+there's a region, all lines that region covers will be duplicated."
+  (interactive "p")
+  (pcase-let* ((origin (point))
+               (`(,beg . ,end) (grass/get-positions-of-line-or-region))
+               (region (buffer-substring-no-properties beg end)))
+    (-dotimes arg
+      (lambda (n)
+        (goto-char end)
+        (newline)
+        (insert region)
+        (setq end (point))))
+    (goto-char (+ origin (* (length region) arg) arg))))
+
+(defun grass/duplicate-and-comment-current-line-or-region (arg)
+  "Duplicates and comments the current line or region ARG times.
+If there's no region, the current line will be duplicated.  However, if
+there's a region, all lines that region covers will be duplicated."
+  (interactive "p")
+  (pcase-let* ((origin (point))
+               (`(,beg . ,end) (grass/get-positions-of-line-or-region))
+               (region (buffer-substring-no-properties beg end)))
+    (comment-or-uncomment-region beg end)
+    (setq end (line-end-position))
+    (-dotimes arg
+      (lambda (n)
+        (goto-char end)
+        (newline)
+        (insert region)
+        (setq end (point))))
+    (goto-char (+ origin (* (length region) arg) arg))))
+
+(global-set-key (kbd "C-c d") 'grass/duplicate-current-line-or-region)
+(global-set-key (kbd "C-c M-d") 'grass/duplicate-and-comment-current-line-or-region)
+
+(defun comment-or-uncomment-region-or-line ()
+    "Comments or uncomments the region or the current line if there's no active region."
+    (interactive)
+    (let (beg end)
+        (if (region-active-p)
+            (setq beg (region-beginning) end (region-end))
+            (setq beg (line-beginning-position) end (line-end-position)))
+        (comment-or-uncomment-region beg end)))
+
+(global-set-key (kbd "s-/") 'comment-or-uncomment-region-or-line)
+
+(use-package crux
+  :init
+  (progn
+    (global-set-key (kbd "C-<backspace>") #'crux-kill-line-backwards)
+    (global-set-key (kbd "s-j") #'crux-top-join-line)
+    (global-set-key (kbd "s-o") #'crux-smart-open-line-above)
+    (global-set-key [(shift return)] #'crux-smart-open-line)))
 
 
 ;;;;;;;;;;;;;;;
