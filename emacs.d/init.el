@@ -1189,25 +1189,10 @@ the right."
 ;; Whitespace ;;
 ;;;;;;;;;;;;;;;;
 
-
-;;TODO Make this just clean up modified lines not whole file
 (require 'whitespace)
 (diminish 'global-whitespace-mode)
 
 (setq require-final-newline t)
-
-;; Auto whitespace cleanup
-(defun grass/disable-auto-whitespace-cleanup ()
-  "Disables whitespace-cleanup on save."
-  (interactive)
-  (remove-hook 'before-save-hook 'whitespace-cleanup))
-
-(defun grass/enable-auto-whitespace-cleanup ()
-  "Enables whitespace-cleanup on save."
-  (interactive)
-  (add-hook 'before-save-hook 'whitespace-cleanup))
-
-(grass/enable-auto-whitespace-cleanup)
 
 (define-key global-map (kbd "C-, w") 'whitespace-cleanup)
 
@@ -1215,10 +1200,16 @@ the right."
 (setq whitespace-style '(face tabs trailing space-before-tab indentation space-after-tab))
 (global-whitespace-mode t)
 
+;; Only trim modified lines on save
+(use-package ws-butler
+  :config
+  (progn
+    (ws-butler-global-mode 1)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;
 ;; Multiple cursors ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;
 
 (which-key-declare-prefixes "C-, m" "multiple-cursors")
 (use-package multiple-cursors
