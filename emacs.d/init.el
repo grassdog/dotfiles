@@ -178,6 +178,7 @@
 ;; Base 10 for inserting quoted chars please
 (setq read-quoted-char-radix 10)
 
+(diminish 'hs-minor-mode)
 
 ;;;;;;;;;;;;
 ;; Themes ;;
@@ -818,6 +819,7 @@ there's a region, all lines that region covers will be duplicated."
   :bind ("C-, s s" . helm-swoop))
 
 (use-package anzu
+  :diminish anzu-mode
   :init
   (setq anzu-cons-mode-line-p nil)
   (global-anzu-mode +1))
