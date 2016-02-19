@@ -201,14 +201,11 @@
 (use-package highlight-indentation
   :commands highlight-indentation-mode)
 
-;; TODO Switch to which-key
-(use-package guide-key
-  :diminish guide-key-mode
+(use-package which-key
+  :diminish which-key-mode
   :init
-  (setq guide-key/popup-window-position 'bottom)
-  (setq guide-key/guide-key-sequence t)
-  (setq guide-key/idle-delay 0.4)
-  (guide-key-mode 1))
+  (setq which-key-idle-delay 0.4)
+  (which-key-mode 1))
 
 (use-package spaceline
   :init
