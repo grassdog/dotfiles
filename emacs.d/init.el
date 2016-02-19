@@ -1035,44 +1035,27 @@ there's a region, all lines that region covers will be duplicated."
 
   (add-hook 'prog-mode-hook #'smartparens-mode))
 
-(defmacro def-pairs (pairs)
-  `(progn
-     ,@(loop for (key . val) in pairs
-             collect
-             `(defun ,(read (concat
-                             "wrap-with-"
-                             (prin1-to-string key)
-                             "s"))
-                  (&optional arg)
-                (interactive "p")
-                (sp-wrap-with-pair ,val)))))
 
-(def-pairs ((paren        . "(")
-            (bracket      . "[")
-            (brace        . "{")
-            (single-quote . "'")
-            (double-quote . "\"")
-            (back-quote   . "`")))
-
-;; TODO Look at other wrapping libraries
-
-(bind-keys
- :map smartparens-mode-map
- ("C-, l r"  . sp-rewrap-sexp)
- ("C-, l d"  . sp-unwrap-sexp)
-
- ("C-, l ("  . wrap-with-parens)
- ("C-, l ["  . wrap-with-brackets)
- ("C-, l {"  . wrap-with-braces)
- ("C-, l '"  . wrap-with-single-quotes)
- ("C-, l \"" . wrap-with-double-quotes)
- ("C-, l _"  . wrap-with-underscores)
- ("C-, l `"  . wrap-with-back-quotes))
+(use-package corral
+  :config
+  (defhydra hydra-corral (:columns 4)
+    "Corral"
+    ("r" sp-rewrap-sexp "Rewrap" :exit t)
+    ("u" sp-unwrap-sexp "Unwrap")
+    ("(" corral-parentheses-backward "Back")
+    (")" corral-parentheses-forward "Forward")
+    ("[" corral-brackets-backward "Back")
+    ("]" corral-brackets-forward "Forward")
+    ("{" corral-braces-backward "Back")
+    ("}" corral-braces-forward "Forward")
+    ("." hydra-repeat "Repeat"))
+  (which-key-declare-prefixes "C-, l" "wrapping")
+  (global-set-key (kbd "C-, l") #'hydra-corral/body))
 
 
-;;;;;;;;;;;;;
-;; Alignment
-;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;
+;; Alignment ;;
+;;;;;;;;;;;;;;;
 
 ;; Modified function from http://emacswiki.org/emacs/AlignCommands
 (defun align-repeat (start end regexp &optional justify-right after)
