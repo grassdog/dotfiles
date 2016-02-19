@@ -608,13 +608,16 @@ there's a region, all lines that region covers will be duplicated."
 (global-set-key (kbd "s-/") 'comment-or-uncomment-region-or-line)
 
 (use-package crux
-  :init
-  (progn
-    (global-set-key (kbd "C-<backspace>") #'crux-kill-line-backwards)
-    (global-set-key (kbd "s-j") #'crux-top-join-line)
-    (global-set-key (kbd "s-o") #'crux-smart-open-line-above)
-    (global-set-key (kbd "C-M-z") #'crux-indent-defun)
-    (global-set-key [(shift return)] #'crux-smart-open-line)))
+  :commands (crux-move-beginning-of-line crux-smart-open-line)
+  :bind (
+    ("C-<backspace>" . crux-kill-line-backwards)
+    ("s-j" . crux-top-join-line)
+    ("s-o" . crux-smart-open-line-above)
+    ("C-M-z" . crux-indent-defun)))
+
+(global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
+(global-set-key [(shift return)] #'crux-smart-open-line)
+
 
 ;; Better zap to char
 (use-package zop-to-char
