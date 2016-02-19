@@ -378,6 +378,8 @@
 
 (use-package undo-tree
   :diminish undo-tree-mode
+  :bind (("s-z" . undo-tree-undo)
+         ("s-Z" . undo-tree-redo))
   :config
   ;; Persistent undo sometimes borks. Disable for now
   ;; (setq undo-tree-auto-save-history t)
@@ -569,6 +571,7 @@ there's a region, all lines that region covers will be duplicated."
     (goto-char (+ origin (* (length region) arg) arg))))
 
 (global-set-key (kbd "C-c d") 'grass/duplicate-current-line-or-region)
+(global-set-key (kbd "s-d") 'grass/duplicate-current-line-or-region)
 (global-set-key (kbd "C-c M-d") 'grass/duplicate-and-comment-current-line-or-region)
 
 (defun comment-or-uncomment-region-or-line ()
@@ -1009,6 +1012,7 @@ there's a region, all lines that region covers will be duplicated."
   (sp-pair "'" nil :actions '(:rem insert))
   (sp-pair "\"" nil :actions '(:rem insert))
 
+  ;; TODO Fix this elixir end stuff.
   (progn
     (defun my-elixir-do-end-close-action (id action context)
       (when (eq action 'insert)
