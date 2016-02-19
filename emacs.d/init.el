@@ -976,15 +976,18 @@ there's a region, all lines that region covers will be duplicated."
   :config
 
   (use-package flycheck-tip
-    :bind ("C-, C-n" . flycheck-tip-cycle))
+    :bind ("C-, C-n" . flycheck-tip-cycle)))
 
-  (use-package flycheck-pos-tip
-    :disabled
-    :init
-    (eval-after-load 'flycheck
-      '(setq flycheck-display-errors-function
-             #'flycheck-pos-tip-error-messages))))
-
+(use-package helm-flycheck
+  :config
+  (define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck)
+  (define-key flycheck-mode-map "C-, x"
+    (defhydra flycheck-hydra ()
+      "errors"
+      ("n" flycheck-next-error "next")
+      ("p" flycheck-previous-error "previous")
+      ("h" helm-flycheck "helm" :color blue)
+      ("q" nil "quit"))))
 
 ;;;;;;;;;;;;;;
 ;; Wrapping ;;
