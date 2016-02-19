@@ -531,8 +531,20 @@ This functions should be added to the hooks of major modes for programming."
 (use-package web-beautify
   :commands (web-beautify-js web-beautify-css web-beautify-html))
 
+(which-key-declare-prefixes "C-, '" "word case")
 (use-package string-inflection
-  :bind ("C-, C-i" . string-inflection-cycle))
+  :init
+  (progn
+    (defhydra hydra-case (global-map "C-, '")
+      "word case"
+      ("c" capitalize-word "Capitalize")
+      ("u" upcase-word "UPPER")
+      ("l" downcase-word "lower")
+      ("s" string-inflection-underscore "lower_snake")
+      ("n" string-inflection-upcase "UPPER_SNAKE")
+      ("a" string-inflection-lower-camelcase "lowerCamel")
+      ("m" string-inflection-camelcase "UpperCamel")
+      ("d" string-inflection-lisp "dash-case"))))
 
 ;; Duplication of lines
 (defun grass/get-positions-of-line-or-region ()
@@ -602,6 +614,7 @@ there's a region, all lines that region covers will be duplicated."
     (global-set-key (kbd "C-<backspace>") #'crux-kill-line-backwards)
     (global-set-key (kbd "s-j") #'crux-top-join-line)
     (global-set-key (kbd "s-o") #'crux-smart-open-line-above)
+    (global-set-key (kbd "C-M-z") #'crux-indent-defun)
     (global-set-key [(shift return)] #'crux-smart-open-line)))
 
 
