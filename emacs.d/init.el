@@ -113,9 +113,6 @@
 ;; Single space between sentences
 (setq-default sentence-end-double-space nil)
 
-;; scratch buffer empty
-(setq initial-scratch-message nil)
-
 ;; Nice scrolling
 (setq scroll-margin 4
       scroll-conservatively 100000
@@ -907,9 +904,6 @@ there's a region, all lines that region covers will be duplicated."
   :bind (("C-, s a" . ag-project))
   :commands ag-project)
 
-(use-package helm-swoop
-  :bind ("C-, s s" . helm-swoop))
-
 (use-package anzu
   :diminish anzu-mode
   :init
@@ -1035,7 +1029,7 @@ there's a region, all lines that region covers will be duplicated."
 
   ;; Don't enable smartparens when expanding
   (defvar smartparens-enabled-initially t
-    "Stored whether smartparens is originally enabled or not.")
+    "Whether smartparens is originally enabled or not.")
 
   (add-hook 'yas-before-expand-snippet-hook (lambda ()
                                               ;; If enabled, smartparens will mess snippets expanded by `hippie-expand`
@@ -1062,22 +1056,14 @@ there's a region, all lines that region covers will be duplicated."
   (use-package flycheck-tip
     :bind ("C-, C-n" . flycheck-tip-cycle)))
 
-(use-package helm-flycheck
-  :config
-  (define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck)
-  (define-key flycheck-mode-map "C-, x"
-    (defhydra flycheck-hydra ()
-      "errors"
-      ("n" flycheck-next-error "next")
-      ("p" flycheck-previous-error "previous")
-      ("h" helm-flycheck "helm" :color blue)
-      ("q" nil "quit"))))
+
 
 ;;;;;;;;;;;;;;
 ;; Wrapping ;;
 ;;;;;;;;;;;;;;
 
 (use-package smartparens
+  :disabled
   :diminish smartparens-mode
   :config
   (require 'smartparens-config)
@@ -1490,6 +1476,20 @@ Repeated invocations toggle between the two most recently open buffers."
     ;; Prepopulate search with the symbol under point
     ;;(setq helm-ag-insert-at-point 'symbol)
     )
+
+  (use-package helm-swoop
+    :bind ("C-, s s" . helm-swoop))
+
+  (use-package helm-flycheck
+    :config
+    (define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck)
+    (define-key flycheck-mode-map "C-, x"
+      (defhydra flycheck-hydra ()
+        "errors"
+        ("n" flycheck-next-error "next")
+        ("p" flycheck-previous-error "previous")
+        ("h" helm-flycheck "helm" :color blue)
+        ("q" nil "quit"))))
 
   (helm-mode 1))
 
