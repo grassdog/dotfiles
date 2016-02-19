@@ -147,25 +147,25 @@
 (defun grass/set-gui-config ()
   "Enable my GUI settings"
   (interactive)
-  (load-theme 'solarized-dark t)
+  (load-theme 'spacemacs-dark t)
 
   ;; Override a few theme settings
-  (solarized-with-color-variables 'dark
-    (custom-theme-set-faces
-      'solarized-dark
-      `(minibuffer-prompt ((t (:height 1.1 :foreground "#798e01"))))
-      `(hl-sexp-face ((,class (:background ,s-mode-line-bg))))
-      `(helm-match ((,class (:inherit match :foreground ,blue-hc))))
-      `(company-tooltip-common ((,class (:inherit company-tooltip :weight bold :underline nil))))
-      `(company-tooltip-common-selection ((,class (:inherit company-tooltip-selection :weight bold :underline nil))))
-      `(mode-line
-         ((,class (:foreground ,s-mode-line-fg
-                   :background "#083F4E"
-                   :box (:color ,s-mode-line-fg :line-width 1)))))
-      `(mode-line-inactive
-         ((,class (:foreground ,s-mode-line-inactive-fg
-                   :background ,s-mode-line-inactive-bg
-                   :box (:color ,s-fringe-bg :line-width 1)))))))
+  ;;(solarized-with-color-variables 'dark
+  ;;  (custom-theme-set-faces
+  ;;    'solarized-dark
+  ;;    `(minibuffer-prompt ((t (:height 1.1 :foreground "#798e01"))))
+  ;;    `(hl-sexp-face ((,class (:background ,s-mode-line-bg))))
+  ;;    `(helm-match ((,class (:inherit match :foreground ,blue-hc))))
+  ;;    `(company-tooltip-common ((,class (:inherit company-tooltip :weight bold :underline nil))))
+  ;;    `(company-tooltip-common-selection ((,class (:inherit company-tooltip-selection :weight bold :underline nil))))
+  ;;    `(mode-line
+  ;;       ((,class (:foreground ,s-mode-line-fg
+  ;;                 :background "#083F4E"
+  ;;                 :box (:color ,s-mode-line-fg :line-width 1)))))
+  ;;    `(mode-line-inactive
+  ;;       ((,class (:foreground ,s-mode-line-inactive-fg
+  ;;                 :background ,s-mode-line-inactive-bg
+   ;;                :box (:color ,s-fringe-bg :line-width 1)))))))
 
   (menu-bar-mode +1)
   ;; Highlight the current line
@@ -180,6 +180,7 @@
 
 (use-package solarized
   :ensure solarized-theme
+  :disabled
   :defer t
   :init
   (setq ;; Keep headers same size
@@ -189,6 +190,8 @@
 
         ;; Make edges of buffer easier to see
         solarized-distinct-fringe-background t))
+
+(use-package spacemacs-theme)
 
 (use-package zenburn-theme
   :defer t)
