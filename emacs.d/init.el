@@ -1619,7 +1619,7 @@ Repeated invocations toggle between the two most recently open buffers."
 
 (use-package json-mode
   :mode "\\.json$"
-  :bind ("C-, b" . json-pretty-print-buffer)
+  :bind ("C-, u j" . json-pretty-print-buffer)
   :config
   (use-package flymake-json
     :init
