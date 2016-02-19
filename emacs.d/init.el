@@ -772,10 +772,10 @@ there's a region, all lines that region covers will be duplicated."
         (define-key dired-mode-map [mouse-1] 'dired-single-buffer-mouse)
         (define-key dired-mode-map ","
           (function
-          (lambda nil (interactive) (dired-single-buffer ".."))))
-        (define-key dired-mode-map "^"
+            (lambda nil (interactive) (dired-single-buffer ".."))))
+        (define-key dired-mode-map (kbd "<s-up>")
           (function
-          (lambda nil (interactive) (dired-single-buffer ".."))))
+            (lambda nil (interactive) (dired-single-buffer ".."))))
         (setq dired-use-ls-dired nil))
 
       ;; if dired's already loaded, then the keymap will be bound
