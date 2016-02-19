@@ -239,6 +239,8 @@
 ;; UI & Help ;;
 ;;;;;;;;;;;;;;;
 
+(use-package hydra)
+
 (use-package which-key
   :diminish which-key-mode
   :init
@@ -266,10 +268,14 @@
   (require 'highlight)
   (volatile-highlights-mode t))
 
-;; TODO Replace with a hydra
-(use-package default-text-scale
-  :bind (("s-=" . default-text-scale-increase)
-         ("s--" . default-text-scale-decrease)))
+;; Text zoom
+(which-key-declare-prefixes "C-, z" "zoom")
+(defhydra hydra-zoom (global-map "C-, z")
+  "zoom"
+  ("+" text-scale-increase "in")
+  ("-" text-scale-decrease "out")
+  ("0" (text-scale-adjust 0) "reset")
+  ("q" nil "quit" :color blue))
 
 (use-package ibuffer
   :commands ibuffer
