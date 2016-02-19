@@ -188,6 +188,7 @@
   (progn
     (require 'spaceline-config)
     (setq powerline-default-separator 'bar)
+    (setq spaceline-minor-modes-separator "⋅")
     (spaceline-emacs-theme)
     (spaceline-helm-mode)
     (spaceline-info-mode)))
