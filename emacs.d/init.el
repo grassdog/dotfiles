@@ -392,7 +392,9 @@
 ;; Sane line killing ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
 
-;; TODO Replace this with easy-kill
+(use-package easy-kill
+  :init
+  (global-set-key [remap kill-ring-save] 'easy-kill))
 
 ;; If no region kill or copy current line
 ;; http://emacs.stackexchange.com/questions/2347/kill-or-copy-current-line-with-minimal-keystrokes
