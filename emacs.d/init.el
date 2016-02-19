@@ -610,8 +610,68 @@ there's a region, all lines that region covers will be duplicated."
 (use-package reveal-in-osx-finder
   :bind ("C-, u f" . reveal-in-osx-finder))
 
+
+;;;;;;;;;
+;; Git ;;
+;;;;;;;;;
+
 (use-package magit
-  :bind ("C-, g" . magit-status))
+  :bind ("C-x g" . magit-status))
+
+(use-package git-timemachine
+  :commands git-timemachine)
+
+(use-package git-gutter
+  :commands global-git-gutter-mode
+  :init
+  (progn
+    ;; If you enable global minor mode
+    (global-git-gutter-mode t)
+    ;; If you would like to use git-gutter.el and linum-mode
+    (git-gutter:linum-setup)
+    (setq git-gutter:update-interval 2
+          git-gutter:modified-sign " "
+          git-gutter:added-sign "+"
+          git-gutter:deleted-sign "-"
+          git-gutter:diff-option "-w"
+          git-gutter:hide-gutter t
+          git-gutter:ask-p nil
+          git-gutter:verbosity 0
+          git-gutter:handled-backends '(git hg bzr svn)
+          git-gutter:hide-gutter t)))
+
+(use-package git-gutter-fringe
+  :commands git-gutter-mode
+  :init
+  (progn
+    (when (display-graphic-p)
+      (with-eval-after-load 'git-gutter
+        (require 'git-gutter-fringe)))
+    (setq git-gutter-fr:side 'right-fringe))
+  :config
+  (progn
+    ;; custom graphics that works nice with half-width fringes
+    (fringe-helper-define 'git-gutter-fr:added nil
+                          "..X...."
+                          "..X...."
+                          "XXXXX.."
+                          "..X...."
+                          "..X...."
+                          )
+    (fringe-helper-define 'git-gutter-fr:deleted nil
+                          "......."
+                          "......."
+                          "XXXXX.."
+                          "......."
+                          "......."
+                          )
+    (fringe-helper-define 'git-gutter-fr:modified nil
+                          "..X...."
+                          ".XXX..."
+                          "XX.XX.."
+                          ".XXX..."
+                          "..X...."
+                          )))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;
