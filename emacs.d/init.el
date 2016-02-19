@@ -652,6 +652,7 @@ there's a region, all lines that region covers will be duplicated."
 
 (use-package git-gutter
   :commands global-git-gutter-mode
+  :diminish git-gutter-mode
   :init
   (progn
     ;; If you enable global minor mode
