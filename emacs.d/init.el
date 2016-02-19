@@ -201,6 +201,7 @@
 (use-package highlight-indentation
   :commands highlight-indentation-mode)
 
+;; TODO Switch to which-key
 (use-package guide-key
   :diminish guide-key-mode
   :init
@@ -209,12 +210,14 @@
   (setq guide-key/idle-delay 0.4)
   (guide-key-mode 1))
 
-(use-package smart-mode-line
+(use-package spaceline
   :init
-  (setq sml/no-confirm-load-theme t)
-  (setq sml/shorten-modes nil)
-  (setq sml/theme 'respectful)
-  (sml/setup))
+  (progn
+    (require 'spaceline-config)
+    (setq powerline-default-separator 'bar)
+    (spaceline-emacs-theme)
+    (spaceline-helm-mode)
+    (spaceline-info-mode)))
 
 ;; Ignore certain files
 (use-package ignoramus
@@ -238,24 +241,6 @@
   (interactive)
   (load-theme 'spacemacs-dark t)
 
-  ;; Override a few theme settings
-  ;;(solarized-with-color-variables 'dark
-  ;;  (custom-theme-set-faces
-  ;;    'solarized-dark
-  ;;    `(minibuffer-prompt ((t (:height 1.1 :foreground "#798e01"))))
-  ;;    `(hl-sexp-face ((,class (:background ,s-mode-line-bg))))
-  ;;    `(helm-match ((,class (:inherit match :foreground ,blue-hc))))
-  ;;    `(company-tooltip-common ((,class (:inherit company-tooltip :weight bold :underline nil))))
-  ;;    `(company-tooltip-common-selection ((,class (:inherit company-tooltip-selection :weight bold :underline nil))))
-  ;;    `(mode-line
-  ;;       ((,class (:foreground ,s-mode-line-fg
-  ;;                 :background "#083F4E"
-  ;;                 :box (:color ,s-mode-line-fg :line-width 1)))))
-  ;;    `(mode-line-inactive
-  ;;       ((,class (:foreground ,s-mode-line-inactive-fg
-  ;;                 :background ,s-mode-line-inactive-bg
-   ;;                :box (:color ,s-fringe-bg :line-width 1)))))))
-
   (menu-bar-mode +1)
   ;; Highlight the current line
   (global-hl-line-mode +1))
@@ -266,19 +251,6 @@
   (xterm-mouse-mode 1)
   (menu-bar-mode -1)
   (load-theme 'zenburn t))
-
-(use-package solarized
-  :ensure solarized-theme
-  :disabled
-  :defer t
-  :init
-  (setq ;; Keep headers same size
-        solarized-use-variable-pitch nil
-        ;; Don't add too much colours to the fringe
-        solarized-emphasize-indicators nil
-
-        ;; Make edges of buffer easier to see
-        solarized-distinct-fringe-background t))
 
 (use-package spacemacs-theme)
 
