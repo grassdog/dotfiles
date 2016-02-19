@@ -709,8 +709,9 @@ there's a region, all lines that region covers will be duplicated."
 ;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package char-menu
-    ; Em-dash is first
-    :config (setq char-menu '("—" "‘’" "“”" "…" "«»" "–"
+  :commands char-menu
+  ; Em-dash is first
+  :config (setq char-menu '("—" "‘’" "“”" "…" "«»" "–"
                             ("Typography" "•" "©" "†" "‡" "°" "·" "§" "№" "★")
                             ("Math"       "≈" "≡" "≠" "∞" "×" "±" "∓" "÷" "√")
                             ("Arrows"     "←" "→" "↑" "↓" "⇐" "⇒" "⇑" "⇓"))))
