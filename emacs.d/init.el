@@ -21,7 +21,6 @@
 
 ;; Debug package loads
 (setq use-package-verbose t)
-
 (setq use-package-always-ensure t)
 
 (eval-when-compile
@@ -395,7 +394,7 @@
 
 (which-key-declare-prefixes "C-, h" "history")
 (use-package goto-chg
-  :init
+  :config
   (defhydra goto-change-hydra (global-map "C-, h")
       "change history"
       ("p" goto-last-change "previous")
@@ -408,6 +407,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package easy-kill
+  :disabled
   :init
   (global-set-key [remap kill-ring-save] 'easy-kill))
 
