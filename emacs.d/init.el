@@ -117,10 +117,6 @@
 ;; scratch buffer empty
 (setq initial-scratch-message nil)
 
-;; ;; No continuation characters
-;; (setq-default fringe-indicator-alist
-;;               '((truncation . nil) (continuation . nil)))
-
 ;; Nice scrolling
 (setq scroll-margin 4
       scroll-conservatively 100000
@@ -516,6 +512,7 @@ This functions should be added to the hooks of major modes for programming."
 (use-package string-inflection
   :bind ("C-, C-i" . string-inflection-cycle))
 
+
 ;;;;;;;;;;;;;;;
 ;; Utilities ;;
 ;;;;;;;;;;;;;;;
@@ -532,9 +529,6 @@ This functions should be added to the hooks of major modes for programming."
 
 (use-package magit
   :bind ("C-, g" . magit-status))
-
-;; (use-package hideshow
-;;   :diminish hs-minor-mode)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -751,6 +745,9 @@ This functions should be added to the hooks of major modes for programming."
   :bind (("C-, s a" . ag-project))
   :commands ag-project)
 
+(use-package helm-swoop
+  :bind ("C-, s s" . helm-swoop))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Insert current word into minibuffer ;;
@@ -776,31 +773,6 @@ This functions should be added to the hooks of major modes for programming."
 (add-hook 'minibuffer-setup-hook 'grass/minibuffer-setup-hook)
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Make windows sticky http://stackoverflow.com/a/5182111 ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-(defadvice pop-to-buffer (before cancel-other-window first)
-  (ad-set-arg 1 nil))
-
-(ad-activate 'pop-to-buffer)
-
-
-;; Toggle window dedication
-(defun toggle-window-dedicated ()
-  "Toggle whether the current active window is dedicated or not"
-  (interactive)
-  (message
-   (if (let (window (get-buffer-window (current-buffer)))
-         (set-window-dedicated-p window
-                                 (not (window-dedicated-p window))))
-       "Window '%s' is dedicated"
-     "Window '%s' is normal")
-   (current-buffer)))
-
-(global-set-key (kbd "C-, q") 'toggle-window-dedicated)
-
 ;;;;;;;;;;;;;;;
 ;; Selection ;;
 ;;;;;;;;;;;;;;;
@@ -810,7 +782,6 @@ This functions should be added to the hooks of major modes for programming."
          ("C-=" . er/expand-region)
          ("<s-down>" . er/contract-region)
          ("<s-up>" . er/expand-region)))
-
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1024,7 +995,7 @@ This functions should be added to the hooks of major modes for programming."
 ;; Alignment
 ;;;;;;;;;;;;;
 
-;; modified function from http://emacswiki.org/emacs/AlignCommands
+;; Modified function from http://emacswiki.org/emacs/AlignCommands
 (defun align-repeat (start end regexp &optional justify-right after)
   "Repeat alignment with respect to the given regular expression.
 If JUSTIFY-RIGHT is non nil justify to the right instead of the
@@ -1119,8 +1090,6 @@ the right."
 ;; Always newline-and-indent
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
-(define-key global-map [backtab] 'evil-shift-left-line)
-
 ;; Default indentation
 (setq-default tab-width 2)
 
@@ -1180,276 +1149,20 @@ the right."
 (setq whitespace-style '(face tabs trailing space-before-tab indentation space-after-tab))
 (global-whitespace-mode t)
 
-;;;;;;;;;;;;
-;; Typing ;;
-;;;;;;;;;;;;
-
-;; (use-package speed-type
-;;   :commands (speed-type-text speed-type-buffer))
-
-;;;;;;;;;;
-;; Evil ;;
-;;;;;;;;;;
-
-;; Trojan horse maneuver
-
-(use-package evil
-  :preface
-  (setq evil-search-module 'evil-search)
-
-  :config
-
-  ;; Evil plugins
-  (use-package evil-commentary
-    :diminish evil-commentary-mode
-    :init
-    (evil-commentary-mode))
-
-  (use-package evil-matchit
-    :init
-    (global-evil-matchit-mode 1))
-
-  (use-package evil-surround
-    :init
-    (global-evil-surround-mode 1))
-
-  (use-package evil-visualstar
-    :init
-    (global-evil-visualstar-mode))
-
-  (use-package evil-search-highlight-persist
-    :init
-    (global-evil-search-highlight-persist t)
-
-    (defun grass/remove-search-highlights ()
-      "Remove all highlighted search terms."
-      (interactive)
-      (lazy-highlight-cleanup)
-      (evil-search-highlight-persist-remove-all)
-      (evil-ex-nohighlight))
-
-    (define-key evil-normal-state-map (kbd "SPC") 'grass/remove-search-highlights))
-
-  ;; Evil config
-
-  ; Make horizontal movement cross lines
-  (setq-default evil-cross-lines t)
-  (setq evil-shift-width 2)
-  (require 'evil-little-word)
-
-  (evil-mode t)
-
-  ;; Yank till end of line
-  (define-key evil-normal-state-map (kbd "Y") (kbd "y$"))
-
-  ;; Make movement keys work like they should
-  (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
-  (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
-  (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
-  (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
-
-  ;; Make esc quit everywhere
-  (define-key evil-normal-state-map [escape] 'keyboard-quit)
-  (define-key evil-visual-state-map [escape] 'keyboard-quit)
-  (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
-  (define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
-  (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
-  (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
-  (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
-
-  ;; Overload shifts so that they don't lose the selection
-  (define-key evil-visual-state-map (kbd ">>") 'grass/evil-shift-right-visual)
-  (define-key evil-visual-state-map (kbd "<<") 'grass/evil-shift-left-visual)
-  (define-key evil-visual-state-map (kbd "<S-down>") 'evil-next-visual-line)
-  (define-key evil-visual-state-map (kbd "<S-up>") 'evil-previous-visual-line)
-
-  (defun grass/evil-shift-left-visual ()
-    (interactive)
-    (evil-shift-left (region-beginning) (region-end))
-    (evil-normal-state)
-    (evil-visual-restore))
-
-  (defun grass/evil-shift-right-visual ()
-    (interactive)
-    (evil-shift-right (region-beginning) (region-end))
-    (evil-normal-state)
-    (evil-visual-restore))
-
-  ;; Keep some Emacs stuff
-  (define-key evil-normal-state-map "\C-e" 'evil-end-of-line)
-  (define-key evil-insert-state-map "\C-e" 'end-of-line)
-  (define-key evil-visual-state-map "\C-e" 'evil-end-of-line)
-  (define-key evil-motion-state-map "\C-e" 'evil-end-of-line)
-  (define-key evil-normal-state-map "\C-f" 'evil-forward-char)
-  (define-key evil-insert-state-map "\C-f" 'evil-forward-char)
-  (define-key evil-insert-state-map "\C-f" 'evil-forward-char)
-  (define-key evil-normal-state-map "\C-b" 'evil-backward-char)
-  (define-key evil-insert-state-map "\C-b" 'evil-backward-char)
-  (define-key evil-visual-state-map "\C-b" 'evil-backward-char)
-  (define-key evil-normal-state-map "\C-d" 'evil-delete-char)
-  (define-key evil-insert-state-map "\C-d" 'evil-delete-char)
-  (define-key evil-visual-state-map "\C-d" 'evil-delete-char)
-  (define-key evil-normal-state-map "\C-n" 'evil-next-line)
-  (define-key evil-insert-state-map "\C-n" 'evil-next-line)
-  (define-key evil-visual-state-map "\C-n" 'evil-next-line)
-  (define-key evil-normal-state-map "\C-p" 'evil-previous-line)
-  (define-key evil-insert-state-map "\C-p" 'evil-previous-line)
-  (define-key evil-visual-state-map "\C-p" 'evil-previous-line)
-  (define-key evil-normal-state-map "\C-w" 'evil-delete)
-  (define-key evil-insert-state-map "\C-w" 'evil-delete)
-  (define-key evil-visual-state-map "\C-w" 'evil-delete)
-  (define-key evil-normal-state-map "\C-y" 'yank)
-  (define-key evil-insert-state-map "\C-y" 'yank)
-  (define-key evil-visual-state-map "\C-y" 'yank)
-  (define-key evil-normal-state-map "\C-k" 'kill-line)
-  (define-key evil-insert-state-map "\C-k" 'kill-line)
-  (define-key evil-visual-state-map "\C-k" 'kill-line)
-  (define-key evil-normal-state-map "Q" 'call-last-kbd-macro)
-  (define-key evil-visual-state-map "Q" 'call-last-kbd-macro)
-  ;;(define-key evil-normal-state-map (kbd "TAB") 'evil-undefine)
-
-  ;; Set our default modes
-  (loop for (mode . state) in '((inferior-emacs-lisp-mode . emacs)
-                                (nrepl-mode . insert)
-                                (pylookup-mode . emacs)
-                                (comint-mode . normal)
-                                (shell-mode . emacs)
-                                (git-commit-mode . insert)
-                                (git-rebase-mode . emacs)
-                                (calculator-mode . emacs)
-                                (term-mode . emacs)
-                                (haskell-interactive-mode . emacs)
-                                (undo-tree-visualizer-mode . emacs)
-                                (cider-repl-mode . emacs)
-                                (help-mode . emacs)
-                                (helm-grep-mode . emacs)
-                                (grep-mode . emacs)
-                                (bc-menu-mode . emacs)
-                                (erc-mode . emacs)
-                                (magit-branch-manager-mode . emacs)
-                                (magit-blame-mode-map . emacs)
-                                (magit-cherry-mode-map . emacs)
-                                (magit-diff-mode-map . emacs)
-                                (magit-log-mode-map . emacs)
-                                (magit-log-select-mode-map . emacs)
-                                (magit-mode-map . emacs)
-                                (magit-popup-help-mode-map . emacs)
-                                (magit-popup-mode-map . emacs)
-                                (magit-popup-sequence-mode-map . emacs)
-                                (magit-process-mode-map . emacs)
-                                (magit-reflog-mode-map . emacs)
-                                (magit-refs-mode-map . emacs)
-                                (magit-revision-mode-map . emacs)
-                                (magit-stash-mode-map . emacs)
-                                (magit-stashes-mode-map . emacs)
-                                (magit-status-mode-map . emacs)
-                                (rdictcc-buffer-mode . emacs)
-                                (bs-mode . emacs)
-                                (dired-mode . emacs)
-                                (wdired-mode . normal))
-        do (evil-set-initial-state mode state)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Evil multiple cursors ;;
+;; Multiple cursors ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;; funcs.el --- multiple-cursors Layer functions File
-;; URL: https://github.com/jcpetkovich/spacemacs.multiple-cursors
-;; add multiple-cursors compat functions
-(defvar multiple-cursors/evil-prev-state nil)
-(defvar multiple-cursors/mark-was-active nil)
-
-(defun multiple-cursors/evil-visual-or-normal-p ()
-  "True if evil mode is enabled, and we are in normal or visual mode."
-  (and (bound-and-true-p evil-mode)
-      (not (memq evil-state '(insert emacs)))))
-
-(defun multiple-cursors/switch-to-emacs-state ()
-  (when (multiple-cursors/evil-visual-or-normal-p)
-
-    (setq multiple-cursors/evil-prev-state evil-state)
-
-    (when (region-active-p)
-      (setq multiple-cursors/mark-was-active t))
-
-    (let ((mark-before (mark))
-          (point-before (point)))
-
-      (evil-emacs-state 1)
-
-      (when (or multiple-cursors/mark-was-active (region-active-p))
-        (goto-char point-before)
-        (set-mark mark-before)))))
-
-(defun multiple-cursors/back-to-previous-state ()
-  (when multiple-cursors/evil-prev-state
-    (unwind-protect
-        (case multiple-cursors/evil-prev-state
-          ((normal visual) (evil-force-normal-state))
-          (t (message "Don't know how to handle previous state: %S"
-                      multiple-cursors/evil-prev-state)))
-      (setq multiple-cursors/evil-prev-state nil)
-      (setq multiple-cursors/mark-was-active nil))))
-
-(defun multiple-cursors/rectangular-switch-state ()
-  (if rectangular-region-mode
-      (multiple-cursors/switch-to-emacs-state)
-    (setq multiple-cursors/evil-prev-state nil)))
-
-(defadvice mc/edit-lines (before change-point-by-1 disable)
-  " When running edit-lines, point will return (position + 1) as
-a result of how evil deals with regions"
-  (when (multiple-cursors/evil-visual-or-normal-p)
-    (if (> (point) (mark))
-        (goto-char (1- (point)))
-      (push-mark (1- (mark))))))
-
-(defun multiple-cursors/expand-or-mark-next-symbol ()
-  (interactive)
-  (if (not (region-active-p))
-      (er/mark-symbol)
-    (let ((current-symbol (thing-at-point 'symbol))
-          (current-region (car (mc/region-strings))))
-      (if (string-equal current-symbol current-region)
-          (call-interactively #'mc/mark-next-symbol-like-this)
-        (call-interactively #'mc/mark-next-like-this)))))
-
-(defun multiple-cursors/expand-or-mark-next-word ()
-  (interactive)
-  (if (not (region-active-p))
-      (er/mark-word)
-    (call-interactively #'mc/mark-next-like-this)))
-
-
-(defun multiple-cursors/enable-compat ()
-  (add-hook 'multiple-cursors-mode-enabled-hook
-            'multiple-cursors/switch-to-emacs-state)
-  (add-hook 'multiple-cursors-mode-disabled-hook
-            'multiple-cursors/back-to-previous-state)
-  (add-hook 'rectangular-region-mode-hook 'multiple-cursors/rectangular-switch-state)
-
-  (ad-enable-advice 'mc/edit-lines 'before 'change-point-by-1))
-
-(defun multiple-cursors/disable-compat ()
-  (remove-hook 'multiple-cursors-mode-enabled-hook
-              'multiple-cursors/switch-to-emacs-state)
-  (remove-hook 'multiple-cursors-mode-disabled-hook
-              'multiple-cursors/back-to-previous-state)
-  (remove-hook 'rectangular-region-mode-hook 'multiple-cursors/rectangular-switch-state)
-
-  (ad-disable-advice 'mc/edit-lines 'before 'change-point-by-1))
 
 (which-key-declare-prefixes "C-, m" "multiple-cursors")
 (use-package multiple-cursors
   :bind (("C-, m l" . mc/edit-lines)
          ("C-, m a" . mc/mark-all-like-this-dwim)
          ("C-, m e" . mc/mark-more-like-this-extended)
-         ("C->"     . mc/mark-next-like-this)
-         ("C-<"     . mc/mark-previous-like-this)
          ("C-, m n" . mc/mark-next-like-this)
-         ("C-, m p" . mc/mark-previous-like-this))
-  :init
-    (multiple-cursors/enable-compat))
+         ("C-, m p" . mc/mark-previous-like-this)
+         ("C->"     . mc/mark-next-like-this)
+         ("C-<"     . mc/mark-previous-like-this)))
 
 ;;;;;;;;;
 ;; Ido ;;
@@ -1504,10 +1217,10 @@ a result of how evil deals with regions"
       ;; Allow up and down arrow to work for navigation
       (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right))))
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Utility Functions ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
-
 
 (defun grass/recompile-init ()
   "Byte-compile all your dotfiles again."
@@ -1571,9 +1284,8 @@ Repeated invocations toggle between the two most recently open buffers."
                   (get-char-property (point) 'face))))
     (if face (message "Face: %s" face) (message "No face at %d" pos))))
 
-
 ;;;;;;;;;;;;;;;;;;
-;; Common files ;;
+;; Common Files ;;
 ;;;;;;;;;;;;;;;;;;
 
 (defun grass/open-cheats ()
@@ -1593,9 +1305,7 @@ Repeated invocations toggle between the two most recently open buffers."
   :bind (("C-, o" . helm-buffers-list)
          ("C-, r" . helm-recentf)
          ("C-, C-f" . helm-find-files)
-         ;; TODO Fix this
-         ;;("M-x" . helm-M-x)
-         )
+         ("M-x" . helm-M-x))
   :config
   (require 'helm-config)
 
@@ -1616,14 +1326,6 @@ Repeated invocations toggle between the two most recently open buffers."
   (setq helm-display-header-line t)
   (setq helm-echo-input-in-header-line t)
 
-  (use-package helm-fuzzier
-    :init
-    (helm-fuzzier-mode 1))
-
-  (use-package helm-flx
-    :init
-    (helm-flx-mode +1))
-
   (use-package helm-ag
     :commands helm-ag
     ;;:config
@@ -1633,9 +1335,6 @@ Repeated invocations toggle between the two most recently open buffers."
 
   (helm-mode 1))
 
-(use-package helm-swoop
-  :bind ("C-, s s" . helm-swoop))
-
 ;; Force helm to always open at the bottom
 (add-to-list 'display-buffer-alist
              `(,(rx bos "*helm" (* not-newline) "*" eos)
@@ -1643,9 +1342,6 @@ Repeated invocations toggle between the two most recently open buffers."
                (inhibit-same-window . t)
                (window-height . 0.5)))
 
-;; (use-package helm-flyspell
-;;   :commands helm-flyspell-correct
-;;   :bind ("C-, S c" . helm-flyspell-correct))
 
 ;;;;;;;;;;;;;;;;
 ;; Projectile ;;
@@ -1753,7 +1449,6 @@ Repeated invocations toggle between the two most recently open buffers."
   (add-hook 'org-mode-hook
     (lambda ()
       ;; No auto indent please
-      (setq evil-auto-indent nil)
       (setq org-export-html-postamble nil)
       ;; Let me keep my prefix key binding
       (define-key org-mode-map (kbd "C-,") nil)
@@ -1786,24 +1481,8 @@ Repeated invocations toggle between the two most recently open buffers."
 
   (use-package rspec-mode)
 
-  ;; (use-package ruby-end
-  ;;   :disabled t)
-
-  (use-package projectile-rails
-    :init
-    (setq projectile-rails-expand-snippet nil)
-    (add-hook 'projectile-mode-hook 'projectile-rails-on))
-
   ;; We never want to edit Rubinius bytecode
   (add-to-list 'completion-ignored-extensions ".rbc")
-
-  ;; Set up hs-mode (HideShow) for Ruby
-  ;; (add-to-list 'hs-special-modes-alist
-  ;;             `(enh-ruby-mode
-  ;;               ,(rx (or "def" "class" "module" "do")) ; Block start
-  ;;               ,(rx (or "end"))                       ; Block end
-  ;;               ,(rx (or "#" "=begin"))                ; Comment start
-  ;;               enh-ruby-forward-sexp nil))
 
   (add-hook 'enh-ruby-mode-hook
     (lambda ()
@@ -1817,7 +1496,6 @@ Repeated invocations toggle between the two most recently open buffers."
       (setq enh-ruby-hanging-brace-indent-level 2)
       (setq enh-ruby-indent-level 2)
       (setq enh-ruby-deep-indent-paren nil)
-      (setq evil-shift-width 2)
 
       ;; Abbrev mode seems broken for some reason
       (abbrev-mode -1))))
@@ -1858,10 +1536,8 @@ Repeated invocations toggle between the two most recently open buffers."
                                   "it" "expect" "describe" "beforeEach"
                                   "refute" "setTimeout" "clearTimeout" "setInterval"
                                   "clearInterval" "location" "__dirname" "console" "JSON"))
-        (setq evil-shift-width js-indent-level)
 
         (flycheck-mode 1)
-        (global-set-key (kbd "C-, b") 'web-beautify-js)
         (js2-imenu-extras-mode +1))))
 
 (use-package json-mode
@@ -1886,39 +1562,6 @@ Repeated invocations toggle between the two most recently open buffers."
     ;(setq tss-implement-definition-key "C-c i")
     (tss-config-default)))
 
-;; Flow
-(define-derived-mode flow-mode typescript-mode "Flow"
-  "JavaScript with Flow type checking")
-;; (define-key flow-mode-map (kbd ":") nil)
-;;(add-to-list 'auto-mode-alist '("\\.jsx$" . flow-mode))
-
-;; (use-package f)
-;; (require 'json)
-;; (defun flycheck-parse-flow (output checker buffer)
-;;   (let ((json-array-type 'list))
-;;     (let ((o (json-read-from-string output)))
-;;       (mapcar #'(lambda (errp)
-;;                   (let ((err (cadr (assoc 'message errp))))
-;;                     (flycheck-error-new
-;;                      :line (cdr (assoc 'line err))
-;;                      :column (cdr (assoc 'start err))
-;;                      :level 'error
-;;                      :message (cdr (assoc 'descr err))
-;;                      :filename (f-relative
-;;                                 (cdr (assoc 'path err))
-;;                                 (f-dirname (file-truename
-;;                                             (buffer-file-name))))
-;;                      :buffer buffer
-;;                      :checker checker)))
-;;               (cdr (assoc 'errors o))))))
-
-;; (flycheck-define-checker javascript-flow
-;;   "Static type checking using Flow."
-;;   :command ("flow" "--json" source-original)
-;;   :error-parser flycheck-parse-flow
-;;   :modes flow-mode)
-;; (add-to-list 'flycheck-checkers 'javascript-flow)
-
 (use-package elm-mode
   :mode "\\.elm$"
   :config
@@ -1935,11 +1578,12 @@ Repeated invocations toggle between the two most recently open buffers."
       ;; (add-hook 'elm-mode-hook #'elm-oracle-setup-completion)
 
       ;; This is getting in the way more than not at the moment
+      ;; TODO Try latest version of elm-indent-mode
       (elm-indent-mode -1)
-      (setq evil-shift-width 4)
       (setq tab-width 4)
 
       (flycheck-mode t))))
+
 
 ;;;;;;;;;;;;
 ;; Coffee ;;
@@ -1988,8 +1632,7 @@ Repeated invocations toggle between the two most recently open buffers."
               (lambda ()
                 (set (make-local-variable 'tab-width) 2)
                 (flycheck-mode t)
-                (setq indent-line-function 'grass/coffee-indent-line)
-                (setq evil-shift-width coffee-tab-width)))))
+                (setq indent-line-function 'grass/coffee-indent-line)))))
 ;;;;;;;;;
 ;; Web ;;
 ;;;;;;;;;
@@ -2016,11 +1659,9 @@ Repeated invocations toggle between the two most recently open buffers."
       (setq web-mode-markup-indent-offset 2)
       (setq web-mode-css-indent-offset 2)
       (setq web-mode-code-indent-offset 2)
-      (setq evil-shift-width 2)
       (setq web-mode-enable-comment-keywords t)
       ;; Use server style comments
       (setq web-mode-comment-style 2)
-      (global-set-key (kbd "C-, b") 'web-beautify-html)
       (global-set-key (kbd "C-, z") 'web-mode-fold-or-unfold)
       (setq web-mode-enable-current-element-highlight t))
     (add-hook 'web-mode-hook  'grass/web-mode-hook)))
@@ -2037,14 +1678,7 @@ Repeated invocations toggle between the two most recently open buffers."
   :init
   (require 'sws-mode)
   (require 'stylus-mode)
-  (add-to-list 'auto-mode-alist '("\\.styl\\'" . stylus-mode))
-  ;; (add-hook 'jade-mode-hook
-  ;;           (lambda ()
-  ;;             (highlight-indentation-mode t)))
-  ;; (add-hook 'stylus-mode-hook
-  ;;           (lambda ()
-  ;;             (highlight-indentation-mode t)))
-  )
+  (add-to-list 'auto-mode-alist '("\\.styl\\'" . stylus-mode)))
 
 (use-package scss-mode
   :mode "\\.scss$"
@@ -2056,8 +1690,7 @@ Repeated invocations toggle between the two most recently open buffers."
               (modify-syntax-entry ?$ "w")
               (modify-syntax-entry ?- "w")
               (linum-mode)
-              (rainbow-mode +1)
-              (setq evil-shift-width css-indent-offset))))
+              (rainbow-mode +1))))
 
 (use-package css-mode
   :mode "\\.css$"
@@ -2066,8 +1699,7 @@ Repeated invocations toggle between the two most recently open buffers."
   (add-hook 'css-mode-hook
             (lambda ()
               (linum-mode)
-              (rainbow-mode +1)
-              (global-set-key (kbd "C-, b") 'web-beautify-css))))
+              (rainbow-mode +1))))
 
 ;;;;;;;;;;;;;;
 ;; Markdown ;;
@@ -2121,6 +1753,7 @@ Repeated invocations toggle between the two most recently open buffers."
     (shell-command
      (format "open -a 'Marked 2' %s"
              (shell-quote-argument (buffer-file-name))))))
+
 
 ;;;;;;;;;;;;;
 ;; Haskell ;;
@@ -2262,15 +1895,6 @@ Repeated invocations toggle between the two most recently open buffers."
                 ;; insert keybinding setup here
                 (cljr-add-keybindings-with-prefix "C-c RET")))))
 
-(defun grass/set-shift-width ()
-   (setq evil-shift-width 2))
-
-(add-hook 'lisp-mode-hook 'grass/set-shift-width)
-(add-hook 'emacs-lisp-mode-hook 'grass/set-shift-width)
-(add-hook 'clojure-mode-hook 'grass/set-shift-width)
-(add-hook 'cider-repl-mode-hook 'grass/set-shift-width)
-(add-hook 'scheme-mode-hook 'grass/set-shift-width)
-
 (add-hook 'emacs-lisp-mode-hook
   (lambda ()
     (define-key global-map (kbd "C-c C-e") 'eval-print-last-sexp)))
@@ -2307,11 +1931,7 @@ Repeated invocations toggle between the two most recently open buffers."
   :config
   (add-hook 'haml-mode-hook
     (lambda ()
-      (set (make-local-variable 'tab-width) 2)
-      (setq evil-shift-width 2))))
-
-(use-package feature-mode
-  :disabled t)
+      (set (make-local-variable 'tab-width) 2))))
 
 
 ;;;;;;;;;;;;;;;;;;
