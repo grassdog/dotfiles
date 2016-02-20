@@ -349,8 +349,11 @@
   ;; Saveplace remembers your location in a file when saving files
   (setq save-place-file (expand-file-name "saveplace" grass/savefile-dir))
   ;; activate it for all buffers
-  (setq-default save-place t)
-  ;; Savehist keeps track of some history
+  (setq-default save-place t))
+
+;; Save minibuffer history etc
+(use-package savehist
+  :config
   (setq savehist-additional-variables
         ;; search entries
         '(search ring regexp-search-ring)
@@ -359,15 +362,11 @@
         ;; keep the home clean
         savehist-file (expand-file-name "savehist" grass/savefile-dir))
   :init
-  (savehist-mode t))
+  (savehist-mode 1))
 
 (use-package recentf
   :defer t
-  :init
-  ;; lazy load recentf
-  (add-hook 'find-file-hook (lambda () (unless recentf-mode
-                                         (recentf-mode)
-                                         (recentf-track-opened-file))))
+  :commands recentf-mode
   :config
   (add-to-list 'recentf-exclude "\\ido.hist\\'")
   (add-to-list 'recentf-exclude "/TAGS")
@@ -377,8 +376,14 @@
   (setq recentf-save-file (expand-file-name "recentf" grass/savefile-dir))
   (setq recentf-max-saved-items 100))
 
+(add-hook 'find-file-hook (lambda () (unless recentf-mode
+                                       (recentf-mode)
+                                       (recentf-track-opened-file))))
+
+
 (use-package undo-tree
   :diminish undo-tree-mode
+  :commands undo-tree-visualize
   :bind (("s-z" . undo-tree-undo)
          ("s-Z" . undo-tree-redo))
   :config
@@ -390,15 +395,16 @@
   ;;   (setq ad-return-value (concat ad-return-value ".gz")))
   (global-undo-tree-mode))
 
-(which-key-declare-prefixes "C-, h" "history")
 (use-package goto-chg
-  :config
-  (defhydra goto-change-hydra (global-map "C-, h")
-      "change history"
-      ("p" goto-last-change "previous")
-      ("n" goto-last-change-reverse "next")
-      ("v" undo-tree-visualize "visualise" :exit t)
-      ("q" nil "quit")))
+  :commands (goto-last-change goto-last-change-reverse))
+
+(which-key-declare-prefixes "C-, h" "history")
+(defhydra goto-change-hydra (global-map "C-, h")
+  "change history"
+  ("p" goto-last-change "previous")
+  ("n" goto-last-change-reverse "next")
+  ("v" undo-tree-visualize "visualise" :exit t)
+  ("q" nil "quit"))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;
@@ -533,20 +539,25 @@ This functions should be added to the hooks of major modes for programming."
 (use-package web-beautify
   :commands (web-beautify-js web-beautify-css web-beautify-html))
 
-(which-key-declare-prefixes "C-, '" "word case")
 (use-package string-inflection
-  :init
-  (progn
-    (defhydra hydra-case (global-map "C-, '")
-      "word case"
-      ("c" capitalize-word "Capitalize")
-      ("u" upcase-word "UPPER")
-      ("l" downcase-word "lower")
-      ("s" string-inflection-underscore "lower_snake")
-      ("n" string-inflection-upcase "UPPER_SNAKE")
-      ("a" string-inflection-lower-camelcase "lowerCamel")
-      ("m" string-inflection-camelcase "UpperCamel")
-      ("d" string-inflection-lisp "dash-case"))))
+  :commands (string-inflection-underscore
+             string-inflection-upcase
+             string-inflection-lower-camelcase
+             string-inflection-camelcase
+             string-inflection-lisp))
+
+(which-key-declare-prefixes "C-, \"" "word case")
+(defhydra hydra-case (global-map "C-, \"")
+  "word case"
+  ("c" capitalize-word "Capitalize")
+  ("u" upcase-word "UPPER")
+  ("l" downcase-word "lower")
+  ("s" string-inflection-underscore "lower_snake")
+  ("n" string-inflection-upcase "UPPER_SNAKE")
+  ("a" string-inflection-lower-camelcase "lowerCamel")
+  ("m" string-inflection-camelcase "UpperCamel")
+  ("d" string-inflection-lisp "dash-case"))
+
 
 ;; Duplication of lines
 (defun grass/get-positions-of-line-or-region ()
@@ -740,11 +751,6 @@ there's a region, all lines that region covers will be duplicated."
 (add-hook 'mouse-leave-buffer-hook 'grass/auto-save-all)
 (add-hook 'focus-out-hook 'grass/auto-save-all)
 
-
-;; abbrev mode for common typos
-(setq abbrev-file-name "~/.emacs.d/abbrev_defs")
-(diminish 'abbrev-mode)
-(setq-default abbrev-mode t)
 
 
 ;;;;;;;;;;;;;;;;;;;;;
@@ -942,6 +948,11 @@ there's a region, all lines that region covers will be duplicated."
 ;; Autocomplete and snippets ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; abbrev mode for common typos
+(setq abbrev-file-name "~/.emacs.d/abbrev_defs")
+(diminish 'abbrev-mode)
+(setq-default abbrev-mode t)
+
 (use-package company
   :diminish company-mode
   :config
@@ -952,8 +963,9 @@ there's a region, all lines that region covers will be duplicated."
   (setq company-global-modes
         '(not markdown-mode org-mode erc-mode))
 
-  (define-key company-active-map [escape] 'company-abort)
-  (add-hook 'after-init-hook 'global-company-mode))
+  (define-key company-active-map [escape] 'company-abort))
+
+(add-hook 'after-init-hook 'global-company-mode)
 
 (use-package yasnippet
   :config
@@ -1058,6 +1070,7 @@ there's a region, all lines that region covers will be duplicated."
 
 (use-package smartparens
   :diminish smartparens-mode
+  :commands (sp-unwrap-sexp sp-rewrap-sexp)
   :config
   (require 'smartparens-config)
   (sp-use-smartparens-bindings)
@@ -1085,26 +1098,32 @@ there's a region, all lines that region covers will be duplicated."
       (sp-local-pair "fn" "end"
                      :when '(("SPC" "RET"))
                      :post-handlers '(:add my-elixir-do-end-close-action)
-                     :actions '(insert))))
+                     :actions '(insert)))))
 
-  (add-hook 'prog-mode-hook #'smartparens-mode))
+(add-hook 'prog-mode-hook #'smartparens-mode)
 
 
 (use-package corral
-  :config
-  (defhydra hydra-corral (:columns 4)
-    "Corral"
-    ("r" sp-rewrap-sexp "Rewrap" :exit t)
-    ("u" sp-unwrap-sexp "Unwrap")
-    ("(" corral-parentheses-backward "Back")
-    (")" corral-parentheses-forward "Forward")
-    ("[" corral-brackets-backward "Back")
-    ("]" corral-brackets-forward "Forward")
-    ("{" corral-braces-backward "Back")
-    ("}" corral-braces-forward "Forward")
-    ("." hydra-repeat "Repeat"))
-  (which-key-declare-prefixes "C-, '" "wrapping")
-  (global-set-key (kbd "C-, '") #'hydra-corral/body))
+  :commands (corral-parentheses-backward
+             corral-parentheses-forward
+             corral-brackets-backward
+             corral-brackets-forward
+             corral-braces-backward
+             corral-braces-forward))
+
+(global-set-key (kbd "C-, '") #'hydra-corral/body)
+(which-key-declare-prefixes "C-, '" "wrapping")
+(defhydra hydra-corral (:columns 4)
+  "Corral"
+  ("r" sp-rewrap-sexp "Rewrap" :exit t)
+  ("u" sp-unwrap-sexp "Unwrap")
+  ("(" corral-parentheses-backward "Back")
+  (")" corral-parentheses-forward "Forward")
+  ("[" corral-brackets-backward "Back")
+  ("]" corral-brackets-forward "Forward")
+  ("{" corral-braces-backward "Back")
+  ("}" corral-braces-forward "Forward")
+  ("." hydra-repeat "Repeat"))
 
 
 ;;;;;;;;;;;;;;;
@@ -1178,24 +1197,20 @@ the right."
 
 (use-package nlinum
   :pin manual
+  :commands nlinum-mode
   :config
-  (setq nlinum-format "%4d ")
-
-  ;; Line numbers for coding please
-  :init
-  (add-hook 'prog-mode-hook
-            (lambda ()
-              (nlinum-mode 1))))
-
-(add-hook 'prog-mode-hook
-          (lambda ()
-            ;; Treat underscore as a word character
-            (modify-syntax-entry ?_ "w")))
+  (setq nlinum-format "%4d "))
 
 (use-package rainbow-delimiters
   :commands rainbow-delimiters-mode)
 
-(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+;; Line numbers for coding please
+(add-hook 'prog-mode-hook
+            (lambda ()
+              ;; Treat underscore as a word character
+              (modify-syntax-entry ?_ "w")
+              (nlinum-mode 1)
+              (rainbow-delimiters-mode)))
 
 
 ;;;;;;;;;;;;;;;;;
@@ -1316,53 +1331,27 @@ the right."
 ;;;;;;;;;
 
 (use-package ido
-  :config
-  ;; Better suggestions
-  (setq ido-enable-prefix nil
-        ido-enable-flex-matching t
-        ido-create-new-buffer 'always
-        ido-use-filename-at-point 'guess
-        ido-max-prospects 10
-        ido-save-directory-list-file (expand-file-name "ido.hist" grass/savefile-dir)
-        ido-default-file-method 'selected-window
-        ido-auto-merge-work-directories-length -1
-        org-completion-use-ido t)
   :init
   (progn
-    (setq ido-enable-flex-matching t)
-    (setq ido-everywhere t)
-    (ido-mode t)
-
-    ;; Bind `~` to go to homedir when in ido-find-file;
-    ;; http://whattheemacsd.com/setup-ido.el-02.html
-    (add-hook 'ido-setup-hook
-    (lambda ()
-      ;; Go straight home
-      (define-key ido-file-completion-map
-        (kbd "~")
-        (lambda ()
-          (interactive)
-          (if (looking-back "/")
-              (insert "~/")
-            (call-interactively 'self-insert-command))))))
-
-    (use-package flx-ido
-      :config
-      ;; disable ido faces to see flx highlights
-      (setq ido-use-faces nil)
-      ;; Smarter fuzzy matching for ido
-      (flx-ido-mode +1))
-
-    (use-package ido-ubiquitous
-      :disabled
-      :init (ido-ubiquitous-mode))
-
     (use-package ido-vertical-mode
       :init
       (ido-vertical-mode 1)
 
       ;; Allow up and down arrow to work for navigation
-      (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right))))
+      (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right))
+    (ido-mode 1)
+    (ido-everywhere 1))
+  :config
+  (progn
+    (setq ido-case-fold t)
+    (setq ido-everywhere t)
+    (setq ido-enable-prefix nil)
+    (setq ido-enable-flex-matching t)
+    (setq ido-create-new-buffer 'always)
+    (setq ido-max-prospects 10)
+    (setq ido-use-faces nil)
+    ;; (setq ido-file-extensions-order '(".rb" ".el" ".coffee" ".js"))
+    (add-to-list 'ido-ignore-files "\\.DS_Store")))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;
@@ -1701,8 +1690,9 @@ Repeated invocations toggle between the two most recently open buffers."
 
 
 (use-package chruby
-  :config
-  (add-hook 'projectile-switch-project-hook #'chruby-use-corresponding))
+  :commands chruby-use-corresponding)
+
+(add-hook 'projectile-switch-project-hook #'chruby-use-corresponding)
 
 
 ;;;;;;;;;;;;;;;;
