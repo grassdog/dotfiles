@@ -1433,6 +1433,7 @@ Repeated invocations toggle between the two most recently open buffers."
   :bind (("C-, o" . helm-buffers-list)
          ("C-, r" . helm-recentf)
          ("C-, C-f" . helm-find-files)
+         ("M-x" . helm-M-x)
          ("M-m" . helm-M-x))
   :config
   (require 'helm-config)
