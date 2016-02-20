@@ -1236,6 +1236,38 @@ the right."
 (setq c-default-style "java")
 (setq-default c-basic-offset 2)
 
+; https://gist.github.com/mishoo/5487564
+(defcustom stupid-indent-level 2
+  "Indentation level for stupid-indent-mode")
+
+(defun stupid-outdent-line ()
+  (interactive)
+  (let (col)
+    (save-excursion
+      (beginning-of-line-text)
+      (setq col (- (current-column) stupid-indent-level))
+      (when (>= col 0)
+        (indent-line-to col)))))
+
+(defun stupid-outdent-region (start stop)
+  (interactive)
+  (setq stop (copy-marker stop))
+  (goto-char start)
+  (while (< (point) stop)
+    (unless (and (bolp) (eolp))
+      (stupid-outdent-line))
+    (forward-line 1)))
+
+(defun stupid-outdent ()
+  (interactive)
+  (if (use-region-p)
+      (save-excursion
+        (stupid-outdent-region (region-beginning) (region-end))
+        (setq deactivate-mark nil))
+    (stupid-outdent-line)))
+
+(global-set-key (kbd "<backtab>") 'stupid-outdent)
+
 
 ;;;;;;;;;;;;;;;;
 ;; Whitespace ;;
