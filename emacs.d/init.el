@@ -143,7 +143,7 @@
 ;; Follow symlinks by default
 (setq vc-follow-symlinks t)
 
-;; Don't make tab indent a line
+;; Don't make tab indent a line (set to t if you want fancy tabbing)
 (setq tab-always-indent nil)
 
 ;; Don't combine tag tables thanks
