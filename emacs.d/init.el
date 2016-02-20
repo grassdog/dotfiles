@@ -268,7 +268,7 @@
   (volatile-highlights-mode t))
 
 ;; Text zoom
-(which-key-declare-prefixes "C-, z" "zoom")
+(which-key-declare-prefixes "C-, z" "text-zoom")
 (defhydra hydra-zoom (global-map "C-, z")
   "zoom"
   ("+" text-scale-increase "in")
@@ -405,11 +405,6 @@
 ;; Sane line killing ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package easy-kill
-  :disabled
-  :init
-  (global-set-key [remap kill-ring-save] 'easy-kill))
-
 ;; If no region kill or copy current line
 ;; http://emacs.stackexchange.com/questions/2347/kill-or-copy-current-line-with-minimal-keystrokes
 (defadvice kill-region (before slick-cut activate compile)
@@ -427,6 +422,10 @@
      (message "Copied line")
      (list (line-beginning-position) (line-beginning-position 2)))))
 
+(use-package easy-kill
+  :disabled
+  :init
+  (global-set-key [remap kill-ring-save] 'easy-kill))
 
 ;;;;;;;;;;;;;;
 ;; Spelling ;;
@@ -434,10 +433,11 @@
 
 (use-package flyspell
   :defer t
+  :commands flyspell-mode
   :diminish (flyspell-mode . " spl")
-  :init
+  :config
   (setq-default ispell-program-name "aspell")
-                                        ; Silently save my personal dictionary when new items are added
+  ; Silently save my personal dictionary when new items are added
   (setq ispell-silently-savep t)
   (ispell-change-dictionary "en_GB" t)
 
@@ -447,6 +447,7 @@
   ;; Spell checking in comments
   ;;(add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
+  (which-key-declare-prefixes "C-, S" "spelling")
   (add-hook 'flyspell-mode-hook
             (lambda ()
               (define-key flyspell-mode-map [(control ?\,)] nil)
@@ -594,9 +595,8 @@ there's a region, all lines that region covers will be duplicated."
         (setq end (point))))
     (goto-char (+ origin (* (length region) arg) arg))))
 
-(global-set-key (kbd "C-c d") 'grass/duplicate-current-line-or-region)
 (global-set-key (kbd "s-d") 'grass/duplicate-current-line-or-region)
-(global-set-key (kbd "C-c M-d") 'grass/duplicate-and-comment-current-line-or-region)
+(global-set-key (kbd "s-M-d") 'grass/duplicate-and-comment-current-line-or-region)
 
 (defun comment-or-uncomment-region-or-line ()
     "Comments or uncomments the region or the current line if there's no active region."
@@ -749,7 +749,8 @@ there's a region, all lines that region covers will be duplicated."
 ;; Dired and files ;;
 ;;;;;;;;;;;;;;;;;;;;;
 
-(which-key-declare-prefixes "C-, d" "dired")
+
+(which-key-declare-prefixes-for-mode 'dired-mode "C-, d" "dired")
 
 (add-hook 'dired-mode-hook
   (lambda ()
@@ -922,6 +923,8 @@ there's a region, all lines that region covers will be duplicated."
 (use-package expand-region
   :bind (("C-+" . er/contract-region)
          ("C-=" . er/expand-region)
+         ("s-e" . er/expand-region)
+         ("s-E" . er/contract-region)
          ("<s-down>" . er/contract-region)
          ("<s-up>" . er/expand-region)))
 
@@ -1098,8 +1101,8 @@ there's a region, all lines that region covers will be duplicated."
     ("{" corral-braces-backward "Back")
     ("}" corral-braces-forward "Forward")
     ("." hydra-repeat "Repeat"))
-  (which-key-declare-prefixes "C-, l" "wrapping")
-  (global-set-key (kbd "C-, l") #'hydra-corral/body))
+  (which-key-declare-prefixes "C-, '" "wrapping")
+  (global-set-key (kbd "C-, '") #'hydra-corral/body))
 
 
 ;;;;;;;;;;;;;;;
@@ -1852,7 +1855,7 @@ Repeated invocations toggle between the two most recently open buffers."
       (setq web-mode-enable-comment-keywords t)
       ;; Use server style comments
       (setq web-mode-comment-style 2)
-      (global-set-key (kbd "C-, z") 'web-mode-fold-or-unfold)
+      (define-key web-mode-map (kbd "C-, z") 'web-mode-fold-or-unfold)
       (setq web-mode-enable-current-element-highlight t))
     (add-hook 'web-mode-hook  'grass/web-mode-hook)))
 
@@ -2097,6 +2100,7 @@ Repeated invocations toggle between the two most recently open buffers."
 (use-package elixir-mode
   :mode (("\\.exs?\\'"   . elixir-mode)
          ("\\.elixer\\'" . elixir-mode))
+  :defer t
   :config
   (use-package alchemist))
 
@@ -2104,6 +2108,7 @@ Repeated invocations toggle between the two most recently open buffers."
   :defer t)
 
 (use-package powershell
+  :defer t
   :mode  (("\\.ps1$" . powershell-mode)
           ("\\.psm$" . powershell-mode)))
 
@@ -2117,6 +2122,7 @@ Repeated invocations toggle between the two most recently open buffers."
   :defer t)
 
 (use-package haml-mode
+  :defer t
   :mode "\\.haml$"
   :config
   (add-hook 'haml-mode-hook
@@ -2142,6 +2148,7 @@ Repeated invocations toggle between the two most recently open buffers."
 (global-set-key (kbd "C-, f j") 'web-beautify-js)
 (global-set-key (kbd "C-, f h") 'web-beautify-html)
 (global-set-key (kbd "C-, f c") 'web-beautify-css)
+(global-set-key (kbd "C-, f u") 'grass/unfill-region)
 
 ;; Make escape abort stuff
 (define-key isearch-mode-map [escape] 'isearch-abort)
@@ -2149,7 +2156,5 @@ Repeated invocations toggle between the two most recently open buffers."
 
 (global-set-key (kbd "s-l") 'grass/mark-full-line)
 (global-set-key (kbd "s-w") 'mark-word)
-(global-set-key (kbd "s-e") 'er/expand-region)
-(global-set-key (kbd "s-E") 'er/contract-region)
 (global-set-key (kbd "s-y") 'kill-ring-save)
 (global-set-key (kbd "s-k") 'kill-region)
