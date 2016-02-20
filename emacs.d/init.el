@@ -1198,6 +1198,7 @@ the right."
 
 ;; Simple indentation please
 (use-package clean-aindent-mode
+  :disabled
   :init
   ; no electric indent, auto-indent is sufficient
   (electric-indent-mode -1)
@@ -1738,11 +1739,7 @@ Repeated invocations toggle between the two most recently open buffers."
       ;; Reenable elm oracle once it's start up cost doesn't smash editor performance
       ;; (add-hook 'elm-mode-hook #'elm-oracle-setup-completion)
 
-      ;; This is getting in the way more than not at the moment
-      ;; TODO Try latest version of elm-indent-mode
-      (elm-indent-mode -1)
       (setq tab-width 4)
-
       (flycheck-mode t))))
 
 
