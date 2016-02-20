@@ -622,8 +622,10 @@ there's a region, all lines that region covers will be duplicated."
 
 ;; Better zap to char
 (use-package zop-to-char
-  :init
-  (global-set-key [remap zap-to-char] 'zop-to-char))
+  :bind ("M-z" . zop-up-to-char)
+  :commands (zop-to-char zop-up-to-char))
+
+(global-set-key [remap zap-to-char] 'zop-to-char)
 
 
 ;;;;;;;;;;;;;;;
@@ -1191,8 +1193,9 @@ the right."
             (modify-syntax-entry ?_ "w")))
 
 (use-package rainbow-delimiters
-  :config
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+  :commands rainbow-delimiters-mode)
+
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
 
 ;;;;;;;;;;;;;;;;;
