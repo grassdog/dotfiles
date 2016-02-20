@@ -396,6 +396,7 @@
       "change history"
       ("p" goto-last-change "previous")
       ("n" goto-last-change-reverse "next")
+      ("v" undo-tree-visualize "visualise" :exit t)
       ("q" nil "quit")))
 
 
