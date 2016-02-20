@@ -620,7 +620,6 @@ there's a region, all lines that region covers will be duplicated."
 (global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
 (global-set-key [(shift return)] #'crux-smart-open-line)
 
-
 ;; Better zap to char
 (use-package zop-to-char
   :init
@@ -1047,18 +1046,6 @@ there's a region, all lines that region covers will be duplicated."
   (define-key yas-keymap (kbd "C-g") 'grass/abort-company-or-yas)
   (define-key yas-minor-mode-map (kbd "C-, e") 'yas-expand))
 
-;;;;;;;;;;;;;;
-;; Flycheck ;;
-;;;;;;;;;;;;;;
-
-(use-package flycheck
-  :defer t
-  :config
-
-  (use-package flycheck-tip
-    :bind ("C-, C-n" . flycheck-tip-cycle)))
-
-
 
 ;;;;;;;;;;;;;;
 ;; Wrapping ;;
@@ -1478,17 +1465,25 @@ Repeated invocations toggle between the two most recently open buffers."
     :bind ("C-, s s" . helm-swoop))
 
   (use-package helm-flycheck
-    :config
-    (define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck)
-    (define-key flycheck-mode-map "C-, x"
-      (defhydra flycheck-hydra ()
+    :init
+    (progn
+
+      (use-package flycheck
+        :init
+        (use-package flycheck-tip
+          :bind ("C-, C-n" . flycheck-tip-cycle)))
+
+
+      (define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck)
+      (which-key-declare-prefixes "C-, x" "flycheck")
+      (defhydra flycheck-hydra (flycheck-mode-map "C-, x")
         "errors"
         ("n" flycheck-next-error "next")
         ("p" flycheck-previous-error "previous")
         ("h" helm-flycheck "helm" :color blue)
         ("q" nil "quit"))))
 
-  (helm-mode 1))
+      (helm-mode 1))
 
 ;; Force helm to always open at the bottom
 (add-to-list 'display-buffer-alist
