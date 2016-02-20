@@ -243,6 +243,7 @@
   :diminish which-key-mode
   :init
   (setq which-key-idle-delay 0.4)
+  (setq which-key-min-display-lines 3)
   (which-key-mode 1))
 
 (use-package browse-kill-ring
