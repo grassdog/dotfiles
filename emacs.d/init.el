@@ -1670,7 +1670,8 @@ Repeated invocations toggle between the two most recently open buffers."
 ;;;;;;;;;;;;;;;;
 
 (use-package js2-mode
-  :mode  (("\\.jsx?$" . js2-jsx-mode)
+  :mode  (("\\.js$" . js2-jsx-mode)
+          ("\\.jsx?$" . js2-jsx-mode)
           ("\\.es6$" . js2-mode))
   :interpreter "node"
   :config
