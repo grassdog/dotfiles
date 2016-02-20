@@ -1063,7 +1063,6 @@ there's a region, all lines that region covers will be duplicated."
 ;;;;;;;;;;;;;;
 
 (use-package smartparens
-  :disabled
   :diminish smartparens-mode
   :config
   (require 'smartparens-config)
@@ -1072,14 +1071,10 @@ there's a region, all lines that region covers will be duplicated."
   ;; Wrap an entire symbol
   (setq sp-wrap-entire-symbol nil)
 
-  ;; Don't autoescape when inside a quote
-  ;; (setq sp-autoescape-string-quote nil)
-
   ;; No auto pairing of quotes thanks
   (sp-pair "'" nil :actions '(:rem insert))
   (sp-pair "\"" nil :actions '(:rem insert))
 
-  ;; TODO Fix this elixir end stuff.
   (progn
     (defun my-elixir-do-end-close-action (id action context)
       (when (eq action 'insert)
@@ -1245,7 +1240,7 @@ the right."
 (setq-default nxml-child-indent 2)
 
 ;; Ruby
-(setq ruby-indent-level 4)
+(setq ruby-indent-level 2)
 
 ;; Default formatting style for C based modes
 (setq c-default-style "java")
