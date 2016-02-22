@@ -546,8 +546,8 @@ This functions should be added to the hooks of major modes for programming."
              string-inflection-camelcase
              string-inflection-lisp))
 
-(which-key-declare-prefixes "C-, \"" "word case")
-(defhydra hydra-case (global-map "C-, \"")
+(which-key-declare-prefixes "C-, ~" "word case")
+(defhydra hydra-case (global-map "C-, ~")
   "word case"
   ("c" capitalize-word "Capitalize")
   ("u" upcase-word "UPPER")
