@@ -64,6 +64,9 @@
   dr  = "!f() { git diff "$1"^.."$1"; }; f"
   dtr = "!f() { git difftool "$1"^.."$1"; }; f"
 
+  # Fancy diff
+  dsf = "!git diff --color $@ | diff-so-fancy"
+
   # List aliases
   la = "!git config -l | grep alias | cut -c 7-"
 
