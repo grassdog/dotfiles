@@ -1416,10 +1416,12 @@ the right."
 ;; Utility Functions ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun grass/recompile-init ()
-  "Byte-compile all your dotfiles again."
+(defun grass/today ()
+  (format-time-string "%Y-%m-%d, %a"))
+
+(defun grass/insert-date ()
   (interactive)
-  (byte-recompile-directory grass/dotfiles-dir 0))
+  (insert (grass/today)))
 
 (defun grass/view-url-in-buffer ()
   "Open a new buffer containing the contents of URL."
