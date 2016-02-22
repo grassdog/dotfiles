@@ -399,7 +399,7 @@
   :commands (goto-last-change goto-last-change-reverse))
 
 (which-key-declare-prefixes "C-, h" "history")
-(defhydra goto-change-hydra (global-map "C-, h")
+(defhydra hydra-goto-change (global-map "C-, h")
   "change history"
   ("p" goto-last-change "previous")
   ("n" goto-last-change-reverse "next")
@@ -546,7 +546,6 @@ This functions should be added to the hooks of major modes for programming."
              string-inflection-camelcase
              string-inflection-lisp))
 
-(which-key-declare-prefixes "C-, ~" "word case")
 (defhydra hydra-case (global-map "C-, ~")
   "word case"
   ("c" capitalize-word "Capitalize")
@@ -562,11 +561,11 @@ This functions should be added to the hooks of major modes for programming."
                            :color pink
                            :post (deactivate-mark))
   "
-  ^_k_^     _d_elete    _s_tring
-_h_   _l_   _o_k        _y_ank
-  ^_j_^     _n_ew-copy  _r_eset
-^^^^        _e_xchange  _u_ndo
-^^^^        ^ ^         _p_aste
+  ^_k_^     _d_elete         _s_tring
+_h_   _l_   _o_k             _y_ank
+  ^_j_^     _n_ew-copy       _r_eset
+^^^^        _e_xchange       _u_ndo
+^^^^        _m_ulti-cursor   _p_aste
 "
   ("h" backward-char nil)
   ("l" forward-char nil)
@@ -583,7 +582,7 @@ _h_   _l_   _o_k        _y_ank
   ("s" string-rectangle nil)
   ("p" kill-rectangle nil)
   ("o" nil nil))
-(global-set-key (kbd "C-, R") 'hydra-rectangle/body)
+(global-set-key (kbd "C-, v") 'hydra-rectangle/body)
 
 ;; Duplication of lines
 (defun grass/get-positions-of-line-or-region ()
@@ -1138,7 +1137,6 @@ there's a region, all lines that region covers will be duplicated."
              corral-braces-forward))
 
 (global-set-key (kbd "C-, '") #'hydra-corral/body)
-(which-key-declare-prefixes "C-, '" "wrapping")
 (defhydra hydra-corral (:columns 4)
   "Corral"
   ("r" sp-rewrap-sexp "Rewrap" :exit t)
@@ -1531,7 +1529,7 @@ Repeated invocations toggle between the two most recently open buffers."
 
       (define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck)
       (which-key-declare-prefixes "C-, x" "flycheck")
-      (defhydra flycheck-hydra (flycheck-mode-map "C-, x")
+      (defhydra hydra-flycheck (flycheck-mode-map "C-, x")
         "errors"
         ("n" flycheck-next-error "next")
         ("p" flycheck-previous-error "previous")
