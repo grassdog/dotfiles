@@ -279,13 +279,14 @@
   (volatile-highlights-mode t))
 
 ;; Text zoom
-(which-key-declare-prefixes "C-, z" "text-zoom")
-(defhydra hydra-zoom (global-map "C-, z")
+(defhydra hydra-zoom ()
   "zoom"
   ("+" text-scale-increase "in")
   ("-" text-scale-decrease "out")
   ("0" (text-scale-adjust 0) "reset")
   ("q" nil "quit" :color blue))
+(global-set-key (kbd "C-, z") 'hydra-zoom/body)
+
 
 (use-package ibuffer
   :commands ibuffer
@@ -409,14 +410,13 @@
 (use-package goto-chg
   :commands (goto-last-change goto-last-change-reverse))
 
-(which-key-declare-prefixes "C-, h" "history")
-(defhydra hydra-goto-change (global-map "C-, h")
+(defhydra hydra-goto-change ()
   "change history"
   ("p" goto-last-change "previous")
   ("n" goto-last-change-reverse "next")
   ("v" undo-tree-visualize "visualise" :exit t)
   ("q" nil "quit"))
-
+(global-set-key (kbd "C-, h") 'hydra-goto-change/body)
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Sane line killing ;;
@@ -557,7 +557,7 @@ This functions should be added to the hooks of major modes for programming."
              string-inflection-camelcase
              string-inflection-lisp))
 
-(defhydra hydra-case (global-map "C-, ~")
+(defhydra hydra-case ()
   "word case"
   ("c" capitalize-word "Capitalize")
   ("u" upcase-word "UPPER")
@@ -567,6 +567,8 @@ This functions should be added to the hooks of major modes for programming."
   ("a" string-inflection-lower-camelcase "lowerCamel")
   ("m" string-inflection-camelcase "UpperCamel")
   ("d" string-inflection-lisp "dash-case"))
+(global-set-key (kbd "C-, ~") 'hydra-case/body)
+
 
 (defhydra hydra-rectangle (:body-pre (rectangle-mark-mode 1)
                            :color pink
@@ -1147,7 +1149,6 @@ there's a region, all lines that region covers will be duplicated."
              corral-braces-backward
              corral-braces-forward))
 
-(global-set-key (kbd "C-, '") #'hydra-corral/body)
 (defhydra hydra-corral (:columns 4)
   "Corral"
   ("r" sp-rewrap-sexp "Rewrap" :exit t)
@@ -1159,6 +1160,7 @@ there's a region, all lines that region covers will be duplicated."
   ("{" corral-braces-backward "Back")
   ("}" corral-braces-forward "Forward")
   ("." hydra-repeat "Repeat"))
+(global-set-key (kbd "C-, '") #'hydra-corral/body)
 
 
 ;;;;;;;;;;;;;;;
@@ -1540,12 +1542,13 @@ Repeated invocations toggle between the two most recently open buffers."
 
       (define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck)
       (which-key-declare-prefixes "C-, x" "flycheck")
-      (defhydra hydra-flycheck (flycheck-mode-map "C-, x")
+      (defhydra hydra-flycheck ()
         "errors"
         ("n" flycheck-next-error "next")
         ("p" flycheck-previous-error "previous")
         ("h" helm-flycheck "helm" :color blue)
-        ("q" nil "quit"))))
+        ("q" nil "quit"))
+      (define-key flycheck-mode-map (kbd "C-, x") #'hydra-flycheck/body)))
 
       (helm-mode 1))
 
