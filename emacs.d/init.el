@@ -664,7 +664,7 @@ there's a region, all lines that region covers will be duplicated."
     ("C-<backspace>" . crux-kill-line-backwards)
     ("s-j" . crux-top-join-line)
     ("s-o" . crux-smart-open-line-above)
-    ("C-M-z" . crux-indent-defun)))
+    ("C-, f d" . crux-indent-defun)))
 
 (global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
 (global-set-key [(shift return)] #'crux-smart-open-line)
@@ -675,6 +675,27 @@ there's a region, all lines that region covers will be duplicated."
   :commands (zop-to-char zop-up-to-char))
 
 (global-set-key [remap zap-to-char] 'zop-to-char)
+
+
+(use-package iedit
+  :defines grass/iedit-dwim
+  :bind (("C-, s ;" . iedit-mode)
+         ("C-, s :" . grass/iedit-dwim))
+  :config
+  (defun grass/iedit-dwim (arg)
+    "Starts iedit but uses \\[narrow-to-defun] to limit its scope."
+    (interactive "P")
+    (if arg
+        (iedit-mode)
+      (save-excursion
+        (save-restriction
+          (widen)
+          ;; this function determines the scope of `iedit-start'.
+          (if iedit-mode
+              (iedit-done)
+            ;; `current-word' can of course be replaced by other functions.
+            (narrow-to-defun)
+            (iedit-start (current-word) (point-min) (point-max))))))))
 
 
 ;;;;;;;;;;;;;;;
