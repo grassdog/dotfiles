@@ -244,6 +244,17 @@
   :init
   (setq which-key-idle-delay 0.4)
   (setq which-key-min-display-lines 3)
+
+  (setq which-key-description-replacement-alist
+        '(("Prefix Command" . "prefix")
+          ("which-key-show-next-page" . "wk next pg")
+          ("\\`calc-" . "") ; Hide "calc-" prefixes when listing M-x calc keys
+          ("/body\\'" . "") ; Remove display the "/body" portion of hydra fn names
+          ("string-inflection" . "si")
+          ("grass/" . "g/")
+          ("\\`hydra-" . "+h/")
+          ("\\`org-babel-" . "ob/")))
+
   (which-key-mode 1))
 
 (use-package browse-kill-ring
@@ -565,7 +576,7 @@ This functions should be added to the hooks of major modes for programming."
 _h_   _l_   _o_k             _y_ank
   ^_j_^     _n_ew-copy       _r_eset
 ^^^^        _e_xchange       _u_ndo
-^^^^        _m_ulti-cursor   _p_aste
+^^^^                         _p_aste
 "
   ("h" backward-char nil)
   ("l" forward-char nil)
