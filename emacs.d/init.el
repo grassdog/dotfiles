@@ -538,8 +538,13 @@ This functions should be added to the hooks of major modes for programming."
 ;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package move-text
-  :bind (("<C-S-up>" . move-text-up)
-         ("<C-S-down>" . move-text-down)))
+  :commands (move-text-up move-text-down))
+
+(defhydra hydra-move-text ()
+  "move text"
+  ("<up>" move-text-up "move up")
+  ("<down>" move-text-down "move down"))
+(global-set-key (kbd "C-, t") 'hydra-move-text/body)
 
 ;; Keep system clipboard separate from kill ring
 (use-package simpleclip
