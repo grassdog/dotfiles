@@ -275,7 +275,6 @@
 (use-package volatile-highlights
   :diminish volatile-highlights-mode
   :config
-  (require 'highlight)
   (volatile-highlights-mode t))
 
 ;; Text zoom
