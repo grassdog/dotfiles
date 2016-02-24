@@ -1654,17 +1654,17 @@ Repeated invocations toggle between the two most recently open buffers."
     )
 
   (use-package helm-swoop
-    :bind ("C-, s s" . helm-swoop))
+    :bind ("C-, s s" . helm-swoop)
+    :config
+    (setq helm-swoop-split-direction 'split-window-vertically))
 
   (use-package helm-flycheck
     :init
     (progn
-
       (use-package flycheck
         :init
         (use-package flycheck-tip
           :bind ("C-, C-n" . flycheck-tip-cycle)))
-
 
       (define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck)
       (which-key-declare-prefixes "C-, x" "flycheck")
