@@ -356,15 +356,15 @@
       `((".*" ,temporary-file-directory t)))
 
 (use-package saveplace
-  :config
+  :init
   ;; Saveplace remembers your location in a file when saving files
   (setq save-place-file (expand-file-name "saveplace" grass/savefile-dir))
   ;; activate it for all buffers
-  (setq-default save-place t))
+  (save-place-mode 1))
 
 ;; Save minibuffer history etc
 (use-package savehist
-  :config
+  :init
   (setq savehist-additional-variables
         ;; search entries
         '(search ring regexp-search-ring)
@@ -372,7 +372,6 @@
         savehist-autosave-interval 60
         ;; keep the home clean
         savehist-file (expand-file-name "savehist" grass/savefile-dir))
-  :init
   (savehist-mode 1))
 
 (use-package recentf
