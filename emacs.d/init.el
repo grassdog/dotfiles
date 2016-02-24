@@ -1678,13 +1678,6 @@ Repeated invocations toggle between the two most recently open buffers."
 
       (helm-mode 1))
 
-;; Force helm to always open at the bottom
-(add-to-list 'display-buffer-alist
-             `(,(rx bos "*helm" (* not-newline) "*" eos)
-               (display-buffer-in-side-window)
-               (inhibit-same-window . t)
-               (window-height . 0.5)))
-
 
 ;;;;;;;;;;;;;;;;
 ;; Projectile ;;
