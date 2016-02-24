@@ -680,6 +680,106 @@ there's a region, all lines that region covers will be duplicated."
 (global-set-key [remap zap-to-char] 'zop-to-char)
 
 
+;; Window handling
+(use-package ace-window
+  :commands (ace-window))
+(winner-mode 1)
+
+(defun hydra-move-splitter-left (arg)
+  "Move window splitter left."
+  (interactive "p")
+  (if (let ((windmove-wrap-around))
+        (windmove-find-other-window 'right))
+      (shrink-window-horizontally arg)
+    (enlarge-window-horizontally arg)))
+
+(defun hydra-move-splitter-right (arg)
+  "Move window splitter right."
+  (interactive "p")
+  (if (let ((windmove-wrap-around))
+        (windmove-find-other-window 'right))
+      (enlarge-window-horizontally arg)
+    (shrink-window-horizontally arg)))
+
+(defun hydra-move-splitter-up (arg)
+  "Move window splitter up."
+  (interactive "p")
+  (if (let ((windmove-wrap-around))
+        (windmove-find-other-window 'up))
+      (enlarge-window arg)
+    (shrink-window arg)))
+
+(defun hydra-move-splitter-down (arg)
+  "Move window splitter down."
+  (interactive "p")
+  (if (let ((windmove-wrap-around))
+        (windmove-find-other-window 'up))
+      (shrink-window arg)
+    (enlarge-window arg)))
+
+(defhydra hydra-window ()
+  "
+Movement^^        ^Split^          ^Switch^        ^Resize^
+----------------------------------------------------------------
+_h_ ←            _v_ertical        _b_uffer        _q_ X←
+_j_ ↓            _x_ horizontal    _f_ind files    _w_ X↓
+_k_ ↑            _z_ undo          _a_ce 1         _e_ X↑
+_l_ →            _Z_ reset         _s_wap          _r_ X→
+_F_ollow         _D_lt Other       _S_ave          max_i_mize
+_SPC_ cancel     _o_nly this       _d_elete
+"
+  ("h" windmove-left nil)
+  ("j" windmove-down nil)
+  ("k" windmove-up nil)
+  ("l" windmove-right nil)
+  ("q" hydra-move-splitter-left nil)
+  ("w" hydra-move-splitter-down nil)
+  ("e" hydra-move-splitter-up nil)
+  ("r" hydra-move-splitter-right nil)
+  ("b" helm-mini nil)
+  ("f" helm-find-files nil)
+  ("F" follow-mode nil)
+  ("a" (lambda ()
+         (interactive)
+         (ace-window 1)
+         (add-hook 'ace-window-end-once-hook
+                   'hydra-window/body))
+   nil)
+  ("v" (lambda ()
+         (interactive)
+         (split-window-right)
+         (windmove-right))
+   nil)
+  ("x" (lambda ()
+         (interactive)
+         (split-window-below)
+         (windmove-down))
+   nil)
+  ("s" (lambda ()
+         (interactive)
+         (ace-window 4)
+         (add-hook 'ace-window-end-once-hook
+                   'hydra-window/body)) nil)
+  ("S" save-buffer nil)
+  ("d" delete-window nil)
+  ("D" (lambda ()
+         (interactive)
+         (ace-window 16)
+         (add-hook 'ace-window-end-once-hook
+                   'hydra-window/body))
+   nil)
+  ("o" delete-other-windows nil)
+  ("i" ace-maximize-window nil)
+  ("z" (progn
+         (winner-undo)
+         (setq this-command 'winner-undo))
+   nil)
+  ("Z" winner-redo nil)
+  ("SPC" nil nil)
+  )
+(global-set-key (kbd "C-, w") 'hydra-window/body)
+
+
 (use-package iedit
   :defines grass/iedit-dwim
   :bind (("C-, s ;" . iedit-mode)
@@ -1360,7 +1460,7 @@ the right."
 
 (setq require-final-newline t)
 
-(define-key global-map (kbd "C-, w") 'whitespace-cleanup)
+(define-key global-map (kbd "C-, f w") 'whitespace-cleanup)
 
 ;; Only show bad whitespace (Ignore empty lines at start and end of buffer)
 (setq whitespace-style '(face tabs trailing space-before-tab indentation space-after-tab))
