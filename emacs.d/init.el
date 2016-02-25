@@ -1105,7 +1105,7 @@ _SPC_ cancel     _o_nly this       _d_elete
 (setq-default abbrev-mode t)
 
 (use-package company
-  :diminish company-mode
+  :diminish (company-mode . "ⓒ")
   :config
   (setq company-idle-delay 0.2)
   (setq company-minimum-prefix-length 3)
@@ -1122,7 +1122,7 @@ _SPC_ cancel     _o_nly this       _d_elete
   :config
   (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
 
-  :diminish yas-minor-mode
+  :diminish (yas-minor-mode . "ⓨ")
   :init
 
   (defun grass/do-yas-expand ()
@@ -1220,7 +1220,7 @@ _SPC_ cancel     _o_nly this       _d_elete
 ;;;;;;;;;;;;;;
 
 (use-package smartparens
-  :diminish smartparens-mode
+  :diminish (smartparens-mode . "ⓢ")
   :commands (sp-unwrap-sexp sp-rewrap-sexp)
   :config
   (require 'smartparens-config)
@@ -1457,6 +1457,7 @@ the right."
 
 ;; Only trim modified lines on save
 (use-package ws-butler
+  :diminish (ws-butler-mode . "ⓦ")
   :config
   (progn
     (ws-butler-global-mode 1)))
@@ -1673,7 +1674,7 @@ Repeated invocations toggle between the two most recently open buffers."
 ;;;;;;;;;;;;;;;;
 
 (use-package projectile
-  :diminish projectile-mode
+  :diminish (projectile-mode . "ⓟ")
   :commands projectile-mode
   :bind-keymap ("C-c p" . projectile-command-map)
   :bind (("C-, C-p" . helm-projectile)
