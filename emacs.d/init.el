@@ -62,13 +62,6 @@
 (setq user-full-name "Ray Grasso"
       user-mail-address "ray.grasso@gmail.com")
 
-(use-package server
-  :disabled t
-  :if window-system
-  :config
-  (unless (server-running-p)
-    (server-start)))
-
 ;; Fix our shell environment on OSX
 (when (eq system-type 'darwin)
   (use-package exec-path-from-shell
@@ -176,7 +169,6 @@
 
 (diminish 'hs-minor-mode)
 
-
 ;;;;;;;;;;;;
 ;; Themes ;;
 ;;;;;;;;;;;;
@@ -209,12 +201,9 @@
   (interactive)
   (xterm-mouse-mode 1)
   (menu-bar-mode -1)
-  (load-theme 'zenburn t))
+  (load-theme 'spacemacs-dark t))
 
 (use-package spacemacs-theme)
-
-(use-package zenburn-theme
-  :defer t)
 
 (defun grass/set-ui ()
   (if (display-graphic-p)
