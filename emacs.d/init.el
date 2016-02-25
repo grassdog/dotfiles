@@ -263,7 +263,7 @@
 ;; UI highlight search and other actions
 (use-package volatile-highlights
   :diminish volatile-highlights-mode
-  :config
+  :init
   (volatile-highlights-mode t))
 
 ;; Text zoom
