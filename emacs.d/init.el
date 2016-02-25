@@ -2089,7 +2089,8 @@ Repeated invocations toggle between the two most recently open buffers."
     (interactive)
     (shell-command
      (format "open -a 'Marked 2' %s"
-             (shell-quote-argument (buffer-file-name))))))
+             (shell-quote-argument (buffer-file-name)))))
+  (define-key markdown-mode-map (kbd "C-, u p") 'grass/markdown-open-marked))
 
 
 ;;;;;;;;;;;;;
