@@ -995,7 +995,8 @@ _SPC_ cancel     _o_nly this       _d_elete
       (dired-hide-details-mode t)))
 
 (use-package dired+
-  :bind ("C-x C-j" . dired-jump))
+  :bind (("C-x C-j" . dired-jump)
+         ("s-u" . dired-jump)))
 
 ;; Ignore certain files
 (use-package ignoramus
