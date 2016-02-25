@@ -169,6 +169,10 @@
 
 (diminish 'hs-minor-mode)
 
+;; Silence advice warnings
+(setq ad-redefinition-action 'accept)
+
+
 ;;;;;;;;;;;;
 ;; Themes ;;
 ;;;;;;;;;;;;
@@ -1101,7 +1105,7 @@ _SPC_ cancel     _o_nly this       _d_elete
 
 ;; abbrev mode for common typos
 (setq abbrev-file-name "~/.emacs.d/abbrev_defs")
-(diminish 'abbrev-mode)
+(diminish 'abbrev-mode "ⓐ")
 (setq-default abbrev-mode t)
 
 (use-package company
