@@ -1087,9 +1087,7 @@ _SPC_ cancel     _o_nly this       _d_elete
   :bind (("C-+" . er/contract-region)
          ("C-=" . er/expand-region)
          ("s-e" . er/expand-region)
-         ("s-E" . er/contract-region)
-         ("<s-down>" . er/contract-region)
-         ("<s-up>" . er/expand-region)))
+         ("s-E" . er/contract-region)))
 
 (defun grass/mark-full-line ()
   "Set mark from point to beginning of line"
