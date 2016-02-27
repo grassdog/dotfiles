@@ -535,7 +535,9 @@ This functions should be added to the hooks of major modes for programming."
 ;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package move-text
-  :commands (move-text-up move-text-down))
+  :commands (move-text-up move-text-down)
+  :bind (("<C-S-up>" . move-text-up)
+         ("<C-S-down>" . move-text-down)))
 
 (defhydra hydra-move-text ()
   "move text"
