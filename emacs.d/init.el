@@ -65,7 +65,8 @@
 ;; Fix our shell environment on OSX
 (when (eq system-type 'darwin)
   (use-package exec-path-from-shell
-    :init
+    :defer 3
+    :config
     (exec-path-from-shell-initialize))
 
   ;; Default font thanks
@@ -255,7 +256,8 @@
 
 ;; Use shift + arrow keys to switch between visible buffers
 (use-package windmove
-  :init
+  :defer 1
+  :config
   (windmove-default-keybindings))
 
 
@@ -267,7 +269,8 @@
 ;; UI highlight search and other actions
 (use-package volatile-highlights
   :diminish volatile-highlights-mode
-  :init
+  :defer 3
+  :config
   (volatile-highlights-mode t))
 
 ;; Text zoom
@@ -349,15 +352,17 @@
       `((".*" ,temporary-file-directory t)))
 
 (use-package saveplace
-  :init
+  :config
   ;; Saveplace remembers your location in a file when saving files
   (setq save-place-file (expand-file-name "saveplace" grass/savefile-dir))
+  :init
   ;; activate it for all buffers
   (save-place-mode 1))
 
 ;; Save minibuffer history etc
 (use-package savehist
-  :init
+  :defer 2
+  :config
   (setq savehist-additional-variables
         ;; search entries
         '(search ring regexp-search-ring)
@@ -368,7 +373,7 @@
   (savehist-mode 1))
 
 (use-package recentf
-  :defer t
+  :defer 2
   :commands recentf-mode
   :config
   (add-to-list 'recentf-exclude "\\ido.hist\\'")
@@ -540,7 +545,8 @@ This functions should be added to the hooks of major modes for programming."
 
 ;; Keep system clipboard separate from kill ring
 (use-package simpleclip
-  :init
+  :defer 2
+  :config
   (simpleclip-mode 1))
 
 (use-package web-beautify
@@ -822,7 +828,8 @@ _SPC_ cancel     _o_nly this       _d_elete
 (use-package git-gutter
   :commands global-git-gutter-mode
   :diminish git-gutter-mode
-  :init
+  :defer 3
+  :config
   (progn
     ;; If you enable global minor mode
     (global-git-gutter-mode t)
@@ -841,14 +848,13 @@ _SPC_ cancel     _o_nly this       _d_elete
 
 (use-package git-gutter-fringe
   :commands git-gutter-mode
-  :init
+  :defer 3
+  :config
   (progn
     (when (display-graphic-p)
       (with-eval-after-load 'git-gutter
         (require 'git-gutter-fringe)))
     (setq git-gutter-fr:side 'right-fringe))
-  :config
-  (progn
     ;; custom graphics that works nice with half-width fringes
     (fringe-helper-define 'git-gutter-fr:added nil
                           "..X...."
@@ -870,7 +876,7 @@ _SPC_ cancel     _o_nly this       _d_elete
                           "XX.XX.."
                           ".XXX..."
                           "..X...."
-                          )))
+                          ))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -1000,7 +1006,8 @@ _SPC_ cancel     _o_nly this       _d_elete
 
 ;; Ignore certain files
 (use-package ignoramus
-  :init
+  :defer 2
+  :config
   (ignoramus-setup '(comint completions grep ido
                      nav pcomplete projectile speedbar vc)))
 
@@ -1106,7 +1113,8 @@ _SPC_ cancel     _o_nly this       _d_elete
 
 (use-package anzu
   :diminish anzu-mode
-  :init
+  :defer 3
+  :config
   (setq anzu-cons-mode-line-p nil)
   (global-anzu-mode +1))
 
@@ -1153,12 +1161,10 @@ _SPC_ cancel     _o_nly this       _d_elete
 (add-hook 'after-init-hook 'global-company-mode)
 
 (use-package yasnippet
+  :diminish (yas-minor-mode . "ⓨ")
+  :defer 1
   :config
   (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
-
-  :diminish (yas-minor-mode . "ⓨ")
-  :init
-
   (defun grass/do-yas-expand ()
     (let ((yas/fallback-behavior 'return-nil))
       (yas-expand)))
@@ -1382,7 +1388,7 @@ the right."
 (use-package nlinum
   :pin manual
   :commands nlinum-mode
-  :config
+  :preface
   (setq nlinum-format "%4d "))
 
 (use-package rainbow-delimiters
@@ -2042,7 +2048,7 @@ Repeated invocations toggle between the two most recently open buffers."
 
 (use-package jade-mode
   :mode "\\.jade$"
-  :init
+  :config
   (require 'sws-mode)
   (require 'stylus-mode)
   (add-to-list 'auto-mode-alist '("\\.styl\\'" . stylus-mode)))
