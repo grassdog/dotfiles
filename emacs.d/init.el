@@ -1615,6 +1615,12 @@ Repeated invocations toggle between the two most recently open buffers."
                   (get-char-property (point) 'face))))
     (if face (message "Face: %s" face) (message "No face at %d" pos))))
 
+
+(defun grass/killsave-to-end-of-line ()
+  "Kill save till end of line from point"
+  (interactive)
+  (kill-append (buffer-substring-no-properties (point) (line-end-position)) nil))
+
 ;;;;;;;;;;;;;;;;;;
 ;; Common Files ;;
 ;;;;;;;;;;;;;;;;;;
@@ -2340,4 +2346,5 @@ Repeated invocations toggle between the two most recently open buffers."
 (global-set-key (kbd "s-l") 'grass/mark-full-line)
 (global-set-key (kbd "s-w") 'mark-word)
 (global-set-key (kbd "s-y") 'kill-ring-save)
+(global-set-key (kbd "s-Y") 'grass/killsave-to-end-of-line)
 (global-set-key (kbd "s-k") 'kill-region)
