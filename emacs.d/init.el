@@ -168,8 +168,6 @@
 ;; Base 10 for inserting quoted chars please
 (setq read-quoted-char-radix 10)
 
-(diminish 'hs-minor-mode)
-
 ;; Silence advice warnings
 (setq ad-redefinition-action 'accept)
 
@@ -1388,7 +1386,7 @@ the right."
 ;;;;;;;;;;;;;;;
 
 (use-package nlinum
-  :pin manual
+  :load-path "site-lisp"
   :commands nlinum-mode
   :preface
   (setq nlinum-format "%4d "))
