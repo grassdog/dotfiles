@@ -2102,6 +2102,10 @@ Repeated invocations toggle between the two most recently open buffers."
 
   (define-key markdown-mode-map (kbd "RET") 'grass/markdown-enter-key-dwim)
 
+  ;; Keep word movement instead of promotion mappings
+  (define-key markdown-mode-map (kbd "<M-right>") nil)
+  (define-key markdown-mode-map (kbd "<M-left>") nil)
+
   (setq markdown-imenu-generic-expression
         '(("title"  "^\\(.*\\)[\n]=+$" 1)
           ("h2-"    "^\\(.*\\)[\n]-+$" 1)
