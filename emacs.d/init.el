@@ -340,6 +340,10 @@
 (global-set-key (kbd "C-, g i") 'imenu)
 (global-set-key (kbd "C-, g l") 'goto-line)
 
+;; Lighter line continuation arrows
+(define-fringe-bitmap 'left-curly-arrow [0 64 72 68 126 4 8 0])
+(define-fringe-bitmap 'right-curly-arrow [0 2 18 34 126 32 16 0])
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Backups and editing history ;;
