@@ -249,6 +249,8 @@
 
   (which-key-mode 1))
 
+(which-key-declare-prefixes "C-, ," "mode")
+
 (use-package browse-kill-ring
   :bind ("C-, y" . browse-kill-ring))
 
@@ -1939,10 +1941,10 @@ Repeated invocations toggle between the two most recently open buffers."
   (setq typescript-indent-level 2)
   (setq typescript-expr-indent-offset 2)
   (use-package tss
-    :config
-    ;(setq tss-popup-help-key "C-:")
-    ;(setq tss-jump-to-definition-key "C->")
-    ;(setq tss-implement-definition-key "C-c i")
+    :init
+    (setq tss-popup-help-key "C-, , h")
+    (setq tss-jump-to-definition-key "C-, , j")
+    (setq tss-implement-definition-key "C-, , i")
     (tss-config-default)))
 
 (use-package elm-mode
