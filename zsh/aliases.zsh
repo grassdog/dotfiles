@@ -67,7 +67,7 @@ if [[ $(uname) == Darwin ]]; then
   alias gv='mvim'
   alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
 
-  alias e="~/.bin/emacs"
+  alias e="~/.bin/emacs-start"
 
   alias play="osascript -e 'tell app \"iTunes\" to playpause'"
   alias next="osascript -e 'tell app \"iTunes\" to next track'"
