@@ -65,7 +65,7 @@
 ;; Fix our shell environment on OSX
 (when (eq system-type 'darwin)
   (use-package exec-path-from-shell
-    :defer 3
+    :defer 1
     :config
     (exec-path-from-shell-initialize))
 
@@ -349,6 +349,25 @@
 (define-fringe-bitmap 'right-curly-arrow [0 2 18 34 126 32 16 0])
 
 
+;;;;;;;;;;;;;;;;;;;
+;; Key Frequency ;;
+;;;;;;;;;;;;;;;;;;;
+
+(use-package keyfreq
+  :init
+  (setq keyfreq-excluded-commands
+        '(self-insert-command
+          abort-recursive-edit
+          forward-char
+          backward-char
+          previous-line
+          next-line
+          right-char
+          left-char))
+  (keyfreq-mode 1)
+  (keyfreq-autosave-mode 1))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Backups and editing history ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -504,6 +523,7 @@
         (delete-char -1)
         (insert ?\s)))))
 
+;; TODO Remove region params to interactive
 ;; http://stackoverflow.com/a/21051395/62023
 (defun grass/comment-box (beg end &optional arg)
   (interactive "*r\np")
@@ -945,6 +965,12 @@ _SPC_ cancel     _o_nly this       _d_elete
 
     (use-package dired-rainbow)
     (dired-rainbow-define-chmod executable-unix "#4e9a06" "-.*x.*")
+
+    ;;preview files in dired
+    (use-package peep-dired
+      :defer t
+      :bind (:map dired-mode-map
+                  ("P" . peep-dired)))
 
     (defun grass/dired-rsync (dest)
       (interactive
