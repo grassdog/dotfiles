@@ -2352,7 +2352,7 @@ Repeated invocations toggle between the two most recently open buffers."
 (global-set-key [escape] 'keyboard-escape-quit)
 
 (global-set-key (kbd "s-l") 'grass/mark-full-line)
-(global-set-key (kbd "s-w") 'mark-word)
+;(global-set-key (kbd "s-w") 'mark-word)
 (global-set-key (kbd "s-y") 'kill-ring-save)
 (global-set-key (kbd "s-Y") 'grass/killsave-to-end-of-line)
 (global-set-key (kbd "s-k") 'kill-region)
