@@ -190,6 +190,10 @@
 (defadvice load-theme (before theme-dont-propagate activate)
   (mapc #'disable-theme custom-enabled-themes))
 
+;; Set default frame size
+(add-to-list 'default-frame-alist '(height . 60))
+(add-to-list 'default-frame-alist '(width . 110))
+
 (defun grass/set-gui-config ()
   "Enable my GUI settings"
   (interactive)
