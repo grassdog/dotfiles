@@ -1061,6 +1061,42 @@ _SPC_ cancel     _o_nly this       _d_elete
 ;; Search and Replace ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; http://sachachua.com/blog/2008/07/emacs-keyboard-shortcuts-for-navigating-code/
+(defun grass/isearch-yank-current-word ()
+  "Pull current word from buffer into search string."
+  (interactive)
+  (save-excursion
+    (skip-syntax-backward "w_")
+    (isearch-yank-internal
+     (lambda ()
+       (skip-syntax-forward "w_")
+       (point)))))
+
+(define-key isearch-mode-map (kbd "C-x") 'grass/isearch-yank-current-word)
+
+(defun grass/search-word-backward ()
+  "Find the previous occurrence of the current word."
+  (interactive)
+  (let ((cur (point)))
+    (skip-syntax-backward "w_")
+    (goto-char
+     (if (re-search-backward (concat "\\_<" (regexp-quote (current-word)) "\\_>") nil t)
+   (match-beginning 0)
+       cur))))
+
+(defun grass/search-word-forward ()
+  "Find the next occurrance of the current word."
+  (interactive)
+  (let ((cur (point)))
+    (skip-syntax-forward "w_")
+    (goto-char
+     (if (re-search-forward (concat "\\_<" (regexp-quote (current-word)) "\\_>") nil t)
+   (match-beginning 0)
+       cur))))
+(global-set-key '[M-up] 'grass/search-word-backward)
+(global-set-key '[M-down] 'grass/search-word-forward)
+
+
 (defun grass/replace-string (from-string to-string &optional delimited start end)
   "This is a modified version of `replace-string'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
   (interactive
