@@ -1038,7 +1038,7 @@ _SPC_ cancel     _o_nly this       _d_elete
 
 (use-package dired+
   :bind (("C-x C-j" . dired-jump)
-         ("s-u" . dired-jump)))
+         ("<s-up>" . dired-jump)))
 
 ;; Ignore certain files
 (use-package ignoramus
