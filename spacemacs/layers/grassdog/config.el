@@ -36,6 +36,9 @@
 
 (setq linum-format "%4d ")
 
+;; Use right alt for extended character insertion
+(setq mac-right-option-modifier nil)
+
 ;; Soft line wrapping for text modes
 (spacemacs|diminish visual-line-mode " w" " w")
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
