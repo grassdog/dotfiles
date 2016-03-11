@@ -18,6 +18,7 @@
      browse-kill-ring
      dired-single
      dired-filter
+     peep-dired
      htmlize
      ox-reveal
      org-mac-link
@@ -25,6 +26,8 @@
      simpleclip
      char-menu
      nlinum
+     keyfreq
+     git-timemachine
      ))
 
 ;; List of packages to exclude.
@@ -38,6 +41,13 @@
 
 (defun grassdog/init-dired-single ()
   (use-package dired-single))
+
+;;preview files in dired
+(defun grassdog/init-peep-dired ()
+  (use-package peep-dired
+    :defer t
+    :bind (:map dired-mode-map
+            ("P" . peep-dired))))
 
 (defun grassdog/init-ag ()
   (use-package ag
@@ -61,8 +71,12 @@
 
 (defun grassdog/init-string-inflection ()
   (use-package string-inflection
-    :defer nil
-    :commands string-inflection-cycle))
+    :commands (string-inflection-cycle
+                string-inflection-underscore
+                string-inflection-upcase
+                string-inflection-lower-camelcase
+                string-inflection-camelcase
+                string-inflection-lisp)))
 
 ;; Note that htmlize is already initialized elsewhere
 
@@ -103,6 +117,30 @@
     (add-hook 'prog-mode-hook
       (lambda ()
         (nlinum-mode 1)))))
+
+;;;;;;;;;;;;;;;;;;;
+;; Key Frequency ;;
+;;;;;;;;;;;;;;;;;;;
+
+(defun grassdog/init-keyfreq ()
+  (use-package keyfreq
+    :init
+    (setq keyfreq-excluded-commands
+      '(self-insert-command
+         abort-recursive-edit
+         forward-char
+         backward-char
+         previous-line
+         next-line
+         right-char
+         left-char))
+    (keyfreq-mode 1)
+    (keyfreq-autosave-mode 1)))
+
+
+(defun grassdog/init-git-timemachine ()
+  (use-package git-timemachine
+    :commands git-timemachine))
 
 ;; Often the body of an initialize function uses `use-package'
 ;; For more info on `use-package', see readme:

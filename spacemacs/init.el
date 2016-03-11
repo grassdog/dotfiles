@@ -105,7 +105,7 @@ values."
    ;; variable is `emacs' then the `holy-mode' is enabled at startup. `hybrid'
    ;; uses emacs key bindings for vim's insert mode, but otherwise leaves evil
    ;; unchanged. (default 'vim)
-   dotspacemacs-editing-style 'hybrid
+   dotspacemacs-editing-style 'vim
    ;; If non nil output loading progress in `*Messages*' buffer. (default nil)
    dotspacemacs-verbose-loading nil
    ;; Specify the startup banner. Default value is `official', it displays
@@ -243,8 +243,57 @@ user code."
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
 
+  ;; Deets
+  (setq user-full-name "Ray Grasso"
+    user-mail-address "ray.grasso@gmail.com")
+
   ;; Spacemacs
   (setq powerline-default-separator 'arrow)
+
+  ;; Some key hydras
+  (defhydra hydra-window ()
+    "
+Movement^^      ^Resize^     ^Split^
+--------------------------------------------
+_h_ ←           _q_ X←      _v_ertical
+_j_ ↓           _w_ X↓      _x_ horizontal
+_k_ ↑           _e_ X↑
+_l_ →           _r_ X→      _o_nly this
+_SPC_ cancel    _d_elete
+"
+    ("h" windmove-left nil)
+    ("j" windmove-down nil)
+    ("k" windmove-up nil)
+    ("l" windmove-right nil)
+    ("q" grass/move-splitter-left nil)
+    ("w" grass/move-splitter-down nil)
+    ("e" grass/move-splitter-up nil)
+    ("r" grass/move-splitter-right nil)
+    ("v" (lambda ()
+          (interactive)
+          (split-window-right)
+          (windmove-right))
+    nil)
+    ("x" (lambda ()
+          (interactive)
+          (split-window-below)
+          (windmove-down))
+    nil)
+    ("d" delete-window nil)
+    ("o" delete-other-windows nil)
+    ("SPC" nil nil))
+
+
+  (defhydra hydra-string-case ()
+    "word case"
+    ("c" capitalize-word "Capitalize")
+    ("u" upcase-word "UPPER")
+    ("l" downcase-word "lower")
+    ("s" string-inflection-underscore "lower_snake")
+    ("n" string-inflection-upcase "UPPER_SNAKE")
+    ("a" string-inflection-lower-camelcase "lowerCamel")
+    ("m" string-inflection-camelcase "UpperCamel")
+    ("d" string-inflection-lisp "dash-case"))
 
   ;; My evil bindings
   (spacemacs/declare-prefix "o" "personal")
@@ -266,17 +315,6 @@ layers configuration. You are free to put any user code."
   (evil-leader/set-key "osf" 'isearch-forward-regexp)
   (evil-leader/set-key "osb" 'isearch-reverse-regexp)
 
-  (spacemacs/declare-prefix "ow" "wrapping")
-  (evil-leader/set-key "owr" 'sp-rewrap-sexp)
-  (evil-leader/set-key "owd" 'sp-unwrap-sexp)
-  (evil-leader/set-key "ow(" 'wrap-with-parens)
-  (evil-leader/set-key "ow[" 'wrap-with-brackets)
-  (evil-leader/set-key "ow{" 'wrap-with-braces)
-  (evil-leader/set-key "ow'" 'wrap-with-single-quotes)
-  (evil-leader/set-key "ow\""'wrap-with-double-quotes)
-  (evil-leader/set-key "ow_" 'wrap-with-underscores)
-  (evil-leader/set-key "ow`" 'wrap-with-back-quotes)
-
   (spacemacs/declare-prefix "of" "formatting")
   (evil-leader/set-key "off" 'grass/indent-region-or-buffer)
   (evil-leader/set-key "ofw" 'whitespace-cleanup)
@@ -288,7 +326,13 @@ layers configuration. You are free to put any user code."
   (spacemacs/declare-prefix "oe" "editing")
   (evil-leader/set-key "oey" 'browse-kill-ring)
   (evil-leader/set-key "oee" 'yas-expand)
-  (evil-leader/set-key "oei" 'string-inflection-cycle)
+  (evil-leader/set-key "oei" 'hydra-string-case/body)
+
+  (global-set-key (kbd "C-, ~") 'hydra-string-case/body)
+
+  (evil-leader/set-key "ow" 'hydra-window/body)
+
+  (global-set-key (kbd "C-, w") 'hydra-window/body)
 
   (spacemacs/declare-prefix "ob" "bookmarks")
   (evil-leader/set-key "obc" 'grass/open-cheats)
@@ -375,21 +419,8 @@ layers configuration. You are free to put any user code."
       ("<s-right>" . sp-forward-slurp-sexp)
       ("<s-left>" . sp-forward-barf-sexp)
       ("<C-s-left>" . sp-backward-slurp-sexp)
-      ("<C-s-right>" . sp-backward-barf-sexp)
+      ("<C-s-right>" . sp-backward-barf-sexp)))
 
-      ; Wrapping
-      ("C-, l r"  . sp-rewrap-sexp)
-      ("C-, l d"  . sp-unwrap-sexp)
-      ("C-, l ("  . wrap-with-parens)
-      ("C-, l ["  . wrap-with-brackets)
-      ("C-, l {"  . wrap-with-braces)
-      ("C-, l '"  . wrap-with-single-quotes)
-      ("C-, l \"" . wrap-with-double-quotes)
-      ("C-, l _"  . wrap-with-underscores)
-      ("C-, l `"  . wrap-with-back-quotes)))
-
-  ;; Typescript
-  (setq typescript-indent-level 2)
 
   ;; Clear prefix binding
   (add-hook 'css-mode-hook

@@ -30,12 +30,28 @@
   (after map-C-comma-escape-sequence activate)
   (define-key input-decode-map "\e[1;," (kbd "C-,")))
 
+;; Set default frame size
+(add-to-list 'default-frame-alist '(height . 60))
+(add-to-list 'default-frame-alist '(width . 110))
 
 (setq linum-format "%4d ")
 
 ;; Soft line wrapping for text modes
 (spacemacs|diminish visual-line-mode " w" " w")
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+
+;; Silence advice warnings
+(setq ad-redefinition-action 'accept)
+
+(setq which-key-description-replacement-alist
+  '(("Prefix Command" . "prefix")
+     ("which-key-show-next-page" . "wk next pg")
+     ("\\`calc-" . "") ; Hide "calc-" prefixes when listing M-x calc keys
+     ("/body\\'" . "") ; Remove display the "/body" portion of hydra fn names
+     ("string-inflection" . "si")
+     ("grass/" . "g/")
+     ("\\`hydra-" . "+h/")
+     ("\\`org-babel-" . "ob/")))
 
 ;;;;;;;;;;;;;;
 ;; Movement ;;
@@ -59,6 +75,7 @@
 (setq coffee-tab-width 2)
 (setq-default py-indent-offset 2)
 (setq-default nxml-child-indent 2)
+(setq typescript-indent-level 2)
 
 ;; Default formatting style for C based modes
 (setq c-default-style "java")
