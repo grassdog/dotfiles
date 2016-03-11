@@ -295,6 +295,10 @@ _SPC_ cancel    _d_elete
     ("m" string-inflection-camelcase "UpperCamel")
     ("d" string-inflection-lisp "dash-case"))
 
+  ;; Add prefix names to some missing core ones
+  (spacemacs/declare-prefix "d" "dash")
+  (spacemacs/declare-prefix "P" "pandoc")
+
   ;; My evil bindings
   (spacemacs/declare-prefix "o" "personal")
 
