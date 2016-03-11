@@ -388,6 +388,9 @@ layers configuration. You are free to put any user code."
       ("C-, l _"  . wrap-with-underscores)
       ("C-, l `"  . wrap-with-back-quotes)))
 
+  ;; Typescript
+  (setq typescript-indent-level 2)
+
   ;; Clear prefix binding
   (add-hook 'css-mode-hook
     (lambda ()
