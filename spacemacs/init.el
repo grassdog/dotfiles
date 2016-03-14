@@ -412,6 +412,8 @@ _SPC_ cancel    _d_elete
     (lambda ()
       (define-key auto-highlight-symbol-mode-map (kbd "M-<left>") nil)
       (define-key auto-highlight-symbol-mode-map (kbd "M-<right>") nil)
+      (define-key auto-highlight-symbol-mode-map (kbd "M-S-<left>") nil)
+      (define-key auto-highlight-symbol-mode-map (kbd "M-S-<right>") nil)
       (define-key auto-highlight-symbol-mode-map (kbd "M-<up>") 'ahs-backward)
       (define-key auto-highlight-symbol-mode-map (kbd "M-<down>") 'ahs-forward)))
 
