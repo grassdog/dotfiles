@@ -408,6 +408,13 @@ _SPC_ cancel    _d_elete
 
   (global-set-key (kbd "C-, c") 'char-menu)
 
+  (add-hook 'auto-highlight-symbol-mode-hook
+    (lambda ()
+      (define-key auto-highlight-symbol-mode-map (kbd "M-<left>") nil)
+      (define-key auto-highlight-symbol-mode-map (kbd "M-<right>") nil)
+      (define-key auto-highlight-symbol-mode-map (kbd "M-<up>") 'ahs-backward)
+      (define-key auto-highlight-symbol-mode-map (kbd "M-<down>") 'ahs-forward)))
+
   (with-eval-after-load 'smartparens
     (defun grass/smartparens-ruby-brace (id action context)
       (spacemacs/smartparens-pair-newline-and-indent id action context)
