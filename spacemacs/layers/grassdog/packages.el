@@ -27,7 +27,6 @@
      char-menu
      nlinum
      keyfreq
-     git-timemachine
      ))
 
 ;; List of packages to exclude.
@@ -137,10 +136,6 @@
     (keyfreq-mode 1)
     (keyfreq-autosave-mode 1)))
 
-
-(defun grassdog/init-git-timemachine ()
-  (use-package git-timemachine
-    :commands git-timemachine))
 
 ;; Often the body of an initialize function uses `use-package'
 ;; For more info on `use-package', see readme:
