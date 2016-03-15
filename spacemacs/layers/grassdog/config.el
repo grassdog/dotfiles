@@ -74,6 +74,7 @@
 (setq-default sh-basic-offset 2)
 (setq-default sh-indentation 2)
 (setq-default js-indent-level 2)
+(setq-default js2-indent-switch-body t)
 (setq css-indent-offset 2)
 (setq coffee-tab-width 2)
 (setq-default py-indent-offset 2)
