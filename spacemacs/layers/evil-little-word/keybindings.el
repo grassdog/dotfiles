@@ -16,7 +16,6 @@
 (define-key evil-motion-state-map (kbd "glB") 'evil-backward-little-word-end)
 (define-key evil-outer-text-objects-map (kbd "lw") 'evil-a-little-word)
 (define-key evil-inner-text-objects-map (kbd "lw") 'evil-inner-little-word)
-(define-key evil-inner-text-objects-map (kbd ",w") 'evil-inner-little-word)
 
 ;; Often the body of an initialize function uses `use-package'
 ;; For more info on `use-package', see readme:
