@@ -52,7 +52,6 @@ values."
       dash
       dockerfile
 
-      ;; Re-enable once #4059 is fixed
       elixir
       elm
       evil-snipe
@@ -457,6 +456,8 @@ _SPC_ cancel    _d_elete
             (call-interactively #'markdown-insert-list-item)
             ;; Not in a list
             (markdown-enter-key))))
+
+      (sp-local-pair 'markdown-mode "`" nil :actions nil)
 
       (define-key markdown-mode-map (kbd "RET") 'grass/markdown-enter-key-dwim)))
 )
