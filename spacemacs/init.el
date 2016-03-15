@@ -29,7 +29,7 @@ values."
         auto-completion-tab-key-behavior 'complete
         auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/"
         auto-completion-enable-snippets-in-popup t
-        :disabled-for org erc
+        :disabled-for org erc markdown
         )
       better-defaults
       colors
