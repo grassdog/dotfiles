@@ -460,6 +460,23 @@ _SPC_ cancel    _d_elete
       (sp-local-pair 'markdown-mode "`" nil :actions nil)
 
       (define-key markdown-mode-map (kbd "RET") 'grass/markdown-enter-key-dwim)))
+
+  ;;;;;;;;;;;;;;;
+  ;; Proselint ;;
+  ;;;;;;;;;;;;;;;
+
+  (with-eval-after-load 'flycheck
+    (flycheck-define-checker proselint
+      "A linter for prose."
+      :command ("proselint" source-inplace)
+      :error-patterns
+      ((warning line-start (file-name) ":" line ":" column ": "
+                (id (one-or-more (not (any " "))))
+                (message (one-or-more not-newline)
+                        (zero-or-more "\n" (any " ") (one-or-more not-newline)))
+                line-end))
+      :modes (text-mode markdown-mode gfm-mode org-mode))
+    (add-to-list 'flycheck-checkers 'proselint))
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
