@@ -240,6 +240,8 @@
   (grass/dired-init)
   (add-hook 'dired-load-hook 'grass/dired-init))
 
+(spacemacs|diminish dired-filter-mode "Ⓕ" " f")
+
 (add-hook 'dired-mode-hook
   (lambda ()
     (dired-hide-details-mode t)
