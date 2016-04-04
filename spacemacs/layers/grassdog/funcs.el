@@ -209,7 +209,7 @@
 ;; Markdown Preview ;;
 ;;;;;;;;;;;;;;;;;;;;;;
 
-(defun grass/markdown-open-marked ()
+(defun grass/markdown-open-in-marked-app ()
   "run Marked.app on the current file and revert the buffer"
   (interactive)
   (shell-command
