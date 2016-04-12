@@ -16,12 +16,21 @@ fi
 # Paths
 ##########
 
-export PATH="/usr/local/bin:/Applications/Postgres.app/Contents/Versions/9.4/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:${PATH}"
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:${PATH}"
 
-GHC_DOT_APP=(/Applications/ghc*.app)
-export GHC_DOT_APP
-if [ -d "$GHC_DOT_APP" ]; then
-  export PATH="${HOME}/.cabal/bin:${GHC_DOT_APP}/Contents/bin:${PATH}"
+if stat -t /Applications/Postgres.app/Contents/Versions/9*/bin >/dev/null 2>&1
+then
+  PGPATH=( /Applications/Postgres.app/Contents/Versions/9*/bin )
+  PATH=${PGPATH}:$PATH
+fi
+
+if test -n "$(find . -maxdepth 1 -name '/Applications/ghc*.app' -print -quit)"
+then
+  GHC_DOT_APP=(/Applications/ghc*.app)
+  export GHC_DOT_APP
+  if [ -d "$GHC_DOT_APP" ]; then
+    export PATH="${HOME}/.cabal/bin:${GHC_DOT_APP}/Contents/bin:${PATH}"
+  fi
 fi
 
 export PATH="${HOME}/.bin:${PATH}"
