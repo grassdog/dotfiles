@@ -6,7 +6,7 @@ HOME          = ENV['HOME']
 LEIN_DIR      = File.join(HOME, ".lein")
 SERVICES_DIR  = File.join(HOME, "Library/Services")
 
-UNLINKED = %w[Rakefile README.md profiles.clj services .git vim]
+UNLINKED = %w[Rakefile README.md profiles.clj services .git vim host]
 
 desc "Link dotfiles into $HOME directory"
 task :link_files, :force do |t, args|
@@ -19,6 +19,8 @@ task :link_files, :force do |t, args|
   source_files.each do |file|
     link_file(file, force)
   end
+
+  link_file("host/#{`hostname`.chomp}/gitconfig", force)
 end
 
 directory LEIN_DIR
@@ -45,7 +47,7 @@ desc "Bootstrap the world"
 task :bootstrap => [:link_files, :link_lein_profiles, :install_services, :setup_vim]
 
 def link_file(src, force=false, &resolve_dest_path)
-  resolve_dest_path ||= ->(file) { File.join(HOME, ".#{file}") }
+  resolve_dest_path ||= ->(file) { File.join(HOME, ".#{File.basename(file)}") }
 
   src_path  = File.join(DOTFILES_ROOT, "#{src}")
   dest_path = resolve_dest_path.call(src)
