@@ -457,6 +457,9 @@ _SPC_ cancel    _d_elete
             ;; Not in a list
             (markdown-enter-key))))
 
+      (spacemacs/set-leader-keys-for-major-mode 'markdown-mode
+        "p" 'grass/markdown-open-in-marked-app)
+
       (sp-local-pair 'markdown-mode "`" nil :actions nil)
 
       (define-key markdown-mode-map (kbd "RET") 'grass/markdown-enter-key-dwim)))
