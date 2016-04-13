@@ -25,6 +25,8 @@
                                             (abbreviate-file-name (buffer-file-name))
                                           "%b"))))
 
+(setq exec-path-from-shell-check-startup-files nil)
+
 ;; Some terminal mapping hackery to accept C-, key sequence mapping from iTerm
 (defadvice terminal-init-xterm
   (after map-C-comma-escape-sequence activate)
