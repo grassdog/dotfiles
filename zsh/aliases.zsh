@@ -86,8 +86,8 @@ alias gco='git checkout'
 alias gdt='git difftool'
 alias gd='git diff --word-diff'
 alias gdc='git diff --word-diff --cached'
+alias gpo='git push origin'
 alias gpu='git push'
-alias gpd='git push dbox master'
 alias gpl='git update'
 alias grom='git rebase origin/master'
 alias gnp='git-notpushed'
@@ -101,11 +101,6 @@ alias git-most-changed='git log --pretty=format: --name-only | sort | uniq -c | 
 # Commit staged changes and quote all args as message
 function gcm() {
   git commit -v -m "$*"
-}
-
-# Run any specs that have been modified
-function git-spec() {
-  git diff --name-only ${1:-git-svn} | grep _spec.rb | xargs spec
 }
 
 function git-current-branch() {
