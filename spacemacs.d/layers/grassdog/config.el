@@ -180,6 +180,8 @@
 
   (setq org-log-done nil)
 
+  (setq org-image-actual-width 600)
+
   ;; prevent demoting heading also shifting text inside sections
   (setq org-adapt-indentation nil)
   ;; Allow bind in files to enable export overrides
