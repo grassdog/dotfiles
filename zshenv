@@ -24,3 +24,4 @@ export NODEPATH="/usr/local/lib/node_modules"
 HOSTRC="$HOME/.dotfiles/zsh/$(hostname).zsh"
 
 [[ -r $HOSTRC ]] && source $HOSTRC
+
