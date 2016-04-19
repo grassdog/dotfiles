@@ -196,6 +196,9 @@
     :documentation "Toggle display of link details in org mode."
     :evil-leader "tO")
 
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode
+    "oi" 'org-toggle-inline-images)
+
   ;; Highlight source blocks
   (setq org-src-fontify-natively t
         org-src-tab-acts-natively t
