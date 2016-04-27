@@ -1,8 +1,5 @@
-#require "rubygems"
-#require "awesome_print"
-#Pry.print = proc { |output, value| output.puts value.ai }
-
-Pry.config.editor = 'mvim --nofork'
+# Pry.config.editor = 'vim'
+Pry.config.editor = 'emacsclient'
 
 # Toys objects for experimenting
 # https://github.com/lucapette/dotfiles/blob/master/pryrc
