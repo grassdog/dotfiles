@@ -69,7 +69,7 @@ values."
       osx
 
       react
-      ruby
+      (ruby :variables ruby-version-manager 'chruby)
       ruby-on-rails
       rust
       shell-scripts
