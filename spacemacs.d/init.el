@@ -2,6 +2,11 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
+(defun grass/ruby-manager ()
+  (if (string= system-name "smithy")
+    'rbenv
+    'chruby))
+
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable
@@ -69,7 +74,7 @@ values."
       osx
 
       react
-      (ruby :variables ruby-version-manager 'chruby)
+      (ruby :variables ruby-version-manager (grass/ruby-manager))
       ruby-on-rails
       rust
       shell-scripts
