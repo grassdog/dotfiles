@@ -32,7 +32,7 @@ function title() {
 }
 
 alias vi='vim'
-alias v='f -t -e vim -b viminfo'
+alias v='vim'
 alias le='less -SR'
 alias be="bundle exec"
 alias bi="bundle install"
