@@ -116,6 +116,18 @@ runtime macros/matchit.vim
 " Turn on filetype plugins and indent files for per-type indenting
 filetype plugin indent on
 
+"""""""""""""""""""""""""" }}}
+" Leader binding prefixes  {{{
+""""""""""""""""""""""""""
+
+" s  - search
+" a  - alignment
+" f  - format
+" x  - execute
+" m  - filetype specific
+" u  - ui
+" un - nerdtree
+
 
 """"""""""""""""""""""" }}}
 " Base setup            {{{
@@ -223,8 +235,8 @@ set smartcase   " ... unless they contain at least one capital letter
 noremap <leader>sc :set hlsearch! hlsearch?<CR>
 
 " Search for current word in Ag
-nnoremap <leader>sw :Ag! '\b<c-r><c-w>\b'<cr>
-nnoremap <leader>ss :Ag!<space>
+nnoremap <leader>saw :Ag! '\b<c-r><c-w>\b'<cr>
+nnoremap <leader>sas :Ag!<space>
 
 " Easy grep
 let g:EasyGrepReplaceWindowMode=2
@@ -449,10 +461,10 @@ inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 command! KillWhitespace :normal :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>nohl<Bar>retab<CR>
 
 " Re-wrap the entire file
-nnoremap <leader>rwf ggVGgq
+nnoremap <leader>fw ggVGgq
 
 " Format the entire file
-nnoremap <leader>rff ggVG=
+nnoremap <leader>ff ggVG=
 
 
 """"""""""""""""""""""" }}}
@@ -538,10 +550,11 @@ let g:ctrlp_max_height = 20
 let g:ctrlp_use_caching = 0
 let g:ctrlp_extensions = ['tag']
 
+nnoremap <leader>p :CtrlP<cr>
 nnoremap <leader>d :CtrlPCurFile<cr>
 nnoremap <leader>o :CtrlPBuffer<cr>
 nnoremap <leader>T :CtrlPTag<cr>
-nnoremap <leader>m :CtrlPMRU<cr>
+nnoremap <leader>r :CtrlPMRU<cr>
 
 
 """"""""""""""""""""""" }}}
@@ -559,8 +572,8 @@ nnoremap <silent> <leader>sgc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 " NerdTree              {{{
 """""""""""""""""""""""
 
-nnoremap <leader>n :NERDTreeToggle<CR>
-nnoremap <leader>ff :NERDTreeFind<CR>
+nnoremap <leader>un :NERDTreeToggle<CR>
+nnoremap <leader>uf :NERDTreeFind<CR>
 
 let NERDTreeAutoDeleteBuffer=1
 let NERDTreeMinimalUI = 1
@@ -652,13 +665,13 @@ augroup grass_html
   au FileType html nnoremap <buffer> <leader>z Vatzf
 
   " Indent current tag
-  au FileType html,eruby nnoremap <buffer> <leader>= Vat=
+  au FileType html,eruby nnoremap <buffer> <leader>f= Vat=
 
   " Change tab width and wrap for markdown
   au FileType markdown setlocal wrap softtabstop=4 tabstop=4 shiftwidth=4 spell
 
   " Preview markdown files in Marked.app
-  au FileType markdown nnoremap <buffer> <leader>pm :silent !open -a 'Marked 2.app' '%:p'<cr>
+  au FileType markdown nnoremap <buffer> <leader>mp :silent !open -a 'Marked 2.app' '%:p'<cr>
 augroup END
 
 " Highlight fenced code
@@ -681,7 +694,7 @@ augroup grass_xml
   au FileType xml setlocal foldmethod=manual
 
   " Reformat XML files
-  au FileType xml noremap <buffer> <leader>rff <Esc>:% !xmllint --format -<CR>
+  au FileType xml noremap <buffer> <leader>ff <Esc>:% !xmllint --format -<CR>
 
   " Use <localleader>z to fold the current tag.
   au FileType xml nnoremap <buffer> <leader>z Vatzf
@@ -717,17 +730,17 @@ augroup grass_clojure
   autocmd syntax clojure RainbowParenthesesLoadSquare
   autocmd syntax clojure RainbowParenthesesLoadBraces
 
-  " Eval and print top level form and return cursor to where it was
-  autocmd filetype clojure nnoremap <buffer> <leader>co :normal cpaF``<cr>
+  " Eval and print top level form and return cursor to where it was (outer)
+  autocmd filetype clojure nnoremap <buffer> <leader>mo :normal cpaF``<cr>
 
-  " Eval and print current form and return cursor to where it was
-  autocmd filetype clojure nnoremap <buffer> <leader>ci :normal cpaf``<cr>
+  " Eval and print current form and return cursor to where it was (inner)
+  autocmd filetype clojure nnoremap <buffer> <leader>mi :normal cpaf``<cr>
+
+  " Eval and print current element and return cursor to where it was (element)
+  autocmd filetype clojure nnoremap <buffer> <leader>me :normal cpie``<cr>
 
   " Eval and print current element and return cursor to where it was
-  autocmd filetype clojure nnoremap <buffer> <leader>ce :normal cpie``<cr>
-
-  " Eval and print current element and return cursor to where it was
-  autocmd filetype clojure nnoremap <buffer> <leader>ca :%Eval<cr>
+  autocmd filetype clojure nnoremap <buffer> <leader>ma :%Eval<cr>
 
   " Better ctag matching
   autocmd filetype clojure nnoremap <buffer> <c-]> :call JumpToClojureSymbolWithoutNamespace()<CR>
@@ -825,7 +838,7 @@ augroup END
 
 let ruby_fold = 1
 
-let g:blockle_mapping = '<leader>['
+let g:blockle_mapping = '<leader>m['
 
 
 " Some RSpec helpers
@@ -884,16 +897,16 @@ function! RunTests(filename)
 endfunction
 
 " Run all tests
-nnoremap <leader>ta :call RunAllTests()<cr>
+nnoremap <leader>xta :call RunAllTests()<cr>
 
 " Run all tests in file
-nnoremap <leader>tf :call RunTestFile()<cr>
+nnoremap <leader>xtf :call RunTestFile()<cr>
 
 " Run nearest test
-nnoremap <leader>tn :call RunNearestTestInFile()<cr>
+nnoremap <leader>xtn :call RunNearestTestInFile()<cr>
 
 " Re-Run last test
-nnoremap <leader>tt :call RunLastTest()<cr>
+nnoremap <leader>xtt :call RunLastTest()<cr>
 
 
 """"""""""""""""""""""" }}}
@@ -942,7 +955,7 @@ augroup grass_js
   autocmd BufNewFile,BufRead *.json set ft=json
 
   " Reformat JSON
-  autocmd FileType json noremap <buffer> <leader>rff <Esc>:% !js-beautify -f - -s 2 --brace-style=expand<CR>
+  autocmd FileType json noremap <buffer> <leader>ff <Esc>:% !js-beautify -f - -s 2 --brace-style=expand<CR>
 
   " Undo vim-coffeescript screwing with my formatoptions and keep manual folding
   autocmd BufNewFile,BufReadPost *.coffee setlocal foldmethod=manual formatoptions-=o iskeyword=@,39,48-57,_,192-255,$
@@ -1057,7 +1070,7 @@ endif
 """""""""""""""""""""""
 
 " Toggle indent guides
-noremap <leader>vi :IndentGuideToggle<cr>
+noremap <leader>ui :IndentGuideToggle<cr>
 
 " Show the syntax group in place on the text under the cursor
 nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
