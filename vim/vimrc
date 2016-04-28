@@ -44,14 +44,11 @@ Plugin 'ConradIrwin/vim-bracketed-paste'
 " Plugin 'tpope/vim-vinegar'
 
 " Text objects and motions
-Plugin 'kana/vim-textobj-user'
-Plugin 'kana/vim-textobj-entire'
-Plugin 'kana/vim-textobj-syntax'
-Plugin 'kana/vim-textobj-line'
 Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'bkad/CamelCaseMotion'
-Plugin 'argtextobj.vim'
+Plugin 'kana/vim-textobj-user'
 Plugin 'rhysd/vim-textobj-ruby'
+Plugin 'wellle/targets.vim'
 
 " Completions and Snippets
 Plugin 'SirVer/ultisnips'
@@ -351,6 +348,20 @@ noremap k gk
 noremap gk k
 noremap <down> gj
 noremap <up> gk
+
+" Camelcase motion
+map <silent> ,w <Plug>CamelCaseMotion_w
+map <silent> ,b <Plug>CamelCaseMotion_b
+map <silent> ,e <Plug>CamelCaseMotion_e
+map <silent> ,ge <Plug>CamelCaseMotion_ge
+
+omap <silent> i,w <Plug>CamelCaseMotion_iw
+xmap <silent> i,w <Plug>CamelCaseMotion_iw
+omap <silent> i,b <Plug>CamelCaseMotion_ib
+xmap <silent> i,b <Plug>CamelCaseMotion_ib
+omap <silent> i,e <Plug>CamelCaseMotion_ie
+xmap <silent> i,e <Plug>CamelCaseMotion_ie
+
 
 " Hard mode
 let g:HardMode_on = 0
