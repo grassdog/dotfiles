@@ -3,10 +3,7 @@
 """""""""""""""""""""""
 
 " Map Leaders
-let mapleader = ","
-
-" Keep reverse char search
-noremap \ ,
+let mapleader = "\<Space>"
 
 " Use vim, no vi defaults
 set nocompatible
@@ -223,7 +220,7 @@ set ignorecase  " searches are case insensitive...
 set smartcase   " ... unless they contain at least one capital letter
 
 " Toggle search highlighting
-noremap <leader><space> :set hlsearch! hlsearch?<CR>
+noremap <leader>sc :set hlsearch! hlsearch?<CR>
 
 " Search for current word in Ag
 nnoremap <leader>sw :Ag! '\b<c-r><c-w>\b'<cr>
@@ -555,7 +552,7 @@ nnoremap <leader>m :CtrlPMRU<cr>
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " Search for merge conflict markers
-nnoremap <silent> <leader>sc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
+nnoremap <silent> <leader>sgc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 
 
 """"""""""""""""""""""" }}}
