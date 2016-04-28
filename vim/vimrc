@@ -1106,7 +1106,7 @@ if has("gui_running")
 endif
 
 if has("gui_macvim")
-  set guifont=Menlo:h12
+  set guifont=Hack:h12
 
   " Automatically resize splits when resizing MacVim window
   augroup grass_gui
