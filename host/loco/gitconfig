@@ -7,8 +7,10 @@
   excludesfile = ~/.cvsignore
   editor = /usr/local/bin/vim
   quotepath = false
+[branch]
+  autosetuprebase = always
 [push]
-    default = tracking
+    default = simple
 [pull]
     default = current
 [diff]

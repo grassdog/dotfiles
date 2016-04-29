@@ -9,6 +9,8 @@
   quotepath = false
 [push]
     default = simple
+[branch]
+  autosetuprebase = always
 [pull]
     default = current
 [diff]
