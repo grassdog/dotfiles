@@ -53,7 +53,7 @@ Plugin 'wellle/targets.vim'
 " Completions and Snippets
 Plugin 'SirVer/ultisnips'
 Plugin 'ervandew/supertab'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 
 " Tools
 Plugin 'EasyGrep'
