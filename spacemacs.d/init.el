@@ -340,7 +340,7 @@ _SPC_ cancel    _d_elete
 
   (evil-leader/set-key "ow" 'hydra-window/body)
 
-  (global-set-key (kbd "C-, w") 'hydra-window/body)
+  (global-set-key (kbd "C-, w") 'grass/open-work-log)
 
   (spacemacs/declare-prefix "ob" "bookmarks")
   (evil-leader/set-key "obc" 'grass/open-cheats)
@@ -390,7 +390,6 @@ _SPC_ cancel    _d_elete
 
   ;; Cleanup
   (global-set-key (kbd "C-, f") 'grass/indent-region-or-buffer)
-  (define-key global-map (kbd "C-, w") 'whitespace-cleanup)
 
   ;; Search and replace
   (global-set-key (kbd "C-, s r") 'grass/replace-string)
