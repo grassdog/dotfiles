@@ -108,6 +108,9 @@ function git-current-branch() {
   git symbolic-ref HEAD 2> /dev/null | sed -e 's/refs\/heads\///'
 }
 
+function gpuu() {
+  git push -u origin $(git-current-branch)
+}
 
 #########
 # Java
