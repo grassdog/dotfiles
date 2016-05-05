@@ -1,0 +1,17 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: One to one notes template
+# key: 121
+# --
+** ${1:name} 121
+
+*** TODO How are you? Any Concerns? Anything exciting?
+
+$0
+
+*** TODO What have you been working on?
+
+
+
+*** TODO Need any help/
+
+
