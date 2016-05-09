@@ -225,6 +225,7 @@
 (defun grass/dired-init ()
   "Bunch of stuff to run for dired, either immediately or when it's loaded."
 
+  (setq dired-filter-verbose nil)
   (setq dired-use-ls-dired nil)
   (setq dired-recursive-copies 'always)
   (setq dired-omit-files
