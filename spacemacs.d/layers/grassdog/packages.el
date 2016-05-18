@@ -27,6 +27,8 @@
      char-menu
      nlinum
      keyfreq
+     terraform-mode
+     syslog-mode
      ))
 
 ;; List of packages to exclude.
@@ -116,6 +118,12 @@
     (add-hook 'prog-mode-hook
       (lambda ()
         (nlinum-mode 1)))))
+
+(defun grassdog/init-terraform-mode ()
+  (use-package terraform-mode))
+
+(defun grassdog/init-syslog-mode ()
+  (use-package syslog-mode))
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Key Frequency ;;
