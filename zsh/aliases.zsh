@@ -215,7 +215,7 @@ function serve-dir() {
 
 # Some selecta-based helpers
 
-function proj() {
+function pj() {
   cd $(find ~/code/projects -maxdepth 1 -type d | selecta)
 }
 
