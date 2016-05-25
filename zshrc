@@ -110,4 +110,8 @@ function obliq () {
   fi
 }
 
+# Source host specific config
+HOSTRC="$HOME/.dotfiles/zsh/$(hostname).zsh"
+[[ -r $HOSTRC ]] && source $HOSTRC
+
 [[ -r /opt/boxen/env.sh ]] && source /opt/boxen/env.sh
