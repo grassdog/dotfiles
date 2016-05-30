@@ -3,7 +3,13 @@
 
 #eval $(docker-machine env default)
 
-alias awsi="aws-vault exec identity-production-admin --"
+alias awsip="aws-vault exec identity-production-admin --"
+alias awsid="aws-vault exec identity-development --"
+
+ssh-id-prod() {
+  pushd ~/src/identity/infrastructure
+  awsip bundle exec rake production:ssh
+}
 
 export GOPATH=$HOME/.golang
 export GOROOT=/usr/local/opt/go/libexec
