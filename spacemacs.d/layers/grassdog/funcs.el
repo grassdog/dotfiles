@@ -259,3 +259,15 @@
       (shrink-window arg)
     (enlarge-window arg)))
 
+;;;;;;;;;;;;;;;;
+;; File names ;;
+;;;;;;;;;;;;;;;;
+
+(defun grass/copy-buffer-filename ()
+  "Copy filename of buffer into system clipboard."
+  (interactive)
+  ;; list-buffers-directory is the variable set in dired buffers
+  (let ((file-name (or (buffer-file-name) list-buffers-directory)))
+    (if file-name
+      (message (simpleclip-set-contents file-name))
+      (error "Buffer not visiting a file"))))

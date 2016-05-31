@@ -313,6 +313,7 @@ _SPC_ cancel    _d_elete
   (evil-leader/set-key "our" 'grass/rename-file-and-buffer)
   (evil-leader/set-key "oub" 'grass/comment-box)
   (evil-leader/set-key "ou!" 'grass/shell-command-with-prefix-arg)
+  (evil-leader/set-key "ouf" 'grass/copy-buffer-filename)
 
   (spacemacs/declare-prefix "os" "search-replace")
   (evil-leader/set-key "osa" 'ag-project)
@@ -378,6 +379,7 @@ _SPC_ cancel    _d_elete
   (global-set-key (kbd "C-, u t") 'display-time-world)
   (global-set-key (kbd "C-, u b") 'grass/comment-box)
   (global-set-key (kbd "C-, u u") 'browse-url)
+  (global-set-key (kbd "C-, u f") 'grass/copy-buffer-filename)
 
   ;; Shell
   (global-set-key (kbd "C-, !") 'grass/shell-command-with-prefix-arg)
