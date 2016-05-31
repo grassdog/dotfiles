@@ -57,6 +57,7 @@ values."
       dash
       dockerfile
 
+      erlang
       elixir
       elm
       evil-snipe
