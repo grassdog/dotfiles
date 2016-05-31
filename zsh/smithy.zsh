@@ -3,6 +3,7 @@
 
 #eval $(docker-machine env default)
 
+alias awsir="aws-vault exec identity-production-readonly --"
 alias awsip="aws-vault exec identity-production-admin --"
 alias awsid="aws-vault exec identity-development --"
 
