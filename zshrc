@@ -114,4 +114,6 @@ function obliq () {
 HOSTRC="$HOME/.dotfiles/zsh/$(hostname).zsh"
 [[ -r $HOSTRC ]] && source $HOSTRC
 
+[[ -r ~/.iterm2_shell_integration.zsh ]] && source ~/.iterm2_shell_integration.zsh
+
 [[ -r /opt/boxen/env.sh ]] && source /opt/boxen/env.sh
