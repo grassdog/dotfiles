@@ -142,7 +142,7 @@ values."
                                :size 13
                                :weight normal
                                :width normal
-                               :powerline-scale 1.1)
+                               :powerline-scale 1.2)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -254,6 +254,7 @@ layers configuration. You are free to put any user code."
 
   ;; Spacemacs
   (setq powerline-default-separator 'arrow)
+  (spaceline-compile)
 
   ;; Some key hydras
   (defhydra hydra-window ()
