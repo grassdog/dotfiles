@@ -377,8 +377,8 @@ _SPC_ cancel    _d_elete
   (global-set-key (kbd "C-, e") 'yas-expand)
   (global-set-key (kbd "s-e") 'yas-expand)
 
-  ;(global-set-key (kbd "<home>") 'move-beginning-of-line)
-  ;(global-set-key (kbd "<end>") 'move-end-of-line)
+  (global-set-key (kbd "<home>") 'spacemacs/smart-move-beginning-of-line)
+  (global-set-key (kbd "<end>") 'move-end-of-line)
 
   ;; Utilities
   (global-set-key (kbd "C-, u t") 'display-time-world)
