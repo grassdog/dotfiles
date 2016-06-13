@@ -163,7 +163,8 @@
 (setq-default ispell-program-name "aspell")
 ;; Silently save my personal dictionary when new items are added
 (setq ispell-silently-savep t)
-(ispell-change-dictionary "en_GB" t)
+; (ispell-change-dictionary "en_GB" t)
+(ispell-change-dictionary "british" t)
 
 ;;;;;;;;;
 ;; Org ;;

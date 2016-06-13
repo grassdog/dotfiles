@@ -253,7 +253,7 @@ layers configuration. You are free to put any user code."
     user-mail-address "ray.grasso@gmail.com")
 
   ;; Spacemacs
-  (setq powerline-default-separator 'arrow)
+  (setq powerline-default-separator nil)
   (spaceline-compile)
 
   ;; Some key hydras
