@@ -1,11 +1,9 @@
 # This should be here but for some reason when it is the PATH isn't set correctly
 # source /opt/boxen/env.sh
 
-#eval $(docker-machine env default)
+[[ -r "$HOME/.secrets" ]] && source "$HOME/.secrets"
 
-alias awsir="aws-vault exec identity-production-readonly --"
-alias awsip="aws-vault exec identity-production-admin --"
-alias awsid="aws-vault exec identity-development --"
+#eval $(docker-machine env default)
 
 ssh-id-prod() {
   pushd ~/src/identity/infrastructure
@@ -21,7 +19,18 @@ pj() {
   cd $(find ~/src -maxdepth 1 -type d | selecta)
 }
 
-# Some AWS Helpers
+# AWS Helpers
+
+alias awsir="aws-vault exec identity-production-readonly --"
+alias awsip="aws-vault exec identity-production-admin --"
+alias awsid="aws-vault exec identity-development --"
+
+for profile in envatomarket-prod identity-production-readonly identity-production identity-development; do
+  alias aws-console-${profile}="open \$(aws-vault login ${profile})"
+  alias aws-exec-${profile}="aws-vault exec ${profile} -- true && aws-vault exec ${profile} -- "
+  alias aws-login-${profile}="eval \$(aws-exec-${profile} env | grep AWS | sed 's/^/export /g')"
+  alias aws-clear-${profile}="security delete-generic-password -a '${profile}'"
+done
 
 cleanoutcreds() {
   unset AWS_SESSION_TOKEN
