@@ -377,6 +377,9 @@ _SPC_ cancel    _d_elete
   (global-set-key (kbd "C-, e") 'yas-expand)
   (global-set-key (kbd "s-e") 'yas-expand)
 
+  ;(global-set-key (kbd "<home>") 'move-beginning-of-line)
+  ;(global-set-key (kbd "<end>") 'move-end-of-line)
+
   ;; Utilities
   (global-set-key (kbd "C-, u t") 'display-time-world)
   (global-set-key (kbd "C-, u b") 'grass/comment-box)
@@ -488,6 +491,15 @@ _SPC_ cancel    _d_elete
                 line-end))
       :modes (text-mode markdown-mode gfm-mode org-mode))
     (add-to-list 'flycheck-checkers 'proselint))
+
+  ;;;;;;;;;;;;;;;;;
+  ;; Github auth ;;
+  ;;;;;;;;;;;;;;;;;
+
+  ;; Take oauth token from environment before trying to get it from gitconfig
+  (with-eval-after-load 'gh-auth
+    (gh-auth-remember "github" :username "grassdog")
+    (gh-auth-remember "github" :token grass/github-oauth-token))
 )
 
 ;; Do not write anything past this comment. This is where Emacs will

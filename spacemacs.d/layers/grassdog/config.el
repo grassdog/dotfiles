@@ -2,6 +2,9 @@
 ;; General ;;
 ;;;;;;;;;;;;;
 
+;; Load up my secrets
+(load "~/.emacs.secrets" t)
+
 ;; Editing
 (setq require-final-newline t)
 (setq sentence-end-double-space nil)
