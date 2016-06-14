@@ -22,7 +22,7 @@ pj() {
 # AWS Helpers
 
 alias awsir="aws-vault exec identity-production-readonly --"
-alias awsip="aws-vault exec identity-production-admin --"
+alias awsip="aws-vault exec identity-production --"
 alias awsid="aws-vault exec identity-development --"
 
 for profile in envatomarket-prod identity-production-readonly identity-production identity-development; do
