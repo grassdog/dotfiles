@@ -191,7 +191,7 @@ function dotpl() {
   popd
 }
 
-alias dot="cd ~/.dotfiles"
+alias dot="pushd ~/.dotfiles"
 
 # Syntax highlight a file and copy onto clipboard
 function hl() {
