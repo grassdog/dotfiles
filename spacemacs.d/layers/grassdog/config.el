@@ -30,6 +30,9 @@
 
 (setq exec-path-from-shell-check-startup-files nil)
 
+;; Don't pop up new frames on each call to open
+(setq ns-pop-up-frames nil)
+
 ;; Some terminal mapping hackery to accept C-, key sequence mapping from iTerm
 (defadvice terminal-init-xterm
   (after map-C-comma-escape-sequence activate)
