@@ -16,6 +16,7 @@
 [diff]
   tool = Kaleidoscope
   memonicprefix = true
+	compactionHeuristic = true
 [difftool]
   prompt = false
 [github]
@@ -92,3 +93,5 @@
 
 [hub]
 protocol = https
+[interactive]
+	diffFilter = diff-so-fancy
