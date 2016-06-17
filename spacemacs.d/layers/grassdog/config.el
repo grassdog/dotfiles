@@ -113,6 +113,8 @@
     (setq ruby-use-smie nil)
     (setq evil-shift-width 2)))
 
+;; No bright red version in the modeline thanks
+(setq rbenv-modeline-function 'rbenv--modeline-plain)
 
 ;;;;;;;;;;;;;;
 ;; Diminish ;;
