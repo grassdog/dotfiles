@@ -31,9 +31,10 @@ values."
       (auto-completion
         :variables
         auto-completion-return-key-behavior 'complete
-        auto-completion-tab-key-behavior 'complete
-        auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/"
+        auto-completion-tab-key-behavior 'cycle
         auto-completion-enable-snippets-in-popup t
+        auto-completion-enable-help-tooltip t
+        auto-completion-enable-sort-by-usage t
         :disabled-for org erc markdown
         )
       better-defaults
@@ -336,7 +337,7 @@ _SPC_ cancel    _d_elete
 
   (spacemacs/declare-prefix "oe" "editing")
   (evil-leader/set-key "oey" 'browse-kill-ring)
-  (evil-leader/set-key "oee" 'yas-expand)
+  (evil-leader/set-key "oee" 'hippie-expand)
   (evil-leader/set-key "oei" 'hydra-string-case/body)
 
   (global-set-key (kbd "C-, ~") 'hydra-string-case/body)
@@ -374,8 +375,8 @@ _SPC_ cancel    _d_elete
   (global-set-key (kbd "C-, C-p") 'helm-projectile-find-file)
   (global-set-key (kbd "C-, r") 'helm-recentf)
   (global-set-key (kbd "C-, o") 'helm-mini)
-  (global-set-key (kbd "C-, e") 'yas-expand)
-  (global-set-key (kbd "s-e") 'yas-expand)
+  (global-set-key (kbd "C-, e") 'hippie-expand)
+  (global-set-key (kbd "s-e") 'hippie-expand)
 
   (global-set-key (kbd "<home>") 'spacemacs/smart-move-beginning-of-line)
   (global-set-key (kbd "<end>") 'move-end-of-line)
