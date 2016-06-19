@@ -219,11 +219,11 @@ function serve-dir() {
 # Some selecta-based helpers
 
 function pj() {
-  cd $(find ~/code/projects -maxdepth 1 -type d | selecta)
+  cd $(find ~/dev -maxdepth 1 -type d | selecta)
 }
 
 function posts() {
-  e $(find ~/code/projects/dance.computer/source/posts -maxdepth 1 -type f | selecta)
+  e $(find ~/dev/dance.computer/source/posts -maxdepth 1 -type f | selecta)
 }
 
 function notes() {
