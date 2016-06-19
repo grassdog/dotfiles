@@ -127,9 +127,7 @@ dep "vundle.repo" do
 end
 
 dep "vundle-install" do
-  puts "Run `vim +PluginInstall +qall` to install vundle plugins"
-
-  meet {
+  met? {
     shell "vim +PluginInstall +qall"
   }
 end
