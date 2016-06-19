@@ -1,8 +1,5 @@
 # Apps and their config
 
-# TODO Add dotfile business
-
-
 dep "brews" do
   met? {
     shell? "brew bundle check -v --global"
