@@ -1,3 +1,7 @@
+# Go
+export GOPATH=$HOME/.golang
+export GOROOT=/usr/local/opt/go/libexec
+export PATH=$PATH:$GOPATH/bin
 
 if test -n "$(find /Applications -maxdepth 1 -name 'ghc*.app' -print -quit)"
 then
