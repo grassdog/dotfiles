@@ -7,7 +7,7 @@ This repo contains the bulk of what I use to stand up a OSX box how I like it. F
 Firstly it gets the host in shape using [strap](https://github.com/MikeMcQuaid/strap) and then fleshes things out with [Homebrew](http://brew.sh/) and [Babushka](http://babushka.me/).
 
 ```sh
-bash <(curl -s https://raw.githubusercontent.com/grassdog/osx/master/bootstrap.sh)
+bash <(curl -s https://raw.githubusercontent.com/grassdog/dotfiles/master/bootstrap.sh)
 ```
 
 ## Configure and Install things via Babushka
