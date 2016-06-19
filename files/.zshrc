@@ -111,7 +111,7 @@ function obliq () {
 }
 
 # Source host specific config
-HOSTRC="$HOME/.dotfiles/zsh/$(hostname).zsh"
+HOSTRC="$HOME/.zsh/$(hostname).zsh"
 [[ -r $HOSTRC ]] && source $HOSTRC
 
 [[ -r ~/.iterm2_shell_integration.zsh ]] && source ~/.iterm2_shell_integration.zsh
