@@ -1,0 +1,68 @@
+# Applications
+
+cask_args appdir: '/Applications'
+mas '1Password', id: 443987910
+mas 'Affinity Photo', id: 824183456
+mas 'Airmail 3', id: 918858936
+mas 'Byword', id: 420212497
+mas 'Caffeine', id: 411246225
+mas 'Capo', id: 696977615
+mas 'Color Picker', id: 502401013
+mas 'Dash 3', id: 449589707
+mas 'Day One', id: 1055511498
+mas 'Keynote', id: 409183694
+mas 'Monosnap', id: 540348655
+mas 'Numbers', id: 409203825
+mas 'Pages', id: 409201541
+mas 'PeakHour', id: 468946727
+mas 'Transmit', id: 403388562
+mas 'Xcode', id: 497799835
+
+cask 'betterzipql'
+cask 'betterzipql'
+cask 'provisionql'
+cask 'qlcolorcode'
+cask 'qlmarkdown'
+cask 'qlprettypatch'
+cask 'qlstephen'
+cask 'quicklook-csv'
+cask 'quicklook-json'
+cask 'webpquicklook'
+
+cask 'ghc'
+cask 'google-chrome'
+cask 'grandperspective'
+cask 'airfoil'
+cask 'alfred'
+cask 'basictex'
+cask 'bittorrent-sync'
+cask 'dropbox'
+cask 'fantastical'
+cask 'flux'
+cask 'gpgtools'
+cask 'imageoptim'
+cask 'iterm2'
+cask 'java' unless system '/usr/libexec/java_home --failfast'
+cask 'kaleidoscope'
+cask 'kindle'
+cask 'licecap'
+cask 'marked'
+cask 'moom'
+cask 'numi'
+cask 'omnidisksweeper'
+cask 'omnifocus'
+cask 'omnigraffle'
+cask 'postico'
+cask 'skype'
+cask 'slack'
+cask 'sourcetree'
+cask 'spotify'
+cask 'superduper'
+cask 'textexpander'
+cask 'vagrant'
+cask 'virtualbox'
+cask 'vlc'
+
+cask 'transmission'
+cask 'steam'
+cask 'calibre'
