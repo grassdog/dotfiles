@@ -19,7 +19,6 @@ mas 'Transmit', id: 403388562
 mas 'Xcode', id: 497799835
 
 cask 'betterzipql'
-cask 'betterzipql'
 cask 'provisionql'
 cask 'qlcolorcode'
 cask 'qlmarkdown'

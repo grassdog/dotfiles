@@ -3,7 +3,6 @@ tap 'homebrew/bundle'
 tap 'homebrew/core'
 tap 'homebrew/services'
 tap 'argon/homebrew-mas'
-tap 'caskroom/fonts'
 tap 'd12frosted/emacs-plus'
 
 brew 'ansible'

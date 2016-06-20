@@ -1,0 +1,30 @@
+# Applications
+
+tap 'homebrew/bundle'
+tap 'homebrew/core'
+tap 'homebrew/services'
+tap 'argon/homebrew-mas'
+
+cask_args appdir: '/Applications'
+mas '1Password', id: 443987910
+mas 'Airmail 3', id: 918858936
+mas 'Caffeine', id: 411246225
+mas 'Color Picker', id: 502401013
+mas 'Dash 3', id: 449589707
+mas 'Day One', id: 1055511498
+mas 'Keynote', id: 409183694
+mas 'Monosnap', id: 540348655
+mas 'Numbers', id: 409203825
+mas 'Pages', id: 409201541
+mas 'Xcode', id: 497799835
+
+cask 'betterzipql'
+cask 'provisionql'
+cask 'qlcolorcode'
+cask 'qlmarkdown'
+cask 'qlprettypatch'
+cask 'qlstephen'
+cask 'quicklook-csv'
+cask 'quicklook-json'
+cask 'webpquicklook'
+
