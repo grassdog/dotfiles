@@ -70,6 +70,10 @@ Check the status of services via `brew services list`.
     - Keyboard > Shortcuts > Spotlight > Change spotlight to `ctrl-option-cmd-space`
     - Keyboard > Shortcuts > Spotlight > Switch off show finder search window
     - Keyboard > Shortcuts > Mission Control > Disable all Mission Control key shortcuts
+    - Keyboard > Shortcuts > Services > OpenPGP: Decrypt Selection to `ctrl-cmd--`
+    - Keyboard > Shortcuts > Services > OpenPGP: Encrypt Selection to `ctrl-cmd-=`
+    - Keyboard > Shortcuts > Services > OpenPGP: Verify Signature Selection to `ctrl-cmd-shift--`
+    - Keyboard > Shortcuts > Services > OpenPGP: Sign Selection to `ctrl-cmd-shift-=`
     - Trackpad > Disable Two finger click
     - Trackpad > Disable Smart zoom and Rotate
     - Trackpad > Disable swipe between pages
