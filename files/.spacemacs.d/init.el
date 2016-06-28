@@ -414,6 +414,7 @@ _SPC_ cancel    _d_elete
 
   ;; Quick buffer changing
   (global-set-key [s-up] 'dired-jump)
+  (global-set-key (kbd "C-, j") 'dired-jump)
   (global-set-key (kbd "s-}") 'next-buffer)
   (global-set-key (kbd "s-{") 'previous-buffer)
 
