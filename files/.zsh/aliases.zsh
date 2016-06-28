@@ -40,12 +40,14 @@ alias bi="bundle install"
 # Give me context
 alias ag='ag -C'
 
+# Open emacsclient in current terminal
 function et() {
-  emacsclient --alternate-editor="" -t "$@"
+  emacsclient --alternate-editor="" -nw "$@"
 }
 
-function eg() {
-  emacsclient --alternate-editor="" -c -n "$@"
+# Open emacsclient in a GUI frame
+function e() {
+  emacsclient --alternate-editor="" -n "$@"
 }
 
 # Tasks
@@ -66,8 +68,6 @@ if [[ $(uname) == Darwin ]]; then
 
   alias gv='mvim'
   alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
-
-  alias e="~/.bin/emacs-start"
 
   alias play="osascript -e 'tell app \"iTunes\" to playpause'"
   alias next="osascript -e 'tell app \"iTunes\" to next track'"
