@@ -339,12 +339,13 @@ _SPC_ cancel    _d_elete
   (evil-leader/set-key "oey" 'browse-kill-ring)
   (evil-leader/set-key "oee" 'hippie-expand)
   (evil-leader/set-key "oei" 'hydra-string-case/body)
-
-  (global-set-key (kbd "C-, ~") 'hydra-string-case/body)
+  (evil-leader/set-key "oec" 'string-inflection-cycle)
 
   (evil-leader/set-key "ow" 'hydra-window/body)
 
-  (global-set-key (kbd "C-, w") 'grass/open-work-log)
+  ; Clear out old mapping
+  ;; (global-unset-key (kbd "C-\"))
+  ;; (global-set-key (kbd "C-\ w") 'grass/open-work-log)
 
   (spacemacs/declare-prefix "ob" "bookmarks")
   (evil-leader/set-key "obc" 'grass/open-cheats)
@@ -370,55 +371,26 @@ _SPC_ cancel    _d_elete
   (global-set-key [S-down] 'windmove-down)
 
   ;; Old muscle memory
-  (global-set-key (kbd "C-, C-,") 'spacemacs/alternate-buffer)
-  (global-set-key (kbd "C-, p") 'helm-projectile-find-file)
-  (global-set-key (kbd "C-, C-p") 'helm-projectile-find-file)
-  (global-set-key (kbd "C-, r") 'helm-recentf)
-  (global-set-key (kbd "C-, o") 'helm-mini)
-  (global-set-key (kbd "C-, e") 'hippie-expand)
+  ;; (global-set-key (kbd "C-, C-,") 'spacemacs/alternate-buffer)
+  ;; (global-set-key (kbd "C-, p") 'helm-projectile-find-file)
+  ;; (global-set-key (kbd "C-, C-p") 'helm-projectile-find-file)
+  ;; (global-set-key (kbd "C-, r") 'helm-recentf)
+  ;; (global-set-key (kbd "C-, o") 'helm-mini)
+  ;; (global-set-key (kbd "C-, e") 'hippie-expand)
   (global-set-key (kbd "s-e") 'hippie-expand)
 
   (global-set-key (kbd "<home>") 'spacemacs/smart-move-beginning-of-line)
   (global-set-key (kbd "<end>") 'move-end-of-line)
 
-  ;; Utilities
-  (global-set-key (kbd "C-, u t") 'display-time-world)
-  (global-set-key (kbd "C-, u b") 'grass/comment-box)
-  (global-set-key (kbd "C-, u u") 'browse-url)
-  (global-set-key (kbd "C-, u f") 'grass/copy-buffer-filename)
-
-  ;; Shell
-  (global-set-key (kbd "C-, !") 'grass/shell-command-with-prefix-arg)
-
-  (global-set-key (kbd "C-, g") 'magit-status)
 
   ;; Move text
   (global-set-key (kbd "<C-S-up>") 'move-text-up)
   (global-set-key (kbd "<C-S-down>") 'move-text-down)
 
-  ;; Cleanup
-  (global-set-key (kbd "C-, f") 'grass/indent-region-or-buffer)
-
-  ;; Search and replace
-  (global-set-key (kbd "C-, s r") 'grass/replace-string)
-  (global-set-key (kbd "C-, s R") 'grass/replace-regexp)
-  (global-set-key (kbd "C-, s q") 'grass/query-replace-string)
-  (global-set-key (kbd "C-, s Q") 'grass/query-replace-regexp)
-  (global-set-key (kbd "C-, s f") 'isearch-forward-regexp)
-  (global-set-key (kbd "C-, s b") 'isearch-reverse-regexp)
-
-  (global-set-key (kbd "C-, s a") 'ag-project)
-
-  (global-set-key (kbd "C-, y") 'browse-kill-ring)
-  (global-set-key (kbd "C-, C-i") 'string-inflection-cycle)
-
   ;; Quick buffer changing
   (global-set-key [s-up] 'dired-jump)
-  (global-set-key (kbd "C-, j") 'dired-jump)
-  (global-set-key (kbd "s-}") 'next-buffer)
-  (global-set-key (kbd "s-{") 'previous-buffer)
-
-  (global-set-key (kbd "C-, c") 'char-menu)
+  ;; (global-set-key (kbd "s-}") 'next-buffer)
+  ;; (global-set-key (kbd "s-{") 'previous-buffer)
 
   (add-hook 'auto-highlight-symbol-mode-hook
     (lambda ()
@@ -451,11 +423,6 @@ _SPC_ cancel    _d_elete
   (add-hook 'css-mode-hook
     (lambda ()
       (rainbow-mode 1)))
-
-  ;; Clear prefix binding
-  (add-hook 'flyspell-mode-hook
-    (lambda ()
-      (define-key flyspell-mode-map (kbd "C-,") nil)))
 
   ;; Markdown
   (add-hook 'markdown-mode-hook

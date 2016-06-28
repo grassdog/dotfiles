@@ -223,8 +223,6 @@
       ;; No auto indent please
       ;;(setq evil-auto-indent nil)
       (setq org-export-html-postamble nil)
-      ;; Let me keep my prefix key binding
-      (define-key org-mode-map (kbd "C-,") nil)
       (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link))))
 
 ;;;;;;;;;;;
