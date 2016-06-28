@@ -43,7 +43,7 @@
   # Mark a repo as trusted
   trust = "!mkdir -p .git/safe"
 
-  # List commands
+  # List commits
   ls = log --graph --pretty=format:"%C(yellow)%h%Cblue%d%Creset\\ %s\\ %C(green)\\ %an,\\ %ar%Creset"
 
   # List with patches
@@ -77,6 +77,9 @@
 
   # Wipe out current work (still creates a commit in the reflog)
   wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
+
+  # Remove merged local branches
+  cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d"
 
 [filter "media"]
 	clean = git media clean %f
