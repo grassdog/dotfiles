@@ -1,7 +1,7 @@
 # ~/.tmuxinator/forge.yml
 
 name: forge
-root: ~/
+root: ~/dev/forge
 
 # Optional tmux socket
 # socket_name: foo
@@ -19,7 +19,7 @@ root: ~/
 # tmux_command: byobu
 
 # Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
-startup_window: forge
+startup_window: local
 
 # Controls whether the tmux session should be attached to automatically. Defaults to true.
 # attach: false
@@ -28,7 +28,9 @@ startup_window: forge
 # post: tmux -CC attach -t forge
 
 windows:
-  - forge:
+  - local:
+    -
+  - www:
     - ssh forge
     - cd /var/www
   - logs:
