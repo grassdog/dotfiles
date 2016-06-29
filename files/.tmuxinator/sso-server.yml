@@ -28,6 +28,6 @@ root: ~/src/sso_server
 # post: tmux -CC attach -t identity
 
 windows:
-  - editor: et .
+  - emacs: et .
   - git:
   - server: foreman start
