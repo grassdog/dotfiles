@@ -57,6 +57,7 @@ alias tg="taskmeister -t ${TASKS} -l general.md"
 
 # tmux
 alias tmux="TERM=screen-256color-bce tmux"
+alias mux="tmuxinator"
 
 ###############
 # OSX Specific

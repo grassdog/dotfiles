@@ -1,7 +1,7 @@
-# ~/.tmuxinator/infographics.yml
+# ~/.tmuxinator/identity.yml
 
-name: osx
-root: ~/.babushka/sources/osx
+name: identity
+root: ~/src/identity
 
 # Optional tmux socket
 # socket_name: foo
@@ -19,17 +19,15 @@ root: ~/.babushka/sources/osx
 # tmux_command: byobu
 
 # Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
-#startup_window: vim
+# startup_window: logs
 
 # Controls whether the tmux session should be attached to automatically. Defaults to true.
 # attach: false
 
 # Runs after everything. Use it to attach to tmux with custom options etc.
-# post: tmux -CC attach -t infographics
+# post: tmux -CC attach -t identity
 
 windows:
-  - shell:
-      layout: main-vertical
-      panes:
-        - vim
-        -
+  - editor: et .
+  - git:
+  - server:
