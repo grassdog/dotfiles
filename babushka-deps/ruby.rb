@@ -90,6 +90,7 @@ GEMS = %w[
   pry-byebug
   pry-stack_explorer
   seeing_is_believing
+  tmuxinator
 ]
 
 GEMS.each do |gem|
