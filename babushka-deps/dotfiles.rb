@@ -89,6 +89,7 @@ end
 
 dep "editors-installed" do
   requires "spacemacs.repo",
+           "terminfo",
            "vim-installed"
 end
 
@@ -97,6 +98,13 @@ dep "spacemacs.repo" do
 
   source "https://github.com/syl20bnr/spacemacs"
   path "~/.emacs.d"
+end
+
+dep "terminfo" do
+  met? { "~/.terminfo".p.dir? }
+  meet {
+    shell "tic -o ~/.terminfo /usr/local/Cellar/emacs-plus/24.5/share/emacs/24.5/etc/e/eterm-color.ti"
+  }
 end
 
 #
