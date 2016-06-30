@@ -96,5 +96,3 @@
 
 [hub]
 protocol = https
-[interactive]
-	diffFilter = diff-so-fancy
