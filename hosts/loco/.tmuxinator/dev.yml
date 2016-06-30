@@ -35,13 +35,13 @@ windows:
         -
   - dotfiles:
       root: ~/.dotfiles
-      layout: main-vertical
+      layout: 7fc8,178x48,0,0{101x48,0,0,1,76x48,102,0,6}
       panes:
         - et .
         -
   - firehose:
       root: ~/dev/firehose
-      layout: main-vertical
+      layout: fa58,178x48,0,0{100x48,0,0,2,77x48,101,0[77x23,101,0,7,77x24,101,24,8]}
       panes:
         - et .
         - mix phoenix.server
