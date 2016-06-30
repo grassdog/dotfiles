@@ -46,3 +46,15 @@ windows:
         - et .
         - mix phoenix.server
         -
+  - dance:
+      root: ~/dev/dance.computer
+      layout: main-vertical
+      panes:
+        -
+        -
+  - strange:
+      root: ~/dev/strangemadness.com
+      layout: main-vertical
+      panes:
+        -
+        -
