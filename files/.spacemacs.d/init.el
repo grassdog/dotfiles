@@ -257,40 +257,6 @@ layers configuration. You are free to put any user code."
   (setq powerline-default-separator nil)
   (spaceline-compile)
 
-  ;; Some key hydras
-  (defhydra hydra-window ()
-    "
-Movement^^      ^Resize^     ^Split^
---------------------------------------------
-_h_ ←           _q_ X←      _v_ertical
-_j_ ↓           _w_ X↓      _x_ horizontal
-_k_ ↑           _e_ X↑
-_l_ →           _r_ X→      _o_nly this
-_SPC_ cancel    _d_elete
-"
-    ("h" windmove-left nil)
-    ("j" windmove-down nil)
-    ("k" windmove-up nil)
-    ("l" windmove-right nil)
-    ("q" grass/move-splitter-left nil)
-    ("w" grass/move-splitter-down nil)
-    ("e" grass/move-splitter-up nil)
-    ("r" grass/move-splitter-right nil)
-    ("v" (lambda ()
-          (interactive)
-          (split-window-right)
-          (windmove-right))
-    nil)
-    ("x" (lambda ()
-          (interactive)
-          (split-window-below)
-          (windmove-down))
-    nil)
-    ("d" delete-window nil)
-    ("o" delete-other-windows nil)
-    ("SPC" nil nil))
-
-
   (defhydra hydra-string-case ()
     "word case"
     ("c" capitalize-word "Capitalize")
@@ -341,8 +307,6 @@ _SPC_ cancel    _d_elete
   (evil-leader/set-key "oei" 'hydra-string-case/body)
   (evil-leader/set-key "oec" 'string-inflection-cycle)
 
-  (evil-leader/set-key "ow" 'hydra-window/body)
-
   ; Clear out old mapping
   ;; (global-unset-key (kbd "C-\"))
   ;; (global-set-key (kbd "C-\ w") 'grass/open-work-log)
@@ -364,24 +328,10 @@ _SPC_ cancel    _d_elete
   ;; Backtab to unindent
   (define-key global-map [backtab] 'evil-shift-left-line)
 
-  ;; Easier window switching
-  (global-set-key [S-left] 'windmove-left)
-  (global-set-key [S-right] 'windmove-right)
-  (global-set-key [S-up] 'windmove-up)
-  (global-set-key [S-down] 'windmove-down)
-
-  ;; Old muscle memory
-  ;; (global-set-key (kbd "C-, C-,") 'spacemacs/alternate-buffer)
-  ;; (global-set-key (kbd "C-, p") 'helm-projectile-find-file)
-  ;; (global-set-key (kbd "C-, C-p") 'helm-projectile-find-file)
-  ;; (global-set-key (kbd "C-, r") 'helm-recentf)
-  ;; (global-set-key (kbd "C-, o") 'helm-mini)
-  ;; (global-set-key (kbd "C-, e") 'hippie-expand)
   (global-set-key (kbd "s-e") 'hippie-expand)
 
   (global-set-key (kbd "<home>") 'spacemacs/smart-move-beginning-of-line)
   (global-set-key (kbd "<end>") 'move-end-of-line)
-
 
   ;; Move text
   (global-set-key (kbd "<C-S-up>") 'move-text-up)
@@ -389,8 +339,8 @@ _SPC_ cancel    _d_elete
 
   ;; Quick buffer changing
   (global-set-key [s-up] 'dired-jump)
-  ;; (global-set-key (kbd "s-}") 'next-buffer)
-  ;; (global-set-key (kbd "s-{") 'previous-buffer)
+  ;; C-x -> 'next-buffer
+  ;; C-x <- 'previous-buffer
 
   (add-hook 'auto-highlight-symbol-mode-hook
     (lambda ()
