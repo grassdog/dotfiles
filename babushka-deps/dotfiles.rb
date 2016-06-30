@@ -2,7 +2,8 @@
 dep "dotfiles-installed" do
   requires "dotfiles-symlinked",
            "services-copied",
-           "editors-installed"
+           "editors-installed",
+           "tmux-plugin-manager.repo"
 end
 
 #
@@ -16,7 +17,6 @@ end
 
 # Link files
 
-# TODO Fix this path
 DOTFILES = "#{ENV['HOME']}/.dotfiles"
 
 dotfiles = (
@@ -67,6 +67,7 @@ service_deps = services.map { |f|
     name,
     -> {
       dep name, template: "copieddir" do
+        requires "dotfiles-symlinked"
         source f.to_s
         target "~/Library/Services"
       end
@@ -92,6 +93,8 @@ dep "editors-installed" do
 end
 
 dep "spacemacs.repo" do
+  requires "dotfiles-symlinked"
+
   source "https://github.com/syl20bnr/spacemacs"
   path "~/.emacs.d"
 end
@@ -109,6 +112,8 @@ dep "vim-installed" do
 end
 
 dep "vimrc.symlink" do
+  requires "dotfiles-symlinked"
+
   source "~/.dotfiles/files/.vim/vimrc"
   target "~/.vimrc"
 end
@@ -122,6 +127,8 @@ dep "vim-backups.dir" do
 end
 
 dep "vundle.repo" do
+  requires "dotfiles-symlinked"
+
   source "https://github.com/VundleVim/Vundle.vim"
   path "~/.dotfiles/files/.vim/bundle/Vundle.vim"
 end
@@ -132,3 +139,19 @@ dep "vundle-install" do
   }
 end
 
+#
+# tmux
+#
+
+dep "tmux-plugins.dir" do
+  requires "dotfiles-symlinked"
+
+  path "~/.tmux/plugins"
+end
+
+dep "tmux-plugin-manager.repo" do
+  requires "tmux-plugins.dir"
+
+  source "https://github.com/tmux-plugins/tpm"
+  path "~/.tmux/plugins/tpm"
+end
