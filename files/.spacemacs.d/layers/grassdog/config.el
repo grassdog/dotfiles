@@ -124,6 +124,7 @@
 (spacemacs|diminish elm-indent-mode " i" " i")
 (spacemacs|diminish rubocop-mode " R" " R")
 (spacemacs|diminish alchemist-mode " A" " A")
+(spacemacs|diminish alchemist-phoenix-mode " P" " P")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Auto save on focus lost ;;
