@@ -139,6 +139,7 @@ Check the status of services via `brew services list`.
 - Lightroom
     - Copy across Lightroom catalog and masters from USB backup
     - Copy across Lightroom presets from backup into new location `~/Library/Application Support/Adobe/Lightroom/{Develop Preset,Export Presets,Filename Templates}`
+- PS4 Remote Play Client
 - OpenGPG
     - Copy across any keys from 1Password
 - Photoshop
