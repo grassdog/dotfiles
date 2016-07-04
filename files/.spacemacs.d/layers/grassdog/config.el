@@ -245,18 +245,20 @@
           (seq bol ".DS_Store" eol)
           (seq bol ".tern-port" eol))))
 
-  (defun grass/dired-up-single-buffer ()
-    "Move to parent directory using same dired buffer"
-    (interactive)
-    (dired-single-buffer ".."))
-
   (evil-leader/set-key-for-mode 'dired-mode
     "g" 'revert-buffer)
 
   (define-key dired-mode-map [return] 'dired-single-buffer)
   (define-key dired-mode-map [mouse-1] 'dired-single-buffer-mouse)
-  (define-key dired-mode-map (kbd "<s-up>") 'grass/dired-up-single-buffer)
-  (define-key dired-mode-map (kbd "C-k") 'grass/dired-up-single-buffer))
+  (define-key dired-mode-map (kbd "^")
+    (function
+      (lambda nil (interactive) (dired-single-buffer ".."))))
+  (define-key dired-mode-map (kbd "<s-up>")
+    (function
+      (lambda nil (interactive) (dired-single-buffer ".."))))
+  (define-key dired-mode-map (kbd "C-k")
+    (function
+      (lambda nil (interactive) (dired-single-buffer "..")))))
 
 (if (boundp 'dired-mode-map)
   (grass/dired-init)
