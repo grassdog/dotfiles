@@ -1,3 +1,4 @@
+
 ;;;;;;;;;;;;;
 ;; General ;;
 ;;;;;;;;;;;;;
@@ -255,7 +256,7 @@
   (define-key dired-mode-map [return] 'dired-single-buffer)
   (define-key dired-mode-map [mouse-1] 'dired-single-buffer-mouse)
   (define-key dired-mode-map (kbd "<s-up>") 'grass/dired-up-single-buffer)
-  (define-key dired-mode-map (kbd "C-k") 'grass/dired-up-single-buffer)
+  (define-key dired-mode-map (kbd "C-k") 'grass/dired-up-single-buffer))
 
 (if (boundp 'dired-mode-map)
   (grass/dired-init)
