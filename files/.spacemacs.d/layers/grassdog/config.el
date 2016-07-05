@@ -256,7 +256,7 @@
   (define-key dired-mode-map (kbd "<s-up>")
     (function
       (lambda nil (interactive) (dired-single-buffer ".."))))
-  (define-key dired-mode-map (kbd "C-k")
+  (define-key dired-mode-map (kbd "-")
     (function
       (lambda nil (interactive) (dired-single-buffer "..")))))
 
