@@ -32,6 +32,7 @@ Plugin 'tpope/vim-eunuch'
 Plugin 'nelstrom/vim-visual-star-search'
 Plugin 'godlygeek/tabular'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'dracula/vim'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'scrooloose/nerdtree'
 Plugin 'grassdog/RemoveFile.vim'
@@ -334,7 +335,7 @@ let g:solarized_menu=0
 let g:solarized_contrast="high"
 
 set background=dark
-colorscheme solarized
+colorscheme dracula
 
 
 """"""""""""""""""""""" }}}
