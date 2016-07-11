@@ -98,7 +98,7 @@ prompt_status() {
 }
 
 prompt_time() {
-  prompt_segment "%D{%T}"
+  prompt_segment "%{$fg[green]%}%D{%T}"
 }
 
 prompt_context() {
