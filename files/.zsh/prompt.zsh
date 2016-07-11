@@ -37,7 +37,7 @@ prompt_git() {
     fi
 
     # prompt_segment "${git_prompt}$(git_prompt_info)$(git_prompt_status)"
-    prompt_segment "${git_prompt}$(git_prompt_info)"
+    prompt_segment "${git_prompt}[$(git_prompt_info)]"
   fi
 }
 
