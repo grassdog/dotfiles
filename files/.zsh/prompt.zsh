@@ -126,7 +126,7 @@ PROMPT_ORDER=(
 )
 
 prompt_segment() {
-  [[ -n $1 ]] && echo -n " $1"
+  [[ -n $1 ]] && echo -n "$1 "
 }
 
 build_prompt() {
