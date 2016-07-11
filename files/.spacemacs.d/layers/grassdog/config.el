@@ -126,6 +126,7 @@
 (spacemacs|diminish rubocop-mode " R" " R")
 (spacemacs|diminish alchemist-mode " A" " A")
 (spacemacs|diminish alchemist-phoenix-mode " P" " P")
+(spacemacs|diminish dired-omit-mode " O" " O")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Auto save on focus lost ;;
@@ -234,11 +235,10 @@
 (defun grass/dired-init ()
   "Bunch of stuff to run for dired, either immediately or when it's loaded."
 
-  (setq dired-filter-verbose nil)
   (setq dired-use-ls-dired nil)
   (setq dired-recursive-copies 'always)
   (setq dired-omit-files
-    (rx (or (seq bol (? ".") "#")         ;; emacs autosave files
+    (rx (or (seq bol (? ".") "#")       ;; emacs autosave files
           (seq "~" eol)                 ;; backup-files
           (seq bol "CVS" eol)           ;; CVS dirs
           (seq ".pyc" eol)
@@ -264,12 +264,10 @@
   (grass/dired-init)
   (add-hook 'dired-load-hook 'grass/dired-init))
 
-(spacemacs|diminish dired-filter-mode "Ⓕ" " f")
-
 (add-hook 'dired-mode-hook
   (lambda ()
-    (dired-hide-details-mode t)
-    (dired-filter-mode t)))
+    (dired-omit-mode t)
+    (dired-hide-details-mode t)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Projectile and ignored files ;;

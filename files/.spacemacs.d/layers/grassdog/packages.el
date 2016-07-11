@@ -17,7 +17,6 @@
      string-inflection
      browse-kill-ring
      dired-single
-     dired-filter
      peep-dired
      htmlize
      ox-reveal
@@ -33,12 +32,6 @@
 
 ;; List of packages to exclude.
 (setq grassdog-excluded-packages '())
-
-(defun grassdog/init-dired-filter ()
-  (use-package dired-filter
-    :commands (dired-filter-by-dot-files
-                dired-filter-by-regexp
-                dired-filter-pop)))
 
 (defun grassdog/init-dired-single ()
   (use-package dired-single))
