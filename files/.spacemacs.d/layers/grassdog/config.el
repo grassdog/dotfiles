@@ -394,3 +394,17 @@
 (add-hook 'syslog-mode-hook
   (lambda ()
     (toggle-truncate-lines)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Colour in compilation outputs ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'ansi-color)
+(defun grass/colorize-compilation ()
+  "Colorize from `compilation-filter-start' to `point'."
+  (let ((inhibit-read-only t))
+    (ansi-color-apply-on-region
+     compilation-filter-start (point))))
+
+(add-hook 'compilation-filter-hook #'grass/colorize-compilation)
