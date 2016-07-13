@@ -47,7 +47,7 @@ class RTags
   end
 
   def run!
-    build_tags_file
+    build_tags_file || exit(1)
     clean_tags_file
   rescue Interrupt
     exit 1
