@@ -121,13 +121,25 @@ class VimTagFile
   end
 
   def clean!
+    lines = File.readlines(tagfile)
+
+    filtered_lines = filter(lines)
+
+    File.open(tagfile, 'w') do |file|
+      file.puts filtered_lines
+    end
   end
 
-  # # Filter out false matches from class method regex
-  # sed -i '' -E '/^(if|switch|function|module\.exports|it|describe)	.+language:js$/d' $FILE
+  def filter(lines)
+    predicates = [
+      -> (l) { l =~ /var\s+[a-zA-Z0-9_$]+\s+=\s+require\(.+language:js$/ },
+      -> (l) { l =~ /^(if|switch|function|module\.exports|it|describe)\s.+language:js$/ }
+    ]
 
-  # # Filter out false matches from object definition regex
-  # sed -i '' -E '/var[   ]+[a-zA-Z0-9_$]+[   ]+=[    ]+require\(.+language:js$/d' $FILE
+    lines.reject { |l|
+      predicates.any? { |p| p.call(l) }
+    }
+  end
 end
 
 class ExcludedPaths
