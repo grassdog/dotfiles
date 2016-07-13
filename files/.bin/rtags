@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 #/ Usage: rtags [ctags options]
-#/ A ctags wrapper that automatically excludes files in vcs ignore files.
+#/ A ctags wrapper that automatically excludes files in vcs ignore files and
+#/ cleans superfluous tag file entries.
 #/    -h, --help                       Show help
 
 require "optparse"
@@ -47,7 +48,7 @@ class RTags
 
   def run!
     build_tags_file
-  # filter_tags_file
+    clean_tags_file
   rescue Interrupt
     exit 1
   end
@@ -64,34 +65,70 @@ class RTags
     @excludes.all.map { |i| "--exclude=#{i}" }.join(" ")
   end
 
-  def filter_tags_file
-    if @options.emacs
-      filter_emacs_tags(@options.outfile)
-    else
-      filter_vim_tags(@options.outfile)
-    end
+  def clean_tags_file
+    tagfile.clean!
   end
 
-  def filter_emacs_tags(tagfile)
-    filtered_lines = File.readlines(tagfile)
-        .reject { |l| l =~ /function.\d+,\d+\z/ }
-        .reject { |l| l =~ /var\s+.*=.*require\(/ }
+  def tagfile
+    klass = @options.emacs ? EmacsTagFile : VimTagFile
+    klass.new(@options.outfile)
+  end
+end
+
+class EmacsTagFile
+  SYMBOLS_TO_CLEAN = %w[if switch function exports it describe]
+
+  attr_reader :tagfile
+
+  def initialize(tagfile)
+    @tagfile = tagfile
+  end
+
+  def clean!
+    lines = File.readlines(tagfile)
+
+    filtered_lines = filter(lines)
 
     File.open(tagfile, 'w') do |file|
       file.puts filtered_lines
     end
   end
 
-  def filter_vim_tags(tagfile)
-    # # Filter out false matches from class method regex
-    # sed -i '' -E '/^(if|switch|function|module\.exports|it|describe)	.+language:js$/d' $FILE
+  private
 
-    # # Filter out false matches from object definition regex
-    # sed -i '' -E '/var[   ]+[a-zA-Z0-9_$]+[   ]+=[    ]+require\(.+language:js$/d' $FILE
+  # Filter out superfluous entries
+  # For example:
+  # var AppDispatcher = require('../dispatcher/AppDispatcher');AppDispatcher3,15
+  # receiveAll: function(categories) {function8,151
+  def filter(lines)
+    predicates = [
+      -> (l) { l =~ /var\s+.*=.*require\(/ }
+    ] + SYMBOLS_TO_CLEAN.map { |s|
+      -> (l) { l =~ /\u007F#{s}\u0001/ }
+    }
+
+    lines.reject { |l|
+      predicates.any? { |p| p.call(l) }
+    }
   end
 end
 
+class VimTagFile
+  attr_reader :tagfile
 
+  def initialize(tagfile)
+    @tagfile = tagfile
+  end
+
+  def clean!
+  end
+
+  # # Filter out false matches from class method regex
+  # sed -i '' -E '/^(if|switch|function|module\.exports|it|describe)	.+language:js$/d' $FILE
+
+  # # Filter out false matches from object definition regex
+  # sed -i '' -E '/var[   ]+[a-zA-Z0-9_$]+[   ]+=[    ]+require\(.+language:js$/d' $FILE
+end
 
 class ExcludedPaths
   # Fixed set of paths to ignore
