@@ -237,6 +237,7 @@
 
   (setq dired-use-ls-dired nil)
   (setq dired-recursive-copies 'always)
+  (setq dired-omit-verbose nil)
   (setq dired-omit-files
     (rx (or (seq bol (? ".") "#")       ;; emacs autosave files
           (seq "~" eol)                 ;; backup-files
@@ -275,8 +276,9 @@
 
 (add-hook 'projectile-load-hook
   (lambda ()
-    (setq projectile-tags-command "getags")
     ;; (setq projectile-enable-caching t)
+    ;; (setq projectile-tags-command "getags")
+    (setq projectile-tags-command "rtags -R -e --fields=+l -f \"%s\" %s")
     (setq projectile-hg-command "( hg locate -0 -I . ; hg st -u -n -0 )")
     (add-to-list 'projectile-globally-ignored-directories "gems")
     (add-to-list 'projectile-globally-ignored-directories "node_modules")
