@@ -217,7 +217,7 @@
       (shell-quote-argument (buffer-file-name)))))
 
 (defun grass/today ()
-  (format-time-string "%Y.%m.%d, %a"))
+  (format-time-string "%Y.%m.%d - %a"))
 
 (defun grass/insert-date ()
   (interactive)
