@@ -1,5 +1,0 @@
-#!/bin/sh
-
-# List all network connections
-
-netstat -tn | awk 'NR>2 {print $6}' | sort | uniq -c | sort -rn
