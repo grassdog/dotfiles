@@ -52,7 +52,10 @@
   (use-package ox-reveal
     :init
     (progn
-      (setq org-reveal-root (concat "file://" (expand-file-name "~/Dropbox/Backups/Reveal/reveal.js"))))))
+      (setq org-reveal-mathjax t)
+      (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/")
+      ;; (setq org-reveal-root (concat "file://" (expand-file-name "~/Dropbox/Backups/Reveal/reveal.js")))
+      )))
 
 ;; Yank links to Mac documents
 (defun grassdog/init-org-mac-link ()
