@@ -11,12 +11,12 @@
 (defun grass/open-work-log ()
   "Open Worklog file"
   (interactive)
-  (find-file "~/Dropbox/Notes/Work Log.org"))
+  (find-file "~/Dropbox/Notes/Journals/Work.org"))
 
-(defun grass/open-sideproject-log ()
+(defun grass/open-personal-log ()
   "Open Worklog file"
   (interactive)
-  (find-file "~/Dropbox/Notes/Sideproject Log.org"))
+  (find-file "~/Dropbox/Notes/Journals/Personal.org"))
 
 (defun grass/find-notes ()
   "Find a note in Dropbox/Notes directory"
