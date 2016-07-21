@@ -185,8 +185,6 @@
   ;; Start up fully open
   (setq org-startup-folded nil)
 
-  ;; Make windmove work in org-mode
-  (setq org-replace-disputed-keys t)
   (setq org-return-follows-link nil)
   (setq org-agenda-files '("~/Dropbox/Notes"))
 
@@ -225,6 +223,12 @@
     (lambda ()
       ;; No auto indent please
       ;;(setq evil-auto-indent nil)
+
+      ;; Add some custom surrounds
+      (push '(?e . ("#+BEGIN_EXAMPLE" . "#+END_EXAMPLE")) evil-surround-pairs-alist)
+      (push '(?s . ("#+BEGIN_SRC" . "#+END_SRC")) evil-surround-pairs-alist)
+      (push '(?q . ("#+BEGIN_QUOTE" . "#+END_QUOTE")) evil-surround-pairs-alist)
+
       (setq org-export-html-postamble nil)
       (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link))))
 
