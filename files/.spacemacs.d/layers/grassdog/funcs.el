@@ -6,7 +6,7 @@
 (defun grass/open-cheats ()
   "Open Emacs cheats file"
   (interactive)
-  (find-file "~/Dropbox/Notes/Emacs.md"))
+  (find-file "~/Dropbox/Notes/Archive/Emacs.md"))
 
 (defun grass/open-work-log ()
   "Open Worklog file"

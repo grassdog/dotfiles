@@ -1022,7 +1022,7 @@ let g:haddock_browser_callformat = "%s %s"
 """""""""""""""""""""""
 
 " Show cheats
-command! Cheats :normal :silent! tabnew ~/Dropbox/Notes/Vim.md<cr>
+command! Cheats :normal :silent! tabnew ~/Dropbox/Notes/Archive/Vim.md<cr>
 
 " Edit hot files
 command! Myrc :normal :edit $MYVIMRC<cr>
