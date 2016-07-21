@@ -21,6 +21,7 @@
      htmlize
      ox-reveal
      org-mac-link
+     org-journal
      seeing-is-believing
      simpleclip
      char-menu
@@ -61,6 +62,16 @@
 (defun grassdog/init-org-mac-link ()
   (use-package org-mac-link
     :commands org-mac-grab-link))
+
+(defun grassdog/init-org-journal ()
+  (use-package org-journal
+    :commands (org-journal-new-entry)
+    :config
+    (setq org-journal-dir "~/btsync/documents/Journal/"
+      org-journal-date-format "%Y.%m.%d - %a"
+      org-journal-file-format "%Y-%m-%d.org"
+      )
+    ))
 
 (defun grassdog/init-browse-kill-ring ()
   (use-package browse-kill-ring
