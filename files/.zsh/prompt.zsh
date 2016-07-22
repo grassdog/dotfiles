@@ -47,10 +47,10 @@ prompt_nvm() {
     nvm_prompt=$(nvm current 2>/dev/null)
     [[ "${nvm_prompt}x" == "x" ]] && return
   else
-    nvm_prompt="$(node --version)"
+    nvm_prompt="$(node --version 2>/dev/null)"
   fi
   nvm_prompt=${nvm_prompt}
-  prompt_segment "%{$fg[green]%}⬡ $nvm_prompt"
+  [[ -n "$nvm_prompt" ]] && prompt_segment "%{$fg[green]%}⬡ $nvm_prompt"
 }
 
 # RUBY
