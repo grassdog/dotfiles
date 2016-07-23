@@ -139,11 +139,10 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Hack"
+   dotspacemacs-default-font '("Operator Mono"
                                :size 13
-                               :weight normal
-                               :width normal
-                               :powerline-scale 1.2)
+                               :weight light
+                               :width normal)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
