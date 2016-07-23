@@ -12,7 +12,8 @@ dep "all-fonts" do
            "roboto.ttf",
            "metropolis.otf",
            "league-gothic.otf",
-           "deconeue.ttf"
+           "deconeue.ttf",
+           "operator-mono.otf"
 
 end
 
@@ -82,6 +83,10 @@ dep "hack.ttf" do
   ttf_filename "Hack-Bold.ttf"
 end
 
+dep "operator-mono.otf" do
+  source "https://dl.dropboxusercontent.com/u/103175/Fonts/OperatorMono.zip"
+  otf_filename "OperatorMono-Medium.otf"
+end
 
 dep "roboto.ttf" do
   source "https://dl.dropboxusercontent.com/u/103175/Fonts/roboto.zip"
