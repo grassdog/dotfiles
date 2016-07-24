@@ -357,6 +357,11 @@
                     ;; :post-handlers '(:add grass/elixir-fn-end-close-action)
                     :actions '(insert))))
 
+;; Disable company quickhelp in elixir to stop hangs in autocomplete
+(add-hook 'elixir-mode
+  (lambda ()
+    (company-quickhelp nil)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Better pop to mark ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;
