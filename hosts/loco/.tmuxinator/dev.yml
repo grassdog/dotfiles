@@ -29,32 +29,31 @@ root: ~/
 
 windows:
   - zsh:
-      layout: main-vertical
+      layout: even-horizontal
       panes:
         -
         -
   - dotfiles:
       root: ~/.dotfiles
-      layout: 7fc8,178x48,0,0{101x48,0,0,1,76x48,102,0,6}
+      layout: even-horizontal
       panes:
         - et .
         -
   - firehose:
       root: ~/dev/firehose
-      layout: fa58,178x48,0,0{100x48,0,0,2,77x48,101,0[77x23,101,0,7,77x24,101,24,8]}
+      layout: even-horizontal
       panes:
-        - et .
-        - mix phoenix.server
         -
+        - mix phoenix.server
   - dance:
       root: ~/dev/dance.computer
-      layout: main-vertical
+      layout: even-horizontal
       panes:
         -
         -
   - strange:
       root: ~/dev/strangemadness.com
-      layout: main-vertical
+      layout: even-horizontal
       panes:
         -
         -
