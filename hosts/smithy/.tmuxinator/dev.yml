@@ -36,17 +36,16 @@ windows:
         -
   - dotfiles:
       root: ~/.dotfiles
-      layout: 3bd2,318x80,0,0{177x80,0,0,1,140x80,178,0,9}
+      layout: even-horizontal
       panes:
         - et .
         -
   - sso-server:
       root: ~/src/sso_server
-      layout: e1c2,318x80,0,0{180x80,0,0,2,137x80,181,0[137x39,181,0,10,137x40,181,40,11]}
+      layout: even-horizontal
       panes:
-        - et .
-        - foreman start
         - 
+        - foreman start
   - infra:
       layout: tiled
       panes:
@@ -55,8 +54,7 @@ windows:
         - cd ~/src/area51-infrastructure
         - cd ~/src/identity-ansible
   - area51:
-      layout: e1c2,318x80,0,0{180x80,0,0,2,137x80,181,0[137x39,181,0,10,137x40,181,40,11]}
+      layout: even-horizontal
       panes:
-        - cd ~/src/area51-server; et .
-        - cd ~/src/area51-infrastructure
         - cd ~/src/area51-server
+        - cd ~/src/area51-infrastructure
