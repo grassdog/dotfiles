@@ -336,6 +336,13 @@ layers configuration. You are free to put any user code."
   (global-set-key (kbd "<C-S-up>") 'move-text-up)
   (global-set-key (kbd "<C-S-down>") 'move-text-down)
 
+  ;; Window move bindings that emulate my tmux setup
+  (global-unset-key (kbd "C-\\"))
+  (global-set-key (kbd "C-\\ <right>") 'evil-window-right)
+  (global-set-key (kbd "C-\\ <left>") 'evil-window-left)
+  (global-set-key (kbd "C-\\ <up>") 'evil-window-up)
+  (global-set-key (kbd "C-\\ <down>") 'evil-window-down)
+
   ;; Quick buffer changing
   (global-set-key [s-up] 'dired-jump)
   ;; C-x -> 'next-buffer
