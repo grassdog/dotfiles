@@ -282,7 +282,7 @@
   (lambda ()
     ;; (setq projectile-enable-caching t)
     ;; (setq projectile-tags-command "getags")
-    (setq projectile-tags-command "rtags -R -e -f \"%s\" %s")
+    (setq projectile-tags-command "rtags -R -e %s")
     (setq projectile-hg-command "( hg locate -0 -I . ; hg st -u -n -0 )")
     (add-to-list 'projectile-globally-ignored-directories "gems")
     (add-to-list 'projectile-globally-ignored-directories "node_modules")
