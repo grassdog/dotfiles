@@ -358,7 +358,7 @@
                     :actions '(insert))))
 
 ;; Disable company quickhelp in elixir to stop hangs in autocomplete
-(add-hook 'elixir-mode
+(add-hook 'elixir-mode-hook
   (lambda ()
     (company-quickhelp nil)))
 
