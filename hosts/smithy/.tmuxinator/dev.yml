@@ -28,7 +28,7 @@ root: ~/
 # post: tmux -CC attach -t infographics
 
 windows:
-  - src:
+  - zsh:
       root: ~/src
       layout: even-horizontal
       panes:
@@ -46,6 +46,12 @@ windows:
       panes:
         - 
         - foreman start
+  - identity:
+      root: ~/src/identity
+      layout: even-horizontal
+      panes:
+        - 
+        -
   - infra:
       layout: tiled
       panes:
