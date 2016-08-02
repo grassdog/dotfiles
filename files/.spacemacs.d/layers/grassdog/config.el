@@ -357,10 +357,13 @@
                     ;; :post-handlers '(:add grass/elixir-fn-end-close-action)
                     :actions '(insert))))
 
-;; Disable company quickhelp in elixir to stop hangs in autocomplete
-(add-hook 'elixir-mode-hook
-  (lambda ()
-    (company-quickhelp nil)))
+;; Hack to disable company popup in Elixir if hanging
+(eval-after-load "alchemist"
+    '(defun alchemist-company--wait-for-doc-buffer ()
+      (setf num 50)
+      (while (and (not alchemist-company-doc-lookup-done)
+                  (> (decf num) 1))
+        (sit-for 0.01))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Better pop to mark ;;
