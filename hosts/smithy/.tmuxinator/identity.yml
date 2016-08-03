@@ -28,6 +28,7 @@ root: ~/src/identity
 # post: tmux -CC attach -t identity
 
 windows:
-  - emacs: et .
-  - git:
-  - server:
+  - identity:
+  - command: cd command
+  - query: cd query
+  - infra: cd infrastructure

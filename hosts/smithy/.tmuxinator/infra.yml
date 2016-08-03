@@ -1,7 +1,7 @@
-# ~/.tmuxinator/dev.yml
+# ~/.tmuxinator/infra.yml
 
-name: dev
-root: ~/
+name: infra
+root: ~/src/infra
 
 # Optional tmux socket
 # socket_name: foo
@@ -19,14 +19,17 @@ root: ~/
 # tmux_command: byobu
 
 # Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
-#startup_window: vim
+# startup_window: logs
 
 # Controls whether the tmux session should be attached to automatically. Defaults to true.
 # attach: false
 
 # Runs after everything. Use it to attach to tmux with custom options etc.
-# post: tmux -CC attach -t infographics
+# post: tmux -CC attach -t infra
 
 windows:
-  - src: cd ~/src
-  - dotfiles: cd ~/.dotfiles
+  - shared: cd ~/src/identity-infrastructure
+  - sso: cd ~/src/sso_server/infrastructure 
+  - identity: cd ~/src/identity/infrastructure
+  - area51: cd ~/src/area51-infrastructure
+  - ansible: cd ~/src/identity-ansible 

@@ -1,7 +1,7 @@
-# ~/.tmuxinator/dev.yml
+# ~/.tmuxinator/sso.yml
 
-name: dev
-root: ~/
+name: sso
+root: ~/src/sso_server
 
 # Optional tmux socket
 # socket_name: foo
@@ -19,14 +19,15 @@ root: ~/
 # tmux_command: byobu
 
 # Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
-#startup_window: vim
+# startup_window: logs
 
 # Controls whether the tmux session should be attached to automatically. Defaults to true.
 # attach: false
 
 # Runs after everything. Use it to attach to tmux with custom options etc.
-# post: tmux -CC attach -t infographics
+# post: tmux -CC attach -t sso
 
 windows:
-  - src: cd ~/src
-  - dotfiles: cd ~/.dotfiles
+  - server:
+  - client: cd ~/src/sso_client
+  - infra: cd infrastructure 
