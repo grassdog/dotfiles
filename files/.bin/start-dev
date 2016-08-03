@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Kick up my local development environment
+
+/Applications/Emacs.app/Contents/MacOS/Emacs --daemon
+
+for f in ~/.tmuxinator/*.yml; do
+  tmuxinator start $(basename $f | sed -e 's/.yml$//') --no-attach
+done
+
+tmux attach

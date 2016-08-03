@@ -28,32 +28,5 @@ root: ~/
 # post: tmux -CC attach -t infographics
 
 windows:
-  - zsh:
-      layout: even-horizontal
-      panes:
-        -
-        -
-  - dotfiles:
-      root: ~/.dotfiles
-      layout: even-horizontal
-      panes:
-        - et .
-        -
-  - firehose:
-      root: ~/dev/firehose
-      layout: even-horizontal
-      panes:
-        -
-        - mix phoenix.server
-  - dance:
-      root: ~/dev/dance.computer
-      layout: even-horizontal
-      panes:
-        -
-        -
-  - strange:
-      root: ~/dev/strangemadness.com
-      layout: even-horizontal
-      panes:
-        -
-        -
+  - dev: cd ~/dev
+  - dotfiles: cd ~/.dotfiles
