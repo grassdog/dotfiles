@@ -1,7 +1,7 @@
 # ~/.tmuxinator/infra.yml
 
 name: infra
-root: ~/src/infra
+root: ~/src
 
 # Optional tmux socket
 # socket_name: foo
