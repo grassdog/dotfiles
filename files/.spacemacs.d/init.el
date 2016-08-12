@@ -282,6 +282,7 @@ layers configuration. You are free to put any user code."
   (evil-leader/set-key "oub" 'grass/comment-box)
   (evil-leader/set-key "ou!" 'grass/shell-command-with-prefix-arg)
   (evil-leader/set-key "ouf" 'grass/copy-buffer-filename)
+  (evil-leader/set-key "oud" 'grass/insert-datetime)
 
   (spacemacs/declare-prefix "os" "search-replace")
   (evil-leader/set-key "osa" 'ag-project)

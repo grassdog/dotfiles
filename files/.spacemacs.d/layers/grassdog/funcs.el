@@ -219,6 +219,15 @@
 (defun grass/today ()
   (format-time-string "%Y.%m.%d - %a"))
 
+(defun grass/insert-datetime (arg)
+  "Without argument: insert date as yyyy-mm-dd
+With C-u: insert date and time
+With C-u C-u: insert time"
+  (interactive "P")
+  (cond ((equal arg '(16)) (insert (format-time-string "%T")))
+        ((equal arg '(4)) (insert (format-time-string "%Y-%m-%d %T")))
+        (t (insert (format-time-string "%Y-%m-%d")))))
+
 (defun grass/insert-date ()
   (interactive)
   (insert (grass/today)))
