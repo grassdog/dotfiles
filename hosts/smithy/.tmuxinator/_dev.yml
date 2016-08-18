@@ -29,4 +29,7 @@ root: ~/
 
 windows:
   - src: cd ~/src
+  - ssh: cd ~/src; echo "\n** Run ssh bastion.identity.us-east-1 or ssh bastion.identity.ap-southeast-2 **\n\n"
+  - identity-team: cd ~/src/identity-team
   - dotfiles: cd ~/.dotfiles
+ 
