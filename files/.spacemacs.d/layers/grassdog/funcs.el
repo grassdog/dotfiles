@@ -232,6 +232,10 @@ With C-u C-u: insert time"
   (interactive)
   (insert (grass/today)))
 
+(defun grass/insert-org-date-header ()
+  (interactive)
+  (insert (concat "* " (grass/today))))
+
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Window Movement ;;
 ;;;;;;;;;;;;;;;;;;;;;

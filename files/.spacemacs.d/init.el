@@ -306,6 +306,7 @@ layers configuration. You are free to put any user code."
   (evil-leader/set-key "oee" 'hippie-expand)
   (evil-leader/set-key "oei" 'hydra-string-case/body)
   (evil-leader/set-key "oec" 'string-inflection-cycle)
+  (evil-leader/set-key "oed" 'grass/insert-org-date-header)
 
   ; Clear out old mapping
   ;; (global-unset-key (kbd "C-\"))
