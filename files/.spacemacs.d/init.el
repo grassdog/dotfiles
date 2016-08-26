@@ -436,26 +436,27 @@ layers configuration. You are free to put any user code."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(hl-todo-keyword-faces
- (quote
-   (("HOLD" . "#d0bf8f")
-     ("TODO" . "#cc9393")
-     ("NEXT" . "#dca3a3")
-     ("THEM" . "#dc8cc3")
-     ("PROG" . "#7cb8bb")
-     ("OKAY" . "#7cb8bb")
-     ("DONT" . "#5f7f5f")
-     ("FAIL" . "#8c5353")
-     ("DONE" . "#afd8af")
-     ("NOTE" . "#d0bf8f")
-     ("KLUDGE" . "#d0bf8f")
-     ("HACK" . "#d0bf8f")
-     ("FIXME" . "#cc9393")
-     ("XXX" . "#cc9393")
-     ("XXXX" . "#cc9393")
-     ("???" . "#cc9393")
-     ("DEBUG" . "#8c5353")
-     ("GRASS" . "#dc8cc3")))))
+  '(hl-todo-keyword-faces
+     (quote
+       (("HOLD" . "#d0bf8f")
+         ("TODO" . "#cc9393")
+         ("NEXT" . "#dca3a3")
+         ("THEM" . "#dc8cc3")
+         ("PROG" . "#7cb8bb")
+         ("OKAY" . "#7cb8bb")
+         ("DONT" . "#5f7f5f")
+         ("FAIL" . "#8c5353")
+         ("DONE" . "#afd8af")
+         ("NOTE" . "#d0bf8f")
+         ("KLUDGE" . "#d0bf8f")
+         ("HACK" . "#d0bf8f")
+         ("FIXME" . "#cc9393")
+         ("XXX" . "#cc9393")
+         ("XXXX" . "#cc9393")
+         ("???" . "#cc9393")
+         ("DEBUG" . "#8c5353")
+         ("GRASS" . "#dc8cc3"))))
+ '(safe-local-variable-values (quote ((org-image-actual-width . 600)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
