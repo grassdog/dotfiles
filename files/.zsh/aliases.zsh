@@ -64,18 +64,11 @@ alias mux="tmuxinator"
 ###############
 
 if [[ $(uname) == Darwin ]]; then
-  alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
-  alias s="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
-
   alias gv='mvim'
   alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
 
   # Open via Emacs.app
   alias e="~/.bin/emacs-start"
-
-  alias play="osascript -e 'tell app \"iTunes\" to playpause'"
-  alias next="osascript -e 'tell app \"iTunes\" to next track'"
-  alias prev="osascript -e 'tell app \"iTunes\" to previous track'"
 fi
 
 #######
