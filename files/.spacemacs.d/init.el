@@ -74,6 +74,7 @@ values."
       javascript
       pandoc
       osx
+      puppet
 
       react
       (ruby :variables ruby-version-manager (grass/ruby-manager))
