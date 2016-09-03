@@ -53,7 +53,7 @@ end
 # Node
 
 dep "node-installation", :version do
-  version.ask("Which version of Ruby would you like to install?")
+  version.ask("Which version of Node would you like to install?")
 
   requires "node".with(version: version),
            "npm-libs".with(version: version)
@@ -76,16 +76,12 @@ end
 # NPM
 
 LIBS = %w[
-  bower
   gulp
-  webpack
-  webpack-dev-server
   js-beautify
   coffee-script
   tern
   elm
   elm-oracle
-  grunt-cli
   jsonlint
   grasp
 ]

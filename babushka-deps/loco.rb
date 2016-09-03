@@ -68,6 +68,6 @@ dep "loco-global-ruby" do
 end
 
 dep "loco-global-node" do
-  requires "default-node".with(version: "5.11")
+  requires "default-node".with(version: "6.4")
 end
 
