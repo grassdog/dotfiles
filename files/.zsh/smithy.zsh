@@ -10,10 +10,10 @@ ssh-id-prod() {
   awsip bundle exec rake production:ssh
 }
 
-export GOPATH=$HOME/.golang
-export GOROOT=/usr/local/opt/go/libexec
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$GOROOT/bin
+# export GOPATH=$HOME/.golang
+# export GOROOT=/usr/local/opt/go/libexec
+# export PATH=$PATH:$GOPATH/bin
+# export PATH=$PATH:$GOROOT/bin
 
 pj() {
   cd $(find ~/src -maxdepth 1 -type d | selecta)
