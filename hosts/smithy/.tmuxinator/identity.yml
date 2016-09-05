@@ -32,3 +32,4 @@ windows:
   - command: cd command
   - query: cd query
   - infra: cd infrastructure
+  - event-sourcery: cd ~/src/event_sourcery
