@@ -23,6 +23,7 @@ pj() {
 
 alias awsir="aws-vault exec identity-production-readonly -t 60m --"
 alias awsip="aws-vault exec identity-production -t 60m --"
+alias awsipa="aws-vault exec identity-production-admin -t 60m --"
 alias awsid="aws-vault exec identity-development -t 60m --"
 
 for profile in envatomarket-prod identity-production-readonly identity-production identity-development; do
