@@ -67,6 +67,7 @@ values."
       evil-little-word
 
       finance
+      restclient
 
       haskell
       html
