@@ -310,6 +310,15 @@ layers configuration. You are free to put any user code."
   (evil-leader/set-key "oec" 'string-inflection-cycle)
   (evil-leader/set-key "oed" 'grass/insert-org-date-header)
 
+  (spacemacs/declare-prefix "oz" "folding")
+  (evil-leader/set-key "ozz" 'origami-toggle-node)
+  (evil-leader/set-key "ozs" 'origami-show-only-node)
+  (evil-leader/set-key "ozo" 'origami-open-all-nodes)
+  (evil-leader/set-key "ozu" 'origami-undo)
+  (evil-leader/set-key "ozr" 'origami-redo)
+  (define-key evil-normal-state-map "z" 'origami-recursively-toggle-node)
+  (define-key evil-visual-state-map "z" 'origami-recursively-toggle-node)
+
   ; Clear out old mapping
   ;; (global-unset-key (kbd "C-\"))
   ;; (global-set-key (kbd "C-\ w") 'grass/open-work-log)

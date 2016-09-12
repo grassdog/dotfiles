@@ -25,6 +25,7 @@
      simpleclip
      char-menu
      nlinum
+     origami
      keyfreq
      terraform-mode
      syslog-mode
@@ -140,6 +141,12 @@
     (keyfreq-mode 1)
     (keyfreq-autosave-mode 1)))
 
+(defun grassdog/init-origami ()
+  (use-package origami
+    :config
+    (add-hook 'prog-mode-hook
+      (lambda ()
+        (origami-mode 1)))))
 
 ;; Often the body of an initialize function uses `use-package'
 ;; For more info on `use-package', see readme:
