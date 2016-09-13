@@ -361,6 +361,15 @@ layers configuration. You are free to put any user code."
   ;; C-x -> 'next-buffer
   ;; C-x <- 'previous-buffer
 
+  (global-set-key [f9] 'toggle-truncate-lines)
+  ;; Kill current buffer if saved
+  (global-set-key [f5] (lambda ()
+                         (interactive)
+                         (if (and (buffer-modified-p)
+                               (not (eq 'dired-mode major-mode)))
+                           (error "Buffer has unsaved changes")
+                           (kill-buffer (current-buffer)))))
+
   (add-hook 'auto-highlight-symbol-mode-hook
     (lambda ()
       (define-key auto-highlight-symbol-mode-map (kbd "M-<left>") nil)
