@@ -424,6 +424,17 @@ layers configuration. You are free to put any user code."
 
       (define-key markdown-mode-map (kbd "RET") 'grass/markdown-enter-key-dwim)))
 
+  ;;;;;;;;;;;;;;;;;;;;;
+  ;; Fix artist mode ;;
+  ;;;;;;;;;;;;;;;;;;;;;
+  (defun grass/artist-mode-toggle-emacs-state ()
+    (if artist-mode
+      (evil-emacs-state)
+      (evil-exit-emacs-state)))
+
+  (unless (eq dotspacemacs-editing-style 'emacs)
+    (add-hook 'artist-mode-hook #'grass/artist-mode-toggle-emacs-state))
+
   ;;;;;;;;;;;;;;;
   ;; Proselint ;;
   ;;;;;;;;;;;;;;;
