@@ -31,7 +31,7 @@ values."
       (auto-completion
         :variables
         auto-completion-return-key-behavior 'complete
-        auto-completion-tab-key-behavior nil
+        auto-completion-tab-key-behavior 'cycle
         auto-completion-enable-snippets-in-popup t
         auto-completion-enable-help-tooltip t
         auto-completion-enable-sort-by-usage t
@@ -339,8 +339,6 @@ layers configuration. You are free to put any user code."
 
   ;; Backtab to unindent
   (define-key global-map [backtab] 'evil-shift-left-line)
-
-  (global-set-key (kbd "TAB") 'hippie-expand)
 
   (global-set-key (kbd "s-e") 'hippie-expand)
 
