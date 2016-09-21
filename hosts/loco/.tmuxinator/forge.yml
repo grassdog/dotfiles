@@ -28,15 +28,5 @@ startup_window: local
 # post: tmux -CC attach -t forge
 
 windows:
+  - ssh:
   - local:
-    -
-  - www:
-    - ssh forge
-    - cd /var/www
-  - logs:
-      layout: main-vertical
-      panes:
-        - logs:
-          - ssh forge
-          - cd /var/log
-          - ls
