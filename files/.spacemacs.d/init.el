@@ -357,6 +357,9 @@ layers configuration. You are free to put any user code."
   (global-set-key (kbd "C-\\ <up>") 'evil-window-up)
   (global-set-key (kbd "C-\\ <down>") 'evil-window-down)
 
+  ;; Kill this buffer
+  (global-set-key (kbd "C-x k") 'kill-this-buffer)
+
   ;; Quick buffer changing
   (global-set-key [s-up] 'dired-jump)
   ;; C-x -> 'next-buffer
