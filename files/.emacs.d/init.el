@@ -258,6 +258,7 @@
   :general
   ("C-c C-r" 'ivy-resume)
   ("<f6>" 'ivy-resume)
+  (:states '(normal) :prefix grass/leader1 "bb" 'ivy-switch-buffer)
   :init
   (use-package ivy-hydra)
   
@@ -312,15 +313,6 @@
 (use-package browse-kill-ring
   :general
   (:states '(normal visual) :prefix grass/leader1 "ek" 'browse-kill-ring))
-
-(use-package windmove
-  :defer 1
-  :bind
-  ;; TODO Fix this
-    (("<C-w-left>" . windmove-left)
-    ("<C-w-right>" . windmove-right)
-    ("<C-w-up>" . windmove-up)
-    ("<C-w-down>" . windmove-down)))
 
 
 ;; Subtle highlighting of matching parens (global-mode)
@@ -532,6 +524,11 @@
     (evil-normal-state)
     (evil-visual-restore))
 
+  (define-key evil-window-map (kbd "<left>") 'evil-window-left)
+  (define-key evil-window-map (kbd "<right>") 'evil-window-right)
+  (define-key evil-window-map (kbd "<up>") 'evil-window-up)
+  (define-key evil-window-map (kbd "<down>") 'evil-window-down)
+  
   ;; Keep some Emacs stuff
   (define-key evil-normal-state-map "\C-e" 'evil-end-of-line)
   (define-key evil-insert-state-map "\C-e" 'end-of-line)
@@ -880,6 +877,9 @@
 ;; (use-package ace-window
 ;;   :commands (ace-window))
 ;; (winner-mode 1)
+
+;;(use-package windmove
+;;  :defer 1)
 
 ;; (defun hydra-move-splitter-left (arg)
 ;;   "Move window splitter left."
