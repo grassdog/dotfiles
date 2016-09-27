@@ -189,10 +189,16 @@
 ;; Themes ;;
 ;;;;;;;;;;;;
 
+(use-package general
+  :init
+  ;; (setq general-default-keymaps 'evil-normal-state-map)
+  (setq grass/leader1 "SPC"))
+
 ;; Must require this before spaceline
 (use-package anzu
   :diminish anzu-mode
-  ;; :evil-leader ("r" anzu-query-replace-at-cursor-thing)
+  :general
+  (:states '(normal) :prefix grass/leader1 "sr" 'anzu-query-replace-at-cursor-thing)
   :init (global-anzu-mode +1))
 
 ;; Disable themes before loading them (in daemon mode esp.)
@@ -243,10 +249,6 @@
 ;;;;;;;;;;;;;;;
 ;; UI & Help ;;
 ;;;;;;;;;;;;;;;
-
-(use-package general
-  :init
-  (setq grass/leader1 "SPC"))
 
 (use-package hydra)
 
@@ -306,6 +308,7 @@
   (which-key-declare-prefixes "SPC e" "edit")
   (which-key-declare-prefixes "SPC u" "utilities")
   (which-key-declare-prefixes "SPC b" "buffers")
+  (which-key-declare-prefixes "SPC p" "projectile")
   (which-key-declare-prefixes "SPC w" "windows")
   (which-key-declare-prefixes "SPC s" "search/replace"))
 
@@ -872,8 +875,10 @@
 
 ;; (global-set-key [remap zap-to-char] 'zop-to-char)
 
+;;;;;;;;;;;;;;;;;;;;;
+;; Window handling ;;
+;;;;;;;;;;;;;;;;;;;;;
 
-;; ;; Window handling
 ;; (use-package ace-window
 ;;   :commands (ace-window))
 ;; (winner-mode 1)
@@ -1888,104 +1893,33 @@ Repeated invocations toggle between the two most recently open buffers."
 ;; (global-set-key (kbd "C-, b s") 'grass/open-sideproject-log)
 ;; (global-set-key (kbd "C-, b n") 'grass/find-notes)
 
+;;;;;;;;;;;;;;;;
+;; Projectile ;;
+;;;;;;;;;;;;;;;;
 
-;; ;;;;;;;;;;
-;; ;; Helm ;;
-;; ;;;;;;;;;;
+(use-package projectile
+  :diminish (projectile-mode . "ⓟ")
+  :commands projectile-mode
+  :general
+  (:states '(normal) :prefix grass/leader1 "p" '(:keymap projectile-command-map))
+  :config
+  (setq projectile-tags-command "rtags")
+  (setq projectile-enable-caching nil)
+  (setq projectile-completion-system 'ivy)
+  ;; Show unadded files also
+  (setq projectile-hg-command "( hg locate -0 -I . ; hg st -u -n -0 )")
 
-;; ;; Interactive list refinement
-;; (use-package helm
-;;   :diminish helm-mode
-;;   :bind (("C-, o" . helm-buffers-list)
-;;          ("C-, r" . helm-recentf)
-;;          ("C-, C-f" . helm-find-files)
-;;          ("M-x" . helm-M-x)
-;;          ("M-m" . helm-M-x))
-;;   :config
-;;   (require 'helm-config)
+  (add-to-list 'projectile-globally-ignored-directories "gems")
+  (add-to-list 'projectile-globally-ignored-directories "node_modules")
+  (add-to-list 'projectile-globally-ignored-directories "bower_components")
+  (add-to-list 'projectile-globally-ignored-directories "dist")
+  (add-to-list 'projectile-globally-ignored-directories "/emacs.d/elpa/")
+  (add-to-list 'projectile-globally-ignored-directories "elm-stuff")
 
-;;   (define-key helm-map (kbd "C-, l")  'helm-select-action)
-;;   (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
-;;   ;; Make TAB works in terminal
-;;   (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
+  (add-to-list 'projectile-globally-ignored-files ".keep")
+  (add-to-list 'projectile-globally-ignored-files "TAGS")
 
-;;   ;; Show full buffer names please
-;;   (setq helm-buffer-max-length 40)
-;;   (setq helm-buffers-fuzzy-matching t)
-;;   (setq helm-M-x-fuzzy-match t)
-;;   (setq helm-recentf-fuzzy-match t)
-;;   (setq helm-buffers-fuzzy-matching t)
-;;   (setq helm-split-window-in-side-p t)
-
-;;   ;; Echo our typing in helm header so it's easier to see
-;;   (setq helm-display-header-line t)
-;;   (setq helm-echo-input-in-header-line t)
-
-;;   (use-package helm-ag
-;;     :commands helm-ag
-;;     ;;:config
-;;     ;; Prepopulate search with the symbol under point
-;;     ;;(setq helm-ag-insert-at-point 'symbol)
-;;     )
-
-;;   (use-package helm-swoop
-;;     :bind ("C-, s s" . helm-swoop)
-;;     :config
-;;     (setq helm-swoop-split-direction 'split-window-vertically))
-
-;;   (use-package helm-flycheck
-;;     :init
-;;     (progn
-;;       (use-package flycheck
-;;         :init
-;;         (use-package flycheck-tip
-;;           :bind ("C-, C-n" . flycheck-tip-cycle)))
-
-;;       (define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck)
-;;       (which-key-declare-prefixes "C-, x" "flycheck")
-;;       (defhydra hydra-flycheck ()
-;;         "errors"
-;;         ("n" flycheck-next-error "next")
-;;         ("p" flycheck-previous-error "previous")
-;;         ("h" helm-flycheck "helm" :color blue)
-;;         ("q" nil "quit"))
-;;       (define-key flycheck-mode-map (kbd "C-, x") #'hydra-flycheck/body)))
-
-;;       (helm-mode 1))
-
-
-;; ;;;;;;;;;;;;;;;;
-;; ;; Projectile ;;
-;; ;;;;;;;;;;;;;;;;
-
-;; (use-package projectile
-;;   :diminish (projectile-mode . "ⓟ")
-;;   :commands projectile-mode
-;;   :bind-keymap ("C-c p" . projectile-command-map)
-;;   :bind (("C-, C-p" . helm-projectile)
-;;          ("C-, p" . helm-projectile-find-file))
-;;   :config
-;;   (use-package helm-projectile
-;;     :config
-;;       (helm-projectile-on))
-
-;;     (setq projectile-tags-command "getags")
-;;     (setq projectile-enable-caching t)
-;;     (setq projectile-completion-system 'helm)
-;;     (setq helm-projectile-fuzzy-match t)
-;;     ;; Show unadded files also
-;;     (setq projectile-hg-command "( hg locate -0 -I . ; hg st -u -n -0 )")
-
-;;     (add-to-list 'projectile-globally-ignored-directories "gems")
-;;     (add-to-list 'projectile-globally-ignored-directories "node_modules")
-;;     (add-to-list 'projectile-globally-ignored-directories "bower_components")
-;;     (add-to-list 'projectile-globally-ignored-directories "dist")
-;;     (add-to-list 'projectile-globally-ignored-directories "/emacs.d/elpa/")
-;;     (add-to-list 'projectile-globally-ignored-directories "elm-stuff")
-
-;;     (add-to-list 'projectile-globally-ignored-files ".keep")
-;;     (add-to-list 'projectile-globally-ignored-files "TAGS")
-;;     (projectile-global-mode t))
+  (projectile-global-mode t))
 
 ;; ;;;;;;;;;
 ;; ;; Org ;;
