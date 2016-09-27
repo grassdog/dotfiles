@@ -154,6 +154,10 @@
 
 ;; Wrap lines for text modes
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+;; Lighter line continuation arrows
+(define-fringe-bitmap 'left-curly-arrow [0 64 72 68 126 4 8 0])
+(define-fringe-bitmap 'right-curly-arrow [0 2 18 34 126 32 16 0])
+
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
 ;; Make files with the same name have unique buffer names
@@ -199,6 +203,8 @@
 (add-to-list 'default-frame-alist '(height . 60))
 (add-to-list 'default-frame-alist '(width . 110))
 
+;; TODO Review if this works
+
 (defun grass/set-gui-config ()
   "Enable my GUI settings"
   (interactive)
@@ -233,19 +239,16 @@
   ;; Load theme on app creation
   (grass/set-ui))
 
-;;;;;;;;;;;;;;;;;
-;; Key mapping ;;
-;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;
+;; UI & Help ;;
+;;;;;;;;;;;;;;;
 
 (use-package general
   :init
   (setq grass/leader1 "SPC"))
 
 (use-package hydra)
-
-;;;;;;;;;
-;; Ivy ;;
-;;;;;;;;;
 
 ;; Keep this for its scoring algorithm
 (use-package flx-ido)
@@ -258,11 +261,13 @@
   :init
   (use-package ivy-hydra)
   
-  (setq ivy-re-builders-alist
-      '((t . ivy--regex-fuzzy)))
+  (setq ivy-height 15)
   (setq ivy-use-virtual-buffers t)
   ;; Don't count candidates
   (setq ivy-count-format "")
+  (setq ivy-re-builders-alist
+	'((swiper . ivy--regex-plus)
+	  (t . ivy--regex-fuzzy)))
   (ivy-mode 1))
 
 (use-package counsel
@@ -280,89 +285,68 @@
   :general
   (:states '(normal visual) :prefix grass/leader1 "ss" 'swiper))
 
-  ;; (ivy-mode 1)
-  ;; ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
-  ;; (setq ivy-use-virtual-buffers t)
-  ;; ;; number of result lines to display
-  ;; (setq ivy-height 10)
-  ;; does not count candidates
-  ;(setq ivy-count-format "")
-  ;; ;; no regexp by default
-  ;; (setq ivy-initial-inputs-alist nil)
-  ;; ;; configure regexp engine.
-  ;; (setq ivy-re-builders-alist
-	;; ;; allow input not in order
-  ;;       '((t   . ivy--regex-ignore-order))))
+(use-package which-key
+  :diminish which-key-mode
+  :init
+  (setq which-key-idle-delay 0.4)
+  (setq which-key-min-display-lines 3)
+
+  (setq which-key-description-replacement-alist
+        '(("Prefix Command" . "prefix")
+          ("which-key-show-next-page" . "wk next pg")
+          ("\\`calc-" . "") ; Hide "calc-" prefixes when listing M-x calc keys
+          ("/body\\'" . "") ; Remove display the "/body" portion of hydra fn names
+          ("string-inflection" . "si")
+          ("grass/" . "g/")
+          ("\\`hydra-" . "+h/")
+          ("\\`org-babel-" . "ob/")))
+  (which-key-mode 1)
+  (which-key-declare-prefixes "SPC f" "files")
+  (which-key-declare-prefixes "SPC e" "edit")
+  (which-key-declare-prefixes "SPC u" "utilities")
+  (which-key-declare-prefixes "SPC b" "buffers")
+  (which-key-declare-prefixes "SPC w" "windows")
+  (which-key-declare-prefixes "SPC s" "search/replace"))
 
 
-;; ;;;;;;;;;;;;;;;
-;; ;; UI & Help ;;
-;; ;;;;;;;;;;;;;;;
+(use-package browse-kill-ring
+  :general
+  (:states '(normal visual) :prefix grass/leader1 "ek" 'browse-kill-ring))
+
+(use-package windmove
+  :defer 1
+  :bind
+  ;; TODO Fix this
+    (("<C-w-left>" . windmove-left)
+    ("<C-w-right>" . windmove-right)
+    ("<C-w-up>" . windmove-up)
+    ("<C-w-down>" . windmove-down)))
 
 
-;; (use-package which-key
-;;   :diminish which-key-mode
-;;   :init
-;;   (setq which-key-idle-delay 0.4)
-;;   (setq which-key-min-display-lines 3)
+;; Subtle highlighting of matching parens (global-mode)
+(add-hook 'prog-mode-hook (lambda ()
+                            (show-paren-mode +1)
+                            (setq show-paren-style 'parenthesis)))
 
-;;   (setq which-key-description-replacement-alist
-;;         '(("Prefix Command" . "prefix")
-;;           ("which-key-show-next-page" . "wk next pg")
-;;           ("\\`calc-" . "") ; Hide "calc-" prefixes when listing M-x calc keys
-;;           ("/body\\'" . "") ; Remove display the "/body" portion of hydra fn names
-;;           ("string-inflection" . "si")
-;;           ("grass/" . "g/")
-;;           ("\\`hydra-" . "+h/")
-;;           ("\\`org-babel-" . "ob/")))
+;; UI highlight search and other actions
+(use-package volatile-highlights
+  :diminish volatile-highlights-mode
+  :defer 3
+  :config
+  (volatile-highlights-mode t))
 
-;;   (which-key-mode 1))
-
-;; (which-key-declare-prefixes "C-, ," "mode")
-
-;; (use-package browse-kill-ring
-;;   :bind ("C-, y" . browse-kill-ring))
-;; ;; Use shift + arrow keys to switch between visible buffers
-;; (use-package windmove
-;;   :defer 1
-;;   :config
-;;   (windmove-default-keybindings))
-
-
-;; ;; Subtle highlighting of matching parens (global-mode)
-;; (add-hook 'prog-mode-hook (lambda ()
-;;                             (show-paren-mode +1)
-;;                             (setq show-paren-style 'parenthesis)))
-
-;; ;; UI highlight search and other actions
-;; (use-package volatile-highlights
-;;   :diminish volatile-highlights-mode
-;;   :defer 3
-;;   :config
-;;   (volatile-highlights-mode t))
-
-;; ;; Text zoom
-;; (defhydra hydra-zoom ()
-;;   "zoom"
-;;   ("+" text-scale-increase "in")
-;;   ("-" text-scale-decrease "out")
-;;   ("0" (text-scale-adjust 0) "reset")
-;;   ("q" nil "quit" :color blue))
-;; (global-set-key (kbd "C-, z") 'hydra-zoom/body)
-
+;; Text zoom
+(defhydra hydra-zoom ()
+  "zoom"
+  ("+" text-scale-increase "in")
+  ("-" text-scale-decrease "out")
+  ("0" (text-scale-adjust 0) "reset")
+  ("q" nil "quit" :color blue))
+(general-define-key :states '(normal) :prefix grass/leader1
+                    "wz" 'hydra-zoom/body)
 
 (use-package highlight-indentation
   :commands highlight-indentation-mode)
-
-;; ;; imenu
-;; (set-default 'imenu-auto-rescan t)
-;; (which-key-declare-prefixes "C-, g" "goto")
-;; (global-set-key (kbd "C-, g i") 'imenu)
-;; (global-set-key (kbd "C-, g l") 'goto-line)
-
-;; ;; Lighter line continuation arrows
-;; (define-fringe-bitmap 'left-curly-arrow [0 64 72 68 126 4 8 0])
-;; (define-fringe-bitmap 'right-curly-arrow [0 2 18 34 126 32 16 0])
 
 
 ;;;;;;;;;;;;;;;;;;;
@@ -433,15 +417,7 @@
 (use-package undo-tree
   :diminish undo-tree-mode
   :commands undo-tree-visualize
-  ;; :bind (("s-z" . undo-tree-undo)
-  ;;        ("s-Z" . undo-tree-redo))
-  :config
-  ;; Persistent undo sometimes borks. Disable for now
-  ;; (setq undo-tree-auto-save-history t)
-  ;; (setq undo-tree-history-directory-alist `((".*" . ,grass/undo-dir)))
-  ;; (defadvice undo-tree-make-history-save-file-name
-  ;;   (after undo-tree activate)
-  ;;   (setq ad-return-value (concat ad-return-value ".gz")))
+  :init
   (global-undo-tree-mode))
 
 ;; (use-package goto-chg
@@ -477,7 +453,9 @@
     :init
     (global-evil-matchit-mode 1))
 
-  (use-package evil-anzu)
+  (use-package evil-anzu
+    :init
+    (setq anzu-cons-mode-line-p nil))
   
   (use-package evil-surround
     :init
@@ -574,9 +552,6 @@
   (define-key evil-normal-state-map "\C-p" 'evil-previous-line)
   (define-key evil-insert-state-map "\C-p" 'evil-previous-line)
   (define-key evil-visual-state-map "\C-p" 'evil-previous-line)
-  ;(define-key evil-normal-state-map "\C-w" 'evil-delete)
-  ;(define-key evil-insert-state-map "\C-w" 'evil-delete)
-  ;(define-key evil-visual-state-map "\C-w" 'evil-delete)
   (define-key evil-normal-state-map "\C-y" 'yank)
   (define-key evil-insert-state-map "\C-y" 'yank)
   (define-key evil-visual-state-map "\C-y" 'yank)
@@ -622,6 +597,7 @@
                                 (magit-stashes-mode-map . emacs)
                                 (magit-status-mode-map . emacs)
                                 (rdictcc-buffer-mode . emacs)
+				(kill-ring-mode . normal)
                                 (bs-mode . emacs)
                                 (dired-mode . emacs)
                                 (wdired-mode . normal))
@@ -2604,6 +2580,11 @@ Repeated invocations toggle between the two most recently open buffers."
 (global-set-key (kbd "<home>") 'move-beginning-of-line)
 (global-set-key (kbd "<end>") 'move-end-of-line)
 
+(global-set-key [s-up] 'dired-jump)
+
 (general-define-key :states '(normal visual) :prefix grass/leader1
-  "TAB" 'grass/switch-to-previous-buffer)
+		    "TAB" 'grass/switch-to-previous-buffer)
+                    ; TODO Make these work
+		    ;"v o" 'turn-on-visual-line-mode
+		    ;"v f" 'turn-off-visual-line-mode)
 
