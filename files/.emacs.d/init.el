@@ -66,7 +66,7 @@
 
 ;; Set up load paths
 (add-to-list 'load-path grass/config-dir)
-(add-to-list 'load-path (expand-file-name "site-lisp" grass/dotfiles-dir))
+(add-to-list 'load-path (expand-file-name "vendor" grass/dotfiles-dir))
 
 (setq user-full-name "Ray Grasso"
       user-mail-address "ray.grasso@gmail.com")
@@ -1706,7 +1706,7 @@
 ;; ;;;;;;;;;;;;;;;
 
 ;; (use-package nlinum
-;;   :load-path "site-lisp"
+;;   :load-path "vendor"
 ;;   :commands nlinum-mode
 ;;   :preface
 ;;   (setq nlinum-format "%4d "))
