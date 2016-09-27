@@ -309,7 +309,7 @@
   (which-key-declare-prefixes "SPC u" "utilities")
   (which-key-declare-prefixes "SPC b" "buffers")
   (which-key-declare-prefixes "SPC p" "projectile")
-  (which-key-declare-prefixes "SPC w" "windows")
+  (which-key-declare-prefixes "SPC w" "windows/ui")
   (which-key-declare-prefixes "SPC s" "search/replace"))
 
 
@@ -427,11 +427,9 @@
 (general-define-key :states '(normal) :prefix grass/leader1 "ec" 'hydra-goto-change/body)
 
 
-;;;;;;;;;;
-;; Evil ;;
-;;;;;;;;;;
-
-;; Trojan horse maneuver
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Evil (Trojan horse maneuver) ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package evil
   :preface
@@ -604,121 +602,68 @@
                                 (wdired-mode . normal))
       do (evil-set-initial-state mode state))))
 
-;; ;;;;;;;;;;;;;;;;;;;;;;;
-;; ;; Sane line killing ;;
-;; ;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Comments and filling ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; ;; If no region kill or copy current line
-;; ;; http://emacs.stackexchange.com/questions/2347/kill-or-copy-current-line-with-minimal-keystrokes
-;; (defadvice kill-region (before slick-cut activate compile)
-;;   "When called interactively with no active region, kill a single line instead."
-;;   (interactive
-;;    (if mark-active
-;;        (list (region-beginning) (region-end))
-;;      (list (line-beginning-position) (line-beginning-position 2)))))
+;; 80 char wide paragraphs please
+(setq-default fill-column 80)
 
-;; (defadvice kill-ring-save (before slick-copy activate compile)
-;;   "When called interactively with no active region, copy a single line instead."
-;;   (interactive
-;;    (if mark-active
-;;        (list (region-beginning) (region-end))
-;;      (message "Copied line")
-;;      (list (line-beginning-position) (line-beginning-position 2)))))
+;; Autofill where possible but only in comments when coding
+;; http://stackoverflow.com/questions/4477357/how-to-turn-on-emacs-auto-fill-mode-only-for-code-comments
+(setq comment-auto-fill-only-comments t)
+;; (auto-fill-mode 1)
 
-;; (use-package easy-kill
-;;   :disabled
-;;   :init
-;;   (global-set-key [remap kill-ring-save] 'easy-kill))
+;; From http://mbork.pl/2015-11-14_A_simple_unfilling_function
+(defun grass/unfill-region (begin end)
+  "Change isolated newlines in region into spaces."
+  (interactive (if (use-region-p)
+                   (list (region-beginning)
+                         (region-end))
+                 (list nil nil)))
+  (save-restriction
+    (narrow-to-region (or begin (point-min))
+                      (or end (point-max)))
+    (goto-char (point-min))
+    (while (search-forward "\n" nil t)
+      (if (eq (char-after) ?\n)
+          (skip-chars-forward "\n")
+        (delete-char -1)
+        (insert ?\s)))))
 
-;; ;;;;;;;;;;;;;;
-;; ;; Spelling ;;
-;; ;;;;;;;;;;;;;;
+;; TODO Remove region params to interactive
+;; http://stackoverflow.com/a/21051395/62023
+(defun grass/comment-box (beg end &optional arg)
+  (interactive "*r\np")
+  ;; (when (not (region-active-p))
+  (when (not (and transient-mark-mode mark-active))
+    (setq beg (point-at-bol))
+    (setq end (point-at-eol)))
+  (let ((fill-column (- fill-column 6)))
+    (fill-region beg end))
+  (comment-box beg end arg)
+  (grass/move-point-forward-out-of-comment))
 
-;; (use-package flyspell
-;;   :defer t
-;;   :commands flyspell-mode
-;;   :diminish (flyspell-mode . " spl")
-;;   :config
-;;   (setq-default ispell-program-name "aspell")
-;;   ; Silently save my personal dictionary when new items are added
-;;   (setq ispell-silently-savep t)
-;;   (ispell-change-dictionary "en_GB" t)
+(defun grass/point-is-in-comment-p ()
+  "t if point is in comment or at the beginning of a commented line, otherwise nil"
+  (or (nth 4 (syntax-ppss))
+      (looking-at "^\\s *\\s<")))
 
-;;   (add-hook 'markdown-mode-hook (lambda () (flyspell-mode 1)))
-;;   (add-hook 'text-mode-hook (lambda () (flyspell-mode 1)))
+(defun grass/move-point-forward-out-of-comment ()
+  "Move point forward until it's no longer in a comment"
+  (while (grass/point-is-in-comment-p)
+    (forward-char)))
 
-;;   ;; Spell checking in comments
-;;   ;;(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+;; Comment annotations
+(defun font-lock-comment-annotations ()
+  "Highlight a bunch of well known comment annotations.
 
-;;   (which-key-declare-prefixes "C-, S" "spelling")
-;;   (add-hook 'flyspell-mode-hook
-;;             (lambda ()
-;;               (define-key flyspell-mode-map [(control ?\,)] nil)
-;;               (global-set-key (kbd "C-, S n") 'flyspell-goto-next-error)
-;;               (global-set-key (kbd "C-, S w") 'ispell-word))))
+This functions should be added to the hooks of major modes for programming."
+  (font-lock-add-keywords
+   nil '(("\\<\\(FIX\\(ME\\)?\\|TODO\\|XXX\\|HACK\\|DEBUG\\|GRASS\\)"
+          1 font-lock-warning-face t))))
 
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ;; Comments and filling ;;
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; ;; 80 char wide paragraphs please
-;; (setq-default fill-column 80)
-
-;; ;; Autofill where possible but only in comments when coding
-;; ;; http://stackoverflow.com/questions/4477357/how-to-turn-on-emacs-auto-fill-mode-only-for-code-comments
-;; (setq comment-auto-fill-only-comments t)
-;; ;; (auto-fill-mode 1)
-
-;; ;; From http://mbork.pl/2015-11-14_A_simple_unfilling_function
-;; (defun grass/unfill-region (begin end)
-;;   "Change isolated newlines in region into spaces."
-;;   (interactive (if (use-region-p)
-;;                    (list (region-beginning)
-;;                          (region-end))
-;;                  (list nil nil)))
-;;   (save-restriction
-;;     (narrow-to-region (or begin (point-min))
-;;                       (or end (point-max)))
-;;     (goto-char (point-min))
-;;     (while (search-forward "\n" nil t)
-;;       (if (eq (char-after) ?\n)
-;;           (skip-chars-forward "\n")
-;;         (delete-char -1)
-;;         (insert ?\s)))))
-
-;; ;; TODO Remove region params to interactive
-;; ;; http://stackoverflow.com/a/21051395/62023
-;; (defun grass/comment-box (beg end &optional arg)
-;;   (interactive "*r\np")
-;;   ;; (when (not (region-active-p))
-;;   (when (not (and transient-mark-mode mark-active))
-;;     (setq beg (point-at-bol))
-;;     (setq end (point-at-eol)))
-;;   (let ((fill-column (- fill-column 6)))
-;;     (fill-region beg end))
-;;   (comment-box beg end arg)
-;;   (grass/move-point-forward-out-of-comment))
-
-;; (defun grass/point-is-in-comment-p ()
-;;   "t if point is in comment or at the beginning of a commented line, otherwise nil"
-;;   (or (nth 4 (syntax-ppss))
-;;       (looking-at "^\\s *\\s<")))
-
-;; (defun grass/move-point-forward-out-of-comment ()
-;;   "Move point forward until it's no longer in a comment"
-;;   (while (grass/point-is-in-comment-p)
-;;     (forward-char)))
-
-;; ;; Comment annotations
-;; (defun font-lock-comment-annotations ()
-;;   "Highlight a bunch of well known comment annotations.
-
-;; This functions should be added to the hooks of major modes for programming."
-;;   (font-lock-add-keywords
-;;    nil '(("\\<\\(FIX\\(ME\\)?\\|TODO\\|XXX\\|HACK\\|DEBUG\\|GRASS\\)"
-;;           1 font-lock-warning-face t))))
-
-;; (add-hook 'prog-mode-hook 'font-lock-comment-annotations)
+(add-hook 'prog-mode-hook 'font-lock-comment-annotations)
 
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;
@@ -2450,6 +2395,33 @@ Repeated invocations toggle between the two most recently open buffers."
 ;;   (add-hook 'haml-mode-hook
 ;;     (lambda ()
 ;;       (set (make-local-variable 'tab-width) 2))))
+
+;; ;;;;;;;;;;;;;;
+;; ;; Spelling ;;
+;; ;;;;;;;;;;;;;;
+
+;; (use-package flyspell
+;;   :defer t
+;;   :commands flyspell-mode
+;;   :diminish (flyspell-mode . " spl")
+;;   :config
+;;   (setq-default ispell-program-name "aspell")
+;;   ; Silently save my personal dictionary when new items are added
+;;   (setq ispell-silently-savep t)
+;;   (ispell-change-dictionary "en_GB" t)
+
+;;   (add-hook 'markdown-mode-hook (lambda () (flyspell-mode 1)))
+;;   (add-hook 'text-mode-hook (lambda () (flyspell-mode 1)))
+
+;;   ;; Spell checking in comments
+;;   ;;(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+
+;;   (which-key-declare-prefixes "C-, S" "spelling")
+;;   (add-hook 'flyspell-mode-hook
+;;             (lambda ()
+;;               (define-key flyspell-mode-map [(control ?\,)] nil)
+;;               (global-set-key (kbd "C-, S n") 'flyspell-goto-next-error)
+;;               (global-set-key (kbd "C-, S w") 'ispell-word))))
 
 (use-package spaceline
   :init
