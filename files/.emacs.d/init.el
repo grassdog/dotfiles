@@ -198,7 +198,7 @@
 (use-package anzu
   :diminish anzu-mode
   :general
-  (:states '(normal) :prefix grass/leader1 "sr" 'anzu-query-replace-at-cursor-thing)
+  (:states '(normal visual) :prefix grass/leader1 "sr" 'anzu-query-replace-at-cursor-thing)
   :init (global-anzu-mode +1))
 
 ;; Disable themes before loading them (in daemon mode esp.)
@@ -260,7 +260,7 @@
   :general
   ("C-c C-r" 'ivy-resume)
   ("<f6>" 'ivy-resume)
-  (:states '(normal) :prefix grass/leader1 "bb" 'ivy-switch-buffer)
+  (:states '(normal visual) :prefix grass/leader1 "bb" 'ivy-switch-buffer)
   :init
   (use-package ivy-hydra)
   
@@ -273,14 +273,15 @@
 	  (t . ivy--regex-fuzzy)))
   (ivy-mode 1))
 
+;; TODO Take more from here https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-counsel.el
 (use-package counsel
   :general
   ("M-x" 'counsel-M-x)
   ("C-x C-f" 'counsel-find-file)
-  (:states '(normal) :prefix grass/leader1 "fr" 'counsel-recentf)
-  (:states '(normal) :prefix grass/leader1 "ff" 'counsel-find-file)
-  (:states '(normal) :prefix grass/leader1 "sa" 'counsel-ag)
-  (:states '(normal) :prefix grass/leader1 "uc" 'counsel-unicode-char)
+  (:states '(normal visual) :prefix grass/leader1 "fr" 'counsel-recentf)
+  (:states '(normal visual) :prefix grass/leader1 "ff" 'counsel-find-file)
+  (:states '(normal visual) :prefix grass/leader1 "sa" 'counsel-ag)
+  (:states '(normal visual) :prefix grass/leader1 "uc" 'counsel-unicode-char)
   :init
   (define-key read-expression-map (kbd "C-r") 'counsel-expression-history))
 
@@ -331,14 +332,14 @@
   (volatile-highlights-mode t))
 
 ;; Text zoom
-(defhydra hydra-zoom ()
-  "zoom"
+(defhydra hydra-zoom-text ()
+  "zoom text"
   ("+" text-scale-increase "in")
   ("-" text-scale-decrease "out")
   ("0" (text-scale-adjust 0) "reset")
   ("q" nil "quit" :color blue))
 (general-define-key :states '(normal) :prefix grass/leader1
-                    "wz" 'hydra-zoom/body)
+                    "wz" 'hydra-zoom-text/body)
 
 (use-package highlight-indentation
   :commands highlight-indentation-mode)
@@ -573,8 +574,7 @@
                                 (haskell-interactive-mode . emacs)
                                 (undo-tree-visualizer-mode . emacs)
                                 (cider-repl-mode . emacs)
-                                (help-mode . emacs)
-                                (helm-grep-mode . emacs)
+                                (help-mode . normal)
                                 (grep-mode . emacs)
                                 (bc-menu-mode . emacs)
                                 (erc-mode . emacs)
@@ -656,9 +656,7 @@
 
 ;; Comment annotations
 (defun font-lock-comment-annotations ()
-  "Highlight a bunch of well known comment annotations.
-
-This functions should be added to the hooks of major modes for programming."
+  "Highlight a bunch of well known comment annotations."
   (font-lock-add-keywords
    nil '(("\\<\\(FIX\\(ME\\)?\\|TODO\\|XXX\\|HACK\\|DEBUG\\|GRASS\\)"
           1 font-lock-warning-face t))))
@@ -666,155 +664,78 @@ This functions should be added to the hooks of major modes for programming."
 (add-hook 'prog-mode-hook 'font-lock-comment-annotations)
 
 
-;; ;;;;;;;;;;;;;;;;;;;;;;;
-;; ;; Manipulating Text ;;
-;; ;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;
+;; Manipulating Text ;;
+;;;;;;;;;;;;;;;;;;;;;;;
 
-;; (use-package move-text
-;;   :commands (move-text-up move-text-down)
-;;   :bind (("<C-S-up>" . move-text-up)
-;;          ("<C-S-down>" . move-text-down)))
+(use-package move-text
+  :commands (move-text-up move-text-down)
+  :bind (("<C-S-up>" . move-text-up)
+         ("<C-S-down>" . move-text-down)))
 
-;; (defhydra hydra-move-text ()
-;;   "move text"
-;;   ("<up>" move-text-up "move up")
-;;   ("<down>" move-text-down "move down"))
-;; (global-set-key (kbd "C-, t") 'hydra-move-text/body)
+(defhydra hydra-move-text ()
+  "move text"
+  ("u" move-text-up "move up")
+  ("d" move-text-down "move down"))
+(general-define-key :states '(normal) :prefix grass/leader1 "em" 'hydra-move-text/body)
 
-;; ;; Keep system clipboard separate from kill ring
-;; (use-package simpleclip
-;;   :defer 2
-;;   :config
-;;   (simpleclip-mode 1))
+;; Keep system clipboard separate from kill ring
+(use-package simpleclip
+  :defer 2
+  :config
+  (simpleclip-mode 1))
 
-;; (use-package web-beautify
-;;   :commands (web-beautify-js web-beautify-css web-beautify-html))
+(use-package web-beautify
+  :commands (web-beautify-js web-beautify-css web-beautify-html))
 
-;; (use-package string-inflection
-;;   :commands (string-inflection-underscore
-;;              string-inflection-upcase
-;;              string-inflection-lower-camelcase
-;;              string-inflection-camelcase
-;;              string-inflection-lisp))
+(use-package string-inflection
+  :commands (string-inflection-underscore
+             string-inflection-upcase
+             string-inflection-lower-camelcase
+             string-inflection-camelcase
+             string-inflection-lisp))
 
-;; (defhydra hydra-case ()
-;;   "word case"
-;;   ("c" capitalize-word "Capitalize")
-;;   ("u" upcase-word "UPPER")
-;;   ("l" downcase-word "lower")
-;;   ("s" string-inflection-underscore "lower_snake")
-;;   ("n" string-inflection-upcase "UPPER_SNAKE")
-;;   ("a" string-inflection-lower-camelcase "lowerCamel")
-;;   ("m" string-inflection-camelcase "UpperCamel")
-;;   ("d" string-inflection-lisp "dash-case"))
-;; (global-set-key (kbd "C-, ~") 'hydra-case/body)
+(defhydra hydra-case ()
+  "toggle word case"
+  ("c" capitalize-word "Capitalize")
+  ("u" upcase-word "UPPER")
+  ("l" downcase-word "lower")
+  ("s" string-inflection-underscore "lower_snake")
+  ("n" string-inflection-upcase "UPPER_SNAKE")
+  ("a" string-inflection-lower-camelcase "lowerCamel")
+  ("m" string-inflection-camelcase "UpperCamel")
+  ("d" string-inflection-lisp "dash-case"))
+(general-define-key :states '(normal) :prefix grass/leader1 "e~" 'hydra-case/body)
 
+;; Better zap to char
+(use-package zop-to-char
+  :bind ("M-z" . zop-up-to-char)
+  :commands (zop-to-char zop-up-to-char))
 
-;; (defhydra hydra-rectangle (:body-pre (rectangle-mark-mode 1)
-;;                            :color pink
-;;                            :post (deactivate-mark))
-;;   "
-;;   ^_k_^     _d_elete         _s_tring
-;; _h_   _l_   _o_k             _y_ank
-;;   ^_j_^     _n_ew-copy       _r_eset
-;; ^^^^        _e_xchange       _u_ndo
-;; ^^^^                         _p_aste
-;; "
-;;   ("h" backward-char nil)
-;;   ("l" forward-char nil)
-;;   ("k" previous-line nil)
-;;   ("j" next-line nil)
-;;   ("e" exchange-point-and-mark nil)
-;;   ("n" copy-rectangle-as-kill nil)
-;;   ("d" delete-rectangle nil)
-;;   ("r" (if (region-active-p)
-;;            (deactivate-mark)
-;;          (rectangle-mark-mode 1)) nil)
-;;   ("y" yank-rectangle nil)
-;;   ("u" undo nil)
-;;   ("s" string-rectangle nil)
-;;   ("p" kill-rectangle nil)
-;;   ("o" nil nil))
-;; (global-set-key (kbd "C-, v") 'hydra-rectangle/body)
+(global-set-key [remap zap-to-char] 'zop-to-char)
 
-;; ;; Duplication of lines
-;; (defun grass/get-positions-of-line-or-region ()
-;;   "Return positions (beg . end) of the current line
-;; or region."
-;;   (let (beg end)
-;;     (if (and mark-active (> (point) (mark)))
-;;         (exchange-point-and-mark))
-;;     (setq beg (line-beginning-position))
-;;     (if mark-active
-;;         (exchange-point-and-mark))
-;;     (setq end (line-end-position))
-;;     (cons beg end)))
+(use-package iedit
+  :defines grass/iedit-dwim
+  :general
+  (:states '(normal visual) :prefix grass/leader1
+	   "s;" 'iedit-mode
+	   "s:" 'grass/iedit-dwim)
+  :config
+  (defun grass/iedit-dwim (arg)
+    "Starts iedit but uses \\[narrow-to-defun] to limit its scope."
+    (interactive "P")
+    (if arg
+        (iedit-mode)
+      (save-excursion
+        (save-restriction
+          (widen)
+          ;; this function determines the scope of `iedit-start'.
+          (if iedit-mode
+              (iedit-done)
+            ;; `current-word' can of course be replaced by other functions.
+            (narrow-to-defun)
+            (iedit-start (current-word) (point-min) (point-max))))))))
 
-;; (defun grass/duplicate-current-line-or-region (arg)
-;;   "Duplicates the current line or region ARG times.
-;; If there's no region, the current line will be duplicated.  However, if
-;; there's a region, all lines that region covers will be duplicated."
-;;   (interactive "p")
-;;   (pcase-let* ((origin (point))
-;;                (`(,beg . ,end) (grass/get-positions-of-line-or-region))
-;;                (region (buffer-substring-no-properties beg end)))
-;;     (-dotimes arg
-;;       (lambda (n)
-;;         (goto-char end)
-;;         (newline)
-;;         (insert region)
-;;         (setq end (point))))
-;;     (goto-char (+ origin (* (length region) arg) arg))))
-
-;; (defun grass/duplicate-and-comment-current-line-or-region (arg)
-;;   "Duplicates and comments the current line or region ARG times.
-;; If there's no region, the current line will be duplicated.  However, if
-;; there's a region, all lines that region covers will be duplicated."
-;;   (interactive "p")
-;;   (pcase-let* ((origin (point))
-;;                (`(,beg . ,end) (grass/get-positions-of-line-or-region))
-;;                (region (buffer-substring-no-properties beg end)))
-;;     (comment-or-uncomment-region beg end)
-;;     (setq end (line-end-position))
-;;     (-dotimes arg
-;;       (lambda (n)
-;;         (goto-char end)
-;;         (newline)
-;;         (insert region)
-;;         (setq end (point))))
-;;     (goto-char (+ origin (* (length region) arg) arg))))
-
-;; (global-set-key (kbd "s-d") 'grass/duplicate-current-line-or-region)
-;; (global-set-key (kbd "s-M-d") 'grass/duplicate-and-comment-current-line-or-region)
-
-;; (defun comment-or-uncomment-region-or-line ()
-;;     "Comments or uncomments the region or the current line if there's no active region."
-;;     (interactive)
-;;     (let (beg end)
-;;         (if (region-active-p)
-;;             (setq beg (region-beginning) end (region-end))
-;;             (setq beg (line-beginning-position) end (line-end-position)))
-;;         (comment-or-uncomment-region beg end)))
-
-;; (global-set-key (kbd "s-/") 'comment-or-uncomment-region-or-line)
-
-;; (use-package crux
-;;   :commands (crux-move-beginning-of-line crux-smart-open-line)
-;;   :bind (
-;;     ("C-<backspace>" . crux-kill-line-backwards)
-;;     ("s-j" . crux-top-join-line)
-;;     ("s-o" . crux-smart-open-line-above)
-;;     ("C-, f d" . crux-indent-defun)))
-
-;; (global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
-;; (global-set-key [(shift return)] #'crux-smart-open-line)
-
-;; ;; Better zap to char
-;; (use-package zop-to-char
-;;   :bind ("M-z" . zop-up-to-char)
-;;   :commands (zop-to-char zop-up-to-char))
-
-;; (global-set-key [remap zap-to-char] 'zop-to-char)
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Window handling ;;
@@ -921,26 +842,6 @@ This functions should be added to the hooks of major modes for programming."
 ;;   )
 ;; (global-set-key (kbd "C-, w") 'hydra-window/body)
 
-
-;; (use-package iedit
-;;   :defines grass/iedit-dwim
-;;   :bind (("C-, s ;" . iedit-mode)
-;;          ("C-, s :" . grass/iedit-dwim))
-;;   :config
-;;   (defun grass/iedit-dwim (arg)
-;;     "Starts iedit but uses \\[narrow-to-defun] to limit its scope."
-;;     (interactive "P")
-;;     (if arg
-;;         (iedit-mode)
-;;       (save-excursion
-;;         (save-restriction
-;;           (widen)
-;;           ;; this function determines the scope of `iedit-start'.
-;;           (if iedit-mode
-;;               (iedit-done)
-;;             ;; `current-word' can of course be replaced by other functions.
-;;             (narrow-to-defun)
-;;             (iedit-start (current-word) (point-min) (point-max))))))))
 
 
 ;; ;;;;;;;;;;;;;;;
@@ -1800,7 +1701,7 @@ Repeated invocations toggle between the two most recently open buffers."
   :diminish (projectile-mode . "ⓟ")
   :commands projectile-mode
   :general
-  (:states '(normal) :prefix grass/leader1 "p" '(:keymap projectile-command-map))
+  (:states '(normal visual) :prefix grass/leader1 "p" '(:keymap projectile-command-map))
   :config
   (setq projectile-tags-command "rtags")
   (setq projectile-enable-caching nil)
