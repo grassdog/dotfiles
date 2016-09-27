@@ -415,16 +415,17 @@
   :init
   (global-undo-tree-mode))
 
-;; (use-package goto-chg
-;;   :commands (goto-last-change goto-last-change-reverse))
+(use-package goto-chg
+  :commands (goto-last-change goto-last-change-reverse))
 
-;; (defhydra hydra-goto-change ()
-;;   "change history"
-;;   ("p" goto-last-change "previous")
-;;   ("n" goto-last-change-reverse "next")
-;;   ("v" undo-tree-visualize "visualise" :exit t)
-;;   ("q" nil "quit"))
-;; (global-set-key (kbd "C-, h") 'hydra-goto-change/body)
+(defhydra hydra-goto-change ()
+  "goto change"
+  ("p" goto-last-change "previous")
+  ("n" goto-last-change-reverse "next")
+  ("v" undo-tree-visualize "visualise" :exit t)
+  ("q" nil "quit"))
+(general-define-key :states '(normal) :prefix grass/leader1 "ec" 'hydra-goto-change/body)
+
 
 ;;;;;;;;;;
 ;; Evil ;;
@@ -602,11 +603,6 @@
                                 (dired-mode . emacs)
                                 (wdired-mode . normal))
       do (evil-set-initial-state mode state))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;
-;; Search and replace ;;
-;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;; Sane line killing ;;
@@ -1745,48 +1741,6 @@
 ;;   :config
 ;;   (progn
 ;;     (ws-butler-global-mode 1)))
-
-
-;; ;;;;;;;;;;;;;;;;;;;;;;
-;; ;; Multiple cursors ;;
-;; ;;;;;;;;;;;;;;;;;;;;;;
-
-;; (which-key-declare-prefixes "C-, m" "multiple-cursors")
-;; (use-package multiple-cursors
-;;   :bind (("C-, m l" . mc/edit-lines)
-;;          ("C-, m a" . mc/mark-all-like-this-dwim)
-;;          ("C-, m e" . mc/mark-more-like-this-extended)
-;;          ("C-, m n" . mc/mark-next-like-this)
-;;          ("C-, m p" . mc/mark-previous-like-this)
-;;          ("C->"     . mc/mark-next-like-this)
-;;          ("C-<"     . mc/mark-previous-like-this)))
-
-;; ;;;;;;;;;
-;; ;; Ido ;;
-;; ;;;;;;;;;
-
-;; (use-package ido
-;;   :init
-;;   (progn
-;;     (use-package ido-vertical-mode
-;;       :init
-;;       (ido-vertical-mode 1)
-
-;;       ;; Allow up and down arrow to work for navigation
-;;       (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right))
-;;     (ido-mode 1)
-;;     (ido-everywhere 1))
-;;   :config
-;;   (progn
-;;     (setq ido-case-fold t)
-;;     (setq ido-everywhere t)
-;;     (setq ido-enable-prefix nil)
-;;     (setq ido-enable-flex-matching t)
-;;     (setq ido-create-new-buffer 'always)
-;;     (setq ido-max-prospects 10)
-;;     (setq ido-use-faces nil)
-;;     ;; (setq ido-file-extensions-order '(".rb" ".el" ".coffee" ".js"))
-;;     (add-to-list 'ido-ignore-files "\\.DS_Store")))
 
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;
