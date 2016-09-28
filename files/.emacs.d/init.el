@@ -1593,47 +1593,6 @@ the right."
     (ws-butler-global-mode 1)))
 
 
-;;;;;;;;;;;;;;;;;;;;;;;
-;; Utility Functions ;;
-;;;;;;;;;;;;;;;;;;;;;;;
-
-
-
-;; (defun grass/killsave-to-end-of-line ()
-;;   "Kill save till end of line from point"
-;;   (interactive)
-;;   (kill-append (buffer-substring-no-properties (point) (line-end-position)) nil))
-
-;; ;;;;;;;;;;;;;;;;;;
-;; ;; Common Files ;;
-;; ;;;;;;;;;;;;;;;;;;
-
-;; (defun grass/open-cheats ()
-;;   "Open Emacs cheats file"
-;;   (interactive)
-;;   (find-file "~/Dropbox/Notes/Emacs.md"))
-
-;; (defun grass/open-work-log ()
-;;   "Open Worklog file"
-;;   (interactive)
-;;   (find-file "~/Dropbox/Notes/Work Log.org"))
-
-;; (defun grass/open-sideproject-log ()
-;;   "Open Worklog file"
-;;   (interactive)
-;;   (find-file "~/Dropbox/Notes/Sideproject Log.org"))
-
-;; (defun grass/find-notes ()
-;;   "Find a note in Dropbox/Notes directory"
-;;   (interactive)
-;;   (helm-browse-project-find-files (expand-file-name "~/Dropbox/Notes")))
-
-;; (which-key-declare-prefixes "C-, b" "bookmarks")
-;; (global-set-key (kbd "C-, b c") 'grass/open-cheats)
-;; (global-set-key (kbd "C-, b w") 'grass/open-work-log)
-;; (global-set-key (kbd "C-, b s") 'grass/open-sideproject-log)
-;; (global-set-key (kbd "C-, b n") 'grass/find-notes)
-
 ;;;;;;;;;;;;;;;;
 ;; Projectile ;;
 ;;;;;;;;;;;;;;;;
@@ -1663,94 +1622,92 @@ the right."
 
   (projectile-global-mode t))
 
-;; ;;;;;;;;;
-;; ;; Org ;;
-;; ;;;;;;;;;
+;;;;;;;;;
+;; Org ;;
+;;;;;;;;;
 
-;; (use-package org
-;;   :defer t
-;;   :bind ("C-c a" . org-agenda)
+(use-package org
+  :defer t
 
-;;   :config
-;;   ;; Make windmove work in org-mode
-;;   (setq org-replace-disputed-keys t)
-;;   (setq org-return-follows-link t)
-;;   ;; Show indents
-;;   (setq org-startup-indented t)
-;;   (setq org-hide-leading-stars t)
-;;   (setq org-agenda-files '("~/Dropbox/Notes"))
-;;   ;; prevent demoting heading also shifting text inside sections
-;;   (setq org-adapt-indentation nil)
+  :config
+  ;; Make windmove work in org-mode
+  (setq org-replace-disputed-keys t)
+  (setq org-return-follows-link t)
+  ;; Show indents
+  (setq org-startup-indented t)
+  (setq org-hide-leading-stars t)
+  (setq org-agenda-files '("~/Dropbox/Notes"))
+  ;; prevent demoting heading also shifting text inside sections
+  (setq org-adapt-indentation nil)
 
-;;   ;; Use pandoc for exports
-;;   (use-package ox-pandoc)
+  ;; Use pandoc for exports
+  (use-package ox-pandoc)
 
-;;   ;; Create reveal js presentations in org mode.
-;;   (use-package ox-reveal
-;;     :init
-;;     (setq org-reveal-root (concat "file://" (expand-file-name "~/Dropbox/Backups/Reveal/reveal.js")))
-;;     ;; Use htmlize to highlight source code block using my emacs theme
-;;     (use-package htmlize))
+  ;; Create reveal js presentations in org mode.
+  (use-package ox-reveal
+    :init
+    (setq org-reveal-root (concat "file://" (expand-file-name "~/Dropbox/Backups/Reveal/reveal.js")))
+    ;; Use htmlize to highlight source code block using my emacs theme
+    (use-package htmlize))
 
-;;   (use-package org-mac-link
-;;     :bind ("C-c g" . org-mac-grab-link))
+  (use-package org-mac-link
+    :commands org-mac-grab-link)
 
-;;   ;; Show raw link text
-;;   (setq org-descriptive-links nil)
-;;   ;; Start up fully open
-;;   (setq org-startup-folded nil)
+  (use-package org-bullets
+    :init (add-hook 'org-mode-hook 'org-bullets-mode))
 
-;;   (defun org-summary-todo (n-done n-not-done)
-;;     "Switch entry to DONE when all subentries are done, to TODO otherwise."
-;;     (let (org-log-done org-log-states)   ; turn off logging
-;;       (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+  ;; Show raw link text
+  (setq org-descriptive-links nil)
+  ;; Start up fully open
+  (setq org-startup-folded nil)
 
-;;   (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+  (defun org-summary-todo (n-done n-not-done)
+    "Switch entry to DONE when all subentries are done, to TODO otherwise."
+    (let (org-log-done org-log-states)   ; turn off logging
+      (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
-;;   (setq org-todo-keywords '((sequence "TODO(t)" "DONE(d)")))
+  (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 
-;;   ;; Allow bind in files to enable export overrides
-;;   (setq org-export-allow-bind-keywords t)
-;;   (defun grass/html-filter-remove-src-blocks (text backend info)
-;;     "Remove source blocks from html export."
-;;     (when (org-export-derived-backend-p backend 'html) ""))
+  (setq org-todo-keywords '((sequence "TODO(t)" "DONE(d)")))
 
-;;   ;; Code blocks
-;;   (org-babel-do-load-languages
-;;    'org-babel-load-languages
-;;    '((emacs-lisp . t)
-;;      (js . t)
-;;      (ruby . t)
-;;      (sh . t)))
+  ;; Allow bind in files to enable export overrides
+  (setq org-export-allow-bind-keywords t)
+  (defun grass/html-filter-remove-src-blocks (text backend info)
+    "Remove source blocks from html export."
+    (when (org-export-derived-backend-p backend 'html) ""))
 
-;;   ;; Highlight source blocks
-;;   (setq org-src-fontify-natively t
-;;         org-src-tab-acts-natively t
-;;         org-confirm-babel-evaluate nil)
+  ;; Code blocks
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (js . t)
+     (ruby . t)
+     (sh . t)))
 
-;;   (add-hook 'org-shiftup-final-hook 'windmove-up)
-;;   (add-hook 'org-shiftleft-final-hook 'windmove-left)
-;;   (add-hook 'org-shiftdown-final-hook 'windmove-down)
-;;   (add-hook 'org-shiftright-final-hook 'windmove-right)
-;;   (defhydra hydra-org (:color red :columns 3)
-;;     "Org Mode Movements"
-;;     ("n" outline-next-visible-heading "next heading")
-;;     ("p" outline-previous-visible-heading "prev heading")
-;;     ("N" org-forward-heading-same-level "next heading at same level")
-;;     ("P" org-backward-heading-same-level "prev heading at same level")
-;;     ("u" outline-up-heading "up heading")
-;;     ("g" org-goto "goto" :exit t))
+  ;; Highlight source blocks
+  (setq org-src-fontify-natively t
+        org-src-tab-acts-natively t
+        org-confirm-babel-evaluate nil)
 
-;;   (add-hook 'org-mode-hook
-;;     (lambda ()
-;;       ;; No auto indent please
-;;       (setq org-export-html-postamble nil)
-;;       ;; Let me keep my prefix key binding
-;;       (define-key org-mode-map (kbd "C-,") nil)
-;;       ;; (org-hide-block-all)
-;;       ;; (define-key org-mode-map (kbd "C-c t") 'org-hide-block-toggle)
-;;       (define-key org-mode-map (kbd "C-, g h") 'hydra-org/body)
-;;       (define-key org-mode-map (kbd "C-, a") 'org-cycle-agenda-files))))
+  (defhydra hydra-org-move (:color red :columns 3)
+    "Org Mode Movements"
+    ("n" outline-next-visible-heading "next heading")
+    ("p" outline-previous-visible-heading "prev heading")
+    ("N" org-forward-heading-same-level "next heading at same level")
+    ("P" org-backward-heading-same-level "prev heading at same level")
+    ("u" outline-up-heading "up heading")
+    ("g" org-goto "goto" :exit t))
+
+  (add-hook 'org-mode-hook
+    (lambda ()
+      ;; No auto indent please
+      (setq org-export-html-postamble nil)
+
+      (general-define-key :keymaps 'org-mode-map :states '(normal visual) :prefix grass/leader1
+                          "mm" 'hydra-org-move/body
+                          "mg" 'org-mac-grab-link
+                          "ma" 'org-agenda
+                          "mc" 'org-cycle-agenda-files))))
 
 ;; ;;;;;;;;;;
 ;; ;; Ruby ;;
