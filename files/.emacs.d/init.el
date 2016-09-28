@@ -198,7 +198,8 @@
 (use-package anzu
   :diminish anzu-mode
   :general
-  (:states '(normal visual) :prefix grass/leader1 "sr" 'anzu-query-replace-at-cursor-thing)
+  (:states '(normal visual) :prefix grass/leader1
+	   "sr" 'anzu-query-replace-at-cursor-thing)
   :init (global-anzu-mode +1))
 
 ;; Disable themes before loading them (in daemon mode esp.)
@@ -260,11 +261,15 @@
   :general
   ("C-c C-r" 'ivy-resume)
   ("<f6>" 'ivy-resume)
-  (:states '(normal visual) :prefix grass/leader1 "bb" 'ivy-switch-buffer)
+  (:states '(normal visual) :prefix grass/leader1
+	   "bb" 'ivy-switch-buffer)
+  (:keymaps 'ivy-minibuffer-map
+	    "<up>" 'ivy-previous-history-element
+	    "<down>" 'ivy-next-history-element)
   :init
   (use-package ivy-hydra)
   
-  (setq ivy-height 15)
+  (setq ivy-height 20)
   (setq ivy-use-virtual-buffers t)
   ;; Don't count candidates
   (setq ivy-count-format "")
@@ -278,16 +283,19 @@
   :general
   ("M-x" 'counsel-M-x)
   ("C-x C-f" 'counsel-find-file)
-  (:states '(normal visual) :prefix grass/leader1 "fr" 'counsel-recentf)
-  (:states '(normal visual) :prefix grass/leader1 "ff" 'counsel-find-file)
-  (:states '(normal visual) :prefix grass/leader1 "sa" 'counsel-ag)
-  (:states '(normal visual) :prefix grass/leader1 "uc" 'counsel-unicode-char)
+  (:states '(normal visual) :prefix grass/leader1
+	   "fr" 'counsel-recentf
+	   "ff" 'counsel-find-file
+	   "fR" 'grass/rename-file-and-buffer
+	   "sa" 'counsel-ag
+	   "xC" 'counsel-unicode-char)
   :init
   (define-key read-expression-map (kbd "C-r") 'counsel-expression-history))
 
 (use-package swiper
   :general
-  (:states '(normal visual) :prefix grass/leader1 "ss" 'swiper))
+  (:states '(normal visual) :prefix grass/leader1
+	   "ss" 'swiper))
 
 (use-package which-key
   :diminish which-key-mode
@@ -318,7 +326,8 @@
 
 (use-package browse-kill-ring
   :general
-  (:states '(normal visual) :prefix grass/leader1 "xk" 'browse-kill-ring))
+  (:states '(normal visual) :prefix grass/leader1
+	   "xk" 'browse-kill-ring))
 
 
 ;; Subtle highlighting of matching parens (global-mode)
@@ -421,13 +430,15 @@
 (use-package goto-chg
   :commands (goto-last-change goto-last-change-reverse))
 
-(defhydra hydra-goto-change ()
-  "goto change"
+(defhydra hydra-goto-history ()
+  "change history"
   ("p" goto-last-change "previous")
   ("n" goto-last-change-reverse "next")
+  ("g" git-timemachine "git timemachine")
   ("v" undo-tree-visualize "visualise" :exit t)
   ("q" nil "quit"))
-(general-define-key :states '(normal) :prefix grass/leader1 "xc" 'hydra-goto-change/body)
+(general-define-key :states '(normal) :prefix grass/leader1
+		    "xh" 'hydra-goto-history/body)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -713,6 +724,9 @@
 ;; Better zap to char
 (use-package zop-to-char
   :bind ("M-z" . zop-up-to-char)
+  :general
+  (:states '(normal visual) :prefix grass/leader1
+	   "xz" 'zop-up-to-char)
   :commands (zop-to-char zop-up-to-char))
 
 (global-set-key [remap zap-to-char] 'zop-to-char)
@@ -857,12 +871,12 @@ _SPC_ cancel     _o_nly this       _d_elete
 		    "ut" 'display-time-world
 		    "uc" 'quick-calc
 		    "uu" 'browse-url
-		    "ur" 'grass/rename-file-and-buffer
 		    "ub" 'grass/comment-box)
 
 (use-package reveal-in-osx-finder
   :general
-  (:states '(normal visual) :prefix grass/leader1 "uf" 'reveal-in-osx-finder))
+  (:states '(normal visual) :prefix grass/leader1
+	   "uf" 'reveal-in-osx-finder))
 
 
 ;;;;;;;;;
@@ -871,10 +885,14 @@ _SPC_ cancel     _o_nly this       _d_elete
 
 (use-package magit
   :general
-  (:states '(normal visual) :prefix grass/leader1 "gs" 'magit-status))
+  (:states '(normal visual) :prefix grass/leader1
+	   "gs" 'magit-status))
 
 (use-package git-timemachine
-  :commands git-timemachine)
+  :commands git-timemachine
+  :general
+  (:states '(normal visual) :prefix grass/leader1
+	   "gt" 'git-timemachine))
 
 (use-package git-gutter
   :commands global-git-gutter-mode
@@ -930,38 +948,39 @@ _SPC_ cancel     _o_nly this       _d_elete
                           ))
 
 
-;; ;;;;;;;;;;;;;;;;;;;;;;
-;; ;; Symbol insertion ;;
-;; ;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;
+;; Symbol insertion ;;
+;;;;;;;;;;;;;;;;;;;;;;
 
-;; (use-package char-menu
-;;   :commands char-menu
-;;   ; Em-dash is first
-;;   :config (setq char-menu '("—" "‘’" "“”" "…" "«»" "–"
-;;                             ("Typography" "•" "©" "†" "‡" "°" "·" "§" "№" "★")
-;;                             ("Math"       "≈" "≡" "≠" "∞" "×" "±" "∓" "÷" "√")
-;;                             ("Arrows"     "←" "→" "↑" "↓" "⇐" "⇒" "⇑" "⇓"))))
+(use-package char-menu
+  :commands char-menu
+  ; Em-dash is first
+  :config (setq char-menu '("—" "‘’" "“”" "…" "«»" "–"
+                            ("Typography" "•" "©" "†" "‡" "°" "·" "§" "№" "★")
+                            ("Math"       "≈" "≡" "≠" "∞" "×" "±" "∓" "÷" "√")
+                            ("Arrows"     "←" "→" "↑" "↓" "⇐" "⇒" "⇑" "⇓"))))
 
-;; (global-set-key (kbd "C-, c") 'char-menu)
-
-
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ;; Auto save on focus lost ;;
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(general-define-key :states '(normal visual) :prefix grass/leader1
+		    "xc" 'char-menu)
 
 
-;; (defun grass/auto-save-all()
-;;   "Save all modified buffers that point to files."
-;;   (interactive)
-;;   (save-excursion
-;;     (dolist (buf (buffer-list))
-;;       (set-buffer buf)
-;;       (if (and (buffer-file-name) (buffer-modified-p))
-;;           (basic-save-buffer)))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Auto save on focus lost ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; (add-hook 'auto-save-hook 'grass/auto-save-all)
-;; (add-hook 'mouse-leave-buffer-hook 'grass/auto-save-all)
-;; (add-hook 'focus-out-hook 'grass/auto-save-all)
+
+(defun grass/auto-save-all()
+  "Save all modified buffers that point to files."
+  (interactive)
+  (save-excursion
+    (dolist (buf (buffer-list))
+      (set-buffer buf)
+      (if (and (buffer-file-name) (buffer-modified-p))
+          (basic-save-buffer)))))
+
+(add-hook 'auto-save-hook 'grass/auto-save-all)
+(add-hook 'mouse-leave-buffer-hook 'grass/auto-save-all)
+(add-hook 'focus-out-hook 'grass/auto-save-all)
 
 
 
@@ -1708,7 +1727,8 @@ Repeated invocations toggle between the two most recently open buffers."
   :diminish (projectile-mode . "ⓟ")
   :commands projectile-mode
   :general
-  (:states '(normal visual) :prefix grass/leader1 "p" '(:keymap projectile-command-map))
+  (:states '(normal visual) :prefix grass/leader1
+	   "p" '(:keymap projectile-command-map))
   :config
   (setq projectile-tags-command "rtags")
   (setq projectile-enable-caching nil)
