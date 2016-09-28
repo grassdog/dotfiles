@@ -325,6 +325,7 @@
   (which-key-declare-prefixes "SPC u" "utilities")
   (which-key-declare-prefixes "SPC b" "buffers")
   (which-key-declare-prefixes "SPC k" "bookmarks")
+  (which-key-declare-prefixes "SPC c" "check/compile")
   (which-key-declare-prefixes "SPC g" "git/vc")
   (which-key-declare-prefixes "SPC m" "major-mode-cmd")
   (which-key-declare-prefixes "SPC p" "projectile")
@@ -466,6 +467,8 @@
     :diminish evil-commentary-mode
     :init
     (evil-commentary-mode))
+
+  ;; (use-package evil-magit)
 
   (use-package evil-matchit
     :init
@@ -690,7 +693,7 @@
 
 (add-hook 'prog-mode-hook 'font-lock-comment-annotations)
 
-; TODO Fix search highlighting
+; TODO Fix search highlight colours
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Manipulating Text ;;
@@ -1471,7 +1474,14 @@ the right."
 ;; Prog mode ;;
 ;;;;;;;;;;;;;;;
 
-(setq linum-format "%4d ")
+(use-package nlinum
+  :init
+  (setq nlinum-format "%4d ")
+
+  ;; Line numbers for coding please
+  (add-hook 'prog-mode-hook
+    (lambda ()
+      (nlinum-mode 1))))
 
 (use-package rainbow-delimiters
   :commands rainbow-delimiters-mode)
@@ -1481,7 +1491,7 @@ the right."
             (lambda ()
               ;; Treat underscore as a word character
               (modify-syntax-entry ?_ "w")
-              (linum-mode 1)
+              ;; (linum-mode 1)
               (rainbow-delimiters-mode)))
 
 
@@ -1964,7 +1974,7 @@ the right."
               ;; Treat dollar and hyphen as a word character
               (modify-syntax-entry ?$ "w")
               (modify-syntax-entry ?- "w")
-              (linum-mode 1)
+              (nlinum-mode 1)
               (rainbow-mode +1))))
 
 (add-hook 'syslog-mode-hook
@@ -1977,7 +1987,7 @@ the right."
   (use-package rainbow-mode)
   (add-hook 'css-mode-hook
             (lambda ()
-              (linum-mode 1)
+              (nlinum-mode 1)
               (rainbow-mode +1))))
 
 ;;;;;;;;;;;;;;
@@ -2194,8 +2204,7 @@ the right."
 ;;;;;;;;;;;;;;;;;;;;;
 
 (use-package elixir-mode
-  :mode (("\\.exs?\\'"   . elixir-mode)
-         ("\\.elixer\\'" . elixir-mode))
+  :mode (("\\.exs?\\'"   . elixir-mode))
   :defer t
   :config
   (use-package alchemist
