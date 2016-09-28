@@ -247,6 +247,7 @@
   ;; Load theme on app creation
   (grass/set-ui))
 
+; TODO Take more from my new config and add here
 
 ;;;;;;;;;;;;;;;
 ;; UI & Help ;;
@@ -279,7 +280,6 @@
     (t . ivy--regex-fuzzy)))
   (ivy-mode 1))
 
-;; TODO Take more from here https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-counsel.el
 (use-package counsel
   :general
   ("M-x" 'counsel-M-x)
@@ -683,12 +683,14 @@
 
 (add-hook 'prog-mode-hook 'font-lock-comment-annotations)
 
+; TODO Fix search highlighting
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Manipulating Text ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package drag-stuff
+  :diminish drag-stuff-mode
   :init
   (setq drag-stuff-modifier '(control shift))
   (drag-stuff-global-mode 1))
