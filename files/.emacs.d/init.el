@@ -306,9 +306,11 @@
           ("\\`org-babel-" . "ob/")))
   (which-key-mode 1)
   (which-key-declare-prefixes "SPC f" "files")
-  (which-key-declare-prefixes "SPC e" "edit")
+  (which-key-declare-prefixes "SPC x" "text")
   (which-key-declare-prefixes "SPC u" "utilities")
   (which-key-declare-prefixes "SPC b" "buffers")
+  (which-key-declare-prefixes "SPC g" "git/vc")
+  (which-key-declare-prefixes "SPC m" "major-mode-cmd")
   (which-key-declare-prefixes "SPC p" "projectile")
   (which-key-declare-prefixes "SPC w" "windows/ui")
   (which-key-declare-prefixes "SPC s" "search/replace"))
@@ -316,7 +318,7 @@
 
 (use-package browse-kill-ring
   :general
-  (:states '(normal visual) :prefix grass/leader1 "ek" 'browse-kill-ring))
+  (:states '(normal visual) :prefix grass/leader1 "xk" 'browse-kill-ring))
 
 
 ;; Subtle highlighting of matching parens (global-mode)
@@ -425,7 +427,7 @@
   ("n" goto-last-change-reverse "next")
   ("v" undo-tree-visualize "visualise" :exit t)
   ("q" nil "quit"))
-(general-define-key :states '(normal) :prefix grass/leader1 "ec" 'hydra-goto-change/body)
+(general-define-key :states '(normal) :prefix grass/leader1 "xc" 'hydra-goto-change/body)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -562,6 +564,7 @@
   (define-key evil-visual-state-map "Q" 'call-last-kbd-macro)
 
   ;; Set our default modes
+  ;; TODO Look to spacemacs for robust settings here
   (loop for (mode . state) in '((inferior-emacs-lisp-mode . emacs)
                                 (nrepl-mode . insert)
                                 (pylookup-mode . emacs)
@@ -677,7 +680,7 @@
   "move text"
   ("u" move-text-up "move up")
   ("d" move-text-down "move down"))
-(general-define-key :states '(normal) :prefix grass/leader1 "em" 'hydra-move-text/body)
+(general-define-key :states '(normal) :prefix grass/leader1 "xm" 'hydra-move-text/body)
 
 ;; Keep system clipboard separate from kill ring
 (use-package simpleclip
@@ -705,7 +708,7 @@
   ("a" string-inflection-lower-camelcase "lowerCamel")
   ("m" string-inflection-camelcase "UpperCamel")
   ("d" string-inflection-lisp "dash-case"))
-(general-define-key :states '(normal) :prefix grass/leader1 "e~" 'hydra-case/body)
+(general-define-key :states '(normal) :prefix grass/leader1 "x~" 'hydra-case/body)
 
 ;; Better zap to char
 (use-package zop-to-char
@@ -741,186 +744,190 @@
 ;; Window handling ;;
 ;;;;;;;;;;;;;;;;;;;;;
 
-;; (use-package ace-window
-;;   :commands (ace-window))
-;; (winner-mode 1)
+(use-package ace-window
+  :commands (ace-window))
+(winner-mode 1)
 
-;;(use-package windmove
-;;  :defer 1)
+(use-package windmove
+  :commands
+  (windmove-left windmove-down windmove-up windmove-right))
 
-;; (defun hydra-move-splitter-left (arg)
-;;   "Move window splitter left."
-;;   (interactive "p")
-;;   (if (let ((windmove-wrap-around))
-;;         (windmove-find-other-window 'right))
-;;       (shrink-window-horizontally arg)
-;;     (enlarge-window-horizontally arg)))
+(defun grass/move-splitter-left (arg)
+  "Move window splitter left."
+  (interactive "p")
+  (if (let ((windmove-wrap-around))
+        (windmove-find-other-window 'right))
+      (shrink-window-horizontally arg)
+    (enlarge-window-horizontally arg)))
 
-;; (defun hydra-move-splitter-right (arg)
-;;   "Move window splitter right."
-;;   (interactive "p")
-;;   (if (let ((windmove-wrap-around))
-;;         (windmove-find-other-window 'right))
-;;       (enlarge-window-horizontally arg)
-;;     (shrink-window-horizontally arg)))
+(defun grass/move-splitter-right (arg)
+  "Move window splitter right."
+  (interactive "p")
+  (if (let ((windmove-wrap-around))
+        (windmove-find-other-window 'right))
+      (enlarge-window-horizontally arg)
+    (shrink-window-horizontally arg)))
 
-;; (defun hydra-move-splitter-up (arg)
-;;   "Move window splitter up."
-;;   (interactive "p")
-;;   (if (let ((windmove-wrap-around))
-;;         (windmove-find-other-window 'up))
-;;       (enlarge-window arg)
-;;     (shrink-window arg)))
+(defun grass/move-splitter-up (arg)
+  "Move window splitter up."
+  (interactive "p")
+  (if (let ((windmove-wrap-around))
+        (windmove-find-other-window 'up))
+      (enlarge-window arg)
+    (shrink-window arg)))
 
-;; (defun hydra-move-splitter-down (arg)
-;;   "Move window splitter down."
-;;   (interactive "p")
-;;   (if (let ((windmove-wrap-around))
-;;         (windmove-find-other-window 'up))
-;;       (shrink-window arg)
-;;     (enlarge-window arg)))
+(defun grass/move-splitter-down (arg)
+  "Move window splitter down."
+  (interactive "p")
+  (if (let ((windmove-wrap-around))
+        (windmove-find-other-window 'up))
+      (shrink-window arg)
+    (enlarge-window arg)))
 
-;; (defhydra hydra-window ()
-;;   "
-;; Movement^^        ^Split^          ^Switch^        ^Resize^
-;; ----------------------------------------------------------------
-;; _h_ ←            _v_ertical        _b_uffer        _q_ X←
-;; _j_ ↓            _x_ horizontal    _f_ind files    _w_ X↓
-;; _k_ ↑            _z_ undo          _a_ce 1         _e_ X↑
-;; _l_ →            _Z_ reset         _s_wap          _r_ X→
-;; _F_ollow         _D_lt Other       _S_ave          max_i_mize
-;; _SPC_ cancel     _o_nly this       _d_elete
-;; "
-;;   ("h" windmove-left nil)
-;;   ("j" windmove-down nil)
-;;   ("k" windmove-up nil)
-;;   ("l" windmove-right nil)
-;;   ("q" hydra-move-splitter-left nil)
-;;   ("w" hydra-move-splitter-down nil)
-;;   ("e" hydra-move-splitter-up nil)
-;;   ("r" hydra-move-splitter-right nil)
-;;   ("b" helm-mini nil)
-;;   ("f" helm-find-files nil)
-;;   ("F" follow-mode nil)
-;;   ("a" (lambda ()
-;;          (interactive)
-;;          (ace-window 1)
-;;          (add-hook 'ace-window-end-once-hook
-;;                    'hydra-window/body))
-;;    nil)
-;;   ("v" (lambda ()
-;;          (interactive)
-;;          (split-window-right)
-;;          (windmove-right))
-;;    nil)
-;;   ("x" (lambda ()
-;;          (interactive)
-;;          (split-window-below)
-;;          (windmove-down))
-;;    nil)
-;;   ("s" (lambda ()
-;;          (interactive)
-;;          (ace-window 4)
-;;          (add-hook 'ace-window-end-once-hook
-;;                    'hydra-window/body)) nil)
-;;   ("S" save-buffer nil)
-;;   ("d" delete-window nil)
-;;   ("D" (lambda ()
-;;          (interactive)
-;;          (ace-window 16)
-;;          (add-hook 'ace-window-end-once-hook
-;;                    'hydra-window/body))
-;;    nil)
-;;   ("o" delete-other-windows nil)
-;;   ("i" ace-maximize-window nil)
-;;   ("z" (progn
-;;          (winner-undo)
-;;          (setq this-command 'winner-undo))
-;;    nil)
-;;   ("Z" winner-redo nil)
-;;   ("SPC" nil nil)
-;;   )
-;; (global-set-key (kbd "C-, w") 'hydra-window/body)
+(defhydra hydra-window ()
+  "
+Movement^^        ^Split^          ^Switch^        ^Resize^
+----------------------------------------------------------------
+_h_ ←            _v_ertical        _b_uffer        _q_ X←
+_j_ ↓            _x_ horizontal    _f_ind files    _w_ X↓
+_k_ ↑            _z_ undo          _a_ce 1         _e_ X↑
+_l_ →            _Z_ reset         _s_wap          _r_ X→
+_F_ollow         _D_lt Other       _S_ave          max_i_mize
+_SPC_ cancel     _o_nly this       _d_elete
+"
+  ("h" windmove-left nil)
+  ("j" windmove-down nil)
+  ("k" windmove-up nil)
+  ("l" windmove-right nil)
+  ("q" grass/move-splitter-left nil)
+  ("w" grass/move-splitter-down nil)
+  ("e" grass/move-splitter-up nil)
+  ("r" grass/move-splitter-right nil)
+  ("b" helm-mini nil)
+  ("f" helm-find-files nil)
+  ("F" follow-mode nil)
+  ("a" (lambda ()
+         (interactive)
+         (ace-window 1)
+         (add-hook 'ace-window-end-once-hook
+                   'hydra-window/body))
+   nil)
+  ("v" (lambda ()
+         (interactive)
+         (split-window-right)
+         (windmove-right))
+   nil)
+  ("x" (lambda ()
+         (interactive)
+         (split-window-below)
+         (windmove-down))
+   nil)
+  ("s" (lambda ()
+         (interactive)
+         (ace-window 4)
+         (add-hook 'ace-window-end-once-hook
+                   'hydra-window/body)) nil)
+  ("S" save-buffer nil)
+  ("d" delete-window nil)
+  ("D" (lambda ()
+         (interactive)
+         (ace-window 16)
+         (add-hook 'ace-window-end-once-hook
+                   'hydra-window/body))
+   nil)
+  ("o" delete-other-windows nil)
+  ("i" ace-maximize-window nil)
+  ("z" (progn
+         (winner-undo)
+         (setq this-command 'winner-undo))
+   nil)
+  ("Z" winner-redo nil)
+  ("SPC" nil nil))
 
-
-
-;; ;;;;;;;;;;;;;;;
-;; ;; Utilities ;;
-;; ;;;;;;;;;;;;;;;
-
-;; (which-key-declare-prefixes "C-, u" "utilities")
-;; (global-set-key (kbd "C-, u t") 'display-time-world)
-;; (global-set-key (kbd "C-, u c") 'quick-calc)
-;; (global-set-key (kbd "C-, u u") 'browse-url)
-;; (global-set-key (kbd "C-, u r") 'grass/rename-file-and-buffer)
-;; (global-set-key (kbd "C-, u b") 'grass/comment-box)
-
-;; (use-package reveal-in-osx-finder
-;;   :bind ("C-, u f" . reveal-in-osx-finder))
+(general-define-key :states '(normal visual) :prefix grass/leader1
+		    "ww" 'hydra-window/body
+		    "wk" 'delete-window)
 
 
-;; ;;;;;;;;;
-;; ;; Git ;;
-;; ;;;;;;;;;
+;;;;;;;;;;;;;;;
+;; Utilities ;;
+;;;;;;;;;;;;;;;
 
-;; (use-package magit
-;;   :bind ("C-x g" . magit-status))
+(general-define-key :states '(normal visual) :prefix grass/leader1
+		    "ut" 'display-time-world
+		    "uc" 'quick-calc
+		    "uu" 'browse-url
+		    "ur" 'grass/rename-file-and-buffer
+		    "ub" 'grass/comment-box)
 
-;; (use-package git-timemachine
-;;   :commands git-timemachine)
+(use-package reveal-in-osx-finder
+  :general
+  (:states '(normal visual) :prefix grass/leader1 "uf" 'reveal-in-osx-finder))
 
-;; (use-package git-gutter
-;;   :commands global-git-gutter-mode
-;;   :diminish git-gutter-mode
-;;   :defer 3
-;;   :config
-;;   (progn
-;;     ;; If you enable global minor mode
-;;     (global-git-gutter-mode t)
-;;     ;; If you would like to use git-gutter.el and linum-mode
-;;     (git-gutter:linum-setup)
-;;     (setq git-gutter:update-interval 2
-;;           git-gutter:modified-sign " "
-;;           git-gutter:added-sign "+"
-;;           git-gutter:deleted-sign "-"
-;;           git-gutter:diff-option "-w"
-;;           git-gutter:hide-gutter t
-;;           git-gutter:ask-p nil
-;;           git-gutter:verbosity 0
-;;           git-gutter:handled-backends '(git hg bzr svn)
-;;           git-gutter:hide-gutter t)))
 
-;; (use-package git-gutter-fringe
-;;   :commands git-gutter-mode
-;;   :defer 3
-;;   :config
-;;   (progn
-;;     (when (display-graphic-p)
-;;       (with-eval-after-load 'git-gutter
-;;         (require 'git-gutter-fringe)))
-;;     (setq git-gutter-fr:side 'right-fringe))
-;;     ;; custom graphics that works nice with half-width fringes
-;;     (fringe-helper-define 'git-gutter-fr:added nil
-;;                           "..X...."
-;;                           "..X...."
-;;                           "XXXXX.."
-;;                           "..X...."
-;;                           "..X...."
-;;                           )
-;;     (fringe-helper-define 'git-gutter-fr:deleted nil
-;;                           "......."
-;;                           "......."
-;;                           "XXXXX.."
-;;                           "......."
-;;                           "......."
-;;                           )
-;;     (fringe-helper-define 'git-gutter-fr:modified nil
-;;                           "..X...."
-;;                           ".XXX..."
-;;                           "XX.XX.."
-;;                           ".XXX..."
-;;                           "..X...."
-;;                           ))
+;;;;;;;;;
+;; Git ;;
+;;;;;;;;;
+
+(use-package magit
+  :general
+  (:states '(normal visual) :prefix grass/leader1 "gs" 'magit-status))
+
+(use-package git-timemachine
+  :commands git-timemachine)
+
+(use-package git-gutter
+  :commands global-git-gutter-mode
+  :diminish git-gutter-mode
+  :defer 3
+  :config
+  (progn
+    ;; If you enable global minor mode
+    (global-git-gutter-mode t)
+    ;; If you would like to use git-gutter.el and linum-mode
+    (git-gutter:linum-setup)
+    (setq git-gutter:update-interval 2
+          git-gutter:modified-sign " "
+          git-gutter:added-sign "+"
+          git-gutter:deleted-sign "-"
+          git-gutter:diff-option "-w"
+          git-gutter:hide-gutter t
+          git-gutter:ask-p nil
+          git-gutter:verbosity 0
+          git-gutter:handled-backends '(git hg bzr svn)
+          git-gutter:hide-gutter t)))
+
+(use-package git-gutter-fringe
+  :commands git-gutter-mode
+  :defer 3
+  :config
+  (progn
+    (when (display-graphic-p)
+      (with-eval-after-load 'git-gutter
+        (require 'git-gutter-fringe)))
+    (setq git-gutter-fr:side 'right-fringe))
+    ;; custom graphics that works nice with half-width fringes
+    (fringe-helper-define 'git-gutter-fr:added nil
+                          "..X...."
+                          "..X...."
+                          "XXXXX.."
+                          "..X...."
+                          "..X...."
+                          )
+    (fringe-helper-define 'git-gutter-fr:deleted nil
+                          "......."
+                          "......."
+                          "XXXXX.."
+                          "......."
+                          "......."
+                          )
+    (fringe-helper-define 'git-gutter-fr:modified nil
+                          "..X...."
+                          ".XXX..."
+                          "XX.XX.."
+                          ".XXX..."
+                          "..X...."
+                          ))
 
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;
