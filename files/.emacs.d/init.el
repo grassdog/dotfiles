@@ -158,6 +158,7 @@
 (define-fringe-bitmap 'left-curly-arrow [0 64 72 68 126 4 8 0])
 (define-fringe-bitmap 'right-curly-arrow [0 2 18 34 126 32 16 0])
 
+(diminish 'visual-line-mode "")
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
 ;; Make files with the same name have unique buffer names
@@ -289,7 +290,7 @@
 	   "ff" 'counsel-find-file
 	   "fR" 'grass/rename-file-and-buffer
 	   "sa" 'counsel-ag
-	   "xC" 'counsel-unicode-char)
+     "eC" 'counsel-unicode-char)
   :init
   (define-key read-expression-map (kbd "C-r") 'counsel-expression-history))
 
@@ -315,7 +316,7 @@
           ("\\`org-babel-" . "ob/")))
   (which-key-mode 1)
   (which-key-declare-prefixes "SPC f" "files")
-  (which-key-declare-prefixes "SPC x" "text/editing")
+  (which-key-declare-prefixes "SPC e" "editing/text")
   (which-key-declare-prefixes "SPC u" "utilities")
   (which-key-declare-prefixes "SPC b" "buffers")
   (which-key-declare-prefixes "SPC k" "bookmarks")
@@ -330,7 +331,7 @@
 (use-package browse-kill-ring
   :general
   (:states '(normal visual) :prefix grass/leader1
-	   "xk" 'browse-kill-ring))
+     "ek" 'browse-kill-ring))
 
 
 ;; Subtle highlighting of matching parens (global-mode)
@@ -441,7 +442,7 @@
   ("v" undo-tree-visualize "visualise" :exit t)
   ("q" nil "quit"))
 (general-define-key :states '(normal) :prefix grass/leader1
-		    "xh" 'hydra-goto-history/body)
+        "eh" 'hydra-goto-history/body)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -695,7 +696,7 @@
   "move text"
   ("u" move-text-up "move up")
   ("d" move-text-down "move down"))
-(general-define-key :states '(normal) :prefix grass/leader1 "xm" 'hydra-move-text/body)
+(general-define-key :states '(normal) :prefix grass/leader1 "em" 'hydra-move-text/body)
 
 ;; Keep system clipboard separate from kill ring
 (use-package simpleclip
@@ -723,14 +724,14 @@
   ("a" string-inflection-lower-camelcase "lowerCamel")
   ("m" string-inflection-camelcase "UpperCamel")
   ("d" string-inflection-lisp "dash-case"))
-(general-define-key :states '(normal) :prefix grass/leader1 "x~" 'hydra-case/body)
+(general-define-key :states '(normal) :prefix grass/leader1 "e~" 'hydra-case/body)
 
 ;; Better zap to char
 (use-package zop-to-char
   :bind ("M-z" . zop-up-to-char)
   :general
   (:states '(normal visual) :prefix grass/leader1
-	   "xz" 'zop-up-to-char)
+     "ez" 'zop-up-to-char)
   :commands (zop-to-char zop-up-to-char))
 
 (global-set-key [remap zap-to-char] 'zop-to-char)
@@ -1067,7 +1068,7 @@ Repeated invocations toggle between the two most recently open buffers."
                             ("Arrows"     "←" "→" "↑" "↓" "⇐" "⇒" "⇑" "⇓"))))
 
 (general-define-key :states '(normal visual) :prefix grass/leader1
-		    "xc" 'char-menu)
+        "ec" 'char-menu)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1284,113 +1285,46 @@ Repeated invocations toggle between the two most recently open buffers."
 (diminish 'abbrev-mode "ⓐ")
 (setq-default abbrev-mode t)
 
-;; (use-package company
-;;   :diminish (company-mode . "ⓒ")
-;;   :config
-;;   (setq company-idle-delay 0.2)
-;;   (setq company-minimum-prefix-length 3)
-;;   (setq company-dabbrev-ignore-case nil)
-;;   (setq company-dabbrev-downcase nil)
-;;   (setq company-global-modes
-;;         '(not markdown-mode org-mode erc-mode))
+(use-package company
+  :diminish (company-mode . "ⓒ")
+  :config
+  (setq company-idle-delay 0.2)
+  (setq company-minimum-prefix-length 3)
+  (setq company-dabbrev-ignore-case nil)
+  (setq company-dabbrev-downcase nil)
 
-;;   (define-key company-active-map [escape] 'company-abort))
+  ;; Tweak fonts
+  (custom-set-faces
+       '(company-tooltip-common
+         ((t (:inherit company-tooltip :weight bold :underline nil))))
+       '(company-tooltip-common-selection
+         ((t (:inherit company-tooltip-selection :weight bold :underline nil))))))
 
-;; (add-hook 'after-init-hook 'global-company-mode)
+(eval-after-load 'company
+  '(progn
+     (global-set-key (kbd "s-e") 'company-yasnippet)
+     (general-define-key :states '(normal visual) :prefix grass/leader1
+        "es" 'company-yasnippet)
+     (define-key company-active-map (kbd "TAB") 'company-complete-common-or-cycle)
+     (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
+     (define-key company-active-map (kbd "S-TAB") 'company-select-previous)
+     (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
+     (define-key company-active-map [escape] 'company-abort)))
 
-;; (use-package yasnippet
-;;   :diminish (yas-minor-mode . "ⓨ")
-;;   :defer 1
-;;   :config
-;;   (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
-;;   (defun grass/do-yas-expand ()
-;;     (let ((yas/fallback-behavior 'return-nil))
-;;       (yas-expand)))
+(add-hook 'after-init-hook 'global-company-mode)
 
-;;   (defun grass/check-expansion ()
-;;     (save-excursion
-;;       (if (looking-at "\\_>") t
-;;         (backward-char 1)
-;;         (if (looking-at "\\.") t
-;;           (backward-char 1)
-;;           (if (looking-at "->") t nil)))))
 
-;;   (defun grass/tab-indent-or-complete ()
-;;     (interactive)
-;;     (cond
-;;      ((minibufferp)
-;;       (minibuffer-complete))
-;;      (t
-;;       (if (or (not yas-minor-mode)
-;;               (null (grass/do-yas-expand)))
-;;           (if (grass/check-expansion)
-;;               (progn
-;;                 (company-manual-begin)
-;;                 (if (null company-candidates)
-;;                     (progn
-;;                       (company-abort)
-;;                       (indent-for-tab-command))))
-;;             (indent-for-tab-command))
-;;         (indent-for-tab-command)))))
+;;;;;;;;;;;;;;
+;; Snippets ;;
+;;;;;;;;;;;;;;
 
-;;   (defun grass/tab-complete-or-next-field ()
-;;     (interactive)
-;;     (if (or (not yas-minor-mode)
-;;             (null (grass/do-yas-expand)))
-;;         (if company-candidates
-;;             (company-complete-selection)
-;;           (if (grass/check-expansion)
-;;               (progn
-;;                 (company-manual-begin)
-;;                 (if (null company-candidates)
-;;                     (progn
-;;                       (company-abort)
-;;                       (yas-next-field))))
-;;             (yas-next-field)))))
-
-;;   (defun grass/expand-snippet-or-complete-selection ()
-;;     (interactive)
-;;     (if (or (not yas-minor-mode)
-;;             (null (grass/do-yas-expand))
-;;             (company-abort))
-;;         (company-complete-selection)))
-
-;;   (defun grass/abort-company-or-yas ()
-;;     (interactive)
-;;     (if (null company-candidates)
-;;         (yas-abort-snippet)
-;;       (company-abort)))
-
-;;   (setq yas-verbosity 1)
-;;   (yas-global-mode 1)
-
-;;   (global-set-key [tab] 'grass/tab-indent-or-complete)
-;;   (global-set-key (kbd "TAB") 'grass/tab-indent-or-complete)
-;;   (global-set-key [(control return)] 'company-complete-common)
-
-;;   (define-key company-active-map [tab] 'grass/expand-snippet-or-complete-selection)
-;;   (define-key company-active-map (kbd "TAB") 'grass/expand-snippet-or-complete-selection)
-
-;;   (define-key yas-minor-mode-map [tab] nil)
-;;   (define-key yas-minor-mode-map (kbd "TAB") nil)
-
-;;   ;; Don't enable smartparens when expanding
-;;   (defvar smartparens-enabled-initially t
-;;     "Whether smartparens is originally enabled or not.")
-
-;;   (add-hook 'yas-before-expand-snippet-hook (lambda ()
-;;                                               ;; If enabled, smartparens will mess snippets expanded by `hippie-expand`
-;;                                               (setq smartparens-enabled-initially smartparens-mode)
-;;                                               (smartparens-mode -1)))
-;;   (add-hook 'yas-after-exit-snippet-hook (lambda ()
-;;                                            (when smartparens-enabled-initially
-;;                                              (smartparens-mode 1))))
-
-;;   (define-key yas-keymap [tab] 'grass/tab-complete-or-next-field)
-;;   (define-key yas-keymap (kbd "TAB") 'grass/tab-complete-or-next-field)
-;;   (define-key yas-keymap [(control tab)] 'yas-next-field)
-;;   (define-key yas-keymap (kbd "C-g") 'grass/abort-company-or-yas)
-;;   (define-key yas-minor-mode-map (kbd "C-, e") 'yas-expand))
+(use-package yasnippet
+  :diminish (yas-minor-mode . "ⓨ")
+  :defer 1
+  :config
+  (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
+  (setq yas-verbosity 1)
+  (yas-global-mode 1))
 
 
 ;;;;;;;;;;;;
@@ -1416,7 +1350,7 @@ Repeated invocations toggle between the two most recently open buffers."
   ("." hydra-repeat "Repeat"))
 
 (general-define-key :states '(normal visual) :prefix grass/leader1
-		    "xp" 'hydra-move-parens/body)
+        "ep" 'hydra-move-parens/body)
 
 
 ;;;;;;;;;;;;;;;
@@ -1470,19 +1404,19 @@ the right."
 ;; Bindings
 (which-key-declare-prefixes "SPC xa" "alignment")
 (general-define-key :states '(normal visual) :prefix grass/leader1
-		    "xaa" 'align
-		    "xar" 'align-repeat
-		    "xam" 'align-repeat-math-oper
-		    "xa." 'align-repeat-decimal
-		    "xa," 'align-repeat-comma
-		    "xa;" 'align-repeat-semicolon
-		    "xa:" 'align-repeat-colon
-		    "xa=" 'align-repeat-equal
-		    "xa>" 'align-repeat-hash
-		    "xa&" 'align-repeat-ampersand
-		    "xa|" 'align-repeat-bar
-		    "xa(" 'align-repeat-left-paren
-		    "xa)" 'align-repeat-right-paren)
+        "eaa" 'align
+        "ear" 'align-repeat
+        "eam" 'align-repeat-math-oper
+        "ea." 'align-repeat-decimal
+        "ea," 'align-repeat-comma
+        "ea;" 'align-repeat-semicolon
+        "ea:" 'align-repeat-colon
+        "ea=" 'align-repeat-equal
+        "ea>" 'align-repeat-hash
+        "ea&" 'align-repeat-ampersand
+        "ea|" 'align-repeat-bar
+        "ea(" 'align-repeat-left-paren
+        "ea)" 'align-repeat-right-paren)
 
 
 ;;;;;;;;;;;;;;;
@@ -1590,7 +1524,7 @@ the right."
 (setq require-final-newline t)
 
 (general-define-key :states '(normal visual) :prefix grass/leader1
-		    "xw" 'whitespace-cleanup)
+        "ew" 'whitespace-cleanup)
 
 ;; Only show bad whitespace (Ignore empty lines at start and end of buffer)
 (setq whitespace-style '(face tabs trailing space-before-tab indentation space-after-tab))

@@ -1,0 +1,14 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Meeting template
+# key: meeting-template
+# --
+ATTENDEES: ${1:}
+
+* NOTES 
+
+$0
+
+* ACTION ITEMS FOR ME
+
+* ACTION ITEMS FOR OTHERS
+
