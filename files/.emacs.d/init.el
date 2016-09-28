@@ -197,6 +197,7 @@
 ;; Must require this before spaceline
 (use-package anzu
   :diminish anzu-mode
+  :defer 3
   :general
   (:states '(normal visual) :prefix grass/leader1
 	   "sr" 'anzu-query-replace-at-cursor-thing)
@@ -999,14 +1000,6 @@ _SPC_ cancel     _o_nly this       _d_elete
 (defun grass/dired-init ()
   "Bunch of stuff to run for dired, either immediately or when it's loaded."
 
-  (use-package dired-single
-    :commands 'dired-single-buffer)
-
-  (use-package peep-dired
-    :general
-    (dired-mode-map :states :prefix grass/leader1
-			    "mp" 'peep-dired))
-
   (diminish 'dired-omit-mode "")
   (setq dired-use-ls-dired nil)
   (setq dired-recursive-copies 'always)
@@ -1043,6 +1036,16 @@ _SPC_ cancel     _o_nly this       _d_elete
     (dired-omit-mode t)
     (dired-hide-details-mode t)))
 
+(eval-after-load "dired"
+  '(progn
+     (use-package dired-single
+       :commands 'dired-single-buffer)
+
+     (use-package peep-dired
+       :general
+       (:keymaps 'dired-mode-map :states '(normal visual) :prefix grass/leader1
+		 "mp" 'peep-dired))))
+
 ;; TODO Somehow mute the colours in dired
 (use-package dired+
   :general
@@ -1050,138 +1053,112 @@ _SPC_ cancel     _o_nly this       _d_elete
    "<s-up>" 'dired-jump))
 
 
-;; ;;;;;;;;;;;;;;;;;;;;;;;;
-;; ;; Search and Replace ;;
-;; ;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; Search and Replace ;;
+;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; ;; http://sachachua.com/blog/2008/07/emacs-keyboard-shortcuts-for-navigating-code/
-;; (defun grass/isearch-yank-current-word ()
-;;   "Pull current word from buffer into search string."
-;;   (interactive)
-;;   (save-excursion
-;;     (skip-syntax-backward "w_")
-;;     (isearch-yank-internal
-;;      (lambda ()
-;;        (skip-syntax-forward "w_")
-;;        (point)))))
+;; http://sachachua.com/blog/2008/07/emacs-keyboard-shortcuts-for-navigating-code/
+(defun grass/isearch-yank-current-word ()
+  "Pull current word from buffer into search string."
+  (interactive)
+  (save-excursion
+    (skip-syntax-backward "w_")
+    (isearch-yank-internal
+     (lambda ()
+       (skip-syntax-forward "w_")
+       (point)))))
 
-;; (define-key isearch-mode-map (kbd "C-x") 'grass/isearch-yank-current-word)
-
-;; (defun grass/search-word-backward ()
-;;   "Find the previous occurrence of the current word."
-;;   (interactive)
-;;   (let ((cur (point)))
-;;     (skip-syntax-backward "w_")
-;;     (goto-char
-;;      (if (re-search-backward (concat "\\_<" (regexp-quote (current-word)) "\\_>") nil t)
-;;    (match-beginning 0)
-;;        cur))))
-
-;; (defun grass/search-word-forward ()
-;;   "Find the next occurrance of the current word."
-;;   (interactive)
-;;   (let ((cur (point)))
-;;     (skip-syntax-forward "w_")
-;;     (goto-char
-;;      (if (re-search-forward (concat "\\_<" (regexp-quote (current-word)) "\\_>") nil t)
-;;    (match-beginning 0)
-;;        cur))))
-;; (global-set-key '[M-up] 'grass/search-word-backward)
-;; (global-set-key '[M-down] 'grass/search-word-forward)
+(define-key isearch-mode-map (kbd "C-x") 'grass/isearch-yank-current-word)
 
 
-;; (defun grass/replace-string (from-string to-string &optional delimited start end)
-;;   "This is a modified version of `replace-string'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
-;;   (interactive
-;;    (let ((common
-;;           (query-replace-read-args
-;;            (concat "Replace"
-;;                    (if current-prefix-arg " word" "")
-;;                    (if (and transient-mark-mode mark-active) " in region" ""))
-;;            nil)))
-;;      (list (nth 0 common) (nth 1 common) (nth 2 common)
-;;            (if (and transient-mark-mode mark-active)
-;;                (region-beginning)
-;;              (buffer-end -1))
-;;            (if (and transient-mark-mode mark-active)
-;;                (region-end)
-;;              (buffer-end 1)))))
-;;   (perform-replace from-string to-string nil nil delimited nil nil start end))
+(defun grass/replace-string-in-entire-buffer (from-string to-string &optional delimited start end)
+  "This is a modified version of `replace-string'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
+  (interactive
+   (let ((common
+          (query-replace-read-args
+           (concat "Replace"
+                   (if current-prefix-arg " word" "")
+                   (if (and transient-mark-mode mark-active) " in region" ""))
+           nil)))
+     (list (nth 0 common) (nth 1 common) (nth 2 common)
+           (if (and transient-mark-mode mark-active)
+               (region-beginning)
+             (buffer-end -1))
+           (if (and transient-mark-mode mark-active)
+               (region-end)
+             (buffer-end 1)))))
+  (perform-replace from-string to-string nil nil delimited nil nil start end))
 
-;; (defun grass/replace-regexp (regexp to-string &optional delimited start end)
-;;   "This is a modified version of `replace-regexp'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
-;;   (interactive
-;;    (let ((common
-;;           (query-replace-read-args
-;;            (concat "Replace"
-;;                    (if current-prefix-arg " word" "")
-;;                    " regexp"
-;;                    (if (and transient-mark-mode mark-active) " in region" ""))
-;;            t)))
-;;      (list (nth 0 common) (nth 1 common) (nth 2 common)
-;;            (if (and transient-mark-mode mark-active)
-;;                (region-beginning)
-;;              (buffer-end -1))
-;;            (if (and transient-mark-mode mark-active)
-;;                (region-end)
-;;              (buffer-end 1)))))
-;;   (perform-replace regexp to-string nil t delimited nil nil start end))
+(defun grass/replace-regexp-in-entire-buffer (regexp to-string &optional delimited start end)
+  "This is a modified version of `replace-regexp'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
+  (interactive
+   (let ((common
+          (query-replace-read-args
+           (concat "Replace"
+                   (if current-prefix-arg " word" "")
+                   " regexp"
+                   (if (and transient-mark-mode mark-active) " in region" ""))
+           t)))
+     (list (nth 0 common) (nth 1 common) (nth 2 common)
+           (if (and transient-mark-mode mark-active)
+               (region-beginning)
+             (buffer-end -1))
+           (if (and transient-mark-mode mark-active)
+               (region-end)
+             (buffer-end 1)))))
+  (perform-replace regexp to-string nil t delimited nil nil start end))
 
-;; (defun grass/query-replace-regexp (regexp to-string &optional delimited start end)
-;;   "This is a modified version of `query-replace-regexp'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
-;;   (interactive
-;;    (let ((common
-;;           (query-replace-read-args
-;;            (concat "Replace"
-;;                    (if current-prefix-arg " word" "")
-;;                    " regexp"
-;;                    (if (and transient-mark-mode mark-active) " in region" ""))
-;;            t)))
-;;      (list (nth 0 common) (nth 1 common) (nth 2 common)
-;;            (if (and transient-mark-mode mark-active)
-;;                (region-beginning)
-;;              (buffer-end -1))
-;;            (if (and transient-mark-mode mark-active)
-;;                (region-end)
-;;              (buffer-end 1)))))
-;;   (perform-replace regexp to-string t t delimited nil nil start end))
+(defun grass/query-replace-regexp-in-entire-buffer (regexp to-string &optional delimited start end)
+  "This is a modified version of `query-replace-regexp'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
+  (interactive
+   (let ((common
+          (query-replace-read-args
+           (concat "Replace"
+                   (if current-prefix-arg " word" "")
+                   " regexp"
+                   (if (and transient-mark-mode mark-active) " in region" ""))
+           t)))
+     (list (nth 0 common) (nth 1 common) (nth 2 common)
+           (if (and transient-mark-mode mark-active)
+               (region-beginning)
+             (buffer-end -1))
+           (if (and transient-mark-mode mark-active)
+               (region-end)
+             (buffer-end 1)))))
+  (perform-replace regexp to-string t t delimited nil nil start end))
 
-;; (defun grass/query-replace-string (from-string to-string &optional delimited start end)
-;;   "This is a modified version of `query-replace-string'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
-;;   (interactive
-;;    (let ((common
-;;           (query-replace-read-args
-;;            (concat "Replace"
-;;                    (if current-prefix-arg " word" "")
-;;                    (if (and transient-mark-mode mark-active) " in region" ""))
-;;            nil)))
-;;      (list (nth 0 common) (nth 1 common) (nth 2 common)
-;;            (if (and transient-mark-mode mark-active)
-;;                (region-beginning)
-;;              (buffer-end -1))
-;;            (if (and transient-mark-mode mark-active)
-;;                (region-end)
-;;              (buffer-end 1)))))
-;;   (perform-replace from-string to-string t nil delimited nil nil start end))
+(defun grass/query-replace-string-in-entire-buffer (from-string to-string &optional delimited start end)
+  "This is a modified version of `query-replace-string'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
+  (interactive
+   (let ((common
+          (query-replace-read-args
+           (concat "Replace"
+                   (if current-prefix-arg " word" "")
+                   (if (and transient-mark-mode mark-active) " in region" ""))
+           nil)))
+     (list (nth 0 common) (nth 1 common) (nth 2 common)
+           (if (and transient-mark-mode mark-active)
+               (region-beginning)
+             (buffer-end -1))
+           (if (and transient-mark-mode mark-active)
+               (region-end)
+             (buffer-end 1)))))
+  (perform-replace from-string to-string t nil delimited nil nil start end))
 
-;; (which-key-declare-prefixes "C-, s" "search/replace")
-;; (global-set-key (kbd "C-, s r") 'grass/replace-string)
-;; (global-set-key (kbd "C-, s R") 'grass/replace-regexp)
-;; (global-set-key (kbd "C-, s q") 'grass/query-replace-string)
-;; (global-set-key (kbd "C-, s Q") 'grass/query-replace-regexp)
-;; (global-set-key (kbd "C-, s f") 'isearch-forward-regexp)
-;; (global-set-key (kbd "C-, s b") 'isearch-reverse-regexp)
 
-;; (use-package ag
-;;   :bind (("C-, s a" . ag-project))
-;;   :commands ag-project)
+(general-define-key :states '(normal visual) :prefix grass/leader1
+		    "sr" 'grass/replace-string-in-entire-buffer
+		    "sR" 'grass/replace-regexp-in-entire-buffer
+		    "sq" 'grass/query-replace-string-in-entire-buffer
+		    "sQ" 'grass/query-replace-regexp-in-entire-buffer
+		    "sf" 'isearch-forward-regexp
+		    "sb" 'isearch-reverse-regexp)
 
-;; (use-package anzu
-;;   :diminish anzu-mode
-;;   :defer 3
-;;   :config
-;;   (setq anzu-cons-mode-line-p nil)
-;;   (global-anzu-mode +1))
+(use-package ag
+  :commands ag-project
+  :general
+  (:states '(normal visual) :prefix grass/leader1
+			    "sp" 'ag-project))
 
 
 ;; ;;;;;;;;;;;;;;;
