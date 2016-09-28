@@ -1822,202 +1822,203 @@ the right."
     (setq tss-implement-definition-key "SPC m i")
     (tss-config-default)))
 
-;; (use-package elm-mode
-;;   :mode "\\.elm$"
-;;   :config
+(use-package elm-mode
+  :mode "\\.elm$"
+  :config
 
-;;   (use-package flycheck-elm
-;;     :init
-;;     (eval-after-load 'flycheck
-;;       '(add-hook 'flycheck-mode-hook #'flycheck-elm-setup)))
-
-
-;;   (add-hook 'elm-mode-hook
-;;     (lambda ()
-;;       ;; Reenable elm oracle once it's start up cost doesn't smash editor performance
-;;       ;; (add-hook 'elm-mode-hook #'elm-oracle-setup-completion)
-
-;;       (setq tab-width 4)
-;;       (flycheck-mode t))))
+  (use-package flycheck-elm
+    :init
+    (eval-after-load 'flycheck
+      '(add-hook 'flycheck-mode-hook #'flycheck-elm-setup)))
 
 
-;; ;;;;;;;;;;;;
-;; ;; Coffee ;;
-;; ;;;;;;;;;;;;
+  (add-hook 'elm-mode-hook
+    (lambda ()
+      ;; Reenable elm oracle once it's start up cost doesn't smash editor performance
+      ;; (add-hook 'elm-mode-hook #'elm-oracle-setup-completion)
 
-;; (defun grass/indent-relative (&optional arg)
-;;   "Newline and indent same number of spaces as previous line."
-;;   (interactive)
-;;   (let* ((indent (+ 0 (save-excursion
-;;                         (back-to-indentation)
-;;                         (current-column)))))
-;;     (newline 1)
-;;     (insert (make-string indent ?\s))))
+      (setq tab-width 4)
+      (flycheck-mode t))))
 
-;; (use-package coffee-mode
-;;   :mode  "\\.coffee$"
-;;   :config
-;;   (progn
-;;     ;; Proper indents when we evil-open-below etc...
-;;     (defun grass/coffee-indent ()
-;;       (if (coffee-line-wants-indent)
-;;           ;; We need to insert an additional tab because the last line was special.
-;;           (coffee-insert-spaces (+ (coffee-previous-indent) coffee-tab-width))
-;;         ;; Otherwise keep at the same indentation level
-;;         (coffee-insert-spaces (coffee-previous-indent))))
 
-;;     ;; Override indent for coffee so we start at the same indent level
-;;     (defun grass/coffee-indent-line ()
-;;       "Indent current line as CoffeeScript."
-;;       (interactive)
-;;       (let* ((curindent (current-indentation))
-;;              (limit (+ (line-beginning-position) curindent))
-;;              (type (coffee--block-type))
-;;              indent-size
-;;              begin-indents)
-;;         (if (and type (setq begin-indents (coffee--find-indents type limit '<)))
-;;             (setq indent-size (coffee--decide-indent curindent begin-indents '>))
-;;           (let ((prev-indent (coffee-previous-indent))
-;;                 (next-indent-size (+ curindent coffee-tab-width)))
-;;             (if (= curindent 0)
-;;                 (setq indent-size prev-indent)
-;;               (setq indent-size (+ curindent coffee-tab-width) ))
-;;             (coffee--indent-insert-spaces indent-size)))))
+;;;;;;;;;;;;
+;; Coffee ;;
+;;;;;;;;;;;;
 
-;;     (add-hook 'coffee-mode-hook
-;;               (lambda ()
-;;                 (set (make-local-variable 'tab-width) 2)
-;;                 (flycheck-mode t)
-;;                 (setq indent-line-function 'grass/coffee-indent-line)))))
-;; ;;;;;;;;;
-;; ;; Web ;;
-;; ;;;;;;;;;
+(defun grass/indent-relative (&optional arg)
+  "Newline and indent same number of spaces as previous line."
+  (interactive)
+  (let* ((indent (+ 0 (save-excursion
+                        (back-to-indentation)
+                        (current-column)))))
+    (newline 1)
+    (insert (make-string indent ?\s))))
 
-;; (use-package web-mode
-;;   :mode  (("\\.html?\\'"    . web-mode)
-;;           ("\\.erb\\'"      . web-mode)
-;;           ("\\.ejs\\'"      . web-mode)
-;;           ("\\.eex\\'"      . web-mode)
-;;           ("\\.handlebars\\'" . web-mode)
-;;           ("\\.hbs\\'"        . web-mode)
-;;           ("\\.eco\\'"        . web-mode)
-;;           ("\\.ect\\'"      . web-mode)
-;;           ("\\.as[cp]x\\'"  . web-mode)
-;;           ("\\.mustache\\'" . web-mode)
-;;           ("\\.dhtml\\'"    . web-mode))
-;;   :config
-;;   (progn
+(use-package coffee-mode
+  :mode  "\\.coffee$"
+  :config
+  (progn
+    ;; Proper indents when we evil-open-below etc...
+    (defun grass/coffee-indent ()
+      (if (coffee-line-wants-indent)
+          ;; We need to insert an additional tab because the last line was special.
+          (coffee-insert-spaces (+ (coffee-previous-indent) coffee-tab-width))
+        ;; Otherwise keep at the same indentation level
+        (coffee-insert-spaces (coffee-previous-indent))))
 
-;;     (defadvice web-mode-highlight-part (around tweak-jsx activate)
-;;       (if (equal web-mode-content-type "jsx")
-;;           (let ((web-mode-enable-part-face nil))
-;;             ad-do-it)
-;;         ad-do-it))
+    ;; Override indent for coffee so we start at the same indent level
+    (defun grass/coffee-indent-line ()
+      "Indent current line as CoffeeScript."
+      (interactive)
+      (let* ((curindent (current-indentation))
+             (limit (+ (line-beginning-position) curindent))
+             (type (coffee--block-type))
+             indent-size
+             begin-indents)
+        (if (and type (setq begin-indents (coffee--find-indents type limit '<)))
+            (setq indent-size (coffee--decide-indent curindent begin-indents '>))
+          (let ((prev-indent (coffee-previous-indent))
+                (next-indent-size (+ curindent coffee-tab-width)))
+            (if (= curindent 0)
+                (setq indent-size prev-indent)
+              (setq indent-size (+ curindent coffee-tab-width) ))
+            (coffee--indent-insert-spaces indent-size)))))
 
-;;     (defun grass/web-mode-hook ()
-;;       "Hooks for Web mode."
-;;       (setq web-mode-markup-indent-offset 2)
-;;       (setq web-mode-css-indent-offset 2)
-;;       (setq web-mode-code-indent-offset 2)
-;;       (setq web-mode-enable-comment-keywords t)
-;;       ;; Use server style comments
-;;       (setq web-mode-comment-style 2)
-;;       (define-key web-mode-map (kbd "C-, z") 'web-mode-fold-or-unfold)
-;;       (setq web-mode-enable-current-element-highlight t))
-;;     (add-hook 'web-mode-hook  'grass/web-mode-hook)))
+    (add-hook 'coffee-mode-hook
+              (lambda ()
+                (set (make-local-variable 'tab-width) 2)
+                (flycheck-mode t)
+                (setq indent-line-function 'grass/coffee-indent-line)))))
 
-;; ;; Setup for jsx
-;; (defadvice web-mode-highlight-part (around tweak-jsx activate)
-;;   (if (equal web-mode-content-type "jsx")
-;;       (let ((web-mode-enable-part-face nil))
-;;         ad-do-it)
-;;     ad-do-it))
+;;;;;;;;;
+;; Web ;;
+;;;;;;;;;
 
-;; (use-package jade-mode
-;;   :mode "\\.jade$"
-;;   :config
-;;   (require 'sws-mode)
-;;   (require 'stylus-mode)
-;;   (add-to-list 'auto-mode-alist '("\\.styl\\'" . stylus-mode)))
+(use-package web-mode
+  :mode  (("\\.html?\\'"    . web-mode)
+          ("\\.erb\\'"      . web-mode)
+          ("\\.ejs\\'"      . web-mode)
+          ("\\.eex\\'"      . web-mode)
+          ("\\.handlebars\\'" . web-mode)
+          ("\\.hbs\\'"        . web-mode)
+          ("\\.eco\\'"        . web-mode)
+          ("\\.ect\\'"      . web-mode)
+          ("\\.as[cp]x\\'"  . web-mode)
+          ("\\.mustache\\'" . web-mode)
+          ("\\.dhtml\\'"    . web-mode))
+  :config
+  (progn
 
-;; (use-package scss-mode
-;;   :mode "\\.scss$"
-;;   :config
-;;   (use-package rainbow-mode)
-;;   (add-hook 'scss-mode-hook
-;;             (lambda ()
-;;               ;; Treat dollar and hyphen as a word character
-;;               (modify-syntax-entry ?$ "w")
-;;               (modify-syntax-entry ?- "w")
-;;               (linum-mode 1)
-;;               (rainbow-mode +1))))
+    (defadvice web-mode-highlight-part (around tweak-jsx activate)
+      (if (equal web-mode-content-type "jsx")
+          (let ((web-mode-enable-part-face nil))
+            ad-do-it)
+        ad-do-it))
 
-;; (use-package css-mode
-;;   :mode "\\.css$"
-;;   :config
-;;   (use-package rainbow-mode)
-;;   (add-hook 'css-mode-hook
-;;             (lambda ()
-;;               (linum-mode 1)
-;;               (rainbow-mode +1))))
+    (defun grass/web-mode-hook ()
+      "Hooks for Web mode."
+      (setq web-mode-markup-indent-offset 2)
+      (setq web-mode-css-indent-offset 2)
+      (setq web-mode-code-indent-offset 2)
+      (setq web-mode-enable-comment-keywords t)
+      ;; Use server style comments
+      (setq web-mode-comment-style 2)
+      (setq web-mode-enable-current-element-highlight t))
+    (add-hook 'web-mode-hook  'grass/web-mode-hook)))
 
-;; ;;;;;;;;;;;;;;
-;; ;; Markdown ;;
-;; ;;;;;;;;;;;;;;
+;; Setup for jsx
+(defadvice web-mode-highlight-part (around tweak-jsx activate)
+  (if (equal web-mode-content-type "jsx")
+      (let ((web-mode-enable-part-face nil))
+        ad-do-it)
+    ad-do-it))
 
-;; (use-package markdown-mode
-;;   :mode (("\\.markdown\\'"    . markdown-mode)
-;;          ("\\.md\\'"    . markdown-mode))
-;;   :config
-;;   (setq-default markdown-command "pandoc -S -s --self-contained -f markdown -t html5 ")
+(use-package jade-mode
+  :mode "\\.jade$"
+  :config
+  (require 'sws-mode)
+  (require 'stylus-mode)
+  (add-to-list 'auto-mode-alist '("\\.styl\\'" . stylus-mode)))
 
-;;   (defun grass/markdown-enter-key-dwim ()
-;;     "If in a list enter a new list item, otherwise insert enter key as normal."
-;;     (interactive)
-;;     (let ((bounds (markdown-cur-list-item-bounds)))
-;;       (if bounds
-;;           ;; In a list
-;;           (call-interactively #'markdown-insert-list-item)
-;;         ;; Not in a list
-;;         (markdown-enter-key))))
+(use-package scss-mode
+  :mode "\\.scss$"
+  :config
+  (use-package rainbow-mode)
+  (add-hook 'scss-mode-hook
+            (lambda ()
+              ;; Treat dollar and hyphen as a word character
+              (modify-syntax-entry ?$ "w")
+              (modify-syntax-entry ?- "w")
+              (linum-mode 1)
+              (rainbow-mode +1))))
 
-;;   (define-key markdown-mode-map (kbd "RET") 'grass/markdown-enter-key-dwim)
+(use-package css-mode
+  :mode "\\.css$"
+  :config
+  (use-package rainbow-mode)
+  (add-hook 'css-mode-hook
+            (lambda ()
+              (linum-mode 1)
+              (rainbow-mode +1))))
 
-;;   ;; Keep word movement instead of promotion mappings
-;;   (define-key markdown-mode-map (kbd "<M-right>") nil)
-;;   (define-key markdown-mode-map (kbd "<M-left>") nil)
+;;;;;;;;;;;;;;
+;; Markdown ;;
+;;;;;;;;;;;;;;
 
-;;   (setq markdown-imenu-generic-expression
-;;         '(("title"  "^\\(.*\\)[\n]=+$" 1)
-;;           ("h2-"    "^\\(.*\\)[\n]-+$" 1)
-;;           ("h1"   "^# \\(.*\\)$" 1)
-;;           ("h2"   "^## \\(.*\\)$" 1)
-;;           ("h3"   "^### \\(.*\\)$" 1)
-;;           ("h4"   "^#### \\(.*\\)$" 1)
-;;           ("h5"   "^##### \\(.*\\)$" 1)
-;;           ("h6"   "^###### \\(.*\\)$" 1)
-;;           ("fn"   "^\\[\\^\\(.*\\)\\]" 1)))
+(use-package markdown-mode
+  :mode (("\\.markdown\\'"    . markdown-mode)
+         ("\\.md\\'"    . markdown-mode))
+  :config
+  (use-package pandoc-mode
+    :commands pandoc-mode
+    :diminish pandoc-mode)
+  (add-hook 'markdown-mode-hook 'pandoc-mode)
 
-;;   (use-package pandoc-mode
-;;     :diminish pandoc-mode)
+  (defun grass/markdown-open-in-marked-app ()
+    "Run Marked.app on the current file"
+    (interactive)
+    (shell-command
+      (format "open -a 'Marked 2' %s"
+              (shell-quote-argument (buffer-file-name)))))
 
-;;   (add-hook 'markdown-mode-hook
-;;       (lambda ()
-;;         ;; Remove for now as they interfere with indentation
-;;         ;; (define-key yas-minor-mode-map [(tab)] nil)
-;;         ;; (define-key yas-minor-mode-map (kbd "TAB") nil)
-;;         (setq imenu-generic-expression markdown-imenu-generic-expression)))
+  (defun grass/markdown-enter-key-dwim ()
+    "If in a list enter a new list item, otherwise insert enter key as normal."
+    (interactive)
+    (let ((bounds (markdown-cur-list-item-bounds)))
+      (if bounds
+          ;; In a list
+          (call-interactively #'markdown-insert-list-item)
+        ;; Not in a list
+        (markdown-enter-key))))
 
-;;   (add-hook 'markdown-mode-hook 'pandoc-mode)
+  (define-key markdown-mode-map (kbd "RET") 'grass/markdown-enter-key-dwim)
 
-;;   ;; Preview markdown file in Marked.app
-;;   (defun grass/markdown-open-marked ()
-;;     "run Marked.app on the current file and revert the buffer"
-;;     (interactive)
-;;     (shell-command
-;;      (format "open -a 'Marked 2' %s"
-;;              (shell-quote-argument (buffer-file-name)))))
-;;   (define-key markdown-mode-map (kbd "C-, u p") 'grass/markdown-open-marked))
+  ;; Keep word movement instead of promotion mappings
+  (define-key markdown-mode-map (kbd "<M-right>") nil)
+  (define-key markdown-mode-map (kbd "<M-left>") nil)
+
+  (setq markdown-imenu-generic-expression
+        '(("title"  "^\\(.*\\)[\n]=+$" 1)
+          ("h2-"    "^\\(.*\\)[\n]-+$" 1)
+          ("h1"   "^# \\(.*\\)$" 1)
+          ("h2"   "^## \\(.*\\)$" 1)
+          ("h3"   "^### \\(.*\\)$" 1)
+          ("h4"   "^#### \\(.*\\)$" 1)
+          ("h5"   "^##### \\(.*\\)$" 1)
+          ("h6"   "^###### \\(.*\\)$" 1)
+          ("fn"   "^\\[\\^\\(.*\\)\\]" 1)))
+
+  (add-hook 'markdown-mode-hook
+      (lambda ()
+        ;; Remove for now as they interfere with indentation
+        ;; (define-key yas-minor-mode-map [(tab)] nil)
+        ;; (define-key yas-minor-mode-map (kbd "TAB") nil)
+        (setq imenu-generic-expression markdown-imenu-generic-expression)))
+
+  (general-define-key :keymaps 'markdown-mode-map
+                      :states '(normal visual)
+                      :prefix grass/leader1
+                      "mp" 'grass/markdown-open-marked))
 
 
 ;; ;;;;;;;;;;;;;
