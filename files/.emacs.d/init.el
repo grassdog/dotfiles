@@ -201,7 +201,7 @@
   :defer 3
   :general
   (:states '(normal visual) :prefix grass/leader1
-	   "sr" 'anzu-query-replace-at-cursor-thing)
+     "sr" 'anzu-query-replace-at-cursor-thing)
   :init (global-anzu-mode +1))
 
 ;; Disable themes before loading them (in daemon mode esp.)
@@ -264,20 +264,20 @@
   ("C-c C-r" 'ivy-resume)
   ("<f6>" 'ivy-resume)
   (:states '(normal visual) :prefix grass/leader1
-	   "bb" 'ivy-switch-buffer)
+     "bb" 'ivy-switch-buffer)
   (:keymaps 'ivy-minibuffer-map
-	    "S-<up>" 'ivy-previous-history-element
-	    "S-<down>" 'ivy-next-history-element)
+      "S-<up>" 'ivy-previous-history-element
+      "S-<down>" 'ivy-next-history-element)
   :init
   (use-package ivy-hydra)
-  
+
   (setq ivy-height 20)
   (setq ivy-use-virtual-buffers t)
   ;; Don't count candidates
   (setq ivy-count-format "")
   (setq ivy-re-builders-alist
-	'((swiper . ivy--regex-plus)
-	  (t . ivy--regex-fuzzy)))
+  '((swiper . ivy--regex-plus)
+    (t . ivy--regex-fuzzy)))
   (ivy-mode 1))
 
 ;; TODO Take more from here https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-counsel.el
@@ -286,10 +286,10 @@
   ("M-x" 'counsel-M-x)
   ("C-x C-f" 'counsel-find-file)
   (:states '(normal visual) :prefix grass/leader1
-	   "fr" 'counsel-recentf
-	   "ff" 'counsel-find-file
-	   "fR" 'grass/rename-file-and-buffer
-	   "sa" 'counsel-ag
+     "fr" 'counsel-recentf
+     "ff" 'counsel-find-file
+     "fR" 'grass/rename-file-and-buffer
+     "sa" 'counsel-ag
      "eC" 'counsel-unicode-char)
   :init
   (define-key read-expression-map (kbd "C-r") 'counsel-expression-history))
@@ -297,7 +297,7 @@
 (use-package swiper
   :general
   (:states '(normal visual) :prefix grass/leader1
-	   "ss" 'swiper))
+     "ss" 'swiper))
 
 (use-package which-key
   :diminish which-key-mode
@@ -468,7 +468,7 @@
   (use-package evil-anzu
     :init
     (setq anzu-cons-mode-line-p nil))
-  
+
   (use-package evil-surround
     :init
     (global-evil-surround-mode 1))
@@ -548,7 +548,7 @@
   (define-key evil-window-map (kbd "<right>") 'evil-window-right)
   (define-key evil-window-map (kbd "<up>") 'evil-window-up)
   (define-key evil-window-map (kbd "<down>") 'evil-window-down)
-  
+
   ;; Keep some Emacs stuff
   (define-key evil-normal-state-map "\C-e" 'evil-end-of-line)
   (define-key evil-insert-state-map "\C-e" 'end-of-line)
@@ -580,44 +580,48 @@
 
   ;; Set our default modes
   ;; TODO Look to spacemacs for robust settings here
-  (loop for (mode . state) in '((inferior-emacs-lisp-mode . emacs)
-                                (nrepl-mode . insert)
-                                (pylookup-mode . emacs)
-                                (comint-mode . normal)
-                                (shell-mode . emacs)
-                                (git-commit-mode . insert)
-                                (git-rebase-mode . emacs)
-                                (calculator-mode . emacs)
-                                (term-mode . emacs)
-                                (haskell-interactive-mode . emacs)
-                                (undo-tree-visualizer-mode . emacs)
-                                (cider-repl-mode . emacs)
-                                (help-mode . normal)
-                                (grep-mode . emacs)
-                                (bc-menu-mode . emacs)
-                                (erc-mode . emacs)
-                                (magit-branch-manager-mode . emacs)
-                                (magit-blame-mode-map . emacs)
-                                (magit-cherry-mode-map . emacs)
-                                (magit-diff-mode-map . emacs)
-                                (magit-log-mode-map . emacs)
-                                (magit-log-select-mode-map . emacs)
-                                (magit-mode-map . emacs)
-                                (magit-popup-help-mode-map . emacs)
-                                (magit-popup-mode-map . emacs)
-                                (magit-popup-sequence-mode-map . emacs)
-                                (magit-process-mode-map . emacs)
-                                (magit-reflog-mode-map . emacs)
-                                (magit-refs-mode-map . emacs)
-                                (magit-revision-mode-map . emacs)
-                                (magit-stash-mode-map . emacs)
-                                (magit-stashes-mode-map . emacs)
-                                (magit-status-mode-map . emacs)
-                                (rdictcc-buffer-mode . emacs)
-				(kill-ring-mode . normal)
-                                (bs-mode . emacs)
-                                (dired-mode . normal)
-                                (wdired-mode . normal))
+  (loop for (mode . state) in '(
+                                ;;(inferior-emacs-lisp-mode . emacs)
+                                ;; (nrepl-mode . insert)
+                                ;; (pylookup-mode . emacs)
+                                ;; (comint-mode . normal)
+                                ;; (shell-mode . emacs)
+                                ;; (git-commit-mode . insert)
+                                ;; (git-rebase-mode . emacs)
+                                ;; (calculator-mode . emacs)
+                                ;; (term-mode . emacs)
+                                ;; (haskell-interactive-mode . emacs)
+                                ;; (undo-tree-visualizer-mode . emacs)
+                                ;; (cider-repl-mode . emacs)
+                                (cider-stacktrace-mode . motion)
+                                (cider-popup-buffer-mode . motion)
+                                ;; (help-mode . normal)
+                                ;; (grep-mode . emacs)
+                                ;; (bc-menu-mode . emacs)
+                                ;; (erc-mode . emacs)
+                                ;; (magit-branch-manager-mode . emacs)
+                                ;; (magit-blame-mode-map . emacs)
+                                ;; (magit-cherry-mode-map . emacs)
+                                ;; (magit-diff-mode-map . emacs)
+                                ;; (magit-log-mode-map . emacs)
+                                ;; (magit-log-select-mode-map . emacs)
+                                ;; (magit-mode-map . emacs)
+                                ;; (magit-popup-help-mode-map . emacs)
+                                (magit-popup-mode . emacs)
+                                (magit-popup-sequence-mode . emacs)
+                                ;; (magit-process-mode-map . emacs)
+                                ;; (magit-reflog-mode-map . emacs)
+                                ;; (magit-refs-mode-map . emacs)
+                                ;; (magit-revision-mode-map . emacs)
+                                ;; (magit-stash-mode-map . emacs)
+                                ;; (magit-stashes-mode-map . emacs)
+                                (magit-status-mode . emacs)
+                                ;; (rdictcc-buffer-mode . emacs)
+                                ;; (kill-ring-mode . normal)
+                                ;; (bs-mode . emacs)
+                                ;; (dired-mode . normal)
+                                ;; (wdired-mode . normal)
+                                )
       do (evil-set-initial-state mode state))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -740,8 +744,8 @@
   :defines grass/iedit-dwim
   :general
   (:states '(normal visual) :prefix grass/leader1
-	   "s;" 'iedit-mode
-	   "s:" 'grass/iedit-dwim)
+     "s;" 'iedit-mode
+     "s:" 'grass/iedit-dwim)
   :config
   (defun grass/iedit-dwim (arg)
     "Starts iedit but uses \\[narrow-to-defun] to limit its scope."
@@ -866,11 +870,7 @@ _SPC_ cancel     _o_nly this       _d_elete
 (general-define-key :states '(normal visual) :prefix grass/leader1
         "ww" 'hydra-window/body
         "wo" 'delete-other-windows
-		    "wk" 'delete-window)
-
-;;;;;;;;;;;;;
-;; Toggles ;;
-;;;;;;;;;;;;;
+        "wk" 'delete-window)
 
 
 ;;;;;;;;;;;;;;;
@@ -966,17 +966,17 @@ Repeated invocations toggle between the two most recently open buffers."
 
 
 (general-define-key :states '(normal visual) :prefix grass/leader1
-		    "ut" 'display-time-world
-		    "uc" 'quick-calc
-		    "uu" 'browse-url
-		    "ub" 'grass/comment-box
-		    "uf" 'grass/copy-buffer-filename
-		    "ud" 'grass/insert-datetime)
+        "ut" 'display-time-world
+        "uc" 'quick-calc
+        "uu" 'browse-url
+        "ub" 'grass/comment-box
+        "uf" 'grass/copy-buffer-filename
+        "ud" 'grass/insert-datetime)
 
 (use-package reveal-in-osx-finder
   :general
   (:states '(normal visual) :prefix grass/leader1
-	   "uf" 'reveal-in-osx-finder))
+     "uf" 'reveal-in-osx-finder))
 
 ;;;;;;;;;;;;;;;;;;
 ;; Common Files ;;
@@ -998,9 +998,9 @@ Repeated invocations toggle between the two most recently open buffers."
   (counsel-file-jump "" (expand-file-name "~/Dropbox/Notes")))
 
 (general-define-key :states '(normal visual) :prefix grass/leader1
-		    "kw" 'grass/open-work-log
-		    "kp" 'grass/open-personal-log
-		    "kn" 'grass/find-notes)
+        "kw" 'grass/open-work-log
+        "kp" 'grass/open-personal-log
+        "kn" 'grass/find-notes)
 
 ;;;;;;;;;
 ;; Git ;;
@@ -1009,21 +1009,21 @@ Repeated invocations toggle between the two most recently open buffers."
 (use-package magit
   :general
   (:states '(normal visual) :prefix grass/leader1
-	   "gs" 'magit-status))
+     "gs" 'magit-status))
 
 (use-package git-link
   :config
   (setq git-link-open-in-browser t)
   :general
   (:states '(normal visual) :prefix grass/leader1
-	   "gl" 'git-link
-	   "gc" 'git-link-commit))
+     "gl" 'git-link
+     "gc" 'git-link-commit))
 
 (use-package git-timemachine
   :commands git-timemachine
   :general
   (:states '(normal visual) :prefix grass/leader1
-	   "gt" 'git-timemachine))
+     "gt" 'git-timemachine))
 
 (use-package git-gutter-fringe
   :diminish git-gutter-mode
@@ -1109,7 +1109,7 @@ Repeated invocations toggle between the two most recently open buffers."
           (seq bol ".tern-port" eol))))
 
   (general-emacs-define-key dired-mode-map :states '(normal visual) :prefix grass/leader1
-			    "mg" 'revert-buffer)
+          "mg" 'revert-buffer)
 
   (define-key dired-mode-map [return] 'dired-single-buffer)
   (define-key dired-mode-map [mouse-1] 'dired-single-buffer-mouse)
@@ -1140,7 +1140,7 @@ Repeated invocations toggle between the two most recently open buffers."
      (use-package peep-dired
        :general
        (:keymaps 'dired-mode-map :states '(normal visual) :prefix grass/leader1
-		 "mp" 'peep-dired))))
+     "mp" 'peep-dired))))
 
 
 (use-package dired+
@@ -1250,18 +1250,18 @@ Repeated invocations toggle between the two most recently open buffers."
 
 
 (general-define-key :states '(normal visual) :prefix grass/leader1
-		    "sr" 'grass/replace-string-in-entire-buffer
-		    "sR" 'grass/replace-regexp-in-entire-buffer
-		    "sq" 'grass/query-replace-string-in-entire-buffer
-		    "sQ" 'grass/query-replace-regexp-in-entire-buffer
-		    "sf" 'isearch-forward-regexp
-		    "sb" 'isearch-reverse-regexp)
+        "sr" 'grass/replace-string-in-entire-buffer
+        "sR" 'grass/replace-regexp-in-entire-buffer
+        "sq" 'grass/query-replace-string-in-entire-buffer
+        "sQ" 'grass/query-replace-regexp-in-entire-buffer
+        "sf" 'isearch-forward-regexp
+        "sb" 'isearch-reverse-regexp)
 
 (use-package ag
   :commands ag-project
   :general
   (:states '(normal visual) :prefix grass/leader1
-			    "sp" 'ag-project))
+          "sp" 'ag-project))
 
 ;;;;;;;;;;;;;;;
 ;; Selection ;;
@@ -1270,10 +1270,10 @@ Repeated invocations toggle between the two most recently open buffers."
 (use-package expand-region
   :config
   (setq expand-region-contract-fast-key "V"
-	expand-region-reset-fast-key "r")
+  expand-region-reset-fast-key "r")
   :general
   (:states '(normal visual) :prefix grass/leader1
-	   "v" 'er/expand-region))
+     "v" 'er/expand-region))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1530,6 +1530,7 @@ the right."
 (setq whitespace-style '(face tabs trailing space-before-tab indentation space-after-tab))
 (global-whitespace-mode t)
 
+
 ;; Only trim modified lines on save
 (use-package ws-butler
   :defer 2
@@ -1548,7 +1549,7 @@ the right."
   :commands projectile-mode
   :general
   (:states '(normal visual) :prefix grass/leader1
-	   "p" '(:keymap projectile-command-map))
+     "p" '(:keymap projectile-command-map))
   :config
   (setq projectile-tags-command "rtags")
   (setq projectile-enable-caching nil)
