@@ -323,6 +323,7 @@
   (which-key-declare-prefixes "SPC m" "major-mode-cmd")
   (which-key-declare-prefixes "SPC p" "projectile")
   (which-key-declare-prefixes "SPC w" "windows/ui")
+  (which-key-declare-prefixes "SPC S" "spelling")
   (which-key-declare-prefixes "SPC s" "search/replace"))
 
 
@@ -866,6 +867,10 @@ _SPC_ cancel     _o_nly this       _d_elete
         "wo" 'delete-other-windows
 		    "wk" 'delete-window)
 
+;;;;;;;;;;;;;
+;; Toggles ;;
+;;;;;;;;;;;;;
+
 
 ;;;;;;;;;;;;;;;
 ;; Utilities ;;
@@ -1388,9 +1393,9 @@ Repeated invocations toggle between the two most recently open buffers."
 ;;   (define-key yas-minor-mode-map (kbd "C-, e") 'yas-expand))
 
 
-;;;;;;;;;;;;;;
-;; Wrapping ;;
-;;;;;;;;;;;;;;
+;;;;;;;;;;;;
+;; Parens ;;
+;;;;;;;;;;;;
 
 (use-package corral
   :commands (corral-parentheses-backward
@@ -1760,11 +1765,35 @@ the right."
       ;; Abbrev mode seems broken for some reason
       (abbrev-mode -1))))
 
-;; TODO Use rbenv for smithy
-(use-package chruby
-  :commands chruby-use-corresponding)
+(if (string= system-name "smithy")
+    (progn
+      (use-package chruby
+        :commands chruby-use-corresponding)
+      (add-hook 'projectile-switch-project-hook #'chruby-use-corresponding))
+  (progn
 
-(add-hook 'projectile-switch-project-hook #'chruby-use-corresponding)
+    (use-package rbenv
+      :init
+      (progn
+        ;; No bright red version in the modeline thanks
+        (setq rbenv-modeline-function 'rbenv--modeline-plain)
+
+        (defun grass/enable-rbenv ()
+          "Enable rbenv, use .ruby-version if exists."
+          (require 'rbenv)
+
+          (let ((version-file-path (rbenv--locate-file ".ruby-version")))
+            (global-rbenv-mode)
+            ;; try to use the ruby defined in .ruby-version
+            (if version-file-path
+                (progn
+                  (rbenv-use (rbenv--read-version-from-file
+                              version-file-path))
+                  (message (concat "[rbenv] Using ruby version "
+                                  "from .ruby-version file.")))
+              (message "[rbenv] Using the currently activated ruby."))))
+        (add-hook 'ruby-mode-hook #'grass/enable-rbenv)
+        (add-hook 'enh-ruby-mode-hook #'grass/enable-rbenv)))))
 
 
 ;;;;;;;;;;;;;;;;
@@ -2024,213 +2053,226 @@ the right."
                       "mp" 'grass/markdown-open-marked))
 
 
-;; ;;;;;;;;;;;;;
-;; ;; Haskell ;;
-;; ;;;;;;;;;;;;;
+;;;;;;;;;;;;;
+;; Haskell ;;
+;;;;;;;;;;;;;
 
-;; ;; Install some useful packages so this all works
-;; ;; cabal update && cabal install happy hasktags stylish-haskell present ghc-mod hlint
+;; Install some useful packages so this all works
+;; cabal update && cabal install happy hasktags stylish-haskell present ghc-mod hlint
 
-;; (use-package haskell-mode
-;;   :defer t
-;;   :config
-;;   (progn
+(use-package haskell-mode
+  :defer t
+  :config
+  (progn
 
-;;     ;; Use hi2 for indentation
-;;     (use-package hi2
-;;       :config
-;;       (setq hi2-show-indentations nil)
-;;       (add-hook 'haskell-mode-hook 'turn-on-hi2))
+    ;; Use hi2 for indentation
+    (use-package hi2
+      :config
+      (setq hi2-show-indentations nil)
+      (add-hook 'haskell-mode-hook 'turn-on-hi2))
 
-;;     (use-package ghc
-;;       :config
-;;       (autoload 'ghc-init "ghc" nil t)
-;;       (autoload 'ghc-debug "ghc" nil t)
-;;       (add-hook 'haskell-mode-hook (lambda () (ghc-init))))
+    (use-package ghc
+      :config
+      (autoload 'ghc-init "ghc" nil t)
+      (autoload 'ghc-debug "ghc" nil t)
+      (add-hook 'haskell-mode-hook (lambda () (ghc-init))))
 
-;;     (use-package company-ghc
-;;       :disabled t
-;;       :config
-;;       (add-to-list 'company-backends 'company-ghc) (custom-set-variables '(company-ghc-show-info t)))
+    (use-package company-ghc
+      :disabled t
+      :config
+      (add-to-list 'company-backends 'company-ghc) (custom-set-variables '(company-ghc-show-info t)))
 
-;;     ; Make Emacs look in Cabal directory for binaries
-;;     (let ((my-cabal-path (expand-file-name "~/.cabal/bin")))
-;;       (setenv "PATH" (concat my-cabal-path path-separator (getenv "PATH")))
-;;       (add-to-list 'exec-path my-cabal-path))
+    ; Make Emacs look in Cabal directory for binaries
+    (let ((my-cabal-path (expand-file-name "~/.cabal/bin")))
+      (setenv "PATH" (concat my-cabal-path path-separator (getenv "PATH")))
+      (add-to-list 'exec-path my-cabal-path))
 
-;;     ; Add F8 key combination for going to imports block
-;;     (eval-after-load 'haskell-mode
-;;       '(define-key haskell-mode-map [f8] 'haskell-navigate-imports))
+    ; Add F8 key combination for going to imports block
+    (eval-after-load 'haskell-mode
+      '(define-key haskell-mode-map [f8] 'haskell-navigate-imports))
 
-;;     (setq haskell-indentation-disable-show-indentations t)
+    (setq haskell-indentation-disable-show-indentations t)
 
-;;     ; Set interpreter to be "stack ghci"
-;;     (setq haskell-process-type 'ghci)
-;;     (setq haskell-process-path-ghci "stack")
-;;     (setq haskell-process-args-ghci '("ghci"))
-;;     (setq tab-always-indent t)
+    ; Set interpreter to be "stack ghci"
+    ;; (setq haskell-process-type 'ghci)
+    ;; (setq haskell-process-path-ghci "stack")
+    ;; (setq haskell-process-args-ghci '("ghci"))
+    ;; (setq tab-always-indent t)
 
-;;     ; Set interpreter to be "cabal repl"
-;;     ;(setq haskell-process-type 'cabal-repl)
+    ; Set interpreter to be "cabal repl"
+    ;(setq haskell-process-type 'cabal-repl)
 
-;;     ; Add key combinations for interactive haskell-mode
-;;     (eval-after-load 'haskell-mode '(progn
-;;                                       (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
-;;                                       (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
-;;                                       (define-key haskell-mode-map (kbd "C-c C-z") 'haskell-interactive-switch)
-;;                                       (define-key haskell-mode-map (kbd "C-c C-n C-t") 'haskell-process-do-type)
-;;                                       (define-key haskell-mode-map (kbd "C-c C-n C-i") 'haskell-process-do-info)
-;;                                       (define-key haskell-mode-map (kbd "C-c C-n C-c") 'haskell-process-cabal-build)
-;;                                       (define-key haskell-mode-map (kbd "C-c C-n c") 'haskell-process-cabal)
-;;                                       (define-key haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space)))
-;;     (eval-after-load 'haskell-cabal '(progn
-;;                                        (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
-;;                                        (define-key haskell-cabal-mode-map (kbd "C-c C-z") 'haskell-interactive-switch)
-;;                                        (define-key haskell-cabal-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
-;;                                        (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
-;;                                        (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)
+    ; Add key combinations for interactive haskell-mode
+    (eval-after-load 'haskell-mode
+      '(progn
+        (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
+        (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
+        (define-key haskell-mode-map (kbd "C-c C-z") 'haskell-interactive-switch)
+        (define-key haskell-mode-map (kbd "C-c C-n C-t") 'haskell-process-do-type)
+        (define-key haskell-mode-map (kbd "C-c C-n C-i") 'haskell-process-do-info)
+        (define-key haskell-mode-map (kbd "C-c C-n C-c") 'haskell-process-cabal-build)
+        (define-key haskell-mode-map (kbd "C-c C-n c") 'haskell-process-cabal)
+        (define-key haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space)))
 
-;;                                        ; Set interpreter to be "stack ghci"
-;;                                        (setq haskell-interactive-popup-errors nil)
-;;                                        (setq haskell-process-type 'ghci)
-;;                                        (setq haskell-process-path-ghci "stack")
-;;                                        (setq haskell-process-args-ghci '("ghci"))))
+    (eval-after-load 'haskell-cabal
+      '(progn
+        (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
+        (define-key haskell-cabal-mode-map (kbd "C-c C-z") 'haskell-interactive-switch)
+        (define-key haskell-cabal-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
+        (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
+        (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)
 
-;;     (eval-after-load 'haskell-mode
-;;       '(define-key haskell-mode-map (kbd "C-c C-o") 'haskell-compile))
-;;     (eval-after-load 'haskell-cabal
-;;       '(define-key haskell-cabal-mode-map (kbd "C-c C-o") 'haskell-compile))))
+        ; Set interpreter to be "stack ghci"
+        ;; (setq haskell-interactive-popup-errors nil)
+        ;; (setq haskell-process-type 'ghci)
+        ;; (setq haskell-process-path-ghci "stack")
+        ;; (setq haskell-process-args-ghci '("ghci")))
+      )
 
-
-;; ;;;;;;;;;;
-;; ;; Lisp ;;
-;; ;;;;;;;;;;
-
-;; (use-package clojure-mode
-;;   :defer t
-;;   :config
-
-;;   (use-package flycheck-clojure
-;;     :init
-;;     (eval-after-load 'flycheck '(flycheck-clojure-setup)))
-
-;;   (add-hook 'clojure-mode-hook #'flycheck-mode)
-
-;;   (use-package clojure-snippets)
-
-;;   (use-package cider
-;;     :pin melpa-stable
-;;     :init
-;;     ;; REPL history file
-;;     (setq cider-repl-history-file "~/.emacs.d/cider-history")
-
-;;     ;; nice pretty printing
-;;     (setq cider-repl-use-pretty-printing t)
-
-;;     ;; nicer font lock in REPL
-;;     (setq cider-repl-use-clojure-font-lock t)
-
-;;     ;; result prefix for the REPL
-;;     (setq cider-repl-result-prefix ";; => ")
-
-;;     ;; never ending REPL history
-;;     (setq cider-repl-wrap-history t)
-
-;;     ;; looong history
-;;     (setq cider-repl-history-size 3000)
-
-;;     ;; error buffer not popping up
-;;     (setq cider-show-error-buffer nil)
-
-;;     ;; eldoc for clojure
-;;     (add-hook 'cider-mode-hook #'eldoc-mode)
-
-;;     ;; company mode for completion
-;;     (add-hook 'cider-repl-mode-hook #'company-mode)
-;;     (add-hook 'cider-mode-hook #'company-mode))
-
-;;   (use-package clj-refactor
-;;     :pin melpa-stable
-;;     :init
-;;     (add-hook 'clojure-mode-hook
-;;               (lambda ()
-;;                 (clj-refactor-mode 1)
-
-;;                 ;; no auto sort
-;;                 (setq cljr-auto-sort-ns nil)
-
-;;                 ;; do not prefer prefixes when using clean-ns
-;;                 (setq cljr-favor-prefix-notation nil)
-;;                 ;; insert keybinding setup here
-;;                 (cljr-add-keybindings-with-prefix "C-c RET")))))
-
-;; (add-hook 'emacs-lisp-mode-hook
-;;   (lambda ()
-;;     (define-key global-map (kbd "C-c C-e") 'eval-print-last-sexp)))
+    (eval-after-load 'haskell-mode
+      '(define-key haskell-mode-map (kbd "C-c C-o") 'haskell-compile))
+    (eval-after-load 'haskell-cabal
+      '(define-key haskell-cabal-mode-map (kbd "C-c C-o") 'haskell-compile)))))
 
 
-;; ;;;;;;;;;;;;;;;;;;;;;
-;; ;; Other Languages ;;
-;; ;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;
+;; Lisp ;;
+;;;;;;;;;;
 
-;; (use-package elixir-mode
-;;   :mode (("\\.exs?\\'"   . elixir-mode)
-;;          ("\\.elixer\\'" . elixir-mode))
-;;   :defer t
-;;   :config
-;;   (use-package alchemist))
+(use-package clojure-mode
+  :defer t
+  :config
 
-;; (use-package puppet-mode
-;;   :defer t)
+  (use-package flycheck-clojure
+    :init
+    (eval-after-load 'flycheck '(flycheck-clojure-setup)))
 
-;; (use-package powershell
-;;   :defer t
-;;   :mode  (("\\.ps1$" . powershell-mode)
-;;           ("\\.psm$" . powershell-mode)))
+  (add-hook 'clojure-mode-hook #'flycheck-mode)
 
-;; (use-package rust-mode
-;;   :defer t)
+  (use-package clojure-snippets)
 
-;; (use-package python
-;;   :defer t)
+  (use-package cider
+    :pin melpa-stable
+    :init
+    ;; REPL history file
+    (setq cider-repl-history-file "~/.emacs.d/cider-history")
 
-;; (use-package yaml-mode
-;;   :defer t)
+    ;; nice pretty printing
+    (setq cider-repl-use-pretty-printing t)
 
-;; (use-package haml-mode
-;;   :defer t
-;;   :mode "\\.haml$"
-;;   :config
-;;   (add-hook 'haml-mode-hook
-;;     (lambda ()
-;;       (set (make-local-variable 'tab-width) 2))))
+    ;; nicer font lock in REPL
+    (setq cider-repl-use-clojure-font-lock t)
 
-;; ;;;;;;;;;;;;;;
-;; ;; Spelling ;;
-;; ;;;;;;;;;;;;;;
+    ;; result prefix for the REPL
+    (setq cider-repl-result-prefix ";; => ")
 
-;; (use-package flyspell
-;;   :defer t
-;;   :commands flyspell-mode
-;;   :diminish (flyspell-mode . " spl")
-;;   :config
-;;   (setq-default ispell-program-name "aspell")
-;;   ; Silently save my personal dictionary when new items are added
-;;   (setq ispell-silently-savep t)
-;;   (ispell-change-dictionary "en_GB" t)
+    ;; never ending REPL history
+    (setq cider-repl-wrap-history t)
 
-;;   (add-hook 'markdown-mode-hook (lambda () (flyspell-mode 1)))
-;;   (add-hook 'text-mode-hook (lambda () (flyspell-mode 1)))
+    ;; looong history
+    (setq cider-repl-history-size 3000)
 
-;;   ;; Spell checking in comments
-;;   ;;(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+    ;; error buffer not popping up
+    (setq cider-show-error-buffer nil)
 
-;;   (which-key-declare-prefixes "C-, S" "spelling")
-;;   (add-hook 'flyspell-mode-hook
-;;             (lambda ()
-;;               (define-key flyspell-mode-map [(control ?\,)] nil)
-;;               (global-set-key (kbd "C-, S n") 'flyspell-goto-next-error)
-;;               (global-set-key (kbd "C-, S w") 'ispell-word))))
+    ;; eldoc for clojure
+    (add-hook 'cider-mode-hook #'eldoc-mode)
+
+    ;; company mode for completion
+    (add-hook 'cider-repl-mode-hook #'company-mode)
+    (add-hook 'cider-mode-hook #'company-mode))
+
+  (use-package clj-refactor
+    :pin melpa-stable
+    :init
+    (add-hook 'clojure-mode-hook
+              (lambda ()
+                (clj-refactor-mode 1)
+
+                ;; no auto sort
+                (setq cljr-auto-sort-ns nil)
+
+                ;; do not prefer prefixes when using clean-ns
+                (setq cljr-favor-prefix-notation nil)
+                ;; insert keybinding setup here
+                (cljr-add-keybindings-with-prefix "C-c RET")))))
+
+(add-hook 'emacs-lisp-mode-hook
+  (lambda ()
+    (define-key global-map (kbd "C-c C-e") 'eval-print-last-sexp)))
+
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Other Languages ;;
+;;;;;;;;;;;;;;;;;;;;;
+
+(use-package elixir-mode
+  :mode (("\\.exs?\\'"   . elixir-mode)
+         ("\\.elixer\\'" . elixir-mode))
+  :defer t
+  :config
+  (use-package alchemist
+    :init
+
+    ;; Hack to disable company popup in Elixir if hanging
+    (eval-after-load "alchemist"
+        '(defun alchemist-company--wait-for-doc-buffer ()
+          (setf num 50)
+          (while (and (not alchemist-company-doc-lookup-done)
+                    (> (decf num) 1))
+            (sit-for 0.01))))))
+
+(use-package puppet-mode
+  :defer t)
+
+(use-package powershell
+  :defer t
+  :mode  (("\\.ps1$" . powershell-mode)
+          ("\\.psm$" . powershell-mode)))
+
+(use-package rust-mode
+  :defer t)
+
+(use-package python
+  :defer t)
+
+(use-package yaml-mode
+  :defer t)
+
+(use-package haml-mode
+  :defer t
+  :mode "\\.haml$"
+  :config
+  (add-hook 'haml-mode-hook
+    (lambda ()
+      (set (make-local-variable 'tab-width) 2))))
+
+;;;;;;;;;;;;;;
+;; Spelling ;;
+;;;;;;;;;;;;;;
+
+(use-package flyspell
+  :defer t
+  :commands flyspell-mode
+  :diminish (flyspell-mode . " spl")
+  :config
+  (setq-default ispell-program-name "aspell")
+  ; Silently save my personal dictionary when new items are added
+  (setq ispell-silently-savep t)
+  (ispell-change-dictionary "en_GB" t)
+
+  (add-hook 'markdown-mode-hook (lambda () (flyspell-mode 1)))
+  (add-hook 'text-mode-hook (lambda () (flyspell-mode 1)))
+
+  ;; Spell checking in comments
+  ;;(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+
+  (add-hook 'flyspell-mode-hook
+            (lambda ()
+              (define-key flyspell-mode-map [(control ?\,)] nil)
+              (general-define-key :states '(normal visual) :prefix grass/leader1
+                                  "Sn" 'flyspell-goto-next-error
+                                  "Sw" 'ispell-word))))
 
 (use-package spaceline
   :init
@@ -2242,6 +2284,7 @@ the right."
     (spaceline-emacs-theme)
     (spaceline-info-mode)))
 
+
 ;;;;;;;;;;;;;;;;;;
 ;; Key bindings ;;
 ;;;;;;;;;;;;;;;;;;
@@ -2252,8 +2295,5 @@ the right."
 (global-set-key [s-up] 'dired-jump)
 
 (general-define-key :states '(normal visual) :prefix grass/leader1
-		    "TAB" 'grass/switch-to-previous-buffer)
-                    ; TODO Make these work
-		    ;"v o" 'turn-on-visual-line-mode
-		    ;"v f" 'turn-off-visual-line-mode)
-
+        "TAB" 'grass/switch-to-previous-buffer
+        "wl" 'toggle-truncate-lines)
