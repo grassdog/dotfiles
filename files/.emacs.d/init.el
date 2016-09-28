@@ -264,8 +264,8 @@
   (:states '(normal visual) :prefix grass/leader1
 	   "bb" 'ivy-switch-buffer)
   (:keymaps 'ivy-minibuffer-map
-	    "<up>" 'ivy-previous-history-element
-	    "<down>" 'ivy-next-history-element)
+	    "S-<up>" 'ivy-previous-history-element
+	    "S-<down>" 'ivy-next-history-element)
   :init
   (use-package ivy-hydra)
   
@@ -612,7 +612,7 @@
                                 (rdictcc-buffer-mode . emacs)
 				(kill-ring-mode . normal)
                                 (bs-mode . emacs)
-                                (dired-mode . emacs)
+                                (dired-mode . normal)
                                 (wdired-mode . normal))
       do (evil-set-initial-state mode state))))
 
@@ -682,6 +682,7 @@
 ;; Manipulating Text ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
 
+; TODO Fix this move text business
 (use-package move-text
   :commands (move-text-up move-text-down)
   :bind (("<C-S-up>" . move-text-up)
@@ -817,8 +818,8 @@ _SPC_ cancel     _o_nly this       _d_elete
   ("w" grass/move-splitter-down nil)
   ("e" grass/move-splitter-up nil)
   ("r" grass/move-splitter-right nil)
-  ("b" helm-mini nil)
-  ("f" helm-find-files nil)
+  ("b" ivy-switch-buffer nil)
+  ("f" counsel-find-file nil)
   ("F" follow-mode nil)
   ("a" (lambda ()
          (interactive)
@@ -983,118 +984,62 @@ _SPC_ cancel     _o_nly this       _d_elete
 (add-hook 'focus-out-hook 'grass/auto-save-all)
 
 
+;;;;;;;;;;;
+;; Dired ;;
+;;;;;;;;;;;
 
-;; ;;;;;;;;;;;;;;;;;;;;;
-;; ;; Dired and files ;;
-;; ;;;;;;;;;;;;;;;;;;;;;
+(defun grass/dired-init ()
+  "Bunch of stuff to run for dired, either immediately or when it's loaded."
 
+  (use-package dired-single
+    :commands 'dired-single-buffer)
 
-;; (which-key-declare-prefixes-for-mode 'dired-mode "C-, d" "dired")
+  (use-package peep-dired
+    :general
+    (dired-mode-map :states :prefix grass/leader1
+			    "mp" 'peep-dired))
 
-;; (add-hook 'dired-mode-hook
-;;   (lambda ()
-;;     (use-package dired-filter
-;;       :bind (("C-, d d" . dired-filter-by-dot-files)
-;;              ("C-, d r" . dired-filter-by-regexp)
-;;              ("C-, d p" . dired-filter-pop)))
+  (diminish 'dired-omit-mode "")
+  (setq dired-use-ls-dired nil)
+  (setq dired-recursive-copies 'always)
+  (setq dired-omit-verbose nil)
+  (setq dired-omit-files
+    (rx (or (seq bol (? ".") "#")       ;; emacs autosave files
+          (seq "~" eol)                 ;; backup-files
+          (seq bol "CVS" eol)           ;; CVS dirs
+          (seq ".pyc" eol)
+          (seq bol ".DS_Store" eol)
+          (seq bol ".tern-port" eol))))
 
-;;     (use-package dired-open)
-;;     (use-package dired-ranger
-;;       :bind (("C-, d b" . dired-ranger-bookmark)
-;;              ("C-, d v" . dired-ranger-bookmark-visit)))
+  (general-emacs-define-key dired-mode-map :states '(normal visual) :prefix grass/leader1
+			    "mg" 'revert-buffer)
 
-;;     (use-package dired-rainbow)
-;;     (dired-rainbow-define-chmod executable-unix "#4e9a06" "-.*x.*")
+  (define-key dired-mode-map [return] 'dired-single-buffer)
+  (define-key dired-mode-map [mouse-1] 'dired-single-buffer-mouse)
+  (define-key dired-mode-map (kbd "^")
+    (function
+      (lambda nil (interactive) (dired-single-buffer ".."))))
+  (define-key dired-mode-map (kbd "<s-up>")
+    (function
+      (lambda nil (interactive) (dired-single-buffer ".."))))
+  (define-key dired-mode-map (kbd "-")
+    (function
+      (lambda nil (interactive) (dired-single-buffer "..")))))
 
-;;     ;;preview files in dired
-;;     (use-package peep-dired
-;;       :defer t
-;;       :bind (:map dired-mode-map
-;;                   ("P" . peep-dired)))
+(if (boundp 'dired-mode-map)
+  (grass/dired-init)
+  (add-hook 'dired-load-hook 'grass/dired-init))
 
-;;     (defun grass/dired-rsync (dest)
-;;       (interactive
-;;        (list
-;;         (expand-file-name
-;;          (read-file-name
-;;           "Rsync to:"
-;;           (dired-dwim-target-directory)))))
-;;       ;; store all selected files into "files" list
-;;       (let ((files (dired-get-marked-files
-;;                     nil current-prefix-arg))
-;;             ;; the rsync command
-;;             (tmtxt/rsync-command
-;;              "rsync -arvz --progress "))
-;;         ;; add all selected file names as arguments
-;;         ;; to the rsync command
-;;         (dolist (file files)
-;;           (setq tmtxt/rsync-command
-;;                 (concat tmtxt/rsync-command
-;;                         (shell-quote-argument file)
-;;                         " ")))
-;;         ;; append the destination
-;;         (setq tmtxt/rsync-command
-;;               (concat tmtxt/rsync-command
-;;                       (shell-quote-argument dest)))
-;;         ;; run the async shell command
-;;         (async-shell-command tmtxt/rsync-command "*rsync*")
-;;         ;; finally, switch to that window
-;;         (other-window 1)))
+(add-hook 'dired-mode-hook
+  (lambda ()
+    (dired-omit-mode t)
+    (dired-hide-details-mode t)))
 
-;;     (define-key dired-mode-map "Y" 'grass/dired-rsync)
-
-;;     ;; Reuse the same buffer for dired windows
-;;     (use-package dired-single
-;;       :init
-;;       (defun my-dired-init ()
-;;         "Bunch of stuff to run for dired, either immediately or when it's loaded."
-;;         (define-key dired-mode-map [return] 'dired-single-buffer)
-;;         (define-key dired-mode-map [mouse-1] 'dired-single-buffer-mouse)
-;;         (define-key dired-mode-map ","
-;;           (function
-;;             (lambda nil (interactive) (dired-single-buffer ".."))))
-;;         (define-key dired-mode-map (kbd "<s-up>")
-;;           (function
-;;             (lambda nil (interactive) (dired-single-buffer ".."))))
-;;         (setq dired-use-ls-dired nil))
-
-;;       ;; if dired's already loaded, then the keymap will be bound
-;;       (if (boundp 'dired-mode-map)
-;;           ;; we're good to go; just add our bindings
-;;           (my-dired-init)
-;;         ;; it's not loaded yet, so add our bindings to the load-hook
-;;         (add-hook 'dired-load-hook 'my-dired-init))
-;;       (put 'dired-find-alternate-file 'disabled nil))
-
-;;       (setq dired-omit-files
-;;           (rx (or (seq bol (? ".") "#")         ;; emacs autosave files
-;;                   (seq "~" eol)                 ;; backup-files
-;;                   (seq bol "CVS" eol)           ;; CVS dirs
-;;                   (seq ".pyc" eol)
-;;                   (seq bol ".DS_Store" eol))))
-
-;;       (dired-filter-mode t)
-;;       (dired-hide-details-mode t)))
-
-;; (use-package dired+
-;;   :bind (("C-x C-j" . dired-jump)
-;;          ("<s-up>" . dired-jump)))
-
-;; ;; Ignore certain files
-;; (use-package ignoramus
-;;   :defer 2
-;;   :config
-;;   (ignoramus-setup '(comint completions grep ido
-;;                      nav pcomplete projectile speedbar vc)))
-
-
-;; ;; Easier key binding for shell replace command
-;; (defun grass/shell-command-with-prefix-arg ()
-;;   (interactive)
-;;   (setq current-prefix-arg '(4)) ; C-u
-;;   (call-interactively 'shell-command-on-region))
-
-;; (global-set-key (kbd "C-, !") 'grass/shell-command-with-prefix-arg)
+;; TODO Somehow mute the colours in dired
+(use-package dired+
+  :general
+  ("C-x C-j" 'dired-jump
+   "<s-up>" 'dired-jump))
 
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;
