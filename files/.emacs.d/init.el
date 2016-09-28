@@ -166,8 +166,8 @@
 
 ;; Delete selected regions
 (delete-selection-mode t)
-(transient-mark-mode t)
-(setq x-select-enable-clipboard t)
+(transient-mark-mode nil)
+(setq select-enable-clipboard nil)
 
 ;; Revert buffers automatically when underlying files are changed externally
 (global-auto-revert-mode t)
@@ -192,7 +192,6 @@
 
 (use-package general
   :init
-  ;; (setq general-default-keymaps 'evil-normal-state-map)
   (setq grass/leader1 "SPC"))
 
 ;; Must require this before spaceline
@@ -493,7 +492,7 @@
 
   ;; Make horizontal movement cross lines
   (setq-default evil-cross-lines t)
-  (setq evil-shift-width 2)
+  (setq-default evil-shift-width 2)
 
   ;; Little word
   (require 'evil-little-word)
@@ -579,7 +578,6 @@
   (define-key evil-visual-state-map "Q" 'call-last-kbd-macro)
 
   ;; Set our default modes
-  ;; TODO Look to spacemacs for robust settings here
   (loop for (mode . state) in '(
                                 ;;(inferior-emacs-lisp-mode . emacs)
                                 ;; (nrepl-mode . insert)
@@ -690,11 +688,11 @@
 ;; Manipulating Text ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
 
-; TODO Fix this move text business
-(use-package move-text
-  :commands (move-text-up move-text-down)
-  :bind (("<C-S-up>" . move-text-up)
-         ("<C-S-down>" . move-text-down)))
+(use-package drag-stuff
+  :init
+  (setq drag-stuff-modifier '(control shift))
+  (drag-stuff-global-mode 1))
+
 
 (defhydra hydra-move-text ()
   "move text"
@@ -1453,7 +1451,6 @@ the right."
 ;; Don't use tabs to indent
 (setq-default indent-tabs-mode nil)
 
-;; Default indentation
 (setq-default tab-width 2)
 
 ;; Javascript
@@ -1461,6 +1458,8 @@ the right."
 
 ;; JSON
 (setq-default js-indent-level 2)
+
+(setq lisp-indent-offset 2)
 
 ;; Sass
 (setq css-indent-offset 2)
@@ -1520,15 +1519,14 @@ the right."
 
 (require 'whitespace)
 (diminish 'global-whitespace-mode)
+;; Only show bad whitespace (Ignore empty lines at start and end of buffer)
+;; (setq whitespace-style '(face tabs trailing space-before-tab indentation space-after-tab))
+;; (global-whitespace-mode t)
 
 (setq require-final-newline t)
 
 (general-define-key :states '(normal visual) :prefix grass/leader1
         "ew" 'whitespace-cleanup)
-
-;; Only show bad whitespace (Ignore empty lines at start and end of buffer)
-(setq whitespace-style '(face tabs trailing space-before-tab indentation space-after-tab))
-(global-whitespace-mode t)
 
 
 ;; Only trim modified lines on save
@@ -1536,8 +1534,8 @@ the right."
   :defer 2
   :diminish (ws-butler-mode . "ⓦ")
   :config
-  (progn
-    (ws-butler-global-mode 1)))
+  (setq ws-butler-keep-whitespace-before-point t)
+  (ws-butler-global-mode 1))
 
 
 ;;;;;;;;;;;;;;;;
