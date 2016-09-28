@@ -1019,6 +1019,7 @@ Repeated invocations toggle between the two most recently open buffers."
 	   "gt" 'git-timemachine))
 
 (use-package git-gutter-fringe
+  :diminish git-gutter-mode
   :config
     (setq git-gutter-fr:side 'right-fringe)
     ;; custom graphics that works nice with half-width fringes
@@ -1089,7 +1090,6 @@ Repeated invocations toggle between the two most recently open buffers."
 (defun grass/dired-init ()
   "Bunch of stuff to run for dired, either immediately or when it's loaded."
 
-  (diminish 'dired-omit-mode "")
   (setq dired-use-ls-dired nil)
   (setq dired-recursive-copies 'always)
   (setq dired-omit-verbose nil)
@@ -1137,9 +1137,12 @@ Repeated invocations toggle between the two most recently open buffers."
 
 ;; TODO Somehow mute the colours in dired
 (use-package dired+
+  :commands dired-omit-mode
   :general
   ("C-x C-j" 'dired-jump
-   "<s-up>" 'dired-jump))
+   "<s-up>" 'dired-jump)
+  :config
+  (diminish 'dired-omit-mode ""))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1587,6 +1590,7 @@ the right."
 
 ;; Only trim modified lines on save
 (use-package ws-butler
+  :defer 2
   :diminish (ws-butler-mode . "ⓦ")
   :config
   (progn
@@ -1709,113 +1713,114 @@ the right."
                           "ma" 'org-agenda
                           "mc" 'org-cycle-agenda-files))))
 
-;; ;;;;;;;;;;
-;; ;; Ruby ;;
-;; ;;;;;;;;;;
+;;;;;;;;;;
+;; Ruby ;;
+;;;;;;;;;;
 
-;; (use-package enh-ruby-mode
-;;   :mode (("\\.rb$"        . enh-ruby-mode)
-;;          ("\\.ru$"        . enh-ruby-mode)
-;;          ("\\.rake$"      . enh-ruby-mode)
-;;          ("\\.gemspec$"   . enh-ruby-mode)
-;;          ("\\.?pryrc$"    . enh-ruby-mode)
-;;          ("/Gemfile$"     . enh-ruby-mode)
-;;          ("/Guardfile$"   . enh-ruby-mode)
-;;          ("/Capfile$"     . enh-ruby-mode)
-;;          ("/Vagrantfile$" . enh-ruby-mode)
-;;          ("/Rakefile$"    . enh-ruby-mode))
-;;   :interpreter "ruby"
-;;   :config
+(use-package enh-ruby-mode
+  :mode (("\\.rb$"        . enh-ruby-mode)
+         ("\\.ru$"        . enh-ruby-mode)
+         ("\\.rake$"      . enh-ruby-mode)
+         ("\\.gemspec$"   . enh-ruby-mode)
+         ("\\.?pryrc$"    . enh-ruby-mode)
+         ("/Gemfile$"     . enh-ruby-mode)
+         ("/Guardfile$"   . enh-ruby-mode)
+         ("/Capfile$"     . enh-ruby-mode)
+         ("/Vagrantfile$" . enh-ruby-mode)
+         ("/Rakefile$"    . enh-ruby-mode))
+  :interpreter "ruby"
+  :config
 
-;;   (use-package inf-ruby
-;;     :config
-;;     (setq inf-ruby-default-implementation "pry")
-;;     (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode))
+  (use-package inf-ruby
+    :config
+    (setq inf-ruby-default-implementation "pry")
+    (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode))
 
-;;   (use-package rspec-mode)
+  (use-package rspec-mode)
 
-;;   ;; We never want to edit Rubinius bytecode
-;;   (add-to-list 'completion-ignored-extensions ".rbc")
+  ;; We never want to edit Rubinius bytecode
+  (add-to-list 'completion-ignored-extensions ".rbc")
 
-;;   (add-hook 'enh-ruby-mode-hook
-;;     (lambda ()
-;;       ;; turn off the annoying input echo in irb
-;;       (setq comint-process-echoes t)
+  (add-hook 'enh-ruby-mode-hook
+    (lambda ()
+      ;; turn off the annoying input echo in irb
+      (setq comint-process-echoes t)
 
-;;       ;; Indentation
-;;       (setq ruby-indent-level 2)
-;;       (setq ruby-deep-indent-paren nil)
-;;       (setq enh-ruby-bounce-deep-indent t)
-;;       (setq enh-ruby-hanging-brace-indent-level 2)
-;;       (setq enh-ruby-indent-level 2)
-;;       (setq enh-ruby-deep-indent-paren nil)
+      ;; Indentation
+      (setq ruby-indent-level 2)
+      (setq ruby-deep-indent-paren nil)
+      (setq enh-ruby-bounce-deep-indent t)
+      (setq enh-ruby-hanging-brace-indent-level 2)
+      (setq enh-ruby-indent-level 2)
+      (setq enh-ruby-deep-indent-paren nil)
 
-;;       ;; Abbrev mode seems broken for some reason
-;;       (abbrev-mode -1))))
+      ;; Abbrev mode seems broken for some reason
+      (abbrev-mode -1))))
+
+;; TODO Use rbenv for smithy
+(use-package chruby
+  :commands chruby-use-corresponding)
+
+(add-hook 'projectile-switch-project-hook #'chruby-use-corresponding)
 
 
-;; (use-package chruby
-;;   :commands chruby-use-corresponding)
+;;;;;;;;;;;;;;;;
+;; Javascript ;;
+;;;;;;;;;;;;;;;;
 
-;; (add-hook 'projectile-switch-project-hook #'chruby-use-corresponding)
+(use-package js2-mode
+  :mode  (("\\.js$" . js2-jsx-mode)
+          ("\\.jsx?$" . js2-jsx-mode)
+          ("\\.es6$" . js2-mode))
+  :interpreter "node"
+  :config
+    (use-package js2-refactor
+      :init
+      (add-hook 'js2-mode-hook #'js2-refactor-mode)
+      (js2r-add-keybindings-with-prefix "C-c RET"))
 
+    ;; Rely on flycheck instead...
+    (setq js2-show-parse-errors nil)
+    ;; Reduce the noise
+    (setq js2-strict-missing-semi-warning nil)
+    ;; jshint does not warn about this now for some reason
+    (setq js2-strict-trailing-comma-warning nil)
 
-;; ;;;;;;;;;;;;;;;;
-;; ;; Javascript ;;
-;; ;;;;;;;;;;;;;;;;
+    (add-hook 'js2-mode-hook 'js2-imenu-extras-mode)
 
-;; (use-package js2-mode
-;;   :mode  (("\\.js$" . js2-jsx-mode)
-;;           ("\\.jsx?$" . js2-jsx-mode)
-;;           ("\\.es6$" . js2-mode))
-;;   :interpreter "node"
-;;   :config
-;;     (use-package js2-refactor
-;;       :init
-;;       (add-hook 'js2-mode-hook #'js2-refactor-mode)
-;;       (js2r-add-keybindings-with-prefix "C-c RET"))
+    (add-hook 'js2-mode-hook
+      (lambda ()
+        (setq mode-name "JS2")
+        (setq js2-global-externs '("module" "require" "buster" "jestsinon" "jasmine" "assert"
+                                  "it" "expect" "describe" "beforeEach"
+                                  "refute" "setTimeout" "clearTimeout" "setInterval"
+                                  "clearInterval" "location" "__dirname" "console" "JSON"))
 
-;;     ;; Rely on flycheck instead...
-;;     (setq js2-show-parse-errors nil)
-;;     ;; Reduce the noise
-;;     (setq js2-strict-missing-semi-warning nil)
-;;     ;; jshint does not warn about this now for some reason
-;;     (setq js2-strict-trailing-comma-warning nil)
+        (flycheck-mode 1)
+        (js2-imenu-extras-mode +1))))
 
-;;     (add-hook 'js2-mode-hook 'js2-imenu-extras-mode)
+(use-package json-mode
+  :mode "\\.json$"
+  :general
+  (:keymaps 'json-mode-map :states '(normal visual) :prefix grass/leader1
+            "mp" 'json-pretty-print-buffer)
+  :config
+  (use-package flymake-json
+    :init
+    (add-hook 'json-mode 'flymake-json-load))
+  (flycheck-mode 1))
 
-;;     (add-hook 'js2-mode-hook
-;;       (lambda ()
-;;         (setq mode-name "JS2")
-;;         (setq js2-global-externs '("module" "require" "buster" "jestsinon" "jasmine" "assert"
-;;                                   "it" "expect" "describe" "beforeEach"
-;;                                   "refute" "setTimeout" "clearTimeout" "setInterval"
-;;                                   "clearInterval" "location" "__dirname" "console" "JSON"))
-
-;;         (flycheck-mode 1)
-;;         (js2-imenu-extras-mode +1))))
-
-;; (use-package json-mode
-;;   :mode "\\.json$"
-;;   :bind ("C-, u j" . json-pretty-print-buffer)
-;;   :config
-;;   (use-package flymake-json
-;;     :init
-;;     (add-hook 'json-mode 'flymake-json-load))
-
-;;   (flycheck-mode 1))
-
-;; (use-package typescript-mode
-;;   :mode "\\.ts$"
-;;   :config
-;;   (setq typescript-indent-level 2)
-;;   (setq typescript-expr-indent-offset 2)
-;;   (use-package tss
-;;     :init
-;;     (setq tss-popup-help-key "C-, , h")
-;;     (setq tss-jump-to-definition-key "C-, , j")
-;;     (setq tss-implement-definition-key "C-, , i")
-;;     (tss-config-default)))
+(use-package typescript-mode
+  :mode "\\.ts$"
+  :config
+  (setq typescript-indent-level 2)
+  (setq typescript-expr-indent-offset 2)
+  (use-package tss
+    :init
+    (setq tss-popup-help-key "SPC m h")
+    (setq tss-jump-to-definition-key "SPC m j")
+    (setq tss-implement-definition-key "SPC m i")
+    (tss-config-default)))
 
 ;; (use-package elm-mode
 ;;   :mode "\\.elm$"
