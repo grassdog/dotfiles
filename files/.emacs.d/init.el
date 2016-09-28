@@ -253,8 +253,6 @@
   ;; Load theme on app creation
   (grass/set-ui))
 
-; TODO Take more from my new config and add here
-
 ;;;;;;;;;;;;;;;
 ;; UI & Help ;;
 ;;;;;;;;;;;;;;;
@@ -2280,6 +2278,111 @@ the right."
     (spaceline-emacs-theme)
     (spaceline-info-mode)))
 
+;;;;;;;;;;;;;;;;;;;;;
+;; Fix artist mode ;;
+;;;;;;;;;;;;;;;;;;;;;
+
+(defun grass/artist-mode-toggle-emacs-state ()
+  (if artist-mode
+    (evil-emacs-state)
+    (evil-exit-emacs-state)))
+
+(add-hook 'artist-mode-hook #'grass/artist-mode-toggle-emacs-state)
+
+;;;;;;;;;;;;;;
+;; Flycheck ;;
+;;;;;;;;;;;;;;
+
+
+(use-package flycheck
+  :disabled
+  :defer 3
+  :defines grass/toggle-flycheck-error-list
+  :commands
+  (flycheck-mode
+   flycheck-clear
+   flycheck-describe-checker
+   flycheck-select-checker
+   flycheck-set-checker-executable
+   flycheck-verify-setup)
+  :config
+  (progn
+    (when (fboundp 'define-fringe-bitmap)
+      (define-fringe-bitmap 'my-flycheck-fringe-indicator
+        (vector #b00000000
+                #b00000000
+                #b00000000
+                #b00000000
+                #b00000000
+                #b00000000
+                #b00000000
+                #b00011100
+                #b00111110
+                #b00111110
+                #b00111110
+                #b00011100
+                #b00000000
+                #b00000000
+                #b00000000
+                #b00000000
+                #b00000000)))
+
+    (flycheck-define-error-level 'error
+      :overlay-category 'flycheck-error-overlay
+      :fringe-bitmap 'my-flycheck-fringe-indicator
+      :fringe-face 'flycheck-fringe-error)
+
+    (flycheck-define-error-level 'warning
+      :overlay-category 'flycheck-warning-overlay
+      :fringe-bitmap 'my-flycheck-fringe-indicator
+      :fringe-face 'flycheck-fringe-warning)
+
+    (flycheck-define-error-level 'info
+      :overlay-category 'flycheck-info-overlay
+      :fringe-bitmap 'my-flycheck-fringe-indicator
+      :fringe-face 'flycheck-fringe-info)
+
+    (require 'evil-evilified-state)
+    (evilified-state-evilify-map flycheck-error-list-mode-map
+      :mode flycheck-error-list-mode
+      :bindings
+      "RET" 'flycheck-error-list-goto-error
+      "j" 'flycheck-error-list-next-error
+      "k" 'flycheck-error-list-previous-error)))
+
+(defun grass/toggle-flycheck-error-list ()
+  "Toggle flycheck's error list window.
+If the error list is visible, hide it.  Otherwise, show it."
+  (interactive)
+  (-if-let (window (flycheck-get-error-list-window))
+      (quit-window nil window)
+    (flycheck-list-errors)))
+
+(general-define-key :states '(normal visual) :prefix grass/leader1
+      "cc" 'flycheck-clear
+      "ch" 'flycheck-describe-checker
+      "cs" 'flycheck-select-checker
+      "cl" 'grass/toggle-flycheck-error-list
+      "cS" 'flycheck-set-checker-executable
+      "cv" 'flycheck-verify-setup)
+
+;;;;;;;;;;;;;;;
+;; Proselint ;;
+;;;;;;;;;;;;;;;
+
+(with-eval-after-load 'flycheck
+  (flycheck-define-checker proselint
+    "A linter for prose."
+    :command ("proselint" source-inplace)
+    :error-patterns
+    ((warning line-start (file-name) ":" line ":" column ": "
+              (id (one-or-more (not (any " "))))
+              (message (one-or-more not-newline)
+                      (zero-or-more "\n" (any " ") (one-or-more not-newline)))
+              line-end))
+    :modes (text-mode markdown-mode gfm-mode org-mode))
+  (add-to-list 'flycheck-checkers 'proselint))
+
 
 ;;;;;;;;;;;;;;;;;;
 ;; Key bindings ;;
@@ -2293,3 +2396,6 @@ the right."
 (general-define-key :states '(normal visual) :prefix grass/leader1
         "TAB" 'grass/switch-to-previous-buffer
         "wl" 'toggle-truncate-lines)
+
+(provide 'init)
+;;; init.el ends her
