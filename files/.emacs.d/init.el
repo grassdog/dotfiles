@@ -96,6 +96,9 @@
 ;; no jerky scrolling
 (setq scroll-conservatively 101)
 
+;; Use right alt for extended character insertion
+(setq mac-right-option-modifier nil)
+
 ;; Get rid of chrome
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -151,6 +154,9 @@
 
 ;; Don't combine tag tables thanks
 (setq tags-add-tables nil)
+
+;; Don't pop up new frames on each call to open
+(setq ns-pop-up-frames nil)
 
 ;; Wrap lines for text modes
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
@@ -324,6 +330,7 @@
   (which-key-declare-prefixes "SPC p" "projectile")
   (which-key-declare-prefixes "SPC w" "windows/ui")
   (which-key-declare-prefixes "SPC S" "spelling")
+  (which-key-declare-prefixes "SPC z" "folding")
   (which-key-declare-prefixes "SPC s" "search/replace"))
 
 
@@ -872,10 +879,51 @@ _SPC_ cancel     _o_nly this       _d_elete
         "wo" 'delete-other-windows
         "wk" 'delete-window)
 
+(use-package origami
+  :commands (origami-toggle-node
+              origami-show-only-node
+              origami-show-all-nodes
+              origami-undo
+              origami-redo
+              origami-recursively-toggle-node)
+  :general
+  (:states '(normal visual) :prefix grass/leader1
+     "zz" 'origami-toggle-node
+     "zs" 'origami-show-only-node
+     "zo" 'origami-open-all-nodes
+     "zu" 'origami-undo
+     "zr" 'origami-redo)
+  :config
+  (define-key evil-normal-state-map "z" 'origami-recursively-toggle-node)
+  (define-key evil-visual-state-map "z" 'origami-recursively-toggle-node)
+  (add-hook 'prog-mode-hook
+    (lambda ()
+      (origami-mode 1))))
+
 
 ;;;;;;;;;;;;;;;
 ;; Utilities ;;
 ;;;;;;;;;;;;;;;
+
+;; http://stackoverflow.com/a/8257269/62023
+(defun grass/minibuffer-insert-word-at-point ()
+  "Get word at point in original buffer and insert it to minibuffer."
+  (interactive)
+  (let (word beg)
+    (with-current-buffer (window-buffer (minibuffer-selected-window))
+      (save-excursion
+        (skip-syntax-backward "w_")
+        (setq beg (point))
+        (skip-syntax-forward "w_")
+        (setq word (buffer-substring-no-properties beg (point)))))
+    (when word
+      (insert word))))
+
+(defun grass/minibuffer-setup-hook ()
+  (local-set-key (kbd "C-w") 'grass/minibuffer-insert-word-at-point))
+
+(add-hook 'minibuffer-setup-hook 'grass/minibuffer-setup-hook)
+
 
 (defun grass/today ()
   (format-time-string "%Y.%m.%d - %a"))
@@ -1423,7 +1471,7 @@ the right."
 ;; Prog mode ;;
 ;;;;;;;;;;;;;;;
 
-(setq linum-format "%4d")
+(setq linum-format "%4d ")
 
 (use-package rainbow-delimiters
   :commands rainbow-delimiters-mode)
@@ -1454,28 +1502,18 @@ the right."
 (setq-default indent-tabs-mode nil)
 
 (setq-default tab-width 2)
-
-;; Javascript
-(setq-default js2-basic-offset 2)
-
-;; JSON
-(setq-default js-indent-level 2)
-
+(setq-default evil-shift-width 2)
 (setq lisp-indent-offset 2)
-
-;; Sass
+(setq-default js2-basic-offset 2)
+(setq-default sh-basic-offset 2)
+(setq-default sh-indentation 2)
+(setq-default js-indent-level 2)
+(setq-default js2-indent-switch-body t)
 (setq css-indent-offset 2)
-
-;; Coffeescript
 (setq coffee-tab-width 2)
-
-;; Python
 (setq-default py-indent-offset 2)
-
-;; XML
 (setq-default nxml-child-indent 2)
-
-;; Ruby
+(setq typescript-indent-level 2)
 (setq ruby-indent-level 2)
 
 ;; Default formatting style for C based modes
@@ -1551,7 +1589,7 @@ the right."
   (:states '(normal visual) :prefix grass/leader1
      "p" '(:keymap projectile-command-map))
   :config
-  (setq projectile-tags-command "rtags")
+  (setq projectile-tags-command "rtags -R -e")
   (setq projectile-enable-caching nil)
   (setq projectile-completion-system 'ivy)
   ;; Show unadded files also
@@ -1562,8 +1600,9 @@ the right."
   (add-to-list 'projectile-globally-ignored-directories "bower_components")
   (add-to-list 'projectile-globally-ignored-directories "dist")
   (add-to-list 'projectile-globally-ignored-directories "/emacs.d/elpa/")
+  (add-to-list 'projectile-globally-ignored-directories "vendor/cache/")
   (add-to-list 'projectile-globally-ignored-directories "elm-stuff")
-
+  (add-to-list 'projectile-globally-ignored-files ".tern-port")
   (add-to-list 'projectile-globally-ignored-files ".keep")
   (add-to-list 'projectile-globally-ignored-files "TAGS")
 
@@ -1649,6 +1688,11 @@ the right."
     (lambda ()
       ;; No auto indent please
       (setq org-export-html-postamble nil)
+
+      ;; Add some custom surrounds
+      (push '(?e . ("#+BEGIN_EXAMPLE" . "#+END_EXAMPLE")) evil-surround-pairs-alist)
+      (push '(?s . ("#+BEGIN_SRC" . "#+END_SRC")) evil-surround-pairs-alist)
+      (push '(?q . ("#+BEGIN_QUOTE" . "#+END_QUOTE")) evil-surround-pairs-alist)
 
       (general-define-key :keymaps 'org-mode-map :states '(normal visual) :prefix grass/leader1
                           "mm" 'hydra-org-move/body
@@ -1746,6 +1790,8 @@ the right."
       (add-hook 'js2-mode-hook #'js2-refactor-mode)
       (js2r-add-keybindings-with-prefix "C-c RET"))
 
+    (setq js2-bounce-indent-p t)
+
     ;; Rely on flycheck instead...
     (setq js2-show-parse-errors nil)
     ;; Reduce the noise
@@ -1804,7 +1850,9 @@ the right."
       ;; Reenable elm oracle once it's start up cost doesn't smash editor performance
       ;; (add-hook 'elm-mode-hook #'elm-oracle-setup-completion)
 
+      (setq evil-shift-width 4)
       (setq tab-width 4)
+      (setq elm-indent-offset 4)
       (flycheck-mode t))))
 
 
@@ -1918,6 +1966,10 @@ the right."
               (modify-syntax-entry ?- "w")
               (linum-mode 1)
               (rainbow-mode +1))))
+
+(add-hook 'syslog-mode-hook
+  (lambda ()
+    (toggle-truncate-lines +1)))
 
 (use-package css-mode
   :mode "\\.css$"
@@ -2174,6 +2226,9 @@ the right."
 (use-package yaml-mode
   :defer t)
 
+(use-package terraform-mode
+  :defer t)
+
 (use-package haml-mode
   :defer t
   :mode "\\.haml$"
@@ -2194,13 +2249,10 @@ the right."
   (setq-default ispell-program-name "aspell")
   ; Silently save my personal dictionary when new items are added
   (setq ispell-silently-savep t)
-  (ispell-change-dictionary "en_GB" t)
+  (ispell-change-dictionary "british" t)
 
   (add-hook 'markdown-mode-hook (lambda () (flyspell-mode 1)))
   (add-hook 'text-mode-hook (lambda () (flyspell-mode 1)))
-
-  ;; Spell checking in comments
-  ;;(add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
   (add-hook 'flyspell-mode-hook
             (lambda ()
