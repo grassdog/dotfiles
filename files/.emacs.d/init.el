@@ -889,6 +889,14 @@ _SPC_ cancel     _o_nly this       _d_elete
   (:states '(normal visual) :prefix grass/leader1
 	   "gs" 'magit-status))
 
+(use-package git-link
+  :config
+  (setq git-link-open-in-browser t)
+  :general
+  (:states '(normal visual) :prefix grass/leader1
+	   "gl" 'git-link
+	   "gc" 'git-link-commit))
+
 (use-package git-timemachine
   :commands git-timemachine
   :general
