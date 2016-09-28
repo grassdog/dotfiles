@@ -315,7 +315,7 @@
           ("\\`org-babel-" . "ob/")))
   (which-key-mode 1)
   (which-key-declare-prefixes "SPC f" "files")
-  (which-key-declare-prefixes "SPC x" "text")
+  (which-key-declare-prefixes "SPC x" "text/editing")
   (which-key-declare-prefixes "SPC u" "utilities")
   (which-key-declare-prefixes "SPC b" "buffers")
   (which-key-declare-prefixes "SPC g" "git/vc")
@@ -1175,14 +1175,14 @@ _SPC_ cancel     _o_nly this       _d_elete
 	   "v" 'er/expand-region))
 
 
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ;; Autocomplete and snippets ;;
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Autocomplete and snippets ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; ;; abbrev mode for common typos
-;; (setq abbrev-file-name "~/.emacs.d/abbrev_defs")
-;; (diminish 'abbrev-mode "ⓐ")
-;; (setq-default abbrev-mode t)
+;; abbrev-mode for common typos
+(setq abbrev-file-name "~/.emacs.d/abbrev_defs")
+(diminish 'abbrev-mode "ⓐ")
+(setq-default abbrev-mode t)
 
 ;; (use-package company
 ;;   :diminish (company-mode . "ⓒ")
@@ -1293,130 +1293,96 @@ _SPC_ cancel     _o_nly this       _d_elete
 ;;   (define-key yas-minor-mode-map (kbd "C-, e") 'yas-expand))
 
 
-;; ;;;;;;;;;;;;;;
-;; ;; Wrapping ;;
-;; ;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;; Wrapping ;;
+;;;;;;;;;;;;;;
 
-;; (use-package smartparens
-;;   :diminish (smartparens-mode . "ⓢ")
-;;   :commands (sp-unwrap-sexp sp-rewrap-sexp)
-;;   :config
-;;   (require 'smartparens-config)
-;;   (sp-use-smartparens-bindings)
+(use-package corral
+  :commands (corral-parentheses-backward
+             corral-parentheses-forward
+             corral-brackets-backward
+             corral-brackets-forward
+             corral-braces-backward
+             corral-braces-forward))
 
-;;   ;; Wrap an entire symbol
-;;   (setq sp-wrap-entire-symbol nil)
+(defhydra hydra-move-parens (:columns 4)
+  "Corral"
+  ("(" corral-parentheses-backward "Back")
+  (")" corral-parentheses-forward "Forward")
+  ("[" corral-brackets-backward "Back")
+  ("]" corral-brackets-forward "Forward")
+  ("{" corral-braces-backward "Back")
+  ("}" corral-braces-forward "Forward")
+  ("." hydra-repeat "Repeat"))
 
-;;   ;; No auto pairing of quotes thanks
-;;   (sp-pair "'" nil :actions '(:rem insert))
-;;   (sp-pair "\"" nil :actions '(:rem insert))
-
-;;   (progn
-;;     (defun my-elixir-do-end-close-action (id action context)
-;;       (when (eq action 'insert)
-;;         (newline-and-indent)
-;;         (previous-line)
-;;         (indent-according-to-mode)))
-
-;;     (sp-with-modes '(elixir-mode)
-;;       (sp-local-pair "do" "end"
-;;                      :when '(("SPC" "RET"))
-;;                      :post-handlers '(:add my-elixir-do-end-close-action)
-;;                      :actions '(insert))
-
-;;       (sp-local-pair "fn" "end"
-;;                      :when '(("SPC" "RET"))
-;;                      :post-handlers '(:add my-elixir-do-end-close-action)
-;;                      :actions '(insert)))))
-
-;; (add-hook 'prog-mode-hook #'smartparens-mode)
+(general-define-key :states '(normal visual) :prefix grass/leader1
+		    "xp" 'hydra-move-parens/body)
 
 
-;; (use-package corral
-;;   :commands (corral-parentheses-backward
-;;              corral-parentheses-forward
-;;              corral-brackets-backward
-;;              corral-brackets-forward
-;;              corral-braces-backward
-;;              corral-braces-forward))
+;;;;;;;;;;;;;;;
+;; Alignment ;;
+;;;;;;;;;;;;;;;
 
-;; (defhydra hydra-corral (:columns 4)
-;;   "Corral"
-;;   ("r" sp-rewrap-sexp "Rewrap" :exit t)
-;;   ("u" sp-unwrap-sexp "Unwrap")
-;;   ("(" corral-parentheses-backward "Back")
-;;   (")" corral-parentheses-forward "Forward")
-;;   ("[" corral-brackets-backward "Back")
-;;   ("]" corral-brackets-forward "Forward")
-;;   ("{" corral-braces-backward "Back")
-;;   ("}" corral-braces-forward "Forward")
-;;   ("." hydra-repeat "Repeat"))
-;; (global-set-key (kbd "C-, '") #'hydra-corral/body)
+;; Modified function from http://emacswiki.org/emacs/AlignCommands
+(defun align-repeat (start end regexp &optional justify-right after)
+  "Repeat alignment with respect to the given regular expression.
+If JUSTIFY-RIGHT is non nil justify to the right instead of the
+left. If AFTER is non-nil, add whitespace to the left instead of
+the right."
+  (interactive "r\nsAlign regexp: ")
+  (let ((complete-regexp (if after
+                             (concat regexp "\\([ \t]*\\)")
+                           (concat "\\([ \t]*\\)" regexp)))
+        (group (if justify-right -1 1)))
+    (align-regexp start end complete-regexp group 1 t)))
 
+;; Modified answer from http://emacs.stackexchange.com/questions/47/align-vertical-columns-of-numbers-on-the-decimal-point
+(defun align-repeat-decimal (start end)
+  "Align a table of numbers on decimal points and dollar signs (both optional)"
+  (interactive "r")
+  (require 'align)
+  (align-region start end nil
+                '((nil (regexp . "\\([\t ]*\\)\\$?\\([\t ]+[0-9]+\\)\\.?")
+                       (repeat . t)
+                       (group 1 2)
+                       (spacing 1 1)
+                       (justify nil t)))
+                nil))
 
-;; ;;;;;;;;;;;;;;;
-;; ;; Alignment ;;
-;; ;;;;;;;;;;;;;;;
+(defmacro create-align-repeat-x (name regexp &optional justify-right default-after)
+  (let ((new-func (intern (concat "align-repeat-" name))))
+    `(defun ,new-func (start end switch)
+       (interactive "r\nP")
+       (let ((after (not (eq (if switch t nil) (if ,default-after t nil)))))
+         (align-repeat start end ,regexp ,justify-right after)))))
 
-;; ;; Modified function from http://emacswiki.org/emacs/AlignCommands
-;; (defun align-repeat (start end regexp &optional justify-right after)
-;;   "Repeat alignment with respect to the given regular expression.
-;; If JUSTIFY-RIGHT is non nil justify to the right instead of the
-;; left. If AFTER is non-nil, add whitespace to the left instead of
-;; the right."
-;;   (interactive "r\nsAlign regexp: ")
-;;   (let ((complete-regexp (if after
-;;                              (concat regexp "\\([ \t]*\\)")
-;;                            (concat "\\([ \t]*\\)" regexp)))
-;;         (group (if justify-right -1 1)))
-;;     (align-regexp start end complete-regexp group 1 t)))
+(create-align-repeat-x "comma" "," nil t)
+(create-align-repeat-x "semicolon" ";" nil t)
+(create-align-repeat-x "colon" ":" nil t)
+(create-align-repeat-x "equal" "=")
+(create-align-repeat-x "hash" "=>")
+(create-align-repeat-x "math-oper" "[+\\-*/]")
+(create-align-repeat-x "ampersand" "&")
+(create-align-repeat-x "bar" "|")
+(create-align-repeat-x "left-paren" "(")
+(create-align-repeat-x "right-paren" ")" t)
 
-;; ;; Modified answer from http://emacs.stackexchange.com/questions/47/align-vertical-columns-of-numbers-on-the-decimal-point
-;; (defun align-repeat-decimal (start end)
-;;   "Align a table of numbers on decimal points and dollar signs (both optional)"
-;;   (interactive "r")
-;;   (require 'align)
-;;   (align-region start end nil
-;;                 '((nil (regexp . "\\([\t ]*\\)\\$?\\([\t ]+[0-9]+\\)\\.?")
-;;                        (repeat . t)
-;;                        (group 1 2)
-;;                        (spacing 1 1)
-;;                        (justify nil t)))
-;;                 nil))
-
-;; (defmacro create-align-repeat-x (name regexp &optional justify-right default-after)
-;;   (let ((new-func (intern (concat "align-repeat-" name))))
-;;     `(defun ,new-func (start end switch)
-;;        (interactive "r\nP")
-;;        (let ((after (not (eq (if switch t nil) (if ,default-after t nil)))))
-;;          (align-repeat start end ,regexp ,justify-right after)))))
-
-;; (create-align-repeat-x "comma" "," nil t)
-;; (create-align-repeat-x "semicolon" ";" nil t)
-;; (create-align-repeat-x "colon" ":" nil t)
-;; (create-align-repeat-x "equal" "=")
-;; (create-align-repeat-x "hash" "=>")
-;; (create-align-repeat-x "math-oper" "[+\\-*/]")
-;; (create-align-repeat-x "ampersand" "&")
-;; (create-align-repeat-x "bar" "|")
-;; (create-align-repeat-x "left-paren" "(")
-;; (create-align-repeat-x "right-paren" ")" t)
-
-;; ;; Bindings
-;; (which-key-declare-prefixes "C-, a" "alignment")
-;; (global-set-key (kbd "C-, a a") 'align)
-;; (global-set-key (kbd "C-, a r") 'align-repeat)
-;; (global-set-key (kbd "C-, a m") 'align-repeat-math-oper)
-;; (global-set-key (kbd "C-, a .") 'align-repeat-decimal)
-;; (global-set-key (kbd "C-, a ,") 'align-repeat-comma)
-;; (global-set-key (kbd "C-, a ;") 'align-repeat-semicolon)
-;; (global-set-key (kbd "C-, a :") 'align-repeat-colon)
-;; (global-set-key (kbd "C-, a =") 'align-repeat-equal)
-;; (global-set-key (kbd "C-, a >") 'align-repeat-hash)
-;; (global-set-key (kbd "C-, a &") 'align-repeat-ampersand)
-;; (global-set-key (kbd "C-, a |") 'align-repeat-bar)
-;; (global-set-key (kbd "C-, a (") 'align-repeat-left-paren)
-;; (global-set-key (kbd "C-, a )") 'align-repeat-right-paren)
+;; Bindings
+(which-key-declare-prefixes "SPC xa" "alignment")
+(general-define-key :states '(normal visual) :prefix grass/leader1
+		    "xaa" 'align
+		    "xar" 'align-repeat
+		    "xam" 'align-repeat-math-oper
+		    "xa." 'align-repeat-decimal
+		    "xa," 'align-repeat-comma
+		    "xa;" 'align-repeat-semicolon
+		    "xa:" 'align-repeat-colon
+		    "xa=" 'align-repeat-equal
+		    "xa>" 'align-repeat-hash
+		    "xa&" 'align-repeat-ampersand
+		    "xa|" 'align-repeat-bar
+		    "xa(" 'align-repeat-left-paren
+		    "xa)" 'align-repeat-right-paren)
 
 
 ;; ;;;;;;;;;;;;;;;
