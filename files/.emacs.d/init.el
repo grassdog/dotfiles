@@ -318,6 +318,7 @@
   (which-key-declare-prefixes "SPC x" "text/editing")
   (which-key-declare-prefixes "SPC u" "utilities")
   (which-key-declare-prefixes "SPC b" "buffers")
+  (which-key-declare-prefixes "SPC k" "bookmarks")
   (which-key-declare-prefixes "SPC g" "git/vc")
   (which-key-declare-prefixes "SPC m" "major-mode-cmd")
   (which-key-declare-prefixes "SPC p" "projectile")
@@ -869,17 +870,130 @@ _SPC_ cancel     _o_nly this       _d_elete
 ;; Utilities ;;
 ;;;;;;;;;;;;;;;
 
+(defun grass/today ()
+  (format-time-string "%Y.%m.%d - %a"))
+
+(defun grass/insert-datetime (arg)
+  "Without argument: insert date as yyyy-mm-dd
+With C-u: insert date and time
+With C-u C-u: insert time"
+  (interactive "P")
+  (cond ((equal arg '(16)) (insert (format-time-string "%T")))
+        ((equal arg '(4)) (insert (format-time-string "%Y-%m-%d %T")))
+        (t (insert (format-time-string "%Y-%m-%d")))))
+
+(defun grass/insert-date ()
+  (interactive)
+  (insert (grass/today)))
+
+(defun grass/insert-org-date-header ()
+  (interactive)
+  (insert (concat "* " (grass/today))))
+
+(defun grass/view-url-in-buffer ()
+  "Open a new buffer containing the contents of URL."
+  (interactive)
+  (let* ((default (thing-at-point-url-at-point))
+         (url (read-from-minibuffer "URL: " default)))
+    (switch-to-buffer (url-retrieve-synchronously url))
+    (rename-buffer url t)
+    (cond ((search-forward "<?xml" nil t) (xml-mode))
+          ((search-forward "<html" nil t) (html-mode)))))
+
+(defun grass/copy-buffer-filename ()
+  "Copy filename of buffer into system clipboard."
+  (interactive)
+  ;; list-buffers-directory is the variable set in dired buffers
+  (let ((file-name (or (buffer-file-name) list-buffers-directory)))
+    (if file-name
+      (message (simpleclip-set-contents file-name))
+      (error "Buffer not visiting a file"))))
+
+(defun grass/indent-buffer ()
+  "Indents the entire buffer."
+  (indent-region (point-min) (point-max)))
+
+(defun grass/indent-region-or-buffer ()
+  "Indents a region if selected, otherwise the whole buffer."
+  (interactive)
+  (save-excursion
+    (if (region-active-p)
+        (progn
+          (indent-region (region-beginning) (region-end))
+          (message "Indented selected region."))
+      (progn
+        (grass/indent-buffer)
+        (message "Indented buffer.")))))
+
+;; Quick buffer switch
+(defun grass/switch-to-previous-buffer ()
+  "Switch to previously open buffer.
+Repeated invocations toggle between the two most recently open buffers."
+  (interactive)
+  (switch-to-buffer (other-buffer (current-buffer) 1)))
+
+(defun grass/rename-file-and-buffer ()
+  "Renames current buffer and file it is visiting."
+  (interactive)
+  (let ((name (buffer-name))
+        (filename (buffer-file-name)))
+    (if (not (and filename (file-exists-p filename)))
+        (error "Buffer '%s' is not visiting a file!" name)
+      (let ((new-name (read-file-name "New name: " filename)))
+        (cond ((get-buffer new-name)
+               (error "A buffer named '%s' already exists!" new-name))
+              (t
+               (rename-file filename new-name 1)
+               (rename-buffer new-name)
+               (set-visited-file-name new-name)
+               (set-buffer-modified-p nil)
+               (message "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name))))))))
+
+(defun grass/what-face (pos)
+  "Identify the face under point"
+  (interactive "d")
+  (let ((face (or (get-char-property (point) 'read-face-name)
+                  (get-char-property (point) 'face))))
+    (if face (message "Face: %s" face) (message "No face at %d" pos))))
+
+
+
 (general-define-key :states '(normal visual) :prefix grass/leader1
 		    "ut" 'display-time-world
 		    "uc" 'quick-calc
 		    "uu" 'browse-url
-		    "ub" 'grass/comment-box)
+		    "ub" 'grass/comment-box
+		    "uf" 'grass/copy-buffer-filename
+		    "ud" 'grass/insert-datetime)
 
 (use-package reveal-in-osx-finder
   :general
   (:states '(normal visual) :prefix grass/leader1
 	   "uf" 'reveal-in-osx-finder))
 
+;;;;;;;;;;;;;;;;;;
+;; Common Files ;;
+;;;;;;;;;;;;;;;;;;
+
+(defun grass/open-work-log ()
+  "Open Worklog file"
+  (interactive)
+  (find-file "~/Dropbox/Notes/Journals/Work.org"))
+
+(defun grass/open-personal-log ()
+  "Open Worklog file"
+  (interactive)
+  (find-file "~/Dropbox/Notes/Journals/Personal.org"))
+
+(defun grass/find-notes ()
+  "Find a note in Dropbox/Notes directory"
+  (interactive)
+  (counsel-file-jump "" (expand-file-name "~/Dropbox/Notes")))
+
+(general-define-key :states '(normal visual) :prefix grass/leader1
+		    "kw" 'grass/open-work-log
+		    "kp" 'grass/open-personal-log
+		    "kn" 'grass/find-notes)
 
 ;;;;;;;;;
 ;; Git ;;
@@ -904,36 +1018,9 @@ _SPC_ cancel     _o_nly this       _d_elete
   (:states '(normal visual) :prefix grass/leader1
 	   "gt" 'git-timemachine))
 
-(use-package git-gutter
-  :commands global-git-gutter-mode
-  :diminish git-gutter-mode
-  :defer 3
-  :config
-  (progn
-    ;; If you enable global minor mode
-    (global-git-gutter-mode t)
-    ;; If you would like to use git-gutter.el and linum-mode
-    (git-gutter:linum-setup)
-    (setq git-gutter:update-interval 2
-          git-gutter:modified-sign " "
-          git-gutter:added-sign "+"
-          git-gutter:deleted-sign "-"
-          git-gutter:diff-option "-w"
-          git-gutter:hide-gutter t
-          git-gutter:ask-p nil
-          git-gutter:verbosity 0
-          git-gutter:handled-backends '(git hg bzr svn)
-          git-gutter:hide-gutter t)))
-
 (use-package git-gutter-fringe
-  :commands git-gutter-mode
-  :defer 3
   :config
-  (progn
-    (when (display-graphic-p)
-      (with-eval-after-load 'git-gutter
-        (require 'git-gutter-fringe)))
-    (setq git-gutter-fr:side 'right-fringe))
+    (setq git-gutter-fr:side 'right-fringe)
     ;; custom graphics that works nice with half-width fringes
     (fringe-helper-define 'git-gutter-fr:added nil
                           "..X...."
@@ -955,7 +1042,9 @@ _SPC_ cancel     _o_nly this       _d_elete
                           "XX.XX.."
                           ".XXX..."
                           "..X...."
-                          ))
+        )
+    :init
+    (global-git-gutter-mode t))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -1385,195 +1474,129 @@ the right."
 		    "xa)" 'align-repeat-right-paren)
 
 
-;; ;;;;;;;;;;;;;;;
-;; ;; Prog mode ;;
-;; ;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;
+;; Prog mode ;;
+;;;;;;;;;;;;;;;
 
-;; (use-package nlinum
-;;   :load-path "vendor"
-;;   :commands nlinum-mode
-;;   :preface
-;;   (setq nlinum-format "%4d "))
+(setq linum-format "%4d")
 
-;; (use-package rainbow-delimiters
-;;   :commands rainbow-delimiters-mode)
+(use-package rainbow-delimiters
+  :commands rainbow-delimiters-mode)
 
-;; ;; Line numbers for coding please
-;; (add-hook 'prog-mode-hook
-;;             (lambda ()
-;;               ;; Treat underscore as a word character
-;;               (modify-syntax-entry ?_ "w")
-;;               (nlinum-mode 1)
-;;               (rainbow-delimiters-mode)))
+;; Line numbers for coding please
+(add-hook 'prog-mode-hook
+            (lambda ()
+              ;; Treat underscore as a word character
+              (modify-syntax-entry ?_ "w")
+              (linum-mode 1)
+              (rainbow-delimiters-mode)))
 
 
-;; ;;;;;;;;;;;;;;;;;
-;; ;; Indentation ;;
-;; ;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;
+;; Indentation ;;
+;;;;;;;;;;;;;;;;;
 
-;; ;; Simple indentation please
-;; (use-package clean-aindent-mode
-;;   :disabled
-;;   :init
-;;   ; no electric indent, auto-indent is sufficient
-;;   (electric-indent-mode -1)
-;;   (clean-aindent-mode t)
-;;   (setq clean-aindent-is-simple-indent t))
+;; Simple indentation please
+(use-package clean-aindent-mode
+  :disabled
+  :init
+  ; no electric indent, auto-indent is sufficient
+  (electric-indent-mode -1)
+  (clean-aindent-mode t)
+  (setq clean-aindent-is-simple-indent t))
 
-;; ;; Don't use tabs to indent
-;; (setq-default indent-tabs-mode nil)
+;; Don't use tabs to indent
+(setq-default indent-tabs-mode nil)
 
-;; ;; Default indentation
-;; (setq-default tab-width 2)
+;; Default indentation
+(setq-default tab-width 2)
 
-;; ;; Javascript
-;; (setq-default js2-basic-offset 2)
+;; Javascript
+(setq-default js2-basic-offset 2)
 
-;; ;; JSON
-;; (setq-default js-indent-level 2)
+;; JSON
+(setq-default js-indent-level 2)
 
-;; ;; Sass
-;; (setq css-indent-offset 2)
+;; Sass
+(setq css-indent-offset 2)
 
-;; ;; Coffeescript
-;; (setq coffee-tab-width 2)
+;; Coffeescript
+(setq coffee-tab-width 2)
 
-;; ;; Python
-;; (setq-default py-indent-offset 2)
+;; Python
+(setq-default py-indent-offset 2)
 
-;; ;; XML
-;; (setq-default nxml-child-indent 2)
+;; XML
+(setq-default nxml-child-indent 2)
 
-;; ;; Ruby
-;; (setq ruby-indent-level 2)
+;; Ruby
+(setq ruby-indent-level 2)
 
-;; ;; Default formatting style for C based modes
-;; (setq c-default-style "java")
-;; (setq-default c-basic-offset 2)
+;; Default formatting style for C based modes
+(setq c-default-style "java")
+(setq-default c-basic-offset 2)
 
-;; ; https://gist.github.com/mishoo/5487564
-;; (defcustom stupid-indent-level 2
-;;   "Indentation level for stupid-indent-mode")
+; https://gist.github.com/mishoo/5487564
+(defcustom stupid-indent-level 2
+  "Indentation level for stupid-indent-mode")
 
-;; (defun stupid-outdent-line ()
-;;   (interactive)
-;;   (let (col)
-;;     (save-excursion
-;;       (beginning-of-line-text)
-;;       (setq col (- (current-column) stupid-indent-level))
-;;       (when (>= col 0)
-;;         (indent-line-to col)))))
-
-;; (defun stupid-outdent-region (start stop)
-;;   (interactive)
-;;   (setq stop (copy-marker stop))
-;;   (goto-char start)
-;;   (while (< (point) stop)
-;;     (unless (and (bolp) (eolp))
-;;       (stupid-outdent-line))
-;;     (forward-line 1)))
-
-;; (defun stupid-outdent ()
-;;   (interactive)
-;;   (if (use-region-p)
-;;       (save-excursion
-;;         (stupid-outdent-region (region-beginning) (region-end))
-;;         (setq deactivate-mark nil))
-;;     (stupid-outdent-line)))
-
-;; (global-set-key (kbd "<backtab>") 'stupid-outdent)
-
-
-;; ;;;;;;;;;;;;;;;;
-;; ;; Whitespace ;;
-;; ;;;;;;;;;;;;;;;;
-
-;; (require 'whitespace)
-;; (diminish 'global-whitespace-mode)
-
-;; (setq require-final-newline t)
-
-;; (define-key global-map (kbd "C-, f w") 'whitespace-cleanup)
-
-;; ;; Only show bad whitespace (Ignore empty lines at start and end of buffer)
-;; (setq whitespace-style '(face tabs trailing space-before-tab indentation space-after-tab))
-;; (global-whitespace-mode t)
-
-;; ;; Only trim modified lines on save
-;; (use-package ws-butler
-;;   :diminish (ws-butler-mode . "ⓦ")
-;;   :config
-;;   (progn
-;;     (ws-butler-global-mode 1)))
-
-
-;; ;;;;;;;;;;;;;;;;;;;;;;;
-;; ;; Utility Functions ;;
-;; ;;;;;;;;;;;;;;;;;;;;;;;
-
-;; (defun grass/today ()
-;;   (format-time-string "%Y-%m-%d, %a"))
-
-;; (defun grass/insert-date ()
-;;   (interactive)
-;;   (insert (grass/today)))
-
-;; (defun grass/view-url-in-buffer ()
-;;   "Open a new buffer containing the contents of URL."
-;;   (interactive)
-;;   (let* ((default (thing-at-point-url-at-point))
-;;          (url (read-from-minibuffer "URL: " default)))
-;;     (switch-to-buffer (url-retrieve-synchronously url))
-;;     (rename-buffer url t)
-;;     (cond ((search-forward "<?xml" nil t) (xml-mode))
-;;           ((search-forward "<html" nil t) (html-mode)))))
-
-;; (defun grass/indent-buffer ()
-;;   "Indents the entire buffer."
-;;   (indent-region (point-min) (point-max)))
-
-;; (defun grass/indent-region-or-buffer ()
-;;   "Indents a region if selected, otherwise the whole buffer."
-;;   (interactive)
-;;   (save-excursion
-;;     (if (region-active-p)
-;;         (progn
-;;           (indent-region (region-beginning) (region-end))
-;;           (message "Indented selected region."))
-;;       (progn
-;;         (grass/indent-buffer)
-;;         (message "Indented buffer.")))))
-
-;; Quick buffer switch
-(defun grass/switch-to-previous-buffer ()
-  "Switch to previously open buffer.
-Repeated invocations toggle between the two most recently open buffers."
+(defun grass/stupid-outdent-line ()
   (interactive)
-  (switch-to-buffer (other-buffer (current-buffer) 1)))
+  (let (col)
+    (save-excursion
+      (beginning-of-line-text)
+      (setq col (- (current-column) stupid-indent-level))
+      (when (>= col 0)
+        (indent-line-to col)))))
 
-;; (defun grass/rename-file-and-buffer ()
-;;   "Renames current buffer and file it is visiting."
-;;   (interactive)
-;;   (let ((name (buffer-name))
-;;         (filename (buffer-file-name)))
-;;     (if (not (and filename (file-exists-p filename)))
-;;         (error "Buffer '%s' is not visiting a file!" name)
-;;       (let ((new-name (read-file-name "New name: " filename)))
-;;         (cond ((get-buffer new-name)
-;;                (error "A buffer named '%s' already exists!" new-name))
-;;               (t
-;;                (rename-file filename new-name 1)
-;;                (rename-buffer new-name)
-;;                (set-visited-file-name new-name)
-;;                (set-buffer-modified-p nil)
-;;                (message "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name))))))))
+(defun grass/stupid-outdent-region (start stop)
+  (interactive)
+  (setq stop (copy-marker stop))
+  (goto-char start)
+  (while (< (point) stop)
+    (unless (and (bolp) (eolp))
+      (grass/stupid-outdent-line))
+    (forward-line 1)))
 
-;; (defun grass/what-face (pos)
-;;   "Identify the face under point"
-;;   (interactive "d")
-;;   (let ((face (or (get-char-property (point) 'read-face-name)
-;;                   (get-char-property (point) 'face))))
-;;     (if face (message "Face: %s" face) (message "No face at %d" pos))))
+(defun grass/stupid-outdent ()
+  (interactive)
+  (if (use-region-p)
+      (save-excursion
+        (grass/stupid-outdent-region (region-beginning) (region-end))
+        (setq deactivate-mark nil))
+    (grass/stupid-outdent-line)))
+
+(global-set-key (kbd "<backtab>") 'grass/stupid-outdent)
+
+
+;;;;;;;;;;;;;;;;
+;; Whitespace ;;
+;;;;;;;;;;;;;;;;
+
+(require 'whitespace)
+(diminish 'global-whitespace-mode)
+
+(setq require-final-newline t)
+
+(general-define-key :states '(normal visual) :prefix grass/leader1
+		    "xw" 'whitespace-cleanup)
+
+;; Only show bad whitespace (Ignore empty lines at start and end of buffer)
+(setq whitespace-style '(face tabs trailing space-before-tab indentation space-after-tab))
+(global-whitespace-mode t)
+
+;; Only trim modified lines on save
+(use-package ws-butler
+  :diminish (ws-butler-mode . "ⓦ")
+  :config
+  (progn
+    (ws-butler-global-mode 1)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;
+;; Utility Functions ;;
+;;;;;;;;;;;;;;;;;;;;;;;
+
 
 
 ;; (defun grass/killsave-to-end-of-line ()
@@ -1964,7 +1987,7 @@ Repeated invocations toggle between the two most recently open buffers."
 ;;               ;; Treat dollar and hyphen as a word character
 ;;               (modify-syntax-entry ?$ "w")
 ;;               (modify-syntax-entry ?- "w")
-;;               (nlinum-mode 1)
+;;               (linum-mode 1)
 ;;               (rainbow-mode +1))))
 
 ;; (use-package css-mode
@@ -1973,7 +1996,7 @@ Repeated invocations toggle between the two most recently open buffers."
 ;;   (use-package rainbow-mode)
 ;;   (add-hook 'css-mode-hook
 ;;             (lambda ()
-;;               (nlinum-mode 1)
+;;               (linum-mode 1)
 ;;               (rainbow-mode +1))))
 
 ;; ;;;;;;;;;;;;;;
