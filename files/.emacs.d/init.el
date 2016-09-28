@@ -1057,6 +1057,8 @@ _SPC_ cancel     _o_nly this       _d_elete
 ;; Search and Replace ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; TODO Use anzu replace methods in these
+
 ;; http://sachachua.com/blog/2008/07/emacs-keyboard-shortcuts-for-navigating-code/
 (defun grass/isearch-yank-current-word ()
   "Pull current word from buffer into search string."
@@ -1160,23 +1162,17 @@ _SPC_ cancel     _o_nly this       _d_elete
   (:states '(normal visual) :prefix grass/leader1
 			    "sp" 'ag-project))
 
+;;;;;;;;;;;;;;;
+;; Selection ;;
+;;;;;;;;;;;;;;;
 
-;; ;;;;;;;;;;;;;;;
-;; ;; Selection ;;
-;; ;;;;;;;;;;;;;;;
-
-;; (use-package expand-region
-;;   :bind (("C-+" . er/contract-region)
-;;          ("C-=" . er/expand-region)
-;;          ("s-e" . er/expand-region)
-;;          ("s-E" . er/contract-region)))
-
-;; (defun grass/mark-full-line ()
-;;   "Set mark from point to beginning of line"
-;;   (interactive)
-;;   (beginning-of-line)
-;;   (call-interactively 'set-mark-command)
-;;   (end-of-line))
+(use-package expand-region
+  :config
+  (setq expand-region-contract-fast-key "V"
+	expand-region-reset-fast-key "r")
+  :general
+  (:states '(normal visual) :prefix grass/leader1
+	   "v" 'er/expand-region))
 
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
