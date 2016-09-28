@@ -862,7 +862,8 @@ _SPC_ cancel     _o_nly this       _d_elete
   ("SPC" nil nil))
 
 (general-define-key :states '(normal visual) :prefix grass/leader1
-		    "ww" 'hydra-window/body
+        "ww" 'hydra-window/body
+        "wo" 'delete-other-windows
 		    "wk" 'delete-window)
 
 
@@ -1135,13 +1136,15 @@ Repeated invocations toggle between the two most recently open buffers."
        (:keymaps 'dired-mode-map :states '(normal visual) :prefix grass/leader1
 		 "mp" 'peep-dired))))
 
-;; TODO Somehow mute the colours in dired
+
 (use-package dired+
   :commands dired-omit-mode
   :general
   ("C-x C-j" 'dired-jump
    "<s-up>" 'dired-jump)
   :config
+  ;; Chill the colours in dired
+  (setq font-lock-maximum-decoration (quote ((dired-mode . 1) (t . t))))
   (diminish 'dired-omit-mode ""))
 
 
