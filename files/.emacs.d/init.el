@@ -1611,37 +1611,37 @@ the right."
   (add-to-list 'projectile-globally-ignored-directories "elm-stuff")
   (add-to-list 'projectile-globally-ignored-files ".tern-port")
   (add-to-list 'projectile-globally-ignored-files ".keep")
-  (add-to-list 'projectile-globally-ignored-files "TAGS")
+  (add-to-list 'projectile-globally-ignored-files "TAGS"))
 
-  (use-package counsel-projectile
+(use-package counsel-projectile
+  :init
+  (progn
+    (setq projectile-switch-project-action 'counsel-projectile-find-file)
+
+    (general-define-key
+      :states '(normal visual insert emacs)
+      :prefix grass/leader1
+      :non-normal-prefix "M-SPC"
+
+      "p" '(:ignore t :which-key "Projectile")
+      "p SPC" 'counsel-projectile
+      "pb"    'counsel-projectile-switch-to-buffer
+      "bp"    'counsel-projectile-switch-to-buffer
+      "pd"    'counsel-projectile-find-dir
+      "pp"    'counsel-projectile-switch-project
+      "pf"    'counsel-projectile-find-file
+      "fp"    'counsel-projectile-find-file
+      "pr"    'projectile-recentf)
+
+    (defun grass/counsel-ag-current-project ()
+      "Search in current project with `ag'."
+      (interactive)
+      (let ((dir (projectile-project-root)))
+        (if dir
+          (counsel-ag "" dir)
+          (message "error: Not in a project."))))
     :init
-    (progn
-      (setq projectile-switch-project-action 'counsel-projectile-find-file)
-
-      (general-define-key
-        :states '(normal visual insert emacs)
-        :prefix grass/leader1
-        :non-normal-prefix "M-SPC"
-
-        "p" '(:ignore t :which-key "Projectile")
-        "p SPC" 'counsel-projectile
-        "pb"    'counsel-projectile-switch-to-buffer
-        "bp"    'counsel-projectile-switch-to-buffer
-        "pd"    'counsel-projectile-find-dir
-        "pp"    'counsel-projectile-switch-project
-        "pf"    'counsel-projectile-find-file
-        "fp"    'counsel-projectile-find-file
-        "pr"    'projectile-recentf)
-
-      (defun grass/counsel-ag-current-project ()
-        "Search in current project with `ag'."
-        (interactive)
-        (let ((dir (projectile-project-root)))
-          (if dir
-            (counsel-ag "" dir)
-            (message "error: Not in a project."))))
-      :init
-      (projectile-global-mode t))))
+    (projectile-global-mode t)))
 
 
 ;;;;;;;;;
@@ -1740,6 +1740,9 @@ the right."
 ;; Ruby ;;
 ;;;;;;;;;;
 
+(use-package ruby-end
+  :commands ruby-end-mode)
+
 (use-package enh-ruby-mode
   :mode (("\\.rb$"        . enh-ruby-mode)
           ("\\.ru$"        . enh-ruby-mode)
@@ -1769,6 +1772,7 @@ the right."
       ;; turn off the annoying input echo in irb
       (setq comint-process-echoes t)
 
+      (set (make-variable-buffer-local 'ruby-end-insert-newline) nil)
       ;; Indentation
       (setq ruby-indent-level 2)
       (setq ruby-deep-indent-paren nil)
@@ -2230,7 +2234,16 @@ the right."
   :mode (("\\.exs?\\'"   . elixir-mode))
   :defer t
   :config
+  (add-to-list 'elixir-mode-hook
+    (defun auto-activate-ruby-end-mode-for-elixir-mode ()
+      (set (make-variable-buffer-local 'ruby-end-expand-keywords-before-re)
+        "\\(?:^\\|\\s-+\\)\\(?:do\\)")
+      (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers) nil)
+      (ruby-end-mode +1)))
+
   (use-package alchemist
+    :diminish (alchemist-mode . "alc")
+    :diminish (alchemist-phoenix-mode . "alc-ph")
     :init
 
     ;; Hack to disable company popup in Elixir if hanging
