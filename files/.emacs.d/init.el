@@ -151,9 +151,6 @@
 ;; Follow symlinks by default
 (setq vc-follow-symlinks t)
 
-;; Don't make tab indent a line (set to t if you want fancy tabbing)
-(setq tab-always-indent nil)
-
 ;; Don't combine tag tables thanks
 (setq tags-add-tables nil)
 
@@ -1504,6 +1501,15 @@ the right."
   (clean-aindent-mode t)
   (setq clean-aindent-is-simple-indent t))
 
+;; Don't make tab indent a line (set to t if you want fancy tabbing)
+(setq-default tab-always-indent nil)
+
+
+(defun grass/toggle-always-indent ()
+  "Toggle tab-always-indent setting"
+  (interactive)
+  (setq tab-always-indent (if tab-always-indent nil t)))
+
 ;; Don't use tabs to indent
 (setq-default indent-tabs-mode nil)
 
@@ -1556,7 +1562,6 @@ the right."
       (setq deactivate-mark nil))
     (grass/stupid-outdent-line)))
 
-(global-set-key (kbd "<backtab>") 'grass/stupid-outdent)
 
 
 ;;;;;;;;;;;;;;;;
@@ -2450,9 +2455,10 @@ If the error list is visible, hide it.  Otherwise, show it."
     "eh" 'hydra-goto-history/body
     "e~" 'hydra-change-case/body
     "ez" 'zop-up-to-char
-    "ed" 'crux-indent-defun
+    "ef" 'crux-indent-defun
     "ew" 'crux-cleanup-buffer-or-region
-    "et" 'untabify
+    "eT" 'untabify
+    "et" 'grass/toggle-always-indent
     "ec" 'char-menu
     "ep" 'hydra-move-parens/body
 
@@ -2534,6 +2540,7 @@ If the error list is visible, hide it.  Otherwise, show it."
 
   (general-imap "C-p" 'hippie-expand)
 
+  (global-set-key (kbd "<backtab>") 'grass/stupid-outdent)
   (global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line))
 
 
