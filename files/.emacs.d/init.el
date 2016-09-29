@@ -472,8 +472,6 @@
     :init
     (evil-commentary-mode))
 
-  ;; (use-package evil-magit)
-
   (use-package evil-matchit
     :init
     (global-evil-matchit-mode 1))
@@ -685,15 +683,15 @@
                                 ;; (magit-log-select-mode-map . emacs)
                                 ;; (magit-mode-map . emacs)
                                 ;; (magit-popup-help-mode-map . emacs)
-                                (magit-popup-mode . emacs)
-                                (magit-popup-sequence-mode . emacs)
+                                ;;(magit-popup-mode . emacs)
+                                ;;(magit-popup-sequence-mode . emacs)
                                 ;; (magit-process-mode-map . emacs)
                                 ;; (magit-reflog-mode-map . emacs)
                                 ;; (magit-refs-mode-map . emacs)
                                 ;; (magit-revision-mode-map . emacs)
                                 ;; (magit-stash-mode-map . emacs)
                                 ;; (magit-stashes-mode-map . emacs)
-                                (magit-status-mode . emacs)
+                                ;;(magit-status-mode . emacs)
                                 ;; (rdictcc-buffer-mode . emacs)
                                 ;; (kill-ring-mode . normal)
                                 ;; (bs-mode . emacs)
@@ -1165,6 +1163,8 @@ Repeated invocations toggle between the two most recently open buffers."
   (:states '(normal visual) :prefix grass/leader1
     "gs" 'magit-status)
   :config
+  (use-package evil-magit)
+
   (setq magit-completing-read-function 'ivy-completing-read))
 
 (use-package git-link
