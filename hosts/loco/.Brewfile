@@ -3,7 +3,6 @@ tap 'homebrew/bundle'
 tap 'homebrew/core'
 tap 'homebrew/services'
 tap 'argon/homebrew-mas'
-tap 'd12frosted/emacs-plus'
 
 brew 'ansible'
 brew 'aspell'
@@ -50,4 +49,4 @@ brew 'youtube-dl'
 brew 'z'
 brew 'zsh'
 brew 'vim', args: [ 'with-ruby', 'with-mzscheme', 'with-python' ]
-brew 'd12frosted/emacs-plus/emacs-plus', args: ['with-cocoa', 'with-gnutls', 'with-imagemagick', 'with-librsvg', 'with-spacemacs-icon' ]
+brew 'emacs', args: ['with-cocoa', 'with-gnutls', 'with-imagemagick', 'with-dbus', 'with-modules', 'with-mailutils' ]

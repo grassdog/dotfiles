@@ -88,8 +88,7 @@ end
 #
 
 dep "editors-installed" do
-  requires "spacemacs.repo",
-           "terminfo",
+  requires "terminfo",
            "vim-installed"
 end
 
