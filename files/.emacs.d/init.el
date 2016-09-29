@@ -1103,7 +1103,12 @@ Repeated invocations toggle between the two most recently open buffers."
     "bo" 'crux-kill-other-buffers
     "ed" 'crux-indent-defun
     "ew" 'crux-cleanup-buffer-or-region
-    "wt" 'crux-transpose-windows))
+    "et" 'untabify
+    "wt" 'crux-transpose-windows)
+  :config
+  (crux-with-region-or-buffer indent-region)
+  (crux-with-region-or-buffer untabify))
+
 
 (global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
 (global-set-key (kbd "s-d") #'crux-duplicate-current-line-or-region)
