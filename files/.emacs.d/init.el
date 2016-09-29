@@ -510,6 +510,66 @@
 
   (define-key evil-normal-state-map (kbd "SPC s c") 'grass/remove-search-highlights)
 
+  ;; Cursors
+  (defvar dotspacemacs-colorize-cursor-according-to-state t
+    "If non nil the cursor color matches the state color in GUI Emacs.")
+
+  (defvar spacemacs-evil-cursors '(("normal" "DarkGoldenrod2" box)
+                                    ("insert" "chartreuse3" (bar . 2))
+                                    ("emacs" "SkyBlue2" box)
+                                    ("hybrid" "SkyBlue2" (bar . 2))
+                                    ("replace" "chocolate" (hbar . 2))
+                                    ("evilified" "LightGoldenrod3" box)
+                                    ("visual" "gray" (hbar . 2))
+                                    ("motion" "plum3" box)
+                                    ("lisp" "HotPink1" box)
+                                    ("iedit" "firebrick1" box)
+                                    ("iedit-insert" "firebrick1" (bar . 2)))
+    "Colors assigned to evil states with cursor definitions.")
+
+  (loop for (state color cursor) in spacemacs-evil-cursors
+        do
+        (eval `(defface ,(intern (format "spacemacs-%s-face" state))
+                  `((t (:background ,color
+                                    :foreground ,(face-background 'mode-line)
+                                    :box ,(face-attribute 'mode-line :box)
+                                    :inherit 'mode-line)))
+                  (format "%s state face." state)
+                  :group 'spacemacs))
+        (eval `(setq ,(intern (format "evil-%s-state-cursor" state))
+                      (list (when dotspacemacs-colorize-cursor-according-to-state color)
+                            cursor))))
+
+  ;; put back refresh of the cursor on post-command-hook see status of:
+  ;; https://bitbucket.org/lyro/evil/issue/502/cursor-is-not-refreshed-in-some-cases
+  ;; (add-hook 'post-command-hook 'evil-refresh-cursor)
+
+  (defun spacemacs/state-color-face (state)
+    "Return the symbol of the face for the given STATE."
+    (intern (format "spacemacs-%s-face" (symbol-name state))))
+
+  (defun spacemacs/state-color (state)
+    "Return the color string associated to STATE."
+    (face-background (spacemacs/state-color-face state)))
+
+  (defun spacemacs/current-state-color ()
+    "Return the color string associated to the current state."
+    (face-background (spacemacs/state-color-face evil-state)))
+
+  (defun spacemacs/state-face (state)
+    "Return the face associated to the STATE."
+    (spacemacs/state-color-face state))
+
+  (defun spacemacs/current-state-face ()
+    "Return the face associated to the current state."
+    (let ((state (if (eq evil-state 'operator)
+                      evil-previous-state
+                    evil-state)))
+      (spacemacs/state-color-face state)))
+
+  (defun evil-insert-state-cursor-hide ()
+    (setq evil-insert-state-cursor '((hbar . 0))))
+
   ;; Make horizontal movement cross lines
   (setq-default evil-cross-lines t)
   (setq-default evil-shift-width 2)
