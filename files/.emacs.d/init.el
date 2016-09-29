@@ -90,6 +90,8 @@
 ;; General ;;
 ;;;;;;;;;;;;;
 
+(setq grass/leader1 "SPC")
+
 ;; Faster
 (setq font-lock-verbose nil)
 
@@ -196,17 +198,10 @@
 ;; Themes ;;
 ;;;;;;;;;;;;
 
-(use-package general
-  :init
-  (setq grass/leader1 "SPC"))
-
 ;; Must require this before spaceline
 (use-package anzu
   :diminish anzu-mode
   :defer 3
-  :general
-  (:states '(normal visual) :prefix grass/leader1
-    "sr" 'anzu-query-replace-at-cursor-thing)
   :init (global-anzu-mode +1))
 
 ;; Disable themes before loading them (in daemon mode esp.)
@@ -264,15 +259,6 @@
 
 (use-package ivy
   :diminish (ivy-mode . "")
-  :general
-  ("C-c C-r" 'ivy-resume)
-  ("<f6>" 'ivy-resume)
-  (:states '(normal visual) :prefix grass/leader1
-    "bb" 'ivy-switch-buffer)
-  (:keymaps 'ivy-minibuffer-map
-    "RET" 'ivy-alt-done
-    "S-<up>" 'ivy-previous-history-element
-    "S-<down>" 'ivy-next-history-element)
   :init
   (use-package ivy-hydra
     :defer 3)
@@ -288,23 +274,11 @@
   (ivy-mode 1))
 
 (use-package counsel
-  :general
-  ("M-x" 'counsel-M-x)
-  ("C-x C-f" 'counsel-find-file)
-  (:states '(normal visual) :prefix grass/leader1
-    "fr" 'counsel-recentf
-    "ff" 'counsel-find-file
-    "fR" 'grass/rename-file-and-buffer
-    "sa" 'counsel-ag
-    "sg" 'counsel-git-grep
-    "eC" 'counsel-unicode-char)
   :init
   (define-key read-expression-map (kbd "C-r") 'counsel-expression-history))
 
 (use-package swiper
-  :general
-  (:states '(normal visual) :prefix grass/leader1
-    "ss" 'swiper))
+  :commands swiper)
 
 (use-package which-key
   :diminish which-key-mode
@@ -323,26 +297,11 @@
        ("grass/" . "g/")
        ("\\`hydra-" . "+h/")
        ("\\`org-babel-" . "ob/")))
-  (which-key-mode 1)
-  (which-key-declare-prefixes "SPC f" "files")
-  (which-key-declare-prefixes "SPC e" "editing/text")
-  (which-key-declare-prefixes "SPC u" "utilities")
-  (which-key-declare-prefixes "SPC b" "buffers")
-  (which-key-declare-prefixes "SPC k" "bookmarks")
-  (which-key-declare-prefixes "SPC c" "check/compile")
-  (which-key-declare-prefixes "SPC g" "git/vc")
-  (which-key-declare-prefixes "SPC m" "major-mode-cmd")
-  (which-key-declare-prefixes "SPC p" "projectile")
-  (which-key-declare-prefixes "SPC w" "windows/ui")
-  (which-key-declare-prefixes "SPC S" "spelling")
-  (which-key-declare-prefixes "SPC z" "folding")
-  (which-key-declare-prefixes "SPC s" "search/replace"))
+  (which-key-mode 1))
 
 
 (use-package browse-kill-ring
-  :general
-  (:states '(normal visual) :prefix grass/leader1
-    "ek" 'browse-kill-ring))
+  :commands browse-kill-ring)
 
 
 ;; Subtle highlighting of matching parens (global-mode)
@@ -364,8 +323,7 @@
   ("-" text-scale-decrease "out")
   ("0" (text-scale-adjust 0) "reset")
   ("q" nil "quit" :color blue))
-(general-define-key :states '(normal) :prefix grass/leader1
-  "wz" 'hydra-zoom-text/body)
+
 
 (use-package highlight-indentation
   :commands highlight-indentation-mode)
@@ -452,8 +410,6 @@
   ("g" git-timemachine "git timemachine")
   ("v" undo-tree-visualize "visualise" :exit t)
   ("q" nil "quit"))
-(general-define-key :states '(normal) :prefix grass/leader1
-  "eh" 'hydra-goto-history/body)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -772,12 +728,6 @@
   (drag-stuff-global-mode 1))
 
 
-(defhydra hydra-move-text ()
-  "move text"
-  ("u" move-text-up "move up")
-  ("d" move-text-down "move down"))
-(general-define-key :states '(normal) :prefix grass/leader1 "em" 'hydra-move-text/body)
-
 ;; Keep system clipboard separate from kill ring
 (use-package simpleclip
   :defer 2
@@ -794,7 +744,7 @@
               string-inflection-camelcase
               string-inflection-lisp))
 
-(defhydra hydra-case ()
+(defhydra hydra-change-case ()
   "toggle word case"
   ("c" capitalize-word "Capitalize")
   ("u" upcase-word "UPPER")
@@ -804,24 +754,16 @@
   ("a" string-inflection-lower-camelcase "lowerCamel")
   ("m" string-inflection-camelcase "UpperCamel")
   ("d" string-inflection-lisp "dash-case"))
-(general-define-key :states '(normal) :prefix grass/leader1 "e~" 'hydra-case/body)
 
 ;; Better zap to char
 (use-package zop-to-char
-  :bind ("M-z" . zop-up-to-char)
-  :general
-  (:states '(normal visual) :prefix grass/leader1
-    "ez" 'zop-up-to-char)
   :commands (zop-to-char zop-up-to-char))
 
 (global-set-key [remap zap-to-char] 'zop-to-char)
 
 (use-package iedit
+  :commands 'iedit-mode
   :defines grass/iedit-dwim
-  :general
-  (:states '(normal visual) :prefix grass/leader1
-    "s;" 'iedit-mode
-    "s:" 'grass/iedit-dwim)
   :config
   (defun grass/iedit-dwim (arg)
     "Starts iedit but uses \\[narrow-to-defun] to limit its scope."
@@ -943,10 +885,6 @@ _SPC_ cancel     _o_nly this       _d_elete
   ("Z" winner-redo nil)
   ("SPC" nil nil))
 
-(general-define-key :states '(normal visual) :prefix grass/leader1
-  "ww" 'hydra-window/body
-  "wo" 'delete-other-windows
-  "wk" 'delete-window)
 
 (use-package origami
   :commands (origami-toggle-node
@@ -955,16 +893,7 @@ _SPC_ cancel     _o_nly this       _d_elete
               origami-undo
               origami-redo
               origami-recursively-toggle-node)
-  :general
-  (:states '(normal visual) :prefix grass/leader1
-    "zz" 'origami-toggle-node
-    "zs" 'origami-show-only-node
-    "zo" 'origami-open-all-nodes
-    "zu" 'origami-undo
-    "zr" 'origami-redo)
   :config
-  (define-key evil-normal-state-map "z" 'origami-recursively-toggle-node)
-  (define-key evil-visual-state-map "z" 'origami-recursively-toggle-node)
   (add-hook 'prog-mode-hook
     (lambda ()
       (origami-mode 1))))
@@ -1096,38 +1025,13 @@ Repeated invocations toggle between the two most recently open buffers."
               crux-transpose-windows
               crux-view-url
               )
-  :general
-  (:states '(normal visual) :prefix grass/leader1
-    "uU" 'crux-view-url
-    "fd" 'crux-delete-file-and-buffer
-    "bo" 'crux-kill-other-buffers
-    "ed" 'crux-indent-defun
-    "ew" 'crux-cleanup-buffer-or-region
-    "et" 'untabify
-    "wt" 'crux-transpose-windows)
   :config
   (crux-with-region-or-buffer indent-region)
   (crux-with-region-or-buffer untabify))
 
 
-(global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
-(global-set-key (kbd "s-d") #'crux-duplicate-current-line-or-region)
-
-
-(general-define-key :states '(normal visual) :prefix grass/leader1
-  "ut" 'display-time-world
-  "uc" 'quick-calc
-  "uu" 'browse-url
-  "ub" 'grass/comment-box
-  "fc" 'grass/copy-buffer-filename
-  "bs" 'grass/switch-to-scratch-buffer
-  "bk" 'kill-this-buffer
-  "ud" 'grass/insert-datetime)
-
 (use-package reveal-in-osx-finder
-  :general
-  (:states '(normal visual) :prefix grass/leader1
-    "uf" 'reveal-in-osx-finder))
+  :commands reveal-in-osx-in-finder)
 
 ;;;;;;;;;;;;;;;;;;
 ;; Common Files ;;
@@ -1153,38 +1057,25 @@ Repeated invocations toggle between the two most recently open buffers."
   (interactive)
   (counsel-file-jump "" (expand-file-name "~/Dropbox/Notes")))
 
-(general-define-key :states '(normal visual) :prefix grass/leader1
-  "ki" 'grass/open-init
-  "kw" 'grass/open-work-log
-  "kp" 'grass/open-personal-log
-  "kn" 'grass/find-notes)
 
 ;;;;;;;;;
 ;; Git ;;
 ;;;;;;;;;
 
 (use-package magit
-  :general
-  (:states '(normal visual) :prefix grass/leader1
-    "gs" 'magit-status)
+  :commands magit-status
   :config
   (use-package evil-magit)
 
   (setq magit-completing-read-function 'ivy-completing-read))
 
 (use-package git-link
+  :commands (git-link git-link-commit)
   :config
-  (setq git-link-open-in-browser t)
-  :general
-  (:states '(normal visual) :prefix grass/leader1
-    "gl" 'git-link
-    "gc" 'git-link-commit))
+  (setq git-link-open-in-browser t))
 
 (use-package git-timemachine
-  :commands git-timemachine
-  :general
-  (:states '(normal visual) :prefix grass/leader1
-    "gt" 'git-timemachine))
+  :commands git-timemachine)
 
 (use-package git-gutter-fringe
   :diminish git-gutter-mode
@@ -1227,9 +1118,6 @@ Repeated invocations toggle between the two most recently open buffers."
                              ("Typography" "⋅" "•" "©" "†" "‡" "°" "·" "§" "№" "★")
                              ("Math"       "≈" "≡" "≠" "∞" "×" "±" "∓" "÷" "√")
                              ("Arrows"     "←" "→" "↑" "↓" "⇐" "⇒" "⇑" "⇓"))))
-
-(general-define-key :states '(normal visual) :prefix grass/leader1
-  "ec" 'char-menu)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1305,12 +1193,7 @@ Repeated invocations toggle between the two most recently open buffers."
 
 
 (use-package dired+
-  :commands dired-omit-mode
-  :general
-  ("C-x C-j" 'dired-jump
-    "<s-up>" 'dired-jump)
-  (:states '(normal visual) :prefix grass/leader1
-    "fj" 'dired-jump)
+  :commands (dired-omit-mode dired-jump)
   :config
   ;; Chill the colours in dired
   (setq font-lock-maximum-decoration (quote ((dired-mode . 1) (t . t))))
@@ -1412,14 +1295,6 @@ Repeated invocations toggle between the two most recently open buffers."
   (perform-replace from-string to-string t nil delimited nil nil start end))
 
 
-(general-define-key :states '(normal visual) :prefix grass/leader1
-  "sr" 'grass/replace-string-in-entire-buffer
-  "sR" 'grass/replace-regexp-in-entire-buffer
-  "sq" 'grass/query-replace-string-in-entire-buffer
-  "sQ" 'grass/query-replace-regexp-in-entire-buffer
-  "sf" 'isearch-forward-regexp
-  "sb" 'isearch-reverse-regexp)
-
 (use-package ag
   :commands (ag ag-project))
 
@@ -1428,12 +1303,10 @@ Repeated invocations toggle between the two most recently open buffers."
 ;;;;;;;;;;;;;;;
 
 (use-package expand-region
+  :commands er/expand-region
   :config
   (setq expand-region-contract-fast-key "V"
-    expand-region-reset-fast-key "r")
-  :general
-  (:states '(normal visual) :prefix grass/leader1
-    "v" 'er/expand-region))
+    expand-region-reset-fast-key "r"))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1464,21 +1337,26 @@ Repeated invocations toggle between the two most recently open buffers."
 
 (eval-after-load 'company
   '(progn
-     (global-set-key (kbd "s-e") 'company-yasnippet)
-     (general-define-key :states '(normal visual) :prefix grass/leader1
+     (general-define-key
+       :states '(normal visual insert emacs)
+       :prefix grass/leader1
+       :non-normal-prefix "M-SPC"
        "es" 'company-yasnippet
-       "ee" 'hippie-expand)
-     (define-key company-active-map (kbd "TAB") 'company-complete-common-or-cycle)
-     (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
-     (define-key company-active-map (kbd "S-TAB") 'company-select-previous)
-     (define-key company-active-map (kbd "<backtab>") 'company-select-previous)
-     (define-key company-active-map [escape] 'company-abort)))
+       "ee" 'hippie-expand
+       )
+     (general-define-key
+       "s-e" 'company-yasnippet)
+
+     (general-define-key :keymaps 'company-active-map
+       "TAB" 'company-complete-common-or-cycle
+       "<tab>" 'company-complete-common-or-cycle
+       "S-TAB" 'company-select-previous
+       "<backtab>" 'company-select-previous
+       "ESC" 'company-abort)))
 
 (add-hook 'after-init-hook 'global-company-mode)
 
 ;; replace dabbrev-expand with Hippie expand
-(global-set-key (kbd "M-/") 'hippie-expand)
-(define-key evil-insert-state-map (kbd "C-p") 'hippie-expand)
 (setq hippie-expand-try-functions-list
   '(
      ;; Try to expand yasnippet snippets based on prefix
@@ -1541,9 +1419,6 @@ Repeated invocations toggle between the two most recently open buffers."
   ("}" corral-braces-forward "Forward")
   ("." hydra-repeat "Repeat"))
 
-(general-define-key :states '(normal visual) :prefix grass/leader1
-  "ep" 'hydra-move-parens/body)
-
 
 ;;;;;;;;;;;;;;;
 ;; Alignment ;;
@@ -1592,23 +1467,6 @@ the right."
 (create-align-repeat-x "bar" "|")
 (create-align-repeat-x "left-paren" "(")
 (create-align-repeat-x "right-paren" ")" t)
-
-;; Bindings
-(which-key-declare-prefixes "SPC xa" "alignment")
-(general-define-key :states '(normal visual) :prefix grass/leader1
-  "eaa" 'align
-  "ear" 'align-repeat
-  "eam" 'align-repeat-math-oper
-  "ea." 'align-repeat-decimal
-  "ea," 'align-repeat-comma
-  "ea;" 'align-repeat-semicolon
-  "ea:" 'align-repeat-colon
-  "ea=" 'align-repeat-equal
-  "ea>" 'align-repeat-hash
-  "ea&" 'align-repeat-ampersand
-  "ea|" 'align-repeat-bar
-  "ea(" 'align-repeat-left-paren
-  "ea)" 'align-repeat-right-paren)
 
 
 ;;;;;;;;;;;;;;;
@@ -1732,12 +1590,8 @@ the right."
 
 (use-package projectile
   :diminish (projectile-mode . "ⓟ")
-  :commands (projectile-mode projectile-project-root)
+  :commands (projectile-mode projectile-project-root projectile-ag)
   :defines grass/counsel-ag-current-project
-  :general
-  (:states '(normal visual) :prefix grass/leader1
-    "sp" 'grass/counsel-ag-current-project
-    "sP" 'projectile-ag)
   :config
   (setq projectile-tags-command "rtags -R -e")
   (setq projectile-enable-caching nil)
@@ -1760,7 +1614,13 @@ the right."
     :init
     (progn
       (setq projectile-switch-project-action 'counsel-projectile-find-file)
-      (general-define-key :states '(normal visual) :prefix grass/leader1
+
+      (general-define-key
+        :states '(normal visual insert emacs)
+        :prefix grass/leader1
+        :non-normal-prefix "M-SPC"
+
+        "p" '(:ignore t :which-key "Projectile")
         "p SPC" 'counsel-projectile
         "pb"    'counsel-projectile-switch-to-buffer
         "bp"    'counsel-projectile-switch-to-buffer
@@ -1768,17 +1628,17 @@ the right."
         "pp"    'counsel-projectile-switch-project
         "pf"    'counsel-projectile-find-file
         "fp"    'counsel-projectile-find-file
-        "pr"    'projectile-recentf)))
+        "pr"    'projectile-recentf)
 
-  (defun grass/counsel-ag-current-project ()
-    "Search in current project with `ag'."
-    (interactive)
-    (let ((dir (projectile-project-root)))
-      (if dir
-        (counsel-ag "" dir)
-        (message "error: Not in a project."))))
-  :init
-  (projectile-global-mode t))
+      (defun grass/counsel-ag-current-project ()
+        "Search in current project with `ag'."
+        (interactive)
+        (let ((dir (projectile-project-root)))
+          (if dir
+            (counsel-ag "" dir)
+            (message "error: Not in a project."))))
+      :init
+      (projectile-global-mode t))))
 
 
 ;;;;;;;;;
@@ -2428,7 +2288,7 @@ the right."
   :diminish (flyspell-mode . " spl")
   :config
   (setq-default ispell-program-name "aspell")
-                                        ; Silently save my personal dictionary when new items are added
+  ; Silently save my personal dictionary when new items are added
   (setq ispell-silently-savep t)
   (ispell-change-dictionary "british" t)
 
@@ -2439,6 +2299,7 @@ the right."
     (lambda ()
       (define-key flyspell-mode-map [(control ?\,)] nil)
       (general-define-key :states '(normal visual) :prefix grass/leader1
+        "S" '(:ignore t :which-key "Spelling")
         "Sn" 'flyspell-goto-next-error
         "Sw" 'ispell-word))))
 
@@ -2532,13 +2393,6 @@ If the error list is visible, hide it.  Otherwise, show it."
     (quit-window nil window)
     (flycheck-list-errors)))
 
-(general-define-key :states '(normal visual) :prefix grass/leader1
-  "cc" 'flycheck-clear
-  "ch" 'flycheck-describe-checker
-  "cs" 'flycheck-select-checker
-  "cl" 'grass/toggle-flycheck-error-list
-  "cS" 'flycheck-set-checker-executable
-  "cv" 'flycheck-verify-setup)
 
 ;;;;;;;;;;;;;;;
 ;; Proselint ;;
@@ -2562,14 +2416,154 @@ If the error list is visible, hide it.  Otherwise, show it."
 ;; Key bindings ;;
 ;;;;;;;;;;;;;;;;;;
 
-(global-set-key (kbd "<home>") 'move-beginning-of-line)
-(global-set-key (kbd "<end>") 'move-end-of-line)
+(use-package general
+  :init
+  (general-evil-setup t)
 
-(global-set-key [s-up] 'dired-jump)
 
-(general-define-key :states '(normal visual) :prefix grass/leader1
-  "TAB" 'grass/switch-to-previous-buffer
-  "wl" 'toggle-truncate-lines)
+  (general-define-key
+    :states '(normal visual insert emacs)
+    :prefix grass/leader1
+    :non-normal-prefix "M-SPC"
+
+    "TAB" '(grass/switch-to-previous-buffer :which-key "previous buffer")
+
+    "c" '(:ignore t :which-key "Check/Compile")
+    "cc" 'flycheck-clear
+    "ch" 'flycheck-describe-checker
+    "cs" 'flycheck-select-checker
+    "cl" 'grass/toggle-flycheck-error-list
+    "cS" 'flycheck-set-checker-executable
+    "cv" 'flycheck-verify-setup
+
+    "m" '(:ignore t :which-key "Major-mode-cmd")
+
+    "s" '(:ignore t :which-key "Search/Replace")
+    "sp" 'anzu-query-replace-at-cursor-thing
+    "sa" 'counsel-ag
+    "sg" 'counsel-git-grep
+    "ss" 'swiper
+    "s;" 'iedit-mode
+    "s:" 'grass/iedit-dwim
+    "sr" 'grass/replace-string-in-entire-buffer
+    "sR" 'grass/replace-regexp-in-entire-buffer
+    "sq" 'grass/query-replace-string-in-entire-buffer
+    "sQ" 'grass/query-replace-regexp-in-entire-buffer
+    "sf" 'isearch-forward-regexp
+    "sb" 'isearch-reverse-regexp
+    "sp" '(grass/counsel-ag-current-project :which-key "ag project")
+    "sP" 'projectile-ag
+
+    "b" '(:ignore t :which-key "Buffers")
+    "bb" 'ivy-switch-buffer
+    "bs" 'grass/switch-to-scratch-buffer
+    "bk" 'kill-this-buffer
+    "bo" 'crux-kill-other-buffers
+
+    "k" '(:ignore t :which-key "Bookmarks")
+    "ki" 'grass/open-init
+    "kw" 'grass/open-work-log
+    "kp" 'grass/open-personal-log
+    "kn" 'grass/find-notes
+
+    "g" '(:ignore t :which-key "Git/VC")
+    "gs" 'magit-status
+    "gl" 'git-link
+    "gc" 'git-link-commit
+    "gt" 'git-timemachine
+
+    "e" '(:ignore t :which-key "Editing/Text")
+    "eC" 'counsel-unicode-char
+    "ek" 'browse-kill-ring
+    "eh" 'hydra-goto-history/body
+    "e~" 'hydra-change-case/body
+    "ez" 'zop-up-to-char
+    "ed" 'crux-indent-defun
+    "ew" 'crux-cleanup-buffer-or-region
+    "et" 'untabify
+    "ec" 'char-menu
+    "ep" 'hydra-move-parens/body
+
+    "ea" '(:ignore t :which-key "Alignment")
+    "eaa" 'align
+    "ear" 'align-repeat
+    "eam" 'align-repeat-math-oper
+    "ea." 'align-repeat-decimal
+    "ea," 'align-repeat-comma
+    "ea;" 'align-repeat-semicolon
+    "ea:" 'align-repeat-colon
+    "ea=" 'align-repeat-equal
+    "ea>" 'align-repeat-hash
+    "ea&" 'align-repeat-ampersand
+    "ea|" 'align-repeat-bar
+    "ea(" 'align-repeat-left-paren
+    "ea)" 'align-repeat-right-paren
+
+    "f" '(:ignore t :which-key "Files")
+    "fr" 'counsel-recentf
+    "ff" 'counsel-find-file
+    "fR" 'grass/rename-file-and-buffer
+    "fc" 'grass/copy-buffer-filename
+    "fd" 'crux-delete-file-and-buffer
+    "fj" 'dired-jump
+    "fs"  '(save-buffer :which-key "save file")
+
+    "u" '(:ignore t :which-key "Utilities")
+    "uU" 'crux-view-url
+    "ut" 'display-time-world
+    "uc" 'quick-calc
+    "uu" 'browse-url
+    "ub" 'grass/comment-box
+    "ud" 'grass/insert-datetime
+    "uf" 'reveal-in-osx-finder
+
+    "v" 'er/expand-region
+
+    "w" '(:ignore t :which-key "Windows/UI")
+    "wl" 'toggle-truncate-lines
+    "wz" 'hydra-zoom-text/body
+    "ww" 'hydra-window/body
+    "wo" 'delete-other-windows
+    "wk" 'delete-window
+    "wt" 'crux-transpose-windows
+
+    "z" '(:ignore t :which-key "Folding")
+    "zz" 'origami-toggle-node
+    "zs" 'origami-show-only-node
+    "zo" 'origami-open-all-nodes
+    "zu" 'origami-undo
+    "zr" 'origami-redo
+    )
+
+  (general-define-key
+
+    "s-d" 'crux-duplicate-current-line-or-region
+
+    "<home>" 'move-beginning-of-line
+    "<end>" 'move-end-of-line
+
+    "C-x C-j" 'dired-jump
+    "<s-up>" 'dired-jump
+
+    "M-/" 'hippie-expand
+    "M-z" 'zop-up-to-char
+    "M-x" 'counsel-M-x
+    "C-x C-f" 'counsel-find-file
+    "C-c C-r" 'ivy-resume
+    "<f6>" 'ivy-resume
+    )
+
+  (general-define-key :keymaps 'ivy-minibuffer-map
+    "RET" 'ivy-alt-done
+    "S-<up>" 'ivy-previous-history-element
+    "S-<down>" 'ivy-next-history-element)
+
+  (general-nvmap "z" 'origami-recursively-toggle-node)
+
+  (general-imap "C-p" 'hippie-expand)
+
+  (global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line))
+
 
 (provide 'init)
 ;;; init.el ends her
