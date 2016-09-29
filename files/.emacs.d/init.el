@@ -315,6 +315,7 @@
           ("\\`calc-" . "") ; Hide "calc-" prefixes when listing M-x calc keys
           ("/body\\'" . "") ; Remove display the "/body" portion of hydra fn names
           ("string-inflection" . "si")
+          ("crux-" . "c/")
           ("grass/" . "g/")
           ("\\`hydra-" . "+h/")
           ("\\`org-babel-" . "ob/")))
@@ -482,8 +483,14 @@
     (global-evil-surround-mode 1))
 
   (use-package evil-visualstar
+    :commands (evil-visualstar/begin-search-forward
+               evil-visualstar/begin-search-backward)
     :init
-    (global-evil-visualstar-mode))
+    (progn
+      (define-key evil-visual-state-map (kbd "*")
+        'evil-visualstar/begin-search-forward)
+      (define-key evil-visual-state-map (kbd "#")
+        'evil-visualstar/begin-search-backward)))
 
   (use-package evil-search-highlight-persist
     :init
@@ -1020,6 +1027,28 @@ Repeated invocations toggle between the two most recently open buffers."
   (interactive)
   (let ((exists (get-buffer "*scratch*")))
     (switch-to-buffer (get-buffer-create "*scratch*"))))
+
+(use-package crux
+  :commands (crux-delete-file-and-buffer
+              crux-duplicate-current-line-or-region
+              crux-kill-other-buffers
+              crux-indent-defun
+              crux-cleanup-buffer-or-region
+              crux-mode-beginning-of-line
+              crux-transpose-windows
+              crux-view-url
+              )
+  :general
+  (:states '(normal visual) :prefix grass/leader1
+    "uU" 'crux-view-url
+    "fd" 'crux-delete-file-and-buffer
+    "bo" 'crux-kill-other-buffers
+    "ed" 'crux-indent-defun
+    "ew" 'crux-cleanup-buffer-or-region
+    "wt" 'crux-transpose-windows))
+
+(global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
+(global-set-key (kbd "s-d") #'crux-duplicate-current-line-or-region)
 
 
 (general-define-key :states '(normal visual) :prefix grass/leader1
@@ -1622,9 +1651,6 @@ the right."
 
 (setq require-final-newline t)
 
-(general-define-key :states '(normal visual) :prefix grass/leader1
-        "ew" 'whitespace-cleanup)
-
 
 ;; Only trim modified lines on save
 (use-package ws-butler
@@ -1644,7 +1670,8 @@ the right."
   :commands projectile-mode
   :general
   (:states '(normal visual) :prefix grass/leader1
-     "p" '(:keymap projectile-command-map))
+    "p" '(:keymap projectile-command-map)
+    "fp" 'projectile-find-file)
   :config
   (setq projectile-tags-command "rtags -R -e")
   (setq projectile-enable-caching nil)
