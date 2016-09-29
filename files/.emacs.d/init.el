@@ -1058,6 +1058,7 @@ Repeated invocations toggle between the two most recently open buffers."
         "ub" 'grass/comment-box
         "fc" 'grass/copy-buffer-filename
         "bs" 'grass/switch-to-scratch-buffer
+        "bk" 'kill-this-buffer
         "ud" 'grass/insert-datetime)
 
 (use-package reveal-in-osx-finder
@@ -1158,7 +1159,7 @@ Repeated invocations toggle between the two most recently open buffers."
   :commands char-menu
   ; Em-dash is first
   :config (setq char-menu '("—" "‘’" "“”" "…" "«»" "–"
-                            ("Typography" "•" "©" "†" "‡" "°" "·" "§" "№" "★")
+                            ("Typography" "⋅" "•" "©" "†" "‡" "°" "·" "§" "№" "★")
                             ("Math"       "≈" "≡" "≠" "∞" "×" "±" "∓" "÷" "√")
                             ("Arrows"     "←" "→" "↑" "↓" "⇐" "⇒" "⇑" "⇓"))))
 
