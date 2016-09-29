@@ -2217,8 +2217,12 @@ the right."
   (use-package flycheck-clojure
     :init
     (eval-after-load 'flycheck '(flycheck-clojure-setup)))
-
   (add-hook 'clojure-mode-hook #'flycheck-mode)
+  (add-hook 'clojure-mode-hook
+    (lambda ()
+      ;; Treat dash as part of a word
+      (modify-syntax-entry ?- "w")
+      (flycheck-mode)))
 
   (use-package clojure-snippets)
 
@@ -2268,8 +2272,11 @@ the right."
                 ;; insert keybinding setup here
                 (cljr-add-keybindings-with-prefix "C-c RET")))))
 
+
 (add-hook 'emacs-lisp-mode-hook
   (lambda ()
+    ;; Treat dash as part of a word
+    (modify-syntax-entry ?- "w")
     (define-key global-map (kbd "C-c C-e") 'eval-print-last-sexp)))
 
 
