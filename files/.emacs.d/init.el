@@ -2246,6 +2246,58 @@ the right."
     :diminish (alchemist-phoenix-mode . "alc-ph")
     :init
 
+    (general-emacs-define-key alchemist-mode-map :states '(normal visual) :prefix grass/leader1
+      "me" '(:ignore t :which-key "Eval")
+      "mel" 'alchemist-eval-current-line
+      "meL" 'alchemist-eval-print-current-line
+      "mer" 'alchemist-eval-region
+      "meR" 'alchemist-eval-print-region
+
+      "mp" '(:ignore t :which-key "Project")
+      "mpt" 'alchemist-project-find-test
+      "mg" '(:ignore t :which-key "File Toggle")
+      "mgt" 'alchemist-project-toggle-file-and-tests
+      "mgT" 'alchemist-project-toggle-file-and-tests-other-window
+
+      "mh" '(:ignore t :which-key "Help")
+      "mh:" 'alchemist-help
+      "mhH" 'alchemist-help-history
+      "mhh" 'alchemist-help-search-at-point
+      "mhr" 'alchemist-help-search-marked-region
+
+      "mm" '(:ignore t :which-key "Mix")
+      "mm:" 'alchemist-mix
+      "mmc" 'alchemist-mix-compile
+      "mmx" 'alchemist-mix-run
+      "mmh" 'alchemist-mix-help
+
+      "ms" '(:ignore t :which-key "iex")
+      "msc" 'alchemist-iex-compile-this-buffer
+      "msi" 'alchemist-iex-run
+      "msI" 'alchemist-iex-project-run
+      "msl" 'alchemist-iex-send-current-line
+      "msL" 'alchemist-iex-send-current-line-and-go
+      "msm" 'alchemist-iex-reload-module
+      "msr" 'alchemist-iex-send-region
+      "msR" 'alchemist-iex-send-region-and-go
+
+      "mt" '(:ignore t :which-key "Test")
+      "mta" 'alchemist-mix-test
+      "mtb" 'alchemist-mix-test-this-buffer
+      "mtt" 'alchemist-mix-test-at-point
+      "mtf" 'alchemist-test-file
+      "mtn" 'alchemist-test-jump-to-next-test
+      "mtp" 'alchemist-test-jump-to-previous-test
+      "mtr" 'alchemist-mix-rerun-last-test
+
+      "mc" '(:ignore t :which-key "Compile")
+      "mcb" 'alchemist-compile-this-buffer
+      "mcf" 'alchemist-compile-file
+      "mc:" 'alchemist-compile
+
+      "gg" 'alchemist-goto-definition-at-point
+      "," 'alchemist-goto-jump-back)
+
     ;; Hack to disable company popup in Elixir if hanging
     (eval-after-load "alchemist"
       '(defun alchemist-company--wait-for-doc-buffer ()
