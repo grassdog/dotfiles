@@ -101,6 +101,13 @@
   (setq current-prefix-arg '(4)) ; C-u
   (call-interactively 'shell-command-on-region))
 
+(defun grass/what-face (pos)
+  "Identify the face under point"
+  (interactive "d")
+  (let ((face (or (get-char-property (point) 'read-face-name)
+                  (get-char-property (point) 'face))))
+    (if face (message "Face: %s" face) (message "No face at %d" pos))))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Search and Replace ;;
