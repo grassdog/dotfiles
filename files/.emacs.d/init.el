@@ -1767,6 +1767,20 @@ the right."
   ;; We never want to edit Rubinius bytecode
   (add-to-list 'completion-ignored-extensions ".rbc")
 
+  (general-emacs-define-key enh-ruby-mode-map
+    :states '(normal visual) :prefix grass/leader1
+      "m{" 'ruby-toggle-block
+      "mt" '(:ignore t :which-key "rspec")
+      "mta" 'rspec-verify-all
+      "mtb" 'rspec-verify
+      "mtc" 'rspec-verify-continue
+      "mte" 'rspec-toggle-example-pendingness
+      "mtf" 'rspec-verify-method
+      "mtl" 'rspec-run-last-failed
+      "mtm" 'rspec-verify-matching
+      "mtr" 'rspec-rerun
+      "mtt" 'rspec-verify-single)
+
   (add-hook 'enh-ruby-mode-hook
     (lambda ()
       ;; turn off the annoying input echo in irb
@@ -1785,10 +1799,6 @@ the right."
       (abbrev-mode -1))))
 
 (if (string= system-name "smithy")
-  (progn
-    (use-package chruby
-      :commands chruby-use-corresponding)
-    (add-hook 'projectile-switch-project-hook #'chruby-use-corresponding))
   (progn
 
     (use-package rbenv
@@ -1812,7 +1822,26 @@ the right."
                            "from .ruby-version file.")))
               (message "[rbenv] Using the currently activated ruby."))))
         (add-hook 'ruby-mode-hook #'grass/enable-rbenv)
-        (add-hook 'enh-ruby-mode-hook #'grass/enable-rbenv)))))
+        (add-hook 'enh-ruby-mode-hook #'grass/enable-rbenv))))
+  (progn
+    (use-package chruby
+    :init
+    (progn
+      (defun grass/enable-chruby ()
+        "Enable chruby, use .ruby-version if exists."
+        (let ((version-file-path (chruby--locate-file ".ruby-version")))
+          (chruby)
+          ;; try to use the ruby defined in .ruby-version
+          (if version-file-path
+              (progn
+                (chruby-use (chruby--read-version-from-file
+                             version-file-path))
+                (message (concat "[chruby] Using ruby version "
+                                 "from .ruby-version file.")))
+            (message "[chruby] Using the currently activated ruby."))))
+
+        (add-hook 'ruby-mode-hook #'grass/enable-chruby)
+        (add-hook 'enh-ruby-mode-hook #'grass/enable-chruby)))))
 
 
 ;;;;;;;;;;;;;;;;
