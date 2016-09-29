@@ -2443,7 +2443,7 @@ the right."
     (require 'spaceline-config)
     (setq powerline-default-separator 'bar)
     (setq spaceline-minor-modes-separator "⋅")
-    (setq spaceline-higlight-face-func 'spaceline-highlight-face-evil-state)
+    (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
     (spaceline-spacemacs-theme)
     (spaceline-info-mode)))
 
