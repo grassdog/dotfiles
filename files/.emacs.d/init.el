@@ -1,11 +1,11 @@
 ;; Temporarily up GC limit to speed up start up
 (setq gc-cons-threshold 100000000)
 (run-with-idle-timer
- 5 nil
- (lambda ()
-   (setq gc-cons-threshold 1000000)
-   (message "gc-cons-threshold restored to %S"
-            gc-cons-threshold)))
+  5 nil
+  (lambda ()
+    (setq gc-cons-threshold 1000000)
+    (message "gc-cons-threshold restored to %S"
+      gc-cons-threshold)))
 
 ;;;;;;;;;;;;;;;;;
 ;; Use Package ;;
@@ -14,9 +14,9 @@
 (require 'package)
 (setq package-enable-at-startup nil) ;; Don't load packages on startup
 (setq package-archives '(("org"       . "http://orgmode.org/elpa/")
-                         ("gnu"       . "http://elpa.gnu.org/packages/")
-                         ("melpa"     . "https://melpa.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")))
+                          ("gnu"       . "http://elpa.gnu.org/packages/")
+                          ("melpa"     . "https://melpa.org/packages/")
+                          ("marmalade" . "http://marmalade-repo.org/packages/")))
 (package-initialize)
 
 ;; Bootstrap use-package
@@ -69,7 +69,7 @@
 (add-to-list 'load-path (expand-file-name "vendor" grass/dotfiles-dir))
 
 (setq user-full-name "Ray Grasso"
-      user-mail-address "ray.grasso@gmail.com")
+  user-mail-address "ray.grasso@gmail.com")
 
 ;; Fix our shell environment on OSX
 (when (eq system-type 'darwin)
@@ -121,8 +121,8 @@
 
 ;; Nice scrolling
 (setq scroll-margin 4
-      scroll-conservatively 100000
-      scroll-preserve-screen-position 1)
+  scroll-conservatively 100000
+  scroll-preserve-screen-position 1)
 
 ;; Enable some stuff
 (put 'set-goal-column 'disabled nil)
@@ -142,9 +142,9 @@
 ;; A more useful frame title, that show either a file or a
 ;; buffer name (if the buffer isn't visiting a file)
 (setq frame-title-format
-      '("" invocation-name " - " (:eval (if (buffer-file-name)
-                                            (abbreviate-file-name (buffer-file-name))
-                                          "%b"))))
+  '("" invocation-name " - " (:eval (if (buffer-file-name)
+                                      (abbreviate-file-name (buffer-file-name))
+                                      "%b"))))
 
 ;; Follow symlinks by default
 (setq vc-follow-symlinks t)
@@ -180,10 +180,10 @@
 
 ;; World times
 (setq display-time-world-list '(("Australia/Brisbane" "Brisbane")
-                                ("Australia/Melbourne" "Melbourne")
-                                ("Europe/London" "London")
-                                ("America/New_York" "New York")
-                                ("America/Los_Angeles" "San Francisco")))
+                                 ("Australia/Melbourne" "Melbourne")
+                                 ("Europe/London" "London")
+                                 ("America/New_York" "New York")
+                                 ("America/Los_Angeles" "San Francisco")))
 
 ;; Base 10 for inserting quoted chars please
 (setq read-quoted-char-radix 10)
@@ -206,7 +206,7 @@
   :defer 3
   :general
   (:states '(normal visual) :prefix grass/leader1
-     "sr" 'anzu-query-replace-at-cursor-thing)
+    "sr" 'anzu-query-replace-at-cursor-thing)
   :init (global-anzu-mode +1))
 
 ;; Disable themes before loading them (in daemon mode esp.)
@@ -239,7 +239,7 @@
 
 (defun grass/set-ui ()
   (if (display-graphic-p)
-      (grass/set-gui-config)
+    (grass/set-gui-config)
     (grass/set-terminal-config)))
 
 (defun grass/set-frame-config (&optional frame)
@@ -249,7 +249,7 @@
 
 ;; Only need to set frame config if we are in daemon mode
 (if (daemonp)
-    (add-hook 'after-make-frame-functions 'grass/set-frame-config)
+  (add-hook 'after-make-frame-functions 'grass/set-frame-config)
   ;; Load theme on app creation
   (grass/set-ui))
 
@@ -283,8 +283,8 @@
   ;; Don't count candidates
   (setq ivy-count-format "")
   (setq ivy-re-builders-alist
-  '((swiper . ivy--regex-plus)
-    (t . ivy--regex-fuzzy)))
+    '((swiper . ivy--regex-plus)
+       (t . ivy--regex-fuzzy)))
   (ivy-mode 1))
 
 (use-package counsel
@@ -292,19 +292,19 @@
   ("M-x" 'counsel-M-x)
   ("C-x C-f" 'counsel-find-file)
   (:states '(normal visual) :prefix grass/leader1
-     "fr" 'counsel-recentf
-     "ff" 'counsel-find-file
-     "fR" 'grass/rename-file-and-buffer
-     "sa" 'counsel-ag
-     "sg" 'counsel-git-grep
-     "eC" 'counsel-unicode-char)
+    "fr" 'counsel-recentf
+    "ff" 'counsel-find-file
+    "fR" 'grass/rename-file-and-buffer
+    "sa" 'counsel-ag
+    "sg" 'counsel-git-grep
+    "eC" 'counsel-unicode-char)
   :init
   (define-key read-expression-map (kbd "C-r") 'counsel-expression-history))
 
 (use-package swiper
   :general
   (:states '(normal visual) :prefix grass/leader1
-     "ss" 'swiper))
+    "ss" 'swiper))
 
 (use-package which-key
   :diminish which-key-mode
@@ -313,16 +313,16 @@
   (setq which-key-min-display-lines 3)
 
   (setq which-key-description-replacement-alist
-        '(("Prefix Command" . "prefix")
-          ("which-key-show-next-page" . "wk next pg")
-          ("\\`calc-" . "") ; Hide "calc-" prefixes when listing M-x calc keys
-          ("/body\\'" . "") ; Remove display the "/body" portion of hydra fn names
-          ("string-inflection" . "si")
-          ("counsel-" . "c/")
-          ("crux-" . "cx/")
-          ("grass/" . "g/")
-          ("\\`hydra-" . "+h/")
-          ("\\`org-babel-" . "ob/")))
+    '(("Prefix Command" . "prefix")
+       ("which-key-show-next-page" . "wk next pg")
+       ("\\`calc-" . "") ; Hide "calc-" prefixes when listing M-x calc keys
+       ("/body\\'" . "") ; Remove display the "/body" portion of hydra fn names
+       ("string-inflection" . "si")
+       ("counsel-" . "c/")
+       ("crux-" . "cx/")
+       ("grass/" . "g/")
+       ("\\`hydra-" . "+h/")
+       ("\\`org-babel-" . "ob/")))
   (which-key-mode 1)
   (which-key-declare-prefixes "SPC f" "files")
   (which-key-declare-prefixes "SPC e" "editing/text")
@@ -342,7 +342,7 @@
 (use-package browse-kill-ring
   :general
   (:states '(normal visual) :prefix grass/leader1
-     "ek" 'browse-kill-ring))
+    "ek" 'browse-kill-ring))
 
 
 ;; Subtle highlighting of matching parens (global-mode)
@@ -365,7 +365,7 @@
   ("0" (text-scale-adjust 0) "reset")
   ("q" nil "quit" :color blue))
 (general-define-key :states '(normal) :prefix grass/leader1
-                    "wz" 'hydra-zoom-text/body)
+  "wz" 'hydra-zoom-text/body)
 
 (use-package highlight-indentation
   :commands highlight-indentation-mode)
@@ -378,14 +378,14 @@
 (use-package keyfreq
   :init
   (setq keyfreq-excluded-commands
-        '(self-insert-command
-          abort-recursive-edit
-          forward-char
-          backward-char
-          previous-line
-          next-line
-          right-char
-          left-char))
+    '(self-insert-command
+       abort-recursive-edit
+       forward-char
+       backward-char
+       previous-line
+       next-line
+       right-char
+       left-char))
   (keyfreq-mode 1)
   (keyfreq-autosave-mode 1))
 
@@ -396,9 +396,9 @@
 
 ;; Store all backup and autosave files in the tmp dir
 (setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
+  `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
+  `((".*" ,temporary-file-directory t)))
 
 (use-package saveplace
   :config
@@ -412,12 +412,12 @@
   :defer 2
   :config
   (setq savehist-additional-variables
-        ;; search entries
-        '(search ring regexp-search-ring)
-        ;; save every minute
-        savehist-autosave-interval 60
-        ;; keep the home clean
-        savehist-file (expand-file-name "savehist" grass/savefile-dir))
+    ;; search entries
+    '(search ring regexp-search-ring)
+    ;; save every minute
+    savehist-autosave-interval 60
+    ;; keep the home clean
+    savehist-file (expand-file-name "savehist" grass/savefile-dir))
   (savehist-mode 1))
 
 (use-package recentf
@@ -453,7 +453,7 @@
   ("v" undo-tree-visualize "visualise" :exit t)
   ("q" nil "quit"))
 (general-define-key :states '(normal) :prefix grass/leader1
-        "eh" 'hydra-goto-history/body)
+  "eh" 'hydra-goto-history/body)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -486,7 +486,7 @@
 
   (use-package evil-visualstar
     :commands (evil-visualstar/begin-search-forward
-               evil-visualstar/begin-search-backward)
+                evil-visualstar/begin-search-backward)
     :init
     (progn
       (define-key evil-visual-state-map (kbd "*")
@@ -506,198 +506,198 @@
       (evil-search-highlight-persist-remove-all)
       (evil-ex-nohighlight))
 
-  (define-key evil-normal-state-map (kbd "SPC s c") 'grass/remove-search-highlights)
+    (define-key evil-normal-state-map (kbd "SPC s c") 'grass/remove-search-highlights)
 
-  ;; Cursors
-  (defvar dotspacemacs-colorize-cursor-according-to-state t
-    "If non nil the cursor color matches the state color in GUI Emacs.")
+    ;; Cursors
+    (defvar dotspacemacs-colorize-cursor-according-to-state t
+      "If non nil the cursor color matches the state color in GUI Emacs.")
 
-  (defvar spacemacs-evil-cursors '(("normal" "DarkGoldenrod2" box)
-                                    ("insert" "chartreuse3" (bar . 2))
-                                    ("emacs" "SkyBlue2" box)
-                                    ("hybrid" "SkyBlue2" (bar . 2))
-                                    ("replace" "chocolate" (hbar . 2))
-                                    ("evilified" "LightGoldenrod3" box)
-                                    ("visual" "gray" (hbar . 2))
-                                    ("motion" "plum3" box)
-                                    ("lisp" "HotPink1" box)
-                                    ("iedit" "firebrick1" box)
-                                    ("iedit-insert" "firebrick1" (bar . 2)))
-    "Colors assigned to evil states with cursor definitions.")
+    (defvar spacemacs-evil-cursors '(("normal" "DarkGoldenrod2" box)
+                                      ("insert" "chartreuse3" (bar . 2))
+                                      ("emacs" "SkyBlue2" box)
+                                      ("hybrid" "SkyBlue2" (bar . 2))
+                                      ("replace" "chocolate" (hbar . 2))
+                                      ("evilified" "LightGoldenrod3" box)
+                                      ("visual" "gray" (hbar . 2))
+                                      ("motion" "plum3" box)
+                                      ("lisp" "HotPink1" box)
+                                      ("iedit" "firebrick1" box)
+                                      ("iedit-insert" "firebrick1" (bar . 2)))
+      "Colors assigned to evil states with cursor definitions.")
 
-  (loop for (state color cursor) in spacemacs-evil-cursors
-        do
-        (eval `(defface ,(intern (format "spacemacs-%s-face" state))
-                  `((t (:background ,color
-                                    :foreground ,(face-background 'mode-line)
-                                    :box ,(face-attribute 'mode-line :box)
-                                    :inherit 'mode-line)))
-                  (format "%s state face." state)
-                  :group 'spacemacs))
-        (eval `(setq ,(intern (format "evil-%s-state-cursor" state))
-                      (list (when dotspacemacs-colorize-cursor-according-to-state color)
-                            cursor))))
+    (loop for (state color cursor) in spacemacs-evil-cursors
+      do
+      (eval `(defface ,(intern (format "spacemacs-%s-face" state))
+               `((t (:background ,color
+                      :foreground ,(face-background 'mode-line)
+                      :box ,(face-attribute 'mode-line :box)
+                      :inherit 'mode-line)))
+               (format "%s state face." state)
+               :group 'spacemacs))
+      (eval `(setq ,(intern (format "evil-%s-state-cursor" state))
+               (list (when dotspacemacs-colorize-cursor-according-to-state color)
+                 cursor))))
 
-  ;; put back refresh of the cursor on post-command-hook see status of:
-  ;; https://bitbucket.org/lyro/evil/issue/502/cursor-is-not-refreshed-in-some-cases
-  ;; (add-hook 'post-command-hook 'evil-refresh-cursor)
+    ;; put back refresh of the cursor on post-command-hook see status of:
+    ;; https://bitbucket.org/lyro/evil/issue/502/cursor-is-not-refreshed-in-some-cases
+    ;; (add-hook 'post-command-hook 'evil-refresh-cursor)
 
-  (defun spacemacs/state-color-face (state)
-    "Return the symbol of the face for the given STATE."
-    (intern (format "spacemacs-%s-face" (symbol-name state))))
+    (defun spacemacs/state-color-face (state)
+      "Return the symbol of the face for the given STATE."
+      (intern (format "spacemacs-%s-face" (symbol-name state))))
 
-  (defun spacemacs/state-color (state)
-    "Return the color string associated to STATE."
-    (face-background (spacemacs/state-color-face state)))
+    (defun spacemacs/state-color (state)
+      "Return the color string associated to STATE."
+      (face-background (spacemacs/state-color-face state)))
 
-  (defun spacemacs/current-state-color ()
-    "Return the color string associated to the current state."
-    (face-background (spacemacs/state-color-face evil-state)))
+    (defun spacemacs/current-state-color ()
+      "Return the color string associated to the current state."
+      (face-background (spacemacs/state-color-face evil-state)))
 
-  (defun spacemacs/state-face (state)
-    "Return the face associated to the STATE."
-    (spacemacs/state-color-face state))
+    (defun spacemacs/state-face (state)
+      "Return the face associated to the STATE."
+      (spacemacs/state-color-face state))
 
-  (defun spacemacs/current-state-face ()
-    "Return the face associated to the current state."
-    (let ((state (if (eq evil-state 'operator)
-                      evil-previous-state
-                    evil-state)))
-      (spacemacs/state-color-face state)))
+    (defun spacemacs/current-state-face ()
+      "Return the face associated to the current state."
+      (let ((state (if (eq evil-state 'operator)
+                     evil-previous-state
+                     evil-state)))
+        (spacemacs/state-color-face state)))
 
-  (defun evil-insert-state-cursor-hide ()
-    (setq evil-insert-state-cursor '((hbar . 0))))
+    (defun evil-insert-state-cursor-hide ()
+      (setq evil-insert-state-cursor '((hbar . 0))))
 
-  ;; Make horizontal movement cross lines
-  (setq-default evil-cross-lines t)
-  (setq-default evil-shift-width 2)
+    ;; Make horizontal movement cross lines
+    (setq-default evil-cross-lines t)
+    (setq-default evil-shift-width 2)
 
-  ;; Little word
-  (require 'evil-little-word)
-  (define-key evil-motion-state-map (kbd "glw") 'evil-forward-little-word-begin)
-  (define-key evil-motion-state-map (kbd "glb") 'evil-backward-little-word-begin)
-  (define-key evil-motion-state-map (kbd "glW") 'evil-forward-little-word-end)
-  (define-key evil-motion-state-map (kbd "glB") 'evil-backward-little-word-end)
-  (define-key evil-outer-text-objects-map (kbd "lw") 'evil-a-little-word)
-  (define-key evil-inner-text-objects-map (kbd "lw") 'evil-inner-little-word)
+    ;; Little word
+    (require 'evil-little-word)
+    (define-key evil-motion-state-map (kbd "glw") 'evil-forward-little-word-begin)
+    (define-key evil-motion-state-map (kbd "glb") 'evil-backward-little-word-begin)
+    (define-key evil-motion-state-map (kbd "glW") 'evil-forward-little-word-end)
+    (define-key evil-motion-state-map (kbd "glB") 'evil-backward-little-word-end)
+    (define-key evil-outer-text-objects-map (kbd "lw") 'evil-a-little-word)
+    (define-key evil-inner-text-objects-map (kbd "lw") 'evil-inner-little-word)
 
-  (evil-mode t)
+    (evil-mode t)
 
-  ;; Yank till end of line
-  (define-key evil-normal-state-map (kbd "Y") (kbd "y$"))
+    ;; Yank till end of line
+    (define-key evil-normal-state-map (kbd "Y") (kbd "y$"))
 
-  ;; Make movement keys work like they should
-  (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
-  (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
-  (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
-  (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+    ;; Make movement keys work like they should
+    (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+    (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+    (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+    (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
 
-  ;; Make esc quit everywhere
-  (define-key evil-normal-state-map [escape] 'keyboard-quit)
-  (define-key evil-visual-state-map [escape] 'keyboard-quit)
-  (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
-  (define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
-  (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
-  (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
-  (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
-  (define-key isearch-mode-map [escape] 'isearch-abort)
-  (global-set-key [escape] 'keyboard-escape-quit)
+    ;; Make esc quit everywhere
+    (define-key evil-normal-state-map [escape] 'keyboard-quit)
+    (define-key evil-visual-state-map [escape] 'keyboard-quit)
+    (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
+    (define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
+    (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
+    (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
+    (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+    (define-key isearch-mode-map [escape] 'isearch-abort)
+    (global-set-key [escape] 'keyboard-escape-quit)
 
-  ;; Overload shifts so that they don't lose the selection
-  (define-key evil-visual-state-map (kbd ">>") 'grass/evil-shift-right-visual)
-  (define-key evil-visual-state-map (kbd "<<") 'grass/evil-shift-left-visual)
-  (define-key evil-visual-state-map (kbd "<S-down>") 'evil-next-visual-line)
-  (define-key evil-visual-state-map (kbd "<S-up>") 'evil-previous-visual-line)
+    ;; Overload shifts so that they don't lose the selection
+    (define-key evil-visual-state-map (kbd ">>") 'grass/evil-shift-right-visual)
+    (define-key evil-visual-state-map (kbd "<<") 'grass/evil-shift-left-visual)
+    (define-key evil-visual-state-map (kbd "<S-down>") 'evil-next-visual-line)
+    (define-key evil-visual-state-map (kbd "<S-up>") 'evil-previous-visual-line)
 
-  (defun grass/evil-shift-left-visual ()
-    (interactive)
-    (evil-shift-left (region-beginning) (region-end))
-    (evil-normal-state)
-    (evil-visual-restore))
+    (defun grass/evil-shift-left-visual ()
+      (interactive)
+      (evil-shift-left (region-beginning) (region-end))
+      (evil-normal-state)
+      (evil-visual-restore))
 
-  (defun grass/evil-shift-right-visual ()
-    (interactive)
-    (evil-shift-right (region-beginning) (region-end))
-    (evil-normal-state)
-    (evil-visual-restore))
+    (defun grass/evil-shift-right-visual ()
+      (interactive)
+      (evil-shift-right (region-beginning) (region-end))
+      (evil-normal-state)
+      (evil-visual-restore))
 
-  (define-key evil-window-map (kbd "<left>") 'evil-window-left)
-  (define-key evil-window-map (kbd "<right>") 'evil-window-right)
-  (define-key evil-window-map (kbd "<up>") 'evil-window-up)
-  (define-key evil-window-map (kbd "<down>") 'evil-window-down)
+    (define-key evil-window-map (kbd "<left>") 'evil-window-left)
+    (define-key evil-window-map (kbd "<right>") 'evil-window-right)
+    (define-key evil-window-map (kbd "<up>") 'evil-window-up)
+    (define-key evil-window-map (kbd "<down>") 'evil-window-down)
 
-  ;; Keep some Emacs stuff
-  (define-key evil-normal-state-map "\C-e" 'evil-end-of-line)
-  (define-key evil-insert-state-map "\C-e" 'end-of-line)
-  (define-key evil-visual-state-map "\C-e" 'evil-end-of-line)
-  (define-key evil-motion-state-map "\C-e" 'evil-end-of-line)
-  ;; (define-key evil-normal-state-map "\C-f" 'evil-forward-char)
-  ;; (define-key evil-insert-state-map "\C-f" 'evil-forward-char)
-  ;; (define-key evil-insert-state-map "\C-f" 'evil-forward-char)
-  ;; (define-key evil-normal-state-map "\C-b" 'evil-backward-char)
-  ;; (define-key evil-insert-state-map "\C-b" 'evil-backward-char)
-  ;; (define-key evil-visual-state-map "\C-b" 'evil-backward-char)
-  ;; (define-key evil-normal-state-map "\C-d" 'evil-delete-char)
-  ;; (define-key evil-insert-state-map "\C-d" 'evil-delete-char)
-  ;; (define-key evil-visual-state-map "\C-d" 'evil-delete-char)
-  ;; (define-key evil-normal-state-map "\C-n" 'evil-next-line)
-  ;; (define-key evil-insert-state-map "\C-n" 'evil-next-line)
-  ;; (define-key evil-visual-state-map "\C-n" 'evil-next-line)
-  ;; (define-key evil-normal-state-map "\C-p" 'evil-previous-line)
-  ;; (define-key evil-insert-state-map "\C-p" 'evil-previous-line)
-  ;; (define-key evil-visual-state-map "\C-p" 'evil-previous-line)
-  ;; (define-key evil-normal-state-map "\C-y" 'yank)
-  ;; (define-key evil-insert-state-map "\C-y" 'yank)
-  ;; (define-key evil-visual-state-map "\C-y" 'yank)
-  ;; (define-key evil-normal-state-map "\C-k" 'kill-line)
-  ;; (define-key evil-insert-state-map "\C-k" 'kill-line)
-  ;; (define-key evil-visual-state-map "\C-k" 'kill-line)
-  (define-key evil-normal-state-map "Q" 'call-last-kbd-macro)
-  (define-key evil-visual-state-map "Q" 'call-last-kbd-macro)
+    ;; Keep some Emacs stuff
+    (define-key evil-normal-state-map "\C-e" 'evil-end-of-line)
+    (define-key evil-insert-state-map "\C-e" 'end-of-line)
+    (define-key evil-visual-state-map "\C-e" 'evil-end-of-line)
+    (define-key evil-motion-state-map "\C-e" 'evil-end-of-line)
+    ;; (define-key evil-normal-state-map "\C-f" 'evil-forward-char)
+    ;; (define-key evil-insert-state-map "\C-f" 'evil-forward-char)
+    ;; (define-key evil-insert-state-map "\C-f" 'evil-forward-char)
+    ;; (define-key evil-normal-state-map "\C-b" 'evil-backward-char)
+    ;; (define-key evil-insert-state-map "\C-b" 'evil-backward-char)
+    ;; (define-key evil-visual-state-map "\C-b" 'evil-backward-char)
+    ;; (define-key evil-normal-state-map "\C-d" 'evil-delete-char)
+    ;; (define-key evil-insert-state-map "\C-d" 'evil-delete-char)
+    ;; (define-key evil-visual-state-map "\C-d" 'evil-delete-char)
+    ;; (define-key evil-normal-state-map "\C-n" 'evil-next-line)
+    ;; (define-key evil-insert-state-map "\C-n" 'evil-next-line)
+    ;; (define-key evil-visual-state-map "\C-n" 'evil-next-line)
+    ;; (define-key evil-normal-state-map "\C-p" 'evil-previous-line)
+    ;; (define-key evil-insert-state-map "\C-p" 'evil-previous-line)
+    ;; (define-key evil-visual-state-map "\C-p" 'evil-previous-line)
+    ;; (define-key evil-normal-state-map "\C-y" 'yank)
+    ;; (define-key evil-insert-state-map "\C-y" 'yank)
+    ;; (define-key evil-visual-state-map "\C-y" 'yank)
+    ;; (define-key evil-normal-state-map "\C-k" 'kill-line)
+    ;; (define-key evil-insert-state-map "\C-k" 'kill-line)
+    ;; (define-key evil-visual-state-map "\C-k" 'kill-line)
+    (define-key evil-normal-state-map "Q" 'call-last-kbd-macro)
+    (define-key evil-visual-state-map "Q" 'call-last-kbd-macro)
 
-  ;; Set our default modes
-  (loop for (mode . state) in '(
-                                ;;(inferior-emacs-lisp-mode . emacs)
-                                ;; (nrepl-mode . insert)
-                                ;; (pylookup-mode . emacs)
-                                ;; (comint-mode . normal)
-                                ;; (shell-mode . emacs)
-                                ;; (git-commit-mode . insert)
-                                ;; (git-rebase-mode . emacs)
-                                ;; (calculator-mode . emacs)
-                                ;; (term-mode . emacs)
-                                ;; (haskell-interactive-mode . emacs)
-                                ;; (undo-tree-visualizer-mode . emacs)
-                                ;; (cider-repl-mode . emacs)
-                                (cider-stacktrace-mode . motion)
-                                (cider-popup-buffer-mode . motion)
-                                ;; (help-mode . normal)
-                                ;; (grep-mode . emacs)
-                                ;; (bc-menu-mode . emacs)
-                                ;; (erc-mode . emacs)
-                                ;; (magit-branch-manager-mode . emacs)
-                                ;; (magit-blame-mode-map . emacs)
-                                ;; (magit-cherry-mode-map . emacs)
-                                ;; (magit-diff-mode-map . emacs)
-                                ;; (magit-log-mode-map . emacs)
-                                ;; (magit-log-select-mode-map . emacs)
-                                ;; (magit-mode-map . emacs)
-                                ;; (magit-popup-help-mode-map . emacs)
-                                ;;(magit-popup-mode . emacs)
-                                ;;(magit-popup-sequence-mode . emacs)
-                                ;; (magit-process-mode-map . emacs)
-                                ;; (magit-reflog-mode-map . emacs)
-                                ;; (magit-refs-mode-map . emacs)
-                                ;; (magit-revision-mode-map . emacs)
-                                ;; (magit-stash-mode-map . emacs)
-                                ;; (magit-stashes-mode-map . emacs)
-                                ;;(magit-status-mode . emacs)
-                                ;; (rdictcc-buffer-mode . emacs)
-                                ;; (kill-ring-mode . normal)
-                                ;; (bs-mode . emacs)
-                                ;; (dired-mode . normal)
-                                ;; (wdired-mode . normal)
-                                )
+    ;; Set our default modes
+    (loop for (mode . state) in '(
+                                   ;;(inferior-emacs-lisp-mode . emacs)
+                                   ;; (nrepl-mode . insert)
+                                   ;; (pylookup-mode . emacs)
+                                   ;; (comint-mode . normal)
+                                   ;; (shell-mode . emacs)
+                                   ;; (git-commit-mode . insert)
+                                   ;; (git-rebase-mode . emacs)
+                                   ;; (calculator-mode . emacs)
+                                   ;; (term-mode . emacs)
+                                   ;; (haskell-interactive-mode . emacs)
+                                   ;; (undo-tree-visualizer-mode . emacs)
+                                   ;; (cider-repl-mode . emacs)
+                                   (cider-stacktrace-mode . motion)
+                                   (cider-popup-buffer-mode . motion)
+                                   ;; (help-mode . normal)
+                                   ;; (grep-mode . emacs)
+                                   ;; (bc-menu-mode . emacs)
+                                   ;; (erc-mode . emacs)
+                                   ;; (magit-branch-manager-mode . emacs)
+                                   ;; (magit-blame-mode-map . emacs)
+                                   ;; (magit-cherry-mode-map . emacs)
+                                   ;; (magit-diff-mode-map . emacs)
+                                   ;; (magit-log-mode-map . emacs)
+                                   ;; (magit-log-select-mode-map . emacs)
+                                   ;; (magit-mode-map . emacs)
+                                   ;; (magit-popup-help-mode-map . emacs)
+                                   ;;(magit-popup-mode . emacs)
+                                   ;;(magit-popup-sequence-mode . emacs)
+                                   ;; (magit-process-mode-map . emacs)
+                                   ;; (magit-reflog-mode-map . emacs)
+                                   ;; (magit-refs-mode-map . emacs)
+                                   ;; (magit-revision-mode-map . emacs)
+                                   ;; (magit-stash-mode-map . emacs)
+                                   ;; (magit-stashes-mode-map . emacs)
+                                   ;;(magit-status-mode . emacs)
+                                   ;; (rdictcc-buffer-mode . emacs)
+                                   ;; (kill-ring-mode . normal)
+                                   ;; (bs-mode . emacs)
+                                   ;; (dired-mode . normal)
+                                   ;; (wdired-mode . normal)
+                                   )
       do (evil-set-initial-state mode state))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -716,16 +716,16 @@
 (defun grass/unfill-region (begin end)
   "Change isolated newlines in region into spaces."
   (interactive (if (use-region-p)
-                   (list (region-beginning)
-                         (region-end))
+                 (list (region-beginning)
+                   (region-end))
                  (list nil nil)))
   (save-restriction
     (narrow-to-region (or begin (point-min))
-                      (or end (point-max)))
+      (or end (point-max)))
     (goto-char (point-min))
     (while (search-forward "\n" nil t)
       (if (eq (char-after) ?\n)
-          (skip-chars-forward "\n")
+        (skip-chars-forward "\n")
         (delete-char -1)
         (insert ?\s)))))
 
@@ -745,7 +745,7 @@
 (defun grass/point-is-in-comment-p ()
   "t if point is in comment or at the beginning of a commented line, otherwise nil"
   (or (nth 4 (syntax-ppss))
-      (looking-at "^\\s *\\s<")))
+    (looking-at "^\\s *\\s<")))
 
 (defun grass/move-point-forward-out-of-comment ()
   "Move point forward until it's no longer in a comment"
@@ -756,8 +756,8 @@
 (defun font-lock-comment-annotations ()
   "Highlight a bunch of well known comment annotations."
   (font-lock-add-keywords
-   nil '(("\\<\\(FIX\\(ME\\)?\\|TODO\\|XXX\\|HACK\\|DEBUG\\|GRASS\\)"
-          1 font-lock-warning-face t))))
+    nil '(("\\<\\(FIX\\(ME\\)?\\|TODO\\|XXX\\|HACK\\|DEBUG\\|GRASS\\)"
+            1 font-lock-warning-face t))))
 
 (add-hook 'prog-mode-hook 'font-lock-comment-annotations)
 
@@ -789,10 +789,10 @@
 
 (use-package string-inflection
   :commands (string-inflection-underscore
-             string-inflection-upcase
-             string-inflection-lower-camelcase
-             string-inflection-camelcase
-             string-inflection-lisp))
+              string-inflection-upcase
+              string-inflection-lower-camelcase
+              string-inflection-camelcase
+              string-inflection-lisp))
 
 (defhydra hydra-case ()
   "toggle word case"
@@ -811,7 +811,7 @@
   :bind ("M-z" . zop-up-to-char)
   :general
   (:states '(normal visual) :prefix grass/leader1
-     "ez" 'zop-up-to-char)
+    "ez" 'zop-up-to-char)
   :commands (zop-to-char zop-up-to-char))
 
 (global-set-key [remap zap-to-char] 'zop-to-char)
@@ -820,20 +820,20 @@
   :defines grass/iedit-dwim
   :general
   (:states '(normal visual) :prefix grass/leader1
-     "s;" 'iedit-mode
-     "s:" 'grass/iedit-dwim)
+    "s;" 'iedit-mode
+    "s:" 'grass/iedit-dwim)
   :config
   (defun grass/iedit-dwim (arg)
     "Starts iedit but uses \\[narrow-to-defun] to limit its scope."
     (interactive "P")
     (if arg
-        (iedit-mode)
+      (iedit-mode)
       (save-excursion
         (save-restriction
           (widen)
           ;; this function determines the scope of `iedit-start'.
           (if iedit-mode
-              (iedit-done)
+            (iedit-done)
             ;; `current-word' can of course be replaced by other functions.
             (narrow-to-defun)
             (iedit-start (current-word) (point-min) (point-max))))))))
@@ -856,7 +856,7 @@
   (interactive "p")
   (if (let ((windmove-wrap-around))
         (windmove-find-other-window 'right))
-      (shrink-window-horizontally arg)
+    (shrink-window-horizontally arg)
     (enlarge-window-horizontally arg)))
 
 (defun grass/move-splitter-right (arg)
@@ -864,7 +864,7 @@
   (interactive "p")
   (if (let ((windmove-wrap-around))
         (windmove-find-other-window 'right))
-      (enlarge-window-horizontally arg)
+    (enlarge-window-horizontally arg)
     (shrink-window-horizontally arg)))
 
 (defun grass/move-splitter-up (arg)
@@ -872,7 +872,7 @@
   (interactive "p")
   (if (let ((windmove-wrap-around))
         (windmove-find-other-window 'up))
-      (enlarge-window arg)
+    (enlarge-window arg)
     (shrink-window arg)))
 
 (defun grass/move-splitter-down (arg)
@@ -880,7 +880,7 @@
   (interactive "p")
   (if (let ((windmove-wrap-around))
         (windmove-find-other-window 'up))
-      (shrink-window arg)
+    (shrink-window arg)
     (enlarge-window arg)))
 
 (defhydra hydra-window ()
@@ -909,44 +909,44 @@ _SPC_ cancel     _o_nly this       _d_elete
          (interactive)
          (ace-window 1)
          (add-hook 'ace-window-end-once-hook
-                   'hydra-window/body))
-   nil)
+           'hydra-window/body))
+    nil)
   ("v" (lambda ()
          (interactive)
          (split-window-right)
          (windmove-right))
-   nil)
+    nil)
   ("x" (lambda ()
          (interactive)
          (split-window-below)
          (windmove-down))
-   nil)
+    nil)
   ("s" (lambda ()
          (interactive)
          (ace-window 4)
          (add-hook 'ace-window-end-once-hook
-                   'hydra-window/body)) nil)
+           'hydra-window/body)) nil)
   ("S" save-buffer nil)
   ("d" delete-window nil)
   ("D" (lambda ()
          (interactive)
          (ace-window 16)
          (add-hook 'ace-window-end-once-hook
-                   'hydra-window/body))
-   nil)
+           'hydra-window/body))
+    nil)
   ("o" delete-other-windows nil)
   ("i" ace-maximize-window nil)
   ("z" (progn
          (winner-undo)
          (setq this-command 'winner-undo))
-   nil)
+    nil)
   ("Z" winner-redo nil)
   ("SPC" nil nil))
 
 (general-define-key :states '(normal visual) :prefix grass/leader1
-        "ww" 'hydra-window/body
-        "wo" 'delete-other-windows
-        "wk" 'delete-window)
+  "ww" 'hydra-window/body
+  "wo" 'delete-other-windows
+  "wk" 'delete-window)
 
 (use-package origami
   :commands (origami-toggle-node
@@ -957,11 +957,11 @@ _SPC_ cancel     _o_nly this       _d_elete
               origami-recursively-toggle-node)
   :general
   (:states '(normal visual) :prefix grass/leader1
-     "zz" 'origami-toggle-node
-     "zs" 'origami-show-only-node
-     "zo" 'origami-open-all-nodes
-     "zu" 'origami-undo
-     "zr" 'origami-redo)
+    "zz" 'origami-toggle-node
+    "zs" 'origami-show-only-node
+    "zo" 'origami-open-all-nodes
+    "zu" 'origami-undo
+    "zr" 'origami-redo)
   :config
   (define-key evil-normal-state-map "z" 'origami-recursively-toggle-node)
   (define-key evil-visual-state-map "z" 'origami-recursively-toggle-node)
@@ -1003,8 +1003,8 @@ With C-u: insert date and time
 With C-u C-u: insert time"
   (interactive "P")
   (cond ((equal arg '(16)) (insert (format-time-string "%T")))
-        ((equal arg '(4)) (insert (format-time-string "%Y-%m-%d %T")))
-        (t (insert (format-time-string "%Y-%m-%d")))))
+    ((equal arg '(4)) (insert (format-time-string "%Y-%m-%d %T")))
+    (t (insert (format-time-string "%Y-%m-%d")))))
 
 (defun grass/insert-date ()
   (interactive)
@@ -1018,11 +1018,11 @@ With C-u C-u: insert time"
   "Open a new buffer containing the contents of URL."
   (interactive)
   (let* ((default (thing-at-point-url-at-point))
-         (url (read-from-minibuffer "URL: " default)))
+          (url (read-from-minibuffer "URL: " default)))
     (switch-to-buffer (url-retrieve-synchronously url))
     (rename-buffer url t)
     (cond ((search-forward "<?xml" nil t) (xml-mode))
-          ((search-forward "<html" nil t) (html-mode)))))
+      ((search-forward "<html" nil t) (html-mode)))))
 
 (defun grass/copy-buffer-filename ()
   "Copy filename of buffer into system clipboard."
@@ -1042,9 +1042,9 @@ With C-u C-u: insert time"
   (interactive)
   (save-excursion
     (if (region-active-p)
-        (progn
-          (indent-region (region-beginning) (region-end))
-          (message "Indented selected region."))
+      (progn
+        (indent-region (region-beginning) (region-end))
+        (message "Indented selected region."))
       (progn
         (grass/indent-buffer)
         (message "Indented buffer.")))))
@@ -1060,24 +1060,24 @@ Repeated invocations toggle between the two most recently open buffers."
   "Renames current buffer and file it is visiting."
   (interactive)
   (let ((name (buffer-name))
-        (filename (buffer-file-name)))
+         (filename (buffer-file-name)))
     (if (not (and filename (file-exists-p filename)))
-        (error "Buffer '%s' is not visiting a file!" name)
+      (error "Buffer '%s' is not visiting a file!" name)
       (let ((new-name (read-file-name "New name: " filename)))
         (cond ((get-buffer new-name)
-               (error "A buffer named '%s' already exists!" new-name))
-              (t
-               (rename-file filename new-name 1)
-               (rename-buffer new-name)
-               (set-visited-file-name new-name)
-               (set-buffer-modified-p nil)
-               (message "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name))))))))
+                (error "A buffer named '%s' already exists!" new-name))
+          (t
+            (rename-file filename new-name 1)
+            (rename-buffer new-name)
+            (set-visited-file-name new-name)
+            (set-buffer-modified-p nil)
+            (message "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name))))))))
 
 (defun grass/what-face (pos)
   "Identify the face under point"
   (interactive "d")
   (let ((face (or (get-char-property (point) 'read-face-name)
-                  (get-char-property (point) 'face))))
+                (get-char-property (point) 'face))))
     (if face (message "Face: %s" face) (message "No face at %d" pos))))
 
 (defun grass/switch-to-scratch-buffer ()
@@ -1115,19 +1115,19 @@ Repeated invocations toggle between the two most recently open buffers."
 
 
 (general-define-key :states '(normal visual) :prefix grass/leader1
-        "ut" 'display-time-world
-        "uc" 'quick-calc
-        "uu" 'browse-url
-        "ub" 'grass/comment-box
-        "fc" 'grass/copy-buffer-filename
-        "bs" 'grass/switch-to-scratch-buffer
-        "bk" 'kill-this-buffer
-        "ud" 'grass/insert-datetime)
+  "ut" 'display-time-world
+  "uc" 'quick-calc
+  "uu" 'browse-url
+  "ub" 'grass/comment-box
+  "fc" 'grass/copy-buffer-filename
+  "bs" 'grass/switch-to-scratch-buffer
+  "bk" 'kill-this-buffer
+  "ud" 'grass/insert-datetime)
 
 (use-package reveal-in-osx-finder
   :general
   (:states '(normal visual) :prefix grass/leader1
-     "uf" 'reveal-in-osx-finder))
+    "uf" 'reveal-in-osx-finder))
 
 ;;;;;;;;;;;;;;;;;;
 ;; Common Files ;;
@@ -1154,10 +1154,10 @@ Repeated invocations toggle between the two most recently open buffers."
   (counsel-file-jump "" (expand-file-name "~/Dropbox/Notes")))
 
 (general-define-key :states '(normal visual) :prefix grass/leader1
-        "ki" 'grass/open-init
-        "kw" 'grass/open-work-log
-        "kp" 'grass/open-personal-log
-        "kn" 'grass/find-notes)
+  "ki" 'grass/open-init
+  "kw" 'grass/open-work-log
+  "kp" 'grass/open-personal-log
+  "kn" 'grass/find-notes)
 
 ;;;;;;;;;
 ;; Git ;;
@@ -1177,43 +1177,43 @@ Repeated invocations toggle between the two most recently open buffers."
   (setq git-link-open-in-browser t)
   :general
   (:states '(normal visual) :prefix grass/leader1
-     "gl" 'git-link
-     "gc" 'git-link-commit))
+    "gl" 'git-link
+    "gc" 'git-link-commit))
 
 (use-package git-timemachine
   :commands git-timemachine
   :general
   (:states '(normal visual) :prefix grass/leader1
-     "gt" 'git-timemachine))
+    "gt" 'git-timemachine))
 
 (use-package git-gutter-fringe
   :diminish git-gutter-mode
   :config
-    (setq git-gutter-fr:side 'right-fringe)
-    ;; custom graphics that works nice with half-width fringes
-    (fringe-helper-define 'git-gutter-fr:added nil
-                          "..X...."
-                          "..X...."
-                          "XXXXX.."
-                          "..X...."
-                          "..X...."
-                          )
-    (fringe-helper-define 'git-gutter-fr:deleted nil
-                          "......."
-                          "......."
-                          "XXXXX.."
-                          "......."
-                          "......."
-                          )
-    (fringe-helper-define 'git-gutter-fr:modified nil
-                          "..X...."
-                          ".XXX..."
-                          "XX.XX.."
-                          ".XXX..."
-                          "..X...."
-        )
-    :init
-    (global-git-gutter-mode t))
+  (setq git-gutter-fr:side 'right-fringe)
+  ;; custom graphics that works nice with half-width fringes
+  (fringe-helper-define 'git-gutter-fr:added nil
+    "..X...."
+    "..X...."
+    "XXXXX.."
+    "..X...."
+    "..X...."
+    )
+  (fringe-helper-define 'git-gutter-fr:deleted nil
+    "......."
+    "......."
+    "XXXXX.."
+    "......."
+    "......."
+    )
+  (fringe-helper-define 'git-gutter-fr:modified nil
+    "..X...."
+    ".XXX..."
+    "XX.XX.."
+    ".XXX..."
+    "..X...."
+    )
+  :init
+  (global-git-gutter-mode t))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -1222,14 +1222,14 @@ Repeated invocations toggle between the two most recently open buffers."
 
 (use-package char-menu
   :commands char-menu
-  ; Em-dash is first
+                                        ; Em-dash is first
   :config (setq char-menu '("—" "‘’" "“”" "…" "«»" "–"
-                            ("Typography" "⋅" "•" "©" "†" "‡" "°" "·" "§" "№" "★")
-                            ("Math"       "≈" "≡" "≠" "∞" "×" "±" "∓" "÷" "√")
-                            ("Arrows"     "←" "→" "↑" "↓" "⇐" "⇒" "⇑" "⇓"))))
+                             ("Typography" "⋅" "•" "©" "†" "‡" "°" "·" "§" "№" "★")
+                             ("Math"       "≈" "≡" "≠" "∞" "×" "±" "∓" "÷" "√")
+                             ("Arrows"     "←" "→" "↑" "↓" "⇐" "⇒" "⇑" "⇓"))))
 
 (general-define-key :states '(normal visual) :prefix grass/leader1
-        "ec" 'char-menu)
+  "ec" 'char-menu)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1244,7 +1244,7 @@ Repeated invocations toggle between the two most recently open buffers."
     (dolist (buf (buffer-list))
       (set-buffer buf)
       (if (and (buffer-file-name) (buffer-modified-p))
-          (basic-save-buffer)))))
+        (basic-save-buffer)))))
 
 (add-hook 'auto-save-hook 'grass/auto-save-all)
 (add-hook 'mouse-leave-buffer-hook 'grass/auto-save-all)
@@ -1270,7 +1270,7 @@ Repeated invocations toggle between the two most recently open buffers."
           (seq bol ".tern-port" eol))))
 
   (general-emacs-define-key dired-mode-map :states '(normal visual) :prefix grass/leader1
-          "mg" 'revert-buffer)
+    "mg" 'revert-buffer)
 
   (define-key dired-mode-map [return] 'dired-single-buffer)
   (define-key dired-mode-map [mouse-1] 'dired-single-buffer-mouse)
@@ -1308,9 +1308,9 @@ Repeated invocations toggle between the two most recently open buffers."
   :commands dired-omit-mode
   :general
   ("C-x C-j" 'dired-jump
-   "<s-up>" 'dired-jump)
+    "<s-up>" 'dired-jump)
   (:states '(normal visual) :prefix grass/leader1
-     "fj" 'dired-jump)
+    "fj" 'dired-jump)
   :config
   ;; Chill the colours in dired
   (setq font-lock-maximum-decoration (quote ((dired-mode . 1) (t . t))))
@@ -1330,9 +1330,9 @@ Repeated invocations toggle between the two most recently open buffers."
   (save-excursion
     (skip-syntax-backward "w_")
     (isearch-yank-internal
-     (lambda ()
-       (skip-syntax-forward "w_")
-       (point)))))
+      (lambda ()
+        (skip-syntax-forward "w_")
+        (point)))))
 
 (define-key isearch-mode-map (kbd "C-x") 'grass/isearch-yank-current-word)
 
@@ -1340,85 +1340,85 @@ Repeated invocations toggle between the two most recently open buffers."
 (defun grass/replace-string-in-entire-buffer (from-string to-string &optional delimited start end)
   "This is a modified version of `replace-string'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
   (interactive
-   (let ((common
-          (query-replace-read-args
-           (concat "Replace"
-                   (if current-prefix-arg " word" "")
-                   (if (and transient-mark-mode mark-active) " in region" ""))
-           nil)))
-     (list (nth 0 common) (nth 1 common) (nth 2 common)
-           (if (and transient-mark-mode mark-active)
-               (region-beginning)
-             (buffer-end -1))
-           (if (and transient-mark-mode mark-active)
-               (region-end)
-             (buffer-end 1)))))
+    (let ((common
+            (query-replace-read-args
+              (concat "Replace"
+                (if current-prefix-arg " word" "")
+                (if (and transient-mark-mode mark-active) " in region" ""))
+              nil)))
+      (list (nth 0 common) (nth 1 common) (nth 2 common)
+        (if (and transient-mark-mode mark-active)
+          (region-beginning)
+          (buffer-end -1))
+        (if (and transient-mark-mode mark-active)
+          (region-end)
+          (buffer-end 1)))))
   (perform-replace from-string to-string nil nil delimited nil nil start end))
 
 (defun grass/replace-regexp-in-entire-buffer (regexp to-string &optional delimited start end)
   "This is a modified version of `replace-regexp'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
   (interactive
-   (let ((common
-          (query-replace-read-args
-           (concat "Replace"
-                   (if current-prefix-arg " word" "")
-                   " regexp"
-                   (if (and transient-mark-mode mark-active) " in region" ""))
-           t)))
-     (list (nth 0 common) (nth 1 common) (nth 2 common)
-           (if (and transient-mark-mode mark-active)
-               (region-beginning)
-             (buffer-end -1))
-           (if (and transient-mark-mode mark-active)
-               (region-end)
-             (buffer-end 1)))))
+    (let ((common
+            (query-replace-read-args
+              (concat "Replace"
+                (if current-prefix-arg " word" "")
+                " regexp"
+                (if (and transient-mark-mode mark-active) " in region" ""))
+              t)))
+      (list (nth 0 common) (nth 1 common) (nth 2 common)
+        (if (and transient-mark-mode mark-active)
+          (region-beginning)
+          (buffer-end -1))
+        (if (and transient-mark-mode mark-active)
+          (region-end)
+          (buffer-end 1)))))
   (perform-replace regexp to-string nil t delimited nil nil start end))
 
 (defun grass/query-replace-regexp-in-entire-buffer (regexp to-string &optional delimited start end)
   "This is a modified version of `query-replace-regexp'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
   (interactive
-   (let ((common
-          (query-replace-read-args
-           (concat "Replace"
-                   (if current-prefix-arg " word" "")
-                   " regexp"
-                   (if (and transient-mark-mode mark-active) " in region" ""))
-           t)))
-     (list (nth 0 common) (nth 1 common) (nth 2 common)
-           (if (and transient-mark-mode mark-active)
-               (region-beginning)
-             (buffer-end -1))
-           (if (and transient-mark-mode mark-active)
-               (region-end)
-             (buffer-end 1)))))
+    (let ((common
+            (query-replace-read-args
+              (concat "Replace"
+                (if current-prefix-arg " word" "")
+                " regexp"
+                (if (and transient-mark-mode mark-active) " in region" ""))
+              t)))
+      (list (nth 0 common) (nth 1 common) (nth 2 common)
+        (if (and transient-mark-mode mark-active)
+          (region-beginning)
+          (buffer-end -1))
+        (if (and transient-mark-mode mark-active)
+          (region-end)
+          (buffer-end 1)))))
   (perform-replace regexp to-string t t delimited nil nil start end))
 
 (defun grass/query-replace-string-in-entire-buffer (from-string to-string &optional delimited start end)
   "This is a modified version of `query-replace-string'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
   (interactive
-   (let ((common
-          (query-replace-read-args
-           (concat "Replace"
-                   (if current-prefix-arg " word" "")
-                   (if (and transient-mark-mode mark-active) " in region" ""))
-           nil)))
-     (list (nth 0 common) (nth 1 common) (nth 2 common)
-           (if (and transient-mark-mode mark-active)
-               (region-beginning)
-             (buffer-end -1))
-           (if (and transient-mark-mode mark-active)
-               (region-end)
-             (buffer-end 1)))))
+    (let ((common
+            (query-replace-read-args
+              (concat "Replace"
+                (if current-prefix-arg " word" "")
+                (if (and transient-mark-mode mark-active) " in region" ""))
+              nil)))
+      (list (nth 0 common) (nth 1 common) (nth 2 common)
+        (if (and transient-mark-mode mark-active)
+          (region-beginning)
+          (buffer-end -1))
+        (if (and transient-mark-mode mark-active)
+          (region-end)
+          (buffer-end 1)))))
   (perform-replace from-string to-string t nil delimited nil nil start end))
 
 
 (general-define-key :states '(normal visual) :prefix grass/leader1
-        "sr" 'grass/replace-string-in-entire-buffer
-        "sR" 'grass/replace-regexp-in-entire-buffer
-        "sq" 'grass/query-replace-string-in-entire-buffer
-        "sQ" 'grass/query-replace-regexp-in-entire-buffer
-        "sf" 'isearch-forward-regexp
-        "sb" 'isearch-reverse-regexp)
+  "sr" 'grass/replace-string-in-entire-buffer
+  "sR" 'grass/replace-regexp-in-entire-buffer
+  "sq" 'grass/query-replace-string-in-entire-buffer
+  "sQ" 'grass/query-replace-regexp-in-entire-buffer
+  "sf" 'isearch-forward-regexp
+  "sb" 'isearch-reverse-regexp)
 
 (use-package ag
   :commands (ag ag-project))
@@ -1430,10 +1430,10 @@ Repeated invocations toggle between the two most recently open buffers."
 (use-package expand-region
   :config
   (setq expand-region-contract-fast-key "V"
-  expand-region-reset-fast-key "r")
+    expand-region-reset-fast-key "r")
   :general
   (:states '(normal visual) :prefix grass/leader1
-     "v" 'er/expand-region))
+    "v" 'er/expand-region))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1457,10 +1457,10 @@ Repeated invocations toggle between the two most recently open buffers."
 
   ;; Tweak fonts
   (custom-set-faces
-       '(company-tooltip-common
-         ((t (:inherit company-tooltip :weight bold :underline nil))))
-       '(company-tooltip-common-selection
-         ((t (:inherit company-tooltip-selection :weight bold :underline nil))))))
+    '(company-tooltip-common
+       ((t (:inherit company-tooltip :weight bold :underline nil))))
+    '(company-tooltip-common-selection
+       ((t (:inherit company-tooltip-selection :weight bold :underline nil))))))
 
 (eval-after-load 'company
   '(progn
@@ -1481,30 +1481,30 @@ Repeated invocations toggle between the two most recently open buffers."
 (define-key evil-insert-state-map (kbd "C-p") 'hippie-expand)
 (setq hippie-expand-try-functions-list
   '(
-    ;; Try to expand yasnippet snippets based on prefix
-    yas-hippie-try-expand hippie-expand-try-functions-list
+     ;; Try to expand yasnippet snippets based on prefix
+     yas-hippie-try-expand hippie-expand-try-functions-list
 
-    ;; Try to expand word "dynamically", searching the current buffer.
-    try-expand-dabbrev
-    ;; Try to expand word "dynamically", searching all other buffers.
-    try-expand-dabbrev-all-buffers
-    ;; Try to expand word "dynamically", searching the kill ring.
-    try-expand-dabbrev-from-kill
-    ;; Try to complete text as a file name, as many characters as unique.
-    try-complete-file-name-partially
-    ;; Try to complete text as a file name.
-    try-complete-file-name
-    ;; Try to expand word before point according to all abbrev tables.
-    try-expand-all-abbrevs
-    ;; Try to complete the current line to an entire line in the buffer.
-    try-expand-list
-    ;; Try to complete the current line to an entire line in the buffer.
-    try-expand-line
-    ;; Try to complete as an Emacs Lisp symbol, as many characters as
-    ;; unique.
-    try-complete-lisp-symbol-partially
-    ;; Try to complete word as an Emacs Lisp symbol.
-    try-complete-lisp-symbol))
+     ;; Try to expand word "dynamically", searching the current buffer.
+     try-expand-dabbrev
+     ;; Try to expand word "dynamically", searching all other buffers.
+     try-expand-dabbrev-all-buffers
+     ;; Try to expand word "dynamically", searching the kill ring.
+     try-expand-dabbrev-from-kill
+     ;; Try to complete text as a file name, as many characters as unique.
+     try-complete-file-name-partially
+     ;; Try to complete text as a file name.
+     try-complete-file-name
+     ;; Try to expand word before point according to all abbrev tables.
+     try-expand-all-abbrevs
+     ;; Try to complete the current line to an entire line in the buffer.
+     try-expand-list
+     ;; Try to complete the current line to an entire line in the buffer.
+     try-expand-line
+     ;; Try to complete as an Emacs Lisp symbol, as many characters as
+     ;; unique.
+     try-complete-lisp-symbol-partially
+     ;; Try to complete word as an Emacs Lisp symbol.
+     try-complete-lisp-symbol))
 
 ;;;;;;;;;;;;;;
 ;; Snippets ;;
@@ -1525,11 +1525,11 @@ Repeated invocations toggle between the two most recently open buffers."
 
 (use-package corral
   :commands (corral-parentheses-backward
-             corral-parentheses-forward
-             corral-brackets-backward
-             corral-brackets-forward
-             corral-braces-backward
-             corral-braces-forward))
+              corral-parentheses-forward
+              corral-brackets-backward
+              corral-brackets-forward
+              corral-braces-backward
+              corral-braces-forward))
 
 (defhydra hydra-move-parens (:columns 4)
   "Corral"
@@ -1542,7 +1542,7 @@ Repeated invocations toggle between the two most recently open buffers."
   ("." hydra-repeat "Repeat"))
 
 (general-define-key :states '(normal visual) :prefix grass/leader1
-        "ep" 'hydra-move-parens/body)
+  "ep" 'hydra-move-parens/body)
 
 
 ;;;;;;;;;;;;;;;
@@ -1557,9 +1557,9 @@ left. If AFTER is non-nil, add whitespace to the left instead of
 the right."
   (interactive "r\nsAlign regexp: ")
   (let ((complete-regexp (if after
-                             (concat regexp "\\([ \t]*\\)")
+                           (concat regexp "\\([ \t]*\\)")
                            (concat "\\([ \t]*\\)" regexp)))
-        (group (if justify-right -1 1)))
+         (group (if justify-right -1 1)))
     (align-regexp start end complete-regexp group 1 t)))
 
 ;; Modified answer from http://emacs.stackexchange.com/questions/47/align-vertical-columns-of-numbers-on-the-decimal-point
@@ -1568,12 +1568,12 @@ the right."
   (interactive "r")
   (require 'align)
   (align-region start end nil
-                '((nil (regexp . "\\([\t ]*\\)\\$?\\([\t ]+[0-9]+\\)\\.?")
-                       (repeat . t)
-                       (group 1 2)
-                       (spacing 1 1)
-                       (justify nil t)))
-                nil))
+    '((nil (regexp . "\\([\t ]*\\)\\$?\\([\t ]+[0-9]+\\)\\.?")
+        (repeat . t)
+        (group 1 2)
+        (spacing 1 1)
+        (justify nil t)))
+    nil))
 
 (defmacro create-align-repeat-x (name regexp &optional justify-right default-after)
   (let ((new-func (intern (concat "align-repeat-" name))))
@@ -1596,19 +1596,19 @@ the right."
 ;; Bindings
 (which-key-declare-prefixes "SPC xa" "alignment")
 (general-define-key :states '(normal visual) :prefix grass/leader1
-        "eaa" 'align
-        "ear" 'align-repeat
-        "eam" 'align-repeat-math-oper
-        "ea." 'align-repeat-decimal
-        "ea," 'align-repeat-comma
-        "ea;" 'align-repeat-semicolon
-        "ea:" 'align-repeat-colon
-        "ea=" 'align-repeat-equal
-        "ea>" 'align-repeat-hash
-        "ea&" 'align-repeat-ampersand
-        "ea|" 'align-repeat-bar
-        "ea(" 'align-repeat-left-paren
-        "ea)" 'align-repeat-right-paren)
+  "eaa" 'align
+  "ear" 'align-repeat
+  "eam" 'align-repeat-math-oper
+  "ea." 'align-repeat-decimal
+  "ea," 'align-repeat-comma
+  "ea;" 'align-repeat-semicolon
+  "ea:" 'align-repeat-colon
+  "ea=" 'align-repeat-equal
+  "ea>" 'align-repeat-hash
+  "ea&" 'align-repeat-ampersand
+  "ea|" 'align-repeat-bar
+  "ea(" 'align-repeat-left-paren
+  "ea)" 'align-repeat-right-paren)
 
 
 ;;;;;;;;;;;;;;;
@@ -1629,11 +1629,11 @@ the right."
 
 ;; Line numbers for coding please
 (add-hook 'prog-mode-hook
-            (lambda ()
-              ;; Treat underscore as a word character
-              (modify-syntax-entry ?_ "w")
-              ;; (linum-mode 1)
-              (rainbow-delimiters-mode)))
+  (lambda ()
+    ;; Treat underscore as a word character
+    (modify-syntax-entry ?_ "w")
+    ;; (linum-mode 1)
+    (rainbow-delimiters-mode)))
 
 
 ;;;;;;;;;;;;;;;;;
@@ -1644,7 +1644,7 @@ the right."
 (use-package clean-aindent-mode
   :disabled
   :init
-  ; no electric indent, auto-indent is sufficient
+                                        ; no electric indent, auto-indent is sufficient
   (electric-indent-mode -1)
   (clean-aindent-mode t)
   (setq clean-aindent-is-simple-indent t))
@@ -1671,7 +1671,7 @@ the right."
 (setq c-default-style "java")
 (setq-default c-basic-offset 2)
 
-; https://gist.github.com/mishoo/5487564
+                                        ; https://gist.github.com/mishoo/5487564
 (defcustom stupid-indent-level 2
   "Indentation level for stupid-indent-mode")
 
@@ -1696,9 +1696,9 @@ the right."
 (defun grass/stupid-outdent ()
   (interactive)
   (if (use-region-p)
-      (save-excursion
-        (grass/stupid-outdent-region (region-beginning) (region-end))
-        (setq deactivate-mark nil))
+    (save-excursion
+      (grass/stupid-outdent-region (region-beginning) (region-end))
+      (setq deactivate-mark nil))
     (grass/stupid-outdent-line)))
 
 (global-set-key (kbd "<backtab>") 'grass/stupid-outdent)
@@ -1837,16 +1837,16 @@ the right."
 
   ;; Code blocks
   (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((emacs-lisp . t)
-     (js . t)
-     (ruby . t)
-     (sh . t)))
+    'org-babel-load-languages
+    '((emacs-lisp . t)
+       (js . t)
+       (ruby . t)
+       (sh . t)))
 
   ;; Highlight source blocks
   (setq org-src-fontify-natively t
-        org-src-tab-acts-natively t
-        org-confirm-babel-evaluate nil)
+    org-src-tab-acts-natively t
+    org-confirm-babel-evaluate nil)
 
   (defhydra hydra-org-move (:color red :columns 3)
     "Org Mode Movements"
@@ -1868,10 +1868,10 @@ the right."
       (push '(?q . ("#+BEGIN_QUOTE" . "#+END_QUOTE")) evil-surround-pairs-alist)
 
       (general-define-key :keymaps 'org-mode-map :states '(normal visual) :prefix grass/leader1
-                          "mm" 'hydra-org-move/body
-                          "mg" 'org-mac-grab-link
-                          "ma" 'org-agenda
-                          "mc" 'org-cycle-agenda-files))))
+        "mm" 'hydra-org-move/body
+        "mg" 'org-mac-grab-link
+        "ma" 'org-agenda
+        "mc" 'org-cycle-agenda-files))))
 
 ;;;;;;;;;;
 ;; Ruby ;;
@@ -1879,15 +1879,15 @@ the right."
 
 (use-package enh-ruby-mode
   :mode (("\\.rb$"        . enh-ruby-mode)
-         ("\\.ru$"        . enh-ruby-mode)
-         ("\\.rake$"      . enh-ruby-mode)
-         ("\\.gemspec$"   . enh-ruby-mode)
-         ("\\.?pryrc$"    . enh-ruby-mode)
-         ("/Gemfile$"     . enh-ruby-mode)
-         ("/Guardfile$"   . enh-ruby-mode)
-         ("/Capfile$"     . enh-ruby-mode)
-         ("/Vagrantfile$" . enh-ruby-mode)
-         ("/Rakefile$"    . enh-ruby-mode))
+          ("\\.ru$"        . enh-ruby-mode)
+          ("\\.rake$"      . enh-ruby-mode)
+          ("\\.gemspec$"   . enh-ruby-mode)
+          ("\\.?pryrc$"    . enh-ruby-mode)
+          ("/Gemfile$"     . enh-ruby-mode)
+          ("/Guardfile$"   . enh-ruby-mode)
+          ("/Capfile$"     . enh-ruby-mode)
+          ("/Vagrantfile$" . enh-ruby-mode)
+          ("/Rakefile$"    . enh-ruby-mode))
   :interpreter "ruby"
   :config
 
@@ -1918,10 +1918,10 @@ the right."
       (abbrev-mode -1))))
 
 (if (string= system-name "smithy")
-    (progn
-      (use-package chruby
-        :commands chruby-use-corresponding)
-      (add-hook 'projectile-switch-project-hook #'chruby-use-corresponding))
+  (progn
+    (use-package chruby
+      :commands chruby-use-corresponding)
+    (add-hook 'projectile-switch-project-hook #'chruby-use-corresponding))
   (progn
 
     (use-package rbenv
@@ -1938,11 +1938,11 @@ the right."
             (global-rbenv-mode)
             ;; try to use the ruby defined in .ruby-version
             (if version-file-path
-                (progn
-                  (rbenv-use (rbenv--read-version-from-file
-                              version-file-path))
-                  (message (concat "[rbenv] Using ruby version "
-                                  "from .ruby-version file.")))
+              (progn
+                (rbenv-use (rbenv--read-version-from-file
+                             version-file-path))
+                (message (concat "[rbenv] Using ruby version "
+                           "from .ruby-version file.")))
               (message "[rbenv] Using the currently activated ruby."))))
         (add-hook 'ruby-mode-hook #'grass/enable-rbenv)
         (add-hook 'enh-ruby-mode-hook #'grass/enable-rbenv)))))
@@ -1954,42 +1954,42 @@ the right."
 
 (use-package js2-mode
   :mode  (("\\.js$" . js2-jsx-mode)
-          ("\\.jsx?$" . js2-jsx-mode)
-          ("\\.es6$" . js2-mode))
+           ("\\.jsx?$" . js2-jsx-mode)
+           ("\\.es6$" . js2-mode))
   :interpreter "node"
   :config
-    (use-package js2-refactor
-      :init
-      (add-hook 'js2-mode-hook #'js2-refactor-mode)
-      (js2r-add-keybindings-with-prefix "C-c RET"))
+  (use-package js2-refactor
+    :init
+    (add-hook 'js2-mode-hook #'js2-refactor-mode)
+    (js2r-add-keybindings-with-prefix "C-c RET"))
 
-    (setq js2-bounce-indent-p t)
+  (setq js2-bounce-indent-p t)
 
-    ;; Rely on flycheck instead...
-    (setq js2-show-parse-errors nil)
-    ;; Reduce the noise
-    (setq js2-strict-missing-semi-warning nil)
-    ;; jshint does not warn about this now for some reason
-    (setq js2-strict-trailing-comma-warning nil)
+  ;; Rely on flycheck instead...
+  (setq js2-show-parse-errors nil)
+  ;; Reduce the noise
+  (setq js2-strict-missing-semi-warning nil)
+  ;; jshint does not warn about this now for some reason
+  (setq js2-strict-trailing-comma-warning nil)
 
-    (add-hook 'js2-mode-hook 'js2-imenu-extras-mode)
+  (add-hook 'js2-mode-hook 'js2-imenu-extras-mode)
 
-    (add-hook 'js2-mode-hook
-      (lambda ()
-        (setq mode-name "JS2")
-        (setq js2-global-externs '("module" "require" "buster" "jestsinon" "jasmine" "assert"
+  (add-hook 'js2-mode-hook
+    (lambda ()
+      (setq mode-name "JS2")
+      (setq js2-global-externs '("module" "require" "buster" "jestsinon" "jasmine" "assert"
                                   "it" "expect" "describe" "beforeEach"
                                   "refute" "setTimeout" "clearTimeout" "setInterval"
                                   "clearInterval" "location" "__dirname" "console" "JSON"))
 
-        (flycheck-mode 1)
-        (js2-imenu-extras-mode +1))))
+      (flycheck-mode 1)
+      (js2-imenu-extras-mode +1))))
 
 (use-package json-mode
   :mode "\\.json$"
   :general
   (:keymaps 'json-mode-map :states '(normal visual) :prefix grass/leader1
-            "mp" 'json-pretty-print-buffer)
+    "mp" 'json-pretty-print-buffer)
   :config
   (use-package flymake-json
     :init
@@ -2049,8 +2049,8 @@ the right."
     ;; Proper indents when we evil-open-below etc...
     (defun grass/coffee-indent ()
       (if (coffee-line-wants-indent)
-          ;; We need to insert an additional tab because the last line was special.
-          (coffee-insert-spaces (+ (coffee-previous-indent) coffee-tab-width))
+        ;; We need to insert an additional tab because the last line was special.
+        (coffee-insert-spaces (+ (coffee-previous-indent) coffee-tab-width))
         ;; Otherwise keep at the same indentation level
         (coffee-insert-spaces (coffee-previous-indent))))
 
@@ -2059,24 +2059,24 @@ the right."
       "Indent current line as CoffeeScript."
       (interactive)
       (let* ((curindent (current-indentation))
-             (limit (+ (line-beginning-position) curindent))
-             (type (coffee--block-type))
-             indent-size
-             begin-indents)
+              (limit (+ (line-beginning-position) curindent))
+              (type (coffee--block-type))
+              indent-size
+              begin-indents)
         (if (and type (setq begin-indents (coffee--find-indents type limit '<)))
-            (setq indent-size (coffee--decide-indent curindent begin-indents '>))
+          (setq indent-size (coffee--decide-indent curindent begin-indents '>))
           (let ((prev-indent (coffee-previous-indent))
-                (next-indent-size (+ curindent coffee-tab-width)))
+                 (next-indent-size (+ curindent coffee-tab-width)))
             (if (= curindent 0)
-                (setq indent-size prev-indent)
+              (setq indent-size prev-indent)
               (setq indent-size (+ curindent coffee-tab-width) ))
             (coffee--indent-insert-spaces indent-size)))))
 
     (add-hook 'coffee-mode-hook
-              (lambda ()
-                (set (make-local-variable 'tab-width) 2)
-                (flycheck-mode t)
-                (setq indent-line-function 'grass/coffee-indent-line)))))
+      (lambda ()
+        (set (make-local-variable 'tab-width) 2)
+        (flycheck-mode t)
+        (setq indent-line-function 'grass/coffee-indent-line)))))
 
 ;;;;;;;;;
 ;; Web ;;
@@ -2084,23 +2084,23 @@ the right."
 
 (use-package web-mode
   :mode  (("\\.html?\\'"    . web-mode)
-          ("\\.erb\\'"      . web-mode)
-          ("\\.ejs\\'"      . web-mode)
-          ("\\.eex\\'"      . web-mode)
-          ("\\.handlebars\\'" . web-mode)
-          ("\\.hbs\\'"        . web-mode)
-          ("\\.eco\\'"        . web-mode)
-          ("\\.ect\\'"      . web-mode)
-          ("\\.as[cp]x\\'"  . web-mode)
-          ("\\.mustache\\'" . web-mode)
-          ("\\.dhtml\\'"    . web-mode))
+           ("\\.erb\\'"      . web-mode)
+           ("\\.ejs\\'"      . web-mode)
+           ("\\.eex\\'"      . web-mode)
+           ("\\.handlebars\\'" . web-mode)
+           ("\\.hbs\\'"        . web-mode)
+           ("\\.eco\\'"        . web-mode)
+           ("\\.ect\\'"      . web-mode)
+           ("\\.as[cp]x\\'"  . web-mode)
+           ("\\.mustache\\'" . web-mode)
+           ("\\.dhtml\\'"    . web-mode))
   :config
   (progn
 
     (defadvice web-mode-highlight-part (around tweak-jsx activate)
       (if (equal web-mode-content-type "jsx")
-          (let ((web-mode-enable-part-face nil))
-            ad-do-it)
+        (let ((web-mode-enable-part-face nil))
+          ad-do-it)
         ad-do-it))
 
     (defun grass/web-mode-hook ()
@@ -2117,8 +2117,8 @@ the right."
 ;; Setup for jsx
 (defadvice web-mode-highlight-part (around tweak-jsx activate)
   (if (equal web-mode-content-type "jsx")
-      (let ((web-mode-enable-part-face nil))
-        ad-do-it)
+    (let ((web-mode-enable-part-face nil))
+      ad-do-it)
     ad-do-it))
 
 (use-package jade-mode
@@ -2133,12 +2133,12 @@ the right."
   :config
   (use-package rainbow-mode)
   (add-hook 'scss-mode-hook
-            (lambda ()
-              ;; Treat dollar and hyphen as a word character
-              (modify-syntax-entry ?$ "w")
-              (modify-syntax-entry ?- "w")
-              (nlinum-mode 1)
-              (rainbow-mode +1))))
+    (lambda ()
+      ;; Treat dollar and hyphen as a word character
+      (modify-syntax-entry ?$ "w")
+      (modify-syntax-entry ?- "w")
+      (nlinum-mode 1)
+      (rainbow-mode +1))))
 
 (add-hook 'syslog-mode-hook
   (lambda ()
@@ -2149,9 +2149,9 @@ the right."
   :config
   (use-package rainbow-mode)
   (add-hook 'css-mode-hook
-            (lambda ()
-              (nlinum-mode 1)
-              (rainbow-mode +1))))
+    (lambda ()
+      (nlinum-mode 1)
+      (rainbow-mode +1))))
 
 ;;;;;;;;;;;;;;
 ;; Markdown ;;
@@ -2159,7 +2159,7 @@ the right."
 
 (use-package markdown-mode
   :mode (("\\.markdown\\'"    . markdown-mode)
-         ("\\.md\\'"    . markdown-mode))
+          ("\\.md\\'"    . markdown-mode))
   :config
   (use-package pandoc-mode
     :commands pandoc-mode
@@ -2171,15 +2171,15 @@ the right."
     (interactive)
     (shell-command
       (format "open -a 'Marked 2' %s"
-              (shell-quote-argument (buffer-file-name)))))
+        (shell-quote-argument (buffer-file-name)))))
 
   (defun grass/markdown-enter-key-dwim ()
     "If in a list enter a new list item, otherwise insert enter key as normal."
     (interactive)
     (let ((bounds (markdown-cur-list-item-bounds)))
       (if bounds
-          ;; In a list
-          (call-interactively #'markdown-insert-list-item)
+        ;; In a list
+        (call-interactively #'markdown-insert-list-item)
         ;; Not in a list
         (markdown-enter-key))))
 
@@ -2190,27 +2190,27 @@ the right."
   (define-key markdown-mode-map (kbd "<M-left>") nil)
 
   (setq markdown-imenu-generic-expression
-        '(("title"  "^\\(.*\\)[\n]=+$" 1)
-          ("h2-"    "^\\(.*\\)[\n]-+$" 1)
-          ("h1"   "^# \\(.*\\)$" 1)
-          ("h2"   "^## \\(.*\\)$" 1)
-          ("h3"   "^### \\(.*\\)$" 1)
-          ("h4"   "^#### \\(.*\\)$" 1)
-          ("h5"   "^##### \\(.*\\)$" 1)
-          ("h6"   "^###### \\(.*\\)$" 1)
-          ("fn"   "^\\[\\^\\(.*\\)\\]" 1)))
+    '(("title"  "^\\(.*\\)[\n]=+$" 1)
+       ("h2-"    "^\\(.*\\)[\n]-+$" 1)
+       ("h1"   "^# \\(.*\\)$" 1)
+       ("h2"   "^## \\(.*\\)$" 1)
+       ("h3"   "^### \\(.*\\)$" 1)
+       ("h4"   "^#### \\(.*\\)$" 1)
+       ("h5"   "^##### \\(.*\\)$" 1)
+       ("h6"   "^###### \\(.*\\)$" 1)
+       ("fn"   "^\\[\\^\\(.*\\)\\]" 1)))
 
   (add-hook 'markdown-mode-hook
-      (lambda ()
-        ;; Remove for now as they interfere with indentation
-        ;; (define-key yas-minor-mode-map [(tab)] nil)
-        ;; (define-key yas-minor-mode-map (kbd "TAB") nil)
-        (setq imenu-generic-expression markdown-imenu-generic-expression)))
+    (lambda ()
+      ;; Remove for now as they interfere with indentation
+      ;; (define-key yas-minor-mode-map [(tab)] nil)
+      ;; (define-key yas-minor-mode-map (kbd "TAB") nil)
+      (setq imenu-generic-expression markdown-imenu-generic-expression)))
 
   (general-define-key :keymaps 'markdown-mode-map
-                      :states '(normal visual)
-                      :prefix grass/leader1
-                      "mp" 'grass/markdown-open-marked))
+    :states '(normal visual)
+    :prefix grass/leader1
+    "mp" 'grass/markdown-open-marked))
 
 
 ;;;;;;;;;;;;;
@@ -2242,28 +2242,28 @@ the right."
       :config
       (add-to-list 'company-backends 'company-ghc) (custom-set-variables '(company-ghc-show-info t)))
 
-    ; Make Emacs look in Cabal directory for binaries
+                                        ; Make Emacs look in Cabal directory for binaries
     (let ((my-cabal-path (expand-file-name "~/.cabal/bin")))
       (setenv "PATH" (concat my-cabal-path path-separator (getenv "PATH")))
       (add-to-list 'exec-path my-cabal-path))
 
-    ; Add F8 key combination for going to imports block
+                                        ; Add F8 key combination for going to imports block
     (eval-after-load 'haskell-mode
       '(define-key haskell-mode-map [f8] 'haskell-navigate-imports))
 
     (setq haskell-indentation-disable-show-indentations t)
 
-    ; TODO Set this up so it works properly
-    ; Set interpreter to be "stack ghci"
+                                        ; TODO Set this up so it works properly
+                                        ; Set interpreter to be "stack ghci"
     ;; (setq haskell-process-type 'ghci)
     ;; (setq haskell-process-path-ghci "stack")
     ;; (setq haskell-process-args-ghci '("ghci"))
     ;; (setq tab-always-indent t)
 
-    ; Set interpreter to be "cabal repl"
-    ;(setq haskell-process-type 'cabal-repl)
+                                        ; Set interpreter to be "cabal repl"
+                                        ;(setq haskell-process-type 'cabal-repl)
 
-    ; Add key combinations for interactive haskell-mode
+                                        ; Add key combinations for interactive haskell-mode
     ;; (eval-after-load 'haskell-mode
     ;;   '(progn
     ;;     (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
@@ -2294,7 +2294,7 @@ the right."
     ;;   '(define-key haskell-mode-map (kbd "C-c C-o") 'haskell-compile))
     ;; (eval-after-load 'haskell-cabal
     ;;   '(define-key haskell-cabal-mode-map (kbd "C-c C-o") 'haskell-compile)))
-  ))
+    ))
 
 
 ;;;;;;;;;;
@@ -2352,16 +2352,16 @@ the right."
     :pin melpa-stable
     :init
     (add-hook 'clojure-mode-hook
-              (lambda ()
-                (clj-refactor-mode 1)
+      (lambda ()
+        (clj-refactor-mode 1)
 
-                ;; no auto sort
-                (setq cljr-auto-sort-ns nil)
+        ;; no auto sort
+        (setq cljr-auto-sort-ns nil)
 
-                ;; do not prefer prefixes when using clean-ns
-                (setq cljr-favor-prefix-notation nil)
-                ;; insert keybinding setup here
-                (cljr-add-keybindings-with-prefix "C-c RET")))))
+        ;; do not prefer prefixes when using clean-ns
+        (setq cljr-favor-prefix-notation nil)
+        ;; insert keybinding setup here
+        (cljr-add-keybindings-with-prefix "C-c RET")))))
 
 
 (add-hook 'emacs-lisp-mode-hook
@@ -2384,11 +2384,11 @@ the right."
 
     ;; Hack to disable company popup in Elixir if hanging
     (eval-after-load "alchemist"
-        '(defun alchemist-company--wait-for-doc-buffer ()
-          (setf num 50)
-          (while (and (not alchemist-company-doc-lookup-done)
-                    (> (decf num) 1))
-            (sit-for 0.01))))))
+      '(defun alchemist-company--wait-for-doc-buffer ()
+         (setf num 50)
+         (while (and (not alchemist-company-doc-lookup-done)
+                  (> (decf num) 1))
+           (sit-for 0.01))))))
 
 (use-package puppet-mode
   :defer t)
@@ -2396,7 +2396,7 @@ the right."
 (use-package powershell
   :defer t
   :mode  (("\\.ps1$" . powershell-mode)
-          ("\\.psm$" . powershell-mode)))
+           ("\\.psm$" . powershell-mode)))
 
 (use-package rust-mode
   :defer t)
@@ -2428,7 +2428,7 @@ the right."
   :diminish (flyspell-mode . " spl")
   :config
   (setq-default ispell-program-name "aspell")
-  ; Silently save my personal dictionary when new items are added
+                                        ; Silently save my personal dictionary when new items are added
   (setq ispell-silently-savep t)
   (ispell-change-dictionary "british" t)
 
@@ -2436,11 +2436,11 @@ the right."
   (add-hook 'text-mode-hook (lambda () (flyspell-mode 1)))
 
   (add-hook 'flyspell-mode-hook
-            (lambda ()
-              (define-key flyspell-mode-map [(control ?\,)] nil)
-              (general-define-key :states '(normal visual) :prefix grass/leader1
-                                  "Sn" 'flyspell-goto-next-error
-                                  "Sw" 'ispell-word))))
+    (lambda ()
+      (define-key flyspell-mode-map [(control ?\,)] nil)
+      (general-define-key :states '(normal visual) :prefix grass/leader1
+        "Sn" 'flyspell-goto-next-error
+        "Sw" 'ispell-word))))
 
 (use-package spaceline
   :init
@@ -2474,32 +2474,32 @@ the right."
   :defines grass/toggle-flycheck-error-list
   :commands
   (flycheck-mode
-   flycheck-clear
-   flycheck-describe-checker
-   flycheck-select-checker
-   flycheck-set-checker-executable
-   flycheck-verify-setup)
+    flycheck-clear
+    flycheck-describe-checker
+    flycheck-select-checker
+    flycheck-set-checker-executable
+    flycheck-verify-setup)
   :config
   (progn
     (when (fboundp 'define-fringe-bitmap)
       (define-fringe-bitmap 'my-flycheck-fringe-indicator
         (vector #b00000000
-                #b00000000
-                #b00000000
-                #b00000000
-                #b00000000
-                #b00000000
-                #b00000000
-                #b00011100
-                #b00111110
-                #b00111110
-                #b00111110
-                #b00011100
-                #b00000000
-                #b00000000
-                #b00000000
-                #b00000000
-                #b00000000)))
+          #b00000000
+          #b00000000
+          #b00000000
+          #b00000000
+          #b00000000
+          #b00000000
+          #b00011100
+          #b00111110
+          #b00111110
+          #b00111110
+          #b00011100
+          #b00000000
+          #b00000000
+          #b00000000
+          #b00000000
+          #b00000000)))
 
     (flycheck-define-error-level 'error
       :overlay-category 'flycheck-error-overlay
@@ -2529,16 +2529,16 @@ the right."
 If the error list is visible, hide it.  Otherwise, show it."
   (interactive)
   (-if-let (window (flycheck-get-error-list-window))
-      (quit-window nil window)
+    (quit-window nil window)
     (flycheck-list-errors)))
 
 (general-define-key :states '(normal visual) :prefix grass/leader1
-      "cc" 'flycheck-clear
-      "ch" 'flycheck-describe-checker
-      "cs" 'flycheck-select-checker
-      "cl" 'grass/toggle-flycheck-error-list
-      "cS" 'flycheck-set-checker-executable
-      "cv" 'flycheck-verify-setup)
+  "cc" 'flycheck-clear
+  "ch" 'flycheck-describe-checker
+  "cs" 'flycheck-select-checker
+  "cl" 'grass/toggle-flycheck-error-list
+  "cS" 'flycheck-set-checker-executable
+  "cv" 'flycheck-verify-setup)
 
 ;;;;;;;;;;;;;;;
 ;; Proselint ;;
@@ -2550,10 +2550,10 @@ If the error list is visible, hide it.  Otherwise, show it."
     :command ("proselint" source-inplace)
     :error-patterns
     ((warning line-start (file-name) ":" line ":" column ": "
-              (id (one-or-more (not (any " "))))
-              (message (one-or-more not-newline)
-                      (zero-or-more "\n" (any " ") (one-or-more not-newline)))
-              line-end))
+       (id (one-or-more (not (any " "))))
+       (message (one-or-more not-newline)
+         (zero-or-more "\n" (any " ") (one-or-more not-newline)))
+       line-end))
     :modes (text-mode markdown-mode gfm-mode org-mode))
   (add-to-list 'flycheck-checkers 'proselint))
 
@@ -2568,8 +2568,8 @@ If the error list is visible, hide it.  Otherwise, show it."
 (global-set-key [s-up] 'dired-jump)
 
 (general-define-key :states '(normal visual) :prefix grass/leader1
-        "TAB" 'grass/switch-to-previous-buffer
-        "wl" 'toggle-truncate-lines)
+  "TAB" 'grass/switch-to-previous-buffer
+  "wl" 'toggle-truncate-lines)
 
 (provide 'init)
 ;;; init.el ends her
