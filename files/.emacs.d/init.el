@@ -2288,7 +2288,7 @@ the right."
 
 (use-package flyspell
   :defer t
-  :commands flyspell-mode
+  :commands (flyspell-mode flyspell-goto-next-error)
   :diminish (flyspell-mode . " spl")
   :config
   (setq-default ispell-program-name "aspell")
@@ -2301,11 +2301,14 @@ the right."
 
   (add-hook 'flyspell-mode-hook
     (lambda ()
-      (define-key flyspell-mode-map [(control ?\,)] nil)
-      (general-define-key :states '(normal visual) :prefix grass/leader1
-        "S" '(:ignore t :which-key "Spelling")
-        "Sn" 'flyspell-goto-next-error
-        "Sw" 'ispell-word))))
+      (define-key flyspell-mode-map [(control ?\,)] nil))))
+
+(defhydra hydra-spelling ()
+  "spelling"
+  ("t" flyspell-mode "toggle")
+  ("n" flyspell-goto-next-error "next error")
+  ("w" ispell-word)
+  ("q" nil "quit" :color blue))
 
 (use-package spaceline
   :init
@@ -2439,10 +2442,12 @@ If the error list is visible, hide it.  Otherwise, show it."
     "ct" '(flycheck-mode :which-key "toggle flycheck")
     "cc" 'flycheck-clear
     "ch" 'flycheck-describe-checker
-    "cs" 'flycheck-select-checker
+    "cS" 'flycheck-select-checker
     "cl" '(grass/toggle-flycheck-error-list :which-key "toggle error list")
-    "cS" '(flycheck-set-checker-executable :which-key "set checker")
+    "cx" '(flycheck-set-checker-executable :which-key "set checker")
     "cv" 'flycheck-verify-setup
+
+    "cs" '(hydra-spelling/body :which-key "Spelling")
 
     "m" '(:ignore t :which-key "Major-mode-cmd")
 

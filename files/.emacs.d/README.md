@@ -1,4 +1,4 @@
 # My Emacs Configuration
 
-A handgrown, artisanal text editor.
+A hand-grown, artisanal text editor.
 
