@@ -601,6 +601,7 @@
                                    ;; (git-rebase-mode . emacs)
                                    ;; (calculator-mode . emacs)
                                    ;; (term-mode . emacs)
+                                   (haskell-error-mode . motion)
                                    ;; (haskell-interactive-mode . emacs)
                                    ;; (undo-tree-visualizer-mode . emacs)
                                    ;; (cider-repl-mode . emacs)
@@ -2078,12 +2079,20 @@ the right."
 ;; Install some useful packages so this all works
 ;; cabal update && cabal install happy hasktags stylish-haskell present ghc-mod hlint
 
-;; TODO Take settings from https://github.com/serras/emacs-haskell-tutorial/blob/master/tutorial.md
-
 (use-package haskell-mode
   :defer t
   :config
   (progn
+
+    ;; Set interpreter to be "stack ghci"
+    (setq haskell-process-type 'ghci)
+    (setq haskell-process-path-ghci "stack")
+    (setq haskell-process-args-ghci '("ghci"))
+
+    (setq haskell-process-suggest-remove-import-lines t
+      haskell-process-auto-import-loaded-modules t
+      haskell-process-log t)
+    (setq haskell-indentation-disable-show-indentations t)
 
     ;; Use hi2 for indentation
     (use-package hi2
@@ -2107,23 +2116,38 @@ the right."
       (setenv "PATH" (concat my-cabal-path path-separator (getenv "PATH")))
       (add-to-list 'exec-path my-cabal-path))
 
-    ; Add F8 key combination for going to imports block
-    (eval-after-load 'haskell-mode
-      '(progn
-         (setq tab-always-indent t)
-         (general-define-key :keymaps 'haskell-mode-map :states '(normal visual)
-           :prefix grass/leader1
-           "mi" 'haskell-navigate-imports)))
+    (add-hook 'haskell-mode-hook
+      (lambda ()
+        ;; Fancy indenting please
+        (setq tab-always-indent t)))))
 
-    (setq haskell-indentation-disable-show-indentations t)
+(eval-after-load 'haskell-mode
+  '(progn
+     (general-define-key :keymaps 'haskell-mode-map
+       :states '(normal visual insert emacs)
+       :prefix grass/leader1
+       :non-normal-prefix "M-SPC"
+       "mt" 'haskell-process-do-type
+       "mi" 'haskell-process-do-info
+       "ml" 'haskell-process-load-file
+       "mb" 'haskell-process-cabal-build
+       "mI" 'haskell-navigate-imports
+       "mC" 'haskell-process-cabal
+       "mr" 'haskell-interactive-bring
+       "ms" 'haskell-interactive-switch
+       "mc" 'haskell-interactive-mode-clear
+       )))
 
-    ; TODO Set this up so it works properly
-    ; Set interpreter to be "stack ghci"
-    ;; (setq haskell-process-type 'ghci)
-    ;; (setq haskell-process-path-ghci "stack")
-    ;; (setq haskell-process-args-ghci '("ghci"))
-    ;; (setq tab-always-indent t)
-    ))
+(eval-after-load 'haskell-cabal-mode
+  '(progn
+     (general-define-key :keymaps 'haskell-cabal-mode-map
+       :states '(normal visual insert emacs)
+       :prefix grass/leader1
+       :non-normal-prefix "M-SPC"
+       "mr" 'haskell-interactive-bring
+       "ms" 'haskell-interactive-switch
+       "mc" 'haskell-interactive-mode-clear
+       )))
 
 
 ;;;;;;;;;;
@@ -2514,7 +2538,6 @@ If the error list is visible, hide it.  Otherwise, show it."
     )
 
   (general-define-key
-
     "s-d" 'crux-duplicate-current-line-or-region
 
     "<home>" 'move-beginning-of-line
