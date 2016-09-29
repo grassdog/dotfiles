@@ -2210,7 +2210,7 @@ the right."
   (general-define-key :keymaps 'markdown-mode-map
     :states '(normal visual)
     :prefix grass/leader1
-    "mp" 'grass/markdown-open-marked))
+    "mp" 'grass/markdown-open-in-marked-app))
 
 
 ;;;;;;;;;;;;;
