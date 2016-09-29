@@ -585,29 +585,11 @@
     ;; Keep some Emacs stuff
     (define-key evil-normal-state-map "\C-e" 'evil-end-of-line)
     (define-key evil-insert-state-map "\C-e" 'end-of-line)
+    (define-key evil-insert-state-map "\C-a" 'crux-move-beginning-of-line)
+    (define-key evil-normal-state-map "\C-a" 'crux-move-beginning-of-line)
+    (define-key evil-visual-state-map "\C-a" 'crux-move-beginning-of-line)
     (define-key evil-visual-state-map "\C-e" 'evil-end-of-line)
     (define-key evil-motion-state-map "\C-e" 'evil-end-of-line)
-    ;; (define-key evil-normal-state-map "\C-f" 'evil-forward-char)
-    ;; (define-key evil-insert-state-map "\C-f" 'evil-forward-char)
-    ;; (define-key evil-insert-state-map "\C-f" 'evil-forward-char)
-    ;; (define-key evil-normal-state-map "\C-b" 'evil-backward-char)
-    ;; (define-key evil-insert-state-map "\C-b" 'evil-backward-char)
-    ;; (define-key evil-visual-state-map "\C-b" 'evil-backward-char)
-    ;; (define-key evil-normal-state-map "\C-d" 'evil-delete-char)
-    ;; (define-key evil-insert-state-map "\C-d" 'evil-delete-char)
-    ;; (define-key evil-visual-state-map "\C-d" 'evil-delete-char)
-    ;; (define-key evil-normal-state-map "\C-n" 'evil-next-line)
-    ;; (define-key evil-insert-state-map "\C-n" 'evil-next-line)
-    ;; (define-key evil-visual-state-map "\C-n" 'evil-next-line)
-    ;; (define-key evil-normal-state-map "\C-p" 'evil-previous-line)
-    ;; (define-key evil-insert-state-map "\C-p" 'evil-previous-line)
-    ;; (define-key evil-visual-state-map "\C-p" 'evil-previous-line)
-    ;; (define-key evil-normal-state-map "\C-y" 'yank)
-    ;; (define-key evil-insert-state-map "\C-y" 'yank)
-    ;; (define-key evil-visual-state-map "\C-y" 'yank)
-    ;; (define-key evil-normal-state-map "\C-k" 'kill-line)
-    ;; (define-key evil-insert-state-map "\C-k" 'kill-line)
-    ;; (define-key evil-visual-state-map "\C-k" 'kill-line)
     (define-key evil-normal-state-map "Q" 'call-last-kbd-macro)
     (define-key evil-visual-state-map "Q" 'call-last-kbd-macro)
 
@@ -629,7 +611,7 @@
                                    (cider-popup-buffer-mode . motion)
                                    ;; (help-mode . normal)
                                    ;; (grep-mode . emacs)
-                                   ;; (bc-menu-mode . emacs)
+                                   (bc-menu-mode . motion)
                                    ;; (erc-mode . emacs)
                                    ;; (magit-branch-manager-mode . emacs)
                                    ;; (magit-blame-mode-map . emacs)
@@ -824,6 +806,21 @@
         (windmove-find-other-window 'up))
     (shrink-window arg)
     (enlarge-window arg)))
+
+(defhydra hydra-buffer (:color blue :columns 3)
+  "
+                Buffers :
+  "
+  ("n" next-buffer "next" :color red)
+  ("b" ivy-switch-buffer "switch")
+  ("B" ibuffer "ibuffer")
+  ("p" previous-buffer "prev" :color red)
+  ("C-b" buffer-menu "buffer menu")
+  ("N" evil-buffer-new "new")
+  ("d" kill-this-buffer "delete" :color red)
+  ;; don't come back to previous buffer after delete
+  ("D" (progn (kill-this-buffer) (next-buffer)) "Delete" :color red)
+  ("s" save-buffer "save" :color red))
 
 (defhydra hydra-window ()
   "
@@ -2454,6 +2451,7 @@ If the error list is visible, hide it.  Otherwise, show it."
 
     "b" '(:ignore t :which-key "Buffers")
     "bb" 'ivy-switch-buffer
+    "bm" '(hydra-buffer/body :which-key "buffer mini-state")
     "bs" 'grass/switch-to-scratch-buffer
     "bk" 'kill-this-buffer
     "bo" 'crux-kill-other-buffers
