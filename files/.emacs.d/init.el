@@ -270,10 +270,12 @@
   (:states '(normal visual) :prefix grass/leader1
     "bb" 'ivy-switch-buffer)
   (:keymaps 'ivy-minibuffer-map
-      "S-<up>" 'ivy-previous-history-element
-      "S-<down>" 'ivy-next-history-element)
+    "RET" 'ivy-alt-done
+    "S-<up>" 'ivy-previous-history-element
+    "S-<down>" 'ivy-next-history-element)
   :init
-  (use-package ivy-hydra)
+  (use-package ivy-hydra
+    :defer 3)
 
   (setq ivy-height 20)
   (setq ivy-fixed-height-minibuffer t)
@@ -294,6 +296,7 @@
      "ff" 'counsel-find-file
      "fR" 'grass/rename-file-and-buffer
      "sa" 'counsel-ag
+     "sg" 'counsel-git-grep
      "eC" 'counsel-unicode-char)
   :init
   (define-key read-expression-map (kbd "C-r") 'counsel-expression-history))
@@ -315,7 +318,8 @@
           ("\\`calc-" . "") ; Hide "calc-" prefixes when listing M-x calc keys
           ("/body\\'" . "") ; Remove display the "/body" portion of hydra fn names
           ("string-inflection" . "si")
-          ("crux-" . "c/")
+          ("counsel-" . "c/")
+          ("crux-" . "cx/")
           ("grass/" . "g/")
           ("\\`hydra-" . "+h/")
           ("\\`org-babel-" . "ob/")))
@@ -1034,7 +1038,7 @@ Repeated invocations toggle between the two most recently open buffers."
               crux-kill-other-buffers
               crux-indent-defun
               crux-cleanup-buffer-or-region
-              crux-mode-beginning-of-line
+              crux-move-beginning-of-line
               crux-transpose-windows
               crux-view-url
               )
@@ -1102,7 +1106,9 @@ Repeated invocations toggle between the two most recently open buffers."
 (use-package magit
   :general
   (:states '(normal visual) :prefix grass/leader1
-     "gs" 'magit-status))
+    "gs" 'magit-status)
+  :config
+  (setq magit-completing-read-function 'ivy-completing-read))
 
 (use-package git-link
   :config
@@ -1353,10 +1359,7 @@ Repeated invocations toggle between the two most recently open buffers."
         "sb" 'isearch-reverse-regexp)
 
 (use-package ag
-  :commands ag-project
-  :general
-  (:states '(normal visual) :prefix grass/leader1
-          "sp" 'ag-project))
+  :commands (ag ag-project))
 
 ;;;;;;;;;;;;;;;
 ;; Selection ;;
@@ -1667,11 +1670,12 @@ the right."
 
 (use-package projectile
   :diminish (projectile-mode . "ⓟ")
-  :commands projectile-mode
+  :commands (projectile-mode projectile-project-root)
+  :defines grass/counsel-ag-current-project
   :general
   (:states '(normal visual) :prefix grass/leader1
-    "p" '(:keymap projectile-command-map)
-    "fp" 'projectile-find-file)
+    "sp" 'grass/counsel-ag-current-project
+    "sP" 'projectile-ag)
   :config
   (setq projectile-tags-command "rtags -R -e")
   (setq projectile-enable-caching nil)
@@ -1690,7 +1694,30 @@ the right."
   (add-to-list 'projectile-globally-ignored-files ".keep")
   (add-to-list 'projectile-globally-ignored-files "TAGS")
 
+  (use-package counsel-projectile
+    :init
+    (progn
+      (setq projectile-switch-project-action 'counsel-projectile-find-file)
+      (general-define-key :states '(normal visual) :prefix grass/leader1
+        "p SPC" 'counsel-projectile
+        "pb"    'counsel-projectile-switch-to-buffer
+        "bp"    'counsel-projectile-switch-to-buffer
+        "pd"    'counsel-projectile-find-dir
+        "pp"    'counsel-projectile-switch-project
+        "pf"    'counsel-projectile-find-file
+        "fp"    'counsel-projectile-find-file
+        "pr"    'projectile-recentf)))
+
+  (defun grass/counsel-ag-current-project ()
+    "Search in current project with `ag'."
+    (interactive)
+    (let ((dir (projectile-project-root)))
+      (if dir
+        (counsel-ag "" dir)
+        (message "error: Not in a project."))))
+  :init
   (projectile-global-mode t))
+
 
 ;;;;;;;;;
 ;; Org ;;
