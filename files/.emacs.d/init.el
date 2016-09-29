@@ -703,8 +703,6 @@
 
 (add-hook 'prog-mode-hook 'font-lock-comment-annotations)
 
-; TODO Fix search highlight colours
-
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Manipulating Text ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
@@ -1024,8 +1022,6 @@ Repeated invocations toggle between the two most recently open buffers."
                   (get-char-property (point) 'face))))
     (if face (message "Face: %s" face) (message "No face at %d" pos))))
 
-; TODO Replace some of these with https://github.com/bbatsov/crux
-
 (defun grass/switch-to-scratch-buffer ()
   "Switch to the `*scratch*' buffer."
   (interactive)
@@ -1239,7 +1235,7 @@ Repeated invocations toggle between the two most recently open buffers."
      (use-package peep-dired
        :general
        (:keymaps 'dired-mode-map :states '(normal visual) :prefix grass/leader1
-     "mp" 'peep-dired))))
+         "mp" 'peep-dired))))
 
 
 (use-package dired+
@@ -2191,6 +2187,7 @@ the right."
 
     (setq haskell-indentation-disable-show-indentations t)
 
+    ; TODO Set this up so it works properly
     ; Set interpreter to be "stack ghci"
     ;; (setq haskell-process-type 'ghci)
     ;; (setq haskell-process-path-ghci "stack")
@@ -2201,36 +2198,37 @@ the right."
     ;(setq haskell-process-type 'cabal-repl)
 
     ; Add key combinations for interactive haskell-mode
-    (eval-after-load 'haskell-mode
-      '(progn
-        (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
-        (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
-        (define-key haskell-mode-map (kbd "C-c C-z") 'haskell-interactive-switch)
-        (define-key haskell-mode-map (kbd "C-c C-n C-t") 'haskell-process-do-type)
-        (define-key haskell-mode-map (kbd "C-c C-n C-i") 'haskell-process-do-info)
-        (define-key haskell-mode-map (kbd "C-c C-n C-c") 'haskell-process-cabal-build)
-        (define-key haskell-mode-map (kbd "C-c C-n c") 'haskell-process-cabal)
-        (define-key haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space)))
+    ;; (eval-after-load 'haskell-mode
+    ;;   '(progn
+    ;;     (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
+    ;;     (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
+    ;;     (define-key haskell-mode-map (kbd "C-c C-z") 'haskell-interactive-switch)
+    ;;     (define-key haskell-mode-map (kbd "C-c C-n C-t") 'haskell-process-do-type)
+    ;;     (define-key haskell-mode-map (kbd "C-c C-n C-i") 'haskell-process-do-info)
+    ;;     (define-key haskell-mode-map (kbd "C-c C-n C-c") 'haskell-process-cabal-build)
+    ;;     (define-key haskell-mode-map (kbd "C-c C-n c") 'haskell-process-cabal)
+    ;;     (define-key haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space)))
 
-    (eval-after-load 'haskell-cabal
-      '(progn
-        (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
-        (define-key haskell-cabal-mode-map (kbd "C-c C-z") 'haskell-interactive-switch)
-        (define-key haskell-cabal-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
-        (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
-        (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)
+    ;; (eval-after-load 'haskell-cabal
+    ;;   '(progn
+    ;;     (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
+    ;;     (define-key haskell-cabal-mode-map (kbd "C-c C-z") 'haskell-interactive-switch)
+    ;;     (define-key haskell-cabal-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
+    ;;     (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
+    ;;     (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)
 
-        ; Set interpreter to be "stack ghci"
-        ;; (setq haskell-interactive-popup-errors nil)
-        ;; (setq haskell-process-type 'ghci)
-        ;; (setq haskell-process-path-ghci "stack")
-        ;; (setq haskell-process-args-ghci '("ghci")))
-      )
+    ;;     ; Set interpreter to be "stack ghci"
+    ;;     ;; (setq haskell-interactive-popup-errors nil)
+    ;;     ;; (setq haskell-process-type 'ghci)
+    ;;     ;; (setq haskell-process-path-ghci "stack")
+    ;;     ;; (setq haskell-process-args-ghci '("ghci")))
+    ;;   )
 
-    (eval-after-load 'haskell-mode
-      '(define-key haskell-mode-map (kbd "C-c C-o") 'haskell-compile))
-    (eval-after-load 'haskell-cabal
-      '(define-key haskell-cabal-mode-map (kbd "C-c C-o") 'haskell-compile)))))
+    ;; (eval-after-load 'haskell-mode
+    ;;   '(define-key haskell-mode-map (kbd "C-c C-o") 'haskell-compile))
+    ;; (eval-after-load 'haskell-cabal
+    ;;   '(define-key haskell-cabal-mode-map (kbd "C-c C-o") 'haskell-compile)))
+  ))
 
 
 ;;;;;;;;;;
@@ -2385,7 +2383,7 @@ the right."
     (setq powerline-default-separator 'bar)
     (setq spaceline-minor-modes-separator "⋅")
     (setq spaceline-higlight-face-func 'spaceline-highlight-face-evil-state)
-    (spaceline-emacs-theme)
+    (spaceline-spacemacs-theme)
     (spaceline-info-mode)))
 
 ;;;;;;;;;;;;;;;;;;;;;
