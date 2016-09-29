@@ -1842,7 +1842,6 @@ the right."
                                   "refute" "setTimeout" "clearTimeout" "setInterval"
                                   "clearInterval" "location" "__dirname" "console" "JSON"))
 
-      (flycheck-mode 1)
       (js2-imenu-extras-mode +1))))
 
 (use-package json-mode
@@ -1853,8 +1852,7 @@ the right."
   :config
   (use-package flymake-json
     :init
-    (add-hook 'json-mode 'flymake-json-load))
-  (flycheck-mode 1))
+    (add-hook 'json-mode 'flymake-json-load)))
 
 (use-package typescript-mode
   :mode "\\.ts$"
@@ -1885,8 +1883,7 @@ the right."
 
       (setq evil-shift-width 4)
       (setq tab-width 4)
-      (setq elm-indent-offset 4)
-      (flycheck-mode t))))
+      (setq elm-indent-offset 4))))
 
 
 ;;;;;;;;;;;;
@@ -1935,7 +1932,6 @@ the right."
     (add-hook 'coffee-mode-hook
       (lambda ()
         (set (make-local-variable 'tab-width) 2)
-        (flycheck-mode t)
         (setq indent-line-function 'grass/coffee-indent-line)))))
 
 ;;;;;;;;;
@@ -2168,12 +2164,10 @@ the right."
   (use-package flycheck-clojure
     :init
     (eval-after-load 'flycheck '(flycheck-clojure-setup)))
-  (add-hook 'clojure-mode-hook #'flycheck-mode)
   (add-hook 'clojure-mode-hook
     (lambda ()
       ;; Treat dash as part of a word
-      (modify-syntax-entry ?- "w")
-      (flycheck-mode)))
+      (modify-syntax-entry ?- "w")))
 
   (use-package clojure-snippets)
 
@@ -2331,6 +2325,7 @@ the right."
 
 (use-package flycheck
   :disabled
+  :diminish (flycheck-mode . "ⓢ")
   :defer 3
   :defines grass/toggle-flycheck-error-list
   :commands
@@ -2376,6 +2371,8 @@ the right."
       :overlay-category 'flycheck-info-overlay
       :fringe-bitmap 'my-flycheck-fringe-indicator
       :fringe-face 'flycheck-fringe-info)
+
+    (setq flycheck-display-errors-delay 0.5)
 
     (require 'evil-evilified-state)
     (evilified-state-evilify-map flycheck-error-list-mode-map
@@ -2429,11 +2426,12 @@ If the error list is visible, hide it.  Otherwise, show it."
     "TAB" '(grass/switch-to-previous-buffer :which-key "previous buffer")
 
     "c" '(:ignore t :which-key "Check/Compile")
+    "ct" '(flycheck-mode :which-key "toggle flycheck")
     "cc" 'flycheck-clear
     "ch" 'flycheck-describe-checker
     "cs" 'flycheck-select-checker
-    "cl" 'grass/toggle-flycheck-error-list
-    "cS" 'flycheck-set-checker-executable
+    "cl" '(grass/toggle-flycheck-error-list :which-key "toggle error list")
+    "cS" '(flycheck-set-checker-executable :which-key "set checker")
     "cv" 'flycheck-verify-setup
 
     "m" '(:ignore t :which-key "Major-mode-cmd")
@@ -2471,6 +2469,11 @@ If the error list is visible, hide it.  Otherwise, show it."
     "gl" 'git-link
     "gc" 'git-link-commit
     "gt" 'git-timemachine
+
+    "h" '(:ignore t :which-key "Help")
+    "hf" 'describe-function
+    "hv" 'describe-variable
+    "ha" 'apropos
 
     "e" '(:ignore t :which-key "Editing/Text")
     "eC" 'counsel-unicode-char
