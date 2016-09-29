@@ -268,7 +268,7 @@
   ("C-c C-r" 'ivy-resume)
   ("<f6>" 'ivy-resume)
   (:states '(normal visual) :prefix grass/leader1
-     "bb" 'ivy-switch-buffer)
+    "bb" 'ivy-switch-buffer)
   (:keymaps 'ivy-minibuffer-map
       "S-<up>" 'ivy-previous-history-element
       "S-<down>" 'ivy-next-history-element)
@@ -276,6 +276,7 @@
   (use-package ivy-hydra)
 
   (setq ivy-height 20)
+  (setq ivy-fixed-height-minibuffer t)
   (setq ivy-use-virtual-buffers t)
   ;; Don't count candidates
   (setq ivy-count-format "")
@@ -561,27 +562,27 @@
   (define-key evil-insert-state-map "\C-e" 'end-of-line)
   (define-key evil-visual-state-map "\C-e" 'evil-end-of-line)
   (define-key evil-motion-state-map "\C-e" 'evil-end-of-line)
-  (define-key evil-normal-state-map "\C-f" 'evil-forward-char)
-  (define-key evil-insert-state-map "\C-f" 'evil-forward-char)
-  (define-key evil-insert-state-map "\C-f" 'evil-forward-char)
-  (define-key evil-normal-state-map "\C-b" 'evil-backward-char)
-  (define-key evil-insert-state-map "\C-b" 'evil-backward-char)
-  (define-key evil-visual-state-map "\C-b" 'evil-backward-char)
-  (define-key evil-normal-state-map "\C-d" 'evil-delete-char)
-  (define-key evil-insert-state-map "\C-d" 'evil-delete-char)
-  (define-key evil-visual-state-map "\C-d" 'evil-delete-char)
-  (define-key evil-normal-state-map "\C-n" 'evil-next-line)
-  (define-key evil-insert-state-map "\C-n" 'evil-next-line)
-  (define-key evil-visual-state-map "\C-n" 'evil-next-line)
-  (define-key evil-normal-state-map "\C-p" 'evil-previous-line)
-  (define-key evil-insert-state-map "\C-p" 'evil-previous-line)
-  (define-key evil-visual-state-map "\C-p" 'evil-previous-line)
-  (define-key evil-normal-state-map "\C-y" 'yank)
-  (define-key evil-insert-state-map "\C-y" 'yank)
-  (define-key evil-visual-state-map "\C-y" 'yank)
-  (define-key evil-normal-state-map "\C-k" 'kill-line)
-  (define-key evil-insert-state-map "\C-k" 'kill-line)
-  (define-key evil-visual-state-map "\C-k" 'kill-line)
+  ;; (define-key evil-normal-state-map "\C-f" 'evil-forward-char)
+  ;; (define-key evil-insert-state-map "\C-f" 'evil-forward-char)
+  ;; (define-key evil-insert-state-map "\C-f" 'evil-forward-char)
+  ;; (define-key evil-normal-state-map "\C-b" 'evil-backward-char)
+  ;; (define-key evil-insert-state-map "\C-b" 'evil-backward-char)
+  ;; (define-key evil-visual-state-map "\C-b" 'evil-backward-char)
+  ;; (define-key evil-normal-state-map "\C-d" 'evil-delete-char)
+  ;; (define-key evil-insert-state-map "\C-d" 'evil-delete-char)
+  ;; (define-key evil-visual-state-map "\C-d" 'evil-delete-char)
+  ;; (define-key evil-normal-state-map "\C-n" 'evil-next-line)
+  ;; (define-key evil-insert-state-map "\C-n" 'evil-next-line)
+  ;; (define-key evil-visual-state-map "\C-n" 'evil-next-line)
+  ;; (define-key evil-normal-state-map "\C-p" 'evil-previous-line)
+  ;; (define-key evil-insert-state-map "\C-p" 'evil-previous-line)
+  ;; (define-key evil-visual-state-map "\C-p" 'evil-previous-line)
+  ;; (define-key evil-normal-state-map "\C-y" 'yank)
+  ;; (define-key evil-insert-state-map "\C-y" 'yank)
+  ;; (define-key evil-visual-state-map "\C-y" 'yank)
+  ;; (define-key evil-normal-state-map "\C-k" 'kill-line)
+  ;; (define-key evil-insert-state-map "\C-k" 'kill-line)
+  ;; (define-key evil-visual-state-map "\C-k" 'kill-line)
   (define-key evil-normal-state-map "Q" 'call-last-kbd-macro)
   (define-key evil-visual-state-map "Q" 'call-last-kbd-macro)
 
@@ -1012,6 +1013,13 @@ Repeated invocations toggle between the two most recently open buffers."
                   (get-char-property (point) 'face))))
     (if face (message "Face: %s" face) (message "No face at %d" pos))))
 
+; TODO Replace some of these with https://github.com/bbatsov/crux
+
+(defun grass/switch-to-scratch-buffer ()
+  "Switch to the `*scratch*' buffer."
+  (interactive)
+  (let ((exists (get-buffer "*scratch*")))
+    (switch-to-buffer (get-buffer-create "*scratch*"))))
 
 
 (general-define-key :states '(normal visual) :prefix grass/leader1
@@ -1019,7 +1027,8 @@ Repeated invocations toggle between the two most recently open buffers."
         "uc" 'quick-calc
         "uu" 'browse-url
         "ub" 'grass/comment-box
-        "uf" 'grass/copy-buffer-filename
+        "fc" 'grass/copy-buffer-filename
+        "bs" 'grass/switch-to-scratch-buffer
         "ud" 'grass/insert-datetime)
 
 (use-package reveal-in-osx-finder
@@ -1030,6 +1039,11 @@ Repeated invocations toggle between the two most recently open buffers."
 ;;;;;;;;;;;;;;;;;;
 ;; Common Files ;;
 ;;;;;;;;;;;;;;;;;;
+
+(defun grass/open-init ()
+  "Open Worklog file"
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
 
 (defun grass/open-work-log ()
   "Open Worklog file"
@@ -1047,6 +1061,7 @@ Repeated invocations toggle between the two most recently open buffers."
   (counsel-file-jump "" (expand-file-name "~/Dropbox/Notes")))
 
 (general-define-key :states '(normal visual) :prefix grass/leader1
+        "ki" 'grass/open-init
         "kw" 'grass/open-work-log
         "kp" 'grass/open-personal-log
         "kn" 'grass/find-notes)
@@ -1197,6 +1212,8 @@ Repeated invocations toggle between the two most recently open buffers."
   :general
   ("C-x C-j" 'dired-jump
    "<s-up>" 'dired-jump)
+  (:states '(normal visual) :prefix grass/leader1
+     "fj" 'dired-jump)
   :config
   ;; Chill the colours in dired
   (setq font-lock-maximum-decoration (quote ((dired-mode . 1) (t . t))))
@@ -1341,6 +1358,8 @@ Repeated invocations toggle between the two most recently open buffers."
   (setq company-minimum-prefix-length 3)
   (setq company-dabbrev-ignore-case nil)
   (setq company-dabbrev-downcase nil)
+  (setq company-global-modes
+    '(not markdown-mode org-mode erc-mode))
 
   ;; Tweak fonts
   (custom-set-faces
@@ -1353,7 +1372,8 @@ Repeated invocations toggle between the two most recently open buffers."
   '(progn
      (global-set-key (kbd "s-e") 'company-yasnippet)
      (general-define-key :states '(normal visual) :prefix grass/leader1
-        "es" 'company-yasnippet)
+       "es" 'company-yasnippet
+       "ee" 'hippie-expand)
      (define-key company-active-map (kbd "TAB") 'company-complete-common-or-cycle)
      (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
      (define-key company-active-map (kbd "S-TAB") 'company-select-previous)
@@ -1362,6 +1382,35 @@ Repeated invocations toggle between the two most recently open buffers."
 
 (add-hook 'after-init-hook 'global-company-mode)
 
+;; replace dabbrev-expand with Hippie expand
+(global-set-key (kbd "M-/") 'hippie-expand)
+(define-key evil-insert-state-map (kbd "C-p") 'hippie-expand)
+(setq hippie-expand-try-functions-list
+  '(
+    ;; Try to expand yasnippet snippets based on prefix
+    yas-hippie-try-expand hippie-expand-try-functions-list
+
+    ;; Try to expand word "dynamically", searching the current buffer.
+    try-expand-dabbrev
+    ;; Try to expand word "dynamically", searching all other buffers.
+    try-expand-dabbrev-all-buffers
+    ;; Try to expand word "dynamically", searching the kill ring.
+    try-expand-dabbrev-from-kill
+    ;; Try to complete text as a file name, as many characters as unique.
+    try-complete-file-name-partially
+    ;; Try to complete text as a file name.
+    try-complete-file-name
+    ;; Try to expand word before point according to all abbrev tables.
+    try-expand-all-abbrevs
+    ;; Try to complete the current line to an entire line in the buffer.
+    try-expand-list
+    ;; Try to complete the current line to an entire line in the buffer.
+    try-expand-line
+    ;; Try to complete as an Emacs Lisp symbol, as many characters as
+    ;; unique.
+    try-complete-lisp-symbol-partially
+    ;; Try to complete word as an Emacs Lisp symbol.
+    try-complete-lisp-symbol))
 
 ;;;;;;;;;;;;;;
 ;; Snippets ;;
