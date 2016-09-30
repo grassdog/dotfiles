@@ -2050,6 +2050,12 @@ the right."
           ad-do-it)
         ad-do-it))
 
+    (general-define-key :keymaps 'web-mode-map
+      :states '(normal visual insert emacs)
+      :prefix grass/leader1
+      :non-normal-prefix "M-SPC"
+      "mz" 'web-mode-fold-or-unfold)
+
     (defun grass/web-mode-hook ()
       "Hooks for Web mode."
       (setq web-mode-markup-indent-offset 2)
