@@ -1494,15 +1494,6 @@ the right."
 ;; Indentation ;;
 ;;;;;;;;;;;;;;;;;
 
-;; Simple indentation please
-(use-package clean-aindent-mode
-  :disabled
-  :init
-                                        ; no electric indent, auto-indent is sufficient
-  (electric-indent-mode -1)
-  (clean-aindent-mode t)
-  (setq clean-aindent-is-simple-indent t))
-
 ;; Fancy tabbing. Set to nil to stop tab indenting a line
 (setq-default tab-always-indent t)
 
