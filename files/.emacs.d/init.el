@@ -208,13 +208,13 @@
 (add-to-list 'default-frame-alist '(height . 60))
 (add-to-list 'default-frame-alist '(width . 110))
 
-;; TODO Review if this works
+(use-package spacemacs-theme
+  :init
+  (load-theme 'spacemacs-dark t))
 
 (defun grass/set-gui-config ()
   "Enable my GUI settings"
   (interactive)
-  (load-theme 'spacemacs-dark t)
-
   (menu-bar-mode +1)
   ;; Highlight the current line
   (global-hl-line-mode +1))
@@ -223,10 +223,7 @@
   "Enable my terminal settings"
   (interactive)
   (xterm-mouse-mode 1)
-  (menu-bar-mode -1)
-  (load-theme 'spacemacs-dark t))
-
-(use-package spacemacs-theme)
+  (menu-bar-mode -1))
 
 (defun grass/set-ui ()
   (if (display-graphic-p)
