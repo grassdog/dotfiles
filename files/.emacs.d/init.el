@@ -1957,6 +1957,8 @@ the right."
     :non-normal-prefix "M-SPC"
     "mf" 'elm-mode-format-buffer
     "mi" 'elm-import
+    "mc" 'elm-compile-buffer
+    "mC" 'elm-compile-main
     "ml" 'elm-repl-load
     "mp" 'elm-repl-push
     "mT" 'elm-mode-generate-tags
