@@ -2311,8 +2311,9 @@ the right."
 
 (add-hook 'emacs-lisp-mode-hook
   (lambda ()
-    ;; Treat dash as part of a word
+    ;; Treat dash and / as part of a word
     (modify-syntax-entry ?- "w")
+    (modify-syntax-entry ?/ "w")
     (define-key global-map (kbd "C-c C-e") 'eval-print-last-sexp)))
 
 
