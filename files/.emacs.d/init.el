@@ -2561,6 +2561,9 @@ If the error list is visible, hide it.  Otherwise, show it."
 
     "TAB" '(grass/switch-to-previous-buffer :which-key "previous buffer")
 
+    "!" 'eshell
+    "~" 'evil-emacs-state
+
     "c" '(:ignore t :which-key "Check/Compile")
     "ct" '(flycheck-mode :which-key "toggle flycheck")
     "cc" 'flycheck-clear
@@ -2679,7 +2682,12 @@ If the error list is visible, hide it.  Otherwise, show it."
     )
 
   (general-define-key
-    "s-d" 'crux-duplicate-current-line-or-region
+    "M-x" 'counsel-M-x
+    "C-x C-f" 'counsel-find-file
+    "C-c C-r" 'ivy-resume
+    "<f6>" 'ivy-resume
+
+    "C-`" 'evil-normal-state
 
     "<home>" 'move-beginning-of-line
     "<end>" 'move-end-of-line
@@ -2687,12 +2695,10 @@ If the error list is visible, hide it.  Otherwise, show it."
     "C-x C-j" 'dired-jump
     "<s-up>" 'dired-jump
 
+    "s-d" 'crux-duplicate-current-line-or-region
+
     "M-/" 'hippie-expand
     "M-z" 'zop-up-to-char
-    "M-x" 'counsel-M-x
-    "C-x C-f" 'counsel-find-file
-    "C-c C-r" 'ivy-resume
-    "<f6>" 'ivy-resume
     )
 
   (general-define-key :keymaps 'ivy-minibuffer-map
