@@ -1799,6 +1799,11 @@ the right."
   (general-emacs-define-key enh-ruby-mode-map
     :states '(normal visual) :prefix grass/leader1
     "m{" '(grass/toggle-ruby-block-style :which-key "toggle block")
+    "ms" 'ruby-switch-to-inf
+    "mr" 'ruby-send-region
+    "ml" 'ruby-load-file
+    "mi" 'inf-ruby
+
     "mt" '(:ignore t :which-key "rspec")
     "mta" 'rspec-verify-all
     "mtb" 'rspec-verify
@@ -2531,6 +2536,15 @@ If the error list is visible, hide it.  Otherwise, show it."
     :modes (text-mode markdown-mode gfm-mode org-mode))
   (add-to-list 'flycheck-checkers 'proselint))
 
+;;;;;;;;;;;
+;; Shell ;;
+;;;;;;;;;;;
+
+(use-package eshell-prompt-extras
+  :commands epe-theme-lambda
+  :init
+  (setq eshell-highlight-prompt nil
+        eshell-prompt-function 'epe-theme-lambda))
 
 ;;;;;;;;;;;;;;;;;;
 ;; Key bindings ;;
@@ -2539,7 +2553,6 @@ If the error list is visible, hide it.  Otherwise, show it."
 (use-package general
   :init
   (general-evil-setup t)
-
 
   (general-define-key
     :states '(normal visual insert emacs)
