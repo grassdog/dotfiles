@@ -2471,7 +2471,6 @@ the right."
 
 
 (use-package flycheck
-  :disabled
   :diminish (flycheck-mode . "ⓢ")
   :defer 3
   :defines grass/toggle-flycheck-error-list
@@ -2519,15 +2518,13 @@ the right."
       :fringe-bitmap 'my-flycheck-fringe-indicator
       :fringe-face 'flycheck-fringe-info)
 
-    (setq flycheck-display-errors-delay 0.5)
+    ;; Beware that moving this window with a window manager can mess with tooltips
+    (use-package flycheck-pos-tip
+      :init
+      (with-eval-after-load 'flycheck
+        (flycheck-pos-tip-mode)))
 
-    (require 'evil-evilified-state)
-    (evilified-state-evilify-map flycheck-error-list-mode-map
-      :mode flycheck-error-list-mode
-      :bindings
-      "RET" 'flycheck-error-list-goto-error
-      "j" 'flycheck-error-list-next-error
-      "k" 'flycheck-error-list-previous-error)))
+    (setq flycheck-display-errors-delay 0.5)))
 
 (defun grass/toggle-flycheck-error-list ()
   "Toggle flycheck's error list window.
