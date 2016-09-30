@@ -738,10 +738,13 @@
 
 (global-set-key [remap zap-to-char] 'zop-to-char)
 
+;; C-' in iedit mode makes it look like swiper
 (use-package iedit
   :commands 'iedit-mode
   :defines grass/iedit-dwim
   :config
+  (setq iedit-current-symbol-default t
+    iedit-only-at-symbol-boundaries t)
   (defun grass/iedit-dwim (arg)
     "Starts iedit but uses \\[narrow-to-defun] to limit its scope."
     (interactive "P")
@@ -753,7 +756,6 @@
           ;; this function determines the scope of `iedit-start'.
           (if iedit-mode
             (iedit-done)
-            ;; `current-word' can of course be replaced by other functions.
             (narrow-to-defun)
             (iedit-start (current-word) (point-min) (point-max))))))))
 
@@ -2702,6 +2704,7 @@ If the error list is visible, hide it.  Otherwise, show it."
     "<f6>" 'ivy-resume
 
     "C-`" 'evil-normal-state
+    "C-;" 'iedit-mode
 
     "<home>" 'move-beginning-of-line
     "<end>" 'move-end-of-line
