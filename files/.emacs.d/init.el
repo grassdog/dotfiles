@@ -456,7 +456,7 @@
       (evil-search-highlight-persist-remove-all)
       (evil-ex-nohighlight))
 
-    (define-key evil-normal-state-map (kbd "SPC s c") 'grass/remove-search-highlights)
+    (define-key evil-normal-state-map (kbd "SPC s c") 'grass/remove-search-highlights))
 
     ;; Cursors
     (defvar dotspacemacs-colorize-cursor-according-to-state t
@@ -631,7 +631,7 @@
                                    ;; (dired-mode . normal)
                                    ;; (wdired-mode . normal)
                                    )
-      do (evil-set-initial-state mode state))))
+      do (evil-set-initial-state mode state)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Comments and filling ;;
