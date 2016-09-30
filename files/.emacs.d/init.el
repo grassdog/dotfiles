@@ -1503,9 +1503,8 @@ the right."
   (clean-aindent-mode t)
   (setq clean-aindent-is-simple-indent t))
 
-;; Don't make tab indent a line (set to t if you want fancy tabbing)
-(setq-default tab-always-indent nil)
-
+;; Fancy tabbing. Set to nil to stop tab indenting a line
+(setq-default tab-always-indent t)
 
 (defun grass/toggle-always-indent ()
   "Toggle tab-always-indent setting"
