@@ -282,6 +282,7 @@
   :init
   (setq which-key-idle-delay 0.4)
   (setq which-key-min-display-lines 3)
+  (setq which-key-sort-order 'which-key-key-order-alpha)
 
   (setq which-key-description-replacement-alist
     '(("Prefix Command" . "prefix")
