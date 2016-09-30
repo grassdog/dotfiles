@@ -35,7 +35,6 @@
 ;; Some base libraries ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'bind-key)
 (require 'diminish)
 (require 'cl)
 
