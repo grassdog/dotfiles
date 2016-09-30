@@ -6,6 +6,8 @@
  ;; If there is more than one, they won't work right.
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
+ '(erm-syn-errline ((t (:underline (:color "Red" :style wave)))))
+ '(erm-syn-warnline ((t (:underline (:color "Orange" :style wave)))))
  '(evil-ex-lazy-highlight ((t (:inherit lazy-highlight :background "#4d4d79"))))
  '(show-paren-match ((t (:background "selectedKnobColor")))))
 
