@@ -2650,7 +2650,7 @@ If the error list is visible, hide it.  Otherwise, show it."
     "ef" 'crux-indent-defun
     "ew" 'crux-cleanup-buffer-or-region
     "eT" 'untabify
-    "et" 'grass/toggle-always-indent
+    "et" '(grass/toggle-always-indent :which-key "toggle tab indent")
     "ec" 'char-menu
     "ep" 'hydra-move-parens/body
 
