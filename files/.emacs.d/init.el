@@ -1355,7 +1355,7 @@ Repeated invocations toggle between the two most recently open buffers."
 (setq hippie-expand-try-functions-list
   '(
      ;; Try to expand yasnippet snippets based on prefix
-     yas-hippie-try-expand hippie-expand-try-functions-list
+     yas-hippie-try-expand
 
      ;; Try to expand word "dynamically", searching the current buffer.
      try-expand-dabbrev
@@ -2540,11 +2540,13 @@ If the error list is visible, hide it.  Otherwise, show it."
 ;; Shell ;;
 ;;;;;;;;;;;
 
-(use-package eshell-prompt-extras
-  :commands epe-theme-lambda
-  :init
-  (setq eshell-highlight-prompt nil
-        eshell-prompt-function 'epe-theme-lambda))
+(add-hook 'eshell-mode-hook
+  (lambda ()
+    (use-package eshell-prompt-extras
+      :commands epe-theme-lambda
+      :init
+      (setq eshell-highlight-prompt nil
+        eshell-prompt-function 'epe-theme-lambda))))
 
 ;;;;;;;;;;;;;;;;;;
 ;; Key bindings ;;
