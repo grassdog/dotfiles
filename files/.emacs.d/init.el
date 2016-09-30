@@ -1768,46 +1768,47 @@ the right."
     (interactive)
     (enh-ruby-beginning-of-block)
     (if (looking-at-p "{")
-        (let ((beg (point)))
-    (delete-char 1)
-    (insert (if (looking-back "[^ ]") " do" "do"))
-    (when (looking-at "[ ]*|.*|")
-      (search-forward-regexp "[ ]*|.*|" (line-end-position)))
-    (insert "\n")
-    (goto-char (- (line-end-position) 1))
-    (delete-char 1)
-    (insert "\nend")
-    (evil-indent beg (point))
-    )
+      (let ((beg (point)))
+        (delete-char 1)
+        (insert (if (looking-back "[^ ]") " do" "do"))
+        (when (looking-at "[ ]*|.*|")
+          (search-forward-regexp "[ ]*|.*|" (line-end-position)))
+        (insert "\n")
+        (goto-char (- (line-end-position) 1))
+        (delete-char 1)
+        (insert "\nend")
+        (evil-indent beg (point))
+        )
       (progn
         (ruby-end-of-block)
-        (save-excursion ;; join lines if block is 1 line of code long
-    (let ((end (line-end-position)))
-      (enh-ruby-beginning-of-block)
-      (if (= 2 (- (line-number-at-pos end) (line-number-at-pos)))
-          (evil-join (point) end)))
-    (kill-line)
-    (insert " }")
-    (enh-ruby-beginning-of-block)
-    (delete-char 2)
-    (insert "{" )))))
+        ;; Join lines if block is 1 line of code long
+        (save-excursion
+          (let ((end (line-end-position)))
+            (enh-ruby-beginning-of-block)
+            (if (= 2 (- (line-number-at-pos end) (line-number-at-pos)))
+              (evil-join (point) end)))
+          (kill-line)
+          (insert " }")
+          (enh-ruby-beginning-of-block)
+          (delete-char 2)
+          (insert "{" )))))
 
   ;; We never want to edit Rubinius bytecode
   (add-to-list 'completion-ignored-extensions ".rbc")
 
   (general-emacs-define-key enh-ruby-mode-map
     :states '(normal visual) :prefix grass/leader1
-      "m{" '(grass/toggle-ruby-block-style :which-key "toggle block")
-      "mt" '(:ignore t :which-key "rspec")
-      "mta" 'rspec-verify-all
-      "mtb" 'rspec-verify
-      "mtc" 'rspec-verify-continue
-      "mte" 'rspec-toggle-example-pendingness
-      "mtf" 'rspec-verify-method
-      "mtl" 'rspec-run-last-failed
-      "mtm" 'rspec-verify-matching
-      "mtr" 'rspec-rerun
-      "mtt" 'rspec-verify-single)
+    "m{" '(grass/toggle-ruby-block-style :which-key "toggle block")
+    "mt" '(:ignore t :which-key "rspec")
+    "mta" 'rspec-verify-all
+    "mtb" 'rspec-verify
+    "mtc" 'rspec-verify-continue
+    "mte" 'rspec-toggle-example-pendingness
+    "mtf" 'rspec-verify-method
+    "mtl" 'rspec-run-last-failed
+    "mtm" 'rspec-verify-matching
+    "mtr" 'rspec-rerun
+    "mtt" 'rspec-verify-single)
 
   (add-hook 'enh-ruby-mode-hook
     (lambda ()
