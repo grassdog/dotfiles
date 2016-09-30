@@ -1730,7 +1730,10 @@ the right."
       (push '(?s . ("#+BEGIN_SRC" . "#+END_SRC")) evil-surround-pairs-alist)
       (push '(?q . ("#+BEGIN_QUOTE" . "#+END_QUOTE")) evil-surround-pairs-alist)
 
-      (general-define-key :keymaps 'org-mode-map :states '(normal visual) :prefix grass/leader1
+      (general-define-key :keymaps 'org-mode-map
+        :states '(normal visual insert emacs)
+        :prefix grass/leader1
+        :non-normal-prefix "M-SPC"
         "mm" 'hydra-org-move/body
         "mg" 'org-mac-grab-link
         "ma" 'org-agenda
@@ -1936,6 +1939,7 @@ the right."
     (setq tss-implement-definition-key "SPC m i")
     (tss-config-default)))
 
+;; Install elm-format, elm-oracle, and the base elm package
 (use-package elm-mode
   :mode "\\.elm$"
   :config
@@ -1945,12 +1949,26 @@ the right."
     (eval-after-load 'flycheck
       '(add-hook 'flycheck-mode-hook #'flycheck-elm-setup)))
 
+  (add-to-list 'company-backends 'company-elm)
+
+  (general-define-key :keymaps 'elm-mode-map
+    :states '(normal visual insert emacs)
+    :prefix grass/leader1
+    :non-normal-prefix "M-SPC"
+    "mf" 'elm-mode-format-buffer
+    "mi" 'elm-import
+    "ml" 'elm-repl-load
+    "mp" 'elm-repl-push
+    "mT" 'elm-mode-generate-tags
+    "md" 'elm-oracle-doc-at-point
+    "mt" 'elm-oracle-type-at-point)
 
   (add-hook 'elm-mode-hook
     (lambda ()
-      ;; Reenable elm oracle once it's start up cost doesn't smash editor performance
-      ;; (add-hook 'elm-mode-hook #'elm-oracle-setup-completion)
+      (add-hook 'elm-mode-hook #'elm-oracle-setup-completion)
 
+      ;; Fancy indenting please
+      (setq tab-always-indent t)
       (setq evil-shift-width 4)
       (setq tab-width 4)
       (setq elm-indent-offset 4))))
@@ -2134,8 +2152,9 @@ the right."
       (setq imenu-generic-expression markdown-imenu-generic-expression)))
 
   (general-define-key :keymaps 'markdown-mode-map
-    :states '(normal visual)
+    :states '(normal visual insert emacs)
     :prefix grass/leader1
+    :non-normal-prefix "M-SPC"
     "mp" 'grass/markdown-open-in-marked-app))
 
 
