@@ -551,32 +551,40 @@
     :init
     (evil-indent-plus-default-bindings))
 
-  ;; ;; Function motion
-  ;; (setq evil-move-defun-alist
-  ;;   '((ruby-mode . (ruby-beginning-of-defun . ruby-end-of-defun))
-  ;;      (c-mode    . (c-beginning-of-defun . c-end-of-defun))
-  ;;      (js2-mode  . (js2-beginning-of-defun . js2-end-of-defun))))
+  ;; Function motion
+  (setq evil-move-defun-alist
+    '((ruby-mode . (ruby-beginning-of-defun . ruby-end-of-defun))
+       (c-mode    . (c-beginning-of-defun . c-end-of-defun))
+       (js2-mode  . (js2-beginning-of-defun . js2-end-of-defun))))
 
-  ;; (defun evil-move-defun (count &optional begin-defun end-defun)
-  ;;   "Move by defun"
-  ;;   (let ((count (or count 1))
-  ;;          (begin-defun (or begin-defun 'beginning-of-defun))
-  ;;          (end-defun (or end-defun 'end-of-defun)))
-  ;;     (evil-motion-loop (var count)
-  ;;       (cond
-  ;;         ((< var 0) (funcall begin-defun))
-  ;;         (t         (funcall end-defun))))))
+  (defun evil-backward-defun (&optional count)
+    "Move backward by defun"
+    (let* ((count (or count 1))
+           (mode-defuns (cdr-safe (assq major-mode evil-move-defun-alist)))
+           (begin-defun (or (car-safe mode-defuns) 'beginning-of-defun)))
+      (evil-motion-loop (var count)
+        (funcall begin-defun))))
 
-  ;; (evil-define-text-object evil-a-defun (count)
-  ;;   "Select a defun."
-  ;;   (let* ((mode-defuns (cdr-safe (assq major-mode evil-move-defun-alist)))
-  ;;           (begin-defun (car-safe mode-defuns))
-  ;;           (end-defun (cdr-safe mode-defuns)))
-  ;;     (evil-an-object-range count
-  ;;       (lambda (count) (evil-move-defun count begin-defun end-defun))
-  ;;       nil nil nil)))
+  (defun evil-forward-defun (&optional count)
+    "Move forward by defun"
+    (let* ((count (or count 1))
+           (mode-defuns (cdr-safe (assq major-mode evil-move-defun-alist)))
+           (end-defun (or (cdr-safe mode-defuns) 'end-of-defun)))
+      (evil-motion-loop (var count)
+        (funcall end-defun))))
 
-  ;; (define-key evil-outer-text-objects-map "f" 'evil-a-defun)
+  (evil-define-motion evil-backward-defun-motion (count)
+    "Move the cursor to the beginning of the COUNT-th next defun."
+    :type exclusive
+    (evil-backward-defun count))
+
+  (evil-define-motion evil-forward-defun-motion (count)
+    "Move the cursor to the beginning of the COUNT-th next defun."
+    :type exclusive
+    (evil-forward-defun count))
+
+  (define-key evil-motion-state-map (kbd "glf") 'evil-forward-defun-motion)
+  (define-key evil-motion-state-map (kbd "glF") 'evil-backward-defun-motion)
 
 
   (evil-mode t)
