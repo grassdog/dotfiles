@@ -290,6 +290,7 @@
       (swiper word))))
 
 ;; Some swiper bindings
+;; "C-c C-o" save output in buffer
 ;; "M-q" 'swiper-query-replace
 ;; "C-l" 'swiper-recenter-top-bottom
 ;; "C-7" 'swiper-mc
