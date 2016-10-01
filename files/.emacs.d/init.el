@@ -323,7 +323,6 @@
   ("0" (text-scale-adjust 0) "reset")
   ("q" nil "quit" :color blue))
 
-
 (use-package highlight-indentation
   :commands highlight-indentation-mode)
 
@@ -551,6 +550,33 @@
   (use-package evil-indent-plus
     :init
     (evil-indent-plus-default-bindings))
+
+  ;; ;; Function motion
+  ;; (setq evil-move-defun-alist
+  ;;   '((ruby-mode . (ruby-beginning-of-defun . ruby-end-of-defun))
+  ;;      (c-mode    . (c-beginning-of-defun . c-end-of-defun))
+  ;;      (js2-mode  . (js2-beginning-of-defun . js2-end-of-defun))))
+
+  ;; (defun evil-move-defun (count &optional begin-defun end-defun)
+  ;;   "Move by defun"
+  ;;   (let ((count (or count 1))
+  ;;          (begin-defun (or begin-defun 'beginning-of-defun))
+  ;;          (end-defun (or end-defun 'end-of-defun)))
+  ;;     (evil-motion-loop (var count)
+  ;;       (cond
+  ;;         ((< var 0) (funcall begin-defun))
+  ;;         (t         (funcall end-defun))))))
+
+  ;; (evil-define-text-object evil-a-defun (count)
+  ;;   "Select a defun."
+  ;;   (let* ((mode-defuns (cdr-safe (assq major-mode evil-move-defun-alist)))
+  ;;           (begin-defun (car-safe mode-defuns))
+  ;;           (end-defun (cdr-safe mode-defuns)))
+  ;;     (evil-an-object-range count
+  ;;       (lambda (count) (evil-move-defun count begin-defun end-defun))
+  ;;       nil nil nil)))
+
+  ;; (define-key evil-outer-text-objects-map "f" 'evil-a-defun)
 
 
   (evil-mode t)
@@ -1239,8 +1265,6 @@ Repeated invocations toggle between the two most recently open buffers."
 ;; Search and Replace ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; TODO Use anzu replace methods in these
-
 ;; http://sachachua.com/blog/2008/07/emacs-keyboard-shortcuts-for-navigating-code/
 (defun grass/isearch-yank-current-word ()
   "Pull current word from buffer into search string."
@@ -1350,11 +1374,11 @@ Repeated invocations toggle between the two most recently open buffers."
 
 ;; abbrev-mode for common typos
 (setq abbrev-file-name "~/.emacs.d/abbrev_defs")
-(diminish 'abbrev-mode "ⓐ")
+(diminish 'abbrev-mode " ⓐ")
 (setq-default abbrev-mode t)
 
 (use-package company
-  :diminish (company-mode . "ⓒ")
+  :diminish (company-mode . " ⓒ")
   :config
   (setq company-idle-delay 0.2)
   (setq company-minimum-prefix-length 3)
@@ -1424,7 +1448,7 @@ Repeated invocations toggle between the two most recently open buffers."
 ;;;;;;;;;;;;;;
 
 (use-package yasnippet
-  :diminish (yas-minor-mode . "ⓨ")
+  :diminish (yas-minor-mode . " ⓨ")
   :defer 1
   :config
   (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
@@ -1611,7 +1635,7 @@ the right."
 ;; Only trim modified lines on save
 (use-package ws-butler
   :defer 2
-  :diminish (ws-butler-mode . "ⓦ")
+  :diminish (ws-butler-mode . " ⓦ")
   :config
   (setq ws-butler-keep-whitespace-before-point t)
   (ws-butler-global-mode 1))
@@ -1622,7 +1646,7 @@ the right."
 ;;;;;;;;;;;;;;;;
 
 (use-package projectile
-  :diminish (projectile-mode . "ⓟ")
+  :diminish (projectile-mode . " ⓟ")
   :commands (projectile-mode projectile-project-root projectile-ag)
   :defines grass/counsel-ag-current-project
   :config
@@ -1798,7 +1822,7 @@ the right."
   (use-package rspec-mode)
 
   (use-package projectile-rails
-    :diminish (projectile-rails-mode . "⇋")
+    :diminish (projectile-rails-mode . " ⇋")
     :init
     (progn
       (add-hook 'projectile-mode-hook 'projectile-rails-on))
@@ -2504,8 +2528,8 @@ the right."
       (ruby-end-mode +1)))
 
   (use-package alchemist
-    :diminish (alchemist-mode . "alc")
-    :diminish (alchemist-phoenix-mode . "alc-ph")
+    :diminish (alchemist-mode . " alc")
+    :diminish (alchemist-phoenix-mode . " alc-ph")
     :init
 
     (general-emacs-define-key alchemist-mode-map
@@ -2683,7 +2707,7 @@ the right."
 
 
 (use-package flycheck
-  :diminish (flycheck-mode . "ⓢ")
+  :diminish (flycheck-mode . " ⓢ")
   :defer 3
   :defines grass/toggle-flycheck-error-list
   :commands
