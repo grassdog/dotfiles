@@ -276,6 +276,19 @@
 (use-package swiper
   :commands swiper)
 
+(defun swiper-current-word ()
+  "Trigger swiper with current word at point"
+  (interactive)
+  (let (word beg)
+    (with-current-buffer (window-buffer (minibuffer-selected-window))
+      (save-excursion
+        (skip-syntax-backward "w_")
+        (setq beg (point))
+        (skip-syntax-forward "w_")
+        (setq word (buffer-substring-no-properties beg (point)))))
+    (when word
+      (swiper word))))
+
 ;; Some swiper bindings
 ;; "M-q" 'swiper-query-replace
 ;; "C-l" 'swiper-recenter-top-bottom
@@ -2957,7 +2970,8 @@ If the error list is visible, hide it.  Otherwise, show it."
     "m" '(:ignore t :which-key "Major-mode-cmd")
 
     ";" 'iedit-mode
-    "/" 'swiper
+    "?" 'swiper
+    "/" 'swiper-current-word
 
     "s" '(:ignore t :which-key "Search/Replace")
     "sp" 'anzu-query-replace-at-cursor-thing
