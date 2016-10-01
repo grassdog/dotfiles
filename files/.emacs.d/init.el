@@ -90,6 +90,7 @@
 ;;;;;;;;;;;;;
 
 (setq grass/leader1 "SPC")
+(setq grass/leader2 ",")
 
 ;; Faster
 (setq font-lock-verbose nil)
@@ -291,6 +292,8 @@
        ("grass/" . "g/")
        ("\\`hydra-" . "+h/")
        ("\\`org-babel-" . "ob/")))
+  (which-key-declare-prefixes "SPC" "leader")
+  (which-key-declare-prefixes "," "major mode leader")
   (which-key-mode 1))
 
 
@@ -1151,8 +1154,11 @@ Repeated invocations toggle between the two most recently open buffers."
           (seq bol ".DS_Store" eol)
           (seq bol ".tern-port" eol))))
 
-  (general-emacs-define-key dired-mode-map :states '(normal visual) :prefix grass/leader1
-    "mg" 'revert-buffer)
+  (general-emacs-define-key dired-mode-map
+    :states '(normal visual insert emacs)
+    :prefix grass/leader2
+    :non-normal-prefix "M-,"
+    "g" 'revert-buffer)
 
   (define-key dired-mode-map [return] 'dired-single-buffer)
   (define-key dired-mode-map [mouse-1] 'dired-single-buffer-mouse)
@@ -1182,8 +1188,11 @@ Repeated invocations toggle between the two most recently open buffers."
 
      (use-package peep-dired
        :general
-       (:keymaps 'dired-mode-map :states '(normal visual) :prefix grass/leader1
-         "mp" 'peep-dired))))
+       (:keymaps 'dired-mode-map
+         :states '(normal visual insert emacs)
+         :prefix grass/leader2
+         :non-normal-prefix "M-,"
+         "p" 'peep-dired))))
 
 
 (use-package dired+
@@ -1721,12 +1730,12 @@ the right."
 
       (general-define-key :keymaps 'org-mode-map
         :states '(normal visual insert emacs)
-        :prefix grass/leader1
-        :non-normal-prefix "M-SPC"
-        "mm" 'hydra-org-move/body
-        "mg" 'org-mac-grab-link
-        "ma" 'org-agenda
-        "mc" 'org-cycle-agenda-files))))
+        :prefix grass/leader2
+        :non-normal-prefix "M-,"
+        "m" 'hydra-org-move/body
+        "g" 'org-mac-grab-link
+        "a" 'org-agenda
+        "c" 'org-cycle-agenda-files))))
 
 ;;;;;;;;;;
 ;; Ruby ;;
@@ -1789,23 +1798,25 @@ the right."
   (add-to-list 'completion-ignored-extensions ".rbc")
 
   (general-emacs-define-key enh-ruby-mode-map
-    :states '(normal visual) :prefix grass/leader1
-    "m{" '(grass/toggle-ruby-block-style :which-key "toggle block")
-    "ms" 'ruby-switch-to-inf
-    "mr" 'ruby-send-region
-    "ml" 'ruby-load-file
-    "mi" 'inf-ruby
+    :states '(normal visual insert emacs)
+    :prefix grass/leader2
+    :non-normal-prefix "M-,"
+    "{" '(grass/toggle-ruby-block-style :which-key "toggle block")
+    "s" 'ruby-switch-to-inf
+    "r" 'ruby-send-region
+    "l" 'ruby-load-file
+    "i" 'inf-ruby
 
-    "mt" '(:ignore t :which-key "rspec")
-    "mta" 'rspec-verify-all
-    "mtb" 'rspec-verify
-    "mtc" 'rspec-verify-continue
-    "mte" 'rspec-toggle-example-pendingness
-    "mtf" 'rspec-verify-method
-    "mtl" 'rspec-run-last-failed
-    "mtm" 'rspec-verify-matching
-    "mtr" 'rspec-rerun
-    "mtt" 'rspec-verify-single)
+    "t" '(:ignore t :which-key "rspec")
+    "ta" 'rspec-verify-all
+    "tb" 'rspec-verify
+    "tc" 'rspec-verify-continue
+    "te" 'rspec-toggle-example-pendingness
+    "tf" 'rspec-verify-method
+    "tl" 'rspec-run-last-failed
+    "tm" 'rspec-verify-matching
+    "tr" 'rspec-rerun
+    "tt" 'rspec-verify-single)
 
   (add-hook 'enh-ruby-mode-hook
     (lambda ()
@@ -1909,8 +1920,11 @@ the right."
 (use-package json-mode
   :mode "\\.json$"
   :general
-  (:keymaps 'json-mode-map :states '(normal visual) :prefix grass/leader1
-    "mp" 'json-pretty-print-buffer)
+  (:keymaps 'json-mode-map
+    :states '(normal visual insert emacs)
+    :prefix grass/leader2
+    :non-normal-prefix "M-,"
+    "p" 'json-pretty-print-buffer)
   :config
   (use-package flymake-json
     :init
@@ -1923,9 +1937,9 @@ the right."
   (setq typescript-expr-indent-offset 2)
   (use-package tss
     :init
-    (setq tss-popup-help-key "SPC m h")
-    (setq tss-jump-to-definition-key "SPC m j")
-    (setq tss-implement-definition-key "SPC m i")
+    (setq tss-popup-help-key ", h")
+    (setq tss-jump-to-definition-key ", j")
+    (setq tss-implement-definition-key ", i")
     (tss-config-default)))
 
 ;; Install elm-format, elm-oracle, and the base elm package
@@ -1942,17 +1956,17 @@ the right."
 
   (general-define-key :keymaps 'elm-mode-map
     :states '(normal visual insert emacs)
-    :prefix grass/leader1
-    :non-normal-prefix "M-SPC"
-    "mf" 'elm-mode-format-buffer
-    "mi" 'elm-import
-    "mc" 'elm-compile-buffer
-    "mC" 'elm-compile-main
-    "ml" 'elm-repl-load
-    "mp" 'elm-repl-push
-    "mT" 'elm-mode-generate-tags
-    "md" 'elm-oracle-doc-at-point
-    "mt" 'elm-oracle-type-at-point)
+    :prefix grass/leader2
+    :non-normal-prefix "M-,"
+    "f" 'elm-mode-format-buffer
+    "i" 'elm-import
+    "c" 'elm-compile-buffer
+    "C" 'elm-compile-main
+    "l" 'elm-repl-load
+    "p" 'elm-repl-push
+    "T" 'elm-mode-generate-tags
+    "d" 'elm-oracle-doc-at-point
+    "t" 'elm-oracle-type-at-point)
 
   (add-hook 'elm-mode-hook
     (lambda ()
@@ -2040,9 +2054,9 @@ the right."
 
     (general-define-key :keymaps 'web-mode-map
       :states '(normal visual insert emacs)
-      :prefix grass/leader1
-      :non-normal-prefix "M-SPC"
-      "mz" 'web-mode-fold-or-unfold)
+      :prefix grass/leader2
+      :non-normal-prefix "M-,"
+      "z" 'web-mode-fold-or-unfold)
 
     (defun grass/web-mode-hook ()
       "Hooks for Web mode."
@@ -2150,9 +2164,9 @@ the right."
 
   (general-define-key :keymaps 'markdown-mode-map
     :states '(normal visual insert emacs)
-    :prefix grass/leader1
-    :non-normal-prefix "M-SPC"
-    "mp" 'grass/markdown-open-in-marked-app))
+    :prefix grass/leader2
+    :non-normal-prefix "M-,"
+    "p" 'grass/markdown-open-in-marked-app))
 
 
 ;;;;;;;;;;;;;
@@ -2208,28 +2222,28 @@ the right."
   '(progn
      (general-define-key :keymaps 'haskell-mode-map
        :states '(normal visual insert emacs)
-       :prefix grass/leader1
-       :non-normal-prefix "M-SPC"
-       "mt" 'haskell-process-do-type
-       "mi" 'haskell-process-do-info
-       "ml" 'haskell-process-load-file
-       "mb" 'haskell-process-cabal-build
-       "mI" 'haskell-navigate-imports
-       "mC" 'haskell-process-cabal
-       "mr" 'haskell-interactive-bring
-       "ms" 'haskell-interactive-switch
-       "mc" 'haskell-interactive-mode-clear
+       :prefix grass/leader2
+       :non-normal-prefix "M-,"
+       "t" 'haskell-process-do-type
+       "i" 'haskell-process-do-info
+       "l" 'haskell-process-load-file
+       "b" 'haskell-process-cabal-build
+       "I" 'haskell-navigate-imports
+       "C" 'haskell-process-cabal
+       "r" 'haskell-interactive-bring
+       "s" 'haskell-interactive-switch
+       "c" 'haskell-interactive-mode-clear
        )))
 
 (eval-after-load 'haskell-cabal-mode
   '(progn
      (general-define-key :keymaps 'haskell-cabal-mode-map
        :states '(normal visual insert emacs)
-       :prefix grass/leader1
-       :non-normal-prefix "M-SPC"
-       "mr" 'haskell-interactive-bring
-       "ms" 'haskell-interactive-switch
-       "mc" 'haskell-interactive-mode-clear
+       :prefix grass/leader2
+       :non-normal-prefix "M-,"
+       "r" 'haskell-interactive-bring
+       "s" 'haskell-interactive-switch
+       "c" 'haskell-interactive-mode-clear
        )))
 
 
@@ -2326,54 +2340,57 @@ the right."
     :diminish (alchemist-phoenix-mode . "alc-ph")
     :init
 
-    (general-emacs-define-key alchemist-mode-map :states '(normal visual) :prefix grass/leader1
-      "me" '(:ignore t :which-key "Eval")
-      "mel" 'alchemist-eval-current-line
-      "meL" 'alchemist-eval-print-current-line
-      "mer" 'alchemist-eval-region
-      "meR" 'alchemist-eval-print-region
+    (general-emacs-define-key alchemist-mode-map
+      :states '(normal visual insert emacs)
+      :prefix grass/leader2
+      :non-normal-prefix "M-,"
+      "e" '(:ignore t :which-key "Eval")
+      "el" 'alchemist-eval-current-line
+      "eL" 'alchemist-eval-print-current-line
+      "er" 'alchemist-eval-region
+      "eR" 'alchemist-eval-print-region
 
-      "mp" '(:ignore t :which-key "Project")
-      "mpt" 'alchemist-project-find-test
-      "mg" '(:ignore t :which-key "File Toggle")
-      "mgt" 'alchemist-project-toggle-file-and-tests
-      "mgT" 'alchemist-project-toggle-file-and-tests-other-window
+      "p" '(:ignore t :which-key "Project")
+      "pt" 'alchemist-project-find-test
+      "g" '(:ignore t :which-key "File Toggle")
+      "gt" 'alchemist-project-toggle-file-and-tests
+      "gT" 'alchemist-project-toggle-file-and-tests-other-window
 
-      "mh" '(:ignore t :which-key "Help")
-      "mh:" 'alchemist-help
-      "mhH" 'alchemist-help-history
-      "mhh" 'alchemist-help-search-at-point
-      "mhr" 'alchemist-help-search-marked-region
+      "h" '(:ignore t :which-key "Help")
+      "h:" 'alchemist-help
+      "hH" 'alchemist-help-history
+      "hh" 'alchemist-help-search-at-point
+      "hr" 'alchemist-help-search-marked-region
 
-      "mm" '(:ignore t :which-key "Mix")
-      "mm:" 'alchemist-mix
-      "mmc" 'alchemist-mix-compile
-      "mmx" 'alchemist-mix-run
-      "mmh" 'alchemist-mix-help
+      "m" '(:ignore t :which-key "Mix")
+      "m:" 'alchemist-mix
+      "mc" 'alchemist-mix-compile
+      "mx" 'alchemist-mix-run
+      "mh" 'alchemist-mix-help
 
-      "ms" '(:ignore t :which-key "iex")
-      "msc" 'alchemist-iex-compile-this-buffer
-      "msi" 'alchemist-iex-run
-      "msI" 'alchemist-iex-project-run
-      "msl" 'alchemist-iex-send-current-line
-      "msL" 'alchemist-iex-send-current-line-and-go
-      "msm" 'alchemist-iex-reload-module
-      "msr" 'alchemist-iex-send-region
-      "msR" 'alchemist-iex-send-region-and-go
+      "s" '(:ignore t :which-key "iex")
+      "sc" 'alchemist-iex-compile-this-buffer
+      "si" 'alchemist-iex-run
+      "sI" 'alchemist-iex-project-run
+      "sl" 'alchemist-iex-send-current-line
+      "sL" 'alchemist-iex-send-current-line-and-go
+      "sm" 'alchemist-iex-reload-module
+      "sr" 'alchemist-iex-send-region
+      "sR" 'alchemist-iex-send-region-and-go
 
-      "mt" '(:ignore t :which-key "Test")
-      "mta" 'alchemist-mix-test
-      "mtb" 'alchemist-mix-test-this-buffer
-      "mtt" 'alchemist-mix-test-at-point
-      "mtf" 'alchemist-test-file
-      "mtn" 'alchemist-test-jump-to-next-test
-      "mtp" 'alchemist-test-jump-to-previous-test
-      "mtr" 'alchemist-mix-rerun-last-test
+      "t" '(:ignore t :which-key "Test")
+      "ta" 'alchemist-mix-test
+      "tb" 'alchemist-mix-test-this-buffer
+      "tt" 'alchemist-mix-test-at-point
+      "tf" 'alchemist-test-file
+      "tn" 'alchemist-test-jump-to-next-test
+      "tp" 'alchemist-test-jump-to-previous-test
+      "tr" 'alchemist-mix-rerun-last-test
 
-      "mc" '(:ignore t :which-key "Compile")
-      "mcb" 'alchemist-compile-this-buffer
-      "mcf" 'alchemist-compile-file
-      "mc:" 'alchemist-compile
+      "c" '(:ignore t :which-key "Compile")
+      "cb" 'alchemist-compile-this-buffer
+      "cf" 'alchemist-compile-file
+      "c:" 'alchemist-compile
 
       "gg" 'alchemist-goto-definition-at-point
       "," 'alchemist-goto-jump-back)
@@ -2579,6 +2596,7 @@ If the error list is visible, hide it.  Otherwise, show it."
 
     "!" 'eshell
     "~" 'evil-emacs-state
+    ":" 'counsel-M-x
 
     "c" '(:ignore t :which-key "Check/Compile")
     "ct" '(flycheck-mode :which-key "toggle flycheck")
