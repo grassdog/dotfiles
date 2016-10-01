@@ -276,6 +276,11 @@
 (use-package swiper
   :commands swiper)
 
+;; Some swiper bindings
+;; "M-q" 'swiper-query-replace
+;; "C-l" 'swiper-recenter-top-bottom
+;; "C-7" 'swiper-mc
+
 (use-package which-key
   :diminish which-key-mode
   :init
@@ -1220,7 +1225,7 @@ Repeated invocations toggle between the two most recently open buffers."
           (seq bol ".DS_Store" eol)
           (seq bol ".tern-port" eol))))
 
-  (general-emacs-define-key dired-mode-map
+  (general-define-key :keymaps 'dired-mode-map
     :states '(normal visual insert emacs)
     :prefix grass/leader2
     :non-normal-prefix "M-,"
@@ -1826,7 +1831,7 @@ the right."
       (add-hook 'projectile-mode-hook 'projectile-rails-on))
     :config
     (progn
-      (general-emacs-define-key enh-ruby-mode-map
+      (general-define-key :keymaps 'enh-ruby-mode-map
         :states '(normal visual insert emacs)
         :prefix grass/leader2
         :non-normal-prefix "M-,"
@@ -1912,7 +1917,7 @@ the right."
   ;; We never want to edit Rubinius bytecode
   (add-to-list 'completion-ignored-extensions ".rbc")
 
-  (general-emacs-define-key enh-ruby-mode-map
+  (general-define-key :keymaps 'enh-ruby-mode-map
     :states '(normal visual insert emacs)
     :prefix grass/leader2
     :non-normal-prefix "M-,"
@@ -2492,7 +2497,7 @@ the right."
     ;; eldoc for clojure
     (add-hook 'cider-mode-hook #'eldoc-mode)
 
-    (general-emacs-define-key :keymaps 'cidr-repl-mode-map
+    (general-define-key :keymaps 'cidr-repl-mode-map
       :states '(normal visual insert emacs)
       :prefix grass/leader2
       :non-normal-prefix "M-,"
@@ -2629,7 +2634,7 @@ the right."
     :diminish (alchemist-phoenix-mode . " alc-ph")
     :init
 
-    (general-emacs-define-key alchemist-mode-map
+    (general-define-key :keymaps 'alchemist-mode-map
       :states '(normal visual insert emacs)
       :prefix grass/leader2
       :non-normal-prefix "M-,"
@@ -2743,7 +2748,7 @@ the right."
   :defer t
   :config
   (progn
-    (general-emacs-define-key dockerfile-mode
+    (general-define-key :keymaps 'dockerfile-mode
       :states '(normal visual insert emacs)
       :prefix grass/leader2
       :non-normal-prefix "M-,"
@@ -2909,7 +2914,7 @@ If the error list is visible, hide it.  Otherwise, show it."
       (interactive)
       (restclient-http-send-current t t))
 
-    (general-emacs-define-key dired-mode-map
+    (general-define-key :keymaps 'dired-mode-map
       :states '(normal visual insert emacs)
       :prefix grass/leader2
       :non-normal-prefix "M-,"
