@@ -2951,6 +2951,9 @@ If the error list is visible, hide it.  Otherwise, show it."
 
     "m" '(:ignore t :which-key "Major-mode-cmd")
 
+    ";" 'iedit-mode
+    "/" 'swiper
+
     "s" '(:ignore t :which-key "Search/Replace")
     "sp" 'anzu-query-replace-at-cursor-thing
     "sa" 'counsel-ag
