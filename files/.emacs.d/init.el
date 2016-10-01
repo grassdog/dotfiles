@@ -35,6 +35,8 @@
 ;; Some base libraries ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(load "~/.emacs.secrets" t)
+
 (require 'diminish)
 (require 'cl)
 
@@ -1071,6 +1073,19 @@ Repeated invocations toggle between the two most recently open buffers."
   :config
   (setq git-link-open-in-browser t))
 
+(use-package github-browse-file
+  :commands github-browse-file)
+
+(use-package gist
+  :commands
+  (gist-buffer gist-buffer-private gist-list gist-region gist-region-private)
+  :config
+  (progn
+    (evilified-state-evilify gist-list-mode gist-list-menu-mode-map
+      "f" 'gist-fetch-current
+      "K" 'gist-kill-current
+      "o" 'gist-browse-current-url)))
+
 (use-package git-timemachine
   :commands git-timemachine)
 
@@ -1765,6 +1780,67 @@ the right."
 
   (use-package rspec-mode)
 
+  (use-package projectile-rails
+    :diminish (projectile-rails-mode . "⇋")
+    :init
+    (progn
+      (add-hook 'projectile-mode-hook 'projectile-rails-on))
+    :config
+    (progn
+      (general-emacs-define-key enh-ruby-mode-map
+        :states '(normal visual insert emacs)
+        :prefix grass/leader2
+        :non-normal-prefix "M-,"
+        "r" '(:ignore t :which-key "rails")
+
+        "rf" '(:ignore t :which-key "find files")
+        "rfa" 'projectile-rails-find-locale
+        "rfc" 'projectile-rails-find-controller
+        "rfe" 'projectile-rails-find-environment
+        "rff" 'projectile-rails-find-feature
+        "rfh" 'projectile-rails-find-helper
+        "rfi" 'projectile-rails-find-initializer
+        "rfj" 'projectile-rails-find-javascript
+        "rfl" 'projectile-rails-find-lib
+        "rfm" 'projectile-rails-find-model
+        "rfn" 'projectile-rails-find-migration
+        "rfo" 'projectile-rails-find-log
+        "rfp" 'projectile-rails-find-spec
+        "rfr" 'projectile-rails-find-rake-task
+        "rfs" 'projectile-rails-find-stylesheet
+        "rft" 'projectile-rails-find-test
+        "rfu" 'projectile-rails-find-fixture
+        "rfv" 'projectile-rails-find-view
+        "rfy" 'projectile-rails-find-layout
+        "rf@" 'projectile-rails-find-mailer
+
+        "rg" '(:ignore t :which-key "goto file")
+        "rgc" 'projectile-rails-find-current-controller
+        "rgd" 'projectile-rails-goto-schema
+        "rge" 'projectile-rails-goto-seeds
+        "rgh" 'projectile-rails-find-current-helper
+        "rgj" 'projectile-rails-find-current-javascript
+        "rgg" 'projectile-rails-goto-gemfile
+        "rgm" 'projectile-rails-find-current-model
+        "rgn" 'projectile-rails-find-current-migration
+        "rgp" 'projectile-rails-find-current-spec
+        "rgr" 'projectile-rails-goto-routes
+        "rgs" 'projectile-rails-find-current-stylesheet
+        "rgt" 'projectile-rails-find-current-test
+        "rgu" 'projectile-rails-find-current-fixture
+        "rgv" 'projectile-rails-find-current-view
+        "rgz" 'projectile-rails-goto-spec-helper
+        "rg." 'projectile-rails-goto-file-at-point
+        ;; Rails external commands
+        "r:" 'projectile-rails-rake
+        "rcc" 'projectile-rails-generate
+        "ri" 'projectile-rails-console
+        "rxs" 'projectile-rails-server
+        ;; Refactoring 'projectile-rails-mode
+        "rRx" 'projectile-rails-extract-region)
+      ;; Ex-commands
+      (evil-ex-define-cmd "A" 'projectile-toggle-between-implementation-and-test)))
+
   (defun grass/toggle-ruby-block-style ()
     (interactive)
     (enh-ruby-beginning-of-block)
@@ -2121,6 +2197,9 @@ the right."
     :diminish pandoc-mode)
   (add-hook 'markdown-mode-hook 'pandoc-mode)
 
+  (use-package markdown-toc
+    :commands markdown-toc-generate-toc)
+
   (defun grass/markdown-open-in-marked-app ()
     "Run Marked.app on the current file"
     (interactive)
@@ -2139,6 +2218,73 @@ the right."
         (markdown-enter-key))))
 
   (define-key markdown-mode-map (kbd "RET") 'grass/markdown-enter-key-dwim)
+
+  (use-package mmm-mode
+    :commands mmm-parse-buffer
+    :config
+    (progn
+      (mmm-add-classes '((markdown-python
+                           :submode python-mode
+                           :face mmm-declaration-submode-face
+                           :front "^```python[\n\r]+"
+                           :back "^```$")))
+      (mmm-add-classes '((markdown-html
+                           :submode web-mode
+                           :face mmm-declaration-submode-face
+                           :front "^```html[\n\r]+"
+                           :back "^```$")))
+      (mmm-add-classes '((markdown-java
+                           :submode java-mode
+                           :face mmm-declaration-submode-face
+                           :front "^```java[\n\r]+"
+                           :back "^```$")))
+      (mmm-add-classes '((markdown-ruby
+                           :submode ruby-mode
+                           :face mmm-declaration-submode-face
+                           :front "^```ruby[\n\r]+"
+                           :back "^```$")))
+      (mmm-add-classes '((markdown-c
+                           :submode c-mode
+                           :face mmm-declaration-submode-face
+                           :front "^```c[\n\r]+"
+                           :back "^```$")))
+      (mmm-add-classes '((markdown-c++
+                           :submode c++-mode
+                           :face mmm-declaration-submode-face
+                           :front "^```c\+\+[\n\r]+"
+                           :back "^```$")))
+      (mmm-add-classes '((markdown-elisp
+                           :submode emacs-lisp-mode
+                           :face mmm-declaration-submode-face
+                           :front "^```elisp[\n\r]+"
+                           :back "^```$")))
+      (mmm-add-classes '((markdown-javascript
+                           :submode javascript-mode
+                           :face mmm-declaration-submode-face
+                           :front "^```javascript[\n\r]+"
+                           :back "^```$")))
+      (mmm-add-classes '((markdown-ess
+                           :submode R-mode
+                           :face mmm-declaration-submode-face
+                           :front "^```{?r.*}?[\n\r]+"
+                           :back "^```$")))
+      (mmm-add-classes '((markdown-rust
+                           :submode rust-mode
+                           :face mmm-declaration-submode-face
+                           :front "^```rust[\n\r]+"
+                           :back "^```$")))
+      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-python)
+      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-java)
+      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-ruby)
+      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-c)
+      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-c++)
+      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-elisp)
+      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-html)
+      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-javascript)
+      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-ess)
+      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-rust))
+    :init
+    (setq mmm-global-mode t))
 
   ;; Keep word movement instead of promotion mappings
   (define-key markdown-mode-map (kbd "<M-right>") nil)
@@ -2166,7 +2312,13 @@ the right."
     :states '(normal visual insert emacs)
     :prefix grass/leader2
     :non-normal-prefix "M-,"
-    "p" 'grass/markdown-open-in-marked-app))
+    "p" 'grass/markdown-open-in-marked-app
+    "t" 'markdown-toc-generate-toc
+    "<right>" ' markdown-promote
+    "<left>" ' markdown-demote
+    "c" '(mmm-parse-buffer :which-key "highlight code blocks")
+    "n" 'markdown-cleanup-list-numbers
+    "e" 'markdown-export-and-preview))
 
 
 ;;;;;;;;;;;;;
@@ -2320,10 +2472,6 @@ the right."
     (define-key global-map (kbd "C-c C-e") 'eval-print-last-sexp)))
 
 
-;;;;;;;;;;;;;;;;;;;;;
-;; Other Languages ;;
-;;;;;;;;;;;;;;;;;;;;;
-
 (use-package elixir-mode
   :mode (("\\.exs?\\'"   . elixir-mode))
   :defer t
@@ -2403,6 +2551,22 @@ the right."
                   (> (decf num) 1))
            (sit-for 0.01))))))
 
+;;;;;;;;;;;;;;;;;;;;;
+;; Other Languages ;;
+;;;;;;;;;;;;;;;;;;;;;
+
+(use-package vagrant
+  :commands
+  (vagrant-destroy
+    vagrant-edit
+    vagrant-halt
+    vagrant-provision
+    vagrant-resume
+    vagrant-reload
+    vagrant-status
+    vagrant-suspend
+    vagrant-up))
+
 (use-package puppet-mode
   :defer t)
 
@@ -2412,6 +2576,9 @@ the right."
            ("\\.psm$" . powershell-mode)))
 
 (use-package rust-mode
+  :defer t)
+
+(use-package toml-mode
   :defer t)
 
 (use-package python
@@ -2430,6 +2597,16 @@ the right."
   (add-hook 'haml-mode-hook
     (lambda ()
       (set (make-local-variable 'tab-width) 2))))
+
+(use-package dockerfile-mode
+  :defer t
+  :config
+  (progn
+    (general-emacs-define-key dockerfile-mode
+      :states '(normal visual insert emacs)
+      :prefix grass/leader2
+      :non-normal-prefix "M-,"
+      "b" 'dockerfile-build-buffer)))
 
 ;;;;;;;;;;;;;;
 ;; Spelling ;;
@@ -2579,6 +2756,27 @@ If the error list is visible, hide it.  Otherwise, show it."
       (setq eshell-highlight-prompt nil
         eshell-prompt-function 'epe-theme-lambda))))
 
+;;;;;;;;;;;;;;;;;
+;; Rest Client ;;
+;;;;;;;;;;;;;;;;;
+
+(use-package restclient
+  :mode ("\\.http\\'" . restclient-mode)
+  :config
+  (progn
+    (defun restclient-http-send-current-raw-stay-in-window ()
+      (interactive)
+      (restclient-http-send-current t t))
+
+    (general-emacs-define-key dired-mode-map
+      :states '(normal visual insert emacs)
+      :prefix grass/leader2
+      :non-normal-prefix "M-,"
+      "s" 'restclient-http-send-current-stay-in-window
+      "S" 'restclient-http-send-current
+      "r" 'restclient-http-send-current-raw-stay-in-window
+      "R" 'restclient-http-send-current-raw)))
+
 ;;;;;;;;;;;;;;;;;;
 ;; Key bindings ;;
 ;;;;;;;;;;;;;;;;;;
@@ -2644,7 +2842,15 @@ If the error list is visible, hide it.  Otherwise, show it."
     "gs" 'magit-status
     "gl" 'git-link
     "gc" 'git-link-commit
+    "gb" 'github-browse-file
     "gt" 'git-timemachine
+
+    "gg" '(:ignore t :which-key "Gist")
+    "ggb" 'gist-buffer
+    "ggB" 'gist-buffer-private
+    "ggl" 'gist-list
+    "ggr" 'gist-region
+    "ggR" 'gist-region-private
 
     "h" '(:ignore t :which-key "Help")
     "hf" 'describe-function
@@ -2663,6 +2869,8 @@ If the error list is visible, hide it.  Otherwise, show it."
     "et" '(grass/toggle-always-indent :which-key "toggle tab indent")
     "ec" 'char-menu
     "ep" 'hydra-move-parens/body
+    "eb" 'grass/comment-box
+    "ed" 'grass/insert-datetime
 
     "ea" '(:ignore t :which-key "Alignment")
     "eaa" 'align
@@ -2693,8 +2901,6 @@ If the error list is visible, hide it.  Otherwise, show it."
     "ut" 'display-time-world
     "uc" 'quick-calc
     "uu" 'browse-url
-    "ub" 'grass/comment-box
-    "ud" 'grass/insert-datetime
     "uf" 'reveal-in-osx-finder
 
     "v" 'er/expand-region
@@ -2706,6 +2912,17 @@ If the error list is visible, hide it.  Otherwise, show it."
     "wo" 'delete-other-windows
     "wk" 'delete-window
     "wt" 'crux-transpose-windows
+
+    "v" '(:ignore t :which-key "Vagrant")
+    "VD" 'vagrant-destroy
+    "Ve" 'vagrant-edit
+    "VH" 'vagrant-halt
+    "Vp" 'vagrant-provision
+    "Vr" 'vagrant-resume
+    "VR" 'vagrant-reload
+    "Vs" 'vagrant-status
+    "VS" 'vagrant-suspend
+    "VV" 'vagrant-up
 
     "z" '(:ignore t :which-key "Folding")
     "zz" 'origami-toggle-node
