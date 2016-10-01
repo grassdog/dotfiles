@@ -660,7 +660,7 @@
                                  ;; (cider-repl-mode . emacs)
                                  (cider-stacktrace-mode . motion)
                                  (cider-popup-buffer-mode . motion)
-                                 ;; (help-mode . normal)
+                                 (help-mode . normal)
                                  ;; (grep-mode . emacs)
                                  (bc-menu-mode . motion)
                                  ;; (erc-mode . emacs)
@@ -1404,16 +1404,6 @@ Repeated invocations toggle between the two most recently open buffers."
 
 (eval-after-load 'company
   '(progn
-     (general-define-key
-       :states '(normal visual insert emacs)
-       :prefix grass/leader1
-       :non-normal-prefix "M-SPC"
-       "es" 'company-yasnippet
-       "ee" 'hippie-expand
-       )
-     (general-define-key
-       "s-e" 'company-yasnippet)
-
      (general-define-key :keymaps 'company-active-map
        "TAB" 'company-complete-common-or-cycle
        "<tab>" 'company-complete-common-or-cycle
@@ -2451,57 +2441,115 @@ the right."
        )))
 
 
-;;;;;;;;;;
-;; Lisp ;;
-;;;;;;;;;;
+;;;;;;;;;;;;;
+;; Clojure ;;
+;;;;;;;;;;;;;
 
 (use-package clojure-mode
+  :commands clojure-mode
   :defer t
   :config
 
   (use-package flycheck-clojure
     :init
     (eval-after-load 'flycheck '(flycheck-clojure-setup)))
-  (add-hook 'clojure-mode-hook
-    (lambda ()
-      ;; Treat dash as part of a word
-      (modify-syntax-entry ?- "w")))
 
-  (use-package clojure-snippets)
+  ;; (add-hook 'clojure-mode-hook
+  ;;   (lambda ()
+  ;;     ;; Treat dash as part of a word
+  ;;     (modify-syntax-entry ?- "w")))
+
+  (use-package clojure-snippets
+    :init
+    (clojure-snippets-initialize))
 
   (use-package cider
-    :pin melpa-stable
     :init
     ;; REPL history file
     (setq cider-repl-history-file "~/.emacs.d/cider-history")
 
-    ;; nice pretty printing
+    ;; Nice pretty printing
     (setq cider-repl-use-pretty-printing t)
 
-    ;; nicer font lock in REPL
+    ;; Nicer font lock in REPL
     (setq cider-repl-use-clojure-font-lock t)
 
-    ;; result prefix for the REPL
+    ;; Result prefix for the REPL
     (setq cider-repl-result-prefix ";; => ")
 
-    ;; never ending REPL history
+    ;; Neverending REPL history
     (setq cider-repl-wrap-history t)
 
-    ;; looong history
+    ;; Looong history
     (setq cider-repl-history-size 3000)
 
-    ;; error buffer not popping up
+    ;; Error buffer not popping up
     (setq cider-show-error-buffer nil)
+
+    ;; Highlight sexp in file from REPL
+    (use-package cider-eval-sexp-fu)
 
     ;; eldoc for clojure
     (add-hook 'cider-mode-hook #'eldoc-mode)
 
-    ;; company mode for completion
-    (add-hook 'cider-repl-mode-hook #'company-mode)
-    (add-hook 'cider-mode-hook #'company-mode))
+    (general-emacs-define-key :keymaps 'cidr-repl-mode-map
+      :states '(normal visual insert emacs)
+      :prefix grass/leader2
+      :non-normal-prefix "M-,"
+
+      "h" '(:ignore t :which-key "Help")
+      "hh" 'cider-doc
+      "hg" 'cider-grimoire
+      "hj" 'cider-javadoc
+      "r" 'cider-jack-in
+
+      "e" '(:ignore t :which-key "Eval")
+      "ee" 'cider-eval-last-sexp
+      "ef" 'cider-eval-defun-at-point
+      "er" 'cider-eval-region
+      "ew" 'cider-eval-last-sexp-and-replace
+
+      "e" '(:ignore t :which-key "Goto")
+      "gb" 'cider-jump-back
+      "ge" 'cider-jump-to-compilation-error
+      "gg" 'cider-find-var
+      "gr" 'cider-jump-to-resource
+
+      "e" '(:ignore t :which-key "Set")
+      "sc" 'cider-repl-clear-buffer
+      "sn" 'cider-repl-set-ns
+      "sq" 'cider-quit
+      "ss" 'cider-switch-to-last-clojure-buffer
+      "sx" 'cider-refresh
+
+      "C-j" 'cider-repl-next-input
+      "C-k" 'cider-repl-previous-input
+
+      "r" '(:ignore t :which-key "Refactoring")
+      "r?"  'cljr-describe-refactoring
+      "rap" 'cljr-add-project-dependency
+      "ras" 'cljr-add-stubs
+      "rcc" 'cljr-cycle-coll
+      "rci" 'cljr-cycle-if
+      "rcp" 'cljr-cycle-privacy
+      "rdk" 'cljr-destructure-keys
+      "rel" 'cljr-expand-let
+      "rfu" 'cljr-find-usages
+      "rhd" 'cljr-hotload-dependency
+      "ril" 'cljr-introduce-let
+      "rml" 'cljr-move-to-let
+      "rpc" 'cljr-project-clean
+      "rrl" 'cljr-remove-let
+      "rsp" 'cljr-sort-project-dependencies
+      "rsc" 'cljr-show-changelog
+      "rtf" 'cljr-thread-first-all
+      "rth" 'cljr-thread
+      "rtl" 'cljr-thread-last-all
+      "rua" 'cljr-unwind-all
+      "rup" 'cljr-update-project-dependencies
+      "ruw" 'cljr-unwind))
 
   (use-package clj-refactor
-    :pin melpa-stable
     :init
     (add-hook 'clojure-mode-hook
       (lambda ()
@@ -2511,17 +2559,58 @@ the right."
         (setq cljr-auto-sort-ns nil)
 
         ;; do not prefer prefixes when using clean-ns
-        (setq cljr-favor-prefix-notation nil)
-        ;; insert keybinding setup here
-        (cljr-add-keybindings-with-prefix "C-c RET")))))
+        (setq cljr-favor-prefix-notation nil))))
 
+
+  (define-clojure-indent
+    ;; Compojure
+    (ANY 2)
+    (DELETE 2)
+    (GET 2)
+    (HEAD 2)
+    (POST 2)
+    (PUT 2)
+    (context 2)
+    (defroutes 'defun)
+    ;; Cucumber
+    (After 1)
+    (Before 1)
+    (Given 2)
+    (Then 2)
+    (When 2)
+    ;; Schema
+    (s/defrecord 2)
+    ;; test.check
+    (for-all 'defun))
+
+  (general-define-key :keymaps 'clojure-mode-map
+    :states '(normal visual insert emacs)
+    :prefix grass/leader2
+    :non-normal-prefix "M-,"
+
+    "r" '(:ignore t :which-key "CIDR")
+    "cc" 'cider-connect
+    "cj" 'cider-jack-in))
+
+(add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
+(add-to-list 'magic-mode-alist '(".* boot" . clojure-mode))
+
+
+;;;;;;;;;;;
+;; Elisp ;;
+;;;;;;;;;;;
 
 (add-hook 'emacs-lisp-mode-hook
   (lambda ()
-    ;; Treat dash and / as part of a word
-    (modify-syntax-entry ?- "w")
-    (modify-syntax-entry ?/ "w")
-    (define-key global-map (kbd "C-c C-e") 'eval-print-last-sexp)))
+    (general-define-key :keymaps 'emacs-lisp-mode-map
+      :states '(normal visual insert emacs)
+      :prefix grass/leader2
+      :non-normal-prefix "M-,"
+      "p" 'eval-print-last-sexp)
+
+    (general-define-key :keymaps 'emacs-lisp-mode-map
+       "C-c C-e" 'eval-print-last-sexp)))
+
 
 
 (use-package elixir-mode
@@ -2847,6 +2936,7 @@ If the error list is visible, hide it.  Otherwise, show it."
     "!" 'eshell
     "~" 'evil-emacs-state
     ":" 'counsel-M-x
+    "[" 'hydra-move-parens/body
 
     "c" '(:ignore t :which-key "Check/Compile")
     "ct" '(flycheck-mode :which-key "toggle flycheck")
@@ -2920,7 +3010,6 @@ If the error list is visible, hide it.  Otherwise, show it."
     "eT" 'untabify
     "et" '(grass/toggle-always-indent :which-key "toggle tab indent")
     "ec" 'char-menu
-    "ep" 'hydra-move-parens/body
     "eb" 'grass/comment-box
     "ed" 'grass/insert-datetime
 
@@ -2956,6 +3045,12 @@ If the error list is visible, hide it.  Otherwise, show it."
     "uf" 'reveal-in-osx-finder
 
     "v" 'er/expand-region
+
+    "y" '(:ignore t :which-key "Snippets")
+    "yy" 'yas-insert-snippet
+    "yn" 'yas-new-snippet
+    "ys" 'company-yasnippet
+    "ye" 'hippie-expand
 
     "w" '(:ignore t :which-key "Windows/UI")
     "wl" 'toggle-truncate-lines
@@ -3001,9 +3096,10 @@ If the error list is visible, hide it.  Otherwise, show it."
 
     "s-d" 'crux-duplicate-current-line-or-region
 
+    "s-e" 'company-yasnippet
+
     "M-/" 'hippie-expand
-    "M-z" 'zop-up-to-char
-    )
+    "M-z" 'zop-up-to-char)
 
   (general-define-key :keymaps 'ivy-minibuffer-map
     "RET" 'ivy-alt-done
