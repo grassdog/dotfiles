@@ -463,180 +463,197 @@
 
     (define-key evil-normal-state-map (kbd "SPC s c") 'grass/remove-search-highlights))
 
-    ;; Cursors
-    (defvar dotspacemacs-colorize-cursor-according-to-state t
-      "If non nil the cursor color matches the state color in GUI Emacs.")
+  ;; Cursors
+  (defvar dotspacemacs-colorize-cursor-according-to-state t
+    "If non nil the cursor color matches the state color in GUI Emacs.")
 
-    (defvar spacemacs-evil-cursors '(("normal" "DarkGoldenrod2" box)
-                                      ("insert" "chartreuse3" (bar . 2))
-                                      ("emacs" "SkyBlue2" box)
-                                      ("hybrid" "SkyBlue2" (bar . 2))
-                                      ("replace" "chocolate" (hbar . 2))
-                                      ("evilified" "LightGoldenrod3" box)
-                                      ("visual" "gray" (hbar . 2))
-                                      ("motion" "plum3" box)
-                                      ("lisp" "HotPink1" box)
-                                      ("iedit" "firebrick1" box)
-                                      ("iedit-insert" "firebrick1" (bar . 2)))
-      "Colors assigned to evil states with cursor definitions.")
+  (defvar spacemacs-evil-cursors '(("normal" "DarkGoldenrod2" box)
+                                    ("insert" "chartreuse3" (bar . 2))
+                                    ("emacs" "SkyBlue2" box)
+                                    ("hybrid" "SkyBlue2" (bar . 2))
+                                    ("replace" "chocolate" (hbar . 2))
+                                    ("evilified" "LightGoldenrod3" box)
+                                    ("visual" "gray" (hbar . 2))
+                                    ("motion" "plum3" box)
+                                    ("lisp" "HotPink1" box)
+                                    ("iedit" "firebrick1" box)
+                                    ("iedit-insert" "firebrick1" (bar . 2)))
+    "Colors assigned to evil states with cursor definitions.")
 
-    (loop for (state color cursor) in spacemacs-evil-cursors
-      do
-      (eval `(defface ,(intern (format "spacemacs-%s-face" state))
-               `((t (:background ,color
-                      :foreground ,(face-background 'mode-line)
-                      :box ,(face-attribute 'mode-line :box)
-                      :inherit 'mode-line)))
-               (format "%s state face." state)
-               :group 'spacemacs))
-      (eval `(setq ,(intern (format "evil-%s-state-cursor" state))
-               (list (when dotspacemacs-colorize-cursor-according-to-state color)
-                 cursor))))
+  (loop for (state color cursor) in spacemacs-evil-cursors
+    do
+    (eval `(defface ,(intern (format "spacemacs-%s-face" state))
+             `((t (:background ,color
+                    :foreground ,(face-background 'mode-line)
+                    :box ,(face-attribute 'mode-line :box)
+                    :inherit 'mode-line)))
+             (format "%s state face." state)
+             :group 'spacemacs))
+    (eval `(setq ,(intern (format "evil-%s-state-cursor" state))
+             (list (when dotspacemacs-colorize-cursor-according-to-state color)
+               cursor))))
 
-    ;; put back refresh of the cursor on post-command-hook see status of:
-    ;; https://bitbucket.org/lyro/evil/issue/502/cursor-is-not-refreshed-in-some-cases
-    ;; (add-hook 'post-command-hook 'evil-refresh-cursor)
+  ;; put back refresh of the cursor on post-command-hook see status of:
+  ;; https://bitbucket.org/lyro/evil/issue/502/cursor-is-not-refreshed-in-some-cases
+  ;; (add-hook 'post-command-hook 'evil-refresh-cursor)
 
-    (defun spacemacs/state-color-face (state)
-      "Return the symbol of the face for the given STATE."
-      (intern (format "spacemacs-%s-face" (symbol-name state))))
+  (defun spacemacs/state-color-face (state)
+    "Return the symbol of the face for the given STATE."
+    (intern (format "spacemacs-%s-face" (symbol-name state))))
 
-    (defun spacemacs/state-color (state)
-      "Return the color string associated to STATE."
-      (face-background (spacemacs/state-color-face state)))
+  (defun spacemacs/state-color (state)
+    "Return the color string associated to STATE."
+    (face-background (spacemacs/state-color-face state)))
 
-    (defun spacemacs/current-state-color ()
-      "Return the color string associated to the current state."
-      (face-background (spacemacs/state-color-face evil-state)))
+  (defun spacemacs/current-state-color ()
+    "Return the color string associated to the current state."
+    (face-background (spacemacs/state-color-face evil-state)))
 
-    (defun spacemacs/state-face (state)
-      "Return the face associated to the STATE."
-      (spacemacs/state-color-face state))
+  (defun spacemacs/state-face (state)
+    "Return the face associated to the STATE."
+    (spacemacs/state-color-face state))
 
-    (defun spacemacs/current-state-face ()
-      "Return the face associated to the current state."
-      (let ((state (if (eq evil-state 'operator)
-                     evil-previous-state
-                     evil-state)))
-        (spacemacs/state-color-face state)))
+  (defun spacemacs/current-state-face ()
+    "Return the face associated to the current state."
+    (let ((state (if (eq evil-state 'operator)
+                   evil-previous-state
+                   evil-state)))
+      (spacemacs/state-color-face state)))
 
-    (defun evil-insert-state-cursor-hide ()
-      (setq evil-insert-state-cursor '((hbar . 0))))
+  (defun evil-insert-state-cursor-hide ()
+    (setq evil-insert-state-cursor '((hbar . 0))))
 
-    ;; Make horizontal movement cross lines
-    (setq-default evil-cross-lines t)
-    (setq-default evil-shift-width 2)
+  ;; Make horizontal movement cross lines
+  (setq-default evil-cross-lines t)
+  (setq-default evil-shift-width 2)
 
-    ;; Little word
-    (require 'evil-little-word)
-    (define-key evil-motion-state-map (kbd "glw") 'evil-forward-little-word-begin)
-    (define-key evil-motion-state-map (kbd "glb") 'evil-backward-little-word-begin)
-    (define-key evil-motion-state-map (kbd "glW") 'evil-forward-little-word-end)
-    (define-key evil-motion-state-map (kbd "glB") 'evil-backward-little-word-end)
-    (define-key evil-outer-text-objects-map (kbd "lw") 'evil-a-little-word)
-    (define-key evil-inner-text-objects-map (kbd "lw") 'evil-inner-little-word)
+  ;; Little word
+  (require 'evil-little-word)
+  (define-key evil-motion-state-map (kbd "glw") 'evil-forward-little-word-begin)
+  (define-key evil-motion-state-map (kbd "glb") 'evil-backward-little-word-begin)
+  (define-key evil-motion-state-map (kbd "glW") 'evil-forward-little-word-end)
+  (define-key evil-motion-state-map (kbd "glB") 'evil-backward-little-word-end)
+  (define-key evil-outer-text-objects-map (kbd "lw") 'evil-a-little-word)
+  (define-key evil-inner-text-objects-map (kbd "lw") 'evil-inner-little-word)
 
-    (evil-mode t)
+  (use-package evil-args
+    :init
+    ;; bind evil-args text objects
+    (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
+    (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
+    (add-hook 'clojure-mode-hook
+      (lambda()
+        (setq evil-args-delimiters '(" "))))
+    (add-hook 'emacs-lisp-mode-hook
+      (lambda()
+        (setq evil-args-delimiters '(" ")))))
 
-    ;; Yank till end of line
-    (define-key evil-normal-state-map (kbd "Y") (kbd "y$"))
+  (use-package evil-indent-plus
+    :init
+    (evil-indent-plus-default-bindings))
 
-    ;; Make movement keys work like they should
-    (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
-    (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
-    (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
-    (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
 
-    ;; Make esc quit everywhere
-    (define-key evil-normal-state-map [escape] 'keyboard-quit)
-    (define-key evil-visual-state-map [escape] 'keyboard-quit)
-    (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
-    (define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
-    (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
-    (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
-    (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
-    (define-key isearch-mode-map [escape] 'isearch-abort)
-    (global-set-key [escape] 'keyboard-escape-quit)
+  (evil-mode t)
 
-    ;; Overload shifts so that they don't lose the selection
-    (define-key evil-visual-state-map (kbd ">>") 'grass/evil-shift-right-visual)
-    (define-key evil-visual-state-map (kbd "<<") 'grass/evil-shift-left-visual)
-    (define-key evil-visual-state-map (kbd "<S-down>") 'evil-next-visual-line)
-    (define-key evil-visual-state-map (kbd "<S-up>") 'evil-previous-visual-line)
+  ;; Yank till end of line
+  (define-key evil-normal-state-map (kbd "Y") (kbd "y$"))
 
-    (defun grass/evil-shift-left-visual ()
-      (interactive)
-      (evil-shift-left (region-beginning) (region-end))
-      (evil-normal-state)
-      (evil-visual-restore))
+  ;; Make movement keys work like they should
+  (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+  (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
+  (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
+  (define-key evil-motion-state-map (kbd "<remap> <evil-previous-line>") 'evil-previous-visual-line)
 
-    (defun grass/evil-shift-right-visual ()
-      (interactive)
-      (evil-shift-right (region-beginning) (region-end))
-      (evil-normal-state)
-      (evil-visual-restore))
+  ;; Make esc quit everywhere
+  (define-key evil-normal-state-map [escape] 'keyboard-quit)
+  (define-key evil-visual-state-map [escape] 'keyboard-quit)
+  (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+  (define-key isearch-mode-map [escape] 'isearch-abort)
+  (global-set-key [escape] 'keyboard-escape-quit)
 
-    (define-key evil-window-map (kbd "<left>") 'evil-window-left)
-    (define-key evil-window-map (kbd "<right>") 'evil-window-right)
-    (define-key evil-window-map (kbd "<up>") 'evil-window-up)
-    (define-key evil-window-map (kbd "<down>") 'evil-window-down)
+  ;; Overload shifts so that they don't lose the selection
+  (define-key evil-visual-state-map (kbd ">>") 'grass/evil-shift-right-visual)
+  (define-key evil-visual-state-map (kbd "<<") 'grass/evil-shift-left-visual)
+  (define-key evil-visual-state-map (kbd "<S-down>") 'evil-next-visual-line)
+  (define-key evil-visual-state-map (kbd "<S-up>") 'evil-previous-visual-line)
 
-    ;; Keep some Emacs stuff
-    (define-key evil-normal-state-map "\C-e" 'evil-end-of-line)
-    (define-key evil-insert-state-map "\C-e" 'end-of-line)
-    (define-key evil-insert-state-map "\C-a" 'crux-move-beginning-of-line)
-    (define-key evil-normal-state-map "\C-a" 'crux-move-beginning-of-line)
-    (define-key evil-visual-state-map "\C-a" 'crux-move-beginning-of-line)
-    (define-key evil-visual-state-map "\C-e" 'evil-end-of-line)
-    (define-key evil-motion-state-map "\C-e" 'evil-end-of-line)
-    (define-key evil-normal-state-map "Q" 'call-last-kbd-macro)
-    (define-key evil-visual-state-map "Q" 'call-last-kbd-macro)
+  (defun grass/evil-shift-left-visual ()
+    (interactive)
+    (evil-shift-left (region-beginning) (region-end))
+    (evil-normal-state)
+    (evil-visual-restore))
 
-    ;; Set our default modes
-    (loop for (mode . state) in '(
-                                   ;;(inferior-emacs-lisp-mode . emacs)
-                                   ;; (nrepl-mode . insert)
-                                   ;; (pylookup-mode . emacs)
-                                   ;; (comint-mode . normal)
-                                   ;; (shell-mode . emacs)
-                                   ;; (git-commit-mode . insert)
-                                   ;; (git-rebase-mode . emacs)
-                                   ;; (calculator-mode . emacs)
-                                   ;; (term-mode . emacs)
-                                   (haskell-error-mode . motion)
-                                   ;; (haskell-interactive-mode . emacs)
-                                   ;; (undo-tree-visualizer-mode . emacs)
-                                   ;; (cider-repl-mode . emacs)
-                                   (cider-stacktrace-mode . motion)
-                                   (cider-popup-buffer-mode . motion)
-                                   ;; (help-mode . normal)
-                                   ;; (grep-mode . emacs)
-                                   (bc-menu-mode . motion)
-                                   ;; (erc-mode . emacs)
-                                   ;; (magit-branch-manager-mode . emacs)
-                                   ;; (magit-blame-mode-map . emacs)
-                                   ;; (magit-cherry-mode-map . emacs)
-                                   ;; (magit-diff-mode-map . emacs)
-                                   ;; (magit-log-mode-map . emacs)
-                                   ;; (magit-log-select-mode-map . emacs)
-                                   ;; (magit-mode-map . emacs)
-                                   ;; (magit-popup-help-mode-map . emacs)
-                                   ;;(magit-popup-mode . emacs)
-                                   ;;(magit-popup-sequence-mode . emacs)
-                                   ;; (magit-process-mode-map . emacs)
-                                   ;; (magit-reflog-mode-map . emacs)
-                                   ;; (magit-refs-mode-map . emacs)
-                                   ;; (magit-revision-mode-map . emacs)
-                                   ;; (magit-stash-mode-map . emacs)
-                                   ;; (magit-stashes-mode-map . emacs)
-                                   ;;(magit-status-mode . emacs)
-                                   ;; (rdictcc-buffer-mode . emacs)
-                                   ;; (kill-ring-mode . normal)
-                                   ;; (bs-mode . emacs)
-                                   ;; (dired-mode . normal)
-                                   ;; (wdired-mode . normal)
-                                   )
-      do (evil-set-initial-state mode state)))
+  (defun grass/evil-shift-right-visual ()
+    (interactive)
+    (evil-shift-right (region-beginning) (region-end))
+    (evil-normal-state)
+    (evil-visual-restore))
+
+  (define-key evil-window-map (kbd "<left>") 'evil-window-left)
+  (define-key evil-window-map (kbd "<right>") 'evil-window-right)
+  (define-key evil-window-map (kbd "<up>") 'evil-window-up)
+  (define-key evil-window-map (kbd "<down>") 'evil-window-down)
+
+  ;; Keep some Emacs stuff
+  (define-key evil-normal-state-map "\C-e" 'evil-end-of-line)
+  (define-key evil-insert-state-map "\C-e" 'end-of-line)
+  (define-key evil-insert-state-map "\C-a" 'crux-move-beginning-of-line)
+  (define-key evil-normal-state-map "\C-a" 'crux-move-beginning-of-line)
+  (define-key evil-visual-state-map "\C-a" 'crux-move-beginning-of-line)
+  (define-key evil-visual-state-map "\C-e" 'evil-end-of-line)
+  (define-key evil-motion-state-map "\C-e" 'evil-end-of-line)
+  (define-key evil-normal-state-map "Q" 'call-last-kbd-macro)
+  (define-key evil-visual-state-map "Q" 'call-last-kbd-macro)
+
+  ;; Set our default modes
+  (loop for (mode . state) in '(
+                                 ;;(inferior-emacs-lisp-mode . emacs)
+                                 ;; (nrepl-mode . insert)
+                                 ;; (pylookup-mode . emacs)
+                                 ;; (comint-mode . normal)
+                                 ;; (shell-mode . emacs)
+                                 ;; (git-commit-mode . insert)
+                                 ;; (git-rebase-mode . emacs)
+                                 ;; (calculator-mode . emacs)
+                                 ;; (term-mode . emacs)
+                                 (haskell-error-mode . motion)
+                                 ;; (haskell-interactive-mode . emacs)
+                                 ;; (undo-tree-visualizer-mode . emacs)
+                                 ;; (cider-repl-mode . emacs)
+                                 (cider-stacktrace-mode . motion)
+                                 (cider-popup-buffer-mode . motion)
+                                 ;; (help-mode . normal)
+                                 ;; (grep-mode . emacs)
+                                 (bc-menu-mode . motion)
+                                 ;; (erc-mode . emacs)
+                                 ;; (magit-branch-manager-mode . emacs)
+                                 ;; (magit-blame-mode-map . emacs)
+                                 ;; (magit-cherry-mode-map . emacs)
+                                 ;; (magit-diff-mode-map . emacs)
+                                 ;; (magit-log-mode-map . emacs)
+                                 ;; (magit-log-select-mode-map . emacs)
+                                 ;; (magit-mode-map . emacs)
+                                 ;; (magit-popup-help-mode-map . emacs)
+                                 ;;(magit-popup-mode . emacs)
+                                 ;;(magit-popup-sequence-mode . emacs)
+                                 ;; (magit-process-mode-map . emacs)
+                                 ;; (magit-reflog-mode-map . emacs)
+                                 ;; (magit-refs-mode-map . emacs)
+                                 ;; (magit-revision-mode-map . emacs)
+                                 ;; (magit-stash-mode-map . emacs)
+                                 ;; (magit-stashes-mode-map . emacs)
+                                 ;;(magit-status-mode . emacs)
+                                 ;; (rdictcc-buffer-mode . emacs)
+                                 ;; (kill-ring-mode . normal)
+                                 ;; (bs-mode . emacs)
+                                 ;; (dired-mode . normal)
+                                 ;; (wdired-mode . normal)
+                                 )
+    do (evil-set-initial-state mode state)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Comments and filling ;;
@@ -1938,20 +1955,20 @@ the right."
         (add-hook 'enh-ruby-mode-hook #'grass/enable-rbenv))))
   (progn
     (use-package chruby
-    :init
-    (progn
-      (defun grass/enable-chruby ()
-        "Enable chruby, use .ruby-version if exists."
-        (let ((version-file-path (chruby--locate-file ".ruby-version")))
-          (chruby)
-          ;; try to use the ruby defined in .ruby-version
-          (if version-file-path
+      :init
+      (progn
+        (defun grass/enable-chruby ()
+          "Enable chruby, use .ruby-version if exists."
+          (let ((version-file-path (chruby--locate-file ".ruby-version")))
+            (chruby)
+            ;; try to use the ruby defined in .ruby-version
+            (if version-file-path
               (progn
                 (chruby-use (chruby--read-version-from-file
-                             version-file-path))
+                              version-file-path))
                 (message (concat "[chruby] Using ruby version "
-                                 "from .ruby-version file.")))
-            (message "[chruby] Using the currently activated ruby."))))
+                           "from .ruby-version file.")))
+              (message "[chruby] Using the currently activated ruby."))))
 
         (add-hook 'ruby-mode-hook #'grass/enable-chruby)
         (add-hook 'enh-ruby-mode-hook #'grass/enable-chruby)))))
@@ -2171,9 +2188,12 @@ the right."
       (nlinum-mode 1)
       (rainbow-mode +1))))
 
-(add-hook 'syslog-mode-hook
-  (lambda ()
-    (toggle-truncate-lines +1)))
+(use-package syslog-mode
+  :defer t
+  :config
+  (add-hook 'syslog-mode-hook
+    (lambda ()
+      (toggle-truncate-lines +1))))
 
 (use-package css-mode
   :mode "\\.css$"
@@ -2360,7 +2380,7 @@ the right."
       (add-to-list 'company-backends 'company-ghc)
       (custom-set-variables '(company-ghc-show-info t)))
 
-    ; Make Emacs look in Cabal directory for binaries
+    ;; Make Emacs look in Cabal directory for binaries
     (let ((my-cabal-path (expand-file-name "~/.cabal/bin")))
       (setenv "PATH" (concat my-cabal-path path-separator (getenv "PATH")))
       (add-to-list 'exec-path my-cabal-path))
@@ -2618,7 +2638,7 @@ the right."
   :diminish (flyspell-mode . " spl")
   :config
   (setq-default ispell-program-name "aspell")
-  ; Silently save my personal dictionary when new items are added
+  ;; Silently save my personal dictionary when new items are added
   (setq ispell-silently-savep t)
   (ispell-change-dictionary "british" t)
 
