@@ -477,9 +477,7 @@
       (interactive)
       (lazy-highlight-cleanup)
       (evil-search-highlight-persist-remove-all)
-      (evil-ex-nohighlight))
-
-    (define-key evil-normal-state-map (kbd "SPC s c") 'grass/remove-search-highlights))
+      (evil-ex-nohighlight)))
 
   ;; Cursors
   (defvar dotspacemacs-colorize-cursor-according-to-state t
@@ -2978,8 +2976,10 @@ If the error list is visible, hide it.  Otherwise, show it."
     ";" 'iedit-mode
     "?" 'swiper
     "/" 'swiper-current-word
+    "SPC" 'grass/remove-search-highlights
 
     "s" '(:ignore t :which-key "Search/Replace")
+    "sc" 'grass/remove-search-highlights
     "sp" 'anzu-query-replace-at-cursor-thing
     "sa" 'counsel-ag
     "sg" 'counsel-git-grep
