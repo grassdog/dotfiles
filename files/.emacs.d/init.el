@@ -159,6 +159,9 @@
 ;; Don't pop up new frames on each call to open
 (setq ns-pop-up-frames nil)
 
+;; Use system trash
+(setq delete-by-moving-to-trash t)
+
 ;; Wrap lines for text modes
 (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
 ;; Lighter line continuation arrows
