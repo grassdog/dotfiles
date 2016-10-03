@@ -1483,9 +1483,12 @@ Repeated invocations toggle between the two most recently open buffers."
               corral-brackets-backward
               corral-brackets-forward
               corral-braces-backward
-              corral-braces-forward))
+              corral-braces-forward
+              corral-single-quotes-backward
+              corral-double-quotes-backward))
 
-(defhydra hydra-move-parens (:columns 4)
+;; TODO Add remove parens method
+(defhydra hydra-surround (:columns 4)
   "Corral"
   ("(" corral-parentheses-backward "Back")
   (")" corral-parentheses-forward "Forward")
@@ -1493,6 +1496,8 @@ Repeated invocations toggle between the two most recently open buffers."
   ("]" corral-brackets-forward "Forward")
   ("{" corral-braces-backward "Back")
   ("}" corral-braces-forward "Forward")
+  ("\"" corral-double-quotes-backward "Back")
+  ("'" corral-single-quotes-backward "Back")
   ("." hydra-repeat "Repeat"))
 
 
@@ -2955,7 +2960,7 @@ If the error list is visible, hide it.  Otherwise, show it."
     "!" 'eshell
     "~" 'evil-emacs-state
     ":" 'counsel-M-x
-    "[" 'hydra-move-parens/body
+    "]" 'hydra-surround/body
 
     "c" '(:ignore t :which-key "Check/Compile")
     "ct" '(flycheck-mode :which-key "toggle flycheck")
