@@ -3079,9 +3079,9 @@ If the error list is visible, hide it.  Otherwise, show it."
     "v" 'er/expand-region
 
     "y" '(:ignore t :which-key "Snippets")
-    "yy" 'yas-insert-snippet
-    "yn" 'yas-new-snippet
+    "yi" 'yas-insert-snippet
     "ys" 'company-yasnippet
+    "yn" 'yas-new-snippet
     "ye" 'hippie-expand
 
     "w" '(:ignore t :which-key "Windows/UI")
@@ -3128,7 +3128,7 @@ If the error list is visible, hide it.  Otherwise, show it."
 
     "s-d" 'crux-duplicate-current-line-or-region
 
-    "s-e" 'company-yasnippet
+    "s-e" 'hippie-expand
 
     "M-/" 'hippie-expand
     "M-z" 'zop-up-to-char)
