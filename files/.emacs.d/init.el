@@ -1804,6 +1804,10 @@ the right."
       (push '(?s . ("#+BEGIN_SRC" . "#+END_SRC")) evil-surround-pairs-alist)
       (push '(?q . ("#+BEGIN_QUOTE" . "#+END_QUOTE")) evil-surround-pairs-alist)
 
+      ;; Fix tab key conflict
+      (org-set-local 'yas/trigger-key [tab])
+      (define-key yas/keymap [tab] 'yas/next-field-or-maybe-expand)
+
       (general-define-key :keymaps 'org-mode-map
         :states '(normal visual insert emacs)
         :prefix grass/leader2
