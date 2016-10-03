@@ -1742,6 +1742,8 @@ the right."
   ;; Use pandoc for exports
   (use-package ox-pandoc)
 
+  (use-package evil-org)
+
   ;; Create reveal js presentations in org mode.
   (use-package ox-reveal
     :init
@@ -1766,8 +1768,6 @@ the right."
       (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
   (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
-
-  (setq org-todo-keywords '((sequence "TODO(t)" "DONE(d)")))
 
   ;; Allow bind in files to enable export overrides
   (setq org-export-allow-bind-keywords t)
@@ -1818,6 +1818,7 @@ the right."
         "m" 'hydra-org-move/body
         "g" 'org-mac-grab-link
         "a" 'org-agenda
+        "s" 'org-sort-entries
         "c" 'org-cycle-agenda-files))))
 
 ;;;;;;;;;;
