@@ -1270,8 +1270,8 @@ Repeated invocations toggle between the two most recently open buffers."
        :commands 'dired-single-buffer)
 
      (use-package peep-dired
-       :general
-       (:keymaps 'dired-mode-map
+       :config
+       (general-define-key :keymaps 'dired-mode-map
          :states '(normal visual insert emacs)
          :prefix grass/leader2
          :non-normal-prefix "M-,"
@@ -2060,13 +2060,12 @@ the right."
 
 (use-package json-mode
   :mode "\\.json$"
-  :general
-  (:keymaps 'json-mode-map
+  :config
+  (general-define-key :keymaps 'json-mode-map
     :states '(normal visual insert emacs)
     :prefix grass/leader2
     :non-normal-prefix "M-,"
     "p" 'json-pretty-print-buffer)
-  :config
   (use-package flymake-json
     :init
     (add-hook 'json-mode 'flymake-json-load)))
