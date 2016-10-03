@@ -895,6 +895,30 @@
   ("D" (progn (kill-this-buffer) (next-buffer)) "Delete" :color red)
   ("s" save-buffer "save" :color red))
 
+(defun grass/window-toggle-split-direction ()
+  "Switch window split from horizontally to vertically, or vice versa."
+  (interactive)
+  (let ((done))
+    (dolist (dirs '((right . down) (down . right)))
+      (unless done
+        (let* ((win (selected-window))
+               (nextdir (car dirs))
+               (neighbour-dir (cdr dirs))
+               (next-win (windmove-find-other-window nextdir win))
+               (neighbour1 (windmove-find-other-window neighbour-dir win))
+               (neighbour2 (if next-win (with-selected-window next-win
+                                          (windmove-find-other-window neighbour-dir next-win)))))
+          ;;(message "win: %s\nnext-win: %s\nneighbour1: %s\nneighbour2:%s" win next-win neighbour1 neighbour2)
+          (setq done (and (eq neighbour1 neighbour2)
+                          (not (eq (minibuffer-window) next-win))))
+          (if done
+              (let* ((other-buf (window-buffer next-win)))
+                (delete-window next-win)
+                (if (eq nextdir 'right)
+                    (split-window-vertically)
+                  (split-window-horizontally))
+                (set-window-buffer (windmove-find-other-window neighbour-dir) other-buf))))))))
+
 (defhydra hydra-window ()
   "
 Movement^^        ^Split^          ^Switch^        ^Resize^
@@ -905,6 +929,7 @@ _k_ ↑            _z_ undo          _a_ce 1         _e_ X↑
 _l_ →            _Z_ reset         _s_wap          _r_ X→
 _F_ollow         _D_lt Other       _S_ave          max_i_mize
 _SPC_ cancel     _o_nly this       _d_elete
+                               _t_oggle split
 "
   ("h" windmove-left nil)
   ("j" windmove-down nil)
@@ -917,6 +942,7 @@ _SPC_ cancel     _o_nly this       _d_elete
   ("b" ivy-switch-buffer nil)
   ("f" counsel-find-file nil)
   ("F" follow-mode nil)
+  ("t" grass/window-toggle-split-direction nil)
   ("a" (lambda ()
          (interactive)
          (ace-window 1)
