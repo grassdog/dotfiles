@@ -1824,12 +1824,12 @@ the right."
     ("u" outline-up-heading "up heading")
     ("g" org-goto "goto" :exit t))
 
-  (diminish 'org-indent-mode)
-
   (add-hook 'org-mode-hook
     (lambda ()
       ;; No auto indent please
       (setq org-export-html-postamble nil)
+
+      (diminish 'org-indent-mode)
 
       ;; Add some custom surrounds
       (push '(?e . ("#+BEGIN_EXAMPLE" . "#+END_EXAMPLE")) evil-surround-pairs-alist)
