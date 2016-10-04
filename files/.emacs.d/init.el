@@ -1762,13 +1762,14 @@ the right."
   (setq org-startup-indented t)
   (setq org-hide-leading-stars t)
   (setq org-agenda-files '("~/Dropbox/Notes"))
-  ;; prevent demoting heading also shifting text inside sections
+  ;; Prevent demoting heading also shifting text inside sections
   (setq org-adapt-indentation nil)
 
   ;; Use pandoc for exports
   (use-package ox-pandoc)
 
-  (use-package evil-org)
+  (use-package evil-org
+    :diminish evil-org-mode)
 
   ;; Create reveal js presentations in org mode.
   (use-package ox-reveal
@@ -1822,6 +1823,8 @@ the right."
     ("P" org-backward-heading-same-level "prev heading at same level")
     ("u" outline-up-heading "up heading")
     ("g" org-goto "goto" :exit t))
+
+  (diminish 'org-indent-mode)
 
   (add-hook 'org-mode-hook
     (lambda ()
