@@ -3,15 +3,8 @@ export GOPATH=$HOME/.golang
 export GOROOT=/usr/local/opt/go/libexec
 export PATH=$PATH:$GOPATH/bin
 
-if test -n "$(find /Applications -maxdepth 1 -name 'ghc*.app' -print -quit)"
-then
-  GHC_DOT_APP=$(find /Applications -maxdepth 1 -name 'ghc*.app' -print -quit)
-  export GHC_DOT_APP
-
-  if [ -d "$GHC_DOT_APP" ]; then
-    export PATH="${HOME}/.local/bin:${HOME}/.cabal/bin:${GHC_DOT_APP}/Contents/bin:${PATH}"
-  fi
-fi
+# Add Haskell stack to the path
+export PATH=~/.local/bin/:$PATH
 
 # password-containing environment variables
 [[ -r "$HOME/.secrets" ]] && source "$HOME/.secrets"

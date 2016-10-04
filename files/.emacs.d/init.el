@@ -2427,6 +2427,8 @@ the right."
 
 ;; Install some useful packages so this all works
 ;; cabal update && cabal install happy hasktags stylish-haskell present ghc-mod hlint
+;;   OR
+;; stack install ghc-mod hlint hasktags stylish-haskell hoogle
 
 (use-package haskell-mode
   :defer t
