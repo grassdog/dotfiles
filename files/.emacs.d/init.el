@@ -3175,6 +3175,7 @@ If the error list is visible, hide it.  Otherwise, show it."
     "wo" 'delete-other-windows
     "wk" 'delete-window
     "wt" 'crux-transpose-windows
+    "wn" 'nlinum-mode
 
     "v" '(:ignore t :which-key "Vagrant")
     "VD" 'vagrant-destroy
