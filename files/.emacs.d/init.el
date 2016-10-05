@@ -2498,6 +2498,8 @@ the right."
       haskell-process-auto-import-loaded-modules nil
       haskell-process-suggest-remove-import-lines nil
       haskell-tags-on-save nil
+      haskell-enable-ghc-mod-support nil
+      haskell-enable-ghci-ng-support nil
       haskell-indentation-disable-show-indentations t)
 
     (remove-hook 'haskell-mode-hook 'interactive-haskell-mode)
@@ -2561,7 +2563,6 @@ the right."
         "h" '(:ignore t :which-key "Help")
         "hi" 'intero-info
         "ht" '(intero-type-at . "insert type at point")
-        "hT" 'intero/insert-type
         "hs" 'intero-apply-suggestions
 
         "s" '(:ignore t :which-key "Repl")
@@ -2585,12 +2586,13 @@ the right."
         :prefix grass/leader2
         :non-normal-prefix "M-,"
         "i" '(:ignore t :which-key "Intero")
-        "ic"  'intero-cd
-        "id"  'intero-devel-reload
-        "ik"  'intero-destroy
-        "il"  'intero-list-buffers
-        "ir"  'intero-restart
-        "it"  'intero-targets))
+        "ic" 'intero-cd
+        "id" 'intero-devel-reload
+        "ik" 'intero-destroy
+        "il" 'intero-list-buffers
+        "ir" 'intero-restart
+        "iT" 'intero/insert-type
+        "it" 'intero-targets))
 
     (add-hook 'haskell-mode-hook
       (lambda ()
