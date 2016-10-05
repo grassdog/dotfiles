@@ -1850,6 +1850,7 @@ the right."
         "m" 'hydra-org-move/body
         "g" 'org-mac-grab-link
         "a" 'org-agenda
+        "l" 'org-toggle-link-display
         "s" 'org-sort-entries
         "c" 'org-cycle-agenda-files))))
 
