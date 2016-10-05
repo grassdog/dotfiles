@@ -887,12 +887,14 @@
   "
                 Buffers :
   "
-  ("n" next-buffer "next" :color red)
+  ("n" grass/next-useful-buffer "next useful" :color red)
+  ("N" next-buffer "next" :color red)
   ("b" ivy-switch-buffer "switch")
   ("B" ibuffer "ibuffer")
-  ("p" previous-buffer "prev" :color red)
+  ("p" grass/previous-useful-buffer "prev useful" :color red)
+  ("P" previous-buffer "prev" :color red)
   ("C-b" buffer-menu "buffer menu")
-  ("N" evil-buffer-new "new")
+  ("+" evil-buffer-new "new")
   ("d" kill-this-buffer "delete" :color red)
   ;; don't come back to previous buffer after delete
   ("D" (progn (kill-this-buffer) (next-buffer)) "Delete" :color red)
@@ -1077,12 +1079,60 @@ With C-u C-u: insert time"
         (grass/indent-buffer)
         (message "Indented buffer.")))))
 
-;; Quick buffer switch
+;;
+;; Buffer switching
+;;
+
+(defun s-trim-left (s)
+  "Remove whitespace at the beginning of S."
+  (if (string-match "\\`[ \t\n\r]+" s)
+      (replace-match "" t t s)
+    s))
+
+(defun grass/useful-buffer-p (&optional potential-buffer-name)
+  "Return t if current buffer is a user buffer, else nil."
+  (interactive)
+  (let ((buffer-to-test (or potential-buffer-name (buffer-name))))
+    (if (string-equal "*" (substring (s-trim-left buffer-to-test) 0 1))
+      nil
+      (if (string-match "dired" (symbol-name
+                                  (with-current-buffer potential-buffer-name
+                                    major-mode)))
+        nil
+        t))))
+
+(defun grass/next-useful-buffer ()
+  "Switch to the next user buffer."
+  (interactive)
+  (next-buffer)
+  (let ((i 0))
+    (while (< i 20)
+      (if (not (grass/useful-buffer-p))
+          (progn (next-buffer)
+                 (setq i (1+ i)))
+        (progn (setq i 100))))))
+
+(defun grass/previous-useful-buffer ()
+  "Switch to the previous user buffer."
+  (interactive)
+  (previous-buffer)
+  (let ((i 0))
+    (while (< i 20)
+      (if (not (grass/useful-buffer-p))
+          (progn (previous-buffer)
+                 (setq i (1+ i)))
+        (progn (setq i 100))))))
+
 (defun grass/switch-to-previous-buffer ()
   "Switch to previously open buffer.
 Repeated invocations toggle between the two most recently open buffers."
   (interactive)
-  (switch-to-buffer (other-buffer (current-buffer) 1)))
+  (let* ((candidate-buffers (remove-if-not
+                              #'grass/useful-buffer-p
+                              (mapcar (function buffer-name) (buffer-list))))
+         (candidate-buffer (nth 1 candidate-buffers)))
+         (if candidate-buffer
+           (switch-to-buffer (nth 1 candidate-buffers)))))
 
 (defun grass/rename-file-and-buffer ()
   "Renames current buffer and file it is visiting."
@@ -2996,11 +3046,14 @@ If the error list is visible, hide it.  Otherwise, show it."
     :non-normal-prefix "M-SPC"
 
     "TAB" '(grass/switch-to-previous-buffer :which-key "previous buffer")
-
     "!" 'eshell
     "~" 'evil-emacs-state
     ":" 'counsel-M-x
     "]" 'hydra-surround/body
+    ";" 'iedit-mode
+    "?" 'swiper
+    "/" 'swiper-current-word
+    "SPC" '(grass/remove-search-highlights :which-key "clear search highlights")
 
     "c" '(:ignore t :which-key "Check/Compile")
     "ct" '(flycheck-mode :which-key "toggle flycheck")
@@ -3012,13 +3065,6 @@ If the error list is visible, hide it.  Otherwise, show it."
     "cv" 'flycheck-verify-setup
 
     "cs" '(hydra-spelling/body :which-key "Spelling")
-
-    "m" '(:ignore t :which-key "Major-mode-cmd")
-
-    ";" 'iedit-mode
-    "?" 'swiper
-    "/" 'swiper-current-word
-    "SPC" 'grass/remove-search-highlights
 
     "s" '(:ignore t :which-key "Search/Replace")
     "sc" 'grass/remove-search-highlights
