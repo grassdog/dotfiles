@@ -2480,14 +2480,13 @@ the right."
 ;;;;;;;;;;;;;
 
 ;; Install some useful packages so this all works
-;; cabal update && cabal install happy hasktags stylish-haskell present ghc-mod hlint
-;;   OR
-;; stack install ghc-mod hlint hasktags stylish-haskell hoogle
+;; stack install intero hlint stylish-haskell hoogle
 
 (use-package haskell-mode
   :defer t
   :config
   (progn
+    (setq haskell-mode-maps '(haskell-mode-map literate-haskell-mode-map))
 
     ;; Set interpreter to be "stack ghci"
     (setq haskell-process-type 'ghci)
@@ -2495,64 +2494,108 @@ the right."
     (setq haskell-process-args-ghci '("ghci"))
 
     (setq haskell-process-suggest-remove-import-lines t
-      haskell-process-auto-import-loaded-modules t
-      haskell-process-log t)
-    (setq haskell-indentation-disable-show-indentations t)
+      ;; haskell-process-log t
+      haskell-process-auto-import-loaded-modules nil
+      haskell-process-suggest-remove-import-lines nil
+      haskell-tags-on-save nil
+      haskell-indentation-disable-show-indentations t)
+
+    (remove-hook 'haskell-mode-hook 'interactive-haskell-mode)
 
     ;; Use hi2 for indentation
     (use-package hi2
+      :diminish (hi2-mode . " ⇥")
       :init
       (setq hi2-show-indentations nil)
       (add-hook 'haskell-mode-hook 'turn-on-hi2))
 
-    (use-package ghc
+    (use-package intero
+      :diminish (intero-mode . " λ")
       :init
-      (autoload 'ghc-init "ghc" nil t)
-      (autoload 'ghc-debug "ghc" nil t)
-      (add-hook 'haskell-mode-hook 'ghc-init))
+      ;; (add-to-list 'company-backends-haskell-mode
+      ;;   '(company-intero company-dabbrev-code company-yasnippet))
+      (add-hook 'haskell-mode-hook
+        (lambda ()
+          (let ((checkers '(haskell-ghc haskell-stack-ghc)))
+            (if (boundp 'flycheck-disabled-checkers)
+              (dolist (checker checkers)
+                (add-to-list 'flycheck-disabled-checkers checker))
+              (setq flycheck-disabled-checkers checkers)))
+          (intero-mode))))
 
-    (use-package company-ghc
-      :init
-      (add-to-list 'company-backends 'company-ghc)
-      (custom-set-variables '(company-ghc-show-info t)))
+    (flycheck-add-next-checker 'intero
+      '(warning . haskell-hlint))
 
-    ;; Make Emacs look in Cabal directory for binaries
-    (let ((my-cabal-path (expand-file-name "~/.cabal/bin")))
-      (setenv "PATH" (concat my-cabal-path path-separator (getenv "PATH")))
-      (add-to-list 'exec-path my-cabal-path))
+    (defun intero/insert-type ()
+      (interactive)
+      (intero-type-at :insert))
+
+    (defun intero/display-repl ()
+      (interactive)
+      (let ((buffer (intero-repl-buffer nil)))
+        (unless (get-buffer-window buffer 'visible)
+          (display-buffer (intero-repl-buffer nil)))))
+
+    (defun intero/pop-to-repl ()
+      (interactive)
+      (pop-to-buffer (intero-repl-buffer nil)))
+
+    (defun intero/load-repl ()
+      "Load the current file in the REPL, display the REPL, but preserve buffer focus."
+      (interactive)
+      (let ((buffer (current-buffer)))
+        (intero-repl-load)
+        (pop-to-buffer buffer)))
+
+    (general-define-key :keymaps 'intero-mode-map
+      :states '(normal visual insert emacs)
+      "C-]" 'intero-goto-definition)
+
+    (dolist (mode-map haskell-mode-maps)
+      (general-define-key :keymaps mode-map
+        :states '(normal visual insert emacs)
+        :prefix grass/leader2
+        :non-normal-prefix "M-,"
+        "gg" 'intero-goto-definition
+
+        "h" '(:ignore t :which-key "Help")
+        "hi" 'intero-info
+        "ht" '(intero-type-at . "insert type at point")
+        "hT" 'intero/insert-type
+        "hs" 'intero-apply-suggestions
+
+        "s" '(:ignore t :which-key "Repl")
+        "ss" 'intero-repl
+        "sb" 'intero/load-repl
+        "sr" 'intero-repl-load))
+
+    (dolist (mode-map (cons 'haskell-cabal-mode-map haskell-mode-maps))
+      (general-define-key :keymaps mode-map
+        :states '(normal visual insert emacs)
+        :prefix grass/leader2
+        :non-normal-prefix "M-,"
+        "s" '(:ignore t :which-key "Repl")
+        "ss" 'intero-repl
+        "sr" 'intero/display-repl
+        "sS" 'intero/pop-to-repl))
+
+    (dolist (mode-map (append haskell-mode-maps '(haskell-cabal-mode intero-repl-mode)))
+      (general-define-key :keymaps 'haskell-mode-map
+        :states '(normal visual insert emacs)
+        :prefix grass/leader2
+        :non-normal-prefix "M-,"
+        "i" '(:ignore t :which-key "Intero")
+        "ic"  'intero-cd
+        "id"  'intero-devel-reload
+        "ik"  'intero-destroy
+        "il"  'intero-list-buffers
+        "ir"  'intero-restart
+        "it"  'intero-targets))
 
     (add-hook 'haskell-mode-hook
       (lambda ()
         ;; Fancy indenting please
         (setq tab-always-indent t)))))
-
-(eval-after-load 'haskell-mode
-  '(progn
-     (general-define-key :keymaps 'haskell-mode-map
-       :states '(normal visual insert emacs)
-       :prefix grass/leader2
-       :non-normal-prefix "M-,"
-       "t" 'haskell-process-do-type
-       "i" 'haskell-process-do-info
-       "l" 'haskell-process-load-file
-       "b" 'haskell-process-cabal-build
-       "I" 'haskell-navigate-imports
-       "C" 'haskell-process-cabal
-       "r" 'haskell-interactive-bring
-       "s" 'haskell-interactive-switch
-       "c" 'haskell-interactive-mode-clear
-       )))
-
-(eval-after-load 'haskell-cabal-mode
-  '(progn
-     (general-define-key :keymaps 'haskell-cabal-mode-map
-       :states '(normal visual insert emacs)
-       :prefix grass/leader2
-       :non-normal-prefix "M-,"
-       "r" 'haskell-interactive-bring
-       "s" 'haskell-interactive-switch
-       "c" 'haskell-interactive-mode-clear
-       )))
 
 
 ;;;;;;;;;;;;;
