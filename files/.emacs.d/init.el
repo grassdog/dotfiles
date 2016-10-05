@@ -103,6 +103,9 @@
 ;; Use right alt for extended character insertion
 (setq mac-right-option-modifier nil)
 
+;; Move point to the help window
+(setq help-window-select t)
+
 ;; Get rid of chrome
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
