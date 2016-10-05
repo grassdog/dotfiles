@@ -408,6 +408,7 @@
   (add-to-list 'recentf-exclude "\\ido.hist\\'")
   (add-to-list 'recentf-exclude "/TAGS")
   (add-to-list 'recentf-exclude "/.autosaves/")
+  (add-to-list 'recentf-exclude "intero-script")
   (add-to-list 'recentf-exclude "emacs.d/elpa/")
   (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
   (setq recentf-save-file (expand-file-name "recentf" grass/savefile-dir))
