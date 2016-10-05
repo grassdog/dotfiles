@@ -2542,7 +2542,7 @@ the right."
       (interactive)
       (pop-to-buffer (intero-repl-buffer nil)))
 
-    (defun intero/load-repl ()
+    (defun intero/load-repl-stay-buffer ()
       "Load the current file in the REPL, display the REPL, but preserve buffer focus."
       (interactive)
       (let ((buffer (current-buffer)))
@@ -2552,6 +2552,11 @@ the right."
     (general-define-key :keymaps 'intero-mode-map
       :states '(normal visual insert emacs)
       "C-]" 'intero-goto-definition)
+
+    (general-define-key :keymaps 'intero-repl-mode-map
+      :states '(normal visual insert emacs)
+      "<M-up>" 'comint-previous-input
+      "<M-down>" 'comint-next-input)
 
     (dolist (mode-map haskell-mode-maps)
       (general-define-key :keymaps mode-map
@@ -2567,8 +2572,10 @@ the right."
 
         "s" '(:ignore t :which-key "Repl")
         "ss" 'intero-repl
-        "sb" 'intero/load-repl
-        "sr" 'intero-repl-load))
+        "sl" 'intero-repl-load
+        "sL" 'intero/load-repl-stay-buffer
+        ))
+
 
     (dolist (mode-map (cons 'haskell-cabal-mode-map haskell-mode-maps))
       (general-define-key :keymaps mode-map
@@ -2577,8 +2584,8 @@ the right."
         :non-normal-prefix "M-,"
         "s" '(:ignore t :which-key "Repl")
         "ss" 'intero-repl
-        "sr" 'intero/display-repl
-        "sS" 'intero/pop-to-repl))
+        "sd" 'intero/display-repl
+        "sp" 'intero/pop-to-repl))
 
     (dolist (mode-map (append haskell-mode-maps '(haskell-cabal-mode intero-repl-mode)))
       (general-define-key :keymaps 'haskell-mode-map
