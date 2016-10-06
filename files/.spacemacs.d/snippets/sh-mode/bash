@@ -1,5 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: bash shebang
-# key: !bash
-# --
-#!/usr/bin/env bash

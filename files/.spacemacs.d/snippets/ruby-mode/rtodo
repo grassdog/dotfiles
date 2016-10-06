@@ -1,5 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: raise todo
-# key: rtodo
-# --
-raise "TODO: Implement me."
