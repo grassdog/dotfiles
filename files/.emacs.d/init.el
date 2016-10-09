@@ -2180,6 +2180,7 @@ the right."
     (eval-after-load 'flycheck
       '(add-hook 'flycheck-mode-hook #'flycheck-elm-setup)))
 
+  (add-hook 'elm-mode-hook #'elm-oracle-setup-completion)
   (add-to-list 'company-backends 'company-elm)
 
   (general-define-key :keymaps 'elm-mode-map
@@ -2198,7 +2199,6 @@ the right."
 
   (add-hook 'elm-mode-hook
     (lambda ()
-      (add-hook 'elm-mode-hook #'elm-oracle-setup-completion)
 
       ;; Fancy indenting please
       (setq tab-always-indent t)
