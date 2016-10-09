@@ -2197,9 +2197,12 @@ the right."
     "d" 'elm-oracle-doc-at-point
     "t" 'elm-oracle-type-at-point)
 
+  (diminish 'elm-indent-mode " ⇥")
+
   (add-hook 'elm-mode-hook
     (lambda ()
 
+      (flycheck-mode 1)
       ;; Fancy indenting please
       (setq tab-always-indent t)
       (setq evil-shift-width 4)
