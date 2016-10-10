@@ -3029,6 +3029,18 @@ the right."
 
     (setq flycheck-display-errors-delay 0.5)))
 
+(defhydra hydra-flycheck
+  (:pre (progn (setq hydra-lv t) (flycheck-list-errors))
+    :post (progn (setq hydra-lv nil) (quit-windows-on "*Flycheck errors*"))
+    :hint nil)
+  "Errors"
+  ("f"  flycheck-error-list-set-filter                            "Filter")
+  ("j"  flycheck-next-error                                       "Next")
+  ("k"  flycheck-previous-error                                   "Previous")
+  ("gg" flycheck-first-error                                      "First")
+  ("G"  (progn (goto-char (point-max)) (flycheck-previous-error)) "Last")
+  ("q"  nil))
+
 (defun grass/toggle-flycheck-error-list ()
   "Toggle flycheck's error list window.
 If the error list is visible, hide it.  Otherwise, show it."
@@ -3113,7 +3125,8 @@ If the error list is visible, hide it.  Otherwise, show it."
 
     "c" '(:ignore t :which-key "Check/Compile")
     "ct" '(flycheck-mode :which-key "toggle flycheck")
-    "cc" 'flycheck-clear
+    "cc" 'hydra-flycheck/body
+    "cC" 'flycheck-clear
     "ch" 'flycheck-describe-checker
     "cS" 'flycheck-select-checker
     "cl" '(grass/toggle-flycheck-error-list :which-key "toggle error list")
