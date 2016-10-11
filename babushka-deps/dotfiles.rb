@@ -21,7 +21,8 @@ DOTFILES = "#{ENV['HOME']}/.dotfiles"
 
 dotfiles = (
   Dir["#{DOTFILES}/files/.[^.]*"] +
-  Dir["#{DOTFILES}/hosts/#{`hostname`.chomp}".p + ".[^.]*"]
+  Dir["#{DOTFILES}/hosts/#{`hostname`.chomp}".p + ".[^.]*"] +
+  Dir["#{ENV['HOME']}/Dropbox/Backups/#{`hostname`.chomp}".p + ".[^.]*"]
 ).reject { |r| r =~ /.DS_Store$/ }
  .map(&:p)
 
@@ -47,6 +48,7 @@ dep "dotfiles-symlinked" do
 
   dotfile_deps.each { |name, _| requires name }
 end
+
 
 #
 # Services
