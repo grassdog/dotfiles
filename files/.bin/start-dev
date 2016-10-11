@@ -4,8 +4,6 @@
 
 /Applications/Emacs.app/Contents/MacOS/Emacs --daemon
 
-for f in ~/.tmuxinator/*.yml; do
-  tmuxinator start $(basename $f | sed -e 's/.yml$//') --no-attach
-done
+tmuxinator start dev --no-attach
 
 tmux attach
