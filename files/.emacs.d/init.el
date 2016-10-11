@@ -3168,6 +3168,7 @@ If the error list is visible, hide it.  Otherwise, show it."
 
     "g" '(:ignore t :which-key "Git/VC")
     "gs" 'magit-status
+    "gb" 'magit-blame
     "gl" 'git-link
     "gc" 'git-link-commit
     "gb" 'github-browse-file
