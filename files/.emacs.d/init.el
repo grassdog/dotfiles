@@ -184,6 +184,7 @@
 
 ;; Revert buffers automatically when underlying files are changed externally
 (global-auto-revert-mode t)
+(diminish 'auto-revert-mode)
 
 ;; World times
 (setq display-time-world-list '(("Australia/Brisbane" "Brisbane")
