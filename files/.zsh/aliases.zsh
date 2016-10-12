@@ -100,6 +100,16 @@ alias git-update-modules='git submodule foreach git pull'
 
 alias git-most-changed='git log --pretty=format: --name-only | sort | uniq -c | sort -rg | head -10'
 
+# Show the revision at a certain date on current branch
+function git-rev() {
+  git rev-list -n1 --before="${1:-1 day ago}" $(git rev-parse --abbrev-ref HEAD)
+}
+
+# Show diff since a date
+function git-changed() {
+  git diff $(git-rev "${1:-1 day ago}")
+}
+
 # Commit staged changes and quote all args as message
 function gcm() {
   git commit -v -m "$*"
