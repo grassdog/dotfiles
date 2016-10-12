@@ -199,7 +199,6 @@
 ;; Silence advice warnings
 (setq ad-redefinition-action 'accept)
 
-
 ;;;;;;;;;;;;
 ;; Themes ;;
 ;;;;;;;;;;;;
@@ -320,10 +319,11 @@
        ("grass/" . "g/")
        ("\\`hydra-" . "+h/")
        ("\\`org-babel-" . "ob/")))
-  (which-key-declare-prefixes "SPC" "leader")
-  (which-key-declare-prefixes "," "major mode leader")
   (which-key-mode 1))
 
+(use-package general
+  :init
+  (general-evil-setup t))
 
 (use-package browse-kill-ring
   :commands browse-kill-ring)
@@ -3107,201 +3107,197 @@ If the error list is visible, hide it.  Otherwise, show it."
 ;; Key bindings ;;
 ;;;;;;;;;;;;;;;;;;
 
-(use-package general
-  :init
-  (general-evil-setup t)
+(general-define-key
+  :states '(normal visual insert emacs)
+  :prefix grass/leader1
+  :non-normal-prefix "M-SPC"
 
-  (general-define-key
-    :states '(normal visual insert emacs)
-    :prefix grass/leader1
-    :non-normal-prefix "M-SPC"
+  "TAB" '(grass/switch-to-previous-buffer :which-key "previous buffer")
+  "!" 'eshell
+  "~" 'evil-emacs-state
+  ":" 'counsel-M-x
+  "]" 'hydra-surround/body
+  ";" 'iedit-mode
+  "?" 'swiper
+  "/" 'swiper-current-word
+  "SPC" '(grass/remove-search-highlights :which-key "clear search highlights")
 
-    "TAB" '(grass/switch-to-previous-buffer :which-key "previous buffer")
-    "!" 'eshell
-    "~" 'evil-emacs-state
-    ":" 'counsel-M-x
-    "]" 'hydra-surround/body
-    ";" 'iedit-mode
-    "?" 'swiper
-    "/" 'swiper-current-word
-    "SPC" '(grass/remove-search-highlights :which-key "clear search highlights")
+  "c" '(:ignore t :which-key "Check/Compile")
+  "ct" '(flycheck-mode :which-key "toggle flycheck")
+  "cc" 'hydra-flycheck/body
+  "cC" 'flycheck-clear
+  "ch" 'flycheck-describe-checker
+  "cS" 'flycheck-select-checker
+  "cl" '(grass/toggle-flycheck-error-list :which-key "toggle error list")
+  "cx" '(flycheck-set-checker-executable :which-key "set checker")
+  "cv" 'flycheck-verify-setup
 
-    "c" '(:ignore t :which-key "Check/Compile")
-    "ct" '(flycheck-mode :which-key "toggle flycheck")
-    "cc" 'hydra-flycheck/body
-    "cC" 'flycheck-clear
-    "ch" 'flycheck-describe-checker
-    "cS" 'flycheck-select-checker
-    "cl" '(grass/toggle-flycheck-error-list :which-key "toggle error list")
-    "cx" '(flycheck-set-checker-executable :which-key "set checker")
-    "cv" 'flycheck-verify-setup
+  "cs" '(hydra-spelling/body :which-key "Spelling")
 
-    "cs" '(hydra-spelling/body :which-key "Spelling")
+  "s" '(:ignore t :which-key "Search/Replace")
+  "sc" 'grass/remove-search-highlights
+  "sp" 'anzu-query-replace-at-cursor-thing
+  "sa" 'counsel-ag
+  "sg" 'counsel-git-grep
+  "ss" 'swiper
+  "s;" 'iedit-mode
+  "s:" 'grass/iedit-dwim
+  "sr" 'grass/replace-string-in-entire-buffer
+  "sR" 'grass/replace-regexp-in-entire-buffer
+  "sq" 'grass/query-replace-string-in-entire-buffer
+  "sQ" 'grass/query-replace-regexp-in-entire-buffer
+  "sf" 'isearch-forward-regexp
+  "sb" 'isearch-reverse-regexp
+  "sp" '(grass/counsel-ag-current-project :which-key "ag project")
+  "sP" 'projectile-ag
 
-    "s" '(:ignore t :which-key "Search/Replace")
-    "sc" 'grass/remove-search-highlights
-    "sp" 'anzu-query-replace-at-cursor-thing
-    "sa" 'counsel-ag
-    "sg" 'counsel-git-grep
-    "ss" 'swiper
-    "s;" 'iedit-mode
-    "s:" 'grass/iedit-dwim
-    "sr" 'grass/replace-string-in-entire-buffer
-    "sR" 'grass/replace-regexp-in-entire-buffer
-    "sq" 'grass/query-replace-string-in-entire-buffer
-    "sQ" 'grass/query-replace-regexp-in-entire-buffer
-    "sf" 'isearch-forward-regexp
-    "sb" 'isearch-reverse-regexp
-    "sp" '(grass/counsel-ag-current-project :which-key "ag project")
-    "sP" 'projectile-ag
+  "b" '(:ignore t :which-key "Buffers")
+  "bb" 'ivy-switch-buffer
+  "bm" '(hydra-buffer/body :which-key "buffer mini-state")
+  "bs" 'grass/switch-to-scratch-buffer
+  "bk" 'kill-this-buffer
+  "bo" 'crux-kill-other-buffers
 
-    "b" '(:ignore t :which-key "Buffers")
-    "bb" 'ivy-switch-buffer
-    "bm" '(hydra-buffer/body :which-key "buffer mini-state")
-    "bs" 'grass/switch-to-scratch-buffer
-    "bk" 'kill-this-buffer
-    "bo" 'crux-kill-other-buffers
+  "k" '(:ignore t :which-key "Bookmarks")
+  "ki" 'grass/open-init
+  "kw" 'grass/open-work-log
+  "kp" 'grass/open-personal-log
+  "kn" 'grass/find-notes
 
-    "k" '(:ignore t :which-key "Bookmarks")
-    "ki" 'grass/open-init
-    "kw" 'grass/open-work-log
-    "kp" 'grass/open-personal-log
-    "kn" 'grass/find-notes
+  "g" '(:ignore t :which-key "Git/VC")
+  "gs" 'magit-status
+  "gb" 'magit-blame
+  "gl" 'git-link
+  "gc" 'git-link-commit
+  "gb" 'github-browse-file
+  "gt" 'git-timemachine
 
-    "g" '(:ignore t :which-key "Git/VC")
-    "gs" 'magit-status
-    "gb" 'magit-blame
-    "gl" 'git-link
-    "gc" 'git-link-commit
-    "gb" 'github-browse-file
-    "gt" 'git-timemachine
+  "gg" '(:ignore t :which-key "Gist")
+  "ggb" 'gist-buffer
+  "ggB" 'gist-buffer-private
+  "ggl" 'gist-list
+  "ggr" 'gist-region
+  "ggR" 'gist-region-private
 
-    "gg" '(:ignore t :which-key "Gist")
-    "ggb" 'gist-buffer
-    "ggB" 'gist-buffer-private
-    "ggl" 'gist-list
-    "ggr" 'gist-region
-    "ggR" 'gist-region-private
+  "h" '(:ignore t :which-key "Help")
+  "hf" 'describe-function
+  "hv" 'describe-variable
+  "ha" 'apropos
 
-    "h" '(:ignore t :which-key "Help")
-    "hf" 'describe-function
-    "hv" 'describe-variable
-    "ha" 'apropos
+  "e" '(:ignore t :which-key "Editing/Text")
+  "eC" 'counsel-unicode-char
+  "ek" 'browse-kill-ring
+  "eh" 'hydra-goto-history/body
+  "e~" 'hydra-change-case/body
+  "ez" 'zop-up-to-char
+  "ef" 'crux-indent-defun
+  "ew" 'crux-cleanup-buffer-or-region
+  "eT" 'untabify
+  "et" '(grass/toggle-always-indent :which-key "toggle tab indent")
+  "ec" 'char-menu
+  "eb" 'grass/comment-box
+  "ed" 'grass/insert-datetime
 
-    "e" '(:ignore t :which-key "Editing/Text")
-    "eC" 'counsel-unicode-char
-    "ek" 'browse-kill-ring
-    "eh" 'hydra-goto-history/body
-    "e~" 'hydra-change-case/body
-    "ez" 'zop-up-to-char
-    "ef" 'crux-indent-defun
-    "ew" 'crux-cleanup-buffer-or-region
-    "eT" 'untabify
-    "et" '(grass/toggle-always-indent :which-key "toggle tab indent")
-    "ec" 'char-menu
-    "eb" 'grass/comment-box
-    "ed" 'grass/insert-datetime
+  "ea" '(:ignore t :which-key "Alignment")
+  "eaa" 'align
+  "ear" 'align-repeat
+  "eam" 'align-repeat-math-oper
+  "ea." 'align-repeat-decimal
+  "ea," 'align-repeat-comma
+  "ea;" 'align-repeat-semicolon
+  "ea:" 'align-repeat-colon
+  "ea=" 'align-repeat-equal
+  "ea>" 'align-repeat-hash
+  "ea&" 'align-repeat-ampersand
+  "ea|" 'align-repeat-bar
+  "ea(" 'align-repeat-left-paren
+  "ea)" 'align-repeat-right-paren
 
-    "ea" '(:ignore t :which-key "Alignment")
-    "eaa" 'align
-    "ear" 'align-repeat
-    "eam" 'align-repeat-math-oper
-    "ea." 'align-repeat-decimal
-    "ea," 'align-repeat-comma
-    "ea;" 'align-repeat-semicolon
-    "ea:" 'align-repeat-colon
-    "ea=" 'align-repeat-equal
-    "ea>" 'align-repeat-hash
-    "ea&" 'align-repeat-ampersand
-    "ea|" 'align-repeat-bar
-    "ea(" 'align-repeat-left-paren
-    "ea)" 'align-repeat-right-paren
+  "f" '(:ignore t :which-key "Files")
+  "fr" 'counsel-recentf
+  "ff" 'counsel-find-file
+  "fR" 'grass/rename-file-and-buffer
+  "fc" 'grass/copy-buffer-filename
+  "fd" 'crux-delete-file-and-buffer
+  "fj" 'dired-jump
+  "fs"  '(save-buffer :which-key "save file")
 
-    "f" '(:ignore t :which-key "Files")
-    "fr" 'counsel-recentf
-    "ff" 'counsel-find-file
-    "fR" 'grass/rename-file-and-buffer
-    "fc" 'grass/copy-buffer-filename
-    "fd" 'crux-delete-file-and-buffer
-    "fj" 'dired-jump
-    "fs"  '(save-buffer :which-key "save file")
+  "u" '(:ignore t :which-key "Utilities")
+  "uU" 'crux-view-url
+  "ut" 'display-time-world
+  "uc" 'quick-calc
+  "uu" 'browse-url
+  "uf" 'reveal-in-osx-finder
 
-    "u" '(:ignore t :which-key "Utilities")
-    "uU" 'crux-view-url
-    "ut" 'display-time-world
-    "uc" 'quick-calc
-    "uu" 'browse-url
-    "uf" 'reveal-in-osx-finder
+  "v" 'er/expand-region
 
-    "v" 'er/expand-region
+  "y" '(:ignore t :which-key "Snippets")
+  "yi" 'yas-insert-snippet
+  "ys" 'company-yasnippet
+  "yn" 'yas-new-snippet
+  "ye" 'hippie-expand
 
-    "y" '(:ignore t :which-key "Snippets")
-    "yi" 'yas-insert-snippet
-    "ys" 'company-yasnippet
-    "yn" 'yas-new-snippet
-    "ye" 'hippie-expand
+  "w" '(:ignore t :which-key "Windows/UI")
+  "wl" 'toggle-truncate-lines
+  "wz" 'hydra-zoom-text/body
+  "ww" 'hydra-window/body
+  "wo" 'delete-other-windows
+  "wk" 'delete-window
+  "wt" 'crux-transpose-windows
+  "wn" 'nlinum-mode
 
-    "w" '(:ignore t :which-key "Windows/UI")
-    "wl" 'toggle-truncate-lines
-    "wz" 'hydra-zoom-text/body
-    "ww" 'hydra-window/body
-    "wo" 'delete-other-windows
-    "wk" 'delete-window
-    "wt" 'crux-transpose-windows
-    "wn" 'nlinum-mode
+  "v" '(:ignore t :which-key "Vagrant")
+  "VD" 'vagrant-destroy
+  "Ve" 'vagrant-edit
+  "VH" 'vagrant-halt
+  "Vp" 'vagrant-provision
+  "Vr" 'vagrant-resume
+  "VR" 'vagrant-reload
+  "Vs" 'vagrant-status
+  "VS" 'vagrant-suspend
+  "VV" 'vagrant-up
 
-    "v" '(:ignore t :which-key "Vagrant")
-    "VD" 'vagrant-destroy
-    "Ve" 'vagrant-edit
-    "VH" 'vagrant-halt
-    "Vp" 'vagrant-provision
-    "Vr" 'vagrant-resume
-    "VR" 'vagrant-reload
-    "Vs" 'vagrant-status
-    "VS" 'vagrant-suspend
-    "VV" 'vagrant-up
+  "z" '(:ignore t :which-key "Folding")
+  "zz" 'origami-toggle-node
+  "zs" 'origami-show-only-node
+  "zo" 'origami-open-all-nodes
+  "zu" 'origami-undo
+  "zr" 'origami-redo
+  )
 
-    "z" '(:ignore t :which-key "Folding")
-    "zz" 'origami-toggle-node
-    "zs" 'origami-show-only-node
-    "zo" 'origami-open-all-nodes
-    "zu" 'origami-undo
-    "zr" 'origami-redo
-    )
+(general-define-key
+  "M-x" 'counsel-M-x
+  "C-x C-f" 'counsel-find-file
+  "C-c C-r" 'ivy-resume
+  "<f6>" 'ivy-resume
 
-  (general-define-key
-    "M-x" 'counsel-M-x
-    "C-x C-f" 'counsel-find-file
-    "C-c C-r" 'ivy-resume
-    "<f6>" 'ivy-resume
+  "C-`" 'evil-normal-state
+  "C-;" 'iedit-mode
 
-    "C-`" 'evil-normal-state
-    "C-;" 'iedit-mode
+  "<home>" 'move-beginning-of-line
+  "<end>" 'move-end-of-line
 
-    "<home>" 'move-beginning-of-line
-    "<end>" 'move-end-of-line
+  "C-x C-j" 'dired-jump
+  "<s-up>" 'dired-jump
 
-    "C-x C-j" 'dired-jump
-    "<s-up>" 'dired-jump
+  "s-d" 'crux-duplicate-current-line-or-region
 
-    "s-d" 'crux-duplicate-current-line-or-region
+  "s-e" 'hippie-expand
 
-    "s-e" 'hippie-expand
+  "M-/" 'hippie-expand
+  "M-z" 'zop-up-to-char)
 
-    "M-/" 'hippie-expand
-    "M-z" 'zop-up-to-char)
+(general-define-key :keymaps 'ivy-minibuffer-map
+  "RET" 'ivy-alt-done
+  "S-<up>" 'ivy-previous-history-element
+  "S-<down>" 'ivy-next-history-element)
 
-  (general-define-key :keymaps 'ivy-minibuffer-map
-    "RET" 'ivy-alt-done
-    "S-<up>" 'ivy-previous-history-element
-    "S-<down>" 'ivy-next-history-element)
+(general-nvmap "z" 'origami-recursively-toggle-node)
 
-  (general-nvmap "z" 'origami-recursively-toggle-node)
+(general-imap "C-p" 'hippie-expand)
 
-  (general-imap "C-p" 'hippie-expand)
-
-  (global-set-key (kbd "<backtab>") 'grass/stupid-outdent)
-  (global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line))
+(global-set-key (kbd "<backtab>") 'grass/stupid-outdent)
+(global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
 
 
 (provide 'init)
