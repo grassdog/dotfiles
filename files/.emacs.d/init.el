@@ -1899,6 +1899,7 @@ the right."
         :states '(normal visual insert emacs)
         :prefix grass/leader2
         :non-normal-prefix "M-,"
+        "d" 'grass/insert-org-date-header
         "m" 'hydra-org-move/body
         "g" 'org-mac-grab-link
         "a" 'org-agenda
