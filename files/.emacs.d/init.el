@@ -2201,6 +2201,11 @@ the right."
     "d" 'elm-oracle-doc-at-point
     "t" 'elm-oracle-type-at-point)
 
+  (general-define-key :keymaps 'elm-interactive-mode
+    :states '(normal visual insert emacs)
+    "<M-up>" 'comint-previous-input
+    "<M-down>" 'comint-next-input)
+
   (diminish 'elm-indent-mode " ⇥")
 
   (add-hook 'elm-mode-hook
@@ -3287,6 +3292,11 @@ If the error list is visible, hide it.  Otherwise, show it."
 
   "M-/" 'hippie-expand
   "M-z" 'zop-up-to-char)
+
+(general-define-key :keymaps 'comint-mode
+  :states '(normal visual insert emacs)
+  "<M-up>" 'comint-previous-input
+  "<M-down>" 'comint-next-input)
 
 (general-define-key :keymaps 'ivy-minibuffer-map
   "RET" 'ivy-alt-done
