@@ -1787,6 +1787,7 @@ the right."
       "bp"    'counsel-projectile-switch-to-buffer
       "pd"    'counsel-projectile-find-dir
       "pp"    'counsel-projectile-switch-project
+      "pR"    'projectile-regenerate-tags
       "pf"    'counsel-projectile-find-file
       "fp"    'counsel-projectile-find-file
       "pr"    'projectile-recentf)
