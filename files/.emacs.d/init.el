@@ -3117,6 +3117,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   "~" 'evil-emacs-state
   ":" 'counsel-M-x
   "]" 'hydra-surround/body
+  "~" 'hydra-change-case/body
   ";" 'iedit-mode
   "?" 'swiper
   "/" 'swiper-current-word
@@ -3188,7 +3189,6 @@ If the error list is visible, hide it.  Otherwise, show it."
   "eC" 'counsel-unicode-char
   "ek" 'browse-kill-ring
   "eh" 'hydra-goto-history/body
-  "e~" 'hydra-change-case/body
   "ez" 'zop-up-to-char
   "ef" 'crux-indent-defun
   "ew" 'crux-cleanup-buffer-or-region
