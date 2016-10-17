@@ -1786,11 +1786,10 @@ the right."
       "pb"    'counsel-projectile-switch-to-buffer
       "bp"    'counsel-projectile-switch-to-buffer
       "pd"    'counsel-projectile-find-dir
-      "pp"    'counsel-projectile-switch-project
-      "pR"    'projectile-regenerate-tags
+      "pp"    '(:keymap projectile-command-map :package projectile :which-key "projectile")
+      "ps"    'counsel-projectile-switch-project
       "pf"    'counsel-projectile-find-file
-      "fp"    'counsel-projectile-find-file
-      "pr"    'projectile-recentf)
+      "fp"    'counsel-projectile-find-file)
 
     (defun grass/counsel-ag-current-project ()
       "Search in current project with `ag'."
