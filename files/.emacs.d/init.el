@@ -3175,7 +3175,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   "gb" 'magit-blame
   "gl" 'git-link
   "gc" 'git-link-commit
-  "gb" 'github-browse-file
+  "gB" 'github-browse-file
   "gt" 'git-timemachine
 
   "gg" '(:ignore t :which-key "Gist")
