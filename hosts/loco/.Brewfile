@@ -35,6 +35,7 @@ brew 'postgresql', restart_service: :changed
 
 brew 'pstree'
 brew 'python'
+brew 'reattach-to-user-namespace'
 brew 'rust'
 brew 'selecta'
 brew 'sqlite'
