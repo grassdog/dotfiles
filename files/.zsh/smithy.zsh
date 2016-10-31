@@ -54,3 +54,6 @@ assumerole2() {
   export AWS_SECRET_ACCESS_KEY=\(.AWS_SECRET_ACCESS_KEY)
   export AWS_SESSION_TOKEN=\(.AWS_SESSION_TOKEN)"'
 }
+
+alias ssh-prod="ssh bastion.identity.us-east-1"
+alias ssh-staging="ssh bastion.identity.ap-southeast-2"
