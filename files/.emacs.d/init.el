@@ -2927,6 +2927,8 @@ the right."
       :non-normal-prefix "M-,"
       "b" 'dockerfile-build-buffer)))
 
+(use-package docker-tramp)
+
 ;;;;;;;;;;;;;;
 ;; Spelling ;;
 ;;;;;;;;;;;;;;
