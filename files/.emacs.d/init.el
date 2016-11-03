@@ -2361,7 +2361,7 @@ the right."
 
 (use-package markdown-mode
   :mode (("\\.markdown\\'"    . markdown-mode)
-          ("\\.md\\'"    . markdown-mode))
+          ("\\.md$"    . markdown-mode))
   :config
   (use-package pandoc-mode
     :commands pandoc-mode
