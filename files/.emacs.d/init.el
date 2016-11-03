@@ -1895,6 +1895,10 @@ the right."
       (org-set-local 'yas/trigger-key [tab])
       (define-key yas/keymap [tab] 'yas/next-field-or-maybe-expand)
 
+      ;; Let me open lines above again
+      (evil-define-key 'normal evil-org-mode-map
+        "O" 'evil-open-above)
+
       (general-define-key :keymaps 'org-mode-map
         :states '(normal visual insert emacs)
         :prefix grass/leader2
@@ -1903,6 +1907,7 @@ the right."
         "m" 'hydra-org-move/body
         "g" 'org-mac-grab-link
         "a" 'org-agenda
+        "o" 'org-insert-heading
         "e" 'org-export-dispatch
         "l" 'org-toggle-link-display
         "s" 'org-sort-entries
