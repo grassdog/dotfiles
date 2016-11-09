@@ -159,6 +159,9 @@
 ;; Don't combine tag tables thanks
 (setq tags-add-tables nil)
 
+;; Automatically load changed tags files
+(setq tags-revert-without-query t)
+
 ;; Don't pop up new frames on each call to open
 (setq ns-pop-up-frames nil)
 
