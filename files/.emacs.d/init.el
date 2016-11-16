@@ -3281,6 +3281,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   )
 
 (general-define-key
+  "M-y" 'counsel-yank-pop
   "M-x" 'counsel-M-x
   "C-x C-f" 'counsel-find-file
   "C-c C-r" 'ivy-resume
@@ -3309,6 +3310,7 @@ If the error list is visible, hide it.  Otherwise, show it."
 
 (general-define-key :keymaps 'ivy-minibuffer-map
   "RET" 'ivy-alt-done
+  "M-y" 'ivy-next-line
   "S-<up>" 'ivy-previous-history-element
   "S-<down>" 'ivy-next-history-element)
 
