@@ -1483,6 +1483,13 @@ Repeated invocations toggle between the two most recently open buffers."
 (use-package ag
   :commands (ag ag-project))
 
+(use-package ripgrep
+  :config
+  (setq counsel-ag-base-command "rg -i --color=never --no-heading %s")
+  :commands (ripgrep-regexp))
+
+
+
 ;;;;;;;;;;;;;;;
 ;; Selection ;;
 ;;;;;;;;;;;;;;;
@@ -3168,7 +3175,8 @@ If the error list is visible, hide it.  Otherwise, show it."
   "sc" 'grass/remove-search-highlights
   "sp" 'anzu-query-replace-at-cursor-thing
   "sa" 'counsel-ag
-  "sg" 'counsel-git-grep
+  "sg" 'ripgrep-regexp
+  "sG" 'counsel-git-grep
   "ss" 'swiper
   "s;" 'iedit-mode
   "s:" 'grass/iedit-dwim

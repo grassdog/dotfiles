@@ -11,6 +11,7 @@ brew 'chisel'
 brew 'chruby'
 brew 'ctags'
 brew 'diff-so-fancy'
+brew 'ripgrep'
 
 brew 'dnsmasq', restart_service: :changed
 
