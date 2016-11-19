@@ -2178,6 +2178,10 @@ the right."
 
       (js2-imenu-extras-mode +1))))
 
+(use-package rjsx-mode
+  :mode  (("\\.jsx?$" . rjsx-mode)
+          ("components\\/.*\\.js\\'" . rjsx-mode)))
+
 (use-package json-mode
   :mode "\\.json$"
   :config
