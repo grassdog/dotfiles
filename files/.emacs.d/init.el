@@ -1484,8 +1484,6 @@ Repeated invocations toggle between the two most recently open buffers."
   :commands (ag ag-project))
 
 (use-package ripgrep
-  :config
-  (setq counsel-ag-base-command "rg -i --color=never --no-heading %s")
   :commands (ripgrep-regexp))
 
 
@@ -1815,10 +1813,11 @@ the right."
       "pf"    'counsel-projectile-find-file
       "fp"    'counsel-projectile-find-file)
 
-    (defun grass/counsel-ag-current-project ()
-      "Search in current project with `ag'."
+    (defun grass/counsel-rg-current-project ()
+      "Search in current project with `rg'."
       (interactive)
-      (let ((dir (projectile-project-root)))
+      (let ((dir (projectile-project-root))
+            (counsel-ag-base-command counsel-rg-base-command))
         (if dir
           (counsel-ag "" dir)
           (message "error: Not in a project."))))
@@ -3178,7 +3177,8 @@ If the error list is visible, hide it.  Otherwise, show it."
   "s" '(:ignore t :which-key "Search/Replace")
   "sc" 'grass/remove-search-highlights
   "sp" 'anzu-query-replace-at-cursor-thing
-  "sa" 'counsel-ag
+  "sa" 'counsel-rg
+  "sA" 'counsel-ag
   "sg" 'ripgrep-regexp
   "sG" 'counsel-git-grep
   "ss" 'swiper
@@ -3190,7 +3190,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   "sQ" 'grass/query-replace-regexp-in-entire-buffer
   "sf" 'isearch-forward-regexp
   "sb" 'isearch-reverse-regexp
-  "sp" '(grass/counsel-ag-current-project :which-key "ag project")
+  "sp" '(grass/counsel-rg-current-project :which-key "rg project")
   "sP" 'projectile-ag
 
   "b" '(:ignore t :which-key "Buffers")
