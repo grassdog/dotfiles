@@ -1,0 +1,21 @@
+.DS_Store?
+.DS_Store
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# Vim temp files
+*.swp
+*~
+
+# Ctags files
+.tags
+.gems.tags
+tags
+TAGS
+
+# Compiled Python
+*.pyc
+*.elc
+
+.tern-port
