@@ -3300,7 +3300,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   )
 
 (general-define-key
-  "M-y" 'counsel-yank-pop
+  "M-Y" 'counsel-yank-pop
   "M-x" 'counsel-M-x
   "C-x C-f" 'counsel-find-file
   "C-c C-r" 'ivy-resume
@@ -3316,6 +3316,8 @@ If the error list is visible, hide it.  Otherwise, show it."
   "<s-up>" 'dired-jump
 
   "s-d" 'crux-duplicate-current-line-or-region
+
+  "C-x C-m" 'counsel-M-x
 
   "s-e" 'hippie-expand
 
