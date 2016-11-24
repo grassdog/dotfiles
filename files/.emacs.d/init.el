@@ -1858,11 +1858,10 @@ the right."
   ;; Prevent demoting heading also shifting text inside sections
   (setq org-adapt-indentation nil)
 
-  ;; Use pandoc for exports
-  (use-package ox-pandoc)
-
   (use-package evil-org
     :diminish evil-org-mode)
+
+  (use-package ox-pandoc)
 
   ;; Create reveal js presentations in org mode.
   (use-package ox-reveal
@@ -1917,6 +1916,25 @@ the right."
     ("u" outline-up-heading "up heading")
     ("g" org-goto "goto" :exit t))
 
+    ;; Let me open lines above again
+    (evil-define-key 'normal evil-org-mode-map
+      "O" 'evil-open-above)
+
+    (general-define-key :keymaps 'org-mode-map
+      :states '(normal visual insert emacs)
+      :prefix grass/leader2
+      :non-normal-prefix "M-,"
+      "d" 'grass/insert-org-date-header
+      "m" 'hydra-org-move/body
+      "g" 'org-mac-grab-link
+      "a" 'org-agenda
+      "o" 'org-insert-heading
+      "e" 'org-export-dispatch
+      "l" 'org-toggle-link-display
+      "i" 'org-toggle-inline-images
+      "s" 'org-sort-entries
+      "c" 'org-cycle-agenda-files)
+
   (add-hook 'org-mode-hook
     (lambda ()
       ;; No auto indent please
@@ -1931,25 +1949,15 @@ the right."
 
       ;; Fix tab key conflict
       (org-set-local 'yas/trigger-key [tab])
-      (define-key yas/keymap [tab] 'yas/next-field-or-maybe-expand)
+      (define-key yas/keymap [tab] 'yas/next-field-or-maybe-expand))))
 
-      ;; Let me open lines above again
-      (evil-define-key 'normal evil-org-mode-map
-        "O" 'evil-open-above)
+(use-package pandoc-mode
+  :config
+  (progn
+    (add-hook 'markdown-mode-hook 'pandoc-mode)
+    (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)))
 
-      (general-define-key :keymaps 'org-mode-map
-        :states '(normal visual insert emacs)
-        :prefix grass/leader2
-        :non-normal-prefix "M-,"
-        "d" 'grass/insert-org-date-header
-        "m" 'hydra-org-move/body
-        "g" 'org-mac-grab-link
-        "a" 'org-agenda
-        "o" 'org-insert-heading
-        "e" 'org-export-dispatch
-        "l" 'org-toggle-link-display
-        "s" 'org-sort-entries
-        "c" 'org-cycle-agenda-files))))
+
 
 ;;;;;;;;;;
 ;; Ruby ;;
@@ -2526,6 +2534,7 @@ the right."
     :prefix grass/leader2
     :non-normal-prefix "M-,"
     "p" 'grass/markdown-open-in-marked-app
+    "P" 'pandoc-main-hydra/body
     "t" 'markdown-toc-generate-toc
     "<right>" ' markdown-promote
     "<left>" ' markdown-demote
