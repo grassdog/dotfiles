@@ -269,6 +269,22 @@
   (setq ivy-re-builders-alist
     '((swiper . ivy--regex-plus)
        (t . ivy--regex-fuzzy)))
+
+  (general-define-key :keymaps '(ivy-occur-mode-map ivy-occur-grep-mode-map)
+    :states '(emacs)
+    "/" 'evil-search-forward
+    ":" 'evil-ex
+    "h" 'evil-backward-char
+    "j" 'evil-next-visual-line
+    "k" 'evil-previous-visual-line
+    "l" 'evil-forward-char
+    "n" 'evil-search-next
+    "N" 'evil-search-previous
+    "v" 'evil-visual-char
+    "V" 'evil-visual-line
+    "gg" 'evil-goto-first-line
+    "G" 'evil-goto-line
+    "C-g" 'ivy-occur-revert-buffer)
   (ivy-mode 1))
 
 (use-package counsel
@@ -629,7 +645,6 @@
   (define-key evil-motion-state-map (kbd "glf") 'evil-forward-defun-motion)
   (define-key evil-motion-state-map (kbd "glF") 'evil-backward-defun-motion)
 
-
   (evil-mode t)
 
   ;; Yank till end of line
@@ -701,6 +716,12 @@
                                  ;; (haskell-interactive-mode . emacs)
                                  ;; (undo-tree-visualizer-mode . emacs)
                                  ;; (cider-repl-mode . emacs)
+                                 (occur-mode . emacs)
+                                 (ivy-occur-mode . emacs)
+                                 (ivy-occur-grep-mode . emacs)
+                                 (gist-list-menu-mode . emacs)
+                                 (gist-list-mode . emacs)
+                                 (ag-mode . emacs)
                                  (cider-stacktrace-mode . motion)
                                  (cider-popup-buffer-mode . motion)
                                  (help-mode . normal)
@@ -1260,15 +1281,32 @@ Repeated invocations toggle between the two most recently open buffers."
 (use-package github-browse-file
   :commands github-browse-file)
 
+
 (use-package gist
   :commands
   (gist-buffer gist-buffer-private gist-list gist-region gist-region-private)
   :config
   (progn
-    (evilified-state-evilify gist-list-mode gist-list-menu-mode-map
+    (general-define-key :keymaps '(gist-list-menu-mode-map gist-list-mode-map)
+      :states '(emacs)
+      "/" 'evil-search-forward
+      ":" 'evil-ex
+      "h" 'evil-backward-char
+      "j" 'evil-next-visual-line
+      "k" 'evil-previous-visual-line
+      "l" 'evil-forward-char
+      "n" 'evil-search-next
+      "N" 'evil-search-previous
+      "v" 'evil-visual-char
+      "V" 'evil-visual-line
+      "gg" 'evil-goto-first-line
+      "G" 'evil-goto-line
+
       "f" 'gist-fetch-current
       "K" 'gist-kill-current
-      "o" 'gist-browse-current-url)))
+      "o" 'gist-browse-current-url
+      )))
+
 
 (use-package git-timemachine
   :commands git-timemachine)
@@ -1496,6 +1534,21 @@ Repeated invocations toggle between the two most recently open buffers."
 
 
 (use-package ag
+  :config
+  (general-define-key :keymaps 'ag-mode-map
+    :states '(emacs)
+    "/" 'evil-search-forward
+    ":" 'evil-ex
+    "h" 'evil-backward-char
+    "j" 'evil-next-visual-line
+    "k" 'evil-previous-visual-line
+    "l" 'evil-forward-char
+    "n" 'evil-search-next
+    "N" 'evil-search-previous
+    "v" 'evil-visual-char
+    "V" 'evil-visual-line
+    "gg" 'evil-goto-first-line
+    "G" 'evil-goto-line)
   :commands (ag ag-project))
 
 (use-package ripgrep
@@ -1728,7 +1781,7 @@ the right."
 (setq c-default-style "java")
 (setq-default c-basic-offset 2)
 
-                                        ; https://gist.github.com/mishoo/5487564
+;; https://gist.github.com/mishoo/5487564
 (defcustom stupid-indent-level 2
   "Indentation level for stupid-indent-mode")
 
@@ -3373,6 +3426,23 @@ If the error list is visible, hide it.  Otherwise, show it."
 (global-set-key (kbd "<backtab>") 'grass/stupid-outdent)
 (global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
 
+;; Evilify some modes
+(add-hook 'occur-mode-hook
+  (lambda ()
+    (general-define-key :keymaps 'occur-mode-map
+      :states '(emacs)
+      "/" 'evil-search-forward
+      ":" 'evil-ex
+      "h" 'evil-backward-char
+      "j" 'evil-next-visual-line
+      "k" 'evil-previous-visual-line
+      "l" 'evil-forward-char
+      "n" 'evil-search-next
+      "N" 'evil-search-previous
+      "v" 'evil-visual-char
+      "V" 'evil-visual-line
+      "gg" 'evil-goto-first-line
+      "G" 'evil-goto-line)))
 
 (provide 'init)
 ;;; init.el ends her
