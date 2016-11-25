@@ -19,3 +19,4 @@ TAGS
 *.elc
 
 .tern-port
+vendor/cache
