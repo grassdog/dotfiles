@@ -271,20 +271,8 @@
        (t . ivy--regex-fuzzy)))
 
   (general-define-key :keymaps '(ivy-occur-mode-map ivy-occur-grep-mode-map)
-    :states '(emacs)
-    "/" 'evil-search-forward
-    ":" 'evil-ex
-    "h" 'evil-backward-char
-    "j" 'evil-next-visual-line
-    "k" 'evil-previous-visual-line
-    "l" 'evil-forward-char
-    "n" 'evil-search-next
-    "N" 'evil-search-previous
-    "v" 'evil-visual-char
-    "V" 'evil-visual-line
-    "gg" 'evil-goto-first-line
-    "G" 'evil-goto-line
-    "C-g" 'ivy-occur-revert-buffer)
+    :states '(normal)
+    ",g" 'ivy-occur-revert-buffer)
   (ivy-mode 1))
 
 (use-package counsel
@@ -716,12 +704,13 @@
                                  ;; (haskell-interactive-mode . emacs)
                                  ;; (undo-tree-visualizer-mode . emacs)
                                  ;; (cider-repl-mode . emacs)
-                                 (occur-mode . emacs)
-                                 (ivy-occur-mode . emacs)
-                                 (ivy-occur-grep-mode . emacs)
-                                 (gist-list-menu-mode . emacs)
-                                 (gist-list-mode . emacs)
-                                 (ag-mode . emacs)
+                                 (occur-mode . normal)
+                                 (ivy-occur-mode . normal)
+                                 (ivy-occur-grep-mode . normal)
+                                 (gist-list-menu-mode . normal)
+                                 (gist-list-mode . normal)
+
+                                 (ag-mode . normal)
                                  (cider-stacktrace-mode . motion)
                                  (cider-popup-buffer-mode . motion)
                                  (help-mode . normal)
@@ -1288,24 +1277,21 @@ Repeated invocations toggle between the two most recently open buffers."
   :config
   (progn
     (general-define-key :keymaps '(gist-list-menu-mode-map gist-list-mode-map)
-      :states '(emacs)
-      "/" 'evil-search-forward
-      ":" 'evil-ex
-      "h" 'evil-backward-char
-      "j" 'evil-next-visual-line
-      "k" 'evil-previous-visual-line
-      "l" 'evil-forward-char
-      "n" 'evil-search-next
-      "N" 'evil-search-previous
-      "v" 'evil-visual-char
-      "V" 'evil-visual-line
-      "gg" 'evil-goto-first-line
-      "G" 'evil-goto-line
-
-      "f" 'gist-fetch-current
-      "K" 'gist-kill-current
-      "o" 'gist-browse-current-url
-      )))
+      :states '(normal)
+      "RET" 'gist-fetch-current
+      ",g" 'gist-list-reload
+      ",e" 'gist-edit-current-description
+      ",k" 'gist-kill-current
+      ",+" 'gist-add-buffer
+      ",-" 'gist-remove-file
+      ",y" 'gist-print-current-url
+      ",b" 'gist-browse-current-url
+      ",*" 'gist-star
+      ",^" 'gist-unstar
+      ",f" 'gist-fork
+      ",f" 'gist-fetch-current
+      ",K" 'gist-kill-current
+      ",o" 'gist-browse-current-url)))
 
 
 (use-package git-timemachine
@@ -1534,26 +1520,10 @@ Repeated invocations toggle between the two most recently open buffers."
 
 
 (use-package ag
-  :config
-  (general-define-key :keymaps 'ag-mode-map
-    :states '(emacs)
-    "/" 'evil-search-forward
-    ":" 'evil-ex
-    "h" 'evil-backward-char
-    "j" 'evil-next-visual-line
-    "k" 'evil-previous-visual-line
-    "l" 'evil-forward-char
-    "n" 'evil-search-next
-    "N" 'evil-search-previous
-    "v" 'evil-visual-char
-    "V" 'evil-visual-line
-    "gg" 'evil-goto-first-line
-    "G" 'evil-goto-line)
   :commands (ag ag-project))
 
 (use-package ripgrep
   :commands (ripgrep-regexp))
-
 
 
 ;;;;;;;;;;;;;;;
@@ -3425,24 +3395,6 @@ If the error list is visible, hide it.  Otherwise, show it."
 
 (global-set-key (kbd "<backtab>") 'grass/stupid-outdent)
 (global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
-
-;; Evilify some modes
-(add-hook 'occur-mode-hook
-  (lambda ()
-    (general-define-key :keymaps 'occur-mode-map
-      :states '(emacs)
-      "/" 'evil-search-forward
-      ":" 'evil-ex
-      "h" 'evil-backward-char
-      "j" 'evil-next-visual-line
-      "k" 'evil-previous-visual-line
-      "l" 'evil-forward-char
-      "n" 'evil-search-next
-      "N" 'evil-search-previous
-      "v" 'evil-visual-char
-      "V" 'evil-visual-line
-      "gg" 'evil-goto-first-line
-      "G" 'evil-goto-line)))
 
 (provide 'init)
 ;;; init.el ends her
