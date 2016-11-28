@@ -812,8 +812,8 @@
 (use-package drag-stuff
   :diminish drag-stuff-mode
   :init
-  (setq drag-stuff-modifier '(control shift))
-  (drag-stuff-global-mode 1))
+  (drag-stuff-global-mode 1)
+  (drag-stuff-define-keys))
 
 
 ;; Keep system clipboard separate from kill ring
