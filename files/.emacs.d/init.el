@@ -1328,6 +1328,17 @@ Repeated invocations toggle between the two most recently open buffers."
   :init
   (global-git-gutter-mode t))
 
+(use-package ediff
+  :init
+  (progn
+    (setq-default
+      ediff-window-setup-function 'ediff-setup-windows-plain
+      ediff-split-window-function 'split-window-horizontally
+      ediff-merge-split-window-function 'split-window-horizontally)
+
+    ;; Restore window layout when done
+    (add-hook 'ediff-quit-hook #'winner-undo)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Symbol insertion ;;
@@ -3314,6 +3325,7 @@ If the error list is visible, hide it.  Otherwise, show it."
 
   "u" '(:ignore t :which-key "Utilities")
   "uU" 'crux-view-url
+  "ud" 'ediff-buffers
   "ut" 'display-time-world
   "uc" 'quick-calc
   "uu" 'browse-url
