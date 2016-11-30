@@ -3350,7 +3350,8 @@ If the error list is visible, hide it.  Otherwise, show it."
   "w" '(:ignore t :which-key "Windows/UI")
   "wl" 'toggle-truncate-lines
   "wz" 'hydra-zoom-text/body
-  "ww" 'hydra-window/body
+  "ww" 'evil-window-next
+  "wm" '(hydra-window/body :which-key "window mini state")
   "wo" 'delete-other-windows
   "wk" 'delete-window
   "wt" 'crux-transpose-windows
