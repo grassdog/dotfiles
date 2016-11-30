@@ -2870,6 +2870,13 @@ the right."
 ;; Elisp ;;
 ;;;;;;;;;;;
 
+
+;; Easier navigation of my .init.el
+(defun imenu-elisp-sections ()
+  (setq imenu-prev-index-position-function nil)
+  (add-to-list 'imenu-generic-expression '("Sections" "^;; \\(.+\\) ;;$" 1) t))
+(add-hook 'emacs-lisp-mode-hook 'imenu-elisp-sections)
+
 (add-hook 'emacs-lisp-mode-hook
   (lambda ()
     (general-define-key :keymaps 'emacs-lisp-mode-map
@@ -3243,6 +3250,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   "sG" 'counsel-git-grep
   "ss" 'swiper
   "s;" 'iedit-mode
+  "si" 'counsel-imenu
   "s:" 'grass/iedit-dwim
   "sr" 'grass/replace-string-in-entire-buffer
   "sR" 'grass/replace-regexp-in-entire-buffer
