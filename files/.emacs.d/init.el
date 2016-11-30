@@ -1897,7 +1897,11 @@ the right."
   (use-package evil-org
     :diminish evil-org-mode)
 
-  (use-package ox-pandoc)
+  (use-package ox-pandoc
+    :config
+    (setq org-pandoc-options-for-markdown '((atx-headers . t))
+          org-pandoc-options-for-markdown_mmd '((atx-headers . t))
+          org-pandoc-options-for-markdown_github '((atx-headers . t))))
 
   ;; Create reveal js presentations in org mode.
   (use-package ox-reveal
