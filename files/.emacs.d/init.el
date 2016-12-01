@@ -3344,6 +3344,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   "uc" 'quick-calc
   "uu" 'browse-url
   "uf" 'reveal-in-osx-finder
+  "uw" 'count-words
 
   "v" 'er/expand-region
 
