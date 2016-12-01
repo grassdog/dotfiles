@@ -3296,6 +3296,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   "h" '(:ignore t :which-key "Help")
   "hf" 'describe-function
   "hv" 'describe-variable
+  "hk" 'describe-key
   "ha" 'apropos
 
   "e" '(:ignore t :which-key "Editing/Text")
