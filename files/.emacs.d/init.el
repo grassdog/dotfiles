@@ -3425,6 +3425,7 @@ If the error list is visible, hide it.  Otherwise, show it."
 
 (global-set-key (kbd "<backtab>") 'grass/stupid-outdent)
 (global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
+(global-set-key (kbd "<home>") #'crux-move-beginning-of-line)
 
 (provide 'init)
 ;;; init.el ends her
