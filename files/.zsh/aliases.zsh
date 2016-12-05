@@ -37,6 +37,8 @@ alias le='less -SR'
 alias be="bundle exec"
 alias bi="bundle install"
 
+alias showerthought="fortune ~/Dropbox/Backups/showerthoughts"
+
 # Give me context
 alias ag='ag -C'
 
