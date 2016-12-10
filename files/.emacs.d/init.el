@@ -1941,6 +1941,7 @@ the right."
     '((emacs-lisp . t)
        (js . t)
        (ruby . t)
+       (dot . t)
        (sh . t)))
 
   ;; Highlight source blocks
@@ -3213,6 +3214,27 @@ If the error list is visible, hide it.  Otherwise, show it."
       "S" 'restclient-http-send-current
       "r" 'restclient-http-send-current-raw-stay-in-window
       "R" 'restclient-http-send-current-raw)))
+
+
+;;;;;;;;;;;;;;
+;; Graphviz ;;
+;;;;;;;;;;;;;;
+
+(use-package graphviz-dot-mode
+  :config
+  (progn
+    (defun grass/open-attribute-help ()
+      (interactive)
+      (browse-url "http://www.graphviz.org/doc/info/attrs.html"))
+    (general-define-key :keymaps 'graphviz-dot-mode-map
+      :states '(normal visual insert emacs)
+      :prefix grass/leader2
+      :non-normal-prefix "M-,"
+      "c" 'compile
+      "p" 'graphviz-dot-preview
+      "v" 'graphviz-dot-view
+      "h" 'grass/open-attribute-help)))
+
 
 ;;;;;;;;;;;;;;;;;;
 ;; Key bindings ;;

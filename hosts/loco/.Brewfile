@@ -12,6 +12,8 @@ brew 'chruby'
 brew 'ctags'
 brew 'diff-so-fancy'
 brew 'ripgrep'
+brew 'yarn'
+brew 'graphviz'
 
 brew 'dnsmasq', restart_service: :changed
 
