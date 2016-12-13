@@ -1457,81 +1457,19 @@ Repeated invocations toggle between the two most recently open buffers."
 
 (define-key isearch-mode-map (kbd "C-x") 'grass/isearch-yank-current-word)
 
+(defun grass/replace-regexp-in-entire-buffer ()
+  "Perform regular-expression replacement throughout buffer."
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+      (call-interactively 'anzu-replace-regexp)))
 
-(defun grass/replace-string-in-entire-buffer (from-string to-string &optional delimited start end)
-  "This is a modified version of `replace-string'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
-  (interactive
-    (let ((common
-            (query-replace-read-args
-              (concat "Replace"
-                (if current-prefix-arg " word" "")
-                (if (and transient-mark-mode mark-active) " in region" ""))
-              nil)))
-      (list (nth 0 common) (nth 1 common) (nth 2 common)
-        (if (and transient-mark-mode mark-active)
-          (region-beginning)
-          (buffer-end -1))
-        (if (and transient-mark-mode mark-active)
-          (region-end)
-          (buffer-end 1)))))
-  (perform-replace from-string to-string nil nil delimited nil nil start end))
-
-(defun grass/replace-regexp-in-entire-buffer (regexp to-string &optional delimited start end)
-  "This is a modified version of `replace-regexp'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
-  (interactive
-    (let ((common
-            (query-replace-read-args
-              (concat "Replace"
-                (if current-prefix-arg " word" "")
-                " regexp"
-                (if (and transient-mark-mode mark-active) " in region" ""))
-              t)))
-      (list (nth 0 common) (nth 1 common) (nth 2 common)
-        (if (and transient-mark-mode mark-active)
-          (region-beginning)
-          (buffer-end -1))
-        (if (and transient-mark-mode mark-active)
-          (region-end)
-          (buffer-end 1)))))
-  (perform-replace regexp to-string nil t delimited nil nil start end))
-
-(defun grass/query-replace-regexp-in-entire-buffer (regexp to-string &optional delimited start end)
-  "This is a modified version of `query-replace-regexp'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
-  (interactive
-    (let ((common
-            (query-replace-read-args
-              (concat "Replace"
-                (if current-prefix-arg " word" "")
-                " regexp"
-                (if (and transient-mark-mode mark-active) " in region" ""))
-              t)))
-      (list (nth 0 common) (nth 1 common) (nth 2 common)
-        (if (and transient-mark-mode mark-active)
-          (region-beginning)
-          (buffer-end -1))
-        (if (and transient-mark-mode mark-active)
-          (region-end)
-          (buffer-end 1)))))
-  (perform-replace regexp to-string t t delimited nil nil start end))
-
-(defun grass/query-replace-string-in-entire-buffer (from-string to-string &optional delimited start end)
-  "This is a modified version of `query-replace-string'. This modified version defaults to operating on the entire buffer instead of working only from POINT to the end of the buffer."
-  (interactive
-    (let ((common
-            (query-replace-read-args
-              (concat "Replace"
-                (if current-prefix-arg " word" "")
-                (if (and transient-mark-mode mark-active) " in region" ""))
-              nil)))
-      (list (nth 0 common) (nth 1 common) (nth 2 common)
-        (if (and transient-mark-mode mark-active)
-          (region-beginning)
-          (buffer-end -1))
-        (if (and transient-mark-mode mark-active)
-          (region-end)
-          (buffer-end 1)))))
-  (perform-replace from-string to-string t nil delimited nil nil start end))
-
+(defun grass/query-replace-regexp-in-entire-buffer ()
+  "Perform regular-expression replacement throughout buffer."
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+      (call-interactively 'anzu-query-replace-regexp)))
 
 (use-package ag
   :commands (ag ag-project))
@@ -3279,12 +3217,10 @@ If the error list is visible, hide it.  Otherwise, show it."
   "s;" 'iedit-mode
   "si" 'counsel-imenu
   "s:" 'grass/iedit-dwim
-  "sr" 'grass/replace-string-in-entire-buffer
+  "sr" 'grass/query-replace-regexp-in-entire-buffer
   "sR" 'grass/replace-regexp-in-entire-buffer
-  "sq" 'grass/query-replace-string-in-entire-buffer
-  "sQ" 'grass/query-replace-regexp-in-entire-buffer
   "sf" 'isearch-forward-regexp
-  "sb" 'isearch-reverse-regexp
+  "sF" 'isearch-reverse-regexp
   "sp" '(grass/counsel-rg-current-project :which-key "rg project")
   "sP" 'projectile-ag
 
