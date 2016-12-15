@@ -1829,8 +1829,6 @@ the right."
   (setq org-startup-indented t)
   (setq org-hide-leading-stars t)
   (setq org-agenda-files '("~/Dropbox/Notes"))
-  ;; Don't expand links by default
-  (setq org-descriptive-links nil)
 
   ;; Prevent demoting heading also shifting text inside sections
   (setq org-adapt-indentation nil)
@@ -1921,6 +1919,9 @@ the right."
     (lambda ()
       ;; No auto indent please
       (setq org-export-html-postamble nil)
+
+      ;; Don't expand links by default
+      (setq org-descriptive-links t)
 
       (diminish 'org-indent-mode)
 
