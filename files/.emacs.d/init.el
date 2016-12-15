@@ -1581,7 +1581,6 @@ Repeated invocations toggle between the two most recently open buffers."
               corral-single-quotes-backward
               corral-double-quotes-backward))
 
-;; TODO Add remove parens method
 (defhydra hydra-surround (:columns 4)
   "Corral"
   ("(" corral-parentheses-backward "Back")
@@ -1830,6 +1829,9 @@ the right."
   (setq org-startup-indented t)
   (setq org-hide-leading-stars t)
   (setq org-agenda-files '("~/Dropbox/Notes"))
+  ;; Don't expand links by default
+  (setq org-descriptive-links nil)
+
   ;; Prevent demoting heading also shifting text inside sections
   (setq org-adapt-indentation nil)
 
