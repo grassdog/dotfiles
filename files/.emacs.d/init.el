@@ -1518,8 +1518,8 @@ Repeated invocations toggle between the two most recently open buffers."
 (eval-after-load 'company
   '(progn
      (general-define-key :keymaps 'company-active-map
-       "TAB" 'company-complete-common-or-cycle
-       "<tab>" 'company-complete-common-or-cycle
+       "TAB" 'nil
+       "<tab>" 'nil
        "S-TAB" 'company-select-previous
        "<backtab>" 'company-select-previous
        "ESC" 'company-abort)))
