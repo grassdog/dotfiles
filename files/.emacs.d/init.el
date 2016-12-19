@@ -3320,6 +3320,14 @@ If the error list is visible, hide it.  Otherwise, show it."
   "wz" 'hydra-zoom-text/body
   "ww" 'evil-window-next
   "wm" '(hydra-window/body :which-key "window mini state")
+  "wv" '((lambda ()
+         (interactive)
+         (split-window-right)
+         (windmove-right)) :which-key "Split Vertically")
+  "wh" '((lambda ()
+         (interactive)
+         (split-window-below)
+         (windmove-down)) :which-key "Split Horizontal")
   "wo" 'delete-other-windows
   "wk" 'delete-window
   "wt" 'crux-transpose-windows
