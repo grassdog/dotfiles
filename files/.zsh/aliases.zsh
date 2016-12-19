@@ -276,11 +276,6 @@ bindkey "^S" "insert-selecta-path-in-command-line"
 # SSL #
 #######
 
-# Pass a domain to check
-function check-ssl-expiry() {
-  echo | openssl s_client -connect $1:443 2>/dev/null | openssl x509 -noout -dates
-}
-
-function check-ssl-details() {
+function get-ssl-details() {
   echo | openssl s_client -connect $1:443 2>/dev/null | openssl x509 -noout -issuer -subject -dates
 }
