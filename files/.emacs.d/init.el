@@ -3234,6 +3234,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   "bs" 'grass/switch-to-scratch-buffer
   "bk" 'kill-this-buffer
   "bo" 'crux-kill-other-buffers
+  "bi" 'ibuffer
 
   "k" '(:ignore t :which-key "Bookmarks")
   "ki" 'grass/open-init
