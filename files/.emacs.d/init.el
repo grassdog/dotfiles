@@ -2361,7 +2361,8 @@ the right."
   (add-to-list 'auto-mode-alist '("\\.styl\\'" . stylus-mode)))
 
 (use-package scss-mode
-  :mode "\\.scss$"
+  :mode (("\\.scss$"  . scss-mode)
+          ("\\.sass$" . scss-mode))
   :config
   (use-package rainbow-mode)
   (add-hook 'scss-mode-hook
