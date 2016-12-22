@@ -1,7 +1,7 @@
-# ~/.tmuxinator/dev.yml
+# ~/.tmuxinator/infra.yml
 
-name: dev
-root: ~/
+name: infra
+root: ~/src/identity-infrastructure
 
 # Optional tmux socket
 # socket_name: foo
@@ -28,8 +28,8 @@ root: ~/
 # post: tmux -CC attach -t infographics
 
 windows:
-  - dev:
+  - identity:
       layout: main-horizontal
       panes:
-        - cd ~/src
-        - cd ~/.dotfiles
+        -
+        -

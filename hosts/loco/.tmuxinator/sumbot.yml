@@ -28,5 +28,8 @@ root: ~/dev/sumbot
 # post: tmux -CC attach -t sumbot
 
 windows:
-  - sumbot:
-  - hud: cd hud
+  - hud:
+      layout: main-horizontal
+      panes:
+        - cd hud
+        - cd hud

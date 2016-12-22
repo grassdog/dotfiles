@@ -28,7 +28,8 @@ root: ~/dev/firehose
 # post: tmux -CC attach -t infographics
 
 windows:
-  - src:
-  - server: mix phoenix.server
-  - iex: iex -S mix
-
+  - firehose:
+      layout: main-horizontal
+      panes:
+        -
+        - mix phoenix.server

@@ -28,4 +28,8 @@ root: ~/dev/dance.computer
 # post: tmux -CC attach -t infographics
 
 windows:
-  - src:
+  - dance:
+      layout: main-horizontal
+      panes:
+        -
+        -

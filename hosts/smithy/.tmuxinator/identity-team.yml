@@ -1,7 +1,7 @@
-# ~/.tmuxinator/dev.yml
+# ~/.tmuxinator/identity-team.yml
 
-name: dev
-root: ~/
+name: identity-team
+root: ~/src/identity-team
 
 # Optional tmux socket
 # socket_name: foo
@@ -28,8 +28,8 @@ root: ~/
 # post: tmux -CC attach -t infographics
 
 windows:
-  - dev:
+  - identity-team:
       layout: main-horizontal
       panes:
-        - cd ~/src
-        - cd ~/.dotfiles
+        -
+        -

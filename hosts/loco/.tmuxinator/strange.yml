@@ -28,4 +28,8 @@ root: ~/dev/strangemadness.com
 # post: tmux -CC attach -t infographics
 
 windows:
-  - src:
+  - strange:
+      layout: main-horizontal
+      panes:
+        -
+        -

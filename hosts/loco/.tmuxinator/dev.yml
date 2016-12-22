@@ -28,5 +28,8 @@ root: ~/
 # post: tmux -CC attach -t infographics
 
 windows:
-  - dev: cd ~/dev
-  - dotfiles: cd ~/.dotfiles
+  - dev:
+      layout: main-horizontal
+      panes:
+        - cd ~/dev
+        - cd ~/.dotfiles

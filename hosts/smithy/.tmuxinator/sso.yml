@@ -1,7 +1,7 @@
-# ~/.tmuxinator/dev.yml
+# ~/.tmuxinator/sso.yml
 
-name: dev
-root: ~/
+name: sso
+root: ~/src/sso_server
 
 # Optional tmux socket
 # socket_name: foo
@@ -28,8 +28,8 @@ root: ~/
 # post: tmux -CC attach -t infographics
 
 windows:
-  - dev:
+  - sso:
       layout: main-horizontal
       panes:
-        - cd ~/src
-        - cd ~/.dotfiles
+        -
+        -
