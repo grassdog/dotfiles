@@ -1913,6 +1913,7 @@ the right."
       "l" 'org-toggle-link-display
       "i" 'org-toggle-inline-images
       "s" 'org-sort-entries
+      "t" 'org-set-tags
       "c" 'org-cycle-agenda-files)
 
   (add-hook 'org-mode-hook
