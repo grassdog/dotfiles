@@ -28,7 +28,7 @@ root: ~/src/identity-infrastructure
 # post: tmux -CC attach -t infographics
 
 windows:
-  - identity:
+  - infra:
       layout: main-horizontal
       panes:
         -

@@ -1,6 +1,6 @@
-# ~/.tmuxinator/identity-team.yml
+# ~/.tmuxinator/team.yml
 
-name: identity-team
+name: team
 root: ~/src/identity-team
 
 # Optional tmux socket
@@ -28,7 +28,7 @@ root: ~/src/identity-team
 # post: tmux -CC attach -t infographics
 
 windows:
-  - identity-team:
+  - team:
       layout: main-horizontal
       panes:
         -
