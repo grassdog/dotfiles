@@ -813,6 +813,7 @@
   :diminish drag-stuff-mode
   :init
   (setq drag-stuff-except-modes '(org-mode))
+  (setq drag-stuff-modifier '(meta super))
   (drag-stuff-global-mode 1)
   (drag-stuff-define-keys))
 
