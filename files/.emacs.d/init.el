@@ -2533,8 +2533,8 @@ the right."
 ;;;;;;;;;;;
 
 (use-package emojify
-
-  :config
+  :commands emojify-insert-emoji
+  :init
   (progn
     (add-hook 'org-mode-hook 'emojify-mode)
     (add-hook 'markdown-mode-hook 'emojify-mode)))
