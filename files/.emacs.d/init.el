@@ -1368,6 +1368,10 @@ Repeated invocations toggle between the two most recently open buffers."
 ;; Auto save on focus lost ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun grass/toggle-auto-save ()
+  "Toggle auto save setting"
+  (interactive)
+  (setq auto-save-default (if auto-save-default nil t)))
 
 (defun grass/auto-save-all()
   "Save all modified buffers that point to files."
@@ -3456,4 +3460,4 @@ If the error list is visible, hide it.  Otherwise, show it."
 (global-set-key (kbd "<home>") #'crux-move-beginning-of-line)
 
 (provide 'init)
-;;; init.el ends her
+;;; init.el ends here
