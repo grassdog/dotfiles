@@ -195,6 +195,15 @@
 ;; Silence advice warnings
 (setq ad-redefinition-action 'accept)
 
+
+;;;;;;;;;;;;;;;;
+;; Encryption ;;
+;;;;;;;;;;;;;;;;
+
+(setq epg-gpg-program "gpg2")
+(setq epa-file-encrypt-to "ray.grasso@gmail.com")
+
+
 ;;;;;;;;;;;;
 ;; Themes ;;
 ;;;;;;;;;;;;
@@ -1888,6 +1897,14 @@ the right."
     org-src-tab-acts-natively t
     org-confirm-babel-evaluate nil)
 
+  (require 'org-crypt)
+  ;; Automatically encrypt entries tagged `crypt` on save.
+  ;; (org-crypt-use-before-save-magic)
+  (setq org-tags-exclude-from-inheritance '("crypt"))
+  ;; GPG key to use for encryption
+  (setq org-crypt-key "ray.grasso@gmail.com")
+  (setq org-crypt-disable-auto-save nil)
+
   (defhydra hydra-org-move (:color red :columns 3)
     "Org Mode Movements"
     ("n" outline-next-visible-heading "next heading")
@@ -1904,13 +1921,18 @@ the right."
     (general-define-key :keymaps 'org-mode-map
       :states '(normal visual insert emacs)
       :prefix grass/leader2
-      :non-normal-prefix "M-,"
+      :non-normal-prefix "C-,"
       "d" 'grass/insert-org-date-header
       "m" 'hydra-org-move/body
       "g" 'org-mac-grab-link
       "a" 'org-agenda
       "o" 'org-insert-heading
       "e" 'org-export-dispatch
+      "E" '(:ignore t :which-key "org encrypt")
+      "Ee" 'org-encrypt-entry
+      "EE" 'org-encrypt-entries
+      "Ed" 'org-decrypt-entry
+      "ED" 'org-decrypt-entries
       "l" 'org-toggle-link-display
       "i" 'org-toggle-inline-images
       "s" 'org-sort-entries
@@ -1931,6 +1953,9 @@ the right."
       (push '(?e . ("#+BEGIN_EXAMPLE" . "#+END_EXAMPLE")) evil-surround-pairs-alist)
       (push '(?s . ("#+BEGIN_SRC" . "#+END_SRC")) evil-surround-pairs-alist)
       (push '(?q . ("#+BEGIN_QUOTE" . "#+END_QUOTE")) evil-surround-pairs-alist)
+
+      ;; Encrypt on save
+      (add-hook 'before-save-hook 'org-encrypt-entries nil t)
 
       ;; Fix tab key conflict
       (org-set-local 'yas/trigger-key [tab])
