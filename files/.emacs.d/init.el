@@ -3358,6 +3358,8 @@ If the error list is visible, hide it.  Otherwise, show it."
   "f" '(:ignore t :which-key "Files")
   "fr" 'counsel-recentf
   "ff" 'counsel-find-file
+  "fE" 'epa-encrypt-file
+  "fD" 'epa-decrypt-file
   "fR" 'grass/rename-file-and-buffer
   "fc" 'grass/copy-buffer-filename
   "fd" 'crux-delete-file-and-buffer
