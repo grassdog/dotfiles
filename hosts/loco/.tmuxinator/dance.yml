@@ -29,7 +29,7 @@ root: ~/dev/dance.computer
 
 windows:
   - dance:
-      layout: main-horizontal
+      layout: even-vertical
       panes:
         -
         -

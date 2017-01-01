@@ -29,7 +29,7 @@ root: ~/
 
 windows:
   - dev:
-      layout: main-horizontal
+      layout: even-horizontal
       panes:
         - cd ~/src
         - cd ~/.dotfiles

@@ -29,7 +29,7 @@ root: ~/dev/firehose
 
 windows:
   - firehose:
-      layout: main-horizontal
+      layout: even-vertical
       panes:
         -
         - mix phoenix.server

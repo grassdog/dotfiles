@@ -29,7 +29,7 @@ root: ~/dev/sumbot
 
 windows:
   - hud:
-      layout: main-horizontal
+      layout: even-vertical
       panes:
         - cd hud
         - cd hud

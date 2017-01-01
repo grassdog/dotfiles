@@ -29,7 +29,7 @@ root: ~/src/sso_server
 
 windows:
   - sso:
-      layout: main-horizontal
+      layout: even-horizontal
       panes:
         -
         -

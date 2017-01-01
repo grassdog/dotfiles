@@ -29,7 +29,7 @@ root: ~/dev/strangemadness.com
 
 windows:
   - strange:
-      layout: main-horizontal
+      layout: even-vertical
       panes:
         -
         -
