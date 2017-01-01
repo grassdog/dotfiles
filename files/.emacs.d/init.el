@@ -44,6 +44,9 @@
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
+(setq org-export-coding-system 'utf-8)
+(set-charset-priority 'unicode)
+(setq default-process-coding-system '(utf-8-unix . utf-8-unix))
 
 ;; File paths
 (defvar grass/dotfiles-dir (file-name-directory load-file-name)
