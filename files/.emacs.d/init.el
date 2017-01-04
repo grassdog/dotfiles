@@ -1714,6 +1714,7 @@ the right."
 (setq-default nxml-child-indent 2)
 (setq typescript-indent-level 2)
 (setq ruby-indent-level 2)
+(setq sgml-basic-offset 2)
 
 ;; Default formatting style for C based modes
 (setq c-default-style "java")
