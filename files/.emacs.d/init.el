@@ -1940,6 +1940,8 @@ the right."
       "EE" 'org-encrypt-entries
       "Ed" 'org-decrypt-entry
       "ED" 'org-decrypt-entries
+      "<" 'org-promote-subtree
+      ">" 'org-demote-subtree
       "l" 'org-toggle-link-display
       "i" 'org-toggle-inline-images
       "s" 'org-sort-entries
@@ -1965,7 +1967,7 @@ the right."
       (add-hook 'before-save-hook 'org-encrypt-entries nil t)
 
       ;; Fix tab key conflict
-      (org-set-local 'yas/trigger-key [tab])
+      (setq-local 'yas/trigger-key [tab])
       (define-key yas/keymap [tab] 'yas/next-field-or-maybe-expand))))
 
 (use-package pandoc-mode
