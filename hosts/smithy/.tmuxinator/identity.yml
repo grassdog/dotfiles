@@ -29,7 +29,3 @@ root: ~/src/identity
 
 windows:
   - identity:
-      layout: even-horizontal
-      panes:
-        -
-        -

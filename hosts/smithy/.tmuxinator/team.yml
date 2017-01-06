@@ -29,7 +29,3 @@ root: ~/src/identity-team
 
 windows:
   - team:
-      layout: even-horizontal
-      panes:
-        -
-        -
