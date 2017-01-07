@@ -365,35 +365,9 @@
 
 ;; Simple indenting
 (require 'stupid-indent-mode)
-(diminish 'stupid-indent-mode "s")
-
-;; Remove these if stupid indent mode is set to default
-(defun grass/stupid-outdent-line ()
-  (interactive)
-  (let (col)
-    (save-excursion
-      (beginning-of-line-text)
-      (setq col (- (current-column) stupid-indent-level))
-      (when (>= col 0)
-        (indent-line-to col)))))
-
-(defun grass/stupid-outdent-region (start stop)
-  (interactive)
-  (setq stop (copy-marker stop))
-  (goto-char start)
-  (while (< (point) stop)
-    (unless (and (bolp) (eolp))
-      (grass/stupid-outdent-line))
-    (forward-line 1)))
-
-(defun grass/stupid-outdent ()
-  (interactive)
-  (if (use-region-p)
-    (save-excursion
-      (grass/stupid-outdent-region (region-beginning) (region-end))
-      (setq deactivate-mark nil))
-    (grass/stupid-outdent-line)))
-
+(diminish 'stupid-indent-mode "ⓘ")
+(add-hook 'prog-mode 'stupid-indent-mode)
+(add-hook 'css-mode 'stupid-indent-mode)
 
 (use-package highlight-indent-guides
   :commands highlight-indent-guides-mode
@@ -3471,7 +3445,7 @@ If the error list is visible, hide it.  Otherwise, show it."
 
 (general-imap "C-p" 'hippie-expand)
 
-(global-set-key (kbd "<backtab>") 'grass/stupid-outdent)
+(global-set-key (kbd "<backtab>") 'stupid-outdent)
 (global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
 (global-set-key (kbd "<home>") #'crux-move-beginning-of-line)
 
