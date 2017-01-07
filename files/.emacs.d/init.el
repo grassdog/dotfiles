@@ -363,8 +363,46 @@
   ("0" (text-scale-adjust 0) "reset")
   ("q" nil "quit" :color blue))
 
-(use-package highlight-indentation
-  :commands highlight-indentation-mode)
+;; Simple indenting
+(require 'stupid-indent-mode)
+(diminish 'stupid-indent-mode "s")
+
+;; Remove these if stupid indent mode is set to default
+(defun grass/stupid-outdent-line ()
+  (interactive)
+  (let (col)
+    (save-excursion
+      (beginning-of-line-text)
+      (setq col (- (current-column) stupid-indent-level))
+      (when (>= col 0)
+        (indent-line-to col)))))
+
+(defun grass/stupid-outdent-region (start stop)
+  (interactive)
+  (setq stop (copy-marker stop))
+  (goto-char start)
+  (while (< (point) stop)
+    (unless (and (bolp) (eolp))
+      (grass/stupid-outdent-line))
+    (forward-line 1)))
+
+(defun grass/stupid-outdent ()
+  (interactive)
+  (if (use-region-p)
+    (save-excursion
+      (grass/stupid-outdent-region (region-beginning) (region-end))
+      (setq deactivate-mark nil))
+    (grass/stupid-outdent-line)))
+
+
+(use-package highlight-indent-guides
+  :commands highlight-indent-guides-mode
+  :config
+  (progn
+    ;; (setq highlight-indent-guides-auto-odd-face-perc 35)
+    ;; (setq highlight-indent-guides-auto-even-face-perc 35)
+    ;; (setq highlight-indent-guides-auto-character-face-perc 45)
+    (setq highlight-indent-guides-method 'character)))
 
 (use-package window-numbering
   :config
@@ -1719,38 +1757,6 @@ the right."
 ;; Default formatting style for C based modes
 (setq c-default-style "java")
 (setq-default c-basic-offset 2)
-
-;; https://gist.github.com/mishoo/5487564
-(defcustom stupid-indent-level 2
-  "Indentation level for stupid-indent-mode")
-
-(defun grass/stupid-outdent-line ()
-  (interactive)
-  (let (col)
-    (save-excursion
-      (beginning-of-line-text)
-      (setq col (- (current-column) stupid-indent-level))
-      (when (>= col 0)
-        (indent-line-to col)))))
-
-(defun grass/stupid-outdent-region (start stop)
-  (interactive)
-  (setq stop (copy-marker stop))
-  (goto-char start)
-  (while (< (point) stop)
-    (unless (and (bolp) (eolp))
-      (grass/stupid-outdent-line))
-    (forward-line 1)))
-
-(defun grass/stupid-outdent ()
-  (interactive)
-  (if (use-region-p)
-    (save-excursion
-      (grass/stupid-outdent-region (region-beginning) (region-end))
-      (setq deactivate-mark nil))
-    (grass/stupid-outdent-line)))
-
-
 
 ;;;;;;;;;;;;;;;;
 ;; Whitespace ;;
@@ -3342,6 +3348,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   "eb" 'grass/comment-box
   "ed" 'grass/insert-datetime
   "ee" 'emojify-insert-emoji
+  "es" 'stupid-indent-mode
 
   "ea" '(:ignore t :which-key "Alignment")
   "eaa" 'align
@@ -3403,6 +3410,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   "wk" 'delete-window
   "wt" 'crux-transpose-windows
   "wn" 'nlinum-mode
+  "wi" 'highlight-indent-guides-mode
 
   "v" '(:ignore t :which-key "Vagrant")
   "VD" 'vagrant-destroy
