@@ -399,10 +399,9 @@
   :commands highlight-indent-guides-mode
   :config
   (progn
-    ;; (setq highlight-indent-guides-auto-odd-face-perc 35)
-    ;; (setq highlight-indent-guides-auto-even-face-perc 35)
-    ;; (setq highlight-indent-guides-auto-character-face-perc 45)
     (setq highlight-indent-guides-method 'character)))
+(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+
 
 (use-package window-numbering
   :config
