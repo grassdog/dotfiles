@@ -2083,7 +2083,7 @@ the right."
     :states '(normal visual insert emacs)
     :prefix grass/leader2
     :non-normal-prefix "M-,"
-    "{" '(grass/toggle-ruby-block-style :which-key "toggle block")
+    "b" '(grass/toggle-ruby-block-style :which-key "toggle block")
     "s" 'ruby-switch-to-inf
     "r" 'ruby-send-region
     "l" 'ruby-load-file
