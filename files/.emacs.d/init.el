@@ -1892,6 +1892,12 @@ the right."
   (setq org-crypt-key "ray.grasso@gmail.com")
   (setq org-crypt-disable-auto-save nil)
 
+  (defhydra hydra-org-promote ()
+    "promote demote subtrees"
+    ("<" 'org-promote-subtree "promote")
+    (">" 'org-demote-subtree "demote")
+    ("q" nil "quit" :color blue))
+
   (defhydra hydra-org-move (:color red :columns 3)
     "Org Mode Movements"
     ("n" outline-next-visible-heading "next heading")
@@ -1920,8 +1926,7 @@ the right."
       "EE" 'org-encrypt-entries
       "Ed" 'org-decrypt-entry
       "ED" 'org-decrypt-entries
-      "<" 'org-promote-subtree
-      ">" 'org-demote-subtree
+      "p" 'hydra-org-promote/body
       "l" 'org-toggle-link-display
       "i" 'org-toggle-inline-images
       "s" 'org-sort-entries
@@ -2413,8 +2418,8 @@ the right."
 ;;;;;;;;;;;;;;
 
 (use-package markdown-mode
-  :mode (("\\.markdown\\'"    . markdown-mode)
-          ("\\.md$"    . markdown-mode))
+  :mode (("\\.markdown\\'" . markdown-mode)
+          ("\\.md$" . markdown-mode))
   :config
   (use-package pandoc-mode
     :commands pandoc-mode
@@ -2525,12 +2530,18 @@ the right."
        ("h6"   "^###### \\(.*\\)$" 1)
        ("fn"   "^\\[\\^\\(.*\\)\\]" 1)))
 
-  (add-hook 'markdown-mode-hook
-    (lambda ()
-      ;; Remove for now as they interfere with indentation
-      ;; (define-key yas-minor-mode-map [(tab)] nil)
-      ;; (define-key yas-minor-mode-map (kbd "TAB") nil)
-      (setq imenu-generic-expression markdown-imenu-generic-expression)))
+    (defhydra hydra-markdown-promote ()
+      "promote demote headings"
+      ("<" markdown-promote "promote")
+      (">" markdown-demote "demote")
+      ("q" nil "quit" :color blue))
+
+      (add-hook 'markdown-mode-hook
+        (lambda ()
+          ;; Remove for now as they interfere with indentation
+          ;; (define-key yas-minor-mode-map [(tab)] nil)
+          ;; (define-key yas-minor-mode-map (kbd "TAB") nil)
+          (setq imenu-generic-expression markdown-imenu-generic-expression)))
 
   (general-define-key :keymaps 'markdown-mode-map
     :states '(normal visual insert emacs)
@@ -2539,8 +2550,7 @@ the right."
     "p" 'grass/markdown-open-in-marked-app
     "P" 'pandoc-main-hydra/body
     "t" 'markdown-toc-generate-toc
-    "<right>" ' markdown-promote
-    "<left>" ' markdown-demote
+    "h" 'hydra-markdown-promote/body
     "c" '(mmm-parse-buffer :which-key "highlight code blocks")
     "n" 'markdown-cleanup-list-numbers
     "e" 'markdown-export-and-preview))
