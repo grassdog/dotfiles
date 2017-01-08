@@ -365,8 +365,8 @@
 ;; Simple indenting
 (require 'stupid-indent-mode)
 (diminish 'stupid-indent-mode "ⓘ")
-(add-hook 'prog-mode 'stupid-indent-mode)
-(add-hook 'css-mode 'stupid-indent-mode)
+(add-hook 'prog-mode-hook 'stupid-indent-mode)
+(add-hook 'css-mode-hook 'stupid-indent-mode)
 
 (use-package highlight-indent-guides
   :commands highlight-indent-guides-mode
@@ -3434,6 +3434,7 @@ If the error list is visible, hide it.  Otherwise, show it."
 
   "C-x C-m" 'counsel-M-x
 
+  "s-p" 'counsel-projectile-find-file
   "s-e" 'hippie-expand
 
   "M-/" 'hippie-expand
