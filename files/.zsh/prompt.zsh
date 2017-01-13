@@ -101,6 +101,12 @@ prompt_time() {
   prompt_segment "%{$fg[green]%}%D{%T}"
 }
 
+prompt_aws_session() {
+  if [[ -n "$AWS_SESSION_NAME" ]]; then
+    prompt_segment "%{$fg[red]%}[$AWS_SESSION_NAME]"
+  fi
+}
+
 prompt_context() {
   local dir=''
   # Long directories
@@ -123,6 +129,7 @@ PROMPT_ORDER=(
   git
   ruby
   nvm
+  aws_session
 )
 
 prompt_segment() {
