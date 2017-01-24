@@ -3202,7 +3202,7 @@ If the error list is visible, hide it.  Otherwise, show it."
       (interactive)
       (restclient-http-send-current t t))
 
-    (general-define-key :keymaps 'dired-mode-map
+    (general-define-key :keymaps 'restclient-mode-map
       :states '(normal visual insert emacs)
       :prefix grass/leader2
       :non-normal-prefix "M-,"
