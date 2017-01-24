@@ -3231,6 +3231,32 @@ If the error list is visible, hide it.  Otherwise, show it."
       "v" 'graphviz-dot-view
       "h" 'grass/open-attribute-help)))
 
+;;;;;;;;;
+;; SQL ;;
+;;;;;;;;;
+
+(add-hook 'sql-interactive-mode-hook
+  (lambda ()
+    (toggle-truncate-lines t)))
+
+(eval-after-load "sql"
+  '(progn
+     (setq sql-mysql-login-params (append sql-mysql-login-params '(port :default 3306)))
+     (setq sql-postgres-login-params (append sql-postgres-login-params '(port :default 5432)))
+     (sql-set-product 'postgres)
+     (general-define-key :keymaps 'sql-mode-map
+       :states '(normal visual insert emacs)
+       :prefix grass/leader2
+       :non-normal-prefix "M-,"
+       "s" '(:ignore t :which-key "Send to REPL")
+       "sb" 'sql-send-buffer
+       "sf" 'sql-send-paragraph
+       "sr" 'sql-send-region
+       "i" 'sql-set-sqli-buffer
+       "p" 'sql-postgres
+       "m" 'sql-mysql
+       "r" 'sql-show-sqli-buffer)))
+
 
 ;;;;;;;;;;;;;;;;;;
 ;; Key bindings ;;
