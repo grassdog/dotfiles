@@ -680,7 +680,7 @@ augroup grass_html
   au FileType html,eruby nnoremap <buffer> <leader>f= Vat=
 
   " Change tab width and wrap for markdown
-  au FileType markdown setlocal wrap softtabstop=4 tabstop=4 shiftwidth=4 spell
+  au FileType markdown setlocal wrap softtabstop=4 tabstop=4 shiftwidth=4
 
   " Preview markdown files in Marked.app
   au FileType markdown nnoremap <buffer> <leader>mp :silent !open -a 'Marked 2.app' '%:p'<cr>
