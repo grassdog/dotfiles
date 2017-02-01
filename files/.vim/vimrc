@@ -1082,7 +1082,7 @@ endif
 """""""""""""""""""""""
 
 " Toggle indent guides
-noremap <leader>ui :IndentGuideToggle<cr>
+noremap <leader>ui :IndentGuidesToggle<cr>
 
 " Show the syntax group in place on the text under the cursor
 nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -1107,7 +1107,9 @@ if has("gui_running")
 endif
 
 if has("gui_macvim")
-  set guifont=Hack:h12
+  colorscheme solarized
+
+  set guifont=Operator\ Mono\ Book:h11
 
   " Automatically resize splits when resizing MacVim window
   augroup grass_gui
@@ -1115,9 +1117,6 @@ if has("gui_macvim")
 
     autocmd VimResized * wincmd =
   augroup END
-
-  " Command-Return for fullscreen
-  macmenu Window.Toggle\ Full\ Screen\ Mode key=<D-CR>
 
   " Fullscreen takes up entire screen
   set fuoptions=maxhorz,maxvert
