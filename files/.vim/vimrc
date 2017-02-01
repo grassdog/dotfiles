@@ -104,6 +104,7 @@ Plugin 'mxw/vim-jsx'
 Plugin 'wting/rust.vim'
 Plugin 'cespare/vim-toml'
 Plugin 'reedes/vim-wordy'
+Plugin 'chriskempson/base16-vim'
 
 call vundle#end()
 
@@ -335,7 +336,13 @@ let g:solarized_menu=0
 let g:solarized_contrast="high"
 
 set background=dark
-colorscheme dracula
+colorscheme base16-default-dark
+
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  let g:colors_name = "base16-solarized-dark"
+  source ~/.vimrc_background
+endif
 
 
 """"""""""""""""""""""" }}}

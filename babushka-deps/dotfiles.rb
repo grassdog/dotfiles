@@ -6,11 +6,22 @@ dep "dotfiles-installed" do
            "tmux-plugin-manager.repo"
 end
 
+dep "base16-shell.repo" do
+  source "https://github.com/chriskempson/base16-shell.git"
+  path "~/.config/base16-shell"
+end
+
 #
 # Dotfiles
 #
 
+dep "config.dir" do
+  path "~/config"
+end
+
 dep "dotfiles.repo" do
+  require "config.dir"
+
   source "https://github.com/grassdog/dotfiles"
   path "~/.dotfiles"
 end

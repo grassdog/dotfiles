@@ -96,4 +96,8 @@ HOSTRC="$HOME/.zsh/$(hostname).zsh"
 
 [[ -r ~/.iterm2_shell_integration.zsh ]] && source ~/.iterm2_shell_integration.zsh
 
+# Nicer shell colours
+BASE16_SHELL=$HOME/.config/base16-shell/
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+
 [[ -r /opt/boxen/env.sh ]] && source /opt/boxen/env.sh
