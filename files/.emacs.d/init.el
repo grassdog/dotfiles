@@ -2208,7 +2208,10 @@ the right."
 
 (use-package rjsx-mode
   :mode  (("\\.jsx?$" . rjsx-mode)
-          ("components\\/.*\\.js\\'" . rjsx-mode)))
+          ("components\\/.*\\.js\\'" . rjsx-mode))
+  :config
+  ;; Clear out tag helper
+  (define-key rjsx-mode-map "<" nil))
 
 (use-package json-mode
   :mode "\\.json$"
