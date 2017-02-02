@@ -34,14 +34,12 @@ Plugin 'godlygeek/tabular'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'dracula/vim'
 Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'scrooloose/nerdtree'
 Plugin 'grassdog/RemoveFile.vim'
 Plugin 'mbbill/undotree'
 Plugin 'YankRing.vim'
 Plugin 'bogado/file-line'
 Plugin 'tmux-plugins/vim-tmux-focus-events'
 Plugin 'ConradIrwin/vim-bracketed-paste'
-" Plugin 'tpope/vim-vinegar'
 
 " Text objects and motions
 Plugin 'michaeljsmith/vim-indent-object'
@@ -57,7 +55,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 
 " Tools
 Plugin 'EasyGrep'
-Plugin 'rking/ag.vim'
+Plugin 'jremmen/vim-ripgrep'
 Plugin 'henrik/vim-open-url'
 Plugin 'grassdog/tagman.vim'
 
@@ -76,17 +74,22 @@ Plugin 'nelstrom/vim-markdown-folding'
 Plugin 'timcharper/textile.vim'
 Plugin 'othree/html5.vim'
 Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'slim-template/vim-slim.git'
+Plugin 'groenewege/vim-less'
+
+" JS
 Plugin 'pangloss/vim-javascript'
 Plugin 'kchmck/vim-coffee-script'
 Bundle 'glanotte/vim-jasmine'
+Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'JSON.vim'
-Plugin 'slim-template/vim-slim.git'
+Plugin 'fleischie/vim-styled-components'
+Plugin 'mxw/vim-jsx'
 
 " Clojure
 Plugin 'guns/vim-clojure-static'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'tpope/vim-fireplace'
-" Plugin 'tpope/vim-salve'
 Plugin 'guns/vim-sexp'
 Plugin 'tpope/vim-sexp-mappings-for-regular-people'
 
@@ -95,12 +98,8 @@ Plugin 'lukerandall/haskellmode-vim'
 Plugin 'PProvost/vim-ps1'
 Plugin 'wlangstroth/vim-racket'
 Plugin 'ajf/puppet-vim'
-Plugin 'mustache/vim-mustache-handlebars'
-Plugin 'tpope/vim-liquid'
-Plugin 'groenewege/vim-less'
 Plugin 'b4winckler/vim-objc'
 Plugin 'kovisoft/slimv'
-Plugin 'mxw/vim-jsx'
 Plugin 'wting/rust.vim'
 Plugin 'cespare/vim-toml'
 Plugin 'reedes/vim-wordy'
@@ -119,11 +118,11 @@ filetype plugin indent on
 
 " s  - search
 " a  - alignment
-" f  - format
+" f  - file
+" e  - edit
 " x  - execute
 " m  - filetype specific
 " u  - ui
-" un - nerdtree
 
 
 """"""""""""""""""""""" }}}
@@ -230,10 +229,11 @@ set smartcase   " ... unless they contain at least one capital letter
 
 " Toggle search highlighting
 noremap <leader>sc :set hlsearch! hlsearch?<CR>
+noremap <leader><leader> :set hlsearch! hlsearch?<CR>
 
-" Search for current word in Ag
-nnoremap <leader>saw :Ag! '\b<c-r><c-w>\b'<cr>
-nnoremap <leader>sas :Ag!<space>
+" Search for current word in Rg
+nnoremap <leader>srw :Rg! '\b<c-r><c-w>\b'<cr>
+nnoremap <leader>srs :Rg!<space>
 
 " Easy grep
 let g:EasyGrepReplaceWindowMode=2
@@ -412,7 +412,7 @@ vnoremap <S-Down> <Down>
 vnoremap <S-Up> <Up>
 
 " Switch to last buffer
-nnoremap <leader><leader> <c-^>
+nnoremap <leader><tab> <c-^>
 
 
 """"""""""""""""""""""" }}}
@@ -473,10 +473,10 @@ inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 command! KillWhitespace :normal :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>nohl<Bar>retab<CR>
 
 " Re-wrap the entire file
-nnoremap <leader>fw ggVGgq
+nnoremap <leader>ew ggVGgq
 
 " Format the entire file
-nnoremap <leader>ff ggVG=
+nnoremap <leader>ef ggVG=
 
 
 """"""""""""""""""""""" }}}
@@ -528,9 +528,6 @@ command! SetProjectDir :call s:setcwd()
 
 iabbrev teh the
 
-" Create a new dayone post from the buffer
-command! NewDayonePost :w !dayone new
-
 
 """"""""""""""""""""""" }}}
 " Netrw                 {{{
@@ -549,6 +546,9 @@ let g:netrw_winsize   = 30
 let g:netrw_dirhistmax = 0
 let g:netrw_keepdir=1
 
+nnoremap <leader>fj :Explore %:h<cr>
+nnoremap <D-Up> :Explore %:h<cr>
+
 
 """"""""""""""""""""""" }}}
 " Ctrl-P                {{{
@@ -562,11 +562,11 @@ let g:ctrlp_max_height = 20
 let g:ctrlp_use_caching = 0
 let g:ctrlp_extensions = ['tag']
 
+nnoremap <leader>fp :CtrlP<cr>
 nnoremap <leader>p :CtrlP<cr>
-nnoremap <leader>d :CtrlPCurFile<cr>
-nnoremap <leader>o :CtrlPBuffer<cr>
-nnoremap <leader>T :CtrlPTag<cr>
-nnoremap <leader>r :CtrlPMRU<cr>
+nnoremap <leader>bb :CtrlPBuffer<cr>
+nnoremap <leader>bt :CtrlPTag<cr>
+nnoremap <leader>fr :CtrlPMRU<cr>
 
 
 """"""""""""""""""""""" }}}
@@ -579,25 +579,6 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 " Search for merge conflict markers
 nnoremap <silent> <leader>sgc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 
-
-""""""""""""""""""""""" }}}
-" NerdTree              {{{
-"""""""""""""""""""""""
-
-nnoremap <leader>un :NERDTreeToggle<CR>
-nnoremap <leader>uf :NERDTreeFind<CR>
-
-let NERDTreeAutoDeleteBuffer=1
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-let NERDChristmasTree = 1
-
-
-" Close vim if only nerdtree is left open
-augroup grass_nerdtree
-  autocmd!
-  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-augroup END
 
 """"""""""""""""""""""" }}}
 " Ctags                 {{{
@@ -677,7 +658,7 @@ augroup grass_html
   au FileType html nnoremap <buffer> <leader>z Vatzf
 
   " Indent current tag
-  au FileType html,eruby nnoremap <buffer> <leader>f= Vat=
+  au FileType html,eruby nnoremap <buffer> <leader>e= Vat=
 
   " Change tab width and wrap for markdown
   au FileType markdown setlocal wrap softtabstop=4 tabstop=4 shiftwidth=4
@@ -706,7 +687,7 @@ augroup grass_xml
   au FileType xml setlocal foldmethod=manual
 
   " Reformat XML files
-  au FileType xml noremap <buffer> <leader>ff <Esc>:% !xmllint --format -<CR>
+  au FileType xml noremap <buffer> <leader>ef <Esc>:% !xmllint --format -<CR>
 
   " Use <localleader>z to fold the current tag.
   au FileType xml nnoremap <buffer> <leader>z Vatzf
@@ -960,6 +941,9 @@ augroup END
 " Javascript and Coffee {{{
 """""""""""""""""""""""
 
+let g:javascript_plugin_flow = 1
+let g:javascript_plugin_jsdoc = 1
+
 augroup grass_js
   autocmd!
 
@@ -967,7 +951,7 @@ augroup grass_js
   autocmd BufNewFile,BufRead *.json set ft=json
 
   " Reformat JSON
-  autocmd FileType json noremap <buffer> <leader>ff <Esc>:% !js-beautify -f - -s 2 --brace-style=expand<CR>
+  autocmd FileType json noremap <buffer> <leader>ef <Esc>:% !js-beautify -f - -s 2 --brace-style=expand<CR>
 
   " Undo vim-coffeescript screwing with my formatoptions and keep manual folding
   autocmd BufNewFile,BufReadPost *.coffee setlocal foldmethod=manual formatoptions-=o iskeyword=@,39,48-57,_,192-255,$
@@ -982,13 +966,13 @@ augroup END
 """""""""""""""""""""""
 
 augroup ft_vim
-    au!
+  au!
 
-    au FileType help setlocal textwidth=78
-    au FileType vim setlocal foldmethod=marker
+  au FileType help setlocal textwidth=78
+  au FileType vim setlocal foldmethod=marker
 
-    " Help windows big on the right
-    au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
+  " Help windows big on the right
+  au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
 augroup END
 
 
@@ -1020,9 +1004,6 @@ let g:haddock_browser_callformat = "%s %s"
 """"""""""""""""""""""" }}}
 " Shortcut commands     {{{
 """""""""""""""""""""""
-
-" Show cheats
-command! Cheats :normal :silent! tabnew ~/Dropbox/Notes/Archive/Vim.md<cr>
 
 " Edit hot files
 command! Myrc :normal :edit $MYVIMRC<cr>
@@ -1109,7 +1090,7 @@ endif
 if has("gui_macvim")
   colorscheme solarized
 
-  set guifont=Operator\ Mono\ Book:h11
+  set guifont=Operator\ Mono\ Book:h13
 
   " Automatically resize splits when resizing MacVim window
   augroup grass_gui
