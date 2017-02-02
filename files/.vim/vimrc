@@ -535,19 +535,22 @@ iabbrev teh the
 
 " No Netrw menu
 let g:netrw_menu      = 0
-" let g:netrw_list_hide= '.DS_Store$'
-let g:netrw_liststyle=3
+let g:netrw_list_hide= '.DS_Store$'
+let g:netrw_liststyle=0
 
 " Preview in a vertical split
 let g:netrw_preview   = 1
 let g:netrw_winsize   = 30
+" Use the same window for all netrw windows
+" let g:netrw_chgwin=2
 
 " Remove netrw history files
 let g:netrw_dirhistmax = 0
+" Don't change current dir when browsing to different dirs
 let g:netrw_keepdir=1
 
 nnoremap <leader>fj :Explore %:h<cr>
-nnoremap <D-Up> :Explore %:h<cr>
+nnoremap <C-Up> :Explore %:h<cr>
 
 
 """"""""""""""""""""""" }}}
@@ -565,6 +568,7 @@ let g:ctrlp_extensions = ['tag']
 nnoremap <leader>fp :CtrlP<cr>
 nnoremap <leader>p :CtrlP<cr>
 nnoremap <leader>bb :CtrlPBuffer<cr>
+nnoremap <leader>bk :bdelete<cr>
 nnoremap <leader>bt :CtrlPTag<cr>
 nnoremap <leader>fr :CtrlPMRU<cr>
 
