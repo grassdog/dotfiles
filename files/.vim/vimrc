@@ -29,6 +29,7 @@ Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-characterize'
 Plugin 'tpope/vim-eunuch'
+Plugin 'tpope/vim-vinegar'
 Plugin 'nelstrom/vim-visual-star-search'
 Plugin 'godlygeek/tabular'
 Plugin 'altercation/vim-colors-solarized'
@@ -535,8 +536,8 @@ iabbrev teh the
 
 " No Netrw menu
 let g:netrw_menu      = 0
-let g:netrw_list_hide= '.DS_Store$'
-let g:netrw_liststyle=0
+let g:netrw_list_hide = '.DS_Store$'
+let g:netrw_liststyle =0
 
 " Preview in a vertical split
 let g:netrw_preview   = 1
