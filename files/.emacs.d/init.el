@@ -1793,9 +1793,9 @@ the right."
       "pb"    'counsel-projectile-switch-to-buffer
       "bp"    'counsel-projectile-switch-to-buffer
       "pd"    'counsel-projectile-find-dir
-      "pp"    '(:keymap projectile-command-map :package projectile :which-key "projectile")
+      "pm"    '(:keymap projectile-command-map :package projectile :which-key "projectile")
       "ps"    'counsel-projectile-switch-project
-      "pf"    'counsel-projectile-find-file
+      "pp"    'counsel-projectile-find-file
       "fp"    'counsel-projectile-find-file)
 
     (defun grass/counsel-rg-current-project ()
