@@ -39,8 +39,12 @@ Plugin 'grassdog/RemoveFile.vim'
 Plugin 'mbbill/undotree'
 Plugin 'YankRing.vim'
 Plugin 'bogado/file-line'
+
+" Tmux
 Plugin 'tmux-plugins/vim-tmux-focus-events'
 Plugin 'ConradIrwin/vim-bracketed-paste'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'benmills/vimux'
 
 " Text objects and motions
 Plugin 'michaeljsmith/vim-indent-object'
@@ -839,72 +843,13 @@ let ruby_fold = 1
 let g:blockle_mapping = '<leader>m['
 
 
-" Some RSpec helpers
+" Some Test helpers
 
-function! RunTestFile()
-  call SetAndRunTests(expand('%'))
-endfunction
+map <Leader>xrr :call VimuxRunCommand("be rspec " . bufname("%"))<CR>
+map <Leader>xra :call VimuxRunCommand("be rspec")<CR>
 
-function! RunNearestTestInFile()
-  call SetAndRunTests(expand('%') . ":" . line('.'))
-endfunction
-
-function! RunAllTests()
-  call SetAndRunTests('')
-endfunction
-
-function! RunLastTest()
-  if exists("t:rg_test_file")
-    call RunTests(t:rg_test_file)
-  end
-endfunction
-
-function! SetAndRunTests(filename)
-  call SetTestFile(a:filename)
-  call RunTests(a:filename)
-endfunction
-
-" Set the last run spec file.
-function! SetTestFile(filename)
-  let t:rg_test_file=a:filename
-endfunction
-
-function! RunTests(filename)
-  " Write the file and run tests for the given filename
-  if expand("%") != ""
-    :w
-  end
-
-  if has("gui_running") && has("gui_macvim")
-    let l:flags = "--no-color "
-  else
-    let l:flags = "--color "
-  endif
-
-  if filereadable("Gemfile")
-    let l:prefix = 'bundle exec '
-  else
-    let l:prefix = ''
-  end
-
-  if match(a:filename, '\.feature\(:\d\)\?$') != -1
-    exec ":!" . l:prefix . "cucumber " . l:flags . a:filename
-  else
-    exec ":!" . l:prefix . "rspec " . l:flags . a:filename
-  end
-endfunction
-
-" Run all tests
-nnoremap <leader>xta :call RunAllTests()<cr>
-
-" Run all tests in file
-nnoremap <leader>xtf :call RunTestFile()<cr>
-
-" Run nearest test
-nnoremap <leader>xtn :call RunNearestTestInFile()<cr>
-
-" Re-Run last test
-nnoremap <leader>xtt :call RunLastTest()<cr>
+map <Leader>xjj :call VimuxRunCommand("./node_modules/.bin/jest " . bufname("%"))<CR>
+map <Leader>xja :call VimuxRunCommand("./node_modules/.bin/jest")<CR>
 
 
 """"""""""""""""""""""" }}}
@@ -1012,7 +957,7 @@ let g:haddock_browser_callformat = "%s %s"
 
 " Edit hot files
 command! Myrc :normal :edit $MYVIMRC<cr>
-command! Notes :normal :silent! vsplit ~/Dropbox/Notes<cr>4j
+command! Notes :normal :silent! vsplit ~/Dropbox/Notes<cr>2j
 command! Scratch :normal :silent! edit ~/Dropbox/Notes/Scratch.md<cr>
 
 
@@ -1062,6 +1007,8 @@ if &term =~ '^screen'
   " tmux knows the extended mouse mode
   set ttymouse=xterm2
 endif
+
+let g:tmux_navigator_save_on_switch = 2
 
 """"""""""""""""""""""" }}}
 " GUI                   {{{
