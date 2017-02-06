@@ -412,18 +412,14 @@ set virtualedit=block
 
 " Bubble lines up and down
 " http://vim.wikia.com/wiki/Moving_lines_up_or_down
-nnoremap <silent> <C-K> :m .-2<CR>==
-nnoremap <silent> <C-J> :m .+1<CR>==
-nnoremap <silent> <C-S-Up> :m .-2<CR>==
-nnoremap <silent> <C-S-Down> :m .+1<CR>==
+nnoremap <silent> <C-up> :m .-2<CR>==
+nnoremap <silent> <C-down> :m .+1<CR>==
 
-inoremap <silent> <C-S-Up> <Esc>:m .-2<CR>==gi
-inoremap <silent> <C-S-Down> <Esc>:m .+1<CR>==gi
+inoremap <silent> <C-up> <Esc>:m .-2<CR>==gi
+inoremap <silent> <C-down> <Esc>:m .+1<CR>==gi
 
-vnoremap <silent> <C-K> :m '<-2<CR>gv=gv
-vnoremap <silent> <C-J> :m '>+1<CR>gv=gv
-vnoremap <silent> <C-S-Up> :m '<-2<CR>gv=gv
-vnoremap <silent> <C-S-Down> :m '>+1<CR>gv=gv
+vnoremap <silent> <C-up> :m '<-2<CR>gv=gv
+vnoremap <silent> <C-down> :m '>+1<CR>gv=gv
 
 " Tabularise shortcuts
 nmap <Leader>a= :Tabularize /=<CR>
@@ -819,14 +815,28 @@ let g:blockle_mapping = '<leader>m['
 
 " Some Test helpers
 
-map <Leader>tt :call VimuxRunLastCommand()<CR>
+map <Leader>. :call VimuxRunLastCommand()<CR>
 
-map <Leader>trr :call VimuxRunCommand("be rspec " . bufname("%"))<CR>
-map <Leader>tra :call VimuxRunCommand("be rspec")<CR>
+map <Leader>tr :call VimuxRunCommand("be rspec " . bufname("%"))<CR>
+map <Leader>tar :call VimuxRunCommand("be rspec")<CR>
 
-map <Leader>tjj :call VimuxRunCommand("./node_modules/.bin/jest " . bufname("%"))<CR>
-map <Leader>tja :call VimuxRunCommand("./node_modules/.bin/jest")<CR>
+map <Leader>tj :call VimuxRunCommand("./node_modules/.bin/jest " . bufname("%"))<CR>
+map <Leader>taj :call VimuxRunCommand("./node_modules/.bin/jest")<CR>
 
+
+" Run a given vim command on the results of alt from a given path.
+" See usage below.
+function! AltCommand(path, vim_command)
+  let l:alternate = system("alt " . a:path)
+  if empty(l:alternate)
+    echo "No alternate file for " . a:path . " exists!"
+  else
+    exec a:vim_command . " " . l:alternate
+  endif
+endfunction
+
+" Find the alternate file for the current path and open it
+nnoremap <leader>, :w<cr>:call AltCommand(expand('%'), ':e')<cr>
 
 """"""""""""""""""""""" }}}
 " Lisp                  {{{
