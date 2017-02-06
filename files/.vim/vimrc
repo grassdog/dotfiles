@@ -819,7 +819,7 @@ let g:blockle_mapping = '<leader>m['
 
 " Some Test helpers
 
-map <Leader>tt :call VimuxRunLastCommand<CR>
+map <Leader>tt :call VimuxRunLastCommand()<CR>
 
 map <Leader>trr :call VimuxRunCommand("be rspec " . bufname("%"))<CR>
 map <Leader>tra :call VimuxRunCommand("be rspec")<CR>
