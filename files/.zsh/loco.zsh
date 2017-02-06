@@ -1,3 +1,5 @@
+[[ -r "$HOME/.secrets" ]] && source "$HOME/.secrets"
+
 # Go
 export GOPATH=$HOME/.golang
 export GOROOT=/usr/local/opt/go/libexec
@@ -5,9 +7,6 @@ export PATH=$PATH:$GOPATH/bin
 
 # Add Haskell stack to the path
 export PATH=~/.local/bin/:$PATH
-
-# password-containing environment variables
-[[ -r "$HOME/.secrets" ]] && source "$HOME/.secrets"
 
 # Chruby
 if [[ -e /usr/local/opt/chruby/share/chruby/chruby.sh ]]; then

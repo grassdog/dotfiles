@@ -14,15 +14,15 @@ export HISTSIZE=100000
 # Get Z going
 . `brew --prefix`/etc/profile.d/z.sh
 
-##########
+#########
 # Prompt
-##########
+#########
 
 . ~/.zsh/prompt.zsh
 
-#################
+###############
 # Corrections
-#################
+###############
 
 setopt NOCORRECT    # I don't want corrections
 setopt NOCORRECTALL # Only correct commands not args

@@ -13,7 +13,7 @@ alias l="ls $LSC -ohF"
 alias lt="ls $LSC -lt"   # sort with recently modified first
 alias la="ls $LSC -Al"
 
-alias h="history -40"
+alias h="history -50"
 
 function take() {
   mkdir -p "$1"
@@ -35,7 +35,6 @@ alias vi='vim'
 alias v='vim'
 alias le='less -SR'
 alias be="bundle exec"
-alias bi="bundle install"
 
 alias showerthought="fortune ~/Dropbox/Backups/showerthoughts"
 
@@ -54,11 +53,6 @@ function et() {
 function eg() {
   emacsclient --alternate-editor="" -n "$@"
 }
-
-# Tasks
-export TASKS="${HOME}/Dropbox/Notes/Tasks"
-alias t="taskmeister -t ${TASKS}"
-alias tg="taskmeister -t ${TASKS} -l general.md"
 
 # tmux
 alias tmux="TERM=screen-256color-bce tmux"
@@ -132,10 +126,6 @@ function gpuu() {
 # Java
 #########
 
-function j7() {
-  export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
-}
-
 function j8() {
   export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 }
@@ -145,8 +135,6 @@ function j8() {
 ############
 
 alias psu='ps auxw'         # Wide ps sorted by CPU usage
-alias tu='top -o cpu'       # By cpu
-alias tm='top -o vsize'     # By memory
 
 function psg() {
   emulate -L zsh
@@ -175,10 +163,10 @@ function portgrep {
   lsof -n -i4TCP:${1-8000} | grep LISTEN
 }
 
-alias synctapas="rsync -rtvu ~/Movies/Learning/ruby-tapas/ /Volumes/Bitshack/Movies/Learning/ruby-tapas/"
 alias wifi="networksetup -setairportpower en0"
 alias netlisteners='lsof -i -P | grep LISTEN'
 
+# Print some stats on my shell commands
 alias profileme="history 1 | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -nr | head -n 20"
 
 # Find files
@@ -187,11 +175,6 @@ function f() {
 }
 
 alias gg='git ls-files | grep'
-
-# Find biggest files
-function biggest() {
-  find . -type f -print0 | xargs -0 du -s | sort -n | tail -150 | cut -f2 | xargs -I{} du -sh {}
-}
 
 # Remove a bunch of files
 function clean() {
@@ -235,11 +218,6 @@ function serve-dir() {
 }
 
 # Some selecta-based helpers
-
-function pj() {
-  cd $(find ~/dev -maxdepth 1 -type d | selecta)
-}
-
 function posts() {
   e $(find ~/dev/dance.computer/source/posts -maxdepth 1 -type f | selecta)
 }
@@ -248,34 +226,7 @@ function notes() {
   e "$(find ~/Dropbox/Notes -maxdepth 3 -type f | grep -v '/\.' | selecta)"
 }
 
-alias findpid="ps axww -o pid,user,%cpu,%mem,start,time,command | selecta | sed 's/^ *//' | cut -f1 -d' '"
-
-# By default, ^S freezes terminal output and ^Q resumes it. Disable that so
-# that those keys can be used for other things.
-unsetopt flowcontrol
-# Run Selecta in the current working directory, appending the selected path, if
-# any, to the current command, followed by a space.
-function insert-selecta-path-in-command-line() {
-    local selected_path
-    # Print a newline or we'll clobber the old prompt.
-    echo
-    # Find the path; abort if the user doesn't select anything.
-    selected_path=$(find * -type f | selecta) || return
-    # Append the selection to the current command buffer.
-    eval 'LBUFFER="$LBUFFER$selected_path "'
-    # Redraw the prompt since Selecta has drawn several new lines of text.
-    zle reset-prompt
-}
-# Create the zle widget
-zle -N insert-selecta-path-in-command-line
-# Bind the key to the newly created widget
-bindkey "^S" "insert-selecta-path-in-command-line"
-
-
-#######
-# SSL #
-#######
-
+# Look up SSL cert details
 function get-ssl-details() {
   echo | openssl s_client -connect $1:443 2>/dev/null | openssl x509 -noout -issuer -subject -dates
 }

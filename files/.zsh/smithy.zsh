@@ -3,23 +3,14 @@
 
 [[ -r "$HOME/.secrets" ]] && source "$HOME/.secrets"
 
-#eval $(docker-machine env default)
-
 ssh-id-prod() {
   pushd ~/src/identity/infrastructure
   awsip bundle exec rake production:ssh
 }
 
-# export GOPATH=$HOME/.golang
-# export GOROOT=/usr/local/opt/go/libexec
-# export PATH=$PATH:$GOPATH/bin
-# export PATH=$PATH:$GOROOT/bin
-
-pj() {
-  cd $(find ~/src -maxdepth 1 -type d | selecta)
-}
-
+##############
 # AWS Helpers
+##############
 
 alias awsir="aws-vault exec identity-production-readonly -t 60m --"
 alias awsip="aws-vault exec identity-production -t 60m --"
@@ -51,6 +42,10 @@ awsip-shell() {
 awsid-shell() {
   awsid env AWS_SESSION_NAME='id-dev' $SHELL
 }
+
+######
+# SSH
+######
 
 alias ssh-prod="ssh bastion.identity.us-east-1"
 alias ssh-staging="ssh bastion.identity.ap-southeast-2"
