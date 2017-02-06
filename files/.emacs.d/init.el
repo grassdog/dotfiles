@@ -3423,17 +3423,6 @@ If the error list is visible, hide it.  Otherwise, show it."
   "wn" 'nlinum-mode
   "wi" 'highlight-indent-guides-mode
 
-  "v" '(:ignore t :which-key "Vagrant")
-  "VD" 'vagrant-destroy
-  "Ve" 'vagrant-edit
-  "VH" 'vagrant-halt
-  "Vp" 'vagrant-provision
-  "Vr" 'vagrant-resume
-  "VR" 'vagrant-reload
-  "Vs" 'vagrant-status
-  "VS" 'vagrant-suspend
-  "VV" 'vagrant-up
-
   "z" '(:ignore t :which-key "Folding")
   "zz" 'origami-toggle-node
   "zs" 'origami-show-only-node
