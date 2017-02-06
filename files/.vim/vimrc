@@ -521,7 +521,6 @@ let g:netrw_dirhistmax = 0
 let g:netrw_keepdir=1
 
 nnoremap <leader>fj :Explore %:h<cr>
-nnoremap <C-Up> :Explore %:h<cr>
 
 
 """"""""""""""""""""""" }}}
@@ -987,6 +986,11 @@ set mouse=nicra " Allow mouse scrolling in terminal
 if &term =~ '^screen'
   " tmux knows the extended mouse mode
   set ttymouse=xterm2
+  " Get <C-up> et al. working in tmux terminal
+  execute "set <xUp>=\e[1;*A"
+  execute "set <xDown>=\e[1;*B"
+  execute "set <xRight>=\e[1;*C"
+  execute "set <xLeft>=\e[1;*D"
 endif
 
 let g:tmux_navigator_save_on_switch = 2
