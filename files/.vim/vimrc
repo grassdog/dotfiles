@@ -21,7 +21,6 @@ Plugin 'gmarik/Vundle.vim'
 
 " Core
 Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-commentary.git'
 Plugin 'tpope/vim-fugitive'
@@ -39,6 +38,7 @@ Plugin 'grassdog/RemoveFile.vim'
 Plugin 'mbbill/undotree'
 Plugin 'YankRing.vim'
 Plugin 'bogado/file-line'
+Plugin 'szw/vim-maximizer'
 
 " Tmux
 Plugin 'tmux-plugins/vim-tmux-focus-events'
@@ -91,6 +91,10 @@ Plugin 'JSON.vim'
 Plugin 'fleischie/vim-styled-components'
 Plugin 'mxw/vim-jsx'
 
+" Elixir
+Plugin 'elixir-lang/vim-elixir'
+Plugin 'slashmili/alchemist.vim'
+
 " Clojure
 Plugin 'guns/vim-clojure-static'
 Plugin 'kien/rainbow_parentheses.vim'
@@ -139,7 +143,7 @@ syntax enable         " Turn on syntax highlighting allowing local overrides
 set encoding=utf-8    " Set default encoding to UTF-8
 set hidden            " Hide buffers, don't nag about them
 
-" Don't try to highlight lines longer than 800 characters.
+" Don't try to highlight lines longer than 300 characters.
 set synmaxcol=300
 
 " Time out on key codes but not mappings.
@@ -188,6 +192,7 @@ set visualbell t_vb=  " No Noise or bell
 
 set nopaste
 
+set cursorline
 
 """"""""""""""""""""""" }}}
 " Statusline            {{{
@@ -273,11 +278,6 @@ set wildignore+=*/spec/vcr/*
 set wildignore+=*/coverage/*
 set wildignore+=*.otf,*.woff,*.orig
 
-
-" Ignore middleman build
-set wildignore+=build
-
-" Ignore middleman build
 set wildignore+=node_modules
 
 set wildignore+=*.luac                           " Lua byte code
@@ -367,36 +367,6 @@ omap <silent> i,b <Plug>CamelCaseMotion_ib
 xmap <silent> i,b <Plug>CamelCaseMotion_ib
 omap <silent> i,e <Plug>CamelCaseMotion_ie
 xmap <silent> i,e <Plug>CamelCaseMotion_ie
-
-
-" Hard mode
-let g:HardMode_on = 0
-
-if g:HardMode_on
-  nnoremap <Left> <Nop>
-  nnoremap <Right> <Nop>
-  nnoremap <Up> <Nop>
-  nnoremap <Down> <Nop>
-
-  inoremap <Up> <nop>
-  inoremap <Down> <nop>
-  inoremap <Left> <nop>
-  inoremap <Right> <nop>
-
-  vnoremap <Up> <nop>
-  vnoremap <Down> <nop>
-  vnoremap <Left> <nop>
-  vnoremap <Right> <nop>
-end
-
-let g:ToughMode_on = 0
-
-if g:ToughMode_on
-  inoremap <Up> <nop>
-  inoremap <Down> <nop>
-  inoremap <Left> <nop>
-  inoremap <Right> <nop>
-endif
 
 " Move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
@@ -639,6 +609,35 @@ augroup grass_allfiles
   autocmd FocusLost * :silent! wall
 augroup END
 
+augroup grass_rainbowparens
+  autocmd!
+
+  au VimEnter * RainbowParenthesesActivate
+  au Syntax * RainbowParenthesesLoadRound
+  au Syntax * RainbowParenthesesLoadSquare
+  au Syntax * RainbowParenthesesLoadBraces
+augroup END
+
+" Avoid red so I can easily see mismatched parens
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'chartreuse3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkblue',    'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'DarkGoldenrod'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'DarkGoldenrod'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['darkyellow',  'SlateBlue1'],
+    \ ]
+
 
 """"""""""""""""""""""" }}}
 " HTML and Markdown     {{{
@@ -726,12 +725,6 @@ augroup grass_clojure
 
   autocmd filetype clojure silent! call TurnOnClojureFolding()
 
-  " Rainbows
-  autocmd filetype clojure RainbowParenthesesActivate
-  autocmd syntax clojure RainbowParenthesesLoadRound
-  autocmd syntax clojure RainbowParenthesesLoadSquare
-  autocmd syntax clojure RainbowParenthesesLoadBraces
-
   " Eval and print top level form and return cursor to where it was (outer)
   autocmd filetype clojure nnoremap <buffer> <leader>mo :normal cpaF``<cr>
 
@@ -803,25 +796,6 @@ let g:clojure_syntax_keywords = {
     \ 'clojureFunc': ['string/join', 'string/replace']
     \ }
 
-" Avoid red so I can easily see mismatched parens
-let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'chartreuse3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkblue',    'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'DarkGoldenrod'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'DarkGoldenrod'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['darkyellow',  'SlateBlue1'],
-    \ ]
 
 
 """"""""""""""""""""""" }}}
@@ -845,11 +819,11 @@ let g:blockle_mapping = '<leader>m['
 
 " Some Test helpers
 
-map <Leader>xrr :call VimuxRunCommand("be rspec " . bufname("%"))<CR>
-map <Leader>xra :call VimuxRunCommand("be rspec")<CR>
+map <Leader>trr :call VimuxRunCommand("be rspec " . bufname("%"))<CR>
+map <Leader>tra :call VimuxRunCommand("be rspec")<CR>
 
-map <Leader>xjj :call VimuxRunCommand("./node_modules/.bin/jest " . bufname("%"))<CR>
-map <Leader>xja :call VimuxRunCommand("./node_modules/.bin/jest")<CR>
+map <Leader>tjj :call VimuxRunCommand("./node_modules/.bin/jest " . bufname("%"))<CR>
+map <Leader>tja :call VimuxRunCommand("./node_modules/.bin/jest")<CR>
 
 
 """"""""""""""""""""""" }}}
@@ -858,11 +832,6 @@ map <Leader>xja :call VimuxRunCommand("./node_modules/.bin/jest")<CR>
 
 augroup grass_lisps
   autocmd!
-
-  autocmd filetype lisp,scheme RainbowParenthesesActivate
-  autocmd syntax   lisp,scheme RainbowParenthesesLoadRound
-  autocmd syntax   lisp,scheme RainbowParenthesesLoadSquare
-  autocmd syntax   lisp,scheme RainbowParenthesesLoadBraces
 
   autocmd filetype lisp,scheme setlocal foldmethod=marker
 augroup END
@@ -957,7 +926,7 @@ let g:haddock_browser_callformat = "%s %s"
 
 " Edit hot files
 command! Myrc :normal :edit $MYVIMRC<cr>
-command! Notes :normal :silent! vsplit ~/Dropbox/Notes<cr>2j
+command! Notes :normal :silent! :CtrlP ~/Dropbox/Notes<cr>
 command! Scratch :normal :silent! edit ~/Dropbox/Notes/Scratch.md<cr>
 
 
@@ -1009,6 +978,17 @@ if &term =~ '^screen'
 endif
 
 let g:tmux_navigator_save_on_switch = 2
+
+" Change cursor shape
+if empty($TMUX)
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+else
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+endif
 
 """"""""""""""""""""""" }}}
 " GUI                   {{{
