@@ -27,6 +27,9 @@
 (setq use-package-verbose t)
 (setq use-package-always-ensure t)
 
+;; Give me an imenu of packages in use
+(setq use-package-enable-imenu-support t)
+
 (eval-when-compile
   (require 'use-package))
 
@@ -1287,6 +1290,15 @@ Repeated invocations toggle between the two most recently open buffers."
   (use-package evil-magit)
 
   (setq magit-completing-read-function 'ivy-completing-read))
+
+(use-package magithub
+  :after magit
+  :config (magithub-feature-autoinject t))
+
+(use-package magit-gh-pulls
+  :after magit
+  :init
+  (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls))
 
 (use-package git-link
   :commands (git-link git-link-commit)
