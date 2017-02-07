@@ -125,13 +125,14 @@ filetype plugin indent on
 " Leader binding prefixes  {{{
 """"""""""""""""""""""""""
 
-" s  - search
-" a  - alignment
-" f  - file
-" e  - edit
-" x  - execute
-" m  - filetype specific
-" u  - ui
+" s - search
+" a - alignment
+" f - file
+" e - edit
+" x - execute
+" m - filetype specific
+" u - ui
+" k - bookmarks
 
 
 """"""""""""""""""""""" }}}
@@ -938,8 +939,9 @@ let g:haddock_browser_callformat = "%s %s"
 " Edit hot files
 command! Myrc :normal :edit $MYVIMRC<cr>
 command! Notes :normal :silent! :CtrlP ~/Dropbox/Notes<cr>
-command! Scratch :normal :silent! edit ~/Dropbox/Notes/Scratch.md<cr>
 
+nnoremap <leader>ki :Myrc<CR>
+nnoremap <leader>kn :Notes<CR>
 
 """"""""""""""""""""""" }}}
 " Snippets              {{{
