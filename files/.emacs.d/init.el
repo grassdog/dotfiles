@@ -1448,9 +1448,6 @@ Repeated invocations toggle between the two most recently open buffers."
   (define-key dired-mode-map (kbd "^")
     (function
       (lambda nil (interactive) (dired-single-buffer ".."))))
-  (define-key dired-mode-map (kbd "<s-up>")
-    (function
-      (lambda nil (interactive) (dired-single-buffer ".."))))
   (define-key dired-mode-map (kbd "-")
     (function
       (lambda nil (interactive) (dired-single-buffer "..")))))
@@ -3485,7 +3482,6 @@ If the error list is visible, hide it.  Otherwise, show it."
   "<end>" 'move-end-of-line
 
   "C-x C-j" 'dired-jump
-  "<s-up>" 'dired-jump
 
   "s-d" 'crux-duplicate-current-line-or-region
 
