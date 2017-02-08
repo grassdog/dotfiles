@@ -229,6 +229,7 @@
 
 (use-package spacemacs-theme
   :init
+  (setq spacemacs-theme-comment-bg nil)
   (load-theme 'spacemacs-dark t))
 
 (defun grass/set-gui-config ()
@@ -768,6 +769,12 @@
                                  ;; (wdired-mode . normal)
                                  )
     do (evil-set-initial-state mode state)))
+
+(use-package evil-terminal-cursor-changer
+    :if (not (display-graphic-p))
+    :init (setq evil-visual-state-cursor 'box
+                evil-insert-state-cursor 'bar
+                evil-emacs-state-cursor 'hbar))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Comments and filling ;;
@@ -3272,6 +3279,22 @@ If the error list is visible, hide it.  Otherwise, show it."
        "m" 'sql-mysql
        "r" 'sql-show-sqli-buffer)))
 
+;;;;;;;;;;
+;; Tmux ;;
+;;;;;;;;;;
+
+(use-package emamux
+  :commands (emamux:send-command
+              emamux:run-command
+              emamux:run-last-command
+              emamux:zoom-runner
+              emamux:inspect-runner
+              emamux:close-runner-pane
+              emamux:close-panes
+              emamux:clear-runner-history
+              emamux:interrupt-runner
+              emamux:copy-kill-ring
+              emamux:yank-from-list-buffers))
 
 ;;;;;;;;;;;;;;;;;;
 ;; Key bindings ;;
@@ -3291,6 +3314,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   ";" 'iedit-mode
   "?" 'swiper
   "/" 'swiper-current-word
+  "-" 'dired-jump
   "SPC" '(grass/remove-search-highlights :which-key "clear search highlights")
 
   "c" '(:ignore t :which-key "Check/Compile")
@@ -3399,6 +3423,10 @@ If the error list is visible, hide it.  Otherwise, show it."
   "fj" 'dired-jump
   "fs"  '(save-buffer :which-key "save file")
 
+  "t" '(:ignore t :which-key "Terminal/Tmux")
+  "tr" 'emamux:run-command
+  "tt" 'emamux:run-last-command
+
   "u" '(:ignore t :which-key "Utilities")
   "uU" 'crux-view-url
   "ud" 'ediff-buffers
@@ -3468,6 +3496,10 @@ If the error list is visible, hide it.  Otherwise, show it."
 
   "M-/" 'hippie-expand
   "M-z" 'zop-up-to-char)
+
+(general-define-key
+  :states '(normal)
+  "-" 'dired-jump)
 
 (general-define-key :keymaps 'comint-mode
   :states '(normal visual insert emacs)
