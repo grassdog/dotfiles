@@ -3317,11 +3317,12 @@ If the error list is visible, hide it.  Otherwise, show it."
   "SPC" '(grass/remove-search-highlights :which-key "clear search highlights")
 
   "c" '(:ignore t :which-key "Check/Compile")
-  "ct" '(flycheck-mode :which-key "toggle flycheck")
-  "cc" 'hydra-flycheck/body
+  "cc" '(flycheck-mode :which-key "toggle flycheck")
+  "cm" 'hydra-flycheck/body
   "cC" 'flycheck-clear
   "ch" 'flycheck-describe-checker
   "cS" 'flycheck-select-checker
+  "cd" 'flycheck-disable-checker
   "cl" '(grass/toggle-flycheck-error-list :which-key "toggle error list")
   "cx" '(flycheck-set-checker-executable :which-key "set checker")
   "cv" 'flycheck-verify-setup
