@@ -1924,7 +1924,8 @@ the right."
 
     ;; Let me open lines above again
     (evil-define-key 'normal evil-org-mode-map
-      "O" 'evil-open-above)
+      "O" 'evil-open-above
+      "-" 'dired-jump)
 
     (general-define-key :keymaps 'org-mode-map
       :states '(normal visual insert emacs)
