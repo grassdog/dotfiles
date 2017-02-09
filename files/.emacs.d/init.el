@@ -1299,6 +1299,7 @@ Repeated invocations toggle between the two most recently open buffers."
   (setq magit-completing-read-function 'ivy-completing-read))
 
 (use-package magithub
+  :disabled t
   :after magit
   :config (magithub-feature-autoinject t))
 
