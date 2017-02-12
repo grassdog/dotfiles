@@ -1937,6 +1937,7 @@ the right."
       "g" 'org-mac-grab-link
       "a" 'org-agenda
       "o" 'org-insert-heading
+      "i" 'org-insert-link
       "e" 'org-export-dispatch
       "E" '(:ignore t :which-key "org encrypt")
       "Ee" 'org-encrypt-entry
