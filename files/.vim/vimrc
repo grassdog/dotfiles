@@ -29,7 +29,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-vinegar'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'godlygeek/tabular'
-Plug 'altercation/vim-colors-solarized'
+Plug 'icymind/neosolarized'
 Plug 'dracula/vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'grassdog/RemoveFile.vim'
@@ -37,6 +37,8 @@ Plug 'mbbill/undotree'
 Plug 'YankRing.vim'
 Plug 'bogado/file-line'
 Plug 'szw/vim-maximizer'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'vim-airline/vim-airline'
 
 " Tmux
 Plug 'tmux-plugins/vim-tmux-focus-events'
@@ -193,16 +195,26 @@ set cursorline
 " Statusline            {{{
 """""""""""""""""""""""
 
-if has("statusline")
-  set statusline=[%n]                                 " buffer no
-  set statusline+=\ %<%.99f                           " Filename
-  set statusline+=\ %h%m%r%w                          " Flags
-  set statusline+=%=                                  " right align
-  set statusline+=\ [%{strlen(&fenc)?&fenc:'none'}]   " Encoding
-  set statusline+=\ %y                                " Filetype
-  set statusline+=\ [%{&ff}]                          " Fileformat
-  set statusline+=\ %-3.c\ %P\                        " Column and Percentage
-endif
+let g:airline_powerline_fonts = 0
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_skip_empty_sections = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#tab_min_count = 2
+
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+nmap <leader>- <Plug>AirlineSelectPrevTab
+nmap <leader>+ <Plug>AirlineSelectNextTab
 
 set laststatus=2  " always show the status bar
 set showmode
@@ -331,9 +343,6 @@ set foldtext=MyFoldText()
 " Colours               {{{
 """""""""""""""""""""""
 
-let g:solarized_menu=0
-let g:solarized_contrast="high"
-
 set background=dark
 colorscheme dracula
 
@@ -434,9 +443,6 @@ function! s:align()
   endif
 endfunction
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
-
-" Remove trailing white space and retab file
-command! KillWhitespace :normal :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>nohl<Bar>retab<CR>
 
 " Re-wrap the entire file
 nnoremap <leader>ew ggVGgq
@@ -580,6 +586,9 @@ command! SetNoHardWrap :call SetNoHardWrap()
 
 augroup grass_allfiles
   autocmd!
+
+  " Automatically remove excess whitespace when saving buffers
+  autocmd BufEnter * EnableStripWhitespaceOnSave
 
   " Don't show trailing space in insert mode
   au InsertEnter * :set listchars-=trail:·
@@ -1027,7 +1036,13 @@ if has("gui_running")
 endif
 
 if has("gui_macvim")
-  colorscheme solarized
+  let g:neosolarized_bold = 1
+  let g:neosolarized_underline = 1
+  let g:neosolarized_italic = 1
+
+  colorscheme NeoSolarized
+
+  let g:airline#extensions#tabline#enabled = 0
 
   set guifont=Operator\ Mono\ Book:h13
 
