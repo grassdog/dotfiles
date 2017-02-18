@@ -3,7 +3,8 @@ dep "dotfiles-installed" do
   requires "dotfiles-symlinked",
            "services-copied",
            "editors-installed",
-           "tmux-plugin-manager.repo"
+           "tmux-plugin-manager.repo",
+           "nvim-config.symlink"
 end
 
 #
@@ -49,6 +50,10 @@ dep "dotfiles-symlinked" do
   dotfile_deps.each { |name, _| requires name }
 end
 
+dep "nvim-config.symlink" do
+  source "#{DOTFILES}/config/nvim"
+  target "~/.config/nvim"
+end
 
 #
 # Services
