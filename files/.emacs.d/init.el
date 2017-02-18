@@ -601,6 +601,7 @@
   ;; Make horizontal movement cross lines
   (setq-default evil-cross-lines t)
   (setq-default evil-shift-width 2)
+  (setq evil-want-fine-undo t)
 
   ;; Little word
   (require 'evil-little-word)
