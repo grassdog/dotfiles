@@ -38,7 +38,7 @@ brew 'postgresql', restart_service: :changed
 
 brew 'pstree'
 brew 'python'
-brew 'reattach-to-user-namespace'
+brew 'reattach-to-user-namespace', args: [ 'with-wrap-pbcopy-and-pbpaste' ]
 brew 'rust'
 brew 'selecta'
 brew 'sqlite'
