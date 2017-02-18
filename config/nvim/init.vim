@@ -39,6 +39,7 @@ Plug 'bogado/file-line'
 Plug 'szw/vim-maximizer'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'vim-airline/vim-airline'
+Plug 'sbdchd/neoformat'
 
 " Tmux
 Plug 'tmux-plugins/vim-tmux-focus-events'
