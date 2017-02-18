@@ -228,8 +228,9 @@
 (add-to-list 'default-frame-alist '(width . 110))
 
 (use-package spacemacs-theme
-  :init
+  :config
   (setq spacemacs-theme-comment-bg nil)
+  :init
   (load-theme 'spacemacs-dark t))
 
 (defun grass/set-gui-config ()

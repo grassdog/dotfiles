@@ -344,8 +344,18 @@ set foldtext=MyFoldText()
 """""""""""""""""""""""
 
 set background=dark
-colorscheme dracula
 
+let g:neosolarized_contrast = "high"
+let g:neosolarized_visibility = "normal"
+let g:neosolarized_bold = 1
+let g:neosolarized_underline = 1
+let g:neosolarized_italic = 1
+
+if has("gui_macvim")
+  colorscheme NeoSolarized
+else
+  colorscheme dracula
+endif
 
 """"""""""""""""""""""" }}}
 " Movement              {{{
@@ -1039,12 +1049,6 @@ if has("gui_running")
 endif
 
 if has("gui_macvim")
-  let g:neosolarized_bold = 1
-  let g:neosolarized_underline = 1
-  let g:neosolarized_italic = 1
-
-  colorscheme NeoSolarized
-
   let g:airline#extensions#tabline#enabled = 0
 
   set guifont=Operator\ Mono\ Book:h13
