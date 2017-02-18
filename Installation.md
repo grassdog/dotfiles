@@ -146,4 +146,7 @@ Check the status of services via `brew services list`.
 - MS Office
     - Customize install to not install cruft
 - Copy across development VMs
+- Atom
+    - Install command line tools
+    - Run `~/.atom/install-packages.sh`
 

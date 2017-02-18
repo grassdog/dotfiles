@@ -117,7 +117,7 @@ dep "vim-installed" do
            "vimrc.symlink",
            "vim-undo.dir",
            "vim-backups.dir",
-           "vundle.repo"
+           "vimplug"
 end
 
 dep "vimrc.symlink" do
@@ -135,18 +135,16 @@ dep "vim-backups.dir" do
   path "~/.cache/vim/tmp/backups"
 end
 
-dep "vundle.repo" do
-  requires "dotfiles-symlinked"
-
-  source "https://github.com/VundleVim/Vundle.vim"
-  path "~/.dotfiles/files/.vim/bundle/Vundle.vim"
-end
-
-dep "vundle-install" do
+dep "vimplug" do
   met? {
-    shell "vim +PluginInstall +qall"
+    "~/.vim/autoload/plug.vim".p.exists?
+  }
+
+  meet {
+    shell "curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
   }
 end
+
 
 #
 # tmux
@@ -164,3 +162,4 @@ dep "tmux-plugin-manager.repo" do
   source "https://github.com/tmux-plugins/tpm"
   path "~/.tmux/plugins/tpm"
 end
+

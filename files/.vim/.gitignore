@@ -1,4 +1,5 @@
 /tmp
-/bundle
 /doc/tags
 *.spl
+/plugged
+autoload/plug.vim
