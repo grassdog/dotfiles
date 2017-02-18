@@ -25,10 +25,6 @@
     userId: "7c379f71-8aba-a3c9-7c88-df7fe4d48894"
   "linter-elm-make":
     elmMakeExecutablePath: "/usr/local/bin/elm-make"
-  "sync-settings":
-    _lastBackupHash: "88b79ea2191da9bb6cba037ddd7e81db7a1b6a18"
-    gistId: "269ee66f220c4bcc16ca"
-    personalAccessToken: "020ad8eb404edd7fd7cba26d8a5da6073a717a0d"
   "tree-view":
     hideIgnoredNames: true
     hideVcsIgnoredFiles: true
