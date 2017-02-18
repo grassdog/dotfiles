@@ -1806,14 +1806,14 @@ the right."
       :prefix grass/leader1
       :non-normal-prefix "M-SPC"
 
-      "p" '(:ignore t :which-key "Projectile")
-      "p SPC" 'counsel-projectile
-      "pb"    'counsel-projectile-switch-to-buffer
+      "P" '(:ignore t :which-key "Projectile")
+      "P SPC" 'counsel-projectile
+      "Pb"    'counsel-projectile-switch-to-buffer
       "bp"    'counsel-projectile-switch-to-buffer
-      "pd"    'counsel-projectile-find-dir
-      "pm"    '(:keymap projectile-command-map :package projectile :which-key "projectile")
-      "ps"    'counsel-projectile-switch-project
-      "pp"    'counsel-projectile-find-file
+      "Pd"    'counsel-projectile-find-dir
+      "Pm"    '(:keymap projectile-command-map :package projectile :which-key "projectile")
+      "Ps"    'counsel-projectile-switch-project
+      "p"     'counsel-projectile-find-file
       "fp"    'counsel-projectile-find-file)
 
     (defun grass/counsel-rg-current-project ()
