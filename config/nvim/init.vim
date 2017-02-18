@@ -531,6 +531,9 @@ let g:netrw_dirhistmax = 0
 " Don't change current dir when browsing to different dirs
 let g:netrw_keepdir=1
 
+" Allow netrw to remove non-empty local directories
+let g:netrw_localrmdir='trash'
+
 nnoremap <leader>fj :Explore %:h<cr>
 
 
