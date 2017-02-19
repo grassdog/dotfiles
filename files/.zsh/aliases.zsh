@@ -20,7 +20,7 @@ function take() {
   cd "$1"
 }
 
-alias ea='vim ~/.zsh/aliases.zsh'
+alias ea='nvim ~/.zsh/aliases.zsh'
 
 # Set iterm title
 function title() {
@@ -31,9 +31,8 @@ function title() {
   fi
 }
 
-alias vim='nvim'
-alias vi='vim'
-alias v='vim'
+alias vi='nvim'
+alias v='nvim'
 alias le='less -SR'
 alias be="bundle exec"
 
