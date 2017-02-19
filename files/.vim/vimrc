@@ -39,6 +39,7 @@ Plug 'bogado/file-line'
 Plug 'szw/vim-maximizer'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " Tmux
 Plug 'tmux-plugins/vim-tmux-focus-events'
@@ -344,7 +345,17 @@ set foldtext=MyFoldText()
 """""""""""""""""""""""
 
 set background=dark
-colorscheme dracula
+
+if has("gui_macvim")
+  let g:neosolarized_bold = 1
+  let g:neosolarized_underline = 1
+  let g:neosolarized_italic = 1
+
+  colorscheme NeoSolarized
+  let g:airline_theme='solarized'
+else
+  colorscheme dracula
+endif
 
 
 """"""""""""""""""""""" }}}
@@ -1036,12 +1047,6 @@ if has("gui_running")
 endif
 
 if has("gui_macvim")
-  let g:neosolarized_bold = 1
-  let g:neosolarized_underline = 1
-  let g:neosolarized_italic = 1
-
-  colorscheme NeoSolarized
-
   let g:airline#extensions#tabline#enabled = 0
 
   set guifont=Operator\ Mono\ Book:h13
