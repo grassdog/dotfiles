@@ -1003,7 +1003,6 @@ nnoremap <silent> <F11> :NextWordy<cr>
 " Mouse and terminal    {{{
 """""""""""""""""""""""
 
-set termguicolors
 set mouse=nicra " Allow mouse scrolling in terminal
 " Allow mouse selection in tmux
 if &term =~ '^screen'
