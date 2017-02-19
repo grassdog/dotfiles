@@ -293,7 +293,17 @@
 
 (use-package counsel
   :init
-  (define-key read-expression-map (kbd "C-r") 'counsel-expression-history))
+  (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
+  (setq counsel-find-file-ignore-regexp
+    (concat
+      ;; file names beginning with # or .
+      "\\(?:\\`[#.]\\)"
+      ;; file names ending with # or ~
+      "\\|\\(?:[#~]\\'\\)"
+
+      "\\|.*.DS_Store"
+      ))
+  )
 
 (use-package swiper
   :commands swiper)
