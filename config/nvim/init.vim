@@ -456,7 +456,8 @@ endfunction
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 
 " Re-wrap the entire file
-nnoremap <leader>ew ggVGgq
+nnoremap <leader>ei ggVGgq
+nnoremap <leader>ew :StripWhitespace<cr>
 
 " Format the entire file
 nnoremap <leader>ef ggVG=
@@ -600,9 +601,6 @@ command! SetNoHardWrap :call SetNoHardWrap()
 
 augroup grass_allfiles
   autocmd!
-
-  " Automatically remove excess whitespace when saving buffers
-  autocmd BufEnter * EnableStripWhitespaceOnSave
 
   " Don't show trailing space in insert mode
   au InsertEnter * :set listchars-=trail:·
@@ -954,6 +952,8 @@ command! Notes :normal :silent! :CtrlP ~/Dropbox/Notes<cr>
 
 nnoremap <leader>ki :Myrc<CR>
 nnoremap <leader>kn :Notes<CR>
+nnoremap <leader>kw :edit ~/Dropbox/Notes/Journals/Work.org<CR>
+nnoremap <leader>kp :edit ~/Dropbox/Notes/Journals/Personal.org<CR>
 
 """"""""""""""""""""""" }}}
 " Snippets              {{{
