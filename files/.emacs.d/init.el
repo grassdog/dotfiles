@@ -1756,19 +1756,11 @@ the right."
 (require 'whitespace)
 (diminish 'global-whitespace-mode)
 ;; Only show bad whitespace (Ignore empty lines at start and end of buffer)
-;; (setq whitespace-style '(face tabs trailing space-before-tab indentation space-after-tab))
-;; (global-whitespace-mode t)
+(setq whitespace-style '(face tabs trailing space-before-tab indentation space-after-tab))
+(global-whitespace-mode t)
 
 (setq require-final-newline t)
 
-
-;; Only trim modified lines on save
-(use-package ws-butler
-  :defer 2
-  :diminish (ws-butler-mode . " ⓦ")
-  :config
-  (setq ws-butler-keep-whitespace-before-point t)
-  (ws-butler-global-mode 1))
 
 
 ;;;;;;;;;;;;;;;;
@@ -3407,7 +3399,8 @@ If the error list is visible, hide it.  Otherwise, show it."
   "eh" 'hydra-goto-history/body
   "ez" 'zop-up-to-char
   "ef" 'crux-indent-defun
-  "ew" 'crux-cleanup-buffer-or-region
+  "ei" 'crux-cleanup-buffer-or-region
+  "ew" 'whitespace-cleanup
   "eT" 'untabify
   "et" '(grass/toggle-always-indent :which-key "toggle tab indent")
   "ec" 'char-menu
