@@ -39,6 +39,7 @@ Plug 'bogado/file-line'
 Plug 'szw/vim-maximizer'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'sbdchd/neoformat'
 
 " Tmux
@@ -353,6 +354,7 @@ let g:neosolarized_underline = 1
 let g:neosolarized_italic = 1
 
 if has("gui_macvim")
+  let g:airline_theme='solarized'
   colorscheme NeoSolarized
 else
   colorscheme dracula
