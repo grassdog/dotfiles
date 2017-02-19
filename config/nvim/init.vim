@@ -263,7 +263,8 @@ let g:EasyGrepReplaceWindowMode=2
 """""""""""""""""""""""
 
 " tab completion for file selection
-set wildmode=longest:full,full
+" set wildmode=longest:full,full
+set wildmode=list:longest,list:full " Pop up a list when completing
 
 " make tab completion for files/buffers act like bash
 set wildmenu
@@ -275,7 +276,7 @@ set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.spl                            " compiled spelling word lists
 set wildignore+=*.sw?                            " Vim swap files
 set wildignore+=.DS_Store                        " OSX
-set wildignore+=COMMIT_EDITMSG
+set wildignore+=*COMMIT_EDITMSG
 
 set wildignore+=*.obj,*.rbc,*.class,*.gem        " Disable output and VCS files
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz " Disable archive files
@@ -552,6 +553,7 @@ let g:ctrlp_split_window = 0
 let g:ctrlp_max_height = 20
 let g:ctrlp_use_caching = 0
 let g:ctrlp_extensions = ['tag']
+let g:ctrlp_mruf_exclude = '\v\.git/(MERGE_MSG|rebase-merge|COMMIT_EDITMSG|PULLREQ_EDITMSG|index)'
 
 nnoremap <leader>fp :CtrlP<cr>
 nnoremap <leader>p :CtrlP<cr>

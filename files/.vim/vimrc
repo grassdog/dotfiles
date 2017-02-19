@@ -40,6 +40,7 @@ Plug 'szw/vim-maximizer'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'sbdchd/neoformat'
 
 " Tmux
 Plug 'tmux-plugins/vim-tmux-focus-events'
@@ -262,7 +263,8 @@ let g:EasyGrepReplaceWindowMode=2
 """""""""""""""""""""""
 
 " tab completion for file selection
-set wildmode=longest:full,full
+" set wildmode=longest:full,full
+set wildmode=list:longest,list:full " Pop up a list when completing
 
 " make tab completion for files/buffers act like bash
 set wildmenu
@@ -274,7 +276,7 @@ set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.spl                            " compiled spelling word lists
 set wildignore+=*.sw?                            " Vim swap files
 set wildignore+=.DS_Store                        " OSX
-set wildignore+=COMMIT_EDITMSG
+set wildignore+=*COMMIT_EDITMSG
 
 set wildignore+=*.obj,*.rbc,*.class,*.gem        " Disable output and VCS files
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz " Disable archive files
@@ -458,7 +460,8 @@ endfunction
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 
 " Re-wrap the entire file
-nnoremap <leader>ew ggVGgq
+nnoremap <leader>ei ggVGgq
+nnoremap <leader>ew :StripWhitespace<cr>
 
 " Format the entire file
 nnoremap <leader>ef ggVG=
@@ -533,6 +536,7 @@ let g:netrw_winsize   = 30
 let g:netrw_dirhistmax = 0
 " Don't change current dir when browsing to different dirs
 let g:netrw_keepdir=1
+let g:netrw_localrmdir='trash'
 
 nnoremap <leader>fj :Explore %:h<cr>
 
@@ -548,6 +552,7 @@ let g:ctrlp_split_window = 0
 let g:ctrlp_max_height = 20
 let g:ctrlp_use_caching = 0
 let g:ctrlp_extensions = ['tag']
+let g:ctrlp_mruf_exclude = '\v\.git/(MERGE_MSG|rebase-merge|COMMIT_EDITMSG|PULLREQ_EDITMSG|index)'
 
 nnoremap <leader>fp :CtrlP<cr>
 nnoremap <leader>p :CtrlP<cr>
@@ -953,6 +958,9 @@ command! Notes :normal :silent! :CtrlP ~/Dropbox/Notes<cr>
 
 nnoremap <leader>ki :Myrc<CR>
 nnoremap <leader>kn :Notes<CR>
+nnoremap <leader>kw :edit ~/Dropbox/Notes/Journals/Work.org<CR>
+nnoremap <leader>kp :edit ~/Dropbox/Notes/Journals/Personal.org<CR>
+
 
 """"""""""""""""""""""" }}}
 " Snippets              {{{
@@ -971,6 +979,7 @@ let g:UltiSnipsDontReverseSearchPath = "1"
 
 let g:yankring_replace_n_pkey = '<c-q>'
 let g:yankring_history_file = '.yankring_history_file'
+let g:yankring_clipboard_monitor=0
 function! YRRunAfterMaps()
   nnoremap <silent> Y  :<C-U>YRYankCount 'y$'<CR>
 endfunction
@@ -994,6 +1003,7 @@ nnoremap <silent> <F11> :NextWordy<cr>
 " Mouse and terminal    {{{
 """""""""""""""""""""""
 
+set termguicolors
 set mouse=nicra " Allow mouse scrolling in terminal
 " Allow mouse selection in tmux
 if &term =~ '^screen'
