@@ -251,8 +251,8 @@ noremap <leader>sc :set hlsearch! hlsearch?<CR>
 noremap <leader><leader> :set hlsearch! hlsearch?<CR>
 
 " Search for current word in Rg
-nnoremap <leader>srw :Rg! '\b<c-r><c-w>\b'<cr>
-nnoremap <leader>srs :Rg!<space>
+nnoremap <leader>srw :Rg '\b<c-r><c-w>\b'<cr>
+nnoremap <leader>sp :Rg<space>
 
 " Easy grep
 let g:EasyGrepReplaceWindowMode=2
