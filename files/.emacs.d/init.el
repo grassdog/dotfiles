@@ -1838,6 +1838,7 @@ the right."
 (use-package org
   :defer t
 
+  :commands (org-store-link)
   :config
   ;; Make windmove work in org-mode
   (setq org-replace-disputed-keys t)
@@ -1950,7 +1951,7 @@ the right."
       "ED" 'org-decrypt-entries
       "p" 'hydra-org-promote/body
       "l" 'org-toggle-link-display
-      "i" 'org-toggle-inline-images
+      "I" 'org-toggle-inline-images
       "s" 'org-sort-entries
       "t" 'org-set-tags
       "c" 'org-cycle-agenda-files)
@@ -3457,6 +3458,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   "uu" 'browse-url
   "uf" 'reveal-in-osx-finder
   "uw" 'count-words
+  "ul" 'org-store-link
 
   "v" 'er/expand-region
 
