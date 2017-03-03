@@ -439,9 +439,8 @@
 
 ;; Store all backup and autosave files in the tmp dir
 (setq backup-directory-alist
-  `((".*" . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms
-  `((".*" ,temporary-file-directory t)))
+      (list (cons ".*" (expand-file-name "~/.emacs-backups/"))))
+
 
 (use-package saveplace
   :config
@@ -1402,7 +1401,7 @@ Repeated invocations toggle between the two most recently open buffers."
 
 (use-package char-menu
   :commands char-menu
-                                        ; Em-dash is first
+  ;; Em-dash is first
   :config (setq char-menu '("—" "‘’" "“”" "…" "«»" "–"
                              ("Typography" "⋅" "•" "©" "†" "‡" "°" "·" "§" "№" "★")
                              ("Math"       "≈" "≡" "≠" "∞" "×" "±" "∓" "÷" "√")
