@@ -2139,6 +2139,34 @@ the right."
     "tr" 'rspec-rerun
     "tt" 'rspec-verify-single)
 
+  ;; Add Ruby block text objects
+  (evil-define-text-object evil-inner-ruby-block (count &optional beg end type)
+    "Select a Ruby block."
+    :extend-selection nil
+    (evil-select-paren
+      (concat ruby-block-beg-re "\\s-+.*\n?")
+      (concat "^\s*" ruby-block-end-re)
+      beg
+      end
+      type
+      count
+      nil))
+
+  (evil-define-text-object evil-outer-ruby-block (count &optional beg end type)
+    "Select a Ruby block."
+    :extend-selection nil
+    (evil-select-paren
+      (concat ruby-block-beg-re "\\s-+")
+      ruby-block-end-re
+      beg
+      end
+      type
+      count
+      t))
+
+  (define-key evil-inner-text-objects-map "r" 'evil-inner-ruby-block)
+  (define-key evil-outer-text-objects-map "r" 'evil-outer-ruby-block)
+
   (add-hook 'enh-ruby-mode-hook
     (lambda ()
       ;; turn off the annoying input echo in irb
