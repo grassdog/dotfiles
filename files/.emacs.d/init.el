@@ -927,7 +927,6 @@
         (newline)
         (indent-for-tab-command)))
     (indent-for-tab-command)))
-(global-set-key (kbd "<M-return>") 'new-line-dwim)
 
 
 ;;;;;;;;;;;;;;;;;;;;;
@@ -3555,6 +3554,7 @@ If the error list is visible, hide it.  Otherwise, show it."
 (global-set-key (kbd "<backtab>") 'stupid-outdent)
 (global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
 (global-set-key (kbd "<home>") #'crux-move-beginning-of-line)
+(global-set-key (kbd "<M-return>") 'new-line-dwim)
 
 (provide 'init)
 ;;; init.el ends here
