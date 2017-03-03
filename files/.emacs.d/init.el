@@ -380,8 +380,7 @@
 ;; Simple indenting
 (require 'stupid-indent-mode)
 (diminish 'stupid-indent-mode "ⓘ")
-(add-hook 'prog-mode-hook 'stupid-indent-mode)
-(add-hook 'css-mode-hook 'stupid-indent-mode)
+(add-hook 'rjsx-mode-hook 'stupid-indent-mode)
 
 (use-package highlight-indent-guides
   :commands highlight-indent-guides-mode
