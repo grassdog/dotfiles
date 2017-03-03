@@ -915,6 +915,20 @@
             (narrow-to-defun)
             (iedit-start (current-word) (point-min) (point-max))))))))
 
+(defun new-line-dwim ()
+  (interactive)
+  (let ((break-open-pair (or (and (looking-back "{" 1) (looking-at "}"))
+                           (and (looking-back ">" 1) (looking-at "<"))
+                           (and (looking-back "(" 1) (looking-at ")"))
+                           (and (looking-back "\\[" 1) (looking-at "\\]")))))
+    (newline)
+    (when break-open-pair
+      (save-excursion
+        (newline)
+        (indent-for-tab-command)))
+    (indent-for-tab-command)))
+(global-set-key (kbd "<M-return>") 'new-line-dwim)
+
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Window handling ;;
