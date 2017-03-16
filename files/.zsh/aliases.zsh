@@ -122,6 +122,12 @@ function gpuu() {
   git push -u origin $(git-current-branch)
 }
 
+#######
+# Ruby
+#######
+
+alias rd='bundle exec rspec -f d'
+
 #########
 # Java
 #########
