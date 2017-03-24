@@ -94,6 +94,7 @@ alias grom='git rebase origin/master'
 alias gnp='git-notpushed'
 alias gs='git status -s'
 alias gl='git ls'
+alias gg='git ls-files | grep'
 
 alias git-update-modules='git submodule foreach git pull'
 
@@ -127,14 +128,6 @@ function gpuu() {
 #######
 
 alias rd='bundle exec rspec -f d'
-
-#########
-# Java
-#########
-
-function j8() {
-  export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
-}
 
 ############
 # Processes
@@ -180,27 +173,8 @@ function f() {
   find "${2-.}" -name "*$1*"
 }
 
-alias gg='git ls-files | grep'
-
-# Remove a bunch of files
-function clean() {
-  if [ $# -ne 1 ]; then
-    echo "Usage: clean file-name-to-clean"
-    return 1
-  fi
-
-  find . -name $1 -exec mv \{\} ~/.Trash \;
-}
-
 function g() {
   grep -ri $1 ${2-.}
-}
-
-# Dotfiles
-function dotpl() {
-  pushd ~/.dotfiles
-  git update
-  popd
 }
 
 # Syntax highlight a file and copy onto clipboard
