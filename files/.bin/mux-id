@@ -22,7 +22,7 @@ case "$1" in
     tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/sso_server' C-m
     ;;
   identity)
-    tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/sso_server' C-m
+    tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/identity' C-m
     ;;
   *)
     ;;
