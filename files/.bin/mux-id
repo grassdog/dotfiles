@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Kick off a tmux session for identity dev
+
+NAME="${1:-misc}"
+
+tmux new-session -d -c ~/.dotfiles -n "$NAME" -s "$NAME"
+
+case "$1" in
+  admin)
+    tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/identity-admin' C-m
+    ;;
+  infra)
+    tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/identity-infrastructure' C-m
+    ;;
+  team)
+    tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/identity-team' C-m
+    ;;
+  sso)
+    tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/sso_server' C-m
+    ;;
+  identity)
+    tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/sso_server' C-m
+    ;;
+  *)
+    ;;
+esac
+
+
+if [[ -z $TMUX ]]; then
+  tmux attach-session -t "$NAME"
+else
+  tmux switch-client -t "$NAME"
+fi
+

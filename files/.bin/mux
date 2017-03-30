@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+##
+## Usage: mux [name] [h/v]
+##
+## Create a new tmux session. Optionally split horizontally or vertically.
+##
+
+set -e
+
+NAME=${1:-misc}
+
+tmux new-session -d -n "$NAME" -s "$NAME"
+
+case "$2" in
+  h)
+    tmux split-window -v -t "$NAME":"$NAME"
+    ;;
+  v)
+    tmux split-window -h -t "$NAME":"$NAME"
+    ;;
+  *)
+    ;;
+esac
+
+
+if [[ -z $TMUX ]]; then
+  tmux attach-session -t "$NAME"
+else
+  tmux switch-client -t "$NAME"
+fi

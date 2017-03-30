@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-# Kick up my local development environment
-
-/Applications/Emacs.app/Contents/MacOS/Emacs --daemon
-
-tmuxinator start dev --no-attach
-
-tmux attach

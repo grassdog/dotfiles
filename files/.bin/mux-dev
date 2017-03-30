@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Kick up my local dev tmux session
+
+tmux new-session -d -c ~/.dotfiles -n dotfiles -s dev
+tmux new-window -c ~/dev -n dev -t dev
+
+if [[ -z $TMUX ]]; then
+  tmux attach-session -t dev
+else
+  tmux switch-client -t dev
+fi
+
