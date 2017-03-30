@@ -6,6 +6,7 @@ set -e
 
 tmux new-session -d -c ~/.dotfiles -n dotfiles -s dev
 tmux new-window -c ~/dev -n dev -t dev
+tmux select-window -t dev:dotfiles
 
 if [[ -z $TMUX ]]; then
   tmux attach-session -t dev
