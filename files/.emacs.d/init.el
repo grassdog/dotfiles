@@ -1833,10 +1833,9 @@ the right."
     (defun grass/counsel-rg-current-project ()
       "Search in current project with `rg'."
       (interactive)
-      (let ((dir (projectile-project-root))
-            (counsel-ag-base-command counsel-rg-base-command))
+      (let ((dir (projectile-project-root)))
         (if dir
-          (counsel-ag "" dir)
+          (counsel-rg "" dir)
           (message "error: Not in a project."))))
     :init
     (projectile-global-mode t)))
