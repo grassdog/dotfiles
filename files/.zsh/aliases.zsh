@@ -56,7 +56,10 @@ function eg() {
 
 # tmux
 alias tmux="TERM=screen-256color-bce tmux"
-alias mux="tmuxinator"
+# New window
+function nw() {
+  tmux new-window -c ${2:-~/dev} -n $1
+}
 
 ###############
 # OSX Specific
