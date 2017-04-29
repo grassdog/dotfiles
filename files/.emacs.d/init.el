@@ -440,6 +440,8 @@
 (setq backup-directory-alist
       (list (cons ".*" (expand-file-name "~/.emacs-backups/"))))
 
+(setq auto-save-file-name-transforms
+  `((".*" "~/.cache/emacs/saves/" t)))
 
 (use-package saveplace
   :config

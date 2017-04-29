@@ -96,7 +96,8 @@ end
 
 dep "editors-installed" do
   requires "terminfo",
-           "vim-installed"
+           "vim-installed",
+           "emacs-saves.dir"
 end
 
 dep "spacemacs.repo" do
@@ -111,6 +112,10 @@ dep "terminfo" do
   meet {
     shell "tic -o ~/.terminfo /usr/local/Cellar/emacs-plus/24.5/share/emacs/24.5/etc/e/eterm-color.ti"
   }
+end
+
+dep "emacs-saves.dir" do
+  path "~/.cache/emacs/saves"
 end
 
 #
