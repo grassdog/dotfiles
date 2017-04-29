@@ -1910,7 +1910,7 @@ the right."
        (js . t)
        (ruby . t)
        (dot . t)
-       (sh . t)))
+       (shell . t)))
 
   ;; Highlight source blocks
   (setq org-src-fontify-natively t
