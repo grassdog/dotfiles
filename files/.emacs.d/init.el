@@ -1454,6 +1454,7 @@ Repeated invocations toggle between the two most recently open buffers."
 
   (setq dired-use-ls-dired nil)
   (setq dired-recursive-copies 'always)
+  (setq dired-recursive-deletes 'always)
   (setq dired-omit-verbose nil)
   (setq dired-omit-files
     (rx (or (seq bol (? ".") "#")       ;; emacs autosave files
