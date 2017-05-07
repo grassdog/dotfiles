@@ -157,6 +157,12 @@ function aws-db-versions {
   aws rds describe-db-instances --region us-east-1 --query 'DBInstances[].[DBInstanceIdentifier,AutoMinorVersionUpgrade,EngineVersion]' --output text
 }
 
+##########
+# Elixir #
+##########
+
+alias exc="iex -S mix"
+
 #########
 # Utils
 #########
