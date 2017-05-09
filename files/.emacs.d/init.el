@@ -3510,7 +3510,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   "ye" 'hippie-expand
 
   "w" '(:ignore t :which-key "Windows/UI")
-  "wl" 'toggle-truncate-lines
+  "wl" '(toggle-truncate-lines :which-key "toggle line wrap")
   "wz" 'hydra-zoom-text/body
   "ww" 'evil-window-next
   "wm" '(hydra-window/body :which-key "window mini state")
