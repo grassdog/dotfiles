@@ -2618,7 +2618,7 @@ the right."
     :non-normal-prefix "M-,"
     "p" 'grass/markdown-open-in-marked-app
     "P" 'pandoc-main-hydra/body
-    "t" 'markdown-toc-generate-toc
+    "t" '(markdown-toc-generate-toc :which-key "Generate table of contents")
     "h" 'hydra-markdown-promote/body
     "c" '(mmm-parse-buffer :which-key "highlight code blocks")
     "n" 'markdown-cleanup-list-numbers
