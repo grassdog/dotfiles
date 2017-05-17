@@ -1956,7 +1956,7 @@ the right."
       "a" 'org-agenda
       "o" 'org-insert-heading
       "i" 'org-insert-link
-      "e" 'org-export-dispatch
+      "e" '(org-export-dispatch :which-key "export")
       "E" '(:ignore t :which-key "org encrypt")
       "Ee" 'org-encrypt-entry
       "EE" 'org-encrypt-entries
@@ -2525,52 +2525,57 @@ the right."
                            :submode python-mode
                            :face mmm-declaration-submode-face
                            :front "^```python[\n\r]+"
-                           :back "^```$")))
-      (mmm-add-classes '((markdown-html
-                           :submode web-mode
-                           :face mmm-declaration-submode-face
-                           :front "^```html[\n\r]+"
-                           :back "^```$")))
-      (mmm-add-classes '((markdown-java
-                           :submode java-mode
-                           :face mmm-declaration-submode-face
-                           :front "^```java[\n\r]+"
-                           :back "^```$")))
-      (mmm-add-classes '((markdown-ruby
-                           :submode ruby-mode
-                           :face mmm-declaration-submode-face
-                           :front "^```ruby[\n\r]+"
-                           :back "^```$")))
-      (mmm-add-classes '((markdown-c
-                           :submode c-mode
-                           :face mmm-declaration-submode-face
-                           :front "^```c[\n\r]+"
-                           :back "^```$")))
-      (mmm-add-classes '((markdown-c++
-                           :submode c++-mode
-                           :face mmm-declaration-submode-face
-                           :front "^```c\+\+[\n\r]+"
-                           :back "^```$")))
-      (mmm-add-classes '((markdown-elisp
-                           :submode emacs-lisp-mode
-                           :face mmm-declaration-submode-face
-                           :front "^```elisp[\n\r]+"
-                           :back "^```$")))
-      (mmm-add-classes '((markdown-javascript
-                           :submode javascript-mode
-                           :face mmm-declaration-submode-face
-                           :front "^```javascript[\n\r]+"
-                           :back "^```$")))
-      (mmm-add-classes '((markdown-ess
-                           :submode R-mode
-                           :face mmm-declaration-submode-face
-                           :front "^```{?r.*}?[\n\r]+"
-                           :back "^```$")))
-      (mmm-add-classes '((markdown-rust
-                           :submode rust-mode
-                           :face mmm-declaration-submode-face
-                           :front "^```rust[\n\r]+"
-                           :back "^```$")))
+                           :back "^```$")
+                          (markdown-html
+                            :submode web-mode
+                            :face mmm-declaration-submode-face
+                            :front "^```html[\n\r]+"
+                            :back "^```$")
+                          (markdown-java
+                            :submode java-mode
+                            :face mmm-declaration-submode-face
+                            :front "^```java[\n\r]+"
+                            :back "^```$")
+                          (markdown-ruby
+                            :submode ruby-mode
+                            :face mmm-declaration-submode-face
+                            :front "^```ruby[\n\r]+"
+                            :back "^```$")
+                          (markdown-c
+                            :submode c-mode
+                            :face mmm-declaration-submode-face
+                            :front "^```c[\n\r]+"
+                            :back "^```$")
+                          (markdown-c++
+                            :submode c++-mode
+                            :face mmm-declaration-submode-face
+                            :front "^```c\+\+[\n\r]+"
+                            :back "^```$")
+                          (markdown-elisp
+                            :submode emacs-lisp-mode
+                            :face mmm-declaration-submode-face
+                            :front "^```elisp[\n\r]+"
+                            :back "^```$")
+                          (markdown-javascript
+                            :submode javascript-mode
+                            :face mmm-declaration-submode-face
+                            :front "^```javascript[\n\r]+"
+                            :back "^```$")
+                          (markdown-ess
+                            :submode R-mode
+                            :face mmm-declaration-submode-face
+                            :front "^```{?r.*}?[\n\r]+"
+                            :back "^```$")
+                          (markdown-rust
+                            :submode rust-mode
+                            :face mmm-declaration-submode-face
+                            :front "^```rust[\n\r]+"
+                            :back "^```$")
+                          (markdown-elixir
+                            :submode elixir-mode
+                            :face mmm-declaration-submode-face
+                            :front "^```\s?elixir[\n]"
+                            :back "^```")))
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-python)
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-java)
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-ruby)
@@ -2580,7 +2585,8 @@ the right."
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-html)
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-javascript)
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-ess)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-rust))
+      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-rust)
+      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-elixir))
     :init
     (setq mmm-global-mode t))
 
@@ -2599,18 +2605,18 @@ the right."
        ("h6"   "^###### \\(.*\\)$" 1)
        ("fn"   "^\\[\\^\\(.*\\)\\]" 1)))
 
-    (defhydra hydra-markdown-promote ()
-      "promote demote headings"
-      ("<" markdown-promote "promote")
-      (">" markdown-demote "demote")
-      ("q" nil "quit" :color blue))
+  (defhydra hydra-markdown-promote ()
+    "promote demote headings"
+    ("<" markdown-promote "promote")
+    (">" markdown-demote "demote")
+    ("q" nil "quit" :color blue))
 
-      (add-hook 'markdown-mode-hook
-        (lambda ()
-          ;; Remove for now as they interfere with indentation
-          ;; (define-key yas-minor-mode-map [(tab)] nil)
-          ;; (define-key yas-minor-mode-map (kbd "TAB") nil)
-          (setq imenu-generic-expression markdown-imenu-generic-expression)))
+  (add-hook 'markdown-mode-hook
+    (lambda ()
+      ;; Remove for now as they interfere with indentation
+      ;; (define-key yas-minor-mode-map [(tab)] nil)
+      ;; (define-key yas-minor-mode-map (kbd "TAB") nil)
+      (setq imenu-generic-expression markdown-imenu-generic-expression)))
 
   (general-define-key :keymaps 'markdown-mode-map
     :states '(normal visual insert emacs)
@@ -2622,7 +2628,7 @@ the right."
     "h" 'hydra-markdown-promote/body
     "c" '(mmm-parse-buffer :which-key "highlight code blocks")
     "n" 'markdown-cleanup-list-numbers
-    "e" 'markdown-export-and-preview))
+    "e" '(markdown-export-and-preview :which-key "export")))
 
 
 ;;;;;;;;;;;
