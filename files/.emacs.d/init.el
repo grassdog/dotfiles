@@ -3427,7 +3427,6 @@ If the error list is visible, hide it.  Otherwise, show it."
   "k" '(:ignore t :which-key "Bookmarks")
   "ki" 'grass/open-init
   "kw" 'grass/open-work-log
-  "kp" 'grass/open-personal-log
   "kn" 'grass/find-notes
 
   "g" '(:ignore t :which-key "Git/VC")
