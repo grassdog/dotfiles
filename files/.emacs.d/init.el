@@ -1320,18 +1320,12 @@ Repeated invocations toggle between the two most recently open buffers."
   :commands magit-status
   :config
   (use-package evil-magit)
-
   (setq magit-completing-read-function 'ivy-completing-read))
 
 (use-package magithub
   :disabled t
   :after magit
   :config (magithub-feature-autoinject t))
-
-(use-package magit-gh-pulls
-  :after magit
-  :init
-  (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls))
 
 (use-package git-link
   :commands (git-link git-link-commit)
@@ -1341,6 +1335,14 @@ Repeated invocations toggle between the two most recently open buffers."
 (use-package github-browse-file
   :commands github-browse-file)
 
+(defun grass/open-pull-request ()
+  (interactive)
+  (browse-url
+  (format "https://github.com/%s/pull/new/%s"
+    (replace-regexp-in-string
+      ".+github\\.com[:/]\\(.+\\)\\(\\.git\\)?" "\\1"
+      (magit-get "remote" "origin" "url"))
+    (magit-get-current-branch))))
 
 (use-package gist
   :commands
@@ -3436,6 +3438,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   "gc" 'git-link-commit
   "gB" 'github-browse-file
   "gt" 'git-timemachine
+  "gp" 'grass/open-pull-request
 
   "gg" '(:ignore t :which-key "Gist")
   "ggb" 'gist-buffer
