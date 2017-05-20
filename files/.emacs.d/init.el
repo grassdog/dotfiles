@@ -2243,7 +2243,68 @@ the right."
   (use-package js2-refactor
     :init
     (add-hook 'js2-mode-hook #'js2-refactor-mode)
-    (js2r-add-keybindings-with-prefix ",r"))
+
+    (general-define-key :keymaps 'js2-mode-map
+      :states '(normal visual insert emacs)
+      :prefix grass/leader2
+      :non-normal-prefix "M-,"
+      "r" '(:ignore t :which-key "Refactor")
+
+      "r3" '(:ignore t :which-key "ternary")
+      "r3i" 'js2r-ternary-to-if
+
+      "r3" '(:ignore t :which-key "add/args")
+      "rag" 'js2r-add-to-globals-annotation
+      "rao" 'js2r-arguments-to-object
+
+      "rb" '(:ignore t :which-key "barf")
+      "rba" 'js2r-forward-barf
+
+      "rb" '(:ignore t :which-key "contract")
+      "rca" 'js2r-contract-array
+      "rco" 'js2r-contract-object
+      "rcu" 'js2r-contract-function
+
+      "re" '(:ignore t :which-key "expand/extract")
+      "rea" 'js2r-expand-array
+      "ref" 'js2r-extract-function
+      "rem" 'js2r-extract-method
+      "reo" 'js2r-expand-object
+      "reu" 'js2r-expand-function
+      "rev" 'js2r-extract-var
+
+      "ri" '(:ignore t :which-key "inline/inject/introduce")
+      "rig" 'js2r-inject-global-in-iife
+      "rip" 'js2r-introduce-parameter
+      "riv" 'js2r-inline-var
+
+      "rl" '(:ignore t :which-key "localize/log")
+      "rlp" 'js2r-localize-parameter
+      "rlt" 'js2r-log-this
+
+      "rk" '(:ignore t :which-key "kill")
+      "rkk" 'js2r-kill
+
+      "rr" '(:ignore t :which-key "rename")
+      "rrv" 'js2r-rename-var
+
+      "rs" '(:ignore t :which-key "split/slurp")
+      "rsl" 'js2r-forward-slurp
+      "rss" 'js2r-split-string
+      "rsv" 'js2r-split-var-declaration
+
+      "rt" '(:ignore t :which-key "toggle")
+      "rtf" 'js2r-toggle-function-expression-and-declaration
+
+      "ru" '(:ignore t :which-key "unwrap")
+      "ruw" 'js2r-unwrap
+
+      "rv" '(:ignore t :which-key "var")
+      "rvt" 'js2r-var-to-this
+
+      "rw" '(:ignore t :which-key "wrap")
+      "rwi" 'js2r-wrap-buffer-in-iife
+      "rwl" 'js2r-wrap-in-for-loop))
 
   (setq js2-bounce-indent-p t)
   (add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode))
