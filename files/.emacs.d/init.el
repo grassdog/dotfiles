@@ -1863,11 +1863,11 @@ the right."
   (setq org-hide-leading-stars t)
   (setq org-agenda-files '("~/Dropbox/Notes"))
 
+  ;; Don't expand links by default
+  (setq org-descriptive-links t)
+
   ;; Prevent demoting heading also shifting text inside sections
   (setq org-adapt-indentation nil)
-
-  (use-package evil-org
-    :diminish evil-org-mode)
 
   (use-package ox-pandoc
     :config
@@ -1888,8 +1888,6 @@ the right."
   (use-package org-bullets
     :init (add-hook 'org-mode-hook 'org-bullets-mode))
 
-  ;; Show raw link text
-  (setq org-descriptive-links nil)
   ;; Start up fully open
   (setq org-startup-folded nil)
 
@@ -1968,7 +1966,8 @@ the right."
       "l" 'org-toggle-link-display
       "I" 'org-toggle-inline-images
       "s" 'org-sort-entries
-      "t" 'org-set-tags
+      "t" 'org-todo
+      "T" 'org-set-tags
       "c" 'org-cycle-agenda-files)
 
   (add-hook 'org-mode-hook
@@ -1976,8 +1975,6 @@ the right."
       ;; No auto indent please
       (setq org-export-html-postamble nil)
 
-      ;; Don't expand links by default
-      (setq org-descriptive-links t)
 
       (diminish 'org-indent-mode)
 
@@ -2518,79 +2515,6 @@ the right."
         (markdown-enter-key))))
 
   (define-key markdown-mode-map (kbd "RET") 'grass/markdown-enter-key-dwim)
-
-  (use-package mmm-mode
-    :commands mmm-parse-buffer
-    :config
-    (progn
-      (mmm-add-classes '((markdown-python
-                           :submode python-mode
-                           :face mmm-declaration-submode-face
-                           :front "^```python[\n\r]+"
-                           :back "^```$")
-                          (markdown-html
-                            :submode web-mode
-                            :face mmm-declaration-submode-face
-                            :front "^```html[\n\r]+"
-                            :back "^```$")
-                          (markdown-java
-                            :submode java-mode
-                            :face mmm-declaration-submode-face
-                            :front "^```java[\n\r]+"
-                            :back "^```$")
-                          (markdown-ruby
-                            :submode ruby-mode
-                            :face mmm-declaration-submode-face
-                            :front "^```ruby[\n\r]+"
-                            :back "^```$")
-                          (markdown-c
-                            :submode c-mode
-                            :face mmm-declaration-submode-face
-                            :front "^```c[\n\r]+"
-                            :back "^```$")
-                          (markdown-c++
-                            :submode c++-mode
-                            :face mmm-declaration-submode-face
-                            :front "^```c\+\+[\n\r]+"
-                            :back "^```$")
-                          (markdown-elisp
-                            :submode emacs-lisp-mode
-                            :face mmm-declaration-submode-face
-                            :front "^```elisp[\n\r]+"
-                            :back "^```$")
-                          (markdown-javascript
-                            :submode javascript-mode
-                            :face mmm-declaration-submode-face
-                            :front "^```javascript[\n\r]+"
-                            :back "^```$")
-                          (markdown-ess
-                            :submode R-mode
-                            :face mmm-declaration-submode-face
-                            :front "^```{?r.*}?[\n\r]+"
-                            :back "^```$")
-                          (markdown-rust
-                            :submode rust-mode
-                            :face mmm-declaration-submode-face
-                            :front "^```rust[\n\r]+"
-                            :back "^```$")
-                          (markdown-elixir
-                            :submode elixir-mode
-                            :face mmm-declaration-submode-face
-                            :front "^```\s?elixir[\n]"
-                            :back "^```")))
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-python)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-java)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-ruby)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-c)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-c++)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-elisp)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-html)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-javascript)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-ess)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-rust)
-      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-elixir))
-    :init
-    (setq mmm-global-mode t))
 
   ;; Keep word movement instead of promotion mappings
   (define-key markdown-mode-map (kbd "<M-right>") nil)
