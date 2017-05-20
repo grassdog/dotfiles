@@ -2237,16 +2237,16 @@ the right."
 
 (use-package js2-mode
   :mode  (("\\.js$" . js2-jsx-mode)
-           ("\\.jsx?$" . js2-jsx-mode)
-           ("\\.es6$" . js2-mode))
+           ("\\.jsx?$" . js2-jsx-mode))
   :interpreter "node"
   :config
   (use-package js2-refactor
     :init
     (add-hook 'js2-mode-hook #'js2-refactor-mode)
-    (js2r-add-keybindings-with-prefix "C-c RET"))
+    (js2r-add-keybindings-with-prefix ",r"))
 
   (setq js2-bounce-indent-p t)
+  (add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode))
 
   ;; Rely on flycheck instead...
   (setq js2-show-parse-errors nil)
@@ -2259,6 +2259,7 @@ the right."
   (setq js2-mode-show-strict-warnings nil)
 
   (add-hook 'js2-mode-hook 'js2-imenu-extras-mode)
+  (add-hook 'js2-mode-hook 'flow-minor-enable-automatically)
 
   (add-hook 'js2-mode-hook
     (lambda ()
@@ -2267,17 +2268,47 @@ the right."
       (setq js2-global-externs '("module" "require" "buster" "jestsinon" "jasmine" "assert"
                                   "it" "expect" "describe" "beforeEach"
                                   "refute" "setTimeout" "clearTimeout" "setInterval"
-                                  "clearInterval" "location" "__dirname" "console" "JSON"))
+                                  "clearInterval" "location" "__dirname" "console" "JSON")))))
 
-      (js2-imenu-extras-mode +1))))
+(use-package flow-minor-mode
+  :commands flow-minor-enable-automatically
+  :config
+  (use-package flycheck-flow)
+
+  (general-define-key :keymaps 'flow-minor-mode-map
+    :states '(normal visual insert emacs)
+    :prefix grass/leader2
+    :non-normal-prefix "M-,"
+    "f" '(:ignore t :which-key "Flow")
+    "fs" 'flow-minor-status
+    "fc" 'flow-minor-coverage
+    "ft" 'flow-minor-type-at-pos
+    "ff" 'flow-minor-suggest)
+
+  (with-eval-after-load 'flycheck
+    (flycheck-add-mode 'javascript-flow 'rjsx-mode)
+    (flycheck-add-mode 'javascript-flow 'flow-minor-mode)
+    (flycheck-add-mode 'javascript-eslint 'flow-minor-mode)
+    (flycheck-add-next-checker 'javascript-flow 'javascript-eslint)))
 
 (use-package rjsx-mode
   :mode  (("\\.jsx?$" . rjsx-mode)
           ("components\\/.*\\.js\\'" . rjsx-mode))
   :config
+
+  ;; Rely on flycheck instead...
+  (setq js2-show-parse-errors nil)
+  ;; Reduce the noise
+  (setq js2-strict-missing-semi-warning nil)
+  ;; jshint does not warn about this now for some reason
+  (setq js2-strict-trailing-comma-warning nil)
+
+  ;; Quiet warnings
+  (setq js2-mode-show-strict-warnings nil)
   ;; Clear out tag helper
   (define-key rjsx-mode-map "<" nil)
-  (add-hook 'rjsx-mode-hook 'flycheck-mode))
+  (add-hook 'rjsx-mode-hook 'flycheck-mode)
+  (add-hook 'rjsx-mode-hook 'flow-minor-enable-automatically))
 
 (use-package json-mode
   :mode "\\.json$"
@@ -3487,6 +3518,7 @@ If the error list is visible, hide it.  Otherwise, show it."
 
   "C-x C-m" 'counsel-M-x
 
+  "s-P" 'counsel-M-x
   "s-p" 'counsel-projectile-find-file
   "s-e" 'hippie-expand
 
