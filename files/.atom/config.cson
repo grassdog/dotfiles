@@ -11,7 +11,7 @@
     telemetryConsent: "limited"
     themes: [
       "atom-dark-ui"
-      "dracula-theme"
+      "dracula-syntax"
     ]
   editor:
     fontFamily: "Operator Mono"
@@ -25,6 +25,7 @@
     userId: "7c379f71-8aba-a3c9-7c88-df7fe4d48894"
   "linter-elm-make":
     elmMakeExecutablePath: "/usr/local/bin/elm-make"
+  "linter-ui-default": {}
   "tree-view":
     hideIgnoredNames: true
     hideVcsIgnoredFiles: true
