@@ -7,9 +7,11 @@ git-time-machine@1.5.9
 intentions@1.1.2
 language-babel@2.61.0
 language-docker@1.1.7
+language-elixir@0.17.0
 linter@2.1.4
 linter-eslint@8.1.7
 linter-ruby@1.2.5
 linter-ui-default@1.5.4
 merge-conflicts@1.4.5
+multi-cursor@2.1.5
 
