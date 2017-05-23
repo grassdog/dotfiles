@@ -40,4 +40,4 @@ it('${1:tests something}', () => {
 """
   'jest expectation':
     'prefix': 'expect'
-    'body': "expect($1).${2:toBe}($3);"
+    'body': "expect($1).${2:toEqual}($3);"

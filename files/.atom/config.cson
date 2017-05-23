@@ -15,7 +15,6 @@
     ]
   editor:
     fontFamily: "Operator Mono"
-    fontSize: 12
     invisibles:
       space: " "
     showIndentGuide: true
