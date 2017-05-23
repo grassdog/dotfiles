@@ -16,3 +16,18 @@
 # This file uses CoffeeScript Object Notation (CSON).
 # If you are unfamiliar with CSON, you can read more about it here:
 # https://github.com/bevry/cson#what-is-cson
+
+'.source.js':
+  'React component':
+    'prefix': 'reactc'
+    'body': """
+import React from 'react';
+
+function ${1:Component}() {
+  return (
+    <div>$1</div>
+  );
+};
+
+export default $1;
+"""
