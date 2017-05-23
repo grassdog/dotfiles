@@ -31,3 +31,13 @@ function ${1:Component}() {
 
 export default $1;
 """
+  'jest spec':
+    'prefix': 'it'
+    'body': """
+it('${1:tests something}', () => {
+  $2
+});
+"""
+  'jest expectation':
+    'prefix': 'expect'
+    'body': "expect($1).${2:toBe}($3);"
