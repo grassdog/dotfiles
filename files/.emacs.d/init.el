@@ -497,6 +497,12 @@
   ("v" undo-tree-visualize "visualise" :exit t)
   ("q" nil "quit"))
 
+(use-package ws-butler
+  :diminish ws-butler-mode
+  :init
+  (setq ws-butler-keep-whitespace-before-point t)
+  (ws-butler-global-mode))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Evil (Trojan horse maneuver) ;;
