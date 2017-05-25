@@ -1368,7 +1368,13 @@ Repeated invocations toggle between the two most recently open buffers."
 
 
 (use-package git-timemachine
-  :commands git-timemachine)
+  :commands (git-timemachine git-timemachine-toggle)
+  :config
+  (progn
+     (evil-make-overriding-map git-timemachine-mode-map 'normal)
+     ;; force update evil keymaps after git-timemachine-mode loaded
+     (add-hook 'git-timemachine-mode-hook #'evil-normalize-keymaps)))
+
 
 (use-package git-gutter-fringe
   :diminish git-gutter-mode
@@ -3453,7 +3459,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   "gl" 'git-link
   "gc" 'git-link-commit
   "gB" 'github-browse-file
-  "gt" 'git-timemachine
+  "gt" 'git-timemachine-toggle
   "gp" 'grass/open-pull-request
 
   "gg" '(:ignore t :which-key "Gist")
