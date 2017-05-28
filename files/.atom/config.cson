@@ -11,7 +11,7 @@
     telemetryConsent: "limited"
     themes: [
       "atom-dark-ui"
-      "dracula-syntax"
+      "gloom"
     ]
   editor:
     fontFamily: "Operator Mono"
