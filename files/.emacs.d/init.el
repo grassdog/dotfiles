@@ -233,6 +233,13 @@
   :init
   (load-theme 'spacemacs-dark t))
 
+(use-package creamsody-theme
+  :disabled
+  :init
+  (progn
+    (load-theme 'creamsody t)
+    (creamsody-modeline-two)))
+
 (defun grass/set-gui-config ()
   "Enable my GUI settings"
   (interactive)
