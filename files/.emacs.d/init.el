@@ -1735,6 +1735,10 @@ the right."
   :init
   (setq nlinum-format "%4d ")
 
+  (use-package nlinum-hl
+    :init
+    (add-hook 'nlinum-mode-hook #'nlinum-hl-mode))
+
   ;; Line numbers for coding please
   (add-hook 'prog-mode-hook
     (lambda ()
