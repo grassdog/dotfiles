@@ -1562,6 +1562,12 @@ Repeated invocations toggle between the two most recently open buffers."
 (use-package ripgrep
   :commands (ripgrep-regexp))
 
+(use-package dumb-jump
+  :commands (dumb-jump-go dumb-jump-back dumb-jump-quick-look dump-jump-go-other-window dump-jump-go-prompt dumb-jump-go-prefer-external)
+  :config
+  (setq dumb-jump-prefer-searcher 'rg)
+  (setq dumb-jump-selector 'ivy))
+
 
 ;;;;;;;;;;;;;;;
 ;; Selection ;;
@@ -3485,6 +3491,14 @@ If the error list is visible, hide it.  Otherwise, show it."
   "hv" 'describe-variable
   "hk" 'describe-key
   "ha" 'apropos
+
+  "j" '(:ignore t :which-key "Jump to definition")
+  "jj" 'dumb-jump-go
+  "jb" 'dumb-jump-back
+  "jq" 'dumb-jump-quick-look
+  "jo" 'dumb-jump-go-other-window
+  "jp" 'dumb-jump-go-prompt
+  "jh" 'dumb-jump-go-prefer-external
 
   "e" '(:ignore t :which-key "Editing/Text")
   "eC" 'counsel-unicode-char
