@@ -1853,7 +1853,7 @@ the right."
       "Pb"    'counsel-projectile-switch-to-buffer
       "bp"    'counsel-projectile-switch-to-buffer
       "Pd"    'counsel-projectile-find-dir
-      "Pm"    '(:keymap projectile-command-map :package projectile :which-key "projectile")
+      "PP"    '(:keymap projectile-command-map :package projectile :which-key "projectile")
       "Ps"    'counsel-projectile-switch-project
       "p"     'counsel-projectile-find-file
       "fp"    'counsel-projectile-find-file)
