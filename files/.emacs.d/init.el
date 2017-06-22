@@ -2343,7 +2343,6 @@ the right."
   (setq js2-mode-show-strict-warnings nil)
 
   (add-hook 'js2-mode-hook 'js2-imenu-extras-mode)
-  (add-hook 'js2-mode-hook 'flow-minor-enable-automatically)
 
   (add-hook 'js2-mode-hook
     (lambda ()
@@ -2355,25 +2354,20 @@ the right."
                                   "clearInterval" "location" "__dirname" "console" "JSON")))))
 
 (use-package flow-minor-mode
-  :commands flow-minor-enable-automatically
+  :commands (flow-minor-enable-automatically
+              flow-minor-mode
+              flow-minor-status
+              flow-minor-coverage
+              flow-minor-type-at-pos
+              flow-minor-suggest)
   :config
   (use-package flycheck-flow)
-
-  (general-define-key :keymaps 'flow-minor-mode-map
-    :states '(normal visual insert emacs)
-    :prefix grass/leader2
-    :non-normal-prefix "M-,"
-    "f" '(:ignore t :which-key "Flow")
-    "fs" 'flow-minor-status
-    "fc" 'flow-minor-coverage
-    "ft" 'flow-minor-type-at-pos
-    "ff" 'flow-minor-suggest)
-
   (with-eval-after-load 'flycheck
     (flycheck-add-mode 'javascript-flow 'rjsx-mode)
     (flycheck-add-mode 'javascript-flow 'flow-minor-mode)
     (flycheck-add-mode 'javascript-eslint 'flow-minor-mode)
     (flycheck-add-next-checker 'javascript-flow 'javascript-eslint)))
+
 
 (use-package rjsx-mode
   :mode  (("\\.jsx?$" . rjsx-mode)
@@ -2389,10 +2383,9 @@ the right."
 
   ;; Quiet warnings
   (setq js2-mode-show-strict-warnings nil)
+
   ;; Clear out tag helper
-  (define-key rjsx-mode-map "<" nil)
-  (add-hook 'rjsx-mode-hook 'flycheck-mode)
-  (add-hook 'rjsx-mode-hook 'flow-minor-enable-automatically))
+  (define-key rjsx-mode-map "<" nil))
 
 (use-package json-mode
   :mode "\\.json$"
@@ -3438,6 +3431,13 @@ If the error list is visible, hide it.  Otherwise, show it."
   "cv" 'flycheck-verify-setup
 
   "cs" '(hydra-spelling/body :which-key "Spelling")
+
+  "cf" '(:ignore t :which-key "Flow")
+  "cff" 'flow-minor-mode
+  "cfs" 'flow-minor-status
+  "cfc" 'flow-minor-coverage
+  "cft" 'flow-minor-type-at-pos
+  "cfS" 'flow-minor-suggest
 
   "s" '(:ignore t :which-key "Search/Replace")
   "sc" 'grass/remove-search-highlights
