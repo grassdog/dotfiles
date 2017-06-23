@@ -2263,6 +2263,14 @@ the right."
            ("\\.jsx?$" . js2-jsx-mode))
   :interpreter "node"
   :config
+
+  (use-package prettier-js
+    :diminish prettier-js-mode
+    :init
+    (setq prettier-js-args '("--trailing-comma" "all"
+                              "--bracket-spacing" "false"))
+    (add-hook 'js2-mode-hook 'prettier-js-mode))
+
   (use-package js2-refactor
     :init
     (add-hook 'js2-mode-hook #'js2-refactor-mode)
@@ -2271,6 +2279,10 @@ the right."
       :states '(normal visual insert emacs)
       :prefix grass/leader2
       :non-normal-prefix "M-,"
+
+      "f" '(:ignore t :which-key "Format")
+      "ff" 'prettier-js
+
       "r" '(:ignore t :which-key "Refactor")
 
       "r3" '(:ignore t :which-key "ternary")

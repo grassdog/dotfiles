@@ -78,6 +78,7 @@ end
 LIBS = %w[
   gulp
   js-beautify
+  prettier
   coffee-script
   tern
   elm
