@@ -2267,7 +2267,7 @@ the right."
   (use-package prettier-js
     :diminish prettier-js-mode
     :init
-    (setq prettier-js-args '("--trailing-comma" "all"
+    (setq prettier-js-args '("--trailing-comma" "es5"
                               "--bracket-spacing" "false"))
     (add-hook 'js2-mode-hook 'prettier-js-mode))
 
