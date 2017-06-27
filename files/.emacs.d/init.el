@@ -3012,7 +3012,6 @@ the right."
        "C-c C-e" 'eval-print-last-sexp)))
 
 
-
 (use-package elixir-mode
   :mode (("\\.exs?\\'"   . elixir-mode))
   :defer t
@@ -3023,6 +3022,39 @@ the right."
         "\\(?:^\\|\\s-+\\)\\(?:do\\)")
       (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers) nil)
       (ruby-end-mode +1)))
+
+  (defun elixir--umbrella-root (&optional dir)
+    (let ((start-dir (or dir (expand-file-name default-directory))))
+      (or
+        (let* ((proj-dir (locate-dominating-file start-dir alchemist-project-mix-project-indicator))
+                (parent-proj-dir
+                  (if (stringp proj-dir)
+                    (locate-dominating-file (file-name-directory (directory-file-name proj-dir)) alchemist-project-mix-project-indicator))))
+          (if (stringp parent-proj-dir) parent-proj-dir proj-dir))
+
+        (let* ((proj-dir (locate-dominating-file start-dir alchemist-project-hex-pkg-indicator))
+                (parent-proj-dir
+                  (if (stringp proj-dir)
+                    (locate-dominating-file (file-name-directory (directory-file-name proj-dir)) alchemist-project-hex-pkg-indicator))))
+          (if (stringp parent-proj-dir) parent-proj-dir proj-dir)))))
+
+  (defun elixir-format-buffer ()
+    "Tidies the elixir content in the buffer using `exfmt'"
+    (interactive)
+    (shell-command-on-region
+      ;; beginning and end of buffer
+      (point-min)
+      (point-max)
+      ;; command and parameters
+      (concat "cd " (elixir--umbrella-root) "; mix exfmt " (buffer-file-name))
+      ;; output buffer
+      (current-buffer)
+      ;; replace?
+      t
+      ;; name of the error buffer
+      "*Exfmt Error Buffer*"
+      ;; show error buffer?
+      t))
 
   (use-package alchemist
     :diminish (alchemist-mode . " alc")
@@ -3050,6 +3082,9 @@ the right."
       "hH" 'alchemist-help-history
       "hh" 'alchemist-help-search-at-point
       "hr" 'alchemist-help-search-marked-region
+
+      "f" '(:ignore t :which-key "Format")
+      "ff" 'elixir-format-buffer
 
       "m" '(:ignore t :which-key "Mix")
       "m:" 'alchemist-mix
