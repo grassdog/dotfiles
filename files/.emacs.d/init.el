@@ -2268,7 +2268,9 @@ the right."
     :diminish prettier-js-mode
     :init
     (setq prettier-js-args '("--trailing-comma" "es5"))
-    (add-hook 'js2-mode-hook 'prettier-js-mode))
+    ;; No format on save for now
+    ;; (add-hook 'js2-mode-hook 'prettier-js-mode)
+    )
 
   (use-package js2-refactor
     :init
