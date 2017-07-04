@@ -245,6 +245,7 @@ set nohlsearch  " Don't highlight matches
 set incsearch   " incremental searching
 set ignorecase  " searches are case insensitive...
 set smartcase   " ... unless they contain at least one capital letter
+set inccommand=nosplit  " Show live substitution
 
 " Toggle search highlighting
 noremap <leader>sc :set hlsearch! hlsearch?<CR>
@@ -999,7 +1000,7 @@ nnoremap <silent> <F11> :NextWordy<cr>
 """""""""""""""""""""""
 
 set termguicolors
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
 
 set mouse=nicra " Allow mouse scrolling in terminal
 " Allow mouse selection in tmux
