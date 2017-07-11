@@ -1886,6 +1886,9 @@ the right."
   (setq org-hide-leading-stars t)
   (setq org-agenda-files '("~/Dropbox/Notes"))
 
+  ;; Set this so isearch doesn't hang
+  (setq-default search-invisible t)
+
   ;; Don't expand links by default
   (setq org-descriptive-links t)
 
