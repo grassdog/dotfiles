@@ -207,12 +207,16 @@ function serve-dir() {
 }
 
 # Some selecta-based helpers
+function ff() {
+  "${EDITOR:-vim}" "$(find . -not -path '*/\.*' -type f | selecta)"
+}
+
 function posts() {
-  e $(find ~/dev/dance.computer/source/posts -maxdepth 1 -type f | selecta)
+  "${EDITOR:-vim}" "$(find ~/dev/dance.computer/source/posts -maxdepth 1 -type f | selecta)"
 }
 
 function notes() {
-  e "$(find ~/Dropbox/Notes -maxdepth 3 -type f | grep -v '/\.' | selecta)"
+  "${EDITOR:-vim}" "$(find ~/Dropbox/Notes -type f  -not -path '*/\.*' | selecta)"
 }
 
 # Look up SSL cert details
