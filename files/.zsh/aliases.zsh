@@ -130,7 +130,9 @@ function gpuu() {
 # Ruby
 #######
 
-alias rd='bundle exec rspec -f d'
+alias rd="bundle exec rspec -f d"
+alias wip="bundle exec cucumber -p wip"
+alias rca="bundle exec rubocop --auto-correct"
 
 ############
 # Processes
