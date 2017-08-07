@@ -3,6 +3,9 @@
 
 [[ -r "$HOME/.secrets" ]] && source "$HOME/.secrets"
 
+# Add Haskell stack to the path
+export PATH=~/.local/bin/:$PATH
+
 ##############
 # AWS Helpers
 ##############
