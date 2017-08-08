@@ -2795,7 +2795,10 @@ the right."
         :states '(normal visual insert emacs)
         :prefix grass/leader2
         :non-normal-prefix "M-,"
-        "gg" 'intero-goto-definition
+
+        "g" 'intero-goto-definition
+
+        "f" 'haskell-mode-stylish-buffer
 
         "h" '(:ignore t :which-key "Help")
         "hi" 'intero-info
