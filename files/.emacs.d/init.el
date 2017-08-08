@@ -3470,6 +3470,11 @@ If the error list is visible, hide it.  Otherwise, show it."
   "-" 'dired-jump
   "SPC" '(grass/remove-search-highlights :which-key "clear search highlights")
 
+  "<left>" 'evil-window-left
+  "<right>" 'evil-window-right
+  "<up>" 'evil-window-up
+  "<down>" 'evil-window-down
+
   "c" '(:ignore t :which-key "Check/Compile")
   "cc" '(flycheck-mode :which-key "toggle flycheck")
   "cm" 'hydra-flycheck/body
