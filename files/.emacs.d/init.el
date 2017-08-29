@@ -3521,6 +3521,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   "bm" '(hydra-buffer/body :which-key "buffer mini-state")
   "bs" 'grass/switch-to-scratch-buffer
   "bk" 'kill-this-buffer
+  "bw" 'kill-buffer-and-window
   "bo" 'crux-kill-other-buffers
   "bi" 'ibuffer
 
