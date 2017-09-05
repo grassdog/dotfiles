@@ -1741,10 +1741,7 @@ the right."
 (use-package nlinum
   :init
   (setq nlinum-format "%4d ")
-
-  (use-package nlinum-hl
-    :init
-    (add-hook 'nlinum-mode-hook #'nlinum-hl-mode))
+  (setq nlinum-highlight-current-line t)
 
   ;; Line numbers for coding please
   (add-hook 'prog-mode-hook
