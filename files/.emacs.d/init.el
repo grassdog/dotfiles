@@ -3449,6 +3449,13 @@ If the error list is visible, hide it.  Otherwise, show it."
               emamux:copy-kill-ring
               emamux:yank-from-list-buffers))
 
+;;;;;;;;;;
+;; Epub ;;
+;;;;;;;;;;
+
+(use-package nov
+  :mode ("\\.epub\\'" . nov-mode))
+
 ;;;;;;;;;;;;;;;;;;
 ;; Key bindings ;;
 ;;;;;;;;;;;;;;;;;;
