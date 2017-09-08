@@ -3216,7 +3216,7 @@ the right."
   "spelling"
   ("t" flyspell-mode "toggle")
   ("n" flyspell-goto-next-error "next error")
-  ("w" ispell-word)
+  ("w" flyspell-correct-word-before-point "correct word")
   ("q" nil "quit" :color blue))
 
 (use-package spaceline
