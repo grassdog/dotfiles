@@ -6,6 +6,8 @@
 # Add Haskell stack to the path
 export PATH=~/.local/bin/:$PATH
 
+alias mux="mux-identity"
+
 ##############
 # AWS Helpers
 ##############

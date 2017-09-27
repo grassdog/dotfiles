@@ -8,6 +8,8 @@ export PATH=$PATH:$GOPATH/bin
 # Add Haskell stack to the path
 export PATH=~/.local/bin/:$PATH
 
+alias mux="mux-personal"
+
 # Chruby
 if [[ -e /usr/local/opt/chruby/share/chruby/chruby.sh ]]; then
   source /usr/local/opt/chruby/share/chruby/chruby.sh

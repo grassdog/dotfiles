@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+##
+## Usage: _PROG_ [session-name]
+##
+## Create tmux sessions for personal dev.
+##
+
+set -e
+
+prog="$0"
+me=`basename "$prog"`
+
+dohelp () {
+  grep '^##' "$prog" | sed -E -e 's/^## ?//' -e "s/_PROG_/$me/" 1>&2
+}
+
+if [[ $1 == "-h" ]] || [[ $1 == "--help" ]]; then
+  dohelp
+  exit
+fi
+
+NAME="${1:-misc}"
+
+tmux new-session -d -c ~ -n "$NAME" -s "$NAME"
+
+case "$1" in
+  dev)
+    # Kick up my local dev tmux session
+    tmux rename-window dev
+    tmux send-keys -t "$NAME":"$NAME" 'cd ~/dev' C-m
+    tmux new-window -c ~/.dotfiles -n dotfiles -t "$NAME":2
+    tmux select-window -t "$NAME":2
+    tmux rename-window dotfiles
+    ;;
+  *)
+    ;;
+esac
+
+
+if [[ -z $TMUX ]]; then
+  tmux attach-session -t "$NAME"
+else
+  tmux switch-client -t "$NAME"
+fi
+
