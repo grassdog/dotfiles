@@ -26,11 +26,9 @@ tmux new-session -d -c ~ -n "$NAME" -s "$NAME"
 case "$1" in
   dev)
     # Kick up my local dev tmux session
-    tmux rename-window dev
-    tmux send-keys -t "$NAME":"$NAME" 'cd ~/dev' C-m
-    tmux new-window -c ~/.dotfiles -n dotfiles -t "$NAME":2
-    tmux select-window -t "$NAME":2
+    tmux send-keys -t "$NAME":"$NAME" 'cd ~/.dotfiles' C-m
     tmux rename-window dotfiles
+    tmux new-window -c ~/dev -n dev -t "$NAME":2
     ;;
   admin)
     tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/identity-admin' C-m
