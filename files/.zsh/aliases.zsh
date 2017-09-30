@@ -217,6 +217,10 @@ function posts() {
   "${EDITOR:-vim}" "$(find ~/dev/dance.computer/source/posts -maxdepth 1 -type f | selecta)"
 }
 
+function links() {
+  "${EDITOR:-vim}" "$(find ~/dev/dance.computer/source/links -maxdepth 1 -type f | selecta)"
+}
+
 function notes() {
   "${EDITOR:-vim}" "$(find ~/Dropbox/Notes -type f  -not -path '*/\.*' | selecta)"
 }
