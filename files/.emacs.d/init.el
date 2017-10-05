@@ -1838,7 +1838,7 @@ the right."
 (use-package counsel-projectile
   :init
   (progn
-    (setq projectile-switch-project-action 'grass/counsel-rg-current-project)
+    (setq projectile-switch-project-action 'counsel-projectile-find-file)
 
     (general-define-key
       :states '(normal visual insert emacs)
