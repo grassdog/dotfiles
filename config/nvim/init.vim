@@ -67,49 +67,30 @@ Plug 'jremmen/vim-ripgrep'
 Plug 'henrik/vim-open-url'
 Plug 'grassdog/tagman.vim'
 
+" Languages
+Plug 'sheerun/vim-polyglot'
+
 " Ruby
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-endwise'
-Plug 'vim-ruby/vim-ruby'
 Plug 'jgdavey/vim-blockle'
-Plug 'tpope/vim-cucumber'
 Plug 'nelstrom/vim-textobj-rubyblock'
 
-" Web
-Plug 'tpope/vim-haml'
-Plug 'tpope/vim-markdown'
-Plug 'nelstrom/vim-markdown-folding'
-Plug 'timcharper/textile.vim'
-Plug 'othree/html5.vim'
-Plug 'cakebaker/scss-syntax.vim'
-Plug 'slim-template/vim-slim'
-Plug 'groenewege/vim-less'
-
 " JS
-Plug 'pangloss/vim-javascript'
-Plug 'kchmck/vim-coffee-script'
-Plug 'glanotte/vim-jasmine'
 Plug 'mustache/vim-mustache-handlebars'
-Plug 'JSON.vim'
 Plug 'fleischie/vim-styled-components'
-Plug 'mxw/vim-jsx'
 
 " Elixir
-Plug 'elixir-lang/vim-elixir'
 Plug 'slashmili/alchemist.vim'
 
 " Clojure
-Plug 'guns/vim-clojure-static'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'tpope/vim-fireplace'
 Plug 'guns/vim-sexp'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 
 " Other
-Plug 'lukerandall/haskellmode-vim'
-Plug 'ajf/puppet-vim'
-Plug 'wting/rust.vim'
-Plug 'cespare/vim-toml'
+" Plug 'lukerandall/haskellmode-vim'
 Plug 'reedes/vim-wordy'
 Plug 'w0rp/ale'
 
