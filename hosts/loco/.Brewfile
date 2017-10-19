@@ -12,6 +12,7 @@ brew 'chruby'
 brew 'ctags'
 brew 'diff-so-fancy'
 brew 'ripgrep'
+brew 'fzf'
 brew 'yarn'
 brew 'graphviz'
 
