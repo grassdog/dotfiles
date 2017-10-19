@@ -41,7 +41,6 @@ brew 'pstree'
 brew 'python'
 brew 'reattach-to-user-namespace', args: [ 'with-wrap-pbcopy-and-pbpaste' ]
 brew 'rust'
-brew 'selecta'
 brew 'sqlite'
 brew 'the_silver_searcher'
 brew 'tmate'

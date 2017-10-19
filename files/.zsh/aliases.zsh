@@ -210,19 +210,19 @@ function serve-dir() {
 
 # Some selecta-based helpers
 function ff() {
-  "${EDITOR:-vim}" "$(find . -not -path '*/\.*' -type f | selecta)"
+  "${EDITOR:-vim}" "$(find . -not -path '*/\.*' -type f | fzf)"
 }
 
 function posts() {
-  "${EDITOR:-vim}" "$(find ~/dev/dance.computer/source/posts -maxdepth 1 -type f | selecta)"
+  "${EDITOR:-vim}" "$(find ~/dev/dance.computer/source/posts -maxdepth 1 -type f | fzf)"
 }
 
 function links() {
-  "${EDITOR:-vim}" "$(find ~/dev/dance.computer/source/links -maxdepth 1 -type f | selecta)"
+  "${EDITOR:-vim}" "$(find ~/dev/dance.computer/source/links -maxdepth 1 -type f | fzf)"
 }
 
 function notes() {
-  "${EDITOR:-vim}" "$(find ~/Dropbox/Notes -type f  -not -path '*/\.*' | selecta)"
+  "${EDITOR:-vim}" "$(find ~/Dropbox/Notes -type f  -not -path '*/\.*' | fzf)"
 }
 
 # Look up SSL cert details
