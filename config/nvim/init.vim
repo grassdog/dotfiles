@@ -58,7 +58,8 @@ Plug 'wellle/targets.vim'
 " Completions and Snippets
 Plug 'SirVer/ultisnips'
 Plug 'ervandew/supertab'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+Plug 'tweekmonster/fzf-filemru'
 
 " Tools
 Plug 'EasyGrep'
@@ -110,6 +111,7 @@ Plug 'ajf/puppet-vim'
 Plug 'wting/rust.vim'
 Plug 'cespare/vim-toml'
 Plug 'reedes/vim-wordy'
+Plug 'w0rp/ale'
 
 call plug#end()
 
@@ -543,24 +545,15 @@ nnoremap <leader>fj :Explore %:h<cr>
 
 
 """"""""""""""""""""""" }}}
-" Ctrl-P                {{{
+" fzf                   {{{
 """""""""""""""""""""""
 
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_mruf_last_entered = 1
-let g:ctrlp_match_window_reversed = 0
-let g:ctrlp_split_window = 0
-let g:ctrlp_max_height = 20
-let g:ctrlp_use_caching = 0
-let g:ctrlp_extensions = ['tag']
-let g:ctrlp_mruf_exclude = '\v\.git/(MERGE_MSG|rebase-merge|COMMIT_EDITMSG|PULLREQ_EDITMSG|index)'
-
-nnoremap <leader>fp :CtrlP<cr>
-nnoremap <leader>p :CtrlP<cr>
-nnoremap <leader>bb :CtrlPBuffer<cr>
+nnoremap <leader>fp :Files<cr>
+nnoremap <leader>p :Files<cr>
+nnoremap <leader>bb :Buffers<cr>
 nnoremap <leader>bk :bdelete<cr>
-nnoremap <leader>bt :CtrlPTag<cr>
-nnoremap <leader>fr :CtrlPMRU<cr>
+nnoremap <leader>bt :Tags<cr>
+nnoremap <leader>fr :FilesMru --tiebreak=end<cr>
 
 
 """"""""""""""""""""""" }}}
