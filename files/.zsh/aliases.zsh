@@ -214,11 +214,11 @@ function ff() {
 }
 
 function posts() {
-  "${EDITOR:-vim}" "$(find ~/dev/dance.computer/source/posts -maxdepth 1 -type f | fzf)"
+  "${EDITOR:-vim}" "$(find ~/dev/dance.computer.dance/source/posts -maxdepth 1 -type f | fzf)"
 }
 
 function links() {
-  "${EDITOR:-vim}" "$(find ~/dev/dance.computer/source/links -maxdepth 1 -type f | fzf)"
+  "${EDITOR:-vim}" "$(find ~/dev/dance.computer.dance/source/links -maxdepth 1 -type f | fzf)"
 }
 
 function notes() {
