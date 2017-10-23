@@ -638,6 +638,9 @@ function! ExtendMarkdownSyntax()
   match RGBareURL /[^(]https\?:\/\/\(\w\+\(:\w\+\)\?@\)\?\([A-Za-z][-_0-9A-Za-z]*\.\)\{1,}\(\w\{2,}\.\?\)\{1,}\(:[0-9]\{1,5}\)\?\S*/
 endfun
 
+" Support front matter in markdown documents
+let g:vim_markdown_frontmatter = 1
+
 augroup grass_html
   autocmd!
 
