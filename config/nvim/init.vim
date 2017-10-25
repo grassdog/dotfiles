@@ -561,7 +561,12 @@ nnoremap g<c-]> <c-]>
 " Open tag for word under cursor in a new vsplit
 map <c-\> :vsp<CR>:exec("tag ".expand("<cword>"))<cr>
 
+"""""""""" }}}
+" Linting  {{{
+""""""""""
 
+nmap <silent> <A-k> <Plug>(ale_previous_wrap)
+nmap <silent> <A-j> <Plug>(ale_next_wrap)
 
 """"""""""""""""""""""" }}}
 " All files             {{{
