@@ -2407,7 +2407,12 @@ the right."
     :states '(normal visual insert emacs)
     :prefix grass/leader2
     :non-normal-prefix "M-,"
-    "p" 'json-pretty-print-buffer)
+    "p" 'json-pretty-print-buffer
+    "j" 'jq-interactively)
+
+  (use-package jq-mode
+    :commands jq-interactively)
+
   (use-package flymake-json
     :init
     (add-hook 'json-mode 'flymake-json-load)))
