@@ -35,6 +35,10 @@ case "$1" in
     ;;
   infra)
     tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/identity-infrastructure' C-m
+    tmux split-window -h -t $NAME:$NAME
+    tmux select-pane -t $NAME:1.1
+    tmux send-keys -t $NAME:1.1 'cd ~/src/identity-infrastructure' C-m
+    tmux send-keys -t $NAME:1.2 "cd ~/src/identity-infrastructure/aws-analysis" C-m
     ;;
   team)
     tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/identity-team' C-m
