@@ -3210,6 +3210,10 @@ the right."
   (setq ispell-silently-savep t)
   (ispell-change-dictionary "british" t)
 
+  (use-package flyspell-correct-popup
+    :init
+    (define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-previous-word-generic))
+
   (add-hook 'markdown-mode-hook (lambda () (flyspell-mode 1)))
   (add-hook 'text-mode-hook (lambda () (flyspell-mode 1)))
 
