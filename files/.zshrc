@@ -88,7 +88,6 @@ function obliq () {
   fi
 }
 
-[[ -r ~/.bin/tmuxinator.zsh ]] && source ~/.bin/tmuxinator.zsh
 
 # Source host specific config
 HOSTRC="$HOME/.zsh/$(hostname).zsh"
