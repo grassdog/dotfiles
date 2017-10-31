@@ -88,6 +88,8 @@ function obliq () {
   fi
 }
 
+# Enable history in iex
+export ERL_AFLAGS="-kernel shell_history enabled"
 
 # Source host specific config
 HOSTRC="$HOME/.zsh/$(hostname).zsh"
