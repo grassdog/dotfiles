@@ -2,7 +2,8 @@ dep "dev-env" do
   requires "zsh-shell",
            "dev-folders",
            "colourpickers",
-           "ssh keys generated"
+           "ssh keys generated",
+           "code-config-linked"
 end
 
 #
@@ -99,4 +100,37 @@ dep 'ssh keys generated', :ssh_dir, :ssh_password do
   after {
     shell "/usr/bin/ssh-add -K"
   }
+end
+
+#
+# VSCode
+#
+
+dep 'code-application.dir' do
+  path "~/Library/Application Support/Code/User"
+end
+
+dep 'code-config-linked' do
+  requires 'code-settings.symlink', 'code-keybindings.symlink', 'code-snippets.symlink'
+end
+
+dep 'code-settings.symlink' do
+  requires 'code-application.dir'
+
+  source "~/Dropbox/Backup/vscode/settings.json"
+  target "~/Library/Application Support/Code/User/settings.json"
+end
+
+dep 'code-keybindings.symlink' do
+  requires 'code-application.dir'
+
+  source "~/Dropbox/Backup/vscode/keybindings.json"
+  target "~/Library/Application Support/Code/User/keybindings.json"
+end
+
+dep 'code-snippets.symlink' do
+  requires 'code-application.dir'
+
+  source "~/Dropbox/Backup/vscode/snippets"
+  target "~/Library/Application Support/Code/User/snippets"
 end
