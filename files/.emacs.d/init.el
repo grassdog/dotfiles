@@ -1485,14 +1485,13 @@ Repeated invocations toggle between the two most recently open buffers."
     :non-normal-prefix "M-,"
     "g" 'revert-buffer)
 
-  (define-key dired-mode-map [return] 'dired-single-buffer)
-  (define-key dired-mode-map [mouse-1] 'dired-single-buffer-mouse)
+  (define-key dired-mode-map [return] 'dired-find-alternate-file)
   (define-key dired-mode-map (kbd "^")
     (function
-      (lambda nil (interactive) (dired-single-buffer ".."))))
+      (lambda nil (interactive) (dired-find-alternate-file ".."))))
   (define-key dired-mode-map (kbd "-")
     (function
-      (lambda nil (interactive) (dired-single-buffer "..")))))
+      (lambda nil (interactive) (dired-find-alternate-file "..")))))
 
 (if (boundp 'dired-mode-map)
   (grass/dired-init)
@@ -1500,14 +1499,12 @@ Repeated invocations toggle between the two most recently open buffers."
 
 (add-hook 'dired-mode-hook
   (lambda ()
+    (put 'dired-find-alternate-file 'disabled nil)
     (dired-omit-mode t)
     (dired-hide-details-mode t)))
 
 (eval-after-load "dired"
   '(progn
-     (use-package dired-single
-       :commands 'dired-single-buffer)
-
      (use-package peep-dired
        :config
        (general-define-key :keymaps 'dired-mode-map
