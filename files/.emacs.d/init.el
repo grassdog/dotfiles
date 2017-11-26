@@ -1526,6 +1526,11 @@ Repeated invocations toggle between the two most recently open buffers."
 ;; Search and Replace ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; More standard regex
+(use-package pcre2el
+  :init
+  (pcre-mode))
+
 ;; http://sachachua.com/blog/2008/07/emacs-keyboard-shortcuts-for-navigating-code/
 (defun grass/isearch-yank-current-word ()
   "Pull current word from buffer into search string."
