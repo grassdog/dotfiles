@@ -1528,6 +1528,7 @@ Repeated invocations toggle between the two most recently open buffers."
 
 ;; More standard regex
 (use-package pcre2el
+  :diminish (pcre-mode . "	ⓧ")
   :init
   (pcre-mode))
 
