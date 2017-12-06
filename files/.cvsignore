@@ -49,3 +49,6 @@ TAGS
 *.pyc
 
 .tern-port
+
+# Direnv files
+.envrc
