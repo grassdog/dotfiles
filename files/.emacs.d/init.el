@@ -2574,6 +2574,9 @@ the right."
       ad-do-it)
     ad-do-it))
 
+(use-package slim-mode
+  :mode "\\.slim$")
+
 (use-package jade-mode
   :mode "\\.jade$"
   :config
