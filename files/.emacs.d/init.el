@@ -1126,15 +1126,17 @@ _SPC_ cancel     _o_nly this       _d_elete
   (format-time-string "%Y.%m.%d - %a"))
 
 (defun grass/insert-datetime (arg)
-  "Without argument: insert date as yyyy-mm-dd
-With C-u: insert date and time
-With C-u C-u: insert time"
+  "Insert ISO8601 date with time"
   (interactive "P")
-  (cond ((equal arg '(16)) (insert (format-time-string "%T")))
-    ((equal arg '(4)) (insert (format-time-string "%Y-%m-%d %T")))
-    (t (insert (format-time-string "%Y-%m-%d")))))
+  (insert (format-time-string "%FT%T%z")))
 
-(defun grass/insert-date ()
+(defun grass/insert-date (arg)
+  "Insert date"
+  (interactive "P")
+  (insert (format-time-string "%F")))
+
+(defun grass/insert-today ()
+  "Insert date with day of the week"
   (interactive)
   (insert (grass/today)))
 
@@ -3591,7 +3593,8 @@ If the error list is visible, hide it.  Otherwise, show it."
   "et" '(grass/toggle-always-indent :which-key "toggle tab indent")
   "ec" 'char-menu
   "eb" 'grass/comment-box
-  "ed" 'grass/insert-datetime
+  "ed" 'grass/insert-date
+  "eD" 'grass/insert-datetime
   "ee" 'emojify-insert-emoji
   "es" 'stupid-indent-mode
 
