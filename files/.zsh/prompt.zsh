@@ -41,41 +41,21 @@ prompt_git() {
   fi
 }
 
-prompt_nvm() {
-  local nvm_prompt
-  if type nvm >/dev/null 2>&1; then
-    nvm_prompt=$(nvm current 2>/dev/null)
-    [[ "${nvm_prompt}x" == "x" ]] && return
-  else
-    nvm_prompt="$(node --version 2>/dev/null)"
-  fi
-  nvm_prompt=${nvm_prompt}
-  [[ -n "$nvm_prompt" ]] && prompt_segment "%{$fg[green]%}⬡ $nvm_prompt"
+prompt_node() {
+  local node_prompt="$(node --version | sed 's|v\([0-9\.]*\).*|\1|')"
+
+  [[ -n "$node_prompt" ]] && prompt_segment "%{$fg[green]%}⬡ $node_prompt"
 }
 
-# RUBY
-# RVM: only shows RUBY info if on a gemset that is not the default one
-# RBENV: shows current ruby version active in the shell; also with non-global gemsets if any is active
-# CHRUBY: shows current ruby version active in the shell
 prompt_ruby() {
-  local ruby_prompt=''
-  if command -v rvm-prompt > /dev/null 2>&1; then
-    ruby_prompt="$(rvm-prompt i v g)"
-  elif command -v chruby > /dev/null 2>&1; then
-    ruby_prompt="$(chruby | sed -n -e 's/ \* //p')"
-  elif command -v rbenv > /dev/null 2>&1; then
-    current_gemset() {
-      echo "$(rbenv gemset active 2&>/dev/null | sed -e 's/ global$//')"
-    }
+  local ruby_prompt="$(ruby --version | sed 's|ruby \([0-9\.]*\).*|\1|')"
 
-    if [[ -n $(current_gemset) ]]; then
-      ruby_prompt="$(rbenv version | sed -e 's/ (set.*$//')"@"$(current_gemset)"
-    else
-      ruby_prompt="$(rbenv version | sed -e 's/ (set.*$//')"
-    fi
-  fi
+  [[ -n "$ruby_prompt" ]] && prompt_segment "%{$fg[magenta]%}♦$ruby_prompt"
+}
 
-  prompt_segment "%{$fg[magenta]%}♦ $ruby_prompt"
+prompt_elixir() {
+  local elixir_prompt="$(elixir --version | grep Elixir | sed 's|Elixir \([0-9\.]*\).*|\1|')"
+  [[ -n "$elixir_prompt" ]] && prompt_segment "%{$fg[blue]%}☤$elixir_prompt"
 }
 
 
@@ -128,7 +108,8 @@ PROMPT_ORDER=(
   context
   git
   ruby
-  nvm
+  node
+  elixir
   aws_session
 )
 
