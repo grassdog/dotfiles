@@ -101,4 +101,8 @@ if type direnv >/dev/null 2>&1; then
   eval "$(direnv hook zsh)"
 fi
 
+[[ -r /usr/local/opt/asdf/asdf.sh ]] && source /usr/local/opt/asdf/asdf.sh
+
+[[ -r "$HOME/.secrets" ]] && source "$HOME/.secrets"
+
 [[ -r /opt/boxen/env.sh ]] && source /opt/boxen/env.sh

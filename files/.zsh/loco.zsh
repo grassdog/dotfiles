@@ -1,5 +1,3 @@
-[[ -r "$HOME/.secrets" ]] && source "$HOME/.secrets"
-
 # Go
 export GOPATH=$HOME/.golang
 export GOROOT=/usr/local/opt/go/libexec
@@ -9,14 +7,6 @@ export PATH=$PATH:$GOPATH/bin
 export PATH=~/.local/bin/:$PATH
 
 alias mux="mux-personal"
-
-# Chruby
-if [[ -e /usr/local/opt/chruby/share/chruby/chruby.sh ]]; then
-  source /usr/local/opt/chruby/share/chruby/chruby.sh
-  source /usr/local/opt/chruby/share/chruby/auto.sh
-  [[ -r ~/.ruby-version ]] && chruby $(cat ~/.ruby-version)
-  [[ -r ./.ruby-version ]] && chruby $(cat ./.ruby-version)
-fi
 
 # Remove the need for bundle exec ... or ./bin/...
 # by adding ./bin to path if the current project is trusted
@@ -39,10 +29,4 @@ if [[ -n "$ZSH_VERSION" ]]; then
   if [[ ! "$preexec_functions" == *add_trusted_local_bin_to_path* ]]; then
     preexec_functions+=("add_trusted_local_bin_to_path")
   fi
-fi
-
-export NVM_DIR=~/.nvm
-
-if [[ -e $(brew --prefix nvm)/nvm.sh ]]; then
-  source $(brew --prefix nvm)/nvm.sh
 fi

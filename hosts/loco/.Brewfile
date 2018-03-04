@@ -8,7 +8,6 @@ brew 'ansible'
 brew 'aspell'
 brew 'awscli'
 brew 'chisel'
-brew 'chruby'
 brew 'ctags'
 brew 'diff-so-fancy'
 brew 'ripgrep'
@@ -18,7 +17,7 @@ brew 'graphviz'
 
 brew 'dnsmasq', restart_service: :changed
 
-brew 'elixir'
+brew 'asdf'
 brew 'figlet'
 brew 'git'
 brew 'gnupg2'

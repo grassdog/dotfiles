@@ -1,8 +1,6 @@
 # This should be here but for some reason when it is the PATH isn't set correctly
 # source /opt/boxen/env.sh
 
-[[ -r "$HOME/.secrets" ]] && source "$HOME/.secrets"
-
 # Add Haskell stack to the path
 export PATH=~/.local/bin/:$PATH
 
