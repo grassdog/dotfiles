@@ -134,6 +134,14 @@ alias rd="bundle exec rspec -f d"
 alias wip="bundle exec cucumber -p wip"
 alias rca="bundle exec rubocop --auto-correct"
 
+# Run rubocop on modified files
+function rubochanged() {
+  # Locally modified
+  git ls-files -m | xargs ls -1 2>/dev/null | grep '\.rb$' | xargs rubocop
+  # Committed but differing from origin/master
+  git diff-tree -r --no-commit-id --name-only head origin/master | xargs rubocop
+}
+
 ############
 # Processes
 ############
