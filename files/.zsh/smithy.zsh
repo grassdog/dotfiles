@@ -6,6 +6,17 @@ export PATH=~/.local/bin/:$PATH
 
 alias mux="mux-identity"
 
+PROMPT_ORDER=(
+  time
+  status
+  context
+  git
+  ruby
+  node
+  aws_session
+  # elixir
+)
+
 ##############
 # AWS Helpers
 ##############
