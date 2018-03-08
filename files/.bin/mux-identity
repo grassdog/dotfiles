@@ -52,6 +52,9 @@ case "$1" in
   identity)
     tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/identity' C-m
     ;;
+  area51)
+    tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/area51-server' C-m
+    ;;
   *)
     ;;
 esac
