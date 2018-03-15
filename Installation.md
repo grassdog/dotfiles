@@ -1,6 +1,6 @@
-# OS X Installation
+# Bootstrap up a macOS box
 
-This repo contains the bulk of what I use to stand up a OSX box how I like it. Follow the steps below.
+Use the steps below to stand up a macOS box how I like it.
 
 ## Bootstrap up the environment
 

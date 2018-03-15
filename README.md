@@ -8,4 +8,4 @@ The bulk of my dotfiles live under the `files` directory.
 
 ## Installation
 
-This repo includes [Babushka](http://babushka.me/) scripts and [Homebrew](http://brew.sh/) bundles to bootstrap up an OSX machine how I like it. The details of which can be found in [Installation](Installation.md). 
+Run `bootstrap.sh` to bootstrap up an OSX machine how I like it. This script relies on Bash and [Homebrew](http://brew.sh/) and are safe to rerun.
