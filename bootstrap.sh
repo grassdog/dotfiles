@@ -5,6 +5,8 @@
 #/ -d, --debug  run in debug mode
 #/ -h, --help   show help
 
+# With liberal pilfering from https://github.com/MikeMcQuaid/strap
+
 function show_usage {
   grep '^#/' "$0" | cut -c4- 1>&2
   exit 1
@@ -37,7 +39,7 @@ abort() { echo -e "${RED}!!! $*${RESET}" >&2; exit 1; }
 step()  { echo -e "\n${GREEN}---> $*${RESET}"; }
 log()   { echo -e "$*"; }
 warn()  { echo -e "${YELLOW}*** $*${RESET}"; }
-ok()    { echo -e "${GREEN}OK${RESET}"; }
+ok()    { echo -e "${GREEN}<--- OK${RESET}"; }
 
 #
 # Checks
