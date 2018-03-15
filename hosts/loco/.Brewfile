@@ -44,3 +44,4 @@ brew 'z'
 brew 'zsh'
 brew 'vim', args: [ 'with-ruby', 'with-mzscheme', 'with-python' ]
 brew 'emacs', args: ['with-cocoa', 'with-gnutls', 'with-imagemagick', 'with-dbus', 'with-modules', 'with-mailutils' ]
+

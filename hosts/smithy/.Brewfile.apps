@@ -17,6 +17,7 @@ mas 'Monosnap', id: 540348655
 mas 'Numbers', id: 409203825
 mas 'Pages', id: 409201541
 
+cask 'aws-vault'
 cask 'betterzipql'
 cask 'provisionql'
 cask 'qlcolorcode'

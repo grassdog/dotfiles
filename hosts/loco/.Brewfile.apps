@@ -15,6 +15,7 @@ mas 'Numbers', id: 409203825
 mas 'Pages', id: 409201541
 mas 'Transmit', id: 403388562
 
+cask 'aws-vault'
 cask 'betterzipql'
 cask 'provisionql'
 cask 'qlcolorcode'
