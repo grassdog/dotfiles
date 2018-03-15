@@ -93,6 +93,10 @@ ok
 step "Ensure common directories exist"
 mkdir -p ~/dev
 mkdir -p ~/private
+mkdir -p ~/btsync
+mkdir -p ~/.config
+mkdir -p ~/.ssh
+mkdir -p ~/.cache/emacs/saves
 ok
 
 
@@ -104,12 +108,13 @@ ok
 
 function link_files {
   local SOURCE_DIR=$1
+  local TARGET_DIR=${2:-$HOME}
 
   log "Linking files in $SOURCE_DIR"
 
   for f in $(find $SOURCE_DIR -maxdepth 1 -mindepth 1); do
-    log "Linking $f"
-    # ln -sf $f $HOME
+    log "Linking $f to $TARGET_DIR"
+    ln -sf "$f" "$TARGET_DIR"
   done
 }
 
@@ -117,6 +122,173 @@ step "Link dotfiles"
 [ -d $DOTFILES_FULL_PATH/files ] && link_files $DOTFILES_FULL_PATH/files
 [ -d $DOTFILES_FULL_PATH/hosts/$HOSTNAME ] && link_files $DOTFILES_FULL_PATH/hosts/$HOSTNAME
 [ -d $HOME/Dropbox/Backups/$HOSTNAME ] && link_files $HOME/Dropbox/Backups/$HOSTNAME
+link_files $DOTFILES_FULL_PATH/config $HOME/.config
+ok
+
+step "Set shell to zsh"
+[[ $(echo $SHELL) != $(which zsh) ]] && chsh -s $(which zsh) $(whoami)
+ok
+
+step "Install vim config"
+mkdir -p ~/.cache/vim/tmp/undo
+mkdir -p ~/.cache/vim/tmp/backups
+ln -sf $DOTFILES_FULL_PATH/files/.vim/vimrc $HOME/.vimrc
+mkdir -p $HOME/.vim/autoload
+[ ! -f $HOME/.vim/autoload/plug.vim ] && curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+ok
+
+step "Install vscode config"
+mkdir -p "$HOME/Library/Application Support/Code/User"
+link_files $HOME/Dropbox/Backups/vscode "$HOME/Library/Application Support/Code/User"
+ok
+
+step "Install tmux config"
+mkdir -p ~/.tmux/plugins
+[ ! -d $HOME/.tmux/plugins/tpm ] && git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+ok
+
+step "Install service menu items"
+mkdir -p ~/Library/Services
+SAVEIFS=$IFS
+IFS=$(echo -en "\n\b")
+for f in $(find $DOTFILES_FULL_PATH/services -maxdepth 1 -mindepth 1); do
+  log "Copying $f to ~/Library/Services"
+  cp -R "$f" ~/Library/Services
+done
+IFS=$SAVEIFS
+ok
+
+step "Install dev colour picker"
+mkdir -p ~/Library/ColorPickers
+if [ ! -d ~/Library/ColorPickers/DeveloperColorPicker.colorPicker ]; then
+curl -sS http://download.panic.com/picker/developercolorpicker.zip > dcp.zip && \
+unzip dcp.zip                                  && \
+mv "Developer Color Picker" ~/Library/ColorPickers/DeveloperColorPicker.colorPicker && \
+rm dcp.zip
+fi
+ok
+
+
+function install_fonts {
+  local ARCHIVE=$1
+  local EXTENSION=$2
+  local TEMP_DIR=$(mktemp -d)
+
+  log "Installing font $ARCHIVE"
+
+  unzip $ARCHIVE -d $TEMP_DIR >/dev/null
+  find $TEMP_DIR -maxdepth 1 -name '*.ttf' -o -name '*.otf' -exec mv {} ~/Library/Fonts \;
+  rm -r $TEMP_DIR
+}
+
+step "Install fonts"
+mkdir -p ~/Library/Fonts
+[ ! -f ~/Library/Fonts/Forza-Black.otf ] && install_fonts ~/Dropbox/Public/Fonts/Forza.zip
+[ ! -f ~/Library/Fonts/LeagueGothic-Regular.otf ] && install_fonts ~/Dropbox/Public/Fonts/league-gothic-master.zip
+[ ! -f ~/Library/Fonts/Hack-Bold.otf ] && install_fonts ~/Dropbox/Public/Fonts/Hack-ttf.zip
+[ ! -f ~/Library/Fonts/OperatorMono-Bold.otf ] && install_fonts ~/Dropbox/Public/Fonts/OperatorMono.zip
+[ ! -f ~/Library/Fonts/Roboto-Black.ttf ] && install_fonts ~/Dropbox/Public/Fonts/roboto.zip
+[ ! -f ~/Library/Fonts/GothamCond-Black.otf ] && install_fonts ~/Dropbox/Public/Fonts/GothamCond.zip
+[ ! -f ~/Library/Fonts/Idlewild-Bold.otf ] && install_fonts ~/Dropbox/Public/Fonts/Idlewild.zip
+[ ! -f ~/Library/Fonts/Vitesse-Black.otf ] && install_fonts ~/Dropbox/Public/Fonts/Vitesse.zip
+[ ! -f ~/Library/Fonts/Sullivan-Regular.otf ] && install_fonts ~/Dropbox/Public/Fonts/Sullivan.zip
+[ ! -f ~/Library/Fonts/OpenSans-Bold.ttf ] && install_fonts ~/Dropbox/Public/Fonts/OpenSans.zip
+[ ! -f ~/Library/Fonts/Metropolis.otf ] && cp ~/Dropbox/Public/Fonts/Metropolis.otf ~/Library/Fonts
+[ ! -f ~/Library/Fonts/DecoNeue-Light.ttf ] && cp ~/Dropbox/Public/Fonts/DecoNeue-Light.ttf ~/Library/Fonts
+ok
+
+step "Install linked Brewfiles"
+brew bundle -v --file=~/.Brewfile
+ok
+
+step "Write macOS defaults"
+
+# Autohide the dock
+defaults write com.apple.dock autohide -bool 1
+
+# Full keyboard access to controls
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+
+# short key repeat delay
+defaults write NSGlobalDomain InitialKeyRepeat -int 12
+
+# expanded save panel
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool 1
+
+# expanded print panel
+defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool 1
+
+# no launch warnings
+defaults write com.apple.LaunchServices LSQuarantine -bool 0
+
+# no press and hold
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool 0
+
+# no auto-correct
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool 0
+
+# copy from Quicklook windows
+defaults write com.apple.finder QLEnableTextSelection -bool 1
+
+# full path in window titles
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool 1
+
+# debug menu in safari enabled
+defaults write com.apple.Safari IncludeDebugMenu -bool 1
+
+# increase window resize speed
+defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
+
+# save screenshots in PNG format
+defaults write com.apple.screencapture type -string png
+
+# avoid creating DS_Store files on network volumes
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool 1
+
+# disable the warning when changing a file extension
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool 0
+
+# disable the warning before emptying the Trash
+defaults write com.apple.finder WarnOnEmptyTrash -bool 0
+
+# empty Trash securely
+defaults write com.apple.finder EmptyTrashSecurely -bool 1
+
+# make Dock icons of hidden applications translucent
+defaults write com.apple.dock showhidden -bool 1
+
+# add a context menu item for showing the Web Inspector in web views
+defaults write NSGlobalDomain WebKitDeveloperExtras -bool 1
+
+# dock icon size is 38 pixels
+defaults write com.apple.dock tilesize -int 38
+
+# menu bar clock
+defaults com.apple.menuextra.clock DateFormat -string "d MMM h:mm a"
+
+# time machine off
+defaults write com.apple.TimeMachine AutoBackup -bool 0
+
+# disable smart quotes
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool 0
+
+# disable smart dashes
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool 0
+
+# finder show all filename extensions
+defaults write NSGlobalDomain AppleShowAllExtensions -bool 1
+
+# finder show status bar
+defaults write com.apple.finder ShowStatusBar -bool 1
+
+# finder show path bar
+defaults write com.apple.finder ShowPathbar -bool 1
+
+# use column view in all Finder windows by default
+defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
+
+# no feedback sound when changing volume.defaults
+defaults write NSGlobalDomain com.apple.sound.beep.feedback -bool 0
 ok
 
 step "Check FileVault is enabled"
