@@ -86,10 +86,6 @@ if ! git config push.default >/dev/null; then
 fi
 ok
 
-step "Install common brews"
-brew bundle --file=$DOTFILES_FULL_PATH/Brewfile
-ok
-
 step "Ensure common directories exist"
 mkdir -p ~/dev
 mkdir -p ~/private
@@ -97,6 +93,7 @@ mkdir -p ~/btsync
 mkdir -p ~/.config
 mkdir -p ~/.ssh
 mkdir -p ~/.cache/emacs/saves
+[ ! -r ~/dev/scripts ] && ln -s $HOME/Dropbox/Code/scripts ~/dev
 ok
 
 
