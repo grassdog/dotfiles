@@ -16,6 +16,7 @@ mas 'Pages', id: 409201541
 mas 'Transmit', id: 403388562
 mas 'Things 3', id: 904280696
 
+cask 'visual-studio-code'
 cask 'docker'
 cask 'aws-vault'
 cask 'betterzipql'
