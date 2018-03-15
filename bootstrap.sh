@@ -204,7 +204,7 @@ ok
 step "Write macOS defaults"
 
 # Autohide the dock
-defaults write com.apple.dock autohide -bool 1
+defaults write com.apple.dock autohide -bool true
 
 # Full keyboard access to controls
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
@@ -213,28 +213,28 @@ defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 defaults write NSGlobalDomain InitialKeyRepeat -int 12
 
 # expanded save panel
-defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool 1
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 
 # expanded print panel
-defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool 1
+defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
 
 # no launch warnings
-defaults write com.apple.LaunchServices LSQuarantine -bool 0
+defaults write com.apple.LaunchServices LSQuarantine -bool false
 
 # no press and hold
-defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool 0
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
 # no auto-correct
-defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool 0
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
 # copy from Quicklook windows
-defaults write com.apple.finder QLEnableTextSelection -bool 1
+defaults write com.apple.finder QLEnableTextSelection -bool true
 
 # full path in window titles
-defaults write com.apple.finder _FXShowPosixPathInTitle -bool 1
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 
 # debug menu in safari enabled
-defaults write com.apple.Safari IncludeDebugMenu -bool 1
+defaults write com.apple.Safari IncludeDebugMenu -bool true
 
 # increase window resize speed
 defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
@@ -243,52 +243,52 @@ defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 defaults write com.apple.screencapture type -string png
 
 # avoid creating DS_Store files on network volumes
-defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool 1
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
 # disable the warning when changing a file extension
-defaults write com.apple.finder FXEnableExtensionChangeWarning -bool 0
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 
 # disable the warning before emptying the Trash
-defaults write com.apple.finder WarnOnEmptyTrash -bool 0
+defaults write com.apple.finder WarnOnEmptyTrash -bool false
 
 # empty Trash securely
-defaults write com.apple.finder EmptyTrashSecurely -bool 1
+defaults write com.apple.finder EmptyTrashSecurely -bool true
 
 # make Dock icons of hidden applications translucent
-defaults write com.apple.dock showhidden -bool 1
+defaults write com.apple.dock showhidden -bool true
 
 # add a context menu item for showing the Web Inspector in web views
-defaults write NSGlobalDomain WebKitDeveloperExtras -bool 1
+defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 
 # dock icon size is 38 pixels
 defaults write com.apple.dock tilesize -int 38
 
 # menu bar clock
-defaults com.apple.menuextra.clock DateFormat -string "d MMM h:mm a"
+defaults write com.apple.menuextra.clock DateFormat -string "d MMM h:mm a"
 
 # time machine off
-defaults write com.apple.TimeMachine AutoBackup -bool 0
+defaults write com.apple.TimeMachine AutoBackup -bool false
 
 # disable smart quotes
-defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool 0
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
 # disable smart dashes
-defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool 0
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
 # finder show all filename extensions
-defaults write NSGlobalDomain AppleShowAllExtensions -bool 1
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
 # finder show status bar
-defaults write com.apple.finder ShowStatusBar -bool 1
+defaults write com.apple.finder ShowStatusBar -bool true
 
 # finder show path bar
-defaults write com.apple.finder ShowPathbar -bool 1
+defaults write com.apple.finder ShowPathbar -bool true
 
 # use column view in all Finder windows by default
 defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 
 # no feedback sound when changing volume.defaults
-defaults write NSGlobalDomain com.apple.sound.beep.feedback -bool 0
+defaults write NSGlobalDomain com.apple.sound.beep.feedback -bool false
 ok
 
 step "Check FileVault is enabled"
