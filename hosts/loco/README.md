@@ -10,4 +10,8 @@ $ brew bundle -v --file=~/.Brewfile.apps
 $ asdf plugin-add ruby
 $ asdf plugin-add nodejs
 $ asdf plugin-add elixir
+
+$ npm install -g prettier tern jsonlint
+
+$ gem install bundler pry-byebug pry
 ```
