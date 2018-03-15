@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+unixts=`date +%s`
+echo `expr ${unixts} - 86400 \* $1`
