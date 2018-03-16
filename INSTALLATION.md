@@ -113,7 +113,8 @@ Check the status of services via `brew services list`.
 - MS Office
     - Customize install to not install cruft
 - Copy across development VMs
+- Get finance docs
+    - `git clone keybase://private/grassdog/finance-docs ~/private/finance-docs`
 - VSCode
     - Install command line tools
     - Run `~/dev/scripts/vscode-extensions install`
-
