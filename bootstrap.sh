@@ -106,7 +106,7 @@ function link_files {
 
   log "Linking files in $SOURCE_DIR"
 
-  for f in $(find $SOURCE_DIR -maxdepth 1 -mindepth 1); do
+  for f in $(find $SOURCE_DIR -maxdepth 1 -mindepth 1 \( ! -name .DS_Store ! -name README.md \)); do
     log "Linking $f to $TARGET_DIR"
     ln -sf "$f" "$TARGET_DIR"
   done
@@ -147,7 +147,7 @@ step "Install service menu items"
 mkdir -p ~/Library/Services
 SAVEIFS=$IFS
 IFS=$(echo -en "\n\b")
-for f in $(find $DOTFILES_FULL_PATH/services -maxdepth 1 -mindepth 1); do
+for f in $(find $DOTFILES_FULL_PATH/services -maxdepth 1 -mindepth 1 ! -name .DS_Store); do
   log "Copying $f to ~/Library/Services"
   cp -R "$f" ~/Library/Services
 done
