@@ -194,9 +194,11 @@ mkdir -p ~/Library/Fonts
 [ ! -f ~/Library/Fonts/DecoNeue-Light.ttf ] && cp ~/Dropbox/Public/Fonts/DecoNeue-Light.ttf ~/Library/Fonts
 ok
 
+if [ -r ~/.Brewfile ]; then
 step "Install linked Brewfiles"
 brew bundle -v --file=~/.Brewfile
 ok
+fi
 
 step "Write macOS defaults"
 
