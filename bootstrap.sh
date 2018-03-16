@@ -23,8 +23,6 @@ done
 
 if [ -n "$DEBUG" ]; then
   set -x
-else
-  Q="-q"
 fi
 
 #
@@ -96,7 +94,6 @@ mkdir -p ~/.cache/emacs/saves
 [ ! -r ~/dev/scripts ] && ln -s $HOME/Dropbox/Code/scripts ~/dev
 ok
 
-
 step "Ensuring dotfiles repo is downloaded"
 if [ ! -d $HOME/.dotfiles ]; then
   git clone https://github.com/grassdog/dotfiles.git $HOME/.dotfiles
@@ -166,7 +163,6 @@ mv "Developer Color Picker" ~/Library/ColorPickers/DeveloperColorPicker.colorPic
 rm dcp.zip
 fi
 ok
-
 
 function install_fonts {
   local ARCHIVE=$1
@@ -298,4 +294,3 @@ if fdesetup status | grep $Q "FileVault is Off"; then
 else
   ok
 fi
-
