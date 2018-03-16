@@ -180,7 +180,7 @@ step "Install fonts"
 mkdir -p ~/Library/Fonts
 [ ! -f ~/Library/Fonts/Forza-Black.otf ] && install_fonts ~/Dropbox/Backups/Fonts/Forza.zip
 [ ! -f ~/Library/Fonts/LeagueGothic-Regular.otf ] && install_fonts ~/Dropbox/Backups/Fonts/league-gothic-master.zip
-[ ! -f ~/Library/Fonts/Hack-Bold.otf ] && install_fonts ~/Dropbox/Backups/Fonts/Hack-ttf.zip
+[ ! -f ~/Library/Fonts/Hack-Bold.ttf ] && install_fonts ~/Dropbox/Backups/Fonts/Hack-ttf.zip
 [ ! -f ~/Library/Fonts/OperatorMono-Bold.otf ] && install_fonts ~/Dropbox/Backups/Fonts/OperatorMono.zip
 [ ! -f ~/Library/Fonts/Roboto-Black.ttf ] && install_fonts ~/Dropbox/Backups/Fonts/roboto.zip
 [ ! -f ~/Library/Fonts/GothamCond-Black.otf ] && install_fonts ~/Dropbox/Backups/Fonts/GothamCond.zip
