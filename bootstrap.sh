@@ -180,18 +180,18 @@ function install_fonts {
 
 step "Install fonts"
 mkdir -p ~/Library/Fonts
-[ ! -f ~/Library/Fonts/Forza-Black.otf ] && install_fonts ~/Dropbox/Public/Fonts/Forza.zip
-[ ! -f ~/Library/Fonts/LeagueGothic-Regular.otf ] && install_fonts ~/Dropbox/Public/Fonts/league-gothic-master.zip
-[ ! -f ~/Library/Fonts/Hack-Bold.otf ] && install_fonts ~/Dropbox/Public/Fonts/Hack-ttf.zip
-[ ! -f ~/Library/Fonts/OperatorMono-Bold.otf ] && install_fonts ~/Dropbox/Public/Fonts/OperatorMono.zip
-[ ! -f ~/Library/Fonts/Roboto-Black.ttf ] && install_fonts ~/Dropbox/Public/Fonts/roboto.zip
-[ ! -f ~/Library/Fonts/GothamCond-Black.otf ] && install_fonts ~/Dropbox/Public/Fonts/GothamCond.zip
-[ ! -f ~/Library/Fonts/Idlewild-Bold.otf ] && install_fonts ~/Dropbox/Public/Fonts/Idlewild.zip
-[ ! -f ~/Library/Fonts/Vitesse-Black.otf ] && install_fonts ~/Dropbox/Public/Fonts/Vitesse.zip
-[ ! -f ~/Library/Fonts/Sullivan-Regular.otf ] && install_fonts ~/Dropbox/Public/Fonts/Sullivan.zip
-[ ! -f ~/Library/Fonts/OpenSans-Bold.ttf ] && install_fonts ~/Dropbox/Public/Fonts/OpenSans.zip
-[ ! -f ~/Library/Fonts/Metropolis.otf ] && cp ~/Dropbox/Public/Fonts/Metropolis.otf ~/Library/Fonts
-[ ! -f ~/Library/Fonts/DecoNeue-Light.ttf ] && cp ~/Dropbox/Public/Fonts/DecoNeue-Light.ttf ~/Library/Fonts
+[ ! -f ~/Library/Fonts/Forza-Black.otf ] && install_fonts ~/Dropbox/Backups/Fonts/Forza.zip
+[ ! -f ~/Library/Fonts/LeagueGothic-Regular.otf ] && install_fonts ~/Dropbox/Backups/Fonts/league-gothic-master.zip
+[ ! -f ~/Library/Fonts/Hack-Bold.otf ] && install_fonts ~/Dropbox/Backups/Fonts/Hack-ttf.zip
+[ ! -f ~/Library/Fonts/OperatorMono-Bold.otf ] && install_fonts ~/Dropbox/Backups/Fonts/OperatorMono.zip
+[ ! -f ~/Library/Fonts/Roboto-Black.ttf ] && install_fonts ~/Dropbox/Backups/Fonts/roboto.zip
+[ ! -f ~/Library/Fonts/GothamCond-Black.otf ] && install_fonts ~/Dropbox/Backups/Fonts/GothamCond.zip
+[ ! -f ~/Library/Fonts/Idlewild-Bold.otf ] && install_fonts ~/Dropbox/Backups/Fonts/Idlewild.zip
+[ ! -f ~/Library/Fonts/Vitesse-Black.otf ] && install_fonts ~/Dropbox/Backups/Fonts/Vitesse.zip
+[ ! -f ~/Library/Fonts/Sullivan-Regular.otf ] && install_fonts ~/Dropbox/Backups/Fonts/Sullivan.zip
+[ ! -f ~/Library/Fonts/OpenSans-Bold.ttf ] && install_fonts ~/Dropbox/Backups/Fonts/OpenSans.zip
+[ ! -f ~/Library/Fonts/Metropolis.otf ] && cp ~/Dropbox/Backups/Fonts/Metropolis.otf ~/Library/Fonts
+[ ! -f ~/Library/Fonts/DecoNeue-Light.ttf ] && cp ~/Dropbox/Backups/Fonts/DecoNeue-Light.ttf ~/Library/Fonts
 ok
 
 if [ -r ~/.Brewfile ]; then
