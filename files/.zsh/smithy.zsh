@@ -55,5 +55,7 @@ awsid-shell() {
 # SSH
 ######
 
-alias ssh-prod="ssh bastion.identity.us-east-1"
-alias ssh-staging="ssh bastion.identity.ap-southeast-2"
+alias ssh-prod="ssh identity_production_bastion"
+alias ssh-staging="ssh identity_staging_bastion"
+
+source /usr/local/opt/asdf/asdf.sh
