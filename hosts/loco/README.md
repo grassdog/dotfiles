@@ -7,7 +7,6 @@ Some post-bootstrap steps.
 $ brew bundle -v --file=~/.Brewfile.apps
 
 # Add asdf plugins
-$ asdf plugin-add ruby
 $ asdf plugin-add nodejs
 $ asdf plugin-add elixir
 
