@@ -3,6 +3,7 @@ tap 'homebrew/core'
 tap 'homebrew/services'
 
 brew 'chruby'
+brew 'ruby-build'
 brew 'aspell'
 brew 'awscli'
 brew 'ctags'
