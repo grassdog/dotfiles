@@ -21,7 +21,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-characterize'
@@ -34,13 +33,11 @@ Plug 'dracula/vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'grassdog/RemoveFile.vim'
 Plug 'mbbill/undotree'
-Plug 'vim-scripts/YankRing.vim'
 Plug 'bogado/file-line'
-Plug 'szw/vim-maximizer'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'sbdchd/neoformat'
+Plug 'kien/rainbow_parentheses.vim'
 
 " Tmux
 Plug 'tmux-plugins/vim-tmux-focus-events'
@@ -58,7 +55,8 @@ Plug 'wellle/targets.vim'
 " Completions and Snippets
 Plug 'SirVer/ultisnips'
 Plug 'ervandew/supertab'
-Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'tweekmonster/fzf-filemru'
 
 " Tools
@@ -66,6 +64,8 @@ Plug 'vim-scripts/EasyGrep'
 Plug 'jremmen/vim-ripgrep'
 Plug 'henrik/vim-open-url'
 Plug 'grassdog/tagman.vim'
+
+Plug 'sheerun/vim-polyglot'
 
 " Ruby
 Plug 'tpope/vim-rails'
@@ -75,41 +75,10 @@ Plug 'jgdavey/vim-blockle'
 Plug 'tpope/vim-cucumber'
 Plug 'nelstrom/vim-textobj-rubyblock'
 
-" Web
-Plug 'tpope/vim-haml'
-Plug 'tpope/vim-markdown'
-Plug 'nelstrom/vim-markdown-folding'
-Plug 'timcharper/textile.vim'
-Plug 'othree/html5.vim'
-Plug 'cakebaker/scss-syntax.vim'
-Plug 'slim-template/vim-slim'
-Plug 'groenewege/vim-less'
-
-" JS
-Plug 'pangloss/vim-javascript'
-Plug 'kchmck/vim-coffee-script'
-Plug 'glanotte/vim-jasmine'
-Plug 'mustache/vim-mustache-handlebars'
-Plug 'vim-scripts/JSON.vim'
-Plug 'fleischie/vim-styled-components'
-Plug 'mxw/vim-jsx'
-
 " Elixir
-Plug 'elixir-lang/vim-elixir'
 Plug 'slashmili/alchemist.vim'
 
-" Clojure
-Plug 'guns/vim-clojure-static'
-Plug 'kien/rainbow_parentheses.vim'
-Plug 'tpope/vim-fireplace'
-Plug 'guns/vim-sexp'
-Plug 'tpope/vim-sexp-mappings-for-regular-people'
-
 " Other
-Plug 'lukerandall/haskellmode-vim'
-Plug 'ajf/puppet-vim'
-Plug 'wting/rust.vim'
-Plug 'cespare/vim-toml'
 Plug 'reedes/vim-wordy'
 
 call plug#end()
@@ -685,7 +654,7 @@ augroup grass_html
 augroup END
 
 " Highlight fenced code
-let g:markdown_fenced_languages = ['ruby', 'javascript', 'clojure', 'json', 'sql']
+let g:markdown_fenced_languages = ['ruby', 'javascript', 'json', 'sql']
 
 " Disable useless HTML5 stuff
 let g:event_handler_attributes_complete = 0
@@ -712,99 +681,6 @@ augroup grass_xml
   " Indent current tag
   au FileType xml nnoremap <buffer> <leader>= Vat=
 augroup END
-
-
-""""""""""""""""""""""" }}}
-" Clojure               {{{
-"""""""""""""""""""""""
-
-function! JumpToClojureSymbolWithoutNamespace()
-  let wordUnderCursor = expand("<cword>")
-  let symbol = matchstr(wordUnderCursor, '\(.*/\)\?\zs[^\/]\+\ze')
-  if !empty(symbol)
-    execute 'try | tjump ' . symbol . '| catch | echom ''Could not find tag ' . symbol . ''' | endtry'
-  endif
-endfunction
-
-augroup grass_clojure
-  autocmd!
-
-  autocmd filetype clojure setlocal wildignore+=classes
-  autocmd filetype clojure setlocal wildignore+=lib
-
-  autocmd filetype clojure silent! call TurnOnClojureFolding()
-
-  " Eval and print top level form and return cursor to where it was (outer)
-  autocmd filetype clojure nnoremap <buffer> <leader>mo :normal cpaF``<cr>
-
-  " Eval and print current form and return cursor to where it was (inner)
-  autocmd filetype clojure nnoremap <buffer> <leader>mi :normal cpaf``<cr>
-
-  " Eval and print current element and return cursor to where it was (element)
-  autocmd filetype clojure nnoremap <buffer> <leader>me :normal cpie``<cr>
-
-  " Eval and print current element and return cursor to where it was
-  autocmd filetype clojure nnoremap <buffer> <leader>ma :%Eval<cr>
-
-  " Better ctag matching
-  autocmd filetype clojure nnoremap <buffer> <c-]> :call JumpToClojureSymbolWithoutNamespace()<CR>
-augroup END
-
-let g:clojure_fold_extra = [
-            \ 'defgauge',
-            \ 'defmeter',
-            \ 'defhistogram',
-            \ 'defcounter',
-            \ 'deftimer',
-            \
-            \ 'defdb',
-            \ 'defentity',
-            \ 'defaspect',
-            \ 'add-aspect',
-            \ 'defmigration',
-            \
-            \ 'defsynth',
-            \ 'definst',
-            \ 'defproject',
-            \
-            \ 'defroutes',
-            \
-            \ 'defrec',
-            \
-            \ 'defparser',
-            \
-            \ 'defform',
-            \ 'defform-',
-            \
-            \ 'defpage',
-            \ 'defsketch'
-            \
-            \ ]
-
-let g:clojure_syntax_keywords = {
-    \ 'clojureMacro': [
-            \ 'defproject',
-            \ 'defcustom',
-            \ 'defparser',
-            \ 'deftest',
-            \ 'match',
-            \
-            \ 'defproject',
-            \
-            \ 'defquery',
-            \ 'defqueries',
-            \
-            \ 'defform',
-            \
-            \ 'deferror',
-            \ 'when-found',
-            \ 'when-valid',
-            \
-            \ 'defroutes',
-            \ ],
-    \ 'clojureFunc': ['string/join', 'string/replace']
-    \ }
-
 
 
 """"""""""""""""""""""" }}}
@@ -850,20 +726,6 @@ endfunction
 
 " Find the alternate file for the current path and open it
 nnoremap <leader>, :w<cr>:call AltCommand(expand('%'), ':e')<cr>
-
-""""""""""""""""""""""" }}}
-" Lisp                  {{{
-"""""""""""""""""""""""
-
-augroup grass_lisps
-  autocmd!
-
-  autocmd filetype lisp,scheme setlocal foldmethod=marker
-augroup END
-
-let g:paredit_mode = 0
-let g:paredit_disable_clojure = 1
-let g:paredit_electric_return = 0
 
 
 """"""""""""""""""""""" }}}
