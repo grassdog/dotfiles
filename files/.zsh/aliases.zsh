@@ -32,7 +32,7 @@ function title() {
 }
 
 alias vi='nvim'
-alias v='nvim'
+alias v='vim'
 alias le='less -SR'
 alias be="bundle exec"
 

@@ -116,7 +116,6 @@ step "Link dotfiles"
 [ -d $DOTFILES_FULL_PATH/files ] && link_files $DOTFILES_FULL_PATH/files
 [ -d $DOTFILES_FULL_PATH/hosts/$HOSTNAME ] && link_files $DOTFILES_FULL_PATH/hosts/$HOSTNAME
 [ -d $HOME/Dropbox/Backups/$HOSTNAME ] && link_files $HOME/Dropbox/Backups/$HOSTNAME
-link_files $DOTFILES_FULL_PATH/config $HOME/.config
 ok
 
 step "Set shell to zsh"
