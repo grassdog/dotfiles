@@ -29,7 +29,8 @@ Plug 'tpope/vim-vinegar'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'godlygeek/tabular'
 Plug 'icymind/neosolarized'
-Plug 'dracula/vim'
+" Use a hardwired version for now
+" Plug 'dracula/vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'grassdog/RemoveFile.vim'
 Plug 'mbbill/undotree'
@@ -74,9 +75,6 @@ Plug 'nelstrom/vim-textobj-rubyblock'
 
 " Elixir
 Plug 'slashmili/alchemist.vim'
-
-" Other
-Plug 'reedes/vim-wordy'
 
 call plug#end()
 
@@ -330,8 +328,6 @@ if has("gui_macvim")
   let g:airline_theme='solarized'
   colorscheme NeoSolarized
 else
-  let g:airline_theme='dracula'
-  let g:dracula_colorterm = 0
   colorscheme dracula
 endif
 
@@ -439,28 +435,6 @@ nnoremap <leader>ew :StripWhitespace<cr>
 
 " Format the entire file
 nnoremap <leader>ef ggVG=
-
-
-""""""""""""""""""""""" }}}
-" Proper quotes etc     {{{
-"""""""""""""""""""""""
-
-"
-" RemoveFancyCharacters COMMAND
-" Remove smart quotes, etc.
-"
-function! RemoveFancyCharacters()
-  let typo = {}
-  let typo["“"] = '"'
-  let typo["”"] = '"'
-  let typo["‘"] = "'"
-  let typo["’"] = "'"
-  let typo["–"] = '--'
-  let typo["—"] = '---'
-  let typo["…"] = '...'
-  :exe ":%s/".join(keys(typo), '\|').'/\=typo[submatch(0)]/ge'
-endfunction
-command! RemoveFancyCharacters :call RemoveFancyCharacters()
 
 
 """"""""""""""""""""""" }}}
