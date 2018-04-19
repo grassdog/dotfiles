@@ -68,11 +68,8 @@ Plug 'grassdog/tagman.vim'
 Plug 'sheerun/vim-polyglot'
 
 " Ruby
-Plug 'tpope/vim-rails'
 Plug 'tpope/vim-endwise'
-Plug 'vim-ruby/vim-ruby'
 Plug 'jgdavey/vim-blockle'
-Plug 'tpope/vim-cucumber'
 Plug 'nelstrom/vim-textobj-rubyblock'
 
 " Elixir
@@ -324,10 +321,17 @@ let g:neosolarized_bold = 1
 let g:neosolarized_underline = 1
 let g:neosolarized_italic = 1
 
+" augroup dracula_customization
+"   au!
+"   autocmd ColorScheme dracula hi CursorLine cterm=underline term=underline
+" augroup END
+
 if has("gui_macvim")
   let g:airline_theme='solarized'
   colorscheme NeoSolarized
 else
+  let g:airline_theme='dracula'
+  let g:dracula_colorterm = 0
   colorscheme dracula
 endif
 
@@ -350,12 +354,12 @@ map <silent> ,b <Plug>CamelCaseMotion_b
 map <silent> ,e <Plug>CamelCaseMotion_e
 map <silent> ,ge <Plug>CamelCaseMotion_ge
 
-omap <silent> i,w <Plug>CamelCaseMotion_iw
-xmap <silent> i,w <Plug>CamelCaseMotion_iw
-omap <silent> i,b <Plug>CamelCaseMotion_ib
-xmap <silent> i,b <Plug>CamelCaseMotion_ib
-omap <silent> i,e <Plug>CamelCaseMotion_ie
-xmap <silent> i,e <Plug>CamelCaseMotion_ie
+omap <silent> ilw <Plug>CamelCaseMotion_iw
+xmap <silent> ilw <Plug>CamelCaseMotion_iw
+omap <silent> ilb <Plug>CamelCaseMotion_ib
+xmap <silent> ilb <Plug>CamelCaseMotion_ib
+omap <silent> ile <Plug>CamelCaseMotion_ie
+xmap <silent> ile <Plug>CamelCaseMotion_ie
 
 " Move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
@@ -446,15 +450,15 @@ nnoremap <leader>ef ggVG=
 " Remove smart quotes, etc.
 "
 function! RemoveFancyCharacters()
-    let typo = {}
-    let typo["“"] = '"'
-    let typo["”"] = '"'
-    let typo["‘"] = "'"
-    let typo["’"] = "'"
-    let typo["–"] = '--'
-    let typo["—"] = '---'
-    let typo["…"] = '...'
-    :exe ":%s/".join(keys(typo), '\|').'/\=typo[submatch(0)]/ge'
+  let typo = {}
+  let typo["“"] = '"'
+  let typo["”"] = '"'
+  let typo["‘"] = "'"
+  let typo["’"] = "'"
+  let typo["–"] = '--'
+  let typo["—"] = '---'
+  let typo["…"] = '...'
+  :exe ":%s/".join(keys(typo), '\|').'/\=typo[submatch(0)]/ge'
 endfunction
 command! RemoveFancyCharacters :call RemoveFancyCharacters()
 
@@ -581,7 +585,7 @@ augroup grass_allfiles
   " Remember last location in file, but not for commit messages.
   " see :help last-position-jump
   autocmd BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
-    \| exe "normal! g`\"" | endif
+        \| exe "normal! g`\"" | endif
 
   " Write all buffers once I lose focus
   autocmd FocusLost * :silent! wall
@@ -598,23 +602,23 @@ augroup END
 
 " Avoid red so I can easily see mismatched parens
 let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'chartreuse3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkblue',    'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'DarkGoldenrod'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'DarkGoldenrod'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['darkyellow',  'SlateBlue1'],
-    \ ]
+      \ ['brown',       'RoyalBlue3'],
+      \ ['Darkblue',    'SeaGreen3'],
+      \ ['darkgray',    'DarkOrchid3'],
+      \ ['darkgreen',   'chartreuse3'],
+      \ ['darkcyan',    'RoyalBlue3'],
+      \ ['darkblue',    'SeaGreen3'],
+      \ ['darkmagenta', 'DarkOrchid3'],
+      \ ['brown',       'DarkGoldenrod'],
+      \ ['gray',        'RoyalBlue3'],
+      \ ['black',       'SeaGreen3'],
+      \ ['darkmagenta', 'DarkOrchid3'],
+      \ ['Darkblue',    'DarkGoldenrod'],
+      \ ['darkgreen',   'RoyalBlue3'],
+      \ ['darkcyan',    'SeaGreen3'],
+      \ ['darkmagenta', 'DarkOrchid3'],
+      \ ['darkyellow',  'SlateBlue1'],
+      \ ]
 
 
 """"""""""""""""""""""" }}}
@@ -844,12 +848,12 @@ endfunction
 """""""""""""""""""""""
 
 let g:wordy#ring = [
-  \ 'weak',
-  \ ['being', 'passive-voice', ],
-  \ 'weasel',
-  \ ['problematic', 'redundant', ],
-  \ ['colloquial', 'idiomatic', 'similies', ],
-  \ ]
+      \ 'weak',
+      \ ['being', 'passive-voice', ],
+      \ 'weasel',
+      \ ['problematic', 'redundant', ],
+      \ ['colloquial', 'idiomatic', 'similies', ],
+      \ ]
 
 nnoremap <silent> <F11> :NextWordy<cr>
 
@@ -891,8 +895,8 @@ noremap <leader>ui :IndentGuidesToggle<cr>
 
 " Show the syntax group in place on the text under the cursor
 nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+      \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+      \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 if has("gui_running")
   " Show my current line
