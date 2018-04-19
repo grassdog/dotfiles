@@ -26,7 +26,6 @@ brew 'httpie'
 brew 'imagemagick'
 brew 'jq'
 brew 'keybase'
-brew 'macvim'
 brew 'openssl'
 brew 'pandoc'
 
@@ -44,6 +43,6 @@ brew 'wget'
 brew 'youtube-dl'
 brew 'z'
 brew 'zsh'
-brew 'vim', args: [ 'with-ruby', 'with-mzscheme', 'with-python' ]
+brew 'vim'
 brew 'emacs', args: ['with-cocoa', 'with-gnutls', 'with-imagemagick', 'with-dbus', 'with-modules', 'with-mailutils' ]
 
