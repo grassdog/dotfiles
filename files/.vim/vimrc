@@ -209,12 +209,11 @@ set ignorecase  " searches are case insensitive...
 set smartcase   " ... unless they contain at least one capital letter
 
 " Toggle search highlighting
-noremap <leader>sc :set hlsearch! hlsearch?<CR>
 noremap <leader><leader> :set hlsearch! hlsearch?<CR>
 
 " Search for current word in Rg
-nnoremap <leader>srw :Rg! '\b<c-r><c-w>\b'<cr>
-nnoremap <leader>srs :Rg!<space>
+nnoremap <leader>sw :Rg '\b<c-r><c-w>\b'<cr>
+nnoremap <leader>sp :Rg<space>
 
 " Easy grep
 let g:EasyGrepReplaceWindowMode=2
@@ -489,6 +488,8 @@ nnoremap <leader>fj :Explore %:h<cr>
 """"""""""""""""""""""" }}}
 " fzf                   {{{
 """""""""""""""""""""""
+
+let g:fzf_filemru_bufwrite = 1
 
 nnoremap <leader>fp :Files<cr>
 nnoremap <leader>p :Files<cr>
