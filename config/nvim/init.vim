@@ -21,7 +21,6 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-characterize'
@@ -34,13 +33,12 @@ Plug 'dracula/vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'grassdog/RemoveFile.vim'
 Plug 'mbbill/undotree'
-Plug 'YankRing.vim'
 Plug 'bogado/file-line'
 Plug 'szw/vim-maximizer'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'sbdchd/neoformat'
+Plug 'kien/rainbow_parentheses.vim'
 
 " Tmux
 Plug 'tmux-plugins/vim-tmux-focus-events'
@@ -58,7 +56,8 @@ Plug 'wellle/targets.vim'
 " Completions and Snippets
 Plug 'SirVer/ultisnips'
 Plug 'ervandew/supertab'
-Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'tweekmonster/fzf-filemru'
 
 " Tools
@@ -83,16 +82,8 @@ Plug 'fleischie/vim-styled-components'
 " Elixir
 Plug 'slashmili/alchemist.vim'
 
-" Clojure
-Plug 'kien/rainbow_parentheses.vim'
-Plug 'tpope/vim-fireplace'
-Plug 'guns/vim-sexp'
-Plug 'tpope/vim-sexp-mappings-for-regular-people'
-
 " Other
-" Plug 'lukerandall/haskellmode-vim'
 Plug 'reedes/vim-wordy'
-Plug 'w0rp/ale'
 
 call plug#end()
 
@@ -362,12 +353,12 @@ map <silent> ,b <Plug>CamelCaseMotion_b
 map <silent> ,e <Plug>CamelCaseMotion_e
 map <silent> ,ge <Plug>CamelCaseMotion_ge
 
-omap <silent> i,w <Plug>CamelCaseMotion_iw
-xmap <silent> i,w <Plug>CamelCaseMotion_iw
-omap <silent> i,b <Plug>CamelCaseMotion_ib
-xmap <silent> i,b <Plug>CamelCaseMotion_ib
-omap <silent> i,e <Plug>CamelCaseMotion_ie
-xmap <silent> i,e <Plug>CamelCaseMotion_ie
+omap <silent> ilw <Plug>CamelCaseMotion_iw
+xmap <silent> ilw <Plug>CamelCaseMotion_iw
+omap <silent> ilb <Plug>CamelCaseMotion_ib
+xmap <silent> ilb <Plug>CamelCaseMotion_ib
+omap <silent> ile <Plug>CamelCaseMotion_ie
+xmap <silent> ile <Plug>CamelCaseMotion_ie
 
 " Move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
@@ -561,12 +552,6 @@ nnoremap g<c-]> <c-]>
 " Open tag for word under cursor in a new vsplit
 map <c-\> :vsp<CR>:exec("tag ".expand("<cword>"))<cr>
 
-"""""""""" }}}
-" Linting  {{{
-""""""""""
-
-nmap <silent> <A-k> <Plug>(ale_previous_wrap)
-nmap <silent> <A-j> <Plug>(ale_next_wrap)
 
 """"""""""""""""""""""" }}}
 " All files             {{{
@@ -673,7 +658,7 @@ augroup grass_html
 augroup END
 
 " Highlight fenced code
-let g:markdown_fenced_languages = ['ruby', 'javascript', 'clojure', 'json', 'sql']
+let g:markdown_fenced_languages = ['ruby', 'javascript', 'json', 'sql']
 
 " Disable useless HTML5 stuff
 let g:event_handler_attributes_complete = 0
@@ -700,100 +685,6 @@ augroup grass_xml
   " Indent current tag
   au FileType xml nnoremap <buffer> <leader>= Vat=
 augroup END
-
-
-""""""""""""""""""""""" }}}
-" Clojure               {{{
-"""""""""""""""""""""""
-
-function! JumpToClojureSymbolWithoutNamespace()
-  let wordUnderCursor = expand("<cword>")
-  let symbol = matchstr(wordUnderCursor, '\(.*/\)\?\zs[^\/]\+\ze')
-  if !empty(symbol)
-    execute 'try | tjump ' . symbol . '| catch | echom ''Could not find tag ' . symbol . ''' | endtry'
-  endif
-endfunction
-
-augroup grass_clojure
-  autocmd!
-
-  autocmd filetype clojure setlocal wildignore+=classes
-  autocmd filetype clojure setlocal wildignore+=lib
-
-  autocmd filetype clojure silent! call TurnOnClojureFolding()
-
-  " Eval and print top level form and return cursor to where it was (outer)
-  autocmd filetype clojure nnoremap <buffer> <leader>mo :normal cpaF``<cr>
-
-  " Eval and print current form and return cursor to where it was (inner)
-  autocmd filetype clojure nnoremap <buffer> <leader>mi :normal cpaf``<cr>
-
-  " Eval and print current element and return cursor to where it was (element)
-  autocmd filetype clojure nnoremap <buffer> <leader>me :normal cpie``<cr>
-
-  " Eval and print current element and return cursor to where it was
-  autocmd filetype clojure nnoremap <buffer> <leader>ma :%Eval<cr>
-
-  " Better ctag matching
-  autocmd filetype clojure nnoremap <buffer> <c-]> :call JumpToClojureSymbolWithoutNamespace()<CR>
-augroup END
-
-let g:clojure_fold_extra = [
-            \ 'defgauge',
-            \ 'defmeter',
-            \ 'defhistogram',
-            \ 'defcounter',
-            \ 'deftimer',
-            \
-            \ 'defdb',
-            \ 'defentity',
-            \ 'defaspect',
-            \ 'add-aspect',
-            \ 'defmigration',
-            \
-            \ 'defsynth',
-            \ 'definst',
-            \ 'defproject',
-            \
-            \ 'defroutes',
-            \
-            \ 'defrec',
-            \
-            \ 'defparser',
-            \
-            \ 'defform',
-            \ 'defform-',
-            \
-            \ 'defpage',
-            \ 'defsketch'
-            \
-            \ ]
-
-let g:clojure_syntax_keywords = {
-    \ 'clojureMacro': [
-            \ 'defproject',
-            \ 'defcustom',
-            \ 'defparser',
-            \ 'deftest',
-            \ 'match',
-            \
-            \ 'defproject',
-            \
-            \ 'defquery',
-            \ 'defqueries',
-            \
-            \ 'defform',
-            \
-            \ 'deferror',
-            \ 'when-found',
-            \ 'when-valid',
-            \
-            \ 'defroutes',
-            \ ],
-    \ 'clojureFunc': ['string/join', 'string/replace']
-    \ }
-
-
 
 """"""""""""""""""""""" }}}
 " Ruby                  {{{
@@ -838,21 +729,6 @@ endfunction
 
 " Find the alternate file for the current path and open it
 nnoremap <leader>, :w<cr>:call AltCommand(expand('%'), ':e')<cr>
-
-""""""""""""""""""""""" }}}
-" Lisp                  {{{
-"""""""""""""""""""""""
-
-augroup grass_lisps
-  autocmd!
-
-  autocmd filetype lisp,scheme setlocal foldmethod=marker
-augroup END
-
-let g:paredit_mode = 0
-let g:paredit_disable_clojure = 1
-let g:paredit_electric_return = 0
-
 
 """"""""""""""""""""""" }}}
 " Vagrant               {{{
@@ -922,10 +798,6 @@ augroup grass_miscfiles
   " Less
   autocmd BufNewFile,BufRead *.less set filetype=less
 augroup END
-
-" Configure browser for haskell_doc.vim
-let g:haddock_browser = "open"
-let g:haddock_browser_callformat = "%s %s"
 
 
 """"""""""""""""""""""" }}}
