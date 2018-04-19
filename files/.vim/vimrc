@@ -808,13 +808,13 @@ let g:haddock_browser_callformat = "%s %s"
 
 " Edit hot files
 command! Myrc :normal :edit $MYVIMRC<cr>
-command! Notes :normal :silent! :CtrlP ~/Dropbox/Notes<cr>
+command! Notes :normal :silent! :Files ~/Dropbox/Notes<cr>
 
 nnoremap <leader>ki :Myrc<CR>
 nnoremap <leader>kn :Notes<CR>
 nnoremap <leader>kw :edit ~/Dropbox/Notes/Journals/Work.org<CR>
-nnoremap <leader>kp :edit ~/Dropbox/Notes/Journals/Personal.org<CR>
 
+nnoremap <leader>ww <c-w><c-p>
 
 """"""""""""""""""""""" }}}
 " Snippets              {{{
