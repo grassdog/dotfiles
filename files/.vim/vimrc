@@ -61,6 +61,7 @@ Plug 'jremmen/vim-ripgrep'
 Plug 'henrik/vim-open-url'
 Plug 'grassdog/tagman.vim'
 
+" Languages
 Plug 'sheerun/vim-polyglot'
 
 " Ruby
@@ -69,7 +70,7 @@ Plug 'jgdavey/vim-blockle'
 Plug 'nelstrom/vim-textobj-rubyblock'
 
 " Elixir
-Plug 'slashmili/alchemist.vim'
+" Plug 'slashmili/alchemist.vim'
 
 call plug#end()
 
@@ -752,11 +753,6 @@ augroup grass_miscfiles
   " Less
   autocmd BufNewFile,BufRead *.less set filetype=less
 augroup END
-
-" Configure browser for haskell_doc.vim
-let g:haddock_browser = "open"
-let g:haddock_browser_callformat = "%s %s"
-
 
 """"""""""""""""""""""" }}}
 " Shortcut commands     {{{
