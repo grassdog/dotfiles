@@ -26,7 +26,6 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-vinegar'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'godlygeek/tabular'
-Plug 'icymind/neosolarized'
 " Use a hardwired version for now
 " Plug 'dracula/vim'
 Plug 'nathanaelkane/vim-indent-guides'
@@ -34,7 +33,6 @@ Plug 'mbbill/undotree'
 Plug 'bogado/file-line'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'kien/rainbow_parentheses.vim'
 
 " Tmux
@@ -308,25 +306,7 @@ set foldtext=MyFoldText()
 """""""""""""""""""""""
 
 set background=dark
-
-let g:neosolarized_contrast = "high"
-let g:neosolarized_visibility = "normal"
-let g:neosolarized_bold = 1
-let g:neosolarized_underline = 1
-let g:neosolarized_italic = 1
-
-" augroup dracula_customization
-"   au!
-"   autocmd ColorScheme dracula hi CursorLine cterm=underline term=underline
-" augroup END
-
-if has("gui_macvim")
-  let g:airline_theme='solarized'
-  colorscheme NeoSolarized
-else
-  colorscheme dracula
-endif
-
+colorscheme dracula
 
 """"""""""""""""""""""" }}}
 " Movement              {{{
