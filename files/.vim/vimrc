@@ -411,7 +411,7 @@ nnoremap <leader>ei ggVGgq
 nnoremap <leader>ew :StripWhitespace<cr>
 
 " Format the entire file
-nnoremap <leader>ef ggVG=
+nnoremap <leader>ef m'ggVG=``zzg
 
 
 """"""""""""""""""""""" }}}
