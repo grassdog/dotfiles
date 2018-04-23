@@ -68,7 +68,7 @@ prompt_status() {
   symbols=()
   [[ $RETVAL -ne 0 ]] && symbols+="✘$RETVAL"
   [[ $UID -eq 0 ]] && symbols+="%{$fg{yellow}%}⚡%f"
-  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="⚙"
+  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="⚙ "
 
   if [[ -n "$symbols" && $RETVAL -ne 0 ]]; then
     prompt_segment "%{$fg[red]%}$symbols"
