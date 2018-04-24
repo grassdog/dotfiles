@@ -54,7 +54,7 @@ Plug 'SirVer/ultisnips'
 Plug 'ervandew/supertab'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'tweekmonster/fzf-filemru'
+Plug 'lvht/fzf-mru'
 
 " Tools
 Plug 'vim-scripts/EasyGrep'
@@ -472,14 +472,12 @@ nnoremap <leader>fj :Explore %:h<cr>
 " fzf                   {{{
 """""""""""""""""""""""
 
-let g:fzf_filemru_bufwrite = 1
-
 nnoremap <leader>fp :Files<cr>
 nnoremap <leader>p :Files<cr>
 nnoremap <leader>bb :Buffers<cr>
 nnoremap <leader>bk :bdelete<cr>
 nnoremap <leader>bt :Tags<cr>
-nnoremap <leader>fr :FilesMru --tiebreak=end<cr>
+nnoremap <leader>fr :FZFMru<cr>
 
 
 """"""""""""""""""""""" }}}
