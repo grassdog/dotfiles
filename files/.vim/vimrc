@@ -488,8 +488,6 @@ let g:netrw_dirhistmax = 0
 let g:netrw_keepdir=1
 let g:netrw_localrmdir='trash'
 
-nnoremap <leader>fj :Explore %:h<cr>
-
 
 """"""""""""""""""""""" }}}
 " fzf                   {{{
