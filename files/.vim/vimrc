@@ -18,6 +18,8 @@ filetype off
 call plug#begin('~/.vim/plugged')
 
 " Core
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
@@ -425,8 +427,8 @@ let g:indentobject_meaningful_indentation = ["haml", "sass", "python", "yaml", "
 """""""""""""""""""""""
 
 let g:yankring_clipboard_monitor=0
-let g:yankring_replace_n_pkey = '<leader>['
-let g:yankring_replace_n_nkey = '<leader>]'
+let g:yankring_replace_n_pkey = '<leader>,'
+let g:yankring_replace_n_nkey = '<leader>.'
 let g:yankring_history_dir = '~/.cache/vim/tmp'
 nmap <leader>Y :YRShow<cr>
 
@@ -703,7 +705,7 @@ function! AltCommand(path, vim_command)
 endfunction
 
 " Find the alternate file for the current path and open it
-nnoremap <leader>, :w<cr>:call AltCommand(expand('%'), ':e')<cr>
+nnoremap <leader>a :w<cr>:call AltCommand(expand('%'), ':e')<cr>
 
 
 """"""""""""""""""""""" }}}
