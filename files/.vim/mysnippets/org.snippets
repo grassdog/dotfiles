@@ -1,0 +1,41 @@
+
+snippet h1 "Section" b
+* ${1:Section Name}
+
+$0
+endsnippet
+
+snippet h2 "Sub Section" b
+** ${1:Section Name}
+
+$0
+endsnippet
+
+snippet h3 "SubSub Section" b
+*** ${1:Section Name}
+
+$0
+endsnippet
+
+snippet dh1 "h1 date"
+* `!v strftime("%Y.%m.%d - %a")`
+
+$0
+endsnippet
+
+snippet dh2 "h2 date"
+** `!v strftime("%Y.%m.%d - %a")`
+
+$0
+endsnippet
+
+snippet dh3 "h3 date"
+*** `!v strftime("%Y.%m.%d - %a")`
+
+$0
+endsnippet
+
+snippet link "Link to something" !
+[[${1:${VISUAL:Url}}][${2:${VISUAL:Description}}]]$0
+endsnippet
+

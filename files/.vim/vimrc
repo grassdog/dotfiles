@@ -67,6 +67,8 @@ Plug 'vim-scripts/YankRing.vim'
 
 " Languages
 Plug 'sheerun/vim-polyglot'
+Plug 'jceb/vim-orgmode'
+Plug 'tpope/vim-speeddating'
 
 " Ruby
 Plug 'tpope/vim-endwise'
