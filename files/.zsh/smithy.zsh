@@ -51,6 +51,8 @@ awsid-shell() {
   awsid env AWS_SESSION_NAME='id-dev' $SHELL
 }
 
+alias aws-actuals="~/src/identity-infrastructure/aws-analysis/rollup-aws-actuals ~/Downloads/ecsv_*.csv | tr '|' ,"
+
 ######
 # SSH
 ######
