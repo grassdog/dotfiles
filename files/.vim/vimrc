@@ -64,6 +64,7 @@ Plug 'jremmen/vim-ripgrep'
 Plug 'henrik/vim-open-url'
 Plug 'grassdog/tagman.vim'
 Plug 'vim-scripts/YankRing.vim'
+Plug 'pelodelfuego/vim-swoop'
 
 " Languages
 Plug 'sheerun/vim-polyglot'
