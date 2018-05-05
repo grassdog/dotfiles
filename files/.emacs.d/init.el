@@ -39,7 +39,9 @@
 
 (load "~/.emacs.secrets" t)
 
-(require 'diminish)
+(use-package diminish)
+
+; (require 'diminish)
 (require 'cl)
 
 ;; UTF-8 Thanks
@@ -228,6 +230,7 @@
 (add-to-list 'default-frame-alist '(width . 110))
 
 (use-package spacemacs-theme
+  :defer t
   :config
   (setq spacemacs-theme-comment-bg nil)
   :init
