@@ -543,6 +543,9 @@
       (define-key evil-visual-state-map (kbd "#")
         'evil-visualstar/begin-search-backward)))
 
+  ;; Hopefully this stops Emacs choking on large files
+  (setq evil-ex-search-highlight-all nil)
+
   (use-package evil-search-highlight-persist
     :init
     (setq evil-search-highlight-string-min-len 3)
