@@ -430,8 +430,8 @@ let g:indentobject_meaningful_indentation = ["haml", "sass", "python", "yaml", "
 """""""""""""""""""""""
 
 let g:yankring_clipboard_monitor=0
-let g:yankring_replace_n_pkey = '<leader>,'
-let g:yankring_replace_n_nkey = '<leader>.'
+let g:yankring_replace_n_pkey = '<leader>['
+let g:yankring_replace_n_nkey = '<leader>]'
 let g:yankring_history_dir = '~/.cache/vim/tmp'
 nmap <leader>Y :YRShow<cr>
 
@@ -687,13 +687,13 @@ let g:blockle_mapping = '<leader>m['
 
 " Some Test helpers
 
-map <Leader>. :call VimuxRunLastCommand()<CR>
+map <Leader>. :wall <bar> call VimuxRunLastCommand()<CR>
 
-map <Leader>tr :call VimuxRunCommand("be rspec " . bufname("%"))<CR>
-map <Leader>tar :call VimuxRunCommand("be rspec")<CR>
+map <Leader>tr :w <bar> call VimuxRunCommand("be rspec " . bufname("%"))<CR>
+map <Leader>tar :wall <bar> call VimuxRunCommand("be rspec")<CR>
 
-map <Leader>tj :call VimuxRunCommand("./node_modules/.bin/jest " . bufname("%"))<CR>
-map <Leader>taj :call VimuxRunCommand("./node_modules/.bin/jest")<CR>
+map <Leader>tj :w <bar> call VimuxRunCommand("./node_modules/.bin/jest " . bufname("%"))<CR>
+map <Leader>taj :wall <bar> call VimuxRunCommand("./node_modules/.bin/jest")<CR>
 
 
 " Run a given vim command on the results of alt from a given path.
