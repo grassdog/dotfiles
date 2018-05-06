@@ -708,7 +708,7 @@ function! AltCommand(path, vim_command)
 endfunction
 
 " Find the alternate file for the current path and open it
-nnoremap <leader>a :w<cr>:call AltCommand(expand('%'), ':e')<cr>
+nnoremap <leader>A :w <bar> call AltCommand(expand('%'), ':e')<cr>
 
 
 """"""""""""""""""""""" }}}
