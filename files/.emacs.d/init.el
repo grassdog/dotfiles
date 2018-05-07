@@ -1494,10 +1494,10 @@ Repeated invocations toggle between the two most recently open buffers."
   (define-key dired-mode-map [return] 'dired-find-alternate-file)
   (define-key dired-mode-map (kbd "^")
     (function
-      (lambda nil (interactive) (dired-find-alternate-file ".."))))
+      (lambda nil (interactive) (dired-jump))))
   (define-key dired-mode-map (kbd "-")
     (function
-      (lambda nil (interactive) (dired-find-alternate-file "..")))))
+      (lambda nil (interactive) (dired-jump)))))
 
 (if (boundp 'dired-mode-map)
   (grass/dired-init)
