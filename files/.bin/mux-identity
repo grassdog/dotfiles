@@ -21,43 +21,44 @@ fi
 
 NAME="${1:-misc}"
 
-tmux new-session -d -c ~ -n "$NAME" -s "$NAME"
+if ! tmux has-session -t "$NAME" 2>/dev/null; then
+  tmux new-session -d -c ~ -n "$NAME" -s "$NAME"
 
-case "$1" in
-  dev)
-    # Kick up my local dev tmux session
-    tmux send-keys -t "$NAME":"$NAME" 'cd ~/.dotfiles' C-m
-    tmux rename-window dotfiles
-    tmux new-window -c ~/dev -n dev -t "$NAME":2
-    ;;
-  admin)
-    tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/identity-admin' C-m
-    ;;
-  infra)
-    tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/identity-infrastructure' C-m
-    ;;
-  team)
-    tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/identity-team' C-m
-    ;;
-  sso)
-    tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/sso_server' C-m
-    ;;
-  ess)
-    tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/event_sourcery' C-m
-    ;;
-  identity)
-    tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/identity' C-m
-    ;;
-  analysis)
-    tmux send-keys -t $NAME:1.2 "cd ~/src/identity-infrastructure/aws-analysis" C-m
-    ;;
-  area51)
-    tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/area51-server' C-m
-    ;;
-  *)
-    ;;
-esac
-
+  case "$1" in
+    dev)
+      # Kick up my local dev tmux session
+      tmux send-keys -t "$NAME":"$NAME" 'cd ~/.dotfiles' C-m
+      tmux rename-window dotfiles
+      tmux new-window -c ~/dev -n dev -t "$NAME":2
+      ;;
+    admin)
+      tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/identity-admin' C-m
+      ;;
+    infra)
+      tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/identity-infrastructure' C-m
+      ;;
+    team)
+      tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/identity-team' C-m
+      ;;
+    sso)
+      tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/sso_server' C-m
+      ;;
+    ess)
+      tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/event_sourcery' C-m
+      ;;
+    identity)
+      tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/identity' C-m
+      ;;
+    analysis)
+      tmux send-keys -t $NAME:1.2 "cd ~/src/identity-infrastructure/aws-analysis" C-m
+      ;;
+    area51)
+      tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/area51-server' C-m
+      ;;
+    *)
+      ;;
+  esac
+fi
 
 if [[ -z $TMUX ]]; then
   tmux attach-session -t "$NAME"

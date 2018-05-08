@@ -21,26 +21,28 @@ fi
 
 NAME="${1:-misc}"
 
-tmux new-session -d -c ~ -n "$NAME" -s "$NAME"
+if ! tmux has-session -t "$NAME" 2>/dev/null; then
+  tmux new-session -d -c ~ -n "$NAME" -s "$NAME"
 
-case "$1" in
-  dev)
-    # Kick up my local dev tmux session
-    tmux send-keys -t "$NAME":"$NAME" 'cd ~/.dotfiles' C-m
-    tmux rename-window dotfiles
-    tmux new-window -c ~/dev -n dev -t "$NAME":2
-    ;;
-  summate)
-    tmux split-window -h -t $NAME:$NAME
-    tmux split-window -v -t $NAME:$NAME
-    tmux select-pane -t $NAME:1.1
-    tmux send-keys -t $NAME:1.1 'cd ~/dev/summate' C-m
-    tmux send-keys -t $NAME:1.2 "cd ~/dev/summate/backend; ./script/server" C-m
-    tmux send-keys -t $NAME:1.3 "cd ~/dev/summate/ui; ./script/server" C-m
-    ;;
-  *)
-    ;;
-esac
+  case "$1" in
+    dev)
+      # Kick up my local dev tmux session
+      tmux send-keys -t "$NAME":"$NAME" 'cd ~/.dotfiles' C-m
+      tmux rename-window dotfiles
+      tmux new-window -c ~/dev -n dev -t "$NAME":2
+      ;;
+    summate)
+      tmux split-window -h -t $NAME:$NAME
+      tmux split-window -v -t $NAME:$NAME
+      tmux select-pane -t $NAME:1.1
+      tmux send-keys -t $NAME:1.1 'cd ~/dev/summate' C-m
+      tmux send-keys -t $NAME:1.2 "cd ~/dev/summate/backend; ./script/server" C-m
+      tmux send-keys -t $NAME:1.3 "cd ~/dev/summate/ui; ./script/server" C-m
+      ;;
+    *)
+      ;;
+  esac
+fi
 
 
 if [[ -z $TMUX ]]; then
