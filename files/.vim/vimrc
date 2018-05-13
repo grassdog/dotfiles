@@ -492,6 +492,7 @@ let g:netrw_dirhistmax = 0
 let g:netrw_keepdir=1
 let g:netrw_localrmdir='trash'
 
+nmap <leader>g <Plug>NetrwRefresh
 
 """"""""""""""""""""""" }}}
 " fzf                   {{{
