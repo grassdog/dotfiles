@@ -70,6 +70,7 @@ Plug 'pelodelfuego/vim-swoop'
 Plug 'sheerun/vim-polyglot'
 Plug 'jceb/vim-orgmode'
 Plug 'tpope/vim-speeddating'
+Plug 'styled-components/vim-styled-components'
 
 " Ruby
 Plug 'tpope/vim-endwise'
