@@ -230,6 +230,11 @@ let g:EasyGrepReplaceWindowMode=2
 nnoremap c* /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn
 nnoremap c# ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgN
 
+" Faster start and end of line
+nnoremap L $
+nnoremap H ^
+
+
 """"""""""""""""""""""" }}}
 " Wildmenu completion   {{{
 """""""""""""""""""""""
