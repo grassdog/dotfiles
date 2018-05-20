@@ -226,6 +226,9 @@ nnoremap <leader>wo :only<cr>
 " Easy grep
 let g:EasyGrepReplaceWindowMode=2
 
+" Search and replace current word. Type `.` to hit next occurence and replace.
+nnoremap c* /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn
+nnoremap c# ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgN
 
 """"""""""""""""""""""" }}}
 " Wildmenu completion   {{{
