@@ -65,6 +65,7 @@ Plug 'henrik/vim-open-url'
 Plug 'grassdog/tagman.vim'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'pelodelfuego/vim-swoop'
+Plug 'janko-m/vim-test'
 
 " Languages
 Plug 'sheerun/vim-polyglot'
@@ -695,17 +696,13 @@ let g:blockle_mapping = '<leader>m['
 
 
 " Some Test helpers
+" make test commands execute using dispatch.vim
+let test#strategy = "vimux"
+map <Leader>tf :w <bar> TestFile<CR>
+map <Leader>tl :w <bar> TestNearest<CR>
+map <Leader>ta :wall <bar> TestSuite<CR>
 
 map <Leader>. :wall <bar> call VimuxRunLastCommand()<CR>
-
-" Test ruby file/line/all
-map <Leader>trf :w <bar> call VimuxRunCommand("be rspec " . bufname("%"))<CR>
-map <Leader>trl :w <bar> call VimuxRunCommand("be rspec " . bufname("%") . ":" . line("."))<CR>
-map <Leader>tra :wall <bar> call VimuxRunCommand("be rspec")<CR>
-
-map <Leader>tjf :w <bar> call VimuxRunCommand("./node_modules/.bin/jest " . bufname("%"))<CR>
-map <Leader>tja :wall <bar> call VimuxRunCommand("./node_modules/.bin/jest")<CR>
-
 
 " Run a given vim command on the results of alt from a given path.
 " See usage below.
