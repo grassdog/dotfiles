@@ -27,6 +27,7 @@ Plug 'tpope/vim-git'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'godlygeek/tabular'
 " Use a hardwired version for now
@@ -526,33 +527,8 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 " Search for merge conflict markers
 nnoremap <silent> <leader>sgc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 
-" map <leader>g in visual mode to provide a stable link to GitHub source
-" allows us to easily select some text in vim and talk about it
-function! s:GithubLink(line1, line2)
-  let path = resolve(expand('%:p'))
-  let dir = shellescape(fnamemodify(path, ':h'))
-  let repoN = system("cd " . dir .  " && git remote -v | awk '{ tmp = match($2, /github/); if (tmp) { split($2,a,/github.com[:\.]/); c = a[2]; split(c,b,/[.]/); print b[1]; exit; }}'")
-
-  let repo = substitute(repoN, '\r\?\n\+$', '', '')
-  let root = system("cd " . dir . "  && git rev-parse --show-toplevel")
-  let relative = strpart(path, strlen(root) - 1, strlen(path) - strlen(root) + 1)
-
-
-  let repoShaN = system("cd " . dir . " && git rev-parse HEAD")
-  let repoSha = substitute(repoShaN, '\r\?\n\+$', '', '')
-
-  let link = "https://github.com/". repo . "/blob/" . repoSha . relative . "#L". a:line1 . "-L" . a:line2
-
-  let @+ = link
-  let @* = link
-
-  echo link
-endfunction
-
-command! -bar -bang -range -nargs=* GithubLink
-  \ keepjumps call <sid>GithubLink(<line1>, <line2>)
-
-vmap <leader>g :GithubLink<cr>
+" Grab a github link from current selection
+vmap <leader>g :Gbrowse!<cr>
 
 
 """"""""""""""""""""""" }}}
