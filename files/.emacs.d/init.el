@@ -1596,7 +1596,19 @@ Repeated invocations toggle between the two most recently open buffers."
          :states '(normal visual insert emacs)
          :prefix grass/leader2
          :non-normal-prefix "M-,"
-         "p" 'peep-dired))))
+         "p" 'peep-dired
+         "f" '(:ignore t :which-key "Files")
+         "fr" 'counsel-recentf
+         "ff" 'counsel-find-file
+         )
+
+       (general-define-key :keymaps 'dired-mode-map
+         :states '(normal visual insert emacs)
+         :prefix grass/leader1
+         :non-normal-prefix "M-SPC"
+         "f" '(:ignore t :which-key "Files")
+         "fr" 'counsel-recentf
+         "ff" 'counsel-find-file))))
 
 
 (use-package dired+
