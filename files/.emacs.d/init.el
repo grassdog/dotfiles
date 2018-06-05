@@ -2999,7 +2999,46 @@ the right."
     ;; eldoc for clojure
     (add-hook 'cider-mode-hook #'eldoc-mode)
 
-    (general-define-key :keymaps 'cidr-repl-mode-map
+    ;; TODO This package seems broken
+    ;; (use-package clj-refactor
+    ;;   :init
+    ;;   (add-hook 'clojure-mode-hook
+    ;;     (lambda ()
+    ;;       (clj-refactor-mode 1)
+
+    ;;       ;; no auto sort
+    ;;       (setq cljr-auto-sort-ns nil)
+
+    ;;       ;; do not prefer prefixes when using clean-ns
+    ;;       (setq cljr-favor-prefix-notation nil))))
+
+    (define-clojure-indent
+      ;; Compojure
+      (ANY 2)
+      (DELETE 2)
+      (GET 2)
+      (HEAD 2)
+      (POST 2)
+      (PUT 2)
+      (context 2)
+      (defroutes 'defun)
+      ;; Cucumber
+      (After 1)
+      (Before 1)
+      (Given 2)
+      (Then 2)
+      (When 2)
+      ;; Schema
+      (s/defrecord 2)
+      ;; test.check
+      (for-all 'defun))
+
+    (general-define-key :keymaps 'cider-repl-mode-map
+      :states '(normal visual insert emacs)
+      "<M-up>" 'cider-repl-previous-input
+      "<M-down>" 'cider-repl-next-input)
+
+    (general-define-key :keymaps '(clojure-mode-map cider-repl-mode-map)
       :states '(normal visual insert emacs)
       :prefix grass/leader2
       :non-normal-prefix "M-,"
@@ -3008,7 +3047,14 @@ the right."
       "hh" 'cider-doc
       "hg" 'cider-grimoire
       "hj" 'cider-javadoc
-      "r" 'cider-jack-in
+
+      "c" '(:ignore t :which-key "Cider")
+      "cj" 'cider-jack-in
+      "cc" 'cider-repl-clear-buffer
+      "cr" 'cider-switch-to-repl-buffer
+      "cs" 'cider-repl-handle-shortcut
+      "cq" 'cider-quit
+      "cn" 'cider-repl-set-ns
 
       "e" '(:ignore t :which-key "Eval")
       "ee" 'cider-eval-last-sexp
@@ -3016,89 +3062,50 @@ the right."
       "er" 'cider-eval-region
       "ew" 'cider-eval-last-sexp-and-replace
 
-      "e" '(:ignore t :which-key "Goto")
+      "l" '(:ignore t :which-key "Load")
+      "lb" 'cider-load-buffer
+      "lf" 'cider-load-file
+      "lr" 'cider-refresh
+
+      "g" '(:ignore t :which-key "Goto")
       "gb" 'cider-jump-back
       "ge" 'cider-jump-to-compilation-error
       "gg" 'cider-find-var
       "gr" 'cider-jump-to-resource
 
-      "e" '(:ignore t :which-key "Set")
-      "sc" 'cider-repl-clear-buffer
-      "sn" 'cider-repl-set-ns
-      "sq" 'cider-quit
-      "ss" 'cider-switch-to-last-clojure-buffer
-      "sx" 'cider-refresh
+      "s" 'cider-switch-to-last-clojure-buffer
 
-      "C-j" 'cider-repl-next-input
-      "C-k" 'cider-repl-previous-input
+      "t" '(:ignore t :which-key "Test")
+      "tn" 'cider-test-run-ns-tests
+      "tl" 'cider-test-run-test
+      "tt" 'cider-test-rerun-test
+      "tp" 'cider-test-run-project-tests
+      "tr" 'cider-test-show-report
 
-      "r" '(:ignore t :which-key "Refactoring")
-      "r?"  'cljr-describe-refactoring
-      "rap" 'cljr-add-project-dependency
-      "ras" 'cljr-add-stubs
-      "rcc" 'cljr-cycle-coll
-      "rci" 'cljr-cycle-if
-      "rcp" 'cljr-cycle-privacy
-      "rdk" 'cljr-destructure-keys
-      "rel" 'cljr-expand-let
-      "rfu" 'cljr-find-usages
-      "rhd" 'cljr-hotload-dependency
-      "ril" 'cljr-introduce-let
-      "rml" 'cljr-move-to-let
-      "rpc" 'cljr-project-clean
-      "rrl" 'cljr-remove-let
-      "rsp" 'cljr-sort-project-dependencies
-      "rsc" 'cljr-show-changelog
-      "rtf" 'cljr-thread-first-all
-      "rth" 'cljr-thread
-      "rtl" 'cljr-thread-last-all
-      "rua" 'cljr-unwind-all
-      "rup" 'cljr-update-project-dependencies
-      "ruw" 'cljr-unwind))
-
-  ;; TODO This package seems broken
-  ;; (use-package clj-refactor
-  ;;   :init
-  ;;   (add-hook 'clojure-mode-hook
-  ;;     (lambda ()
-  ;;       (clj-refactor-mode 1)
-
-  ;;       ;; no auto sort
-  ;;       (setq cljr-auto-sort-ns nil)
-
-  ;;       ;; do not prefer prefixes when using clean-ns
-  ;;       (setq cljr-favor-prefix-notation nil))))
-
-
-  (define-clojure-indent
-    ;; Compojure
-    (ANY 2)
-    (DELETE 2)
-    (GET 2)
-    (HEAD 2)
-    (POST 2)
-    (PUT 2)
-    (context 2)
-    (defroutes 'defun)
-    ;; Cucumber
-    (After 1)
-    (Before 1)
-    (Given 2)
-    (Then 2)
-    (When 2)
-    ;; Schema
-    (s/defrecord 2)
-    ;; test.check
-    (for-all 'defun))
-
-  (general-define-key :keymaps 'clojure-mode-map
-    :states '(normal visual insert emacs)
-    :prefix grass/leader2
-    :non-normal-prefix "M-,"
-
-    "r" '(:ignore t :which-key "CIDR")
-    "cc" 'cider-connect
-    "cj" 'cider-jack-in))
+      ;; "r" '(:ignore t :which-key "Refactoring")
+      ;; "r?"  'cljr-describe-refactoring
+      ;; "rap" 'cljr-add-project-dependency
+      ;; "ras" 'cljr-add-stubs
+      ;; "rcc" 'cljr-cycle-coll
+      ;; "rci" 'cljr-cycle-if
+      ;; "rcp" 'cljr-cycle-privacy
+      ;; "rdk" 'cljr-destructure-keys
+      ;; "rel" 'cljr-expand-let
+      ;; "rfu" 'cljr-find-usages
+      ;; "rhd" 'cljr-hotload-dependency
+      ;; "ril" 'cljr-introduce-let
+      ;; "rml" 'cljr-move-to-let
+      ;; "rpc" 'cljr-project-clean
+      ;; "rrl" 'cljr-remove-let
+      ;; "rsp" 'cljr-sort-project-dependencies
+      ;; "rsc" 'cljr-show-changelog
+      ;; "rtf" 'cljr-thread-first-all
+      ;; "rth" 'cljr-thread
+      ;; "rtl" 'cljr-thread-last-all
+      ;; "rua" 'cljr-unwind-all
+      ;; "rup" 'cljr-update-project-dependencies
+      ;; "ruw" 'cljr-unwind
+      )))
 
 (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
 (add-to-list 'magic-mode-alist '(".* boot" . clojure-mode))
