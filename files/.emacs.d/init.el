@@ -768,6 +768,8 @@
                                  (ag-mode . normal)
                                  (cider-stacktrace-mode . motion)
                                  (cider-popup-buffer-mode . motion)
+                                 (cider--debug-mode . insert)
+                                 (cider-inspector-mode . emacs)
                                  (help-mode . normal)
                                  ;; (grep-mode . emacs)
                                  (bc-menu-mode . motion)
@@ -780,15 +782,15 @@
                                  ;; (magit-log-select-mode-map . emacs)
                                  ;; (magit-mode-map . emacs)
                                  ;; (magit-popup-help-mode-map . emacs)
-                                 ;;(magit-popup-mode . emacs)
-                                 ;;(magit-popup-sequence-mode . emacs)
+                                 ;; (magit-popup-mode . emacs)
+                                 ;; (magit-popup-sequence-mode . emacs)
                                  ;; (magit-process-mode-map . emacs)
                                  ;; (magit-reflog-mode-map . emacs)
                                  ;; (magit-refs-mode-map . emacs)
                                  ;; (magit-revision-mode-map . emacs)
                                  ;; (magit-stash-mode-map . emacs)
                                  ;; (magit-stashes-mode-map . emacs)
-                                 ;;(magit-status-mode . emacs)
+                                 ;; (magit-status-mode . emacs)
                                  ;; (rdictcc-buffer-mode . emacs)
                                  ;; (kill-ring-mode . normal)
                                  ;; (bs-mode . emacs)
@@ -3032,6 +3034,15 @@ the right."
       (s/defrecord 2)
       ;; test.check
       (for-all 'defun))
+
+    ;; Checks if you're entering the debugger
+    ;; If so, turn on evil-insert-state
+    ;; Otherwise, turn on normal-state
+    (defun grass/cider-debug-toggle-insert-state ()
+      (if cider--debug-mode
+        (evil-insert-state)
+        (evil-normal-state)))
+    (add-hook 'cider--debug-mode-hook 'grass/cider-debug-toggle-insert-state)
 
     (general-define-key :keymaps 'cider-repl-mode-map
       :states '(normal visual insert emacs)
