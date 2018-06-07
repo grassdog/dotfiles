@@ -3061,11 +3061,13 @@ the right."
 
       "c" '(:ignore t :which-key "Cider")
       "cj" 'cider-jack-in
-      "cc" 'cider-repl-clear-buffer
-      "cr" 'cider-switch-to-repl-buffer
-      "cs" 'cider-repl-handle-shortcut
+      "cC" 'cider-repl-clear-buffer
       "cq" 'cider-quit
-      "cn" 'cider-repl-set-ns
+      "cc" 'cider-switch-to-repl-buffer
+
+      "," 'cider-repl-handle-shortcut
+      "n" 'cider-repl-set-ns
+      "s" 'cider-switch-to-last-clojure-buffer
 
       "e" '(:ignore t :which-key "Eval")
       "ee" 'cider-eval-last-sexp
@@ -3083,8 +3085,6 @@ the right."
       "ge" 'cider-jump-to-compilation-error
       "gg" 'cider-find-var
       "gr" 'cider-jump-to-resource
-
-      "s" 'cider-switch-to-last-clojure-buffer
 
       "t" '(:ignore t :which-key "Test")
       "tn" 'cider-test-run-ns-tests
