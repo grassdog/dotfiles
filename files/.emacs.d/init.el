@@ -1598,19 +1598,27 @@ Repeated invocations toggle between the two most recently open buffers."
          :states '(normal visual insert emacs)
          :prefix grass/leader2
          :non-normal-prefix "M-,"
-         "p" 'peep-dired
-         "f" '(:ignore t :which-key "Files")
-         "fr" 'counsel-recentf
-         "ff" 'counsel-find-file
-         )
+         "p" 'peep-dired)
 
        (general-define-key :keymaps 'dired-mode-map
          :states '(normal visual insert emacs)
          :prefix grass/leader1
          :non-normal-prefix "M-SPC"
+
+         "TAB" '(grass/switch-to-previous-buffer :which-key "previous buffer")
+
          "f" '(:ignore t :which-key "Files")
          "fr" 'counsel-recentf
-         "ff" 'counsel-find-file))))
+         "ff" 'counsel-find-file
+
+         "b" '(:ignore t :which-key "Buffers")
+         "bb" 'ivy-switch-buffer
+
+         "s" '(:ignore t :which-key "Search/Replace")
+         "sp" '(grass/counsel-rg-current-project :which-key "rg project")
+
+         "w" '(:ignore t :which-key "Windows/UI")
+         "ww" 'evil-window-next))))
 
 
 (use-package dired+
