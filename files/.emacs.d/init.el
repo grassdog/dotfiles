@@ -1848,16 +1848,6 @@ the right."
 ;; Prog mode ;;
 ;;;;;;;;;;;;;;;
 
-(use-package nlinum
-  :init
-  (setq nlinum-format "%4d ")
-  (setq nlinum-highlight-current-line t)
-
-  ;; Line numbers for coding please
-  (add-hook 'prog-mode-hook
-    (lambda ()
-      (nlinum-mode 1))))
-
 (use-package rainbow-delimiters
   :commands rainbow-delimiters-mode)
 
@@ -1866,7 +1856,7 @@ the right."
   (lambda ()
     ;; Treat underscore as a word character
     (modify-syntax-entry ?_ "w")
-    ;; (linum-mode 1)
+    (display-line-numbers-mode)
     (rainbow-delimiters-mode)))
 
 
@@ -2701,7 +2691,7 @@ the right."
       ;; Treat dollar and hyphen as a word character
       (modify-syntax-entry ?$ "w")
       (modify-syntax-entry ?- "w")
-      (nlinum-mode 1)
+      (display-line-numbers-mode)
       (rainbow-mode +1))))
 
 (use-package syslog-mode
@@ -2717,7 +2707,7 @@ the right."
   (use-package rainbow-mode)
   (add-hook 'css-mode-hook
     (lambda ()
-      (nlinum-mode 1)
+      (display-line-numbers-mode)
       (rainbow-mode +1))))
 
 ;;;;;;;;;;;;;;
@@ -3786,7 +3776,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   "wo" 'delete-other-windows
   "wk" 'delete-window
   "wt" 'crux-transpose-windows
-  "wn" 'nlinum-mode
+  "wn" 'display-line-numbers-mode
   "wi" 'highlight-indent-guides-mode
 
   "z" '(:ignore t :which-key "Folding")
