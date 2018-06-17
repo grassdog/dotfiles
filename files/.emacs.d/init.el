@@ -285,6 +285,7 @@
   (setq ivy-height 20)
   (setq ivy-fixed-height-minibuffer t)
   (setq ivy-use-virtual-buffers t)
+  (setq ivy-use-selectable-prompt t)
   ;; Don't count candidates
   (setq ivy-count-format "")
   (setq ivy-re-builders-alist
