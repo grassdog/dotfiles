@@ -2992,6 +2992,9 @@ the right."
     ;; Result prefix for the REPL
     (setq cider-repl-result-prefix ";; => ")
 
+    ;; Don't pop to the REPL window on start
+    (setq cider-repl-pop-to-buffer-on-connect 'display-only)
+
     ;; Neverending REPL history
     (setq cider-repl-wrap-history t)
 
@@ -3049,6 +3052,12 @@ the right."
         (evil-insert-state)
         (evil-normal-state)))
     (add-hook 'cider--debug-mode-hook 'grass/cider-debug-toggle-insert-state)
+
+    (defun grass/cider-test-toggle-insert-state ()
+      (if (equal major-mode 'cider-test-report-mode)
+        (evil-insert-state)
+        (evil-normal-state)))
+    (add-hook 'cider-test-report-mode-hook 'grass/cider-test-toggle-insert-state)
 
     (general-define-key :keymaps 'cider-repl-mode-map
       :states '(normal visual insert emacs)
