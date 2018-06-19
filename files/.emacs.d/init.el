@@ -1611,9 +1611,16 @@ Repeated invocations toggle between the two most recently open buffers."
          "f" '(:ignore t :which-key "Files")
          "fr" 'counsel-recentf
          "ff" 'counsel-find-file
+         "fp" 'counsel-projectile-find-file
 
          "b" '(:ignore t :which-key "Buffers")
          "bb" 'ivy-switch-buffer
+
+         "k" '(:ignore t :which-key "Bookmarks")
+         "ki" 'grass/open-init
+         "kw" 'grass/open-work-log
+
+         "p"  'counsel-projectile-find-file
 
          "s" '(:ignore t :which-key "Search/Replace")
          "sp" '(grass/counsel-rg-current-project :which-key "rg project")
