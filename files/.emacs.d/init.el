@@ -1652,6 +1652,7 @@ Repeated invocations toggle between the two most recently open buffers."
      (general-define-key :keymaps 'company-active-map
        "TAB" 'nil
        "<tab>" 'nil
+       "RET" 'company-complete-selection
        "S-TAB" 'company-select-previous
        "<backtab>" 'company-select-previous
        "ESC" 'company-abort)))
