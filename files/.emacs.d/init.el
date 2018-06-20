@@ -2933,18 +2933,18 @@ the right."
     ;; eldoc for clojure
     (add-hook 'cider-mode-hook #'eldoc-mode)
 
-    ;; TODO This package seems broken
-    ;; (use-package clj-refactor
-    ;;   :init
-    ;;   (add-hook 'clojure-mode-hook
-    ;;     (lambda ()
-    ;;       (clj-refactor-mode 1)
+    (use-package clj-refactor
+      :pin melpa-stable
+      :init
+      (add-hook 'clojure-mode-hook
+        (lambda ()
+          (clj-refactor-mode 1)
 
-    ;;       ;; no auto sort
-    ;;       (setq cljr-auto-sort-ns nil)
+          ;; no auto sort
+          (setq cljr-auto-sort-ns nil)
 
-    ;;       ;; do not prefer prefixes when using clean-ns
-    ;;       (setq cljr-favor-prefix-notation nil))))
+          ;; do not prefer prefixes when using clean-ns
+          (setq cljr-favor-prefix-notation nil))))
 
     (define-clojure-indent
       ;; Compojure
@@ -3016,30 +3016,55 @@ the right."
       "tp" 'cider-test-run-project-tests
       "tr" 'cider-test-show-report
 
-      ;; "r" '(:ignore t :which-key "Refactoring")
-      ;; "r?"  'cljr-describe-refactoring
-      ;; "rap" 'cljr-add-project-dependency
-      ;; "ras" 'cljr-add-stubs
-      ;; "rcc" 'cljr-cycle-coll
-      ;; "rci" 'cljr-cycle-if
-      ;; "rcp" 'cljr-cycle-privacy
-      ;; "rdk" 'cljr-destructure-keys
-      ;; "rel" 'cljr-expand-let
-      ;; "rfu" 'cljr-find-usages
-      ;; "rhd" 'cljr-hotload-dependency
-      ;; "ril" 'cljr-introduce-let
-      ;; "rml" 'cljr-move-to-let
-      ;; "rpc" 'cljr-project-clean
-      ;; "rrl" 'cljr-remove-let
-      ;; "rsp" 'cljr-sort-project-dependencies
-      ;; "rsc" 'cljr-show-changelog
-      ;; "rtf" 'cljr-thread-first-all
-      ;; "rth" 'cljr-thread
-      ;; "rtl" 'cljr-thread-last-all
-      ;; "rua" 'cljr-unwind-all
-      ;; "rup" 'cljr-update-project-dependencies
-      ;; "ruw" 'cljr-unwind
-      )))
+      "r" '(:ignore t :which-key "Refactoring")
+      "r?"  'cljr-describe-refactoring
+
+      "ra" '(:ignore t :which-key "Add")
+      "rap" 'cljr-add-project-dependency
+      "ras" 'cljr-add-stubs
+
+      "rc" '(:ignore t :which-key "Cycle")
+      "rcc" 'cljr-cycle-coll
+      "rci" 'cljr-cycle-if
+      "rcp" 'cljr-cycle-privacy
+
+      "rd" '(:ignore t :which-key "Desctructure")
+      "rdk" 'cljr-destructure-keys
+
+      "re" '(:ignore t :which-key "Expand")
+      "rel" 'cljr-expand-let
+
+      "rf" '(:ignore t :which-key "Find")
+      "rfu" 'cljr-find-usages
+
+      "rh" '(:ignore t :which-key "Hotload")
+      "rhd" 'cljr-hotload-dependency
+
+      "ri" '(:ignore t :which-key "Introduce")
+      "ril" 'cljr-introduce-let
+
+      "rm" '(:ignore t :which-key "Move")
+      "rml" 'cljr-move-to-let
+
+      "rp" '(:ignore t :which-key "Project")
+      "rpc" 'cljr-project-clean
+
+      "rr" '(:ignore t :which-key "Remove")
+      "rrl" 'cljr-remove-let
+
+      "rs" '(:ignore t :which-key "Sort/Show")
+      "rsp" 'cljr-sort-project-dependencies
+      "rsc" 'cljr-show-changelog
+
+      "rt" '(:ignore t :which-key "Thread")
+      "rtf" 'cljr-thread-first-all
+      "rth" 'cljr-thread
+      "rtl" 'cljr-thread-last-all
+
+      "ru" '(:ignore t :which-key "Unwind/Update")
+      "rua" 'cljr-unwind-all
+      "rup" 'cljr-update-project-dependencies
+      "ruw" 'cljr-unwind)))
 
 (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
 (add-to-list 'magic-mode-alist '(".* boot" . clojure-mode))
