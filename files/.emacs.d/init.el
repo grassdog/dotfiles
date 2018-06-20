@@ -518,6 +518,7 @@
 (use-package evil
   :preface
   (setq evil-search-module 'evil-search)
+  (setq evil-want-integration nil)
 
   :init
 
@@ -743,62 +744,12 @@
   (define-key evil-visual-state-map "\C-e" 'evil-end-of-line)
   (define-key evil-motion-state-map "\C-e" 'evil-end-of-line)
   (define-key evil-normal-state-map "Q" 'call-last-kbd-macro)
-  (define-key evil-visual-state-map "Q" 'call-last-kbd-macro)
+  (define-key evil-visual-state-map "Q" 'call-last-kbd-macro))
 
-  ;; Set our default modes
-  (loop for (mode . state) in '(
-                                 ;;(inferior-emacs-lisp-mode . emacs)
-                                 ;; (nrepl-mode . insert)
-                                 ;; (pylookup-mode . emacs)
-                                 ;; (comint-mode . normal)
-                                 ;; (shell-mode . emacs)
-                                 ;; (git-commit-mode . insert)
-                                 ;; (git-rebase-mode . emacs)
-                                 ;; (calculator-mode . emacs)
-                                 ;; (term-mode . emacs)
-                                 (haskell-error-mode . motion)
-                                 ;; (haskell-interactive-mode . emacs)
-                                 ;; (undo-tree-visualizer-mode . emacs)
-                                 ;; (cider-repl-mode . emacs)
-                                 (occur-mode . normal)
-                                 (ivy-occur-mode . normal)
-                                 (ivy-occur-grep-mode . normal)
-                                 (gist-list-menu-mode . normal)
-                                 (gist-list-mode . normal)
-
-                                 (ag-mode . normal)
-                                 (cider-stacktrace-mode . motion)
-                                 (cider-popup-buffer-mode . motion)
-                                 (cider--debug-mode . insert)
-                                 (cider-inspector-mode . emacs)
-                                 (help-mode . normal)
-                                 ;; (grep-mode . emacs)
-                                 (bc-menu-mode . motion)
-                                 ;; (erc-mode . emacs)
-                                 ;; (magit-branch-manager-mode . emacs)
-                                 ;; (magit-blame-mode-map . emacs)
-                                 ;; (magit-cherry-mode-map . emacs)
-                                 ;; (magit-diff-mode-map . emacs)
-                                 ;; (magit-log-mode-map . emacs)
-                                 ;; (magit-log-select-mode-map . emacs)
-                                 ;; (magit-mode-map . emacs)
-                                 ;; (magit-popup-help-mode-map . emacs)
-                                 ;; (magit-popup-mode . emacs)
-                                 ;; (magit-popup-sequence-mode . emacs)
-                                 ;; (magit-process-mode-map . emacs)
-                                 ;; (magit-reflog-mode-map . emacs)
-                                 ;; (magit-refs-mode-map . emacs)
-                                 ;; (magit-revision-mode-map . emacs)
-                                 ;; (magit-stash-mode-map . emacs)
-                                 ;; (magit-stashes-mode-map . emacs)
-                                 ;; (magit-status-mode . emacs)
-                                 ;; (rdictcc-buffer-mode . emacs)
-                                 ;; (kill-ring-mode . normal)
-                                 ;; (bs-mode . emacs)
-                                 ;; (dired-mode . normal)
-                                 ;; (wdired-mode . normal)
-                                 )
-    do (evil-set-initial-state mode state)))
+(use-package evil-collection
+  :after evil
+  :config
+  (evil-collection-init))
 
 (use-package evil-terminal-cursor-changer
     :if (not (display-graphic-p))
@@ -1463,12 +1414,7 @@ Repeated invocations toggle between the two most recently open buffers."
 
 
 (use-package git-timemachine
-  :commands (git-timemachine git-timemachine-toggle)
-  :config
-  (progn
-     (evil-make-overriding-map git-timemachine-mode-map 'normal)
-     ;; force update evil keymaps after git-timemachine-mode loaded
-     (add-hook 'git-timemachine-mode-hook #'evil-normalize-keymaps)))
+  :commands (git-timemachine git-timemachine-toggle))
 
 
 (use-package git-gutter-fringe
@@ -1593,41 +1539,13 @@ Repeated invocations toggle between the two most recently open buffers."
 
 (eval-after-load "dired"
   '(progn
-     (use-package peep-dired
-       :config
-       (general-define-key :keymaps 'dired-mode-map
-         :states '(normal visual insert emacs)
-         :prefix grass/leader2
-         :non-normal-prefix "M-,"
-         "p" 'peep-dired)
+     (general-define-key :keymaps 'dired-mode-map
+       :states '(normal visual insert emacs)
+       :prefix grass/leader1
+       :non-normal-prefix "M-SPC"
 
-       (general-define-key :keymaps 'dired-mode-map
-         :states '(normal visual insert emacs)
-         :prefix grass/leader1
-         :non-normal-prefix "M-SPC"
-
-         "TAB" '(grass/switch-to-previous-buffer :which-key "previous buffer")
-
-         "f" '(:ignore t :which-key "Files")
-         "fr" 'counsel-recentf
-         "ff" 'counsel-find-file
-         "fp" 'counsel-projectile-find-file
-
-         "b" '(:ignore t :which-key "Buffers")
-         "bb" 'ivy-switch-buffer
-
-         "k" '(:ignore t :which-key "Bookmarks")
-         "ki" 'grass/open-init
-         "kw" 'grass/open-work-log
-
-         "p"  'counsel-projectile-find-file
-
-         "s" '(:ignore t :which-key "Search/Replace")
-         "sp" '(grass/counsel-rg-current-project :which-key "rg project")
-
-         "w" '(:ignore t :which-key "Windows/UI")
-         "ww" 'evil-window-next))))
-
+       ;; Remove dired mapping on space to get back my leader
+       " " nil)))
 
 (use-package dired+
   :commands (dired-omit-mode dired-jump)
@@ -3043,21 +2961,6 @@ the right."
       (s/defrecord 2)
       ;; test.check
       (for-all 'defun))
-
-    ;; Checks if you're entering the debugger
-    ;; If so, turn on evil-insert-state
-    ;; Otherwise, turn on normal-state
-    (defun grass/cider-debug-toggle-insert-state ()
-      (if cider--debug-mode
-        (evil-insert-state)
-        (evil-normal-state)))
-    (add-hook 'cider--debug-mode-hook 'grass/cider-debug-toggle-insert-state)
-
-    (defun grass/cider-test-toggle-insert-state ()
-      (if (equal major-mode 'cider-test-report-mode)
-        (evil-insert-state)
-        (evil-normal-state)))
-    (add-hook 'cider-test-report-mode-hook 'grass/cider-test-toggle-insert-state)
 
     (general-define-key :keymaps 'cider-repl-mode-map
       :states '(normal visual insert emacs)
