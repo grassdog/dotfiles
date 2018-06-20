@@ -694,6 +694,11 @@
 
   ;; Yank till end of line
   (define-key evil-normal-state-map (kbd "Y") (kbd "y$"))
+  ;; Easy start and end of line
+  (define-key evil-normal-state-map (kbd "H") 'crux-move-beginning-of-line)
+  (define-key evil-normal-state-map (kbd "L") 'evil-end-of-line)
+  (define-key evil-visual-state-map (kbd "H") 'crux-move-beginning-of-line)
+  (define-key evil-visual-state-map (kbd "L") 'evil-end-of-line)
 
   ;; Make movement keys work like they should
   (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
