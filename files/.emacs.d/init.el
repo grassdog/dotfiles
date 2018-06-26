@@ -1362,6 +1362,10 @@ Repeated invocations toggle between the two most recently open buffers."
   (interactive)
   (counsel-file-jump "" (expand-file-name "~/Dropbox/Notes")))
 
+(defun grass/find-tab ()
+  "Find tablature file in Dropbox directory"
+  (interactive)
+  (counsel-file-jump "" (expand-file-name "~/Dropbox/Library/Guitar/Tablature")))
 
 ;;;;;;;;;
 ;; Git ;;
@@ -3614,6 +3618,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   "ki" 'grass/open-init
   "kw" 'grass/open-work-log
   "kn" 'grass/find-notes
+  "kt" 'grass/find-tab
 
   "g" '(:ignore t :which-key "Git/VC")
   "gs" 'magit-status
