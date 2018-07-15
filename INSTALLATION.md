@@ -99,7 +99,8 @@ Check the status of services via `brew services list`.
     - Launch at login
     - Don't show main window at launch
 - Calibre
-    - Preferences > Install plugin from file > `~/Dropbox/Backups/Calibre DRM plugins/tools_v6.0.9/DeDRM_calibre_plugin/DeDRM_plugin.zip`
+    - Preferences > Install plugin from file > `~/Dropbox/Backups/Calibre DRM plugins/KFX Input.zip`
+    - Preferences > Install plugin from file > `~/Dropbox/Backups/Calibre DRM plugins/DeDRM_tools_6.6.1/DeDRM_calibre_plugin/DeDRM_plugin.zip`
 - Copy across or clone projects into `~/dev`
 - Copy across from USB backup
     - ~/dev/old
