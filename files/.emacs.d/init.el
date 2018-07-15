@@ -3124,23 +3124,9 @@ the right."
                     (locate-dominating-file (file-name-directory (directory-file-name proj-dir)) alchemist-project-hex-pkg-indicator))))
           (if (stringp parent-proj-dir) parent-proj-dir proj-dir)))))
 
-  (defun elixir-format-buffer ()
-    "Tidies the elixir content in the buffer using `exfmt'"
-    (interactive)
-    (shell-command-on-region
-      ;; beginning and end of buffer
-      (point-min)
-      (point-max)
-      ;; command and parameters
-      (concat "cd " (elixir--umbrella-root) "; mix exfmt " (buffer-file-name))
-      ;; output buffer
-      (current-buffer)
-      ;; replace?
-      t
-      ;; name of the error buffer
-      "*Exfmt Error Buffer*"
-      ;; show error buffer?
-      t))
+  ;; Run elixir-format on save
+  (add-hook 'elixir-mode-hook
+    (lambda () (add-hook 'before-save-hook 'elixir-format nil t)))
 
   (use-package alchemist
     :diminish (alchemist-mode . " alc")
