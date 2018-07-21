@@ -1,0 +1,49 @@
+#!/usr/bin/env ruby
+#/ Usage: list-prs [options]
+#/ List PRs that I haven't reviewed.
+#/    -u                               Only show PRs I haven't approved.
+#/    -h, --help                       Show help.
+
+require "json"
+
+SWITCH = (ARGV[0] || "").downcase
+
+exec "grep ^#/<'#{__FILE__}'|cut -c4-" if SWITCH == "-h" || SWITCH == "--help"
+
+SHOW_UNAPPROVED_ONLY = SWITCH == "-u"
+
+TOKEN = `git config github.oauth-token`
+ORG = "envato"
+USER = "grassdog"
+
+REPOS = %w[
+  identity
+  identity-admin
+  identity-infrastructure
+  sso-server
+  sso-client
+  sso-js
+  sso-embedded
+  sso-reference-implementation
+  area51-server
+  area51-client
+  doclocker
+]
+
+REPOS.each do |repo|
+  prs = JSON.parse(`curl --silent --header "Authorization: token #{TOKEN}" "https://api.github.com/repos/#{ORG}/#{repo}/pulls"`)
+
+  prs.each do |pr|
+    reviews = JSON.parse(`curl --silent --header "Authorization: token #{TOKEN}" "https://api.github.com/repos/#{ORG}/#{repo}/pulls/#{pr["number"]}/reviews"`)
+
+    next if reviews.any? { |r|
+      if SHOW_UNAPPROVED_ONLY
+        r["user"]["login"] == USER && r["state"] == "APPROVED"
+      else
+        r["user"]["login"] == USER
+      end
+    }
+
+    $stdout.puts "\e[32m#{repo}\e[0m \e[33m#{pr["title"]}\e[0m #{pr["html_url"]}"
+  end
+end
