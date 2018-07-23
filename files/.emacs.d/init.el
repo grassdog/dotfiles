@@ -3593,6 +3593,7 @@ If the error list is visible, hide it.  Otherwise, show it."
 
   "b" '(:ignore t :which-key "Buffers")
   "bb" 'ivy-switch-buffer
+  "bB" 'ivy-switch-buffer-other-window
   "bm" '(hydra-buffer/body :which-key "buffer mini-state")
   "bs" 'grass/switch-to-scratch-buffer
   "bk" 'kill-this-buffer
