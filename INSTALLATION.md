@@ -73,6 +73,8 @@ Check the status of services via `brew services list`.
     - Disable contacts in Alfred
     - Appearance > Yosemite Light
     - Appearance > Hide Menu Bar Icon
+- Install Vanilla.app
+- Install Muzzle.app
 - Dash 3
     - Set up synching to `~/Dropbox/Backups/Dash`
 - Calendar.app
