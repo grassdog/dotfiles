@@ -3616,6 +3616,10 @@ If the error list is visible, hide it.  Otherwise, show it."
   "gt" 'git-timemachine-toggle
   "gp" 'grass/open-pull-request
 
+  "gL" '(:ignore t :which-key "Magit log...")
+  "gLd" 'magit-log-trace-definition
+  "gLf" 'magit-log-buffer-file
+
   "gg" '(:ignore t :which-key "Gist")
   "ggb" 'gist-buffer
   "ggB" 'gist-buffer-private
