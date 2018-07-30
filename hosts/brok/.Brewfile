@@ -16,6 +16,7 @@ brew 'reattach-to-user-namespace'
 brew 'youtube-dl'
 brew 'aspell'
 brew 'asdf'
+brew 'tree'
 
 cask_args appdir: '/Applications'
 

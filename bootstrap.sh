@@ -125,8 +125,8 @@ ok
 step "Install vim config"
 mkdir -p ~/.cache/vim/tmp/undo
 mkdir -p ~/.cache/vim/tmp/backups
+ln -sf $DOTFILES_FULL_PATH/files/.vim $HOME
 ln -sf $DOTFILES_FULL_PATH/files/.vim/vimrc $HOME/.vimrc
-ln -sf $DOTFILES_FULL_PATH/files/.vim $HOME/.vim
 mkdir -p $HOME/.vim/autoload
 [ ! -f $HOME/.vim/autoload/plug.vim ] && curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ok
@@ -172,7 +172,7 @@ function install_fonts {
   log "Installing font $ARCHIVE"
 
   unzip $ARCHIVE -d $TEMP_DIR >/dev/null
-  find $TEMP_DIR -maxdepth 1 -name '*.ttf' -o -name '*.otf' -exec mv {} ~/Library/Fonts \;
+  find $TEMP_DIR -name '*.ttf' -o -name '*.otf' -exec cp {} ~/Library/Fonts \;
   rm -r $TEMP_DIR
 }
 
