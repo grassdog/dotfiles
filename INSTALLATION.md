@@ -61,6 +61,9 @@ Check the status of services via `brew services list`.
 - 1Password
     - Security > Don't lock when screensaver activated
     - Switch on third party integration under advanced settings
+- Moom
+-   - Set up left half, right half, and maximise custom shortcuts
+    - Run as faceless app
 - Alfred
     - Install Powerpack from 1Password
     - Set sync folder to ~/Dropbox/Backups/Alfred

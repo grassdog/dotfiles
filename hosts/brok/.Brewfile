@@ -17,10 +17,13 @@ brew 'youtube-dl'
 brew 'aspell'
 brew 'asdf'
 brew 'tree'
+brew 'hub'
 
 cask_args appdir: '/Applications'
 
 cask 'aws-vault'
+cask 'postico'
+cask 'sequel-pro'
 
 cask 'betterzip'
 cask 'provisionql'
