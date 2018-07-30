@@ -106,7 +106,7 @@ function link_files {
 
   log "Linking files in $SOURCE_DIR"
 
-  for f in $(find $SOURCE_DIR -maxdepth 1 -mindepth 1 \( ! -name .DS_Store ! -name README.md \)); do
+  for f in $(find $SOURCE_DIR -maxdepth 1 -mindepth 1 \( ! -name .DS_Store ! -name README.md ! _dontlink \)); do
     log "Linking $f to $TARGET_DIR"
     ln -sf "$f" "$TARGET_DIR"
   done
@@ -126,6 +126,7 @@ step "Install vim config"
 mkdir -p ~/.cache/vim/tmp/undo
 mkdir -p ~/.cache/vim/tmp/backups
 ln -sf $DOTFILES_FULL_PATH/files/.vim/vimrc $HOME/.vimrc
+ln -sf $DOTFILES_FULL_PATH/files/.vim $HOME/.vim
 mkdir -p $HOME/.vim/autoload
 [ ! -f $HOME/.vim/autoload/plug.vim ] && curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ok

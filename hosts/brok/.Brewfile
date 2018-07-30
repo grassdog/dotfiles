@@ -11,14 +11,16 @@ brew 'z'
 brew 'zsh'
 brew 'vim'
 brew 'tmux'
+brew 'trash'
 brew 'reattach-to-user-namespace'
 brew 'youtube-dl'
 brew 'aspell'
+brew 'asdf'
 
 cask_args appdir: '/Applications'
 
 cask 'aws-vault'
-cask 'betterzipql'
+cask 'betterzip'
 cask 'provisionql'
 cask 'qlcolorcode'
 cask 'qlmarkdown'
@@ -32,7 +34,7 @@ cask 'webpquicklook'
 cask 'emacs'
 cask 'mailplane'
 cask 'visual-studio-code'
-cask '1password'
+# cask '1password'
 cask 'docker'
 cask 'slack'
 cask 'vanilla'
@@ -42,11 +44,11 @@ cask 'keybase'
 cask 'moom'
 cask 'monodraw'
 cask 'marked'
-cask 'kaleidosope'
+cask 'kaleidoscope'
+cask 'dash'
 
 tap 'argon/homebrew-mas'
 mas 'Color Picker', id: 502401013
-mas 'Dash 3', id: 449589707
 mas 'Day One', id: 1055511498
 mas 'Monosnap', id: 540348655
 mas 'Things 3', id: 904280696
