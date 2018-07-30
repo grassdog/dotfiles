@@ -10,6 +10,10 @@ brew 'yarn'
 brew 'z'
 brew 'zsh'
 brew 'vim'
+brew 'tmux'
+brew 'reattach-to-user-namespace'
+brew 'youtube-dl'
+brew 'aspell'
 
 cask_args appdir: '/Applications'
 
@@ -25,6 +29,7 @@ cask 'quicklook-json'
 cask 'webpquicklook'
 
 # Applications
+cask 'emacs'
 cask 'mailplane'
 cask 'visual-studio-code'
 cask '1password'
