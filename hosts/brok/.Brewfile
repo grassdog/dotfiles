@@ -20,6 +20,7 @@ brew 'asdf'
 cask_args appdir: '/Applications'
 
 cask 'aws-vault'
+
 cask 'betterzip'
 cask 'provisionql'
 cask 'qlcolorcode'
@@ -32,7 +33,11 @@ cask 'webpquicklook'
 
 # Applications
 cask 'emacs'
+cask 'alfred'
 cask 'mailplane'
+cask 'flux'
+cask 'soulver'
+cask 'textexpander'
 cask 'visual-studio-code'
 # cask '1password'
 cask 'docker'

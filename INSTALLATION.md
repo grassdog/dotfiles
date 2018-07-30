@@ -20,23 +20,20 @@ Check the status of services via `brew services list`.
 
 ## Manual Steps
 
+- Open and set up 1Password
 - Open and set up Dropbox then pause syncing
     - Don't show desktop notifications
-- Copy across Dropbox and Music files from backup and `chown -R` them to new user
-- Resume Dropbox syncing
-- Open and set up 1Password
+    - Optional: Copy across Dropbox and Music files from backup and `chown -R` them to new user. Resume syncing.
 - Log into Chrome and set as default browser
 - Finder
     - Add ~/Dropbox/Notes and ~/dev into Finder sidebar
     - New window opens in ~/Dropbox
     - View options on home folder and "show Library folder"
-- Command drag time machine icon off menu bar
 - Settings
     - Users and groups > Change profile picture
     - Internet Accounts
         - Add Google for mail and messages only
         - Add Work gmail for calendar
-        - Add Twitter account
     - Accessibility > Reduce transparency
     - Keyboard > Set caps lock as control
     - Keyboard > Shortcuts > Spotlight > Change spotlight to `ctrl-option-cmd-space`
@@ -86,9 +83,6 @@ Check the status of services via `brew services list`.
     - General > Start Month on current or selected week
 - Flux
     - Set wake up time
-- Airfoil
-    - Only show in menu bar
-    - Install extras for instant on
 - DayOne
     - Setup sync
     - Baskerville 18pt, no auto bold, no twitter names

@@ -119,7 +119,7 @@ step "Link dotfiles"
 ok
 
 step "Set shell to zsh"
-[[ $(echo $SHELL) != $(which zsh) ]] && chsh -s $(which zsh) $(whoami)
+[[ $(echo $SHELL) != $(which zsh) ]] && sudo dscl . -create /Users/${whoami} UserShell $(which zsh)
 ok
 
 step "Install vim config"
