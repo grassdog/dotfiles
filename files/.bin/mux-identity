@@ -41,7 +41,7 @@ if ! tmux has-session -t "$NAME" 2>/dev/null; then
       tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/identity-team' C-m
       ;;
     sso)
-      tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/sso_server' C-m
+      tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/sso-server' C-m
       ;;
     ess)
       tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/event_sourcery' C-m
