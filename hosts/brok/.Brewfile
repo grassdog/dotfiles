@@ -55,9 +55,20 @@ cask 'monodraw'
 cask 'marked'
 cask 'kaleidoscope'
 cask 'dash'
+cask 'licecap'
+cask 'kindle'
+cask 'vlc'
+cask 'omnigraffle'
+cask 'deckset'
+cask 'superduper'
 
 tap 'argon/homebrew-mas'
 mas 'Color Picker', id: 502401013
 mas 'Day One', id: 1055511498
 mas 'Monosnap', id: 540348655
 mas 'Things 3', id: 904280696
+mas 'Capo 3', id: 696977615
+mas 'Clocks', id: 414554506
+mas 'Affinity Photo', id: 824183456
+mas 'MindNode 5', id: 1289197285
+mas 'White Noise', id: 415139197
