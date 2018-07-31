@@ -18,6 +18,7 @@ brew 'aspell'
 brew 'asdf'
 brew 'tree'
 brew 'hub'
+brew 'pandoc'
 
 cask_args appdir: '/Applications'
 
