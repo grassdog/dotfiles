@@ -3072,7 +3072,8 @@ the right."
       "ruw" 'cljr-unwind)))
 
 (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
-(add-to-list 'magic-mode-alist '(".* boot" . clojure-mode))
+;; This was a little too eager
+;; (add-to-list 'magic-mode-alist '(".* boot" . clojure-mode))
 
 
 ;;;;;;;;;;;
