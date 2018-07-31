@@ -12,6 +12,7 @@ PROMPT_ORDER=(
 )
 
 source ~/src/identity-dev-bootstrap/files/shell-env.sh
+source ~/src/identity-dev-bootstrap/files/service-ports.sh
 
 alias aws-actuals="~/src/identity-infrastructure/aws-analysis/rollup-aws-actuals ~/Downloads/ecsv_*.csv | tr '|' ,"
 
