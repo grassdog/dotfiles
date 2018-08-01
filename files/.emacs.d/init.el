@@ -2633,6 +2633,7 @@ the right."
 
 (use-package syslog-mode
   :defer t
+  :load-path "vendor"
   :config
   (add-hook 'syslog-mode-hook
     (lambda ()
