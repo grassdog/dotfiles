@@ -106,7 +106,7 @@ function link_files {
 
   log "Linking files in $SOURCE_DIR"
 
-  for f in $(find $SOURCE_DIR -maxdepth 1 -mindepth 1 \( ! -name .DS_Store ! -name README.md ! _dontlink \)); do
+  for f in $(find $SOURCE_DIR -maxdepth 1 -mindepth 1 \( ! -name .DS_Store ! -name README.md ! -name _dontlink \)); do
     log "Linking $f to $TARGET_DIR"
     ln -sf "$f" "$TARGET_DIR"
   done
@@ -164,32 +164,11 @@ rm dcp.zip
 fi
 ok
 
-function install_fonts {
-  local ARCHIVE=$1
-  local EXTENSION=$2
-  local TEMP_DIR=$(mktemp -d)
-
-  log "Installing font $ARCHIVE"
-
-  unzip $ARCHIVE -d $TEMP_DIR >/dev/null
-  find $TEMP_DIR -name '*.ttf' -o -name '*.otf' -exec cp {} ~/Library/Fonts \;
-  rm -r $TEMP_DIR
-}
-
 step "Install fonts"
 mkdir -p ~/Library/Fonts
-[ ! -f ~/Library/Fonts/Forza-Black.otf ] && install_fonts ~/Dropbox/Backups/Fonts/Forza.zip
-[ ! -f ~/Library/Fonts/LeagueGothic-Regular.otf ] && install_fonts ~/Dropbox/Backups/Fonts/league-gothic-master.zip
-[ ! -f ~/Library/Fonts/Hack-Bold.ttf ] && install_fonts ~/Dropbox/Backups/Fonts/Hack-ttf.zip
-[ ! -f ~/Library/Fonts/OperatorMono-Bold.otf ] && install_fonts ~/Dropbox/Backups/Fonts/OperatorMono.zip
-[ ! -f ~/Library/Fonts/Roboto-Black.ttf ] && install_fonts ~/Dropbox/Backups/Fonts/roboto.zip
-[ ! -f ~/Library/Fonts/GothamCond-Black.otf ] && install_fonts ~/Dropbox/Backups/Fonts/GothamCond.zip
-[ ! -f ~/Library/Fonts/Idlewild-Bold.otf ] && install_fonts ~/Dropbox/Backups/Fonts/Idlewild.zip
-[ ! -f ~/Library/Fonts/Vitesse-Black.otf ] && install_fonts ~/Dropbox/Backups/Fonts/Vitesse.zip
-[ ! -f ~/Library/Fonts/Sullivan-Regular.otf ] && install_fonts ~/Dropbox/Backups/Fonts/Sullivan.zip
-[ ! -f ~/Library/Fonts/OpenSans-Bold.ttf ] && install_fonts ~/Dropbox/Backups/Fonts/OpenSans.zip
-[ ! -f ~/Library/Fonts/Metropolis.otf ] && cp ~/Dropbox/Backups/Fonts/Metropolis.otf ~/Library/Fonts
-[ ! -f ~/Library/Fonts/DecoNeue-Light.ttf ] && cp ~/Dropbox/Backups/Fonts/DecoNeue-Light.ttf ~/Library/Fonts
+find ~/Dropbox/Backups/Fonts/ToInstall -name '*.ttf' -o -name '*.otf' -exec cp {} ~/Library/Fonts \;
+chmod -x ~/Library/Fonts/*.ttf
+chmod -x ~/Library/Fonts/*.otf
 ok
 
 if [ -r ~/.Brewfile ]; then
