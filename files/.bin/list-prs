@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
 #/ Usage: list-prs [options]
 #/ List PRs that I haven't reviewed.
 #/
@@ -75,6 +76,10 @@ class GithubGateway
       labels.include?("wip")
     end
 
+    def owned_by?(user)
+      owner == user
+    end
+
     def approvals
       reviews.select { |r| r.state == "APPROVED" }
     end
@@ -88,11 +93,11 @@ class GithubGateway
     end
 
     def unreviewed_by?(user)
-      reviews.none? { |r| r.user == user }
+      !owned_by?(user) && reviews.none? { |r| r.user == user }
     end
 
     def unapproved_by?(user)
-      approvals.none? { |r| r.user == user }
+      !owned_by?(user) && approvals.none? { |r| r.user == user }
     end
 
     def last_updated
