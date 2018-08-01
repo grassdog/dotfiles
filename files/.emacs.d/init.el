@@ -1558,6 +1558,7 @@ Repeated invocations toggle between the two most recently open buffers."
 
 (use-package dired+
   :commands (dired-omit-mode dired-jump)
+  :load-path "vendor"
   :config
   ;; Chill the colours in dired
   (setq font-lock-maximum-decoration (quote ((dired-mode . 1) (t . t))))
