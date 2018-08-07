@@ -2245,9 +2245,8 @@ the right."
       ;; Abbrev mode seems broken for some reason
       (abbrev-mode -1))))
 
-(if (string= system-name "smithy")
+(if (string= system-name "brok")
   (progn
-
     (use-package rbenv
       :init
       (progn
