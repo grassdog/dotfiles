@@ -19,6 +19,7 @@ brew 'asdf'
 brew 'tree'
 brew 'hub'
 brew 'pandoc'
+brew 'cmake'
 
 cask_args appdir: '/Applications'
 
