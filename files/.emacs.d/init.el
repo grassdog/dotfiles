@@ -1350,12 +1350,7 @@ Repeated invocations toggle between the two most recently open buffers."
 (defun grass/open-work-log ()
   "Open Worklog file"
   (interactive)
-  (find-file "~/Dropbox/Notes/Journals/Work.org"))
-
-(defun grass/open-personal-log ()
-  "Open Worklog file"
-  (interactive)
-  (find-file "~/Dropbox/Notes/Journals/Personal.org"))
+  (find-file "~/Dropbox/Notes/Work/Envato/Work.org"))
 
 (defun grass/find-notes ()
   "Find a note in Dropbox/Notes directory"
