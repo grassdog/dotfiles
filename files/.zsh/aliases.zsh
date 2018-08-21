@@ -54,6 +54,11 @@ function eg() {
   emacsclient --alternate-editor="" -n "$@"
 }
 
+# Stop emacs hanging
+function signal-emacs() {
+  kill -USR2 $(pgrep Emacs)
+}
+
 # tmux
 alias tmux="TERM=screen-256color-bce tmux"
 # New window
