@@ -1,0 +1,48 @@
+#!/usr/bin/env ruby
+#/ Usage: spec-changed
+#/ Infer a list of specs to run based upon changed files and run them.
+#/
+#/    -l, --loose                 Loosely match specs with modified file base names
+#/    -h, --help                  Show help
+
+require "optparse"
+require "find"
+
+loose_match = false
+
+ARGV.options do |opts|
+  opts.on("-l", "--loose", "Loosely match specs with modified file base names") do
+    loose_match = true
+  end
+  opts.on_tail("-h", "--help") { exec "grep ^#/<'#{__FILE__}'|cut -c4-" }
+  opts.parse!
+end
+
+def loosely_matching_specs(file)
+  base = File.basename(file).gsub(".rb", "")
+
+  [].tap do |result|
+    Find.find("spec") do |path|
+      result << path if !File.directory?(path) && path.include?(base) && path.match?(/_spec\.rb$/)
+    end
+  end
+end
+
+def matching_specs(file)
+  [
+    file.gsub(/app\/|lib\//, "spec/").gsub(/\.rb$/, "_spec.rb"),
+    file.gsub(/(app\/|lib\/)\/.+\//, "spec/").gsub(/\.rb$/, "_spec.rb"),
+  ].select { |f| File.exist?(f) }
+end
+
+files_to_test = `git ls-files -m`.split.flat_map do |changed_file|
+  return changed_file if /_spec.rb$/.match?(changed_file)
+
+  matching_specs(changed_file).tap do |result|
+    result.concat(loosely_matching_specs(changed_file)) if loose_match
+  end
+end.uniq.compact
+
+command = "bundle exec rspec #{files_to_test.join(" ")}"
+puts command
+exec command

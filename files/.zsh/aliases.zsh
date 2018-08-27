@@ -147,11 +147,6 @@ function rubo-changed() {
   git diff-tree -r --no-commit-id --name-only head origin/master | xargs rubocop
 }
 
-function spec-changed() {
-  # Locally modified
-  git ls-files -m | xargs ls -1 2>/dev/null | grep '\_spec.rb$' | xargs bundle exec rspec
-}
-
 ############
 # Processes
 ############
