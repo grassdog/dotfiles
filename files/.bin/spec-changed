@@ -3,16 +3,21 @@
 #/ Infer a list of specs to run based upon changed files and run them.
 #/
 #/    -l, --loose                 Loosely match specs with modified file base names
+#/    -m, --master                Include files that differ to `origin/master`
 #/    -h, --help                  Show help
 
 require "optparse"
 require "find"
 
 loose_match = false
+against_origin_master = false
 
 ARGV.options do |opts|
   opts.on("-l", "--loose", "Loosely match specs with modified file base names") do
     loose_match = true
+  end
+  opts.on("-m", "--master", "Include files that differ to `origin/master`") do
+    against_origin_master = true
   end
   opts.on_tail("-h", "--help") { exec "grep ^#/<'#{__FILE__}'|cut -c4-" }
   opts.parse!
@@ -35,13 +40,27 @@ def matching_specs(file)
   ].select { |f| File.exist?(f) }
 end
 
-files_to_test = `git ls-files -m`.split.flat_map do |changed_file|
+
+candidates = `git ls-files -m`.split.tap do |files|
+  if against_origin_master
+    files.concat(
+      `git diff-tree -r --no-commit-id --name-only head origin/master`.split
+    )
+  end
+end
+
+files_to_test = candidates.flat_map do |changed_file|
   return changed_file if /_spec.rb$/.match?(changed_file)
 
   matching_specs(changed_file).tap do |result|
     result.concat(loosely_matching_specs(changed_file)) if loose_match
   end
 end.uniq.compact
+
+if files_to_test.empty?
+  puts "No files to test"
+  exit
+end
 
 command = "bundle exec rspec #{files_to_test.join(" ")}"
 puts command
