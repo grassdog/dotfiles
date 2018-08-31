@@ -1,48 +1,95 @@
 tap 'homebrew/bundle'
 tap 'homebrew/core'
 tap 'homebrew/services'
-
-brew 'chruby'
-brew 'ruby-build'
-brew 'aspell'
-brew 'awscli'
-brew 'ctags'
-brew 'diff-so-fancy'
-brew 'ripgrep'
-brew 'fzf'
-brew 'yarn'
-brew 'graphviz'
-
-brew 'dnsmasq', restart_service: :changed
+tap 'wallix/awless'
 
 brew 'asdf'
-brew 'figlet'
+brew 'aspell'
+brew 'awless'
+brew 'awscli'
+brew 'chruby'
+brew 'cmake'
+brew 'ctags'
+brew 'diff-so-fancy'
+brew 'dnsmasq', restart_service: :changed
+brew 'fzf'
 brew 'git'
-brew 'gnupg2'
-brew 'libxml2'
 brew 'gnu-sed'
+brew 'graphviz'
 brew 'heroku'
 brew 'httpie'
-brew 'imagemagick'
 brew 'jq'
 brew 'keybase'
-brew 'openssl'
+brew 'libxml2'
 brew 'pandoc'
-
 brew 'postgresql', restart_service: :changed
-
 brew 'pstree'
-brew 'python'
-brew 'reattach-to-user-namespace', args: [ 'with-wrap-pbcopy-and-pbpaste' ]
+brew 'reattach-to-user-namespace'
+brew 'ripgrep'
+brew 'rlwrap'
+brew 'ruby-build'
+brew 'sbcl'
 brew 'sqlite'
 brew 'tmux'
 brew 'trash'
 brew 'tree'
-brew 'watchman'
+brew 'vim'
 brew 'wget'
+brew 'yarn'
 brew 'youtube-dl'
 brew 'z'
 brew 'zsh'
-brew 'vim'
-brew 'emacs', args: ['with-cocoa', 'with-gnutls', 'with-imagemagick', 'with-dbus', 'with-modules', 'with-mailutils' ]
 
+cask_args appdir: '/Applications'
+
+cask 'aws-vault'
+cask 'postico'
+cask 'sequel-pro'
+
+cask 'betterzip'
+cask 'provisionql'
+cask 'qlcolorcode'
+cask 'qlmarkdown'
+cask 'qlprettypatch'
+cask 'qlstephen'
+cask 'quicklook-csv'
+cask 'quicklook-json'
+cask 'webpquicklook'
+
+# Applications
+cask 'emacs'
+cask 'alfred'
+cask 'mailplane'
+cask 'flux'
+cask 'textexpander'
+cask 'visual-studio-code'
+# cask '1password'
+cask 'docker'
+cask 'slack'
+cask 'vanilla'
+cask 'spotify'
+cask 'iterm2'
+cask 'keybase'
+cask 'moom'
+cask 'monodraw'
+cask 'marked'
+cask 'kaleidoscope'
+cask 'dash'
+cask 'licecap'
+cask 'kindle'
+cask 'vlc'
+cask 'omnigraffle'
+cask 'deckset'
+cask 'superduper'
+
+tap 'argon/homebrew-mas'
+mas 'Color Picker', id: 502401013
+mas 'Day One', id: 1055511498
+mas 'Monosnap', id: 540348655
+mas 'Things 3', id: 904280696
+mas 'Capo 3', id: 696977615
+mas 'Clocks', id: 414554506
+mas 'Affinity Photo', id: 824183456
+mas 'MindNode 5', id: 1289197285
+mas 'White Noise', id: 415139197
+mas 'Soulver', id: 413965349
