@@ -1,5 +1,27 @@
 # -*- mode: snippet; require-final-newline: nil -*-
-# name: bash shebang
+# name: bash script
 # key: !bash
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
 # --
-#!/usr/bin/env bash
+#!/usr/bin/env bash -e
+#/ Usage: ${1:`(file-name-nondirectory (buffer-file-name))`} [options]
+#/
+#/ ${2:What my script does.}
+#/
+#/ Options:
+#/    -h, --help                       Show help
+
+function show_usage {
+  grep '^#/' "\$0" | cut -c4- 1>&2
+  exit 1
+}
+
+while true; do
+  case "\$1" in
+    -h | --help)  show_usage; shift ;;
+    -- ) shift; break ;;
+    * ) break ;;
+  esac
+done
+
+$0

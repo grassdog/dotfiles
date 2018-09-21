@@ -4,10 +4,10 @@
 # expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
 # --
 #!/usr/bin/env ruby
-#/ Usage: <progname> [options]...
+#/ Usage: ${1:`(file-name-nondirectory (buffer-file-name))`} [options]
 #/ How does this script make my life easier?
 #/
-#/ Flags:
+#/ Options:
 #/    -h, --help                       Show help
 $stderr.sync = true
 require 'optparse'
