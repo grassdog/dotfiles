@@ -3560,6 +3560,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   "cl" '(grass/toggle-flycheck-error-list :which-key "toggle error list")
   "cx" '(flycheck-set-checker-executable :which-key "set checker")
   "cv" 'flycheck-verify-setup
+  "cp" 'flycheck-display-error-at-point
 
   "cs" '(hydra-spelling/body :which-key "Spelling")
 

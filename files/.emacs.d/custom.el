@@ -11,6 +11,7 @@
  '(evil-ex-lazy-highlight ((t (:inherit lazy-highlight :background "#4d4d79"))))
  '(font-lock-comment-face ((t (:background "#292e34" :foreground "#2aa1ae" :slant italic))))
  '(font-lock-doc-face ((t (:foreground "#2aa1ae" :slant italic))))
+ '(flyspell-incorrect ((t (:underline (:color "#d988e8" :style wave)))))
  '(show-paren-match ((t (:background "selectedKnobColor")))))
 
 (custom-set-variables
