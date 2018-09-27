@@ -171,6 +171,11 @@ chmod -x ~/Library/Fonts/*.ttf
 chmod -x ~/Library/Fonts/*.otf
 ok
 
+step "Install spelling files"
+ln -sf $HOME/Dropbox/Backups/Spell/aspell.en.pws "$HOME/.aspell.en.pws"
+ln -sf $HOME/Dropbox/Backups/Spell/aspell.en.prepl "$HOME/.aspell.en.prepl"
+ok
+
 if [ -r ~/.Brewfile ]; then
 step "Install linked Brewfiles"
 brew bundle -v --file=~/.Brewfile
