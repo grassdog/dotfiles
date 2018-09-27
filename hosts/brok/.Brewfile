@@ -20,6 +20,7 @@ brew 'tree'
 brew 'hub'
 brew 'pandoc'
 brew 'cmake'
+brew 'proselint'
 
 cask_args appdir: '/Applications'
 
