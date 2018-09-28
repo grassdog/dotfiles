@@ -12,18 +12,21 @@
 $stderr.sync = true
 require 'optparse'
 
+trap('INT') do
+  exit
+end
+
 flag    = false
 option  = "default value"
 integer = 23
 list    = ["x", "y", "z"]
 
-file = __FILE__
 ARGV.options do |opts|
   opts.on("-f", "--flag")              { flag = true }
   opts.on("-o", "--opt=val", String)   { |val| option = val }
   opts.on("-i", "--int=val", Integer)  { |val| integer = val }
   opts.on("--list=[x,y,z]", Array)     { |val| list = val }
-  opts.on_tail("-h", "--help")         { exec "grep ^#/<'#{file}'|cut -c4-" }
+  opts.on_tail("-h", "--help")         { exec "grep ^#/<'#{__FILE__}'|cut -c4-" }
   opts.parse!
 end
 
