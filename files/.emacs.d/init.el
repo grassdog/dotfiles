@@ -1235,6 +1235,19 @@ buffer is not visiting a file, prompt for a file name."
         (find-alternate-file tramp-path)
       (find-file tramp-path))))
 
+(defun grass/to-ascii-code (colour)
+  "Convert a colour name to its ascii code"
+  (cond
+    ((string= colour "blue") "34")
+    ((string= colour "red") "31")
+    ((string= colour "yellow") "33")
+    ((string= colour "green") "32")
+    ((string= colour "cyan") "36")
+    ((string= colour "magenta") "35")
+    ((string= colour "black") "30")
+    ((string= colour "white") "37")
+    colour))
+
 ;;
 ;; Buffer switching
 ;;
