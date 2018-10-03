@@ -3274,7 +3274,7 @@ the right."
 
 (use-package flyspell
   :defer t
-  :commands (flyspell-mode flyspell-goto-next-error)
+  :commands (flyspell-mode flyspell-goto-next-error flyspell-auto-correct-previous-word)
   :diminish (flyspell-mode . " spl")
   :config
   (setq-default ispell-program-name "aspell")
@@ -3282,12 +3282,23 @@ the right."
   (setq ispell-silently-savep t)
   (ispell-change-dictionary "british" t)
 
-  (use-package flyspell-correct-popup
-    :init
-    (define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-previous-word-generic))
+  (use-package flyspell-correct-ivy
+    :after flyspell
+    :bind (:map flyspell-mode-map
+          ("C-;" . flyspell-correct-word-generic))
+    :custom (flyspell-correct-interface 'flyspell-correct-ivy))
 
   (add-hook 'markdown-mode-hook (lambda () (flyspell-mode 1)))
   (add-hook 'text-mode-hook (lambda () (flyspell-mode 1)))
+
+  (defun grass/ispell-save-word()
+    (interactive)
+    (let
+      ((current-location (point))
+        (word (flyspell-get-word)))
+      (when (consp word)
+        (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location))
+      (setq ispell-pdict-modified-p nil)))
 
   (add-hook 'flyspell-mode-hook
     (lambda ()
@@ -3297,7 +3308,10 @@ the right."
   "spelling"
   ("t" flyspell-mode "toggle")
   ("n" flyspell-goto-next-error "next error")
-  ("w" flyspell-correct-word-before-point "correct word")
+  ("a" grass/ispell-save-word "add word")
+  ("c" flyspell-auto-correct-previous-word "auto correct")
+  ("w" flyspell-correct-word-generic "correct word")
+  ("p" flyspell-correct-word-before-point "correct word in popup")
   ("q" nil "quit" :color blue))
 
 (use-package spaceline
@@ -3565,6 +3579,7 @@ If the error list is visible, hide it.  Otherwise, show it."
 
   "c" '(:ignore t :which-key "Check/Compile")
   "cc" '(flycheck-mode :which-key "toggle flycheck")
+  "cw" 'flyspell-auto-correct-previous-word
   "cm" 'hydra-flycheck/body
   "cC" 'flycheck-clear
   "ch" 'flycheck-describe-checker
