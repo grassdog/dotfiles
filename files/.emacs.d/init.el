@@ -3347,6 +3347,11 @@ the right."
   ("p" flyspell-correct-word-before-point "correct word in popup")
   ("q" nil "quit" :color blue))
 
+
+;;;;;;;;;;;;;;;;;
+;; Status line ;;
+;;;;;;;;;;;;;;;;;
+
 (use-package spaceline
   :init
   (progn
