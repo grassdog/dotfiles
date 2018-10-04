@@ -75,6 +75,31 @@
 
 ;; Fix our shell environment on OSX
 (when (eq system-type 'darwin)
+
+  ;; Emacs mac port key bindings
+  (when (eq window-system 'mac)
+    (global-set-key (kbd "s-=") 'spacemacs/scale-up-font)
+    (global-set-key (kbd "s--") 'spacemacs/scale-down-font)
+    (global-set-key (kbd "s-0") 'spacemacs/reset-font-size)
+    (global-set-key (kbd "s-q") 'save-buffers-kill-terminal)
+    (global-set-key (kbd "s-v") 'yank)
+    (global-set-key (kbd "s-c") 'evil-yank)
+    (global-set-key (kbd "s-a") 'mark-whole-buffer)
+    (global-set-key (kbd "s-x") 'kill-region)
+    (global-set-key (kbd "s-w") 'delete-window)
+    (global-set-key (kbd "s-W") 'delete-frame)
+    (global-set-key (kbd "s-n") 'make-frame)
+    (global-set-key (kbd "s-z") 'undo-tree-undo)
+    (global-set-key (kbd "s-s")
+                    (lambda ()
+                      (interactive)
+                      (call-interactively (key-binding "\C-x\C-s"))))
+    (global-set-key (kbd "s-Z") 'undo-tree-redo)
+    ;; (setq-default mac-right-option-modifier nil)
+    ;; (setq mac-function-modifier 'hyper)
+    (setq mac-option-modifier 'meta)
+    (setq mac-command-modifier 'super))
+
   (use-package exec-path-from-shell
     :defer 1
     :config
@@ -2734,13 +2759,6 @@ the right."
 ;;;;;;;;;;;
 ;; Emoji ;;
 ;;;;;;;;;;;
-
-(use-package emojify
-  :commands emojify-insert-emoji
-  :init
-  (progn
-    (add-hook 'org-mode-hook 'emojify-mode)
-    (add-hook 'markdown-mode-hook 'emojify-mode)))
 
 (defun --set-emoji-font (frame)
   "Adjust the font settings of FRAME so Emacs can display emoji properly."

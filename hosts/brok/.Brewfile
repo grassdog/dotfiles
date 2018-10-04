@@ -2,6 +2,7 @@ tap 'homebrew/bundle'
 tap 'homebrew/core'
 tap 'homebrew/services'
 tap 'wallix/awless'
+tap 'railwaycat/emacsmacport'
 
 brew 'awless'
 brew 'awscli'
@@ -39,7 +40,9 @@ cask 'quicklook-json'
 cask 'webpquicklook'
 
 # Applications
-cask 'emacs'
+#cask 'emacs'
+cask 'emacs-mac'
+
 cask 'alfred'
 cask 'mailplane'
 cask 'flux'
