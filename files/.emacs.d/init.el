@@ -3322,8 +3322,23 @@ the right."
     (lambda ()
       (define-key flyspell-mode-map [(control ?\,)] nil))))
 
+(use-package osx-dictionary
+  :commands (osx-dictionary-search-pointer
+              osx-dictionary-search-input
+              osx-dictionary-cli-find-or-recompile)
+  :config
+  (progn
+    (evil-set-initial-state 'osx-dictionary-mode 'normal)
+
+    (evil-collection-define-key 'normal 'osx-dictionary-mode-map
+      "q" 'osx-dictionary-quit
+      "r" 'osx-dictionary-read-word
+      "s" 'osx-dictionary-search-input
+      "o" 'osx-dictionary-open-dictionary.app)))
+
 (defhydra hydra-spelling ()
   "spelling"
+  ("d" osx-dictionary-search-pointer "define" :exit t)
   ("t" flyspell-mode "toggle")
   ("n" flyspell-goto-next-error "next error")
   ("a" grass/ispell-save-word "add word")
