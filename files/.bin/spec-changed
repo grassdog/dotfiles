@@ -2,10 +2,6 @@
 #/ Usage: spec-changed
 #/ Infer a list of specs to run based upon changed files and run them.
 #/
-#/    -l, --loose                 Loosely match specs with modified file base names
-#/    -m, --master                Include files that differ to `origin/master`
-#/    -h, --help                  Show help
-
 require "optparse"
 require "find"
 
@@ -13,13 +9,17 @@ loose_match = false
 against_origin_master = false
 
 ARGV.options do |opts|
+  opts.banner = "#{`grep ^#/<'#{__FILE__}'|cut -c4-`}Options:\n"
   opts.on("-l", "--loose", "Loosely match specs with modified file base names") do
     loose_match = true
   end
   opts.on("-m", "--master", "Include files that differ to `origin/master`") do
     against_origin_master = true
   end
-  opts.on_tail("-h", "--help") { exec "grep ^#/<'#{__FILE__}'|cut -c4-" }
+  opts.on_tail("-h", "--help", "Show help") {
+    puts opts
+    exit
+  }
   opts.parse!
 end
 
