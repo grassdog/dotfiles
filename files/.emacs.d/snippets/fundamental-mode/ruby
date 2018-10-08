@@ -1,5 +1,5 @@
 # -*- mode: snippet; require-final-newline: nil -*-
-# name: ruby self-dcoumenting script
+# name: ruby self-documenting script
 # key: !ruby
 # expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
 # --
@@ -20,7 +20,7 @@ integer = 23
 list    = ["x", "y", "z"]
 
 ARGV.options do |opts|
-  opts.banner = \`grep ^#/<'#{__FILE__}'|cut -c4-\` + "Options:\n"
+  opts.banner = "#{\`grep ^#/<'#{__FILE__}'|cut -c4-\`}Options:\n"
   opts.on("-f", "--flag")              { flag = true }
   opts.on("-o", "--opt=val", String)   { |val| option = val }
   opts.on("-i", "--int=val", Integer)  { |val| integer = val }
