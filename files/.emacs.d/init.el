@@ -2343,6 +2343,7 @@ the right."
     )
 
   (use-package js2-refactor
+    :diminish js2-refactor-mode
     :init
     (add-hook 'js2-mode-hook #'js2-refactor-mode)
 
@@ -3344,8 +3345,8 @@ the right."
   ("n" flyspell-goto-next-error "next error")
   ("a" grass/ispell-save-word "add word")
   ("c" flyspell-auto-correct-previous-word "auto correct")
-  ("w" flyspell-correct-word-generic "correct word")
-  ("p" flyspell-correct-word-before-point "correct word in popup")
+  ("W" flyspell-correct-word-generic "correct word with ivy")
+  ("w" flyspell-correct-word-before-point "correct word in popup")
   ("q" nil "quit" :color blue))
 
 
