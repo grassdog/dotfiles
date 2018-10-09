@@ -41,8 +41,8 @@
 (load "~/.emacs.secrets" t)
 
 (use-package diminish)
+(diminish 'eldoc-mode "")
 
-; (require 'diminish)
 (require 'cl)
 
 ;; UTF-8 Thanks
@@ -2096,6 +2096,7 @@ the right."
 ;;;;;;;;;;
 
 (use-package ruby-end
+  :diminish (ruby-end-mode . "⤶")
   :commands ruby-end-mode)
 
 (use-package enh-ruby-mode
@@ -2120,7 +2121,7 @@ the right."
   (use-package rspec-mode)
 
   (use-package projectile-rails
-    :diminish (projectile-rails-mode . " ⇋")
+    :diminish (projectile-rails-mode . "⇋")
     :init
     (progn
       (add-hook 'projectile-mode-hook 'projectile-rails-on))
@@ -2334,7 +2335,7 @@ the right."
   :config
 
   (use-package prettier-js
-    :diminish prettier-js-mode
+    :diminish (prettier-js-mode . "✨")
     :init
     (setq prettier-js-args '("--trailing-comma" "es5"))
     ;; No format on save for now
@@ -2530,7 +2531,7 @@ the right."
     "<M-up>" 'comint-previous-input
     "<M-down>" 'comint-next-input)
 
-  (diminish 'elm-indent-mode " ⇥")
+  (diminish 'elm-indent-mode "⇥")
 
   (add-hook 'elm-mode-hook
     (lambda ()
@@ -2806,7 +2807,7 @@ the right."
 
     ;; Use hi2 for indentation
     (use-package hi2
-      :diminish (hi2-mode . " ⇥")
+      :diminish (hi2-mode . "⇥")
       :init
       (setq hi2-show-indentations nil)
       (add-hook 'haskell-mode-hook 'turn-on-hi2))
@@ -3293,7 +3294,7 @@ the right."
 (use-package flyspell
   :defer t
   :commands (flyspell-mode flyspell-goto-next-error flyspell-auto-correct-previous-word)
-  :diminish (flyspell-mode . " spl")
+  :diminish (flyspell-mode . "Ⓢ")
   :config
   (setq-default ispell-program-name "aspell")
   ;; Silently save my personal dictionary when new items are added
@@ -3379,7 +3380,7 @@ the right."
 
 
 (use-package flycheck
-  :diminish (flycheck-mode . " ⓢ")
+  :diminish (flycheck-mode . "Ⓒ")
   :defer 3
   :defines grass/toggle-flycheck-error-list
   :commands
