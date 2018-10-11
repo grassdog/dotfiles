@@ -3850,5 +3850,8 @@ If the error list is visible, hide it.  Otherwise, show it."
 (global-set-key (kbd "<home>") #'crux-move-beginning-of-line)
 (global-set-key (kbd "<M-return>") 'new-line-dwim)
 
+(require 'server)
+(unless (server-running-p) (server-start))
+
 (provide 'init)
 ;;; init.el ends here
