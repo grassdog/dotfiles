@@ -21,6 +21,11 @@ fi
 
 NAME="${1:-misc}"
 
+# Start the server if it's not already running so all the following commands register
+if ! tmux info &> /dev/null; then
+  tmux start-server
+fi
+
 if ! tmux has-session -t "$NAME" 2>/dev/null; then
   tmux new-session -d -c ~ -n "$NAME" -s "$NAME"
 
