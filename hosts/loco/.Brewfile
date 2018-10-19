@@ -41,6 +41,7 @@ brew 'proselint'
 brew 'youtube-dl'
 brew 'z'
 brew 'zsh'
+brew 'zsh-autosuggestions'
 
 cask_args appdir: '/Applications'
 

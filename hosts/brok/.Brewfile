@@ -23,6 +23,7 @@ brew 'hub'
 brew 'pandoc'
 brew 'cmake'
 brew 'proselint'
+brew 'zsh-autosuggestions'
 
 cask_args appdir: '/Applications'
 
