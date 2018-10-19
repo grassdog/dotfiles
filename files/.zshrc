@@ -18,7 +18,79 @@ export HISTSIZE=100000
 # Prompt
 #########
 
-. ~/.zsh/prompt.zsh
+autoload -U promptinit; promptinit
+prompt spaceship
+
+SPACESHIP_PROMPT_ORDER=(
+  time          # Time stamps section
+  user          # Username section
+  dir           # Current directory section
+  host          # Hostname section
+  git           # Git section (git_branch + git_status)
+  hg            # Mercurial section (hg_branch  + hg_status)
+  package       # Package version
+  node          # Node.js section
+  ruby          # Ruby section
+  elixir        # Elixir section
+#  xcode         # Xcode section
+#  swift         # Swift section
+#  golang        # Go section
+#  php           # PHP section
+  rust          # Rust section
+  haskell       # Haskell Stack section
+#  julia         # Julia section
+#  docker        # Docker section
+  aws           # Amazon Web Services section
+  awsvault
+#  venv          # virtualenv section
+#  conda         # conda virtualenv section
+#  pyenv         # Pyenv section
+#  dotnet        # .NET section
+  ember         # Ember.js section
+#  kubecontext   # Kubectl context section
+  exec_time     # Execution time
+  line_sep      # Line break
+  battery       # Battery level and status
+  vi_mode       # Vi-mode indicator
+  jobs          # Background jobs indicator
+  exit_code     # Exit code section
+  char          # Prompt character
+)
+
+SPACESHIP_TIME_SHOW=true
+SPACESHIP_EXIT_CODE_SHOW=true
+
+# AWS Vault
+
+# ------------------------------------------------------------------------------
+# Configuration
+# ------------------------------------------------------------------------------
+
+SPACESHIP_AWSVAULT_SHOW="${SPACESHIP_AWSVAULT_SHOW=true}"
+SPACESHIP_AWSVAULT_PREFIX="${SPACESHIP_AWSVAULT_PREFIX=""}"
+SPACESHIP_AWSVAULT_SUFFIX="${SPACESHIP_AWSVAULT_SUFFIX="$SPACESHIP_PROMPT_DEFAULT_SUFFIX"}"
+SPACESHIP_AWSVAULT_SYMBOL="${SPACESHIP_AWSVAULT_SYMBOL="☁️ "}"
+SPACESHIP_AWSVAULT_COLOR="${SPACESHIP_AWSVAULT_COLOR="208"}"
+
+# ------------------------------------------------------------------------------
+# Section
+# ------------------------------------------------------------------------------
+
+# Shows selected AWS-cli profile.
+spaceship_awsvault() {
+  [[ $SPACESHIP_AWSVAULT_SHOW == false ]] && return
+
+  # Check to see if we're in an AWS VAULT section
+  [[ -z $AWS_VAULT ]] && return
+
+  # Show prompt section
+  spaceship::section \
+    "$SPACESHIP_AWSVAULT_COLOR" \
+    "$SPACESHIP_AWSVAULT_PREFIX" \
+    "${SPACESHIP_AWSVAULT_SYMBOL}$AWS_VAULT" \
+    "$SPACESHIP_AWSVAULT_SUFFIX"
+}
+
 
 ###############
 # Corrections
@@ -105,4 +177,3 @@ fi
 
 [[ -r "$HOME/.secrets" ]] && source "$HOME/.secrets"
 
-[[ -r /opt/boxen/env.sh ]] && source /opt/boxen/env.sh

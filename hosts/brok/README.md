@@ -6,7 +6,7 @@ Some post-bootstrap steps.
 # Bundle apps
 $ brew bundle -v --file=~/.Brewfile.apps
 
-$ npm install -g prettier tern jsonlint
+$ npm install -g prettier tern jsonlint spaceship-prompt
 
 $ gem install bundler pry-byebug pry
 
