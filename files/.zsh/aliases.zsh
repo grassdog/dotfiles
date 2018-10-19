@@ -243,9 +243,9 @@ function ssl-details() {
   echo | openssl s_client -connect $1:443 2>/dev/null | openssl x509 -noout -issuer -subject -dates
 }
 
-###############
-# fzf aliases #
-###############
+######
+# fzf
+######
 
 # fe [FUZZY PATTERN] - Open the selected file with the default editor
 #   - Bypass fuzzy finder if there's only one match (--select-1)
@@ -269,6 +269,15 @@ fo() {
   fi
 }
 
+# v - open files in ~/.viminfo
+fv() {
+  local files
+  files=$(grep '^>' ~/.viminfo | cut -c3- |
+          while read line; do
+            [ -f "${line/\~/$HOME}" ] && echo "$line"
+          done | fzf-tmux -d -m -q "$*" -1) && vim ${files//\~/$HOME}
+}
+
 # fkill - kill processes
 fkill() {
     local pid
@@ -284,7 +293,7 @@ fkill() {
     fi
 }
 
-# ftpane - switch pane
+# ftpane - switch tmux pane
 ftpane() {
   local panes current_window current_pane target target_window target_pane
   panes=$(tmux list-panes -s -F '#I:#P - #{pane_current_path} #{pane_current_command}')
@@ -304,6 +313,11 @@ ftpane() {
   fi
 }
 
+# fh - repeat history
+fh() {
+  print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+}
+
 # fs [FUZZY PATTERN] - Select selected tmux session
 #   - Bypass fuzzy finder if there's only one match (--select-1)
 #   - Exit if there's no match (--exit-0)
@@ -314,11 +328,3 @@ fs() {
   tmux switch-client -t "$session"
 }
 
-# v - open files in ~/.viminfo
-fv() {
-  local files
-  files=$(grep '^>' ~/.viminfo | cut -c3- |
-          while read line; do
-            [ -f "${line/\~/$HOME}" ] && echo "$line"
-          done | fzf-tmux -d -m -q "$*" -1) && vim ${files//\~/$HOME}
-}
