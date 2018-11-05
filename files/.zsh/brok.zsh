@@ -1,4 +1,4 @@
-alias mux="mux-identity"
+alias mux="mux-envato"
 
 PROMPT_ORDER=(
   time
