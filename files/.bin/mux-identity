@@ -60,6 +60,9 @@ if ! tmux has-session -t "$NAME" 2>/dev/null; then
     area51)
       tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/area51-server' C-m
       ;;
+    start)
+      tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/start-at-envato' C-m
+      ;;
     *)
       ;;
   esac
