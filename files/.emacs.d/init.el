@@ -2324,6 +2324,11 @@ the right."
         (add-hook 'enh-ruby-mode-hook #'grass/enable-chruby)))))
 
 
+(use-package feature-mode
+  :after ruby-mode
+  :mode (("\\.feature\\'" . feature-mode)))
+
+
 ;;;;;;;;;;;;;;;;
 ;; Javascript ;;
 ;;;;;;;;;;;;;;;;
