@@ -12,5 +12,5 @@ $ asdf plugin-add elixir
 
 $ npm install -g prettier tern jsonlint spaceship-prompt
 
-$ gem install bundler pry-byebug pry
+$ gem install bundler pry-byebug pry rufo
 ```

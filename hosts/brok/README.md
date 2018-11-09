@@ -8,7 +8,7 @@ $ brew bundle -v --file=~/.Brewfile.apps
 
 $ npm install -g prettier tern jsonlint spaceship-prompt
 
-$ gem install bundler pry-byebug pry
+$ gem install bundler pry-byebug pry rufo
 
 # Link in knucklecluster config
 ```

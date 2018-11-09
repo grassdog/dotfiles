@@ -2118,6 +2118,10 @@ the right."
     (setq inf-ruby-default-implementation "pry")
     (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode))
 
+  (use-package rufo
+    :config
+    (setq rufo-enable-format-on-save nil))
+
   (use-package rspec-mode)
 
   (use-package projectile-rails
@@ -2222,6 +2226,7 @@ the right."
     "r" 'ruby-send-region
     "l" 'ruby-load-file
     "i" 'inf-ruby
+    "f" 'rufo-format
 
     "t" '(:ignore t :which-key "rspec")
     "ta" 'rspec-verify-all
