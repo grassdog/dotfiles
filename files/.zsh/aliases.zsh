@@ -147,6 +147,18 @@ function rubo-changed() {
   git diff-tree -r --no-commit-id --name-only head origin/master | xargs rubocop
 }
 
+function install-gems() {
+  gem install bundler pry-byebug pry rufo
+}
+
+#######
+# Node
+#######
+
+function install-node-modules() {
+  npm install -g prettier tern jsonlint spaceship-prompt
+}
+
 ############
 # Processes
 ############
