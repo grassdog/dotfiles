@@ -78,6 +78,7 @@ Plug 'styled-components/vim-styled-components'
 Plug 'tpope/vim-endwise'
 Plug 'jgdavey/vim-blockle'
 Plug 'nelstrom/vim-textobj-rubyblock'
+Plug 'ruby-formatter/rufo-vim'
 
 " Elixir
 " Plug 'slashmili/alchemist.vim'
@@ -692,11 +693,16 @@ augroup grass_ruby
 
   " No comment extending with open
   au FileType ruby setlocal formatoptions-=o
+
+  au FileType ruby nnoremap ,f :Rufo<CR>
 augroup END
 
 let ruby_fold = 1
 
 let g:blockle_mapping = '<leader>m['
+
+" Enable rufo (RUby FOrmat)
+" let g:rufo_auto_formatting = 1
 
 
 " Some Test helpers
