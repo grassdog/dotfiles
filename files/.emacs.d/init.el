@@ -1647,6 +1647,11 @@ Repeated invocations toggle between the two most recently open buffers."
   (setq dumb-jump-prefer-searcher 'rg)
   (setq dumb-jump-selector 'ivy))
 
+(defun grass/search-work-notes ()
+  "Search work notes directory with `rg'."
+  (interactive)
+  (counsel-rg "" "~/Dropbox/Notes/Work"))
+
 
 ;;;;;;;;;;;;;;;
 ;; Selection ;;
@@ -3666,6 +3671,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   "sF" 'isearch-reverse-regexp
   "sp" '(grass/counsel-rg-current-project :which-key "rg project")
   "sP" 'projectile-ag
+  "sw" '(grass/search-work-notes :which-key "search work notes")
 
   "b" '(:ignore t :which-key "Buffers")
   "bb" 'ivy-switch-buffer
