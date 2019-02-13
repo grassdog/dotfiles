@@ -543,7 +543,8 @@
 (use-package evil
   :preface
   (setq evil-search-module 'evil-search)
-  (setq evil-want-integration nil)
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
 
   :init
 
