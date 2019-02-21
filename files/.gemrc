@@ -1,4 +1,4 @@
 ---
 gem: --no-rdoc --no-ri
-install: --env-shebang
-update: --env-shebang
+install: --env-shebang --no-rdoc --no-ri
+update: --env-shebang --no-rdoc --no-ri
