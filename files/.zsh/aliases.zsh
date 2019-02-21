@@ -148,7 +148,7 @@ function rubo-changed() {
 }
 
 function install-gems() {
-  gem install bundler pry-byebug pry rufo
+  gem install bundler pry-byebug pry rufo solargraph
 }
 
 #######
