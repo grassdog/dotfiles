@@ -1975,7 +1975,7 @@ the right."
           org-pandoc-options-for-markdown_github '((atx-headers . t))))
 
   ;; Create reveal js presentations in org mode.
-  (use-package ox-reveal
+  (use-package org-re-reveal
     :init
     (setq org-reveal-root (concat "file://" (expand-file-name "~/Dropbox/Backups/Reveal/reveal.js")))
     ;; Use htmlize to highlight source code block using my emacs theme
@@ -2016,6 +2016,8 @@ the right."
   (setq org-src-fontify-natively t
     org-src-tab-acts-natively t
     org-confirm-babel-evaluate nil)
+
+  (require 'org-tempo)
 
   (require 'org-crypt)
   ;; Automatically encrypt entries tagged `crypt` on save.
