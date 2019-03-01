@@ -2017,8 +2017,6 @@ the right."
     org-src-tab-acts-natively t
     org-confirm-babel-evaluate nil)
 
-  (require 'org-tempo)
-
   (require 'org-crypt)
   ;; Automatically encrypt entries tagged `crypt` on save.
   ;; (org-crypt-use-before-save-magic)
@@ -2067,6 +2065,7 @@ the right."
       "l" 'org-toggle-link-display
       "I" 'org-toggle-inline-images
       "s" 'org-sort-entries
+      "S" 'org-insert-structure-template
       "t" 'org-todo
       "T" 'org-set-tags
       "c" 'org-cycle-agenda-files)
