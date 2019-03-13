@@ -1,7 +1,9 @@
 # Go
 export GOPATH=$HOME/.golang
 export GOROOT=/usr/local/opt/go/libexec
-export PATH=$PATH:$GOPATH/bin
+
+# Prepend asdf
+export PATH=/usr/local/opt/asdf/shims:/usr/local/opt/asdf/bin:$PATH:$GOPATH/bin
 
 # Add Haskell stack to the path
 export PATH=~/.local/bin/:$PATH
