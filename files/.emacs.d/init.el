@@ -2699,6 +2699,9 @@ the right."
       (display-line-numbers-mode)
       (rainbow-mode +1))))
 
+(use-package grab-mac-link
+  :commands grab-mac-link)
+
 ;;;;;;;;;;;;;;
 ;; Markdown ;;
 ;;;;;;;;;;;;;;
@@ -3782,6 +3785,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   "uf" 'reveal-in-osx-finder
   "uw" 'count-words
   "ul" 'org-store-link
+  "ug" 'grab-mac-link-dwim
 
   "v" 'er/expand-region
 
