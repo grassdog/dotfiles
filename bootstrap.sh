@@ -138,6 +138,11 @@ ln -sf $HOME/Dropbox/Backups/vscode/settings.json "$HOME/Library/Application Sup
 ln -sf $HOME/Dropbox/Backups/vscode/snippets "$HOME/Library/Application Support/Code/User"
 ok
 
+step "Link Karabiner config"
+mkdir -p ~/.config/karabiner
+[ ! -f $HOME/.config/karabiner/karabiner.json ] && ln -sf "$HOME/Dropbox/Backups/karabiner/karabiner.json" "$HOME/.config/karabiner"
+ok
+
 step "Install tmux config"
 mkdir -p ~/.tmux/plugins
 [ ! -d $HOME/.tmux/plugins/tpm ] && git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
