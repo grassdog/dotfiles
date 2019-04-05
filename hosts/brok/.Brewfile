@@ -68,6 +68,7 @@ cask 'vlc'
 cask 'omnigraffle'
 cask 'deckset'
 cask 'superduper'
+cask 'karabiner-elements'
 
 tap 'argon/homebrew-mas'
 mas 'Color Picker', id: 502401013

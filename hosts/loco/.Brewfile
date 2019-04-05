@@ -58,6 +58,7 @@ cask 'qlstephen'
 cask 'quicklook-csv'
 cask 'quicklook-json'
 cask 'webpquicklook'
+cask 'karabiner-elements'
 
 # Applications
 #cask 'emacs'
