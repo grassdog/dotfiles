@@ -2796,6 +2796,12 @@ the right."
 ;; see https://www.gnu.org/software/emacs/manual/html_node/elisp/Creating-Frames.html
 (add-hook 'after-make-frame-functions '--set-emoji-font)
 
+;;;;;;;;;;;;
+;; Kotlin ;;
+;;;;;;;;;;;;
+
+(use-package kotlin-mode)
+
 
 ;;;;;;;;;;;;;
 ;; Haskell ;;
