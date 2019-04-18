@@ -2120,6 +2120,8 @@ the right."
   :interpreter "ruby"
   :config
 
+  (remove-hook 'enh-ruby-mode-hook 'erm-define-faces)
+
   (use-package inf-ruby
     :config
     (setq inf-ruby-default-implementation "pry")
