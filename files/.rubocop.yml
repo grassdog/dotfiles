@@ -1,4 +1,6 @@
 # Global Rubocop rules that play well with https://github.com/ruby-formatter/rufo
+#
+# Basically just keep lints and leave the style ones alone.
 
 AllCops:
   DisplayCopNames: true
@@ -8,90 +10,12 @@ AllCops:
     - 'tmp/**/*'
   TargetRubyVersion: 2.2
 
-Style/StringLiterals:
-  EnforcedStyle: double_quotes
-
-Style/StringLiteralsInInterpolation:
-  EnforcedStyle: double_quotes
-
-Style/TrailingCommaInArrayLiteral:
-  EnforcedStyleForMultiline: comma
-  Enabled: true
-
-Style/TrailingCommaInHashLiteral:
-  EnforcedStyleForMultiline: comma
-  Enabled: true
-
-Metrics/LineLength:
+Style:
   Enabled: false
 
-Style/Documentation:
+Layout:
   Enabled: false
 
-Style/Encoding:
-  EnforcedStyle: when_needed
+Metrics:
+  Enabled: false
 
-# --- Cops below are on trial and may be added ---
-
-# Layout/BlockAlignment:
-#   Enabled: false
-
-# Layout/EmptyLineAfterGuardClause:
-#   Enabled: false
-
-# Layout/FirstMethodParameterLineBreak:
-#   Enabled: false
-
-# Layout/MultilineAssignmentLayout:
-#   Enabled: false
-
-
-# Style/StringLiterals:
-#   Enabled: false
-
-# Style/SymbolArray:
-#   EnforcedStyle: brackets
-#   Enabled: true
-
-
-# Style/WordArray:
-#   Enabled: false
-
-# Style/BracesAroundHashParameters:
-#   Enabled: false
-
-# Style/AsciiComments:
-#   Enabled: false
-
-# Style/RescueStandardError:
-#   EnforcedStyle: implicit
-#   Enabled: true
-
-# Style/DateTime:
-#   Enabled: false
-
-# Style/ClassAndModuleChildren:
-#   Enabled: false
-
-# Style/NumericLiterals:
-#   Enabled: false
-
-#--------------Metrics Cops---------------------
-
-# Metrics/AbcSize:
-#   Enabled: false
-
-# Metrics/BlockLength:
-#   Enabled: false
-
-# Metrics/ClassLength:
-#   Enabled: false
-
-# Metrics/MethodLength:
-#   Enabled: false
-
-# Metrics/ModuleLength:
-#   Enabled: false
-
-# Metrics/ParameterLists:
-#   Enabled: false
