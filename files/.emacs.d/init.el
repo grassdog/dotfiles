@@ -1409,6 +1409,7 @@ Repeated invocations toggle between the two most recently open buffers."
   :commands magit-status
   :config
   (use-package evil-magit)
+  (use-package magit-popup)
   (setq magit-completing-read-function 'ivy-completing-read))
 
 (use-package magithub
@@ -1641,6 +1642,9 @@ Repeated invocations toggle between the two most recently open buffers."
 
 (use-package ripgrep
   :commands (ripgrep-regexp))
+
+(use-package deadgrep
+  :commands (deadgrep))
 
 (use-package dumb-jump
   :commands (dumb-jump-go dumb-jump-back dumb-jump-quick-look dump-jump-go-other-window dump-jump-go-prompt dumb-jump-go-prefer-external)
@@ -3673,7 +3677,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   "sa" 'counsel-rg
   "sA" 'counsel-ag
   "sg" 'ripgrep-regexp
-  "sG" 'counsel-git-grep
+  "sG" 'deadgrep
   "ss" 'swiper
   "s;" 'iedit-mode
   "si" 'counsel-imenu
