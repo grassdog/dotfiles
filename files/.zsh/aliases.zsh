@@ -103,6 +103,8 @@ alias gnp='git-notpushed'
 alias gs='git status -s'
 alias gl='git ls'
 alias gg='git ls-files | grep'
+# Add, amend, and force push
+alias gaf='git add . && git commit --amend --no-edit && gpu -f'
 
 alias git-update-modules='git submodule foreach git pull'
 
