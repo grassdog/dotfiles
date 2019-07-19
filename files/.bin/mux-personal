@@ -36,6 +36,12 @@ if ! tmux has-session -t "$NAME" 2>/dev/null; then
       tmux rename-window dotfiles
       tmux new-window -c ~/dev -n dev -t "$NAME":2
       ;;
+    dance)
+      tmux split-window -h -t "$NAME":"$NAME"
+      tmux select-pane -t "$NAME":1.1
+      tmux send-keys -t "$NAME":1.1 'cd ~/dev/dance.computer.dance' C-m
+      tmux send-keys -t "$NAME":1.2 'cd ~/dev/dance.computer.dance' C-m
+      ;;
     summate)
       tmux split-window -h -t "$NAME":"$NAME"
       tmux split-window -v -t "$NAME":"$NAME"
