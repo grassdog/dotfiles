@@ -37,7 +37,12 @@ if ! tmux has-session -t "$NAME" 2>/dev/null; then
       tmux new-window -c ~/src/marketplace -n "marketplace" -t "$NAME":3
       tmux new-window -c ~/src/customer-iam-configuration -n "iam" -t "$NAME":4
       tmux new-window -c ~/dev/dance.computer.dance -n "dance" -t "$NAME":5
+      # I end up having to rename these for some reason
       tmux rename-window -t "$NAME":1 dotfiles
+      tmux rename-window -t "$NAME":2 team
+      tmux rename-window -t "$NAME":3 marketplace
+      tmux rename-window -t "$NAME":4 iam
+      tmux rename-window -t "$NAME":5 dance
       ;;
     infra)
       tmux send-keys -t "$NAME":"$NAME" 'cd ~/src/customer-infrastructure' C-m
