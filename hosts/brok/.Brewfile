@@ -24,6 +24,7 @@ brew 'pandoc'
 brew 'cmake'
 brew 'proselint'
 brew 'zsh-autosuggestions'
+brew 'bat'
 
 cask_args appdir: '/Applications'
 

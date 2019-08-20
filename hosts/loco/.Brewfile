@@ -42,6 +42,7 @@ brew 'youtube-dl'
 brew 'z'
 brew 'zsh'
 brew 'zsh-autosuggestions'
+brew 'bat'
 
 cask_args appdir: '/Applications'
 
