@@ -390,6 +390,7 @@
 
 ;; Subtle highlight when switching buffers etc...
 (use-package beacon
+  :diminish beacon-mode
   :init
   (beacon-mode 1)
   (setq beacon-push-mark 35)
