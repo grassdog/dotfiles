@@ -388,6 +388,13 @@
 (use-package browse-kill-ring
   :commands browse-kill-ring)
 
+;; Subtle highlight when switching buffers etc...
+(use-package beacon
+  :init
+  (beacon-mode 1)
+  (setq beacon-push-mark 35)
+  (setq beacon-color "#eaa427"))
+
 
 ;; Subtle highlighting of matching parens (global-mode)
 (add-hook 'prog-mode-hook (lambda ()
