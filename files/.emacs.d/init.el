@@ -2081,7 +2081,7 @@ the right."
       "l" 'org-toggle-link-display
       "I" 'org-toggle-inline-images
       "s" 'org-sort-entries
-      "S" 'org-insert-structure-template
+      "S" '(org-insert-structure-template :which-key "Insert org block")
       "t" 'org-todo
       "T" 'org-set-tags
       "c" 'org-cycle-agenda-files)
