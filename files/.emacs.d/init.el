@@ -393,7 +393,8 @@
   :diminish beacon-mode
   :init
   (beacon-mode 1)
-  (setq beacon-color "#eaa427"))
+  (setq beacon-color "#eaa427")
+  (setq beacon-blink-when-window-scrolls nil))
 
 
 ;; Subtle highlighting of matching parens (global-mode)
