@@ -2014,6 +2014,10 @@ the right."
     "Remove source blocks from html export."
     (when (org-export-derived-backend-p backend 'html) ""))
 
+  ;; Add back short expansions for blocks
+  (require 'org-tempo)
+  (add-to-list 'org-modules 'org-tempo t)
+
   ;; Code blocks
   (org-babel-do-load-languages
     'org-babel-load-languages
