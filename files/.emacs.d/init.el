@@ -393,7 +393,6 @@
   :diminish beacon-mode
   :init
   (beacon-mode 1)
-  (setq beacon-push-mark 35)
   (setq beacon-color "#eaa427"))
 
 
