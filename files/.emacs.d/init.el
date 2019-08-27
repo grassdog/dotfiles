@@ -2363,134 +2363,36 @@ the right."
 ;; Javascript ;;
 ;;;;;;;;;;;;;;;;
 
-(use-package js2-mode
-  :mode  (("\\.js$" . js2-jsx-mode)
-           ("\\.jsx?$" . js2-jsx-mode))
-  :interpreter "node"
+(use-package prettier-js
+  :diminish (prettier-js-mode . "✨")
   :config
+  (setq prettier-js-args '("--trailing-comma" "es5")))
 
-  (use-package prettier-js
-    :diminish (prettier-js-mode . "✨")
-    :init
-    (setq prettier-js-args '("--trailing-comma" "es5"))
-    ;; No format on save for now
-    ;; (add-hook 'js2-mode-hook 'prettier-js-mode)
-    )
-
-  (use-package js2-refactor
-    :diminish js2-refactor-mode
-    :init
-    (add-hook 'js2-mode-hook #'js2-refactor-mode)
-
-    (general-define-key :keymaps 'js2-mode-map
-      :states '(normal visual insert emacs)
-      :prefix grass/leader2
-      :non-normal-prefix "M-,"
-
-      "f" '(:ignore t :which-key "Format")
-      "ff" 'prettier-js
-
-      "r" '(:ignore t :which-key "Refactor")
-
-      "r3" '(:ignore t :which-key "ternary")
-      "r3i" 'js2r-ternary-to-if
-
-      "r3" '(:ignore t :which-key "add/args")
-      "rag" 'js2r-add-to-globals-annotation
-      "rao" 'js2r-arguments-to-object
-
-      "rb" '(:ignore t :which-key "barf")
-      "rba" 'js2r-forward-barf
-
-      "rb" '(:ignore t :which-key "contract")
-      "rca" 'js2r-contract-array
-      "rco" 'js2r-contract-object
-      "rcu" 'js2r-contract-function
-
-      "re" '(:ignore t :which-key "expand/extract")
-      "rea" 'js2r-expand-array
-      "ref" 'js2r-extract-function
-      "rem" 'js2r-extract-method
-      "reo" 'js2r-expand-object
-      "reu" 'js2r-expand-function
-      "rev" 'js2r-extract-var
-
-      "ri" '(:ignore t :which-key "inline/inject/introduce")
-      "rig" 'js2r-inject-global-in-iife
-      "rip" 'js2r-introduce-parameter
-      "riv" 'js2r-inline-var
-
-      "rl" '(:ignore t :which-key "localize/log")
-      "rlp" 'js2r-localize-parameter
-      "rlt" 'js2r-log-this
-
-      "rk" '(:ignore t :which-key "kill")
-      "rkk" 'js2r-kill
-
-      "rr" '(:ignore t :which-key "rename")
-      "rrv" 'js2r-rename-var
-
-      "rs" '(:ignore t :which-key "split/slurp")
-      "rsl" 'js2r-forward-slurp
-      "rss" 'js2r-split-string
-      "rsv" 'js2r-split-var-declaration
-
-      "rt" '(:ignore t :which-key "toggle")
-      "rtf" 'js2r-toggle-function-expression-and-declaration
-
-      "ru" '(:ignore t :which-key "unwrap")
-      "ruw" 'js2r-unwrap
-
-      "rv" '(:ignore t :which-key "var")
-      "rvt" 'js2r-var-to-this
-
-      "rw" '(:ignore t :which-key "wrap")
-      "rwi" 'js2r-wrap-buffer-in-iife
-      "rwl" 'js2r-wrap-in-for-loop))
-
-  (setq js2-bounce-indent-p t)
-  (add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode))
-
-  ;; Rely on flycheck instead...
-  (setq js2-show-parse-errors nil)
-  ;; Reduce the noise
-  (setq js2-strict-missing-semi-warning nil)
-  ;; jshint does not warn about this now for some reason
-  (setq js2-strict-trailing-comma-warning nil)
-
-  ;; Quiet warnings
-  (setq js2-mode-show-strict-warnings nil)
-
-  (add-hook 'js2-mode-hook 'js2-imenu-extras-mode)
-
-  (add-hook 'js2-mode-hook
-    (lambda ()
-      (flycheck-mode 1)
-      (setq mode-name "JS2")
-      (setq js2-global-externs '("module" "require" "buster" "jestsinon" "jasmine" "assert"
-                                  "it" "expect" "describe" "beforeEach"
-                                  "refute" "setTimeout" "clearTimeout" "setInterval"
-                                  "clearInterval" "location" "__dirname" "console" "JSON")))))
-
-(use-package flow-minor-mode
-  :commands (flow-minor-enable-automatically
-              flow-minor-mode
-              flow-minor-status
-              flow-minor-coverage
-              flow-minor-type-at-pos
-              flow-minor-suggest)
+(use-package tide
+  :requires flycheck
   :config
-  (use-package flycheck-flow)
-  (with-eval-after-load 'flycheck
-    (flycheck-add-mode 'javascript-flow 'rjsx-mode)
-    (flycheck-add-mode 'javascript-flow 'flow-minor-mode)
-    (flycheck-add-mode 'javascript-eslint 'flow-minor-mode)
-    (flycheck-add-next-checker 'javascript-flow 'javascript-eslint)))
+  (add-to-list 'company-backends 'company-tide)
+  ;; aligns annotation to the right hand side
+  ;; (setq company-tooltip-align-annotations t)
+
+  (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)
+  (flycheck-add-next-checker 'javascript-eslint 'jsx-tide 'append))
+
+(defun setup-tide-mode ()
+  (interactive)
+  (message "Setting up tide mode")
+  (tide-setup)
+  (flycheck-mode +1)
+  ;; (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  (company-mode +1))
 
 
 (use-package rjsx-mode
   :mode  (("\\.jsx?$" . rjsx-mode)
           ("components\\/.*\\.js\\'" . rjsx-mode))
+  :diminish "RJSX"
   :config
 
   ;; Rely on flycheck instead...
@@ -2503,8 +2405,81 @@ the right."
   ;; Quiet warnings
   (setq js2-mode-show-strict-warnings nil)
 
+  (add-hook 'rjsx-mode-hook #'prettier-js-mode)
+  (add-hook 'rjsx-mode-hook #'setup-tide-mode)
+
+  (customize-set-variable 'js2-include-node-externs t)
+
   ;; Clear out tag helper
   (define-key rjsx-mode-map "<" nil))
+
+
+(use-package typescript-mode
+  :mode "\\.ts$"
+  :config
+  (setq typescript-indent-level 2)
+  (setq typescript-expr-indent-offset 2)
+  (use-package tss
+    :init
+    (setq tss-popup-help-key ", h")
+    (setq tss-jump-to-definition-key ", j")
+    (setq tss-implement-definition-key ", i")
+
+    (add-hook 'typescript-mode-hook #'prettier-js-mode)
+    (add-hook 'typescript-mode-hook #'setup-tide-mode)
+    (tss-config-default)))
+
+
+;;;;;;;;;
+;; Web ;;
+;;;;;;;;;
+
+(use-package web-mode
+  :mode  ("\\.html?\\'"
+           "\\.erb\\'"
+           "\\.ejs\\'"
+           "\\.eex\\'"
+           "\\.tsx\\'"
+           "\\.handlebars\\'"
+           "\\.hbs\\'"
+           "\\.eco\\'"
+           "\\.ect\\'"
+           "\\.as[cp]x\\'"
+           "\\.mustache\\'"
+           "\\.dhtml\\'")
+  :config
+  (progn
+    (defadvice web-mode-highlight-part (around tweak-jsx activate)
+      (if (equal web-mode-content-type "tsx")
+        (let ((web-mode-enable-part-face nil))
+          ad-do-it)
+        ad-do-it))
+
+    (setq web-mode-markup-indent-offset 2
+      web-mode-css-indent-offset 2
+      web-mode-code-indent-offset 2
+      web-mode-block-padding 2
+      ;; Use server style comments
+      web-mode-comment-style 2
+      web-mode-enable-css-colorization t
+      web-mode-enable-auto-pairing t
+      web-mode-enable-comment-keywords t
+      web-mode-enable-current-element-highlight t
+      web-mode-enable-auto-indentation nil)
+
+    (general-define-key :keymaps 'web-mode-map
+      :states '(normal visual insert emacs)
+      :prefix grass/leader2
+      :non-normal-prefix "M-,"
+      "z" 'web-mode-fold-or-unfold)
+
+    (add-hook 'web-mode-hook
+      (lambda ()
+        (when (string-equal "tsx" (file-name-extension buffer-file-name))
+          (setup-tide-mode)
+          (prettier-js-mode 1)
+          (flycheck-add-mode 'typescript-tslint 'web-mode))))))
+
 
 (use-package json-mode
   :mode "\\.json$"
@@ -2522,18 +2497,6 @@ the right."
   (use-package flymake-json
     :init
     (add-hook 'json-mode 'flymake-json-load)))
-
-(use-package typescript-mode
-  :mode "\\.ts$"
-  :config
-  (setq typescript-indent-level 2)
-  (setq typescript-expr-indent-offset 2)
-  (use-package tss
-    :init
-    (setq tss-popup-help-key ", h")
-    (setq tss-jump-to-definition-key ", j")
-    (setq tss-implement-definition-key ", i")
-    (tss-config-default)))
 
 ;; Install elm-format, elm-oracle, and the base elm package
 (use-package elm-mode
@@ -2579,6 +2542,48 @@ the right."
       (setq tab-width 4)
       (setq elm-indent-offset 4))))
 
+(use-package slim-mode
+  :mode "\\.slim$")
+
+(use-package jade-mode
+  :mode "\\.jade$"
+  :config
+  (require 'sws-mode)
+  (require 'stylus-mode)
+  (add-to-list 'auto-mode-alist '("\\.styl\\'" . stylus-mode)))
+
+(use-package scss-mode
+  :mode (("\\.scss$"  . scss-mode)
+          ("\\.sass$" . scss-mode))
+  :config
+  (use-package rainbow-mode)
+  (add-hook 'scss-mode-hook
+    (lambda ()
+      ;; Treat dollar and hyphen as a word character
+      (modify-syntax-entry ?$ "w")
+      (modify-syntax-entry ?- "w")
+      (display-line-numbers-mode)
+      (rainbow-mode +1))))
+
+(use-package syslog-mode
+  :defer t
+  :load-path "vendor"
+  :config
+  (add-hook 'syslog-mode-hook
+    (lambda ()
+      (toggle-truncate-lines +1))))
+
+(use-package css-mode
+  :mode "\\.css$"
+  :config
+  (use-package rainbow-mode)
+  (add-hook 'css-mode-hook
+    (lambda ()
+      (display-line-numbers-mode)
+      (rainbow-mode +1))))
+
+(use-package grab-mac-link
+  :commands grab-mac-link)
 
 ;;;;;;;;;;;;
 ;; Coffee ;;
@@ -2627,98 +2632,6 @@ the right."
       (lambda ()
         (set (make-local-variable 'tab-width) 2)
         (setq indent-line-function 'grass/coffee-indent-line)))))
-
-;;;;;;;;;
-;; Web ;;
-;;;;;;;;;
-
-(use-package web-mode
-  :mode  (("\\.html?\\'"    . web-mode)
-           ("\\.erb\\'"      . web-mode)
-           ("\\.ejs\\'"      . web-mode)
-           ("\\.eex\\'"      . web-mode)
-           ("\\.handlebars\\'" . web-mode)
-           ("\\.hbs\\'"        . web-mode)
-           ("\\.eco\\'"        . web-mode)
-           ("\\.ect\\'"      . web-mode)
-           ("\\.as[cp]x\\'"  . web-mode)
-           ("\\.mustache\\'" . web-mode)
-           ("\\.dhtml\\'"    . web-mode))
-  :config
-  (progn
-
-    (defadvice web-mode-highlight-part (around tweak-jsx activate)
-      (if (equal web-mode-content-type "jsx")
-        (let ((web-mode-enable-part-face nil))
-          ad-do-it)
-        ad-do-it))
-
-    (general-define-key :keymaps 'web-mode-map
-      :states '(normal visual insert emacs)
-      :prefix grass/leader2
-      :non-normal-prefix "M-,"
-      "z" 'web-mode-fold-or-unfold)
-
-    (defun grass/web-mode-hook ()
-      "Hooks for Web mode."
-      (setq web-mode-markup-indent-offset 2)
-      (setq web-mode-css-indent-offset 2)
-      (setq web-mode-code-indent-offset 2)
-      (setq web-mode-enable-comment-keywords t)
-      ;; Use server style comments
-      (setq web-mode-comment-style 2)
-      (setq web-mode-enable-current-element-highlight t))
-    (add-hook 'web-mode-hook  'grass/web-mode-hook)))
-
-;; Setup for jsx
-(defadvice web-mode-highlight-part (around tweak-jsx activate)
-  (if (equal web-mode-content-type "jsx")
-    (let ((web-mode-enable-part-face nil))
-      ad-do-it)
-    ad-do-it))
-
-(use-package slim-mode
-  :mode "\\.slim$")
-
-(use-package jade-mode
-  :mode "\\.jade$"
-  :config
-  (require 'sws-mode)
-  (require 'stylus-mode)
-  (add-to-list 'auto-mode-alist '("\\.styl\\'" . stylus-mode)))
-
-(use-package scss-mode
-  :mode (("\\.scss$"  . scss-mode)
-          ("\\.sass$" . scss-mode))
-  :config
-  (use-package rainbow-mode)
-  (add-hook 'scss-mode-hook
-    (lambda ()
-      ;; Treat dollar and hyphen as a word character
-      (modify-syntax-entry ?$ "w")
-      (modify-syntax-entry ?- "w")
-      (display-line-numbers-mode)
-      (rainbow-mode +1))))
-
-(use-package syslog-mode
-  :defer t
-  :load-path "vendor"
-  :config
-  (add-hook 'syslog-mode-hook
-    (lambda ()
-      (toggle-truncate-lines +1))))
-
-(use-package css-mode
-  :mode "\\.css$"
-  :config
-  (use-package rainbow-mode)
-  (add-hook 'css-mode-hook
-    (lambda ()
-      (display-line-numbers-mode)
-      (rainbow-mode +1))))
-
-(use-package grab-mac-link
-  :commands grab-mac-link)
 
 ;;;;;;;;;;;;;;
 ;; Markdown ;;
@@ -3484,6 +3397,7 @@ the right."
         (when (and eslint (file-executable-p eslint))
           (setq-local flycheck-javascript-eslint-executable eslint))))
 
+    (setq-default flycheck-disabled-checkers (append flycheck-disabled-checkers '(javascript-standard)))
     (add-hook 'flycheck-mode-hook #'grass/use-eslint-from-node-modules)
 
     ;; Beware that moving this window with a window manager can mess with tooltips
