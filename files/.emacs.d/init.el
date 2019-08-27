@@ -1614,7 +1614,7 @@ Repeated invocations toggle between the two most recently open buffers."
 
 ;; More standard regex
 (use-package pcre2el
-  :diminish (pcre-mode . "	ⓧ")
+  :diminish (pcre-mode . "*️⃣")
   :init
   (pcre-mode))
 
@@ -1683,11 +1683,11 @@ Repeated invocations toggle between the two most recently open buffers."
 
 ;; abbrev-mode for common typos
 (setq abbrev-file-name "~/.emacs.d/abbrev_defs")
-(diminish 'abbrev-mode " ⓐ")
+(diminish 'abbrev-mode "🆎")
 (setq-default abbrev-mode t)
 
 (use-package company
-  :diminish (company-mode . " ⓒ")
+  :diminish (company-mode . "🤖")
   :config
   (setq company-idle-delay 0.2)
   (setq company-minimum-prefix-length 3)
@@ -1748,7 +1748,7 @@ Repeated invocations toggle between the two most recently open buffers."
 ;;;;;;;;;;;;;;
 
 (use-package yasnippet
-  :diminish (yas-minor-mode . " ⓨ")
+  :diminish (yas-minor-mode . "✂️")
   :defer 1
   :config
   (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
@@ -1902,7 +1902,7 @@ the right."
 ;;;;;;;;;;;;;;;;
 
 (use-package projectile
-  :diminish (projectile-mode . " ⓟ")
+  :diminish (projectile-mode . "🗂")
   :commands (projectile-mode projectile-project-root projectile-ag)
   :defines grass/counsel-ag-current-project
   :config
@@ -2119,7 +2119,7 @@ the right."
 ;;;;;;;;;;
 
 (use-package ruby-end
-  :diminish (ruby-end-mode . "⤶")
+  :diminish (ruby-end-mode . "🔚")
   :commands ruby-end-mode)
 
 (use-package enh-ruby-mode
@@ -2150,7 +2150,7 @@ the right."
   (use-package rspec-mode)
 
   (use-package projectile-rails
-    :diminish (projectile-rails-mode . "⇋")
+    :diminish (projectile-rails-mode . "🛤")
     :init
     (progn
       (add-hook 'projectile-mode-hook 'projectile-rails-on))
@@ -2370,6 +2370,7 @@ the right."
 
 (use-package tide
   :requires flycheck
+  :diminish "🌊"
   :config
   (add-to-list 'company-backends 'company-tide)
   ;; aligns annotation to the right hand side
@@ -2380,12 +2381,15 @@ the right."
 
 (defun setup-tide-mode ()
   (interactive)
-  (message "Setting up tide mode")
   (tide-setup)
   (flycheck-mode +1)
   ;; (setq flycheck-check-syntax-automatically '(save mode-enabled))
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1)
+
+  ;; Not sure why I need this again for this to work
+  (diminish 'tide-mode "🌊")
+
   (company-mode +1))
 
 
@@ -2477,7 +2481,7 @@ the right."
       (lambda ()
         (when (string-equal "tsx" (file-name-extension buffer-file-name))
           (setup-tide-mode)
-          (prettier-js-mode 1)
+          (prettier-js-mode +1)
           (flycheck-add-mode 'typescript-tslint 'web-mode))))))
 
 
@@ -2771,7 +2775,7 @@ the right."
       (add-hook 'haskell-mode-hook 'turn-on-hi2))
 
     (use-package intero
-      :diminish (intero-mode . " λ")
+      :diminish (intero-mode . "λ")
       :init
       ;; (add-to-list 'company-backends-haskell-mode
       ;;   '(company-intero company-dabbrev-code company-yasnippet))
@@ -3116,8 +3120,8 @@ the right."
     (lambda () (add-hook 'before-save-hook 'elixir-format nil t)))
 
   (use-package alchemist
-    :diminish (alchemist-mode . " alc")
-    :diminish (alchemist-phoenix-mode . " alc-ph")
+    :diminish (alchemist-mode . "⚗️")
+    :diminish (alchemist-phoenix-mode . "⚗️")
     :init
 
     (general-define-key :keymaps 'alchemist-mode-map
@@ -3252,7 +3256,7 @@ the right."
 (use-package flyspell
   :defer t
   :commands (flyspell-mode flyspell-goto-next-error flyspell-auto-correct-previous-word)
-  :diminish (flyspell-mode . "Ⓢ")
+  :diminish (flyspell-mode . "📖")
   :config
   (setq-default ispell-program-name "aspell")
   ;; Silently save my personal dictionary when new items are added
@@ -3338,7 +3342,7 @@ the right."
 
 
 (use-package flycheck
-  :diminish (flycheck-mode . "Ⓒ")
+  :diminish (flycheck-mode . "🧮")
   :defer 3
   :defines grass/toggle-flycheck-error-list
   :commands
