@@ -3,6 +3,7 @@ tap 'homebrew/core'
 tap 'homebrew/services'
 tap 'wallix/awless'
 tap 'railwaycat/emacsmacport'
+tap 'heroku/brew'
 
 brew 'awless'
 brew 'awscli'
@@ -25,6 +26,7 @@ brew 'cmake'
 brew 'proselint'
 brew 'zsh-autosuggestions'
 brew 'bat'
+brew 'heroku'
 
 cask_args appdir: '/Applications'
 
