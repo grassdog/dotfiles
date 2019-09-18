@@ -42,8 +42,8 @@ ok()    { echo -e "${GREEN}<--- OK${RESET}"; }
 #
 # Checks
 #
-sw_vers -productVersion | grep $Q -E "^10.(9|10|11|12|13)" || {
-  abort "Run bootstrap.sh on macOS 10.9/10/11/12/13."
+sw_vers -productVersion | grep $Q -E "^10.(9|10|11|12|13|14)" || {
+  abort "Run bootstrap.sh on macOS 10.9/10/11/12/13/14."
 }
 
 [ "$USER" = "root" ] && abort "Run bootstrap as yourself, not root."
@@ -94,9 +94,11 @@ mkdir -p ~/.cache/emacs/saves
 [ ! -r ~/dev/scripts ] && ln -s $HOME/Dropbox/Code/scripts ~/dev
 ok
 
-step "Ensuring dotfiles repo is downloaded"
+step "Ensuring dotfiles repo is downloaded and up to date"
 if [ ! -d $HOME/.dotfiles ]; then
   git clone https://github.com/grassdog/dotfiles.git $HOME/.dotfiles
+else
+  cd $HOME/.dotfiles && git pull origin master
 fi
 ok
 
