@@ -72,7 +72,7 @@ Plug 'janko-m/vim-test'
 Plug 'sheerun/vim-polyglot'
 Plug 'jceb/vim-orgmode'
 Plug 'tpope/vim-speeddating'
-Plug 'styled-components/vim-styled-components'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
 " Ruby
 Plug 'tpope/vim-endwise'
