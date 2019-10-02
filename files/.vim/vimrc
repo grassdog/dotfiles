@@ -561,11 +561,11 @@ function! SetNoHardWrap()
 endfunction
 command! SetNoHardWrap :call SetNoHardWrap()
 
+let g:strip_whitespace_on_save=1
+"let g:strip_whitespace_confirm=0
+
 augroup grass_allfiles
   autocmd!
-
-  " Automatically remove excess whitespace when saving buffers
-  autocmd BufEnter * EnableStripWhitespaceOnSave
 
   " Don't show trailing space in insert mode
   au InsertEnter * :set listchars-=trail:·
