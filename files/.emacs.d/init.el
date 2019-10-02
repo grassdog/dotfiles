@@ -1663,7 +1663,7 @@ Repeated invocations toggle between the two most recently open buffers."
 (defun grass/search-work-notes ()
   "Search work notes directory with `rg'."
   (interactive)
-  (counsel-rg "" "~/Dropbox/Notes/Work"))
+  (counsel-rg "" "~/Dropbox/Notes/Work/Envato"))
 
 
 ;;;;;;;;;;;;;;;
