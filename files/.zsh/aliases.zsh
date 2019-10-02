@@ -252,6 +252,10 @@ function notes() {
   "${EDITOR:-vim}" "$(find ~/Dropbox/Notes -type f  -not -path '*/\.*' | fzf)"
 }
 
+function search-work() {
+  rg "$*" ~/Dropbox/Notes/Work/Envato/*
+}
+
 # Look up SSL cert details
 function ssl-details() {
   echo | openssl s_client -connect $1:443 2>/dev/null | openssl x509 -noout -issuer -subject -dates
