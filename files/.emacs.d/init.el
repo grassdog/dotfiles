@@ -360,6 +360,35 @@
 ;; Some ivy occur bindings
 ;; "C-x C-q" Edit in multi occur mode
 
+
+;; Better sorting and filtering
+(use-package prescient
+  :commands prescient-persist-mode
+  :init
+  (setq prescient-filter-method '(literal regexp initialism fuzzy))
+  (prescient-persist-mode 1))
+
+(use-package ivy-prescient
+    :commands ivy-prescient-re-builder
+    ;; :custom-face (ivy-minibuffer-match-face-1 ((t (:inherit font-lock-doc-face :foreground nil))))
+    :preface
+    (defun ivy-prescient-non-fuzzy (str)
+      (let ((prescient-filter-method '(literal regexp)))
+        (ivy-prescient-re-builder str)))
+    :init
+    (setq ivy-prescient-retain-classic-highlighting t
+          ivy-re-builders-alist '((counsel-ag . ivy-prescient-non-fuzzy)
+                                  (counsel-rg . ivy-prescient-non-fuzzy)
+                                  (counsel-pt . ivy-prescient-non-fuzzy)
+                                  (counsel-grep . ivy-prescient-non-fuzzy)
+                                  (counsel-yank-pop . ivy-prescient-non-fuzzy)
+                                  (swiper . ivy-prescient-non-fuzzy)
+                                  (swiper-isearch . ivy-prescient-non-fuzzy)
+                                  (swiper-all . ivy-prescient-non-fuzzy)
+                                  (t . ivy-prescient-re-builder)))
+    (ivy-prescient-mode 1))
+
+
 (use-package which-key
   :diminish which-key-mode
   :init
@@ -3596,7 +3625,6 @@ If the error list is visible, hide it.  Otherwise, show it."
   "s" '(:ignore t :which-key "Search/Replace")
   "sc" 'grass/remove-search-highlights
   "sp" 'anzu-query-replace-at-cursor-thing
-  "sg" 'deadgrep
   "ss" 'swiper
   "si" 'counsel-imenu
   "sr" 'grass/query-replace-regexp-in-entire-buffer
@@ -3604,6 +3632,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   "sf" 'isearch-forward-regexp
   "sF" 'isearch-reverse-regexp
   "sp" '(counsel-projectile-rg :which-key "ripgrep in project")
+  "sP" 'deadgrep
   "sw" '(grass/search-work-notes :which-key "search work notes")
   "s;" 'iedit-mode
   "s:" 'grass/iedit-dwim
