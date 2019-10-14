@@ -1904,7 +1904,6 @@ the right."
 (use-package projectile
   :diminish (projectile-mode . "🗂")
   :commands (projectile-mode projectile-project-root projectile-ag)
-  :defines grass/counsel-ag-current-project
   :config
   (setq projectile-tags-command "rtags -R -e")
   (setq projectile-enable-caching nil)
@@ -1924,6 +1923,7 @@ the right."
   (add-to-list 'projectile-globally-ignored-files "TAGS"))
 
 (use-package counsel-projectile
+  :commands (counsel-projectile-rg)
   :init
   (progn
     (setq projectile-switch-project-action 'counsel-projectile-find-file)
@@ -1942,14 +1942,6 @@ the right."
       "Ps"    'counsel-projectile-switch-project
       "p"     'counsel-projectile-find-file
       "fp"    'counsel-projectile-find-file)
-
-    (defun grass/counsel-rg-current-project ()
-      "Search in current project with `rg'."
-      (interactive)
-      (let ((dir (projectile-project-root)))
-        (if dir
-          (counsel-rg "" dir)
-          (message "error: Not in a project."))))
     :init
     (projectile-global-mode t)))
 
@@ -3604,21 +3596,17 @@ If the error list is visible, hide it.  Otherwise, show it."
   "s" '(:ignore t :which-key "Search/Replace")
   "sc" 'grass/remove-search-highlights
   "sp" 'anzu-query-replace-at-cursor-thing
-  "sa" 'counsel-rg
-  "sA" 'counsel-ag
-  "sg" 'ripgrep-regexp
-  "sG" 'deadgrep
+  "sg" 'deadgrep
   "ss" 'swiper
-  "s;" 'iedit-mode
   "si" 'counsel-imenu
-  "s:" 'grass/iedit-dwim
   "sr" 'grass/query-replace-regexp-in-entire-buffer
   "sR" 'grass/replace-regexp-in-entire-buffer
   "sf" 'isearch-forward-regexp
   "sF" 'isearch-reverse-regexp
-  "sp" '(grass/counsel-rg-current-project :which-key "rg project")
-  "sP" 'projectile-ag
+  "sp" '(counsel-projectile-rg :which-key "ripgrep in project")
   "sw" '(grass/search-work-notes :which-key "search work notes")
+  "s;" 'iedit-mode
+  "s:" 'grass/iedit-dwim
 
   "b" '(:ignore t :which-key "Buffers")
   "bb" 'ivy-switch-buffer
