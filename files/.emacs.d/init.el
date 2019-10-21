@@ -2069,8 +2069,8 @@ the right."
 
   (defhydra hydra-org-promote ()
     "promote demote subtrees"
-    ("<" 'org-promote-subtree "promote")
-    (">" 'org-demote-subtree "demote")
+    ("<" org-promote-subtree "promote")
+    (">" org-demote-subtree "demote")
     ("q" nil "quit" :color blue))
 
   (defhydra hydra-org-move (:color red :columns 3)
