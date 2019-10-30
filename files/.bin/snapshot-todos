@@ -1,0 +1,17 @@
+#!/usr/bin/env bash -e
+
+# A script to commit the changes in my todo mindmap lists
+
+
+if [[ $# -eq 0 ]]; then
+  DATE=`date +"%a %d/%m/%Y"`
+  MESSAGE="Snapshotting on ${DATE}"
+else
+  MESSAGE="$*"
+fi
+
+pushd /Users/ray/Dropbox/Documents/MindMaps/Envato
+
+git add .
+
+git commit -v -m "$MESSAGE"
