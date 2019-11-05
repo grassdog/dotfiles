@@ -2091,7 +2091,7 @@ the right."
       "g" 'org-mac-grab-link
       "a" 'org-agenda
       "o" 'org-insert-heading
-      "i" 'org-insert-link
+      "l" 'org-insert-link
       "e" '(org-export-dispatch :which-key "export")
       "E" '(:ignore t :which-key "org encrypt")
       "Ee" 'org-encrypt-entry
@@ -2099,7 +2099,7 @@ the right."
       "Ed" 'org-decrypt-entry
       "ED" 'org-decrypt-entries
       "p" 'hydra-org-promote/body
-      "l" 'org-toggle-link-display
+      "L" 'org-toggle-link-display
       "I" 'org-toggle-inline-images
       "s" 'org-sort-entries
       "S" '(org-insert-structure-template :which-key "Insert org block")
