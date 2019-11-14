@@ -2129,11 +2129,11 @@ the right."
       (define-key yas/keymap [tab] 'yas/next-field-or-maybe-expand))))
 
 (use-package pandoc-mode
+  :commands pandoc-mode
   :config
   (progn
-    (add-hook 'markdown-mode-hook 'pandoc-mode)
     (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)))
-
+(add-hook 'markdown-mode-hook 'pandoc-mode)
 
 
 ;;;;;;;;;;
@@ -2757,7 +2757,8 @@ the right."
 ;; Kotlin ;;
 ;;;;;;;;;;;;
 
-(use-package kotlin-mode)
+(use-package kotlin-mode
+  :mode ("\\.kt\\'" . kotlin-mode))
 
 
 ;;;;;;;;;;;;;
@@ -3269,7 +3270,6 @@ the right."
       :non-normal-prefix "M-,"
       "b" 'dockerfile-build-buffer)))
 
-(use-package docker-tramp)
 
 ;;;;;;;;;;;;;;
 ;; Spelling ;;
@@ -3512,6 +3512,7 @@ If the error list is visible, hide it.  Otherwise, show it."
 ;;;;;;;;;;;;;;
 
 (use-package graphviz-dot-mode
+  :mode ("\\.dot\\'" . graphviz-dot-mode)
   :config
   (progn
     (defun grass/open-attribute-help ()
