@@ -256,12 +256,13 @@
 (add-to-list 'default-frame-alist '(height . 60))
 (add-to-list 'default-frame-alist '(width . 110))
 
-(use-package spacemacs-theme
-  :defer t
+(use-package doom-themes
   :config
-  (setq spacemacs-theme-comment-bg nil)
-  :init
-  (load-theme 'spacemacs-dark t))
+  (setq doom-themes-padded-modeline t
+      doom-themes-enable-bold t
+      doom-themes-enable-italic t)
+  (doom-themes-org-config)
+  (load-theme 'doom-one t))
 
 (defun grass/set-gui-config ()
   "Enable my GUI settings"
@@ -3332,19 +3333,20 @@ the right."
   ("q" nil "quit" :color blue))
 
 
-;;;;;;;;;;;;;;;;;
-;; Status line ;;
-;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;; Modeline ;;
+;;;;;;;;;;;;;;
 
-(use-package spaceline
-  :init
-  (progn
-    (require 'spaceline-config)
-    (setq powerline-default-separator 'bar)
-    (setq spaceline-minor-modes-separator "⋅")
-    (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
-    (spaceline-spacemacs-theme)
-    (spaceline-info-mode)))
+(use-package all-the-icons
+  :config
+  ;; Install fonts if they aren't already installed.
+  (unless (member "all-the-icons" (font-family-list))
+    (all-the-icons-install-fonts t)))
+
+(use-package doom-modeline
+  :ensure t
+  :hook (after-init . doom-modeline-mode))
+
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Fix artist mode ;;
