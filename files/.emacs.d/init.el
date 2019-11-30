@@ -3145,7 +3145,9 @@ the right."
       :states '(normal visual insert emacs)
       :prefix grass/leader2
       :non-normal-prefix "M-,"
+
       "e" '(:ignore t :which-key "Eval")
+      "eb" 'alchemist-execute-this-buffer
       "el" 'alchemist-eval-current-line
       "eL" 'alchemist-eval-print-current-line
       "er" 'alchemist-eval-region
@@ -3168,18 +3170,18 @@ the right."
       "m" '(:ignore t :which-key "Mix")
       "m:" 'alchemist-mix
       "mc" 'alchemist-mix-compile
-      "mx" 'alchemist-mix-run
+      "mr" 'alchemist-mix-run
       "mh" 'alchemist-mix-help
 
-      "c" '(:ignore t :which-key "iex")
-      "cc" 'alchemist-iex-compile-this-buffer
-      "ci" 'alchemist-iex-run
-      "cI" 'alchemist-iex-project-run
-      "cl" 'alchemist-iex-send-current-line
-      "cL" 'alchemist-iex-send-current-line-and-go
-      "cm" 'alchemist-iex-reload-module
-      "cr" 'alchemist-iex-send-region
-      "cR" 'alchemist-iex-send-region-and-go
+      "i" '(:ignore t :which-key "iex")
+      "ic" 'alchemist-iex-compile-this-buffer
+      "ii" 'alchemist-iex-run
+      "iI" 'alchemist-iex-project-run
+      "il" 'alchemist-iex-send-current-line
+      "iL" 'alchemist-iex-send-current-line-and-go
+      "im" 'alchemist-iex-reload-module
+      "ir" 'alchemist-iex-send-region
+      "iR" 'alchemist-iex-send-region-and-go
 
       "t" '(:ignore t :which-key "Test")
       "ta" 'alchemist-mix-test
@@ -3190,10 +3192,10 @@ the right."
       "tp" 'alchemist-test-jump-to-previous-test
       "tr" 'alchemist-mix-rerun-last-test
 
-      "C" '(:ignore t :which-key "Compile")
-      "Cb" 'alchemist-compile-this-buffer
-      "Cf" 'alchemist-compile-file
-      "C:" 'alchemist-compile
+      "c" '(:ignore t :which-key "Compile")
+      "cb" 'alchemist-compile-this-buffer
+      "cf" 'alchemist-compile-file
+      "c:" 'alchemist-compile
 
       "gg" 'alchemist-goto-definition-at-point
       "," 'alchemist-goto-jump-back)
