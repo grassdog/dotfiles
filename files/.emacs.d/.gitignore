@@ -27,3 +27,4 @@ network-security.data
 /var
 /emojis
 transient
+.lsp-session*

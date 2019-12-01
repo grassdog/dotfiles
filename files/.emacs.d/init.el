@@ -3209,6 +3209,24 @@ the right."
            (sit-for 0.01))))))
 
 ;;;;;;;;;;;;;;;;;;;;;
+;; Language Server ;;
+;;;;;;;;;;;;;;;;;;;;;
+
+(use-package lsp-mode
+  :hook (elixir-mode . lsp-deferred)
+  :commands (lsp lsp-deferred)
+  :config
+
+  (setq lsp-clients-elixir-server-executable "~/dev/elixir-ls/rel/language_server.sh")
+  (use-package lsp-ui
+    :hook (lsp-mode . lsp-ui-mode)
+    :commands (lsp-ui-mode lsp-ui-sideline-mode))
+  (use-package company-lsp
+    :commands company-lsp))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;
 ;; Other Languages ;;
 ;;;;;;;;;;;;;;;;;;;;;
 
