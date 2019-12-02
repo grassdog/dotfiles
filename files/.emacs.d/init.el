@@ -3197,6 +3197,8 @@ the right."
       "cf" 'alchemist-compile-file
       "c:" 'alchemist-compile
 
+      "d" 'lsp-ui-doc-glance
+
       "gg" 'alchemist-goto-definition-at-point
       "," 'alchemist-goto-jump-back)
 
@@ -3218,11 +3220,25 @@ the right."
   :config
 
   (setq lsp-clients-elixir-server-executable "~/dev/elixir-ls/rel/language_server.sh")
+  (setq lsp-file-watch-threshold 5000)
+  (add-to-list 'lsp-file-watch-ignored "[/\\\\]deps$")
+  (add-to-list 'lsp-file-watch-ignored "[/\\\\]\\.docker-persistence$")
+  (add-to-list 'lsp-file-watch-ignored "[/\\\\]\\.elixir_ls$")
+  (add-to-list 'lsp-file-watch-ignored "[/\\\\]tmp$")
+  (add-to-list 'lsp-file-watch-ignored "[/\\\\]_build$")
+
+  (with-eval-after-load "company"
+    (use-package company-lsp
+      :after lsp-mode
+      :config
+      (push 'company-lsp company-backends)))
   (use-package lsp-ui
+    :after lsp-mode
     :hook (lsp-mode . lsp-ui-mode)
-    :commands (lsp-ui-mode lsp-ui-sideline-mode))
-  (use-package company-lsp
-    :commands company-lsp))
+    :hook (lsp-mode . flycheck-mode)
+    :config
+    ;; Hide docs by default
+    (setq lsp-ui-doc-enable nil)))
 
 
 
