@@ -1490,7 +1490,11 @@ Repeated invocations toggle between the two most recently open buffers."
 
 
 (use-package git-timemachine
-  :commands (git-timemachine git-timemachine-toggle))
+  :commands (git-timemachine git-timemachine-toggle)
+  :config
+  (evil-define-minor-mode-key 'normal 'git-timemachine-mode
+    "p" 'git-timemachine-show-previous-revision
+    "n" 'git-timemachine-show-next-revision))
 
 
 (use-package git-gutter-fringe
