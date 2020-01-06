@@ -106,7 +106,9 @@
     (exec-path-from-shell-initialize))
 
   ;; Default font thanks
-  (set-frame-font "Operator Mono-13:weight=light"))
+  (if (string= system-name "brok")
+    (set-frame-font "Operator Mono-14:weight=light")
+    (set-frame-font "Operator Mono-13:weight=light")))
 
 ;; Some terminal key sequence mapping hackery
 (defadvice terminal-init-xterm
