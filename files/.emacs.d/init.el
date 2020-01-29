@@ -387,6 +387,7 @@
                              (counsel-yank-pop . ivy-prescient-non-fuzzy)
                              (counsel-projectile-rg . ivy-prescient-non-fuzzy)
                              (counsel-projectile-find-file . ivy-prescient-non-fuzzy)
+                             (counsel-file-jump . ivy-prescient-non-fuzzy)
                              (swiper . ivy-prescient-non-fuzzy)
                              (swiper-isearch . ivy-prescient-non-fuzzy)
                              (swiper-all . ivy-prescient-non-fuzzy)
