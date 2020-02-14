@@ -73,6 +73,9 @@
 (setq user-full-name "Ray Grasso"
   user-mail-address "ray.grasso@gmail.com")
 
+;; Don't resize on font size change to speed up startup
+(setq frame-inhibit-implied-resize t)
+
 ;; Fix our shell environment on OSX
 (when (eq system-type 'darwin)
 
@@ -107,8 +110,8 @@
 
   ;; Default font thanks
   (if (string= system-name "brok")
-    (set-frame-font "Operator Mono-14:weight=light")
-    (set-frame-font "Operator Mono-13:weight=light")))
+    (add-to-list 'default-frame-alist '(font . "Operator Mono-14:weight-light"))
+    (add-to-list 'default-frame-alist '(font . "Operator Mono-13:weight-light"))))
 
 ;; Some terminal key sequence mapping hackery
 (defadvice terminal-init-xterm
