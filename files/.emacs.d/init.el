@@ -384,6 +384,7 @@
   :init
   (setq ivy-prescient-retain-classic-highlighting t
     ivy-re-builders-alist '((counsel-ag . ivy-prescient-non-fuzzy)
+                             (counsel-recentf . ivy-prescient-non-fuzzy)
                              (counsel-rg . ivy-prescient-non-fuzzy)
                              (counsel-pt . ivy-prescient-non-fuzzy)
                              (counsel-grep . ivy-prescient-non-fuzzy)
