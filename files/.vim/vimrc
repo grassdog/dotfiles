@@ -545,7 +545,16 @@ nnoremap g<c-]> <c-]>
 " Open tag for word under cursor in a new vsplit
 map <c-\> :vsp<CR>:exec("tag ".expand("<cword>"))<cr>
 
+"
+""""""""""""""""""""""" }}}
+" Macros                {{{
+"""""""""""""""""""""""
 
+" Don't need ex-mode. Just rerun a macro thanks
+nnoremap Q @@
+
+" Only rerender after a macro is run
+set lazyredraw
 
 """"""""""""""""""""""" }}}
 " All files             {{{
