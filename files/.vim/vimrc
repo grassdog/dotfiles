@@ -556,6 +556,38 @@ nnoremap Q @@
 " Only rerender after a macro is run
 set lazyredraw
 
+" Add ability to save and restore macros
+let s:macro_file = $HOME."/Dropbox/Backups/vim/macros.json"
+
+function! s:macro_list(ArgLead, CmdLine, CursorPos)
+  let macros = json_decode(join(readfile(s:macro_file, 'b')))
+  return join(keys(macros), "\n")
+endfunction
+
+function! s:GetMacro(macro_name)
+  let macros = json_decode(join(readfile(s:macro_file, 'b')))
+  echom macros[a:macro_name]
+endfunction
+
+command! -nargs=1 -complete=custom,s:macro_list GetMacro call s:GetMacro(<f-args>)
+
+function! s:SetMacro(macro_name, reg)
+  let macros = json_decode(join(readfile(s:macro_file, 'b')))
+
+  call setreg(a:reg, macros[a:macro_name])
+endfunction
+
+command! -nargs=+ SetMacro call s:SetMacro(<f-args>)
+
+function! s:SaveMacro(macro_name, reg)
+  let macros = json_decode(join(readfile(s:macro_file, 'b')))
+  let macros[a:macro_name] = getreg(a:reg)
+  call writefile([json_encode(macros)], s:macro_file)
+endfunction
+
+command! -nargs=+ SaveMacro call s:SaveMacro(<f-args>)
+
+
 """"""""""""""""""""""" }}}
 " All files             {{{
 """""""""""""""""""""""
