@@ -206,8 +206,8 @@ alias netlisteners='lsof -i -P | grep LISTEN'
 # Print some stats on my shell commands
 alias profileme="history 1 | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -nr | head -n 20"
 
-# Find files
-function f() {
+# Fuzzyish find
+function ffind() {
   find "${2-.}" -name "*$1*"
 }
 
@@ -235,17 +235,45 @@ function serve-dir() {
   ruby -rwebrick -e"s = WEBrick::HTTPServer.new(:Port => 8888,  :DocumentRoot => Dir.pwd); trap('INT') { s.shutdown }; s.start"
 }
 
-# Some selecta-based helpers
-function ff() {
-  "${EDITOR:-vim}" "$(find . -not -path '*/\.*' -type f | fzf)"
+######
+# fzf
+######
+
+# f [FUZZY PATTERN] - Open the selected file with the default editor
+# Modified version where you can press
+#   - CTRL-O to open with `open` command,
+#   - CTRL-E or Enter key to open with the $EDITOR
+f() {
+  local out file key
+  IFS=$'\n' out=($(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
+  key=$(head -1 <<< "$out")
+  file=$(head -2 <<< "$out" | tail -1)
+  if [ -n "$file" ]; then
+    [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
+  fi
 }
 
-function posts() {
-  "${EDITOR:-vim}" "$(find ~/dev/dance.computer.dance/blogs/posts -maxdepth 1 -type f | fzf)"
+# fe [FUZZY PATTERN] - Open the selected file with emacs
+# Modified version where you can press
+#   - CTRL-O to open with `open` command,
+#   - CTRL-E or Enter key to open with the $EDITOR
+fe() {
+  local out file key
+  IFS=$'\n' out=($(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
+  key=$(head -1 <<< "$out")
+  file=$(head -2 <<< "$out" | tail -1)
+  if [ -n "$file" ]; then
+    [ "$key" = ctrl-o ] && open "$file" || ~/.bin/emacs-start "$file"
+  fi
 }
 
-function links() {
-  "${EDITOR:-vim}" "$(find ~/dev/dance.computer.dance/blogs/links -maxdepth 1 -type f | fzf)"
+# v - open files in ~/.viminfo
+fv() {
+  local files
+  files=$(grep '^>' ~/.viminfo | cut -c3- |
+          while read line; do
+            [ -f "${line/\~/$HOME}" ] && echo "$line"
+          done | fzf-tmux -d -m -q "$*" -1) && vim ${files//\~/$HOME}
 }
 
 function notes() {
@@ -282,32 +310,6 @@ function extract() {
   fi
 }
 
-######
-# fzf
-######
-
-# fe [FUZZY PATTERN] - Open the selected file with the default editor
-# Modified version where you can press
-#   - CTRL-O to open with `open` command,
-#   - CTRL-E or Enter key to open with the $EDITOR
-fe() {
-  local out file key
-  IFS=$'\n' out=($(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
-  key=$(head -1 <<< "$out")
-  file=$(head -2 <<< "$out" | tail -1)
-  if [ -n "$file" ]; then
-    [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
-  fi
-}
-
-# v - open files in ~/.viminfo
-fv() {
-  local files
-  files=$(grep '^>' ~/.viminfo | cut -c3- |
-          while read line; do
-            [ -f "${line/\~/$HOME}" ] && echo "$line"
-          done | fzf-tmux -d -m -q "$*" -1) && vim ${files//\~/$HOME}
-}
 
 # fkill - kill processes
 fkill() {
