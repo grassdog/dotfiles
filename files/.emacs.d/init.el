@@ -1669,6 +1669,11 @@ Repeated invocations toggle between the two most recently open buffers."
   (interactive)
   (counsel-rg "" "~/Dropbox/Notes/Work/Envato"))
 
+(defun grass/search-all-notes ()
+  "Search all notes directory with `rg'."
+  (interactive)
+  (counsel-rg "" "~/Dropbox/Notes"))
+
 
 ;;;;;;;;;;;;;;;
 ;; Selection ;;
@@ -3645,6 +3650,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   "sF" 'isearch-reverse-regexp
   "sp" '(counsel-projectile-rg :which-key "ripgrep in project")
   "sP" 'deadgrep
+  "sn" '(grass/search-all-notes :which-key "search all notes")
   "sw" '(grass/search-work-notes :which-key "search work notes")
   "s;" 'iedit-mode
   "s:" 'grass/iedit-dwim
