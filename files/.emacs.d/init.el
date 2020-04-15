@@ -3637,8 +3637,10 @@ If the error list is visible, hide it.  Otherwise, show it."
   "sR" 'anzu-query-replace-at-cursor-thing
   "sf" 'isearch-forward-regexp
   "sF" 'isearch-reverse-regexp
-  "sp" '(counsel-projectile-rg :which-key "ripgrep in project")
-  "sP" 'deadgrep
+  "sp" 'deadgrep
+  ;; "sp" '(projectile-ripgrep :which-key "ripgrep in project")
+  ;; This isn't matching properly so I'm going to move it to the less used binding
+  "sP" '(counsel-projectile-rg :which-key "ripgrep in project")
   "sn" '(grass/search-all-notes :which-key "search all notes")
   "sw" '(grass/search-work-notes :which-key "search work notes")
   "s;" 'iedit-mode
