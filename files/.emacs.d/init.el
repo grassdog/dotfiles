@@ -343,6 +343,11 @@
       ))
   )
 
+;; Use better dynamic matching
+(use-package ivy-prescient
+  :init
+  (ivy-prescient-mode))
+
 (use-package swiper
   :commands swiper)
 
@@ -3643,8 +3648,6 @@ If the error list is visible, hide it.  Otherwise, show it."
   "sf" 'isearch-forward-regexp
   "sF" 'isearch-reverse-regexp
   "sp" 'deadgrep
-  ;; "sp" '(projectile-ripgrep :which-key "ripgrep in project")
-  ;; This isn't matching properly so I'm going to move it to the less used binding
   "sP" '(counsel-projectile-rg :which-key "ripgrep in project")
   "sn" '(grass/search-all-notes :which-key "search all notes")
   "sw" '(grass/search-work-notes :which-key "search work notes")
