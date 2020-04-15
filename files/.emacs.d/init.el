@@ -1642,9 +1642,6 @@ Repeated invocations toggle between the two most recently open buffers."
     (goto-char (point-min))
       (call-interactively 'anzu-query-replace-regexp)))
 
-(use-package ag
-  :commands (ag ag-project))
-
 (use-package ripgrep
   :commands (ripgrep-regexp))
 
