@@ -3775,6 +3775,8 @@ If the error list is visible, hide it.  Otherwise, show it."
   "ul" 'org-store-link
   "ug" 'grab-mac-link-dwim
 
+  "U"  'universal-argument
+
   "v" 'er/expand-region
 
   "y" '(:ignore t :which-key "Snippets")
