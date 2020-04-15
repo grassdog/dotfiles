@@ -1654,15 +1654,19 @@ Repeated invocations toggle between the two most recently open buffers."
   (setq dumb-jump-prefer-searcher 'rg)
   (setq dumb-jump-selector 'ivy))
 
+(defun grass/ripgrep-dir (dir)
+  (ripgrep-regexp (read-string "Search string: ") dir)
+  (switch-to-buffer-other-frame "*ripgrep-search*"))
+
 (defun grass/search-work-notes ()
   "Search work notes directory with `rg'."
   (interactive)
-  (counsel-rg "" "~/Dropbox/Notes/Work/Envato"))
+  (grass/ripgrep-dir "~/Dropbox/Notes/Work/Envato"))
 
 (defun grass/search-all-notes ()
   "Search all notes directory with `rg'."
   (interactive)
-  (counsel-rg "" "~/Dropbox/Notes"))
+  (grass/ripgrep-dir "~/Dropbox/Notes"))
 
 
 ;;;;;;;;;;;;;;;
