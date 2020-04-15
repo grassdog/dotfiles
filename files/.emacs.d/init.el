@@ -1664,15 +1664,27 @@ Repeated invocations toggle between the two most recently open buffers."
   (ripgrep-regexp (read-string "Search string: ") dir)
   (switch-to-buffer-other-frame "*ripgrep-search*"))
 
-(defun grass/search-work-notes ()
-  "Search work notes directory with `rg'."
-  (interactive)
-  (grass/ripgrep-dir "~/Dropbox/Notes/Work/Envato"))
+(defun grass/search-work-notes (arg)
+  "Search work notes directory with `rg'. Uses counsel-rg if prefix arg is set."
+  (interactive "P")
+  (let* ((dir "~/Dropbox/Notes/Work/Envato"))
+    (if arg
+      (progn
+        ;; Clear our prefix arg so we don't pass it to counsel-rg
+        (setq current-prefix-arg nil)
+        (counsel-rg "" dir))
+      (grass/ripgrep-dir dir))))
 
-(defun grass/search-all-notes ()
-  "Search all notes directory with `rg'."
-  (interactive)
-  (grass/ripgrep-dir "~/Dropbox/Notes"))
+(defun grass/search-all-notes (arg)
+  "Search all notes directory with `rg'. Uses counsel-rg if prefix arg is set."
+  (interactive "P")
+  (let* ((dir "~/Dropbox/Notes"))
+    (if arg
+      (progn
+        ;; Clear our prefix arg so we don't pass it to counsel-rg
+        (setq current-prefix-arg nil)
+        (counsel-rg "" dir))
+      (grass/ripgrep-dir dir))))
 
 
 ;;;;;;;;;;;;;;;
