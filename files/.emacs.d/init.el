@@ -1635,13 +1635,6 @@ Repeated invocations toggle between the two most recently open buffers."
 
 (define-key isearch-mode-map (kbd "C-x") 'grass/isearch-yank-current-word)
 
-(defun grass/replace-regexp-in-entire-buffer ()
-  "Perform regular-expression replacement throughout buffer."
-  (interactive)
-  (save-excursion
-    (goto-char (point-min))
-      (call-interactively 'anzu-replace-regexp)))
-
 (defun grass/query-replace-regexp-in-entire-buffer ()
   "Perform regular-expression replacement throughout buffer."
   (interactive)
@@ -3641,11 +3634,10 @@ If the error list is visible, hide it.  Otherwise, show it."
 
   "s" '(:ignore t :which-key "Search/Replace")
   "sc" 'grass/remove-search-highlights
-  "sp" 'anzu-query-replace-at-cursor-thing
   "ss" 'swiper
   "si" 'counsel-imenu
   "sr" 'grass/query-replace-regexp-in-entire-buffer
-  "sR" 'grass/replace-regexp-in-entire-buffer
+  "sR" 'anzu-query-replace-at-cursor-thing
   "sf" 'isearch-forward-regexp
   "sF" 'isearch-reverse-regexp
   "sp" '(counsel-projectile-rg :which-key "ripgrep in project")
