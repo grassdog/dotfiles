@@ -1669,7 +1669,12 @@ Repeated invocations toggle between the two most recently open buffers."
         ;; Clear our prefix arg so we don't pass it to counsel-rg
         (setq current-prefix-arg nil)
         (counsel-rg "" dir))
-      (grass/ripgrep-dir dir))))
+      (progn
+        (setq deadgrep-project-root-function (lambda () dir))
+        ;; Deadgrep is nicer, so use that.
+        ;; (grass/ripgrep-dir dir)
+        (call-interactively 'deadgrep)
+        (setq deadgrep-project-root-function 'deadgrep--project-root)))))
 
 (defun grass/search-all-notes (arg)
   "Search all notes directory with `rg'. Uses counsel-rg if prefix arg is set."
@@ -1680,7 +1685,12 @@ Repeated invocations toggle between the two most recently open buffers."
         ;; Clear our prefix arg so we don't pass it to counsel-rg
         (setq current-prefix-arg nil)
         (counsel-rg "" dir))
-      (grass/ripgrep-dir dir))))
+      (progn
+        (setq deadgrep-project-root-function (lambda () dir))
+        ;; Deadgrep is nicer, so use that.
+        ;; (grass/ripgrep-dir dir)
+        (call-interactively 'deadgrep)
+        (setq deadgrep-project-root-function 'deadgrep--project-root)))))
 
 
 ;;;;;;;;;;;;;;;
