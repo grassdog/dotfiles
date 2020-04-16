@@ -322,10 +322,7 @@
   ;; Don't count candidates
   (setq ivy-count-format "")
 
-  ;; Put regex between letters (uncomment this if you want simpler sorting)
-  (setq ivy-re-builders-alist
-    '((swiper . ivy--regex-plus)
-       (t . ivy--regex-fuzzy)))
+  ;; C-o during ivy mode opens a pop up that allows different matching options
 
   (general-define-key :keymaps '(ivy-occur-mode-map ivy-occur-grep-mode-map)
     :states '(normal)
