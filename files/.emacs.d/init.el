@@ -240,7 +240,6 @@
 ;; Encryption ;;
 ;;;;;;;;;;;;;;;;
 
-(setq epg-gpg-program "gpg2")
 (setq epa-file-encrypt-to "ray.grasso@gmail.com")
 
 
