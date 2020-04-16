@@ -335,6 +335,9 @@
 (use-package counsel
   :init
   (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
+  ;; Wider lines from rg please
+  (setq counsel-rg-base-command
+      "rg -M 200 --with-filename --no-heading --line-number --color never %s")
   (setq counsel-find-file-ignore-regexp
     (concat
       ;; file names beginning with # or .
@@ -342,8 +345,7 @@
       ;; file names ending with # or ~
       "\\|\\(?:[#~]\\'\\)"
 
-      "\\|.*.DS_Store"
-      )))
+      "\\|.*.DS_Store")))
 
 (use-package swiper
   :commands swiper)
