@@ -40,7 +40,7 @@
 
 (load "~/.emacs.secrets" t)
 
-(require 'diminish)
+(use-package diminish)
 (require 'bind-key)
 (diminish 'eldoc-mode "")
 
