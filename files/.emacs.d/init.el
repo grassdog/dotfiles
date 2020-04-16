@@ -304,8 +304,10 @@
 
 (use-package hydra)
 
-;; Keep this for its scoring algorithm
-(use-package flx-ido)
+;; Use better filtering and sorting
+(use-package ivy-prescient
+  :init
+  (ivy-prescient-mode))
 
 (use-package ivy
   :diminish (ivy-mode . "")
@@ -319,6 +321,8 @@
   (setq ivy-use-selectable-prompt t)
   ;; Don't count candidates
   (setq ivy-count-format "")
+
+  ;; Put regex between letters (uncomment this if you want simpler sorting)
   (setq ivy-re-builders-alist
     '((swiper . ivy--regex-plus)
        (t . ivy--regex-fuzzy)))
@@ -339,13 +343,7 @@
       "\\|\\(?:[#~]\\'\\)"
 
       "\\|.*.DS_Store"
-      ))
-  )
-
-;; Use better dynamic matching
-(use-package ivy-prescient
-  :init
-  (ivy-prescient-mode))
+      )))
 
 (use-package swiper
   :commands swiper)
