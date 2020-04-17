@@ -448,14 +448,6 @@ otherwise it is scaled down."
   :config
   (volatile-highlights-mode t))
 
-;; Text zoom
-(defhydra hydra-zoom-text ()
-  "zoom text"
-  ("+" text-scale-increase "in")
-  ("-" text-scale-decrease "out")
-  ("0" (text-scale-adjust 0) "reset")
-  ("q" nil "quit" :color blue))
-
 ;; Simple indenting
 (require 'stupid-indent-mode)
 (diminish 'stupid-indent-mode "ⓘ")
@@ -1119,19 +1111,6 @@ _SPC_ cancel     _o_nly this       _d_elete
   ("SPC" nil nil))
 
 
-(use-package origami
-  :commands (origami-toggle-node
-              origami-show-only-node
-              origami-show-all-nodes
-              origami-undo
-              origami-redo
-              origami-recursively-toggle-node)
-  :config
-  (add-hook 'prog-mode-hook
-    (lambda ()
-      (origami-mode 1))))
-
-
 ;;;;;;;;;;;;;;;
 ;; Utilities ;;
 ;;;;;;;;;;;;;;;
@@ -1387,18 +1366,12 @@ Repeated invocations toggle between the two most recently open buffers."
             (set-buffer-modified-p nil)
             (message "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name))))))))
 
-(defun grass/what-face (pos)
+(defun grass/what-font-face (pos)
   "Identify the face under point"
   (interactive "d")
   (let ((face (or (get-char-property (point) 'read-face-name)
                 (get-char-property (point) 'face))))
     (if face (message "Face: %s" face) (message "No face at %d" pos))))
-
-(defun grass/switch-to-scratch-buffer ()
-  "Switch to the `*scratch*' buffer."
-  (interactive)
-  (let ((exists (get-buffer "*scratch*")))
-    (switch-to-buffer (get-buffer-create "*scratch*"))))
 
 (use-package crux
   :commands (crux-delete-file-and-buffer
@@ -1466,38 +1439,6 @@ Repeated invocations toggle between the two most recently open buffers."
 (use-package github-browse-file
   :commands github-browse-file)
 
-(defun grass/open-pull-request ()
-  (interactive)
-  (browse-url
-  (format "https://github.com/%s/pull/new/%s"
-    (replace-regexp-in-string
-      ".+github\\.com[:/]\\(.+\\)\\(\\.git\\)?" "\\1"
-      (magit-get "remote" "origin" "url"))
-    (magit-get-current-branch))))
-
-(use-package gist
-  :commands
-  (gist-buffer gist-buffer-private gist-list gist-region gist-region-private)
-  :config
-  (progn
-    (general-define-key :keymaps '(gist-list-menu-mode-map gist-list-mode-map)
-      :states '(normal)
-      "RET" 'gist-fetch-current
-      ",g" 'gist-list-reload
-      ",e" 'gist-edit-current-description
-      ",k" 'gist-kill-current
-      ",+" 'gist-add-buffer
-      ",-" 'gist-remove-file
-      ",y" 'gist-print-current-url
-      ",b" 'gist-browse-current-url
-      ",*" 'gist-star
-      ",^" 'gist-unstar
-      ",f" 'gist-fork
-      ",f" 'gist-fetch-current
-      ",K" 'gist-kill-current
-      ",o" 'gist-browse-current-url)))
-
-
 (use-package git-timemachine
   :commands (git-timemachine git-timemachine-toggle)
   :config
@@ -1545,19 +1486,6 @@ Repeated invocations toggle between the two most recently open buffers."
 
     ;; Restore window layout when done
     (add-hook 'ediff-quit-hook #'winner-undo)))
-
-
-;;;;;;;;;;;;;;;;;;;;;;
-;; Symbol insertion ;;
-;;;;;;;;;;;;;;;;;;;;;;
-
-(use-package char-menu
-  :commands char-menu
-  ;; Em-dash is first
-  :config (setq char-menu '("—" "‘’" "“”" "…" "«»" "–"
-                             ("Typography" "⋅" "•" "©" "†" "‡" "°" "·" "§" "№" "★")
-                             ("Math"       "≈" "≡" "≠" "∞" "×" "±" "∓" "÷" "√")
-                             ("Arrows"     "←" "→" "↑" "↓" "⇐" "⇒" "⇑" "⇓"))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1839,56 +1767,6 @@ Repeated invocations toggle between the two most recently open buffers."
   ("\"" corral-double-quotes-backward "Back")
   ("'" corral-single-quotes-backward "Back")
   ("." hydra-repeat "Repeat"))
-
-
-;;;;;;;;;;;;;;;
-;; Alignment ;;
-;;;;;;;;;;;;;;;
-
-;; Modified function from http://emacswiki.org/emacs/AlignCommands
-(defun align-repeat (start end regexp &optional justify-right after)
-  "Repeat alignment with respect to the given regular expression.
-If JUSTIFY-RIGHT is non nil justify to the right instead of the
-left. If AFTER is non-nil, add whitespace to the left instead of
-the right."
-  (interactive "r\nsAlign regexp: ")
-  (let ((complete-regexp (if after
-                           (concat regexp "\\([ \t]*\\)")
-                           (concat "\\([ \t]*\\)" regexp)))
-         (group (if justify-right -1 1)))
-    (align-regexp start end complete-regexp group 1 t)))
-
-;; Modified answer from http://emacs.stackexchange.com/questions/47/align-vertical-columns-of-numbers-on-the-decimal-point
-(defun align-repeat-decimal (start end)
-  "Align a table of numbers on decimal points and dollar signs (both optional)"
-  (interactive "r")
-  (require 'align)
-  (align-region start end nil
-    '((nil (regexp . "\\([\t ]*\\)\\$?\\([\t ]+[0-9]+\\)\\.?")
-        (repeat . t)
-        (group 1 2)
-        (spacing 1 1)
-        (justify nil t)))
-    nil))
-
-(defmacro create-align-repeat-x (name regexp &optional justify-right default-after)
-  (let ((new-func (intern (concat "align-repeat-" name))))
-    `(defun ,new-func (start end switch)
-       (interactive "r\nP")
-       (let ((after (not (eq (if switch t nil) (if ,default-after t nil)))))
-         (align-repeat start end ,regexp ,justify-right after)))))
-
-(create-align-repeat-x "comma" "," nil t)
-(create-align-repeat-x "semicolon" ";" nil t)
-(create-align-repeat-x "colon" ":" nil t)
-(create-align-repeat-x "equal" "=")
-(create-align-repeat-x "hash" "=>")
-(create-align-repeat-x "math-oper" "[+\\-*/]")
-(create-align-repeat-x "ampersand" "&")
-(create-align-repeat-x "bar" "|")
-(create-align-repeat-x "left-paren" "(")
-(create-align-repeat-x "right-paren" ")" t)
-
 
 ;;;;;;;;;;;;;;;
 ;; Prog mode ;;
@@ -2639,53 +2517,6 @@ the right."
 (use-package grab-mac-link
   :commands grab-mac-link)
 
-;;;;;;;;;;;;
-;; Coffee ;;
-;;;;;;;;;;;;
-
-(defun grass/indent-relative (&optional arg)
-  "Newline and indent same number of spaces as previous line."
-  (interactive)
-  (let* ((indent (+ 0 (save-excursion
-                        (back-to-indentation)
-                        (current-column)))))
-    (newline 1)
-    (insert (make-string indent ?\s))))
-
-(use-package coffee-mode
-  :mode  "\\.coffee$"
-  :config
-  (progn
-    ;; Proper indents when we evil-open-below etc...
-    (defun grass/coffee-indent ()
-      (if (coffee-line-wants-indent)
-        ;; We need to insert an additional tab because the last line was special.
-        (coffee-insert-spaces (+ (coffee-previous-indent) coffee-tab-width))
-        ;; Otherwise keep at the same indentation level
-        (coffee-insert-spaces (coffee-previous-indent))))
-
-    ;; Override indent for coffee so we start at the same indent level
-    (defun grass/coffee-indent-line ()
-      "Indent current line as CoffeeScript."
-      (interactive)
-      (let* ((curindent (current-indentation))
-              (limit (+ (line-beginning-position) curindent))
-              (type (coffee--block-type))
-              indent-size
-              begin-indents)
-        (if (and type (setq begin-indents (coffee--find-indents type limit '<)))
-          (setq indent-size (coffee--decide-indent curindent begin-indents '>))
-          (let ((prev-indent (coffee-previous-indent))
-                 (next-indent-size (+ curindent coffee-tab-width)))
-            (if (= curindent 0)
-              (setq indent-size prev-indent)
-              (setq indent-size (+ curindent coffee-tab-width) ))
-            (coffee--indent-insert-spaces indent-size)))))
-
-    (add-hook 'coffee-mode-hook
-      (lambda ()
-        (set (make-local-variable 'tab-width) 2)
-        (setq indent-line-function 'grass/coffee-indent-line)))))
 
 ;;;;;;;;;;;;;;
 ;; Markdown ;;
@@ -3280,18 +3111,6 @@ the right."
 ;; Other Languages ;;
 ;;;;;;;;;;;;;;;;;;;;;
 
-(use-package vagrant
-  :commands
-  (vagrant-destroy
-    vagrant-edit
-    vagrant-halt
-    vagrant-provision
-    vagrant-resume
-    vagrant-reload
-    vagrant-status
-    vagrant-suspend
-    vagrant-up))
-
 (use-package puppet-mode
   :defer t)
 
@@ -3681,13 +3500,6 @@ If the error list is visible, hide it.  Otherwise, show it."
 
   "cs" '(hydra-spelling/body :which-key "Spelling")
 
-  "cf" '(:ignore t :which-key "Flow")
-  "cff" 'flow-minor-mode
-  "cfs" 'flow-minor-status
-  "cfc" 'flow-minor-coverage
-  "cft" 'flow-minor-type-at-pos
-  "cfS" 'flow-minor-suggest
-
   "s" '(:ignore t :which-key "Search/Replace")
   "sc" 'grass/remove-search-highlights
   "ss" 'swiper
@@ -3700,14 +3512,12 @@ If the error list is visible, hide it.  Otherwise, show it."
   "sP" '(counsel-projectile-rg :which-key "ripgrep in project")
   "sn" '(grass/search-all-notes :which-key "search all notes")
   "sw" '(grass/search-work-notes :which-key "search work notes")
-  "s;" 'iedit-mode
   "s:" 'grass/iedit-dwim
 
   "b" '(:ignore t :which-key "Buffers")
   "bb" 'ivy-switch-buffer
   "bB" 'ivy-switch-buffer-other-window
-  "bm" '(hydra-buffer/body :which-key "buffer mini-state")
-  "bs" 'grass/switch-to-scratch-buffer
+  "bp" '(hydra-buffer/body :which-key "buffer pop up")
   "bk" 'kill-this-buffer
   "bw" 'kill-buffer-and-window
   "bo" 'crux-kill-other-buffers
@@ -3719,25 +3529,14 @@ If the error list is visible, hide it.  Otherwise, show it."
   "kn" 'grass/find-notes
   "kt" 'grass/find-tab
 
-  "g" '(:ignore t :which-key "Git/VC")
+  "g" '(:ignore t :which-key "Git")
   "gs" 'magit-status
   "gb" 'magit-blame
   "gl" 'git-link
   "gc" 'git-link-commit
   "gB" 'github-browse-file
   "gt" 'git-timemachine-toggle
-  "gp" 'grass/open-pull-request
-
-  "gL" '(:ignore t :which-key "Magit log...")
-  "gLd" 'magit-log-trace-definition
-  "gLf" 'magit-log-buffer-file
-
-  "gg" '(:ignore t :which-key "Gist")
-  "ggb" 'gist-buffer
-  "ggB" 'gist-buffer-private
-  "ggl" 'gist-list
-  "ggr" 'gist-region
-  "ggR" 'gist-region-private
+  "gf" 'magit-log-buffer-file
 
   "h" '(:ignore t :which-key "Help")
   "hf" 'describe-function
@@ -3754,7 +3553,8 @@ If the error list is visible, hide it.  Otherwise, show it."
   "jh" 'dumb-jump-go-prefer-external
 
   "e" '(:ignore t :which-key "Editing/Text")
-  "eC" 'counsel-unicode-char
+  "ec" 'counsel-unicode-char
+  "ee" 'emojify-insert-emoji
   "ek" 'browse-kill-ring
   "eh" 'hydra-goto-history/body
   "ez" 'zop-up-to-char
@@ -3764,27 +3564,10 @@ If the error list is visible, hide it.  Otherwise, show it."
   "eT" 'untabify
   "et" '(grass/toggle-always-indent :which-key "toggle tab indent")
   "ei" 'hydra-insert-timestamp/body
-  "ec" 'char-menu
   "eb" 'grass/comment-box
   "ed" 'grass/insert-date
   "eD" 'grass/insert-datetime
-  "ee" 'emojify-insert-emoji
   "es" 'stupid-indent-mode
-
-  "ea" '(:ignore t :which-key "Alignment")
-  "eaa" 'align
-  "ear" 'align-repeat
-  "eam" 'align-repeat-math-oper
-  "ea." 'align-repeat-decimal
-  "ea," 'align-repeat-comma
-  "ea;" 'align-repeat-semicolon
-  "ea:" 'align-repeat-colon
-  "ea=" 'align-repeat-equal
-  "ea>" 'align-repeat-hash
-  "ea&" 'align-repeat-ampersand
-  "ea|" 'align-repeat-bar
-  "ea(" 'align-repeat-left-paren
-  "ea)" 'align-repeat-right-paren
 
   "f" '(:ignore t :which-key "Files")
   "fr" 'counsel-recentf
@@ -3794,7 +3577,6 @@ If the error list is visible, hide it.  Otherwise, show it."
   "fR" 'grass/rename-file-and-buffer
   "fc" 'grass/copy-buffer-filename
   "fd" 'crux-delete-file-and-buffer
-  "fj" 'dired-jump
   "fs"  '(save-buffer :which-key "save file")
 
   "t" '(:ignore t :which-key "Terminal/Tmux")
@@ -3802,15 +3584,12 @@ If the error list is visible, hide it.  Otherwise, show it."
   "tt" 'emamux:run-last-command
 
   "u" '(:ignore t :which-key "Utilities")
-  "uU" 'crux-view-url
   "ud" 'ediff-buffers
-  "ut" 'display-time-world
-  "uc" 'quick-calc
   "uu" 'browse-url
   "uf" 'reveal-in-osx-finder
   "uw" 'count-words
-  "ul" 'org-store-link
   "ug" 'grab-mac-link-dwim
+  "ut" 'display-time-world
 
   "U"  'universal-argument
 
@@ -3823,10 +3602,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   "ye" 'hippie-expand
 
   "w" '(:ignore t :which-key "Windows/UI")
-  "wl" '(toggle-truncate-lines :which-key "toggle line wrap")
-  "wz" 'hydra-zoom-text/body
-  "ww" 'evil-window-next
-  "wm" '(hydra-window/body :which-key "window mini state")
+  "ww" '(hydra-window/body :which-key "window mini state")
   "wv" '((lambda ()
          (interactive)
          (split-window-right)
@@ -3838,15 +3614,9 @@ If the error list is visible, hide it.  Otherwise, show it."
   "wo" 'delete-other-windows
   "wk" 'delete-window
   "wt" 'crux-transpose-windows
+  "wl" '(toggle-truncate-lines :which-key "toggle line wrap")
   "wn" 'display-line-numbers-mode
   "wi" 'highlight-indent-guides-mode
-
-  "z" '(:ignore t :which-key "Folding")
-  "zz" 'origami-toggle-node
-  "zs" 'origami-show-only-node
-  "zo" 'origami-open-all-nodes
-  "zu" 'origami-undo
-  "zr" 'origami-redo
   )
 
 (general-define-key
