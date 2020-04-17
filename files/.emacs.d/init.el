@@ -77,14 +77,45 @@
 ;; Don't resize on font size change to speed up startup
 (setq frame-inhibit-implied-resize t)
 
+;;;;;;;;;;;;;;;;;
+;; Font sizing ;;
+;;;;;;;;;;;;;;;;;
+
+(defun grass/scale-up-or-down-font-size (direction)
+  "Scale the font. If DIRECTION is positive or zero the font is scaled up,
+otherwise it is scaled down."
+  (interactive)
+  (let ((scale 0.5))
+    (if (eq direction 0)
+        (text-scale-set 0)
+      (if (< direction 0)
+          (text-scale-decrease scale)
+        (text-scale-increase scale)))))
+
+(defun grass/scale-up-font ()
+  "Scale up the font."
+  (interactive)
+  (grass/scale-up-or-down-font-size 1))
+
+(defun grass/scale-down-font ()
+  "Scale up the font."
+  (interactive)
+  (grass/scale-up-or-down-font-size -1))
+
+(defun grass/reset-font-size ()
+  "Reset the font size."
+  (interactive)
+  (grass/scale-up-or-down-font-size 0))
+
+
 ;; Fix our shell environment on OSX
 (when (eq system-type 'darwin)
 
   ;; Emacs mac port key bindings
   (when (eq window-system 'mac)
-    (global-set-key (kbd "s-=") 'spacemacs/scale-up-font)
-    (global-set-key (kbd "s--") 'spacemacs/scale-down-font)
-    (global-set-key (kbd "s-0") 'spacemacs/reset-font-size)
+    (global-set-key (kbd "s-=") 'grass/scale-up-font)
+    (global-set-key (kbd "s--") 'grass/scale-down-font)
+    (global-set-key (kbd "s-0") 'grass/reset-font-size)
     (global-set-key (kbd "s-q") 'save-buffers-kill-terminal)
     (global-set-key (kbd "s-v") 'yank)
     (global-set-key (kbd "s-c") 'evil-yank)
