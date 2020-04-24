@@ -3602,7 +3602,8 @@ If the error list is visible, hide it.  Otherwise, show it."
   "ye" 'hippie-expand
 
   "w" '(:ignore t :which-key "Windows/UI")
-  "ww" '(hydra-window/body :which-key "window mini state")
+  "ww" 'evil-window-next
+  "wp" '(hydra-window/body :which-key "window pop up")
   "wv" '((lambda ()
          (interactive)
          (split-window-right)
