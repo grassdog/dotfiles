@@ -52,7 +52,7 @@ Check the status of services via `brew services list`.
         - Dash
         - Fantastical 2
         - Moom
-- Place Chrome, Things.app, Slack, Soulver, MacVim, ~/Dropbox/Backups/Hollywood.inetloc, and iTerm2 into the Dock
+- Place Chrome, Things.app, Slack, Soulver, MacVim, and iTerm2 into the Dock
 - Install Mailplane and add accounts
 - iTerm
     - Preferences > Set as default terminal
@@ -73,30 +73,29 @@ Check the status of services via `brew services list`.
     - Disable contacts in Alfred
     - Appearance > Yosemite Light
     - Appearance > Hide Menu Bar Icon
-- Install Vanilla.app
-- Install Muzzle.app
 - Dash 3
     - Set up synching to `~/Dropbox/Backups/Dash`
 - Calendar.app
-    - Disable notifications
+    - Enable notifications
 - Fantastical 2
     - Menu bar icon date and weekday
     - Defaults to last selected calendar and list
     - Change key shortcut to `shift-f12`
     - General > Start Month on current or selected week
+    - Disable notifications
 - Flux
     - Set wake up time
+- Toggl
+    - Set global shortcut to `⌃⌥⇧⌘t` 
+    - Set idle detection to 10 minutes
+    - Show timer on menu bar
+    - Don't show dock icon
 - DayOne
     - Setup sync
     - Baskerville 18pt, no auto bold, no twitter names
     - Disable reminders
     - Disable popover previews
     - Disable spelling corrections
-- TextExpander
-    - Sign in
-    - Hide icon in Dock
-    - Launch at login
-    - Don't show main window at launch
 - Calibre
     - Preferences > Install plugin from file > `~/Dropbox/Backups/Calibre DRM plugins/KFX Input.zip`
     - Preferences > Install plugin from file > `~/Dropbox/Backups/Calibre DRM plugins/DeDRM_tools_6.6.1/DeDRM_calibre_plugin/DeDRM_plugin.zip`
@@ -104,17 +103,11 @@ Check the status of services via `brew services list`.
 - Copy across from USB backup
     - ~/dev/old
     - ~/dev/scratch
-- Lightroom
+- Install Lightroom Classic from Adobe CC
     - Copy across Lightroom catalog and masters from USB backup
     - Copy across Lightroom presets from backup into new location `~/Library/Application Support/Adobe/Lightroom/{Develop Preset,Export Presets,Filename Templates}`
 - OpenGPG
     - Copy across any keys from 1Password
-- Photoshop
-- MS Office
-    - Customize install to not install cruft
-- Copy across development VMs
-- Get finance docs
-    - `git clone keybase://private/grassdog/finance-docs ~/private/finance-docs`
 - VSCode
     - Install command line tools
     - Run `~/dev/scripts/vscode-extensions install`
