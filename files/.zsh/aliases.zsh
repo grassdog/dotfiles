@@ -82,26 +82,25 @@ fi
 # Git
 #######
 
-alias ga='git add'
 alias gap='git add -p'
 alias gb='git branch'
 alias gbr='git branch --remote'
 alias gc='git commit -v'
 alias gca='git commit -v -a'
 alias gco='git checkout'
-alias gma='git checkout master'
+alias gcm='git checkout master'
 alias gdt='git difftool'
 alias gd='git diff'
 alias gdd='git dd'
 alias gdc='git diff --cached'
 alias gdw='git diff --word-diff'
-alias gpo='git push origin'
 alias gpu='git push'
 alias gpl='git update'
 alias grom='git rebase origin/master'
 alias gnp='git-notpushed'
 alias gs='git status -s'
 alias gl='git ls'
+alias gll='git ll'
 alias gg='git ls-files | grep'
 # Add, amend, and force push
 alias gaf='git add . && git commit --amend --no-edit && gpu -f'
@@ -129,6 +128,7 @@ function git-current-branch() {
   git symbolic-ref HEAD 2> /dev/null | sed -e 's/refs\/heads\///'
 }
 
+# Push a branch to origin and set up tracking
 function gpuu() {
   git push -u origin $(git-current-branch)
 }
