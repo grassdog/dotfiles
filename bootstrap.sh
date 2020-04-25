@@ -120,8 +120,16 @@ step "Link dotfiles"
 [ -d $HOME/Dropbox/Backups/$HOSTNAME ] && link_files $HOME/Dropbox/Backups/$HOSTNAME
 ok
 
+step "Link .config files"
+link_files $DOTFILES_FULL_PATH/files/.config $HOME/.config
+ok
+
 step "Set shell to zsh"
 [[ $(echo $SHELL) != $(which zsh) ]] && sudo dscl . -create /Users/${whoami} UserShell $(which zsh)
+ok
+
+step "Install Kakoune config"
+git clone https://github.com/andreyorst/plug.kak.git $HOME/.config/kak/plugins/plug.kak
 ok
 
 step "Install vim config"
