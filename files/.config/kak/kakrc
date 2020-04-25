@@ -1,0 +1,7 @@
+source "%val{config}/plugins/plug.kak/rc/plug.kak"
+plug "andreyorst/plug.kak" noload
+plug "andreyorst/fzf.kak"
+plug "jjk96/kakoune-rainbow"
+plug "alexherbo2/kakoune-dracula-theme" theme
+
+colorscheme dracula
