@@ -1,7 +1,39 @@
 source "%val{config}/plugins/plug.kak/rc/plug.kak"
 plug "andreyorst/plug.kak" noload
-plug "andreyorst/fzf.kak"
+plug "andreyorst/fzf.kak" config %{
+  map global user -docstring 'fzf' f ': fzf-mode<ret>'
+  set-option global fzf_file_command 'rg'
+}
 plug "jjk96/kakoune-rainbow"
+plug "alexherbo2/surround.kak" config %{
+  map global user S ': surround _ _ * *<ret>' -docstring 'Enter surround mode'
+}
 plug "alexherbo2/kakoune-dracula-theme" theme
-
 colorscheme dracula
+
+# Show matching parens
+add-highlighter global/ show-matching
+
+# Clipboard
+evaluate-commands %sh{
+  case $(uname) in
+    Linux) copy="xclip -i"; paste="xclip -o" ;;
+    Darwin)  copy="pbcopy"; paste="pbpaste" ;;
+  esac
+
+  printf "map global user -docstring 'paste (after) from clipboard' p '!%s<ret>'\n" "$paste"
+  printf "map global user -docstring 'paste (before) from clipboard' P '<a-!>%s<ret>'\n" "$paste"
+  printf "map global user -docstring 'yank to primary' y '<a-|>%s<ret>:echo -markup %%{{Information}copied selection to X11 primary}<ret>'\n" "$copy"
+  printf "map global user -docstring 'yank to clipboard' Y '<a-|>%s<ret>:echo -markup %%{{Information}copied selection to X11 clipboard}<ret>'\n" "$copy -selection clipboard"
+  printf "map global user -docstring 'replace from clipboard' R '|%s<ret>'\n" "$paste"
+}
+
+## Space as leader
+map global normal <space> , -docstring 'leader'
+map global normal , <space>
+
+map global normal & ':align-with-spaces<ret>'
+
+# User Mode (leader)
+map global user -docstring 'Clipboard'                     y ': enter-user-mode clip<ret>'
+map global user -docstring 'Comment lines'                 c ': comment-line<ret>'
