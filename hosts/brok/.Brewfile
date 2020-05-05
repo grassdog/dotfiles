@@ -30,15 +30,8 @@ brew 'zsh-autosuggestions'
 
 cask_args appdir: '/Applications'
 
-# Quicklook
-cask 'provisionql'
-cask 'qlcolorcode'
-cask 'qlmarkdown'
-cask 'qlprettypatch'
+# Quicklook for plain text files
 cask 'qlstephen'
-cask 'quicklook-csv'
-cask 'quicklook-json'
-cask 'webpquicklook'
 
 # Applications
 # cask '1password'
