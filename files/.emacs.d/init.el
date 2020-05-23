@@ -1405,6 +1405,11 @@ Repeated invocations toggle between the two most recently open buffers."
   (interactive)
   (find-file "~/Dropbox/Notes/Work/Envato/Work.org"))
 
+(defun grass/open-work-reflections ()
+  "Open Work reflections file"
+  (interactive)
+  (find-file "~/Dropbox/Notes/Work/Envato/Reflections.org"))
+
 (defun grass/find-notes ()
   "Find a note in Dropbox/Notes directory"
   (interactive)
@@ -3526,6 +3531,7 @@ If the error list is visible, hide it.  Otherwise, show it."
   "k" '(:ignore t :which-key "Bookmarks")
   "ki" 'grass/open-init
   "kw" 'grass/open-work-log
+  "kr" 'grass/open-work-reflections
   "kn" 'grass/find-notes
   "kt" 'grass/find-tab
 
