@@ -2015,8 +2015,9 @@ Repeated invocations toggle between the two most recently open buffers."
       "I" 'org-toggle-inline-images
       "s" 'org-sort-entries
       "S" '(org-insert-structure-template :which-key "Insert org block")
-      "t" 'org-todo
-      "T" 'org-set-tags
+      "t" 'org-set-tags-command
+      "T" 'org-todo
+      "/" '(org-match-sparse-tree :which-key "Filter by tag")
       "c" 'org-cycle-agenda-files)
 
   (add-hook 'org-mode-hook
