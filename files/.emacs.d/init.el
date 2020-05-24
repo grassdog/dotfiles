@@ -163,9 +163,6 @@ otherwise it is scaled down."
 ;; no jerky scrolling
 (setq scroll-conservatively 101)
 
-;; Use right alt for extended character insertion
-(setq mac-right-option-modifier nil)
-
 ;; Move point to the help window
 (setq help-window-select t)
 
