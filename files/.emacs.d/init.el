@@ -57,12 +57,12 @@
 ;; File paths
 (defvar grass/dotfiles-dir (file-name-directory load-file-name)
   "The root dir of my Emacs config.")
-(defvar grass/savefile-dir (expand-file-name "savefile" grass/dotfiles-dir)
-  "This folder stores all the automatically generated save/history-files.")
+(defvar grass/var-dir (expand-file-name "var" grass/dotfiles-dir)
+  "This folder stores for all temporary and cache files.")
 
 ;; Ensure savefile directory exists
-(unless (file-exists-p grass/savefile-dir)
-  (make-directory grass/savefile-dir))
+(unless (file-exists-p grass/var-dir)
+  (make-directory grass/var-dir))
 
 ;; Keep emacs Custom-settings in separate file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
@@ -514,7 +514,7 @@ otherwise it is scaled down."
 (use-package saveplace
   :config
   ;; Saveplace remembers your location in a file when saving files
-  (setq save-place-file (expand-file-name "saveplace" grass/savefile-dir))
+  (setq save-place-file (expand-file-name "saveplace" grass/var-dir))
   :init
   (save-place-mode 1))
 
@@ -528,7 +528,7 @@ otherwise it is scaled down."
     ;; save every minute
     savehist-autosave-interval 60
     ;; keep the home clean
-    savehist-file (expand-file-name "savehist" grass/savefile-dir))
+    savehist-file (expand-file-name "savehist" grass/var-dir))
   (savehist-mode 1))
 
 (use-package recentf
@@ -540,7 +540,7 @@ otherwise it is scaled down."
   (add-to-list 'recentf-exclude "emacs.d/elpa/")
   (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
   :init
-  (setq recentf-save-file (expand-file-name "recentf" grass/savefile-dir))
+  (setq recentf-save-file (expand-file-name "recentf" grass/var-dir))
   (setq recentf-max-saved-items 100)
   (recentf-mode)
   (recentf-track-opened-file))

@@ -1,9 +1,6 @@
 *~
 *.elc
 auto-save-list
-recentf
-savehist
-saveplace
 eshell
 elpa
 el-get
