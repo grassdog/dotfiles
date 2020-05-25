@@ -532,8 +532,6 @@ otherwise it is scaled down."
   (savehist-mode 1))
 
 (use-package recentf
-  :defer 2
-  :commands recentf-mode
   :config
   (add-to-list 'recentf-exclude "\\ido.hist\\'")
   (add-to-list 'recentf-exclude "/TAGS")
@@ -541,12 +539,11 @@ otherwise it is scaled down."
   (add-to-list 'recentf-exclude "intero-script")
   (add-to-list 'recentf-exclude "emacs.d/elpa/")
   (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
+  :init
   (setq recentf-save-file (expand-file-name "recentf" grass/savefile-dir))
-  (setq recentf-max-saved-items 100))
-
-(add-hook 'find-file-hook (lambda () (unless recentf-mode
-                                       (recentf-mode)
-                                       (recentf-track-opened-file))))
+  (setq recentf-max-saved-items 100)
+  (recentf-mode)
+  (recentf-track-opened-file))
 
 (use-package undo-tree
   :diminish undo-tree-mode
