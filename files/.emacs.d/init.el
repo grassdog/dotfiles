@@ -332,10 +332,6 @@ otherwise it is scaled down."
 
 (use-package hydra)
 
-;; Use better filtering and sorting
-(use-package ivy-prescient
-  :init
-  (ivy-prescient-mode))
 
 (use-package ivy
   :diminish (ivy-mode . "")
@@ -371,6 +367,14 @@ otherwise it is scaled down."
       "\\|\\(?:[#~]\\'\\)"
 
       "\\|.*.DS_Store")))
+
+;; Use better filtering and sorting
+(use-package ivy-prescient
+  :config
+  ;; Don't want to sort recent files so we get the most recently edited first
+  (add-to-list 'ivy-prescient-sort-commands 'counsel-recentf)
+  :init
+  (ivy-prescient-mode))
 
 (use-package swiper
   :commands swiper)
