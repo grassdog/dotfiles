@@ -2026,9 +2026,9 @@ Repeated invocations toggle between the two most recently open buffers."
       (diminish 'org-indent-mode)
 
       ;; Add some custom surrounds
-      (push '(?e . ("#+BEGIN_EXAMPLE" . "#+END_EXAMPLE")) evil-surround-pairs-alist)
-      (push '(?s . ("#+BEGIN_SRC" . "#+END_SRC")) evil-surround-pairs-alist)
-      (push '(?q . ("#+BEGIN_QUOTE" . "#+END_QUOTE")) evil-surround-pairs-alist)
+      (push '(?e . ("#+begin_example" . "#+end_example")) evil-surround-pairs-alist)
+      (push '(?s . ("#+begin_src" . "#+end_src")) evil-surround-pairs-alist)
+      (push '(?q . ("#+begin_quote" . "#+end_quote")) evil-surround-pairs-alist)
 
       ;; Encrypt on save
       (add-hook 'before-save-hook 'org-encrypt-entries nil t)
