@@ -1912,10 +1912,13 @@ Repeated invocations toggle between the two most recently open buffers."
   (setq org-adapt-indentation nil)
 
   (use-package ox-pandoc
-    :config
+    :init
     (setq org-pandoc-options-for-markdown '((atx-headers . t))
           org-pandoc-options-for-markdown_mmd '((atx-headers . t))
-          org-pandoc-options-for-markdown_github '((atx-headers . t))))
+      org-pandoc-options-for-markdown_github '((atx-headers . t)))
+    (with-eval-after-load 'org (require 'ox-pandoc)))
+
+  (use-package ox-slack)
 
   ;; Create reveal js presentations in org mode.
   (use-package org-re-reveal
@@ -2002,7 +2005,11 @@ Repeated invocations toggle between the two most recently open buffers."
       "a" 'org-agenda
       "o" 'org-insert-heading
       "l" 'org-insert-link
-      "e" '(org-export-dispatch :which-key "export")
+      "e" '(:ignore t :which-key "export")
+      "ee" '(org-export-dispatch :which-key "export menu")
+      "em" 'org-pandoc-export-as-markdown_mmd
+      "eM" 'org-md-export-as-markdown
+      "es" 'org-slack-export-as-slack
       "E" '(:ignore t :which-key "org encrypt")
       "Ee" 'org-encrypt-entry
       "EE" 'org-encrypt-entries
