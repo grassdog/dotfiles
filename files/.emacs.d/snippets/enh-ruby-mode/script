@@ -5,12 +5,13 @@
 # --
 #!/usr/bin/env ruby
 #/ Usage: ${1:`(file-name-nondirectory (buffer-file-name))`} [options]
+#/
 #/ How does this script make my life easier?
 #/
 $stderr.sync = true
-require 'optparse'
+require "optparse"
 
-trap('INT') do
+trap("INT") do
   exit
 end
 
