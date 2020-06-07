@@ -256,8 +256,8 @@ f() {
 # fe [FUZZY PATTERN] - Open the selected file with emacs
 # Modified version where you can press
 #   - CTRL-O to open with `open` command,
-#   - CTRL-E or Enter key to open with the $EDITOR
-fe() {
+#   - CTRL-E or Enter key to open with Emacs
+ef() {
   local out file key
   IFS=$'\n' out=($(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
   key=$(head -1 <<< "$out")
