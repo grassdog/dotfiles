@@ -2982,6 +2982,32 @@ Repeated invocations toggle between the two most recently open buffers."
        "C-c C-e" 'eval-print-last-sexp)))
 
 
+;;;;;;;;;;;;;;;;;
+;; Common Lisp ;;
+;;;;;;;;;;;;;;;;;
+
+
+(general-define-key :keymaps 'lisp-mode-map
+  :states '(normal visual insert emacs)
+  :prefix grass/leader2
+  :non-normal-prefix "M-,"
+  "s" 'sly)
+
+(use-package sly
+  :config
+  (setq inferior-lisp-program "/usr/local/bin/sbcl")
+    (general-define-key :keymaps 'sly-mode-map
+      :states '(normal visual insert emacs)
+      :prefix grass/leader2
+      :non-normal-prefix "M-,"
+      "h" 'sly-documentation-lookup
+      "p" 'eval-print-last-sexp))
+
+
+;;;;;;;;;;;;
+;; Elixir ;;
+;;;;;;;;;;;;
+
 (use-package elixir-mode
   :mode (("\\.exs?\\'"   . elixir-mode))
   :defer t
