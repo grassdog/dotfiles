@@ -2986,22 +2986,88 @@ Repeated invocations toggle between the two most recently open buffers."
 ;; Common Lisp ;;
 ;;;;;;;;;;;;;;;;;
 
-
-(general-define-key :keymaps 'lisp-mode-map
-  :states '(normal visual insert emacs)
-  :prefix grass/leader2
-  :non-normal-prefix "M-,"
-  "s" 'sly)
-
 (use-package sly
   :config
   (setq inferior-lisp-program "/usr/local/bin/sbcl")
-    (general-define-key :keymaps 'sly-mode-map
-      :states '(normal visual insert emacs)
-      :prefix grass/leader2
-      :non-normal-prefix "M-,"
-      "h" 'sly-documentation-lookup
-      "p" 'eval-print-last-sexp))
+  ;; (setq sly-description-autofocus t)
+
+  (defhydra common-lisp-navigation ()
+     "
+  ^^Definitions                           ^^Compiler Notes             ^^Stickers
+  ^^^^^^─────────────────────────────────────────────────────────────────────────────────────
+  [_g_] Jump to definition                [_n_] Next compiler note     [_s_] Next sticker
+  [_G_] Jump to definition (other window) [_N_] Previous compiler note [_S_] Previous sticker
+  [_b_] Pop from definition
+  [_q_] Exit
+  "
+    ("g" sly-edit-definition)
+    ("G" sly-edit-definition-other-window)
+    ("b" sly-pop-find-definition-stack)
+    ("n" sly-next-note)
+    ("N" sly-previous-note)
+    ("s" sly-stickers-next-sticker)
+    ("S" sly-stickers-prev-sticker)
+    ("q" nil :exit t))
+
+  (general-define-key :keymaps 'sly-mode-map
+    :states '(normal visual insert emacs)
+    :prefix grass/leader2
+    :non-normal-prefix "M-,"
+
+    "h" '(:ignore t :which-key "Help")
+    "ha" 'sly-apropos
+    "hb" 'sly-who-binds
+    "hd" 'sly-disassemble-symbol
+    "hh" 'sly-describe-symbol
+    "hH" 'sly-hyperspec-lookup
+    "hm" 'sly-who-macroexpands
+    "hp" 'sly-apropos-package
+    "hr" 'sly-who-references
+    "hs" 'sly-who-specializes
+    "hS" 'sly-who-sets
+    "h<" 'sly-who-calls
+    "h>" 'sly-calls-who
+
+    "c" '(:ignore t :which-key "Compile")
+    "cc" 'sly-compile-file
+    "cC" 'sly-compile-and-load-file
+    "cf" 'sly-compile-defun
+    "cl" 'sly-load-file
+    "cn" 'sly-remove-notes
+    "cr" 'sly-compile-region
+
+    "e" '(:ignore t :which-key "Eval")
+    "eb" 'sly-eval-buffer
+    "ee" 'sly-eval-last-expression
+    "eE" 'sly-eval-print-last-expression
+    "ef" 'sly-eval-defun
+    "eF" 'slime-undefine-function
+    "er" 'sly-eval-region
+
+    "g" 'common-lisp-navigation/body
+    "m" '(:ignore t :which-key "Macro")
+    "me" 'sly-macroexpand-1
+    "mE" 'sly-macroexpand-all
+
+    "s" '(:ignore t :which-key "Repl")
+    "sc" 'sly-mrepl-clear-repl
+    "si" 'sly
+    "sq" 'sly-quit-lisp
+    "sr" 'sly-restart-inferior-lisp
+    "ss" 'sly-mrepl-sync
+
+    "S" '(:ignore t :which-key "Stickers")
+    "Sb" 'sly-stickers-toggle-break-on-stickers
+    "Sc" 'sly-stickers-clear-defun-stickers
+    "SC" 'sly-stickers-clear-buffer-stickers
+    "Sf" 'sly-stickers-fetch
+    "Sr" 'sly-stickers-replay
+    "Ss" 'sly-stickers-dwim
+
+    "t" '(:ignore t :which-key "Trace")
+    "tt" 'sly-toggle-trace-fdefinition
+    "tT" 'sly-toggle-fancy-trace
+    "tu" 'sly-untrace-all))
 
 
 ;;;;;;;;;;;;
