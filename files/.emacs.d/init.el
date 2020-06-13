@@ -3009,6 +3009,11 @@ Repeated invocations toggle between the two most recently open buffers."
     ("S" sly-stickers-prev-sticker)
     ("q" nil :exit t))
 
+  (general-define-key :keymaps 'sly-mrepl-mode-map
+    :states '(normal visual insert emacs)
+    "<M-up>" 'sly-mrepl-previous-input-or-button
+    "<M-down>" 'sly-mrepl-next-input-or-button)
+
   (general-define-key :keymaps 'sly-mode-map
     :states '(normal visual insert emacs)
     :prefix grass/leader2
