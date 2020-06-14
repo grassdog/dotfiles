@@ -372,7 +372,7 @@ otherwise it is scaled down."
 (use-package ivy-prescient
   :config
   ;; Don't want to sort recent files so we get the most recently edited first
-  (add-to-list 'ivy-prescient-sort-commands 'counsel-recentf)
+  (add-to-list 'ivy-prescient-sort-commands 'counsel-recentf 'ivy-switch-buffer)
   :init
   (ivy-prescient-mode))
 
