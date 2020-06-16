@@ -2242,6 +2242,10 @@ Repeated invocations toggle between the two most recently open buffers."
     "f" 'rufo-format
 
     "t" '(:ignore t :which-key "rspec")
+    "tt" 'rspec-toggle-spec-and-target
+    "tT" 'rspec-toggle-spec-and-target-find-example
+    "to" 'rspec-find-spec-or-target-other-window
+    "tO" 'rspec-find-spec-or-target-find-example-other-window
     "ta" 'rspec-verify-all
     "tb" 'rspec-verify
     "tc" 'rspec-verify-continue
@@ -2250,7 +2254,7 @@ Repeated invocations toggle between the two most recently open buffers."
     "tl" 'rspec-run-last-failed
     "tm" 'rspec-verify-matching
     "tr" 'rspec-rerun
-    "tt" 'rspec-verify-single)
+    "ts" 'rspec-verify-single)
 
   ;; Add Ruby block text objects
   (evil-define-text-object evil-inner-ruby-block (count &optional beg end type)
