@@ -102,6 +102,7 @@ alias gs='git status -s'
 alias gl='git ls'
 alias gll='git ll'
 alias gg='git ls-files | grep'
+alias gac='git add . && git commit --amend'
 # Add, amend, and force push
 alias gaf='git add . && git commit --amend --no-edit && gpu -f'
 
