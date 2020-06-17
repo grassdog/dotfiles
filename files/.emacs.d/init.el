@@ -2135,7 +2135,10 @@ Repeated invocations toggle between the two most recently open buffers."
     :config
     (setq rufo-enable-format-on-save nil))
 
-  (use-package rspec-mode)
+  (use-package rspec-mode
+    :config
+    ;; Save current buffer before running a specs
+    (setq rspec-autosave-buffer t))
 
   (use-package projectile-rails
     :diminish (projectile-rails-mode . "🛤")
