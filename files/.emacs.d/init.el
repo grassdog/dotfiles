@@ -2295,11 +2295,11 @@ Repeated invocations toggle between the two most recently open buffers."
       (set (make-variable-buffer-local 'ruby-end-insert-newline) nil)
       ;; Indentation
       (setq ruby-indent-level 2)
+      (setq enh-ruby-deep-indent-paren nil)
       (setq ruby-deep-indent-paren nil)
-      (setq enh-ruby-bounce-deep-indent t)
+      (setq enh-ruby-bounce-deep-indent nil)
       (setq enh-ruby-hanging-brace-indent-level 2)
       (setq enh-ruby-indent-level 2)
-      (setq enh-ruby-deep-indent-paren nil)
 
       ;; Abbrev mode seems broken for some reason
       (abbrev-mode -1))))
