@@ -3672,8 +3672,8 @@ If the error list is visible, hide it.  Otherwise, show it."
   "sR" 'anzu-query-replace-at-cursor-thing
   "sf" 'isearch-forward-regexp
   "sF" 'isearch-reverse-regexp
-  "sp" 'deadgrep
-  "sP" '(counsel-projectile-rg :which-key "ripgrep in project")
+  "sP" 'deadgrep
+  "sp" '(counsel-projectile-rg :which-key "ripgrep in project")
   "sn" '(grass/search-all-notes :which-key "search all notes")
   "sw" '(grass/search-work-notes :which-key "search work notes")
   "s:" 'grass/iedit-dwim
