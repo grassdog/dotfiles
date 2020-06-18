@@ -397,8 +397,8 @@ otherwise it is scaled down."
 ;; "M-q" 'swiper-query-replace
 ;; "C-l" 'swiper-recenter-top-bottom
 ;;
-;; Some ivy occur bindings
-;; "C-x C-q" Edit in multi occur mode
+;; Some ivy-occur bindings (after you save output in a buffer you can edit the results).
+;; "C-x C-q" or "w" or "i" to edit in multi occur mode
 
 (use-package which-key
   :diminish which-key-mode
