@@ -1933,6 +1933,22 @@ Repeated invocations toggle between the two most recently open buffers."
     :init
     (projectile-global-mode t)))
 
+;;;;;;;;;
+;; CSV ;;
+;;;;;;;;;
+
+(use-package csv-mode
+  :config
+  (add-hook 'csv-mode-hook
+    (lambda ()
+      (toggle-truncate-lines +1)))
+  (general-define-key :keymaps 'csv-mode-map
+    :states '(normal visual insert emacs)
+    :prefix grass/leader2
+    :non-normal-prefix "C-,"
+    "a" 'csv-align-fields
+    "u" 'csv-unalign-fields))
+
 
 ;;;;;;;;;
 ;; Org ;;
