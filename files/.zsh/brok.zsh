@@ -20,6 +20,9 @@ PROMPT_ORDER=(
 eval "$(rbenv init -)"
 eval "$(nodenv init -)"
 
+# Look for trusted local binaries in path
+export PATH="./.git/safe/../../bin:${PATH}"
+
 ##############
 # AWS Helpers
 ##############
