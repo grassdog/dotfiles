@@ -358,14 +358,16 @@ otherwise it is scaled down."
   (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
   ;; Wider lines from rg please
   (setq counsel-rg-base-command
-      "rg -M 200 --with-filename --no-heading --line-number --color never %s")
+    "rg -M 200 --with-filename --no-heading --line-number --color never %s")
   (setq counsel-find-file-ignore-regexp
     (concat
-      ;; file names beginning with # or .
+      ;; File names beginning with # or .
       "\\(?:\\`[#.]\\)"
-      ;; file names ending with # or ~
-      "\\|\\(?:[#~]\\'\\)"
-
+      ;; File names ending with # or ~
+      "\\|\\(?:\\`.+?[#~]\\'\\)"
+      ;; File names starting with the `.#`
+      "\\|.*.#.*"
+      ;; Mac files
       "\\|.*.DS_Store")))
 
 ;; Use better filtering and sorting
