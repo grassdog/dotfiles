@@ -36,6 +36,7 @@ cask 'qlstephen'
 # Applications
 # cask '1password'
 cask 'aws-vault'
+cask 'cleanshot'
 cask 'sequel-pro'
 cask 'betterzip'
 cask 'postico'
@@ -73,7 +74,6 @@ mas 'Clocks', id: 414554506
 mas 'Color Picker', id: 502401013
 mas 'Day One', id: 1055511498
 mas 'MindNode 6', id: 1289197285
-mas 'Monosnap', id: 540348655
 mas 'Things 3', id: 904280696
 mas 'Ulysses', id: 1225570693
 mas 'White Noise', id: 415139197
