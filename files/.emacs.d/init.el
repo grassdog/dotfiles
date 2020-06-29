@@ -2134,6 +2134,7 @@ Repeated invocations toggle between the two most recently open buffers."
           ("\\.rake$"      . enh-ruby-mode)
           ("\\.gemspec$"   . enh-ruby-mode)
           ("\\.?pryrc$"    . enh-ruby-mode)
+          ("/.?Brewfile$" . enh-ruby-mode)
           ("/Gemfile$"     . enh-ruby-mode)
           ("/Guardfile$"   . enh-ruby-mode)
           ("/Capfile$"     . enh-ruby-mode)
