@@ -25,6 +25,7 @@ Check the status of services via `brew services list`.
     - Don't show desktop notifications
     - Optional: Copy across Dropbox and Music files from backup and `chown -R` them to new user. Resume syncing.
 - Log into Chrome and set as default browser
+    - Set global shortcut for Meet Mute extension to `⌘⇧9`
 - Finder
     - Add ~/Dropbox/Notes and ~/dev into Finder sidebar
     - New window opens in ~/Dropbox
