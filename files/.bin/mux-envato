@@ -33,19 +33,11 @@ if ! tmux has-session -t "$NAME" 2>/dev/null; then
     dev)
       # Kick up my local dev tmux session
       tmux send-keys -t "$NAME":"$NAME" 'cd ~/.dotfiles' C-m
-      tmux new-window -c ~/src/elements-storefront -n "storefront" -t "$NAME":2
-      tmux new-window -c ~/src/elements-backend -n "backend" -t "$NAME":3
-      tmux new-window -c ~/src/customer-iam-configuration -n "iam" -t "$NAME":4
-      tmux new-window -c ~/src/elements-wiki -n "wiki" -t "$NAME":5
-      tmux new-window -c ~/dev/dance.computer.dance -n "dance" -t "$NAME":6
+      tmux new-window -c ~/dev/dance.computer.dance -n "dance" -t "$NAME":2
 
       # I end up having to rename these for some reason
       tmux rename-window -t "$NAME":1 dotfiles
-      tmux rename-window -t "$NAME":2 storefront
-      tmux rename-window -t "$NAME":3 backend
-      tmux rename-window -t "$NAME":4 iam
-      tmux rename-window -t "$NAME":5 wiki
-      tmux rename-window -t "$NAME":6 dance
+      tmux rename-window -t "$NAME":2 dance
 
       tmux select-window -t "$NAME":1
       ;;
