@@ -263,6 +263,9 @@ otherwise it is scaled down."
 ;; Silence advice warnings
 (setq ad-redefinition-action 'accept)
 
+;; Don't prompt me to kill subprocesses on exit
+(setq confirm-kill-processes nil)
+
 
 ;;;;;;;;;;;;;;;;
 ;; Encryption ;;
