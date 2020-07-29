@@ -1,0 +1,11 @@
+# /Users/ray/.config/tmuxinator/grizzle.yml
+
+name: grizzle
+root: ~/dev/grizzlebit.com
+
+windows:
+  - strange:
+      layout: even-horizontal
+      panes:
+        -
+        - scripts/dev.sh

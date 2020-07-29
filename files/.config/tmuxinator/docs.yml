@@ -1,0 +1,13 @@
+# /Users/ray/.config/tmuxinator/docs.yml
+
+name: docs
+root: ~/src/elements-wiki
+
+windows:
+  - elements:
+      layout: even-horizontal
+      panes:
+        -
+        - server:
+          - cd publish
+          - yarn start

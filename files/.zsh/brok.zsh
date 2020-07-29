@@ -1,5 +1,3 @@
-alias mux="mux-envato"
-
 export PATH="~/.composer/vendor/bin:/usr/local/opt/postgresql@9.6/bin:${PATH}"
 
 PROMPT_ORDER=(

@@ -1,0 +1,11 @@
+# /Users/ray/.config/tmuxinator/dance.yml
+
+name: dance
+root: ~/dev/dance.computer.dance
+
+windows:
+  - dance:
+      layout: even-horizontal
+      panes:
+        -
+        - ./scripts/serve

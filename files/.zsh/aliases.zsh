@@ -311,6 +311,11 @@ function extract() {
   fi
 }
 
+alias mux="tmuxinator"
+# Start a new tmux session using the project template
+muxp() {
+  tmuxinator start project -n $1 $1
+}
 
 # fkill - kill processes
 fkill() {
