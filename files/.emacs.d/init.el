@@ -15,8 +15,7 @@
 (setq package-enable-at-startup nil) ;; Don't load packages on startup
 (setq package-archives '(("org"           . "https://orgmode.org/elpa/")
                           ("gnu"          . "https://elpa.gnu.org/packages/")
-                          ("melpa"        . "https://melpa.org/packages/")
-                          ("melpa-stable" . "https://stable.melpa.org/packages/")))
+                          ("melpa"        . "https://melpa.org/packages/")))
 (package-initialize)
 
 ;; Bootstrap use-package
@@ -2867,7 +2866,6 @@ Repeated invocations toggle between the two most recently open buffers."
     (clojure-snippets-initialize))
 
   (use-package cider
-    :pin melpa-stable
     :init
     ;; REPL history file
     (setq cider-repl-history-file "~/.emacs.d/cider-history")
@@ -2900,7 +2898,6 @@ Repeated invocations toggle between the two most recently open buffers."
     (add-hook 'cider-mode-hook #'eldoc-mode)
 
     (use-package clj-refactor
-      :pin melpa-stable
       :init
       (add-hook 'clojure-mode-hook
         (lambda ()
