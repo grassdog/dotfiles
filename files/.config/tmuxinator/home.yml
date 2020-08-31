@@ -55,3 +55,6 @@ windows:
         -
         -
   - dev:
+  - mindmaps:
+      root: ~/Dropbox/Documents/MindMaps/Envato
+
