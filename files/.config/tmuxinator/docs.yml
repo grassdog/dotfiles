@@ -4,6 +4,8 @@ name: docs
 root: ~/src/elements-wiki
 
 windows:
+  - arch:
+      root: ~/src/architecture-guild
   - elements:
       layout: even-horizontal
       panes:
