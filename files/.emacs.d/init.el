@@ -3275,11 +3275,6 @@ Repeated invocations toggle between the two most recently open buffers."
   (add-to-list 'lsp-file-watch-ignored "[/\\\\]tmp$")
   (add-to-list 'lsp-file-watch-ignored "[/\\\\]_build$")
 
-  (with-eval-after-load "company"
-    (use-package company-lsp
-      :after lsp-mode
-      :config
-      (push 'company-lsp company-backends)))
   (use-package lsp-ui
     :after lsp-mode
     :hook (lsp-mode . lsp-ui-mode)
