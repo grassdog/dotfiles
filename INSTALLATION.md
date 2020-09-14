@@ -84,6 +84,9 @@ Check the status of services via `brew services list`.
     - Change key shortcut to `shift-f12`
     - General > Start Month on current or selected week
     - Disable notifications
+- Things
+    - Install the Things Helper application for sharing across apps.
+    - Set shortcut for quick entry to `cmd-opt-space`.
 - Flux
     - Set wake up time
 - Toggl
