@@ -30,6 +30,8 @@
 ;; My font
 (setq doom-font (font-spec :family "Operator Mono" :size 13 :weight 'light))
 
+(setq doom-localleader-key ",")
+
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/Dropbox/Notes")
@@ -76,3 +78,27 @@
 
 ;; Just quit thanks
 (setq confirm-kill-emacs nil)
+
+(after! org
+  (map! :map org-mode-map
+        :localleader
+        "G" #'org-mac-grab-link))
+
+
+;; ;; Auto save on focus lost
+;; (defun grass/auto-save-all()
+;;   "Save all modified buffers that point to files."
+;;   (interactive)
+;;   (save-excursion
+;;     (dolist (buf (buffer-list))
+;;       (set-buffer buf)
+;;       (if (and (buffer-file-name) (buffer-modified-p))
+;;         (basic-save-buffer)))))
+
+;; (add-hook 'auto-save-hook 'grass/auto-save-all)
+;; (add-hook 'mouse-leave-buffer-hook 'grass/auto-save-all)
+;; (add-hook 'focus-out-hook 'grass/auto-save-all)
+;; (add-function :after after-focus-change-function
+;;                               (lambda ()
+;;                                 (unless (frame-focus-state)
+;;                                   (garbage-collect))))
