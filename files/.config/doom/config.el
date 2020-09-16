@@ -82,13 +82,6 @@
 ;; Just quit thanks
 (setq confirm-kill-emacs nil)
 
-;; TODO Work out how to remove the previous bindings here and switch to "g"
-(after! org
-  (map! :map org-mode-map
-        :localleader
-        "G" #'org-mac-grab-link))
-
-
 ;; Auto save on focus lost
 (defun grass/auto-save-all()
   "Save all modified buffers that point to files."
@@ -127,11 +120,64 @@ Repeated invocations toggle between the two most recently open buffers."
          (if candidate-buffer
            (switch-to-buffer (nth 1 candidate-buffers)))))
 
+;; Common files
 
+(defun grass/open-work-log ()
+  "Open Worklog file"
+  (interactive)
+  (find-file "~/Dropbox/Notes/Work/Envato/Work.org"))
 
-;; (setq grass/thirdleader-key ",")
-;; TODO Map
-;; "gl" 'git-link
-;; "gc" 'git-link-commit
+(defun grass/find-notes ()
+  "Find a note in Dropbox/Notes directory"
+  (interactive)
+  (counsel-file-jump "" (expand-file-name "~/Dropbox/Notes")))
+
+;; Common searches
+
+(defun grass/search-work-notes (&optional symbol)
+  "Conduct a text search across my work notes."
+  (interactive
+    (list (rxt-quote-pcre (or (doom-thing-at-point-or-region) ""))))
+  (+ivy/project-search nil symbol "~/Dropbox/Notes/Work/Envato"))
+
+(defun grass/search-all-notes (&optional symbol)
+  "Conduct a text search across my work notes."
+  (interactive
+    (list (rxt-quote-pcre (or (doom-thing-at-point-or-region) ""))))
+  (+ivy/project-search nil symbol "~/Dropbox/Notes"))
+
+;; Packages
+
+;; This is actually provided by org
+(use-package! org-mac-link
+  :defer
+  :commands org-mac-grab-link)
+
+(use-package! git-link
+  :defer
+  :commands git-link git-link-commit
+  :config
+  (setq git-link-open-in-browser t))
+
+;; My keybinds
+
 (map! :leader
-      :desc "Switch to last useful buffer" "`"    #'grass/switch-to-previous-buffer)
+      :desc "Switch to last useful buffer" "`" #'grass/switch-to-previous-buffer
+      (:prefix ("k" . "Grass keybinds")
+        "w" #'grass/open-work-log
+        "n" #'grass/find-notes
+
+        (:prefix ("s" . "Search")
+         "w" #'grass/search-work-notes
+         "n" #'grass/search-all-notes)
+
+        (:prefix ("G" . "Git")
+          "l" #'git-link
+          "c" #'git-link-commit)))
+
+(after! org
+  (map! :leader
+        "kg" #'org-mac-grab-link))
+
+(after! dired
+  (define-key dired-mode-map [return] 'dired-find-alternate-file))
