@@ -29,10 +29,10 @@
 
 ;; Set font based upon screen height
 (let* ((geometry (frame-monitor-geometry))
-      (height (nth 3 geometry)))
+       (height (nth 3 geometry)))
   (if (> height 1000)
-     (setq doom-font (font-spec :family "Operator Mono" :size 14 :weight 'light))
-     (setq doom-font (font-spec :family "Operator Mono" :size 13 :weight 'light))))
+      (setq doom-font (font-spec :family "Operator Mono" :size 14 :weight 'light))
+    (setq doom-font (font-spec :family "Operator Mono" :size 13 :weight 'light))))
 
 
 ;; If you use `org' and don't want your org files in the default location below,
@@ -67,10 +67,15 @@
 ;; No moving the cursor back when exiting insert mode
 (setq evil-move-cursor-back nil)
 
+;; Give me four lines from the bottom
+(setq scroll-margin 4)
+
+(setq ivy-use-selectable-prompt t)
+
 ;; Give me some keybinds I like
 (after! dired
   (map!
-    :n "-" #'dired-jump))
+   :n "-" #'dired-jump))
 
 ;; Arrow key window movement
 (after! evil!
@@ -90,7 +95,7 @@
     (dolist (buf (buffer-list))
       (set-buffer buf)
       (if (and (buffer-file-name) (buffer-modified-p))
-        (basic-save-buffer)))))
+          (basic-save-buffer)))))
 
 (add-hook 'auto-save-hook 'grass/auto-save-all)
 (add-hook 'mouse-leave-buffer-hook 'grass/auto-save-all)
@@ -102,11 +107,11 @@
   (interactive)
   (let ((buffer-to-test (or potential-buffer-name (buffer-name))))
     (if (string-equal "*" (substring (s-trim-left buffer-to-test) 0 1))
-      nil
-      (if (string-match "dired" (symbol-name
-                                  (with-current-buffer potential-buffer-name
-                                    major-mode)))
         nil
+      (if (string-match "dired" (symbol-name
+                                 (with-current-buffer potential-buffer-name
+                                   major-mode)))
+          nil
         t))))
 
 (defun grass/switch-to-previous-buffer ()
@@ -114,11 +119,11 @@
 Repeated invocations toggle between the two most recently open buffers."
   (interactive)
   (let* ((candidate-buffers (cl-remove-if-not
-                              #'grass/useful-buffer-p
-                              (mapcar (function buffer-name) (buffer-list))))
+                             #'grass/useful-buffer-p
+                             (mapcar (function buffer-name) (buffer-list))))
          (candidate-buffer (nth 1 candidate-buffers)))
-         (if candidate-buffer
-           (switch-to-buffer (nth 1 candidate-buffers)))))
+    (if candidate-buffer
+        (switch-to-buffer (nth 1 candidate-buffers)))))
 
 ;; Common files
 
@@ -137,14 +142,39 @@ Repeated invocations toggle between the two most recently open buffers."
 (defun grass/search-work-notes (&optional symbol)
   "Conduct a text search across my work notes."
   (interactive
-    (list (rxt-quote-pcre (or (doom-thing-at-point-or-region) ""))))
+   (list (rxt-quote-pcre (or (doom-thing-at-point-or-region) ""))))
   (+ivy/project-search nil symbol "~/Dropbox/Notes/Work/Envato"))
 
 (defun grass/search-all-notes (&optional symbol)
   "Conduct a text search across my work notes."
   (interactive
-    (list (rxt-quote-pcre (or (doom-thing-at-point-or-region) ""))))
+   (list (rxt-quote-pcre (or (doom-thing-at-point-or-region) ""))))
   (+ivy/project-search nil symbol "~/Dropbox/Notes"))
+
+;; Comment box
+
+(defun grass/point-is-in-comment-p ()
+  "t if point is in comment or at the beginning of a commented line, otherwise nil"
+  (or (nth 4 (syntax-ppss))
+      (looking-at "^\\s *\\s<")))
+
+(defun grass/move-point-forward-out-of-comment ()
+  "Move point forward until it's no longer in a comment"
+  (while (grass/point-is-in-comment-p)
+    (forward-char)))
+
+;; TODO Remove region params to interactive
+;; http://stackoverflow.com/a/21051395/62023
+(defun grass/comment-box (beg end &optional arg)
+  (interactive "*r\np")
+  ;; (when (not (region-active-p))
+  (when (not (and transient-mark-mode mark-active))
+    (setq beg (point-at-bol))
+    (setq end (point-at-eol)))
+  (let ((fill-column (- fill-column 6)))
+    (fill-region beg end))
+  (comment-box beg end arg)
+  (grass/move-point-forward-out-of-comment))
 
 ;; Packages
 
@@ -159,25 +189,84 @@ Repeated invocations toggle between the two most recently open buffers."
   :config
   (setq git-link-open-in-browser t))
 
+;; Subtle highlight when switching buffers etc...
+(use-package! beacon
+  :init
+  (setq beacon-color "#eaa427")
+  (setq beacon-blink-when-window-scrolls nil)
+  (beacon-mode 1))
+
+(use-package! ox-pandoc
+  :after org
+  :init
+  (setq org-pandoc-options-for-markdown '((atx-headers . t))
+        org-pandoc-options-for-markdown_mmd '((atx-headers . t))
+        org-pandoc-options-for-markdown_github '((atx-headers . t)))
+  (with-eval-after-load 'org (require 'ox-pandoc)))
+
+(use-package! ox-slack
+  :after org
+  :commands org-slack-export-as-slack)
+
+;; See which commands I use
+(use-package! keyfreq
+  :init
+  (setq keyfreq-excluded-commands
+        '(self-insert-command
+          abort-recursive-edit
+          forward-char
+          backward-char
+          previous-line
+          next-line
+          right-char
+          left-char))
+  (keyfreq-mode 1)
+  (keyfreq-autosave-mode 1))
+
+(use-package! crux
+  :defer
+  :commands (crux-indent-defun crux-cleanup-buffer-or-region crux-move-beginning-of-line)
+  :config
+  (crux-with-region-or-buffer indent-region)
+  (crux-with-region-or-buffer untabify))
+
+
+;; Secrets
+(load "~/.emacs.secrets" t)
+
+(after! lsp
+  (setq lsp-clients-elixir-server-executable "~/dev/elixir-ls/rel/language_server.sh"))
+
+
 ;; My keybinds
 
 (map! :leader
       :desc "Switch to last useful buffer" "`" #'grass/switch-to-previous-buffer
       (:prefix ("k" . "Grass keybinds")
-        "w" #'grass/open-work-log
-        "n" #'grass/find-notes
+       "w" #'grass/open-work-log
+       "n" #'grass/find-notes
 
-        (:prefix ("s" . "Search")
-         "w" #'grass/search-work-notes
-         "n" #'grass/search-all-notes)
+       (:prefix ("e" . "Edit")
+        "f" 'crux-indent-defun
+        "i" 'crux-cleanup-buffer-or-region
+        "w" 'whitespace-cleanup)
 
-        (:prefix ("G" . "Git")
-          "l" #'git-link
-          "c" #'git-link-commit)))
+       (:prefix ("s" . "Search")
+        "w" #'grass/search-work-notes
+        "n" #'grass/search-all-notes)
+
+       (:prefix ("G" . "Git")
+        "l" #'git-link
+        "c" #'git-link-commit)))
 
 (after! org
   (map! :leader
-        "kg" #'org-mac-grab-link))
+        "kg" #'org-mac-grab-link
+        "kS" #'org-slack-export-as-slack))
 
 (after! dired
-  (define-key dired-mode-map [return] 'dired-find-alternate-file))
+  (setq dired-recursive-copies 'always)
+  (setq dired-recursive-deletes 'always)
+  (define-key dired-mode-map [return] 'dired-find-alternate-file)
+  (map!
+   :n "-" #'dired-jump))

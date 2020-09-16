@@ -9,6 +9,11 @@
 ;(package! some-package)
 
 (package! git-link)
+(package! beacon)
+(package! keyfreq)
+(package! ox-slack)
+(package! ox-pandoc)
+(package! crux)
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
