@@ -169,6 +169,13 @@ done
 IFS=$SAVEIFS
 ok
 
+# TODO rename my old emacs config so it doesn't clash with this
+step "Install Doom emacs"
+if [ ! -d ~/.emacs.d ]; then
+  git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+  ~/.emacs.d/bin/doom install
+fi
+
 step "Install dev colour picker"
 mkdir -p ~/Library/ColorPickers
 if [ ! -d ~/Library/ColorPickers/DeveloperColorPicker.colorPicker ]; then
