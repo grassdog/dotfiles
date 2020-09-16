@@ -27,18 +27,13 @@
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-one)
 
-;; My font
-;; TODO adjust based upon (display-pixel-width)
-;; (frame-monitor-geometry)
-
+;; Set font based upon screen height
 (let* ((geometry (frame-monitor-geometry))
       (height (nth 3 geometry)))
   (if (> height 1000)
      (setq doom-font (font-spec :family "Operator Mono" :size 14 :weight 'light))
      (setq doom-font (font-spec :family "Operator Mono" :size 13 :weight 'light))))
 
-
-(setq doom-localleader-key ",")
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -107,3 +102,36 @@
 (add-hook 'auto-save-hook 'grass/auto-save-all)
 (add-hook 'mouse-leave-buffer-hook 'grass/auto-save-all)
 (add-hook 'focus-out-hook 'grass/auto-save-all)
+
+;; Useful buffer
+(defun grass/useful-buffer-p (&optional potential-buffer-name)
+  "Return t if current buffer is a user buffer, else nil."
+  (interactive)
+  (let ((buffer-to-test (or potential-buffer-name (buffer-name))))
+    (if (string-equal "*" (substring (s-trim-left buffer-to-test) 0 1))
+      nil
+      (if (string-match "dired" (symbol-name
+                                  (with-current-buffer potential-buffer-name
+                                    major-mode)))
+        nil
+        t))))
+
+(defun grass/switch-to-previous-buffer ()
+  "Switch to previously open buffer.
+Repeated invocations toggle between the two most recently open buffers."
+  (interactive)
+  (let* ((candidate-buffers (cl-remove-if-not
+                              #'grass/useful-buffer-p
+                              (mapcar (function buffer-name) (buffer-list))))
+         (candidate-buffer (nth 1 candidate-buffers)))
+         (if candidate-buffer
+           (switch-to-buffer (nth 1 candidate-buffers)))))
+
+
+
+;; (setq grass/thirdleader-key ",")
+;; TODO Map
+;; "gl" 'git-link
+;; "gc" 'git-link-commit
+(map! :leader
+      :desc "Switch to last useful buffer" "`"    #'grass/switch-to-previous-buffer)

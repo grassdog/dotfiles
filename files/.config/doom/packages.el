@@ -13,6 +13,13 @@
   :defer
   :commands org-mac-grab-link)
 
+(use-package! git-link
+  :defer
+  :commands (git-link git-link-commit)
+  :config
+  (setq git-link-open-in-browser t))
+
+
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
 ;; https://github.com/raxod502/straight.el#the-recipe-format
