@@ -30,7 +30,13 @@
 ;; My font
 ;; TODO adjust based upon (display-pixel-width)
 ;; (frame-monitor-geometry)
-(setq doom-font (font-spec :family "Operator Mono" :size 13 :weight 'light))
+
+(let* ((geometry (frame-monitor-geometry))
+      (height (nth 3 geometry)))
+  (if (> height 1000)
+     (setq doom-font (font-spec :family "Operator Mono" :size 14 :weight 'light))
+     (setq doom-font (font-spec :family "Operator Mono" :size 13 :weight 'light))))
+
 
 (setq doom-localleader-key ",")
 
@@ -88,20 +94,16 @@
         "G" #'org-mac-grab-link))
 
 
-;; ;; Auto save on focus lost
-;; (defun grass/auto-save-all()
-;;   "Save all modified buffers that point to files."
-;;   (interactive)
-;;   (save-excursion
-;;     (dolist (buf (buffer-list))
-;;       (set-buffer buf)
-;;       (if (and (buffer-file-name) (buffer-modified-p))
-;;         (basic-save-buffer)))))
+;; Auto save on focus lost
+(defun grass/auto-save-all()
+  "Save all modified buffers that point to files."
+  (interactive)
+  (save-excursion
+    (dolist (buf (buffer-list))
+      (set-buffer buf)
+      (if (and (buffer-file-name) (buffer-modified-p))
+        (basic-save-buffer)))))
 
-;; (add-hook 'auto-save-hook 'grass/auto-save-all)
-;; (add-hook 'mouse-leave-buffer-hook 'grass/auto-save-all)
-;; (add-hook 'focus-out-hook 'grass/auto-save-all)
-;; (add-function :after after-focus-change-function
-;;                               (lambda ()
-;;                                 (unless (frame-focus-state)
-;;                                   (garbage-collect))))
+(add-hook 'auto-save-hook 'grass/auto-save-all)
+(add-hook 'mouse-leave-buffer-hook 'grass/auto-save-all)
+(add-hook 'focus-out-hook 'grass/auto-save-all)
