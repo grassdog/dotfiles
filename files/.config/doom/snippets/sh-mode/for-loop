@@ -1,0 +1,13 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: for loop from array variable
+# key: for-loop
+# --
+
+${1:ARRAY}=(
+  first
+  second
+)
+
+for ${2:ITEM} in \${$1[@]}; do
+  $0
+done

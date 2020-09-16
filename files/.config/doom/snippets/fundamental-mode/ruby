@@ -1,0 +1,36 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: ruby self-documenting script
+# key: !ruby
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
+# --
+#!/usr/bin/env ruby
+#/ Usage: ${1:`(file-name-nondirectory (buffer-file-name))`} [options]
+#/
+#/ How does this script make my life easier?
+#/
+$stderr.sync = true
+require "optparse"
+
+trap("INT") do
+  exit
+end
+
+flag    = false
+option  = "default value"
+integer = 23
+list    = ["x", "y", "z"]
+
+ARGV.options do |opts|
+  opts.banner = "#{\`grep ^#/<'#{__FILE__}'|cut -c4-\`}Options:\n"
+  opts.on("-f", "--flag")              { flag = true }
+  opts.on("-o", "--opt=val", String)   { |val| option = val }
+  opts.on("-i", "--int=val", Integer)  { |val| integer = val }
+  opts.on("--list=[x,y,z]", Array)     { |val| list = val }
+  opts.on_tail("-h", "--help", "Show help") {
+    puts opts
+    exit
+  }
+  opts.parse!
+end
+
+$0

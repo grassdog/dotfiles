@@ -1,0 +1,17 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Initiative description template
+# key: initiative-template
+# --
+# ${2:Initiative Name}
+
+## When
+
+Early 2020
+
+## Brief description
+
+$0
+
+## Documentation
+
+* [Project Document](TODO)
