@@ -28,6 +28,8 @@
 (setq doom-theme 'doom-one)
 
 ;; My font
+;; TODO adjust based upon (display-pixel-width)
+;; (frame-monitor-geometry)
 (setq doom-font (font-spec :family "Operator Mono" :size 13 :weight 'light))
 
 (setq doom-localleader-key ",")
@@ -79,6 +81,7 @@
 ;; Just quit thanks
 (setq confirm-kill-emacs nil)
 
+;; TODO Work out how to remove the previous bindings here and switch to "g"
 (after! org
   (map! :map org-mode-map
         :localleader
