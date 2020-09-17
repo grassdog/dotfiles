@@ -258,6 +258,10 @@ Repeated invocations toggle between the two most recently open buffers."
   (crux-with-region-or-buffer indent-region)
   (crux-with-region-or-buffer untabify))
 
+(after! company
+  (setq company-global-modes
+    '(not markdown-mode org-mode erc-mode help-mode gud-mode message-mode)))
+
 
 ;; Secrets
 (load "~/.emacs.secrets" t)
