@@ -262,9 +262,7 @@ Repeated invocations toggle between the two most recently open buffers."
 ;; Secrets
 (load "~/.emacs.secrets" t)
 
-(after! lsp
-  (setq lsp-clients-elixir-server-executable "~/dev/elixir-ls/rel/language_server.sh"))
-
+(setq lsp-clients-elixir-server-executable "~/dev/elixir-ls/rel/language_server.sh")
 
 ;; My keybinds
 
@@ -286,6 +284,11 @@ Repeated invocations toggle between the two most recently open buffers."
        (:prefix ("G" . "Git")
         "l" #'git-link
         "c" #'git-link-commit)))
+
+;; Put delete other windows under an easier key
+(map! :map evil-window-map
+        "o" #'delete-other-windows
+        "O" #'doom/window-enlargen)
 
 (after! org
   (map! :leader
