@@ -69,13 +69,9 @@
 
 ;; Give me four lines from the bottom
 (setq scroll-margin 4)
+(setq scroll-conservatively 100000)
 
-(setq ivy-use-selectable-prompt t)
-
-;; Give me some keybinds I like
-(after! dired
-  (map!
-   :n "-" #'dired-jump))
+(setq-default tab-width 2)
 
 ;; Arrow key window movement
 (after! evil!
