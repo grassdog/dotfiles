@@ -80,6 +80,18 @@
   (define-key evil-window-map (kbd "<up>") 'evil-window-up)
   (define-key evil-window-map (kbd "<down>") 'evil-window-down))
 
+(use-package! evil-better-visual-line
+  :after evil
+  :config
+  (evil-better-visual-line-on)
+  (define-key evil-operator-state-map (kbd "<down>") #'evil-better-visual-line-next-line)
+  (define-key evil-normal-state-map (kbd "<down>") #'evil-better-visual-line-next-line)
+  (define-key evil-visual-state-map (kbd "<down>") #'evil-better-visual-line-next-line)
+  (define-key evil-operator-state-map (kbd "<up>") #'evil-better-visual-line-previous-line)
+  (define-key evil-normal-state-map (kbd "<up>") #'evil-better-visual-line-previous-line)
+  (define-key evil-visual-state-map (kbd "<up>") #'evil-better-visual-line-previous-line))
+
+
 ;; Just quit thanks
 (setq confirm-kill-emacs nil)
 
