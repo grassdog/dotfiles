@@ -263,6 +263,14 @@ Repeated invocations toggle between the two most recently open buffers."
     '(not markdown-mode org-mode erc-mode help-mode gud-mode message-mode)))
 
 
+;; Don't auto close pairs thanks
+(after! smartparens
+  (add-hook! text-mode
+    (turn-off-smartparens-mode))
+  (add-hook! prog-mode
+    (turn-off-smartparens-mode)))
+
+
 ;; Secrets
 (load "~/.emacs.secrets" t)
 
