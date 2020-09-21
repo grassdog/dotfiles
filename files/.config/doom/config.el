@@ -271,7 +271,8 @@ Repeated invocations toggle between the two most recently open buffers."
     (turn-off-smartparens-mode)))
 
 (add-hook! org-mode
-  (doom-disable-line-numbers-h))
+  (doom-disable-line-numbers-h)
+  (flycheck-mode -1))
 
 ;; Secrets
 (load "~/.emacs.secrets" t)
