@@ -151,7 +151,7 @@ function rubo-changed() {
 }
 
 function install-gems() {
-  gem install bundler pry-byebug pry rufo solargraph rspotify
+  gem install bundler pry-byebug pry rufo rubocop solargraph rspotify
 }
 
 #######
