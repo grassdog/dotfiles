@@ -286,6 +286,7 @@ Repeated invocations toggle between the two most recently open buffers."
       (:prefix ("k" . "Grass keybinds")
        "w" #'grass/open-work-log
        "n" #'grass/find-notes
+       "u" #'browse-url
 
        (:prefix ("e" . "Edit")
         "f" 'crux-indent-defun
