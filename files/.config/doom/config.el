@@ -311,6 +311,35 @@ Repeated invocations toggle between the two most recently open buffers."
         "kg" #'org-mac-grab-link
         "kS" #'org-slack-export-as-slack))
 
+;; Add Ruby block text objects
+(after! ruby-mode
+  (evil-define-text-object evil-inner-ruby-block (count &optional beg end type)
+    "Select a Ruby block."
+    :extend-selection nil
+    (evil-select-paren
+      (concat ruby-block-beg-re "\\s-+.*\n?")
+      (concat "^\s*" ruby-block-end-re)
+      beg
+      end
+      type
+      count
+      nil))
+
+  (evil-define-text-object evil-outer-ruby-block (count &optional beg end type)
+    "Select a Ruby block."
+    :extend-selection nil
+    (evil-select-paren
+      (concat ruby-block-beg-re "\\s-+")
+      ruby-block-end-re
+      beg
+      end
+      type
+      count
+      t))
+
+  (define-key evil-inner-text-objects-map "r" 'evil-inner-ruby-block)
+  (define-key evil-outer-text-objects-map "r" 'evil-outer-ruby-block))
+
 (after! dired
   (setq dired-recursive-copies 'always)
   (setq dired-recursive-deletes 'always)
