@@ -346,3 +346,7 @@ Repeated invocations toggle between the two most recently open buffers."
   (define-key dired-mode-map [return] 'dired-find-alternate-file)
   (map!
    :n "-" #'dired-jump))
+
+(after! csv-mode
+  (add-hook! csv-mode
+    (toggle-truncate-lines +1)))
