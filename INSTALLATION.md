@@ -94,6 +94,8 @@ Check the status of services via `brew services list`.
     - Set idle detection to 10 minutes
     - Show timer on menu bar
     - Don't show dock icon
+- Bear
+    - Set global shortcut to new note `⌃⌥⇧⌘a` 
 - DayOne
     - Setup sync
     - Baskerville 18pt, no auto bold, no twitter names

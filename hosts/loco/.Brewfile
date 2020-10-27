@@ -79,6 +79,7 @@ cask 'visual-studio-code'
 cask 'vlc'
 
 tap 'argon/homebrew-mas'
+mas 'Bear', id: 1091189122
 mas 'Affinity Photo', id: 824183456
 mas 'Capo 3', id: 696977615
 mas 'Clocks', id: 414554506
