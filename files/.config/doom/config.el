@@ -224,6 +224,18 @@ Repeated invocations toggle between the two most recently open buffers."
   (setq beacon-blink-when-window-scrolls nil)
   (beacon-mode 1))
 
+(defun grass/markdown-open-in-marked-app ()
+  "Run Marked.app on the current file"
+  (interactive)
+  (shell-command
+   (format "open -a 'Marked 2' %s"
+           (shell-quote-argument (buffer-file-name)))))
+
+(after! markdown-mode
+  (map! :map markdown-mode-map
+        :localleader
+        "p" #'grass/markdown-open-in-marked-app))
+
 (use-package! ox-pandoc
   :after org
   :init
