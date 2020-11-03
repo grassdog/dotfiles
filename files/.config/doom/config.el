@@ -359,6 +359,9 @@ Repeated invocations toggle between the two most recently open buffers."
   (map!
    :n "-" #'dired-jump))
 
+(after! web-mode
+  (setq-default web-mode-markup-indent-offset 2))
+
 (after! csv-mode
   (add-hook! csv-mode
     (toggle-truncate-lines +1)))
