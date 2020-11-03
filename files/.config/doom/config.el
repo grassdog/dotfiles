@@ -360,7 +360,10 @@ Repeated invocations toggle between the two most recently open buffers."
    :n "-" #'dired-jump))
 
 (after! web-mode
-  (setq-default web-mode-markup-indent-offset 2))
+  (setq-default web-mode-markup-indent-offset tab-width)
+  (setq-default web-mode-css-indent-offset tab-width)
+  (setq-default web-mode-code-indent-offset tab-width)
+  (setq-default web-mode-sql-indent-offset tab-width))
 
 (after! csv-mode
   (add-hook! csv-mode
