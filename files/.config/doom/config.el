@@ -395,3 +395,5 @@ Repeated invocations toggle between the two most recently open buffers."
 ;; Save current buffer before running a specs
 (after! rspec-mode
   (setq rspec-autosave-buffer t))
+
+(global-set-key (kbd "<backtab>") 'doom/dumb-dedent)
