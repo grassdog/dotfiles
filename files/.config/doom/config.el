@@ -369,29 +369,6 @@ Repeated invocations toggle between the two most recently open buffers."
   (add-hook! csv-mode
     (toggle-truncate-lines +1)))
 
-;; Use enh-ruby-mode for more sane indenting
-(use-package! enh-ruby-mode
-  :mode (("\\.rb$"        . enh-ruby-mode)
-         ("\\.ru$"        . enh-ruby-mode)
-         ("\\.rake$"      . enh-ruby-mode)
-         ("\\.gemspec$"   . enh-ruby-mode)
-         ("\\.?pryrc$"    . enh-ruby-mode)
-         ("/.?Brewfile$" . enh-ruby-mode)
-         ("/Gemfile$"     . enh-ruby-mode)
-         ("/Guardfile$"   . enh-ruby-mode)
-         ("/Capfile$"     . enh-ruby-mode)
-         ("/Vagrantfile$" . enh-ruby-mode)
-         ("/Rakefile$"    . enh-ruby-mode))
-  :interpreter "ruby"
-  :config
-  ;; Indentation
-  (setq ruby-indent-level 2)
-  (setq enh-ruby-deep-indent-paren nil)
-  (setq ruby-deep-indent-paren nil)
-  (setq enh-ruby-bounce-deep-indent nil)
-  (setq enh-ruby-hanging-brace-indent-level 2)
-  (setq enh-ruby-indent-level 2))
-
 ;; Save current buffer before running a specs
 (after! rspec-mode
   (setq rspec-autosave-buffer t))
