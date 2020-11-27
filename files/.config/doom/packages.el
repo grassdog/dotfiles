@@ -11,7 +11,8 @@
 (package! git-link)
 (package! beacon)
 (package! keyfreq)
-(package! ox-slack)
+(package! ox-slack
+ :recipe (:local-repo "local/ox-slack"))
 (package! ox-pandoc)
 (package! crux)
 (package! evil-better-visual-line)
