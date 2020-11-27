@@ -169,7 +169,9 @@ a communication channel."
                   (org-export-file-uri (funcall link-org-files-as-md raw-path)))
                  (t raw-path))))
           (if (not contents) (format "%s" path)
-            (format "*%s* (%s)" contents path)))))))
+            ;; (format "*%s* (%s)" contents path)))))))
+            ;; Use markdown format for links
+            (format "[%s](%s)" contents path)))))))
 
 (defun org-slack-verbatim (_verbatim contents _info)
   "Transcode VERBATIM from Org to Slack.
