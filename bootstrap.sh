@@ -141,13 +141,6 @@ mkdir -p $HOME/.vim/autoload
 [ ! -f $HOME/.vim/autoload/plug.vim ] && curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ok
 
-step "Link vscode config"
-mkdir -p "$HOME/Library/Application Support/Code/User"
-ln -sf $HOME/Dropbox/Backups/vscode/keybindings.json "$HOME/Library/Application Support/Code/User"
-ln -sf $HOME/Dropbox/Backups/vscode/settings.json "$HOME/Library/Application Support/Code/User"
-ln -sf $HOME/Dropbox/Backups/vscode/snippets "$HOME/Library/Application Support/Code/User"
-ok
-
 step "Link Karabiner config"
 mkdir -p ~/.config/karabiner
 [ ! -f $HOME/.config/karabiner/karabiner.json ] && ln -sf "$HOME/Dropbox/Backups/karabiner/karabiner.json" "$HOME/.config/karabiner"
