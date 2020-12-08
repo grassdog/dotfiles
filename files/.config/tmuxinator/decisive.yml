@@ -8,5 +8,4 @@ windows:
       layout: even-horizontal
       panes:
         -
-        - docker/exec bash
-  - docker: docker/start
+        - bin/server
