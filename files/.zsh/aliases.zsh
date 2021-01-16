@@ -159,7 +159,7 @@ function install-gems() {
 #######
 
 function install-node-modules() {
-  npm install -g prettier tern jsonlint spaceship-prompt
+  npm install -g prettier @prettier/plugin-ruby tern jsonlint spaceship-prompt
 }
 
 ############
