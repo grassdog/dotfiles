@@ -301,7 +301,8 @@ Repeated invocations toggle between the two most recently open buffers."
        "u" #'browse-url
 
        (:prefix ("e" . "Edit")
-        "f" 'crux-indent-defun
+        "F" 'crux-indent-defun
+        "f" 'format-all-buffer
         "i" 'crux-cleanup-buffer-or-region
         "w" 'whitespace-cleanup)
 
@@ -374,3 +375,7 @@ Repeated invocations toggle between the two most recently open buffers."
   (setq rspec-autosave-buffer t))
 
 (global-set-key (kbd "<backtab>") 'doom/dumb-dedent)
+
+;; TODO work out how to Override rufo with prettier for ruby
+;;(after! format
+;;  (setq format-all-default-formatters (cons '("Ruby" prettier) format-all-default-formatters)))
