@@ -1,15 +1,14 @@
 # /Users/ray/.config/tmuxinator/docs.yml
 
 name: docs
-root: ~/src/elements-wiki
 
 windows:
-  - arch:
-      root: ~/src/architecture-guild
-  - elements:
-      layout: even-horizontal
+  - tech:
+      root: ~/src/technology-team-docs
+      layout: main-horizontal
       panes:
         -
         - server:
-          - cd publish
-          - yarn start
+          - bin/run
+  - arch:
+      root: ~/src/architecture-guild
