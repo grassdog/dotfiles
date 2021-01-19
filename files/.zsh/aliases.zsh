@@ -258,7 +258,7 @@ f() {
 # Modified version where you can press
 #   - CTRL-O to open with `open` command,
 #   - CTRL-E or Enter key to open with Emacs
-ef() {
+fe() {
   local out file key
   IFS=$'\n' out=($(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
   key=$(head -1 <<< "$out")
@@ -267,6 +267,21 @@ ef() {
     [ "$key" = ctrl-o ] && open "$file" || ~/.bin/emacs-start "$file"
   fi
 }
+
+# fc [FUZZY PATTERN] - Open the selected file with code
+# Modified version where you can press
+#   - CTRL-O to open with `open` command,
+#   - CTRL-E or Enter key to open with Emacs
+fc() {
+  local out file key
+  IFS=$'\n' out=($(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
+  key=$(head -1 <<< "$out")
+  file=$(head -2 <<< "$out" | tail -1)
+  if [ -n "$file" ]; then
+    [ "$key" = ctrl-o ] && open "$file" || code "$file"
+  fi
+}
+
 
 # v - open files in ~/.viminfo
 fv() {
@@ -366,4 +381,3 @@ fs() {
     fzf --query="$1" --select-1 --exit-0) &&
   tmux switch-client -t "$session"
 }
-
