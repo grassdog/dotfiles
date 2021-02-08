@@ -31,7 +31,7 @@
 (let* ((geometry (frame-monitor-geometry))
        (height (nth 3 geometry)))
   (if (> height 1000)
-      (setq doom-font (font-spec :family "Operator Mono" :size 14 :weight 'book))
+      (setq doom-font (font-spec :family "Operator Mono" :size 16 :weight 'book))
     (setq doom-font (font-spec :family "Operator Mono" :size 13 :weight 'book))))
 
 
