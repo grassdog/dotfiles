@@ -1,5 +1,3 @@
-export PATH="~/.composer/vendor/bin:/usr/local/opt/postgresql@9.6/bin:${PATH}"
-
 PROMPT_ORDER=(
   time
   status
@@ -14,10 +12,6 @@ PROMPT_ORDER=(
 ###################
 # Version managers
 ###################
-
-eval "$(nodenv init -)"
-
-source /usr/local/opt/asdf/asdf.sh
 
 # Look for trusted local binaries in path
 export PATH="./.git/safe/../../bin:${PATH}"
@@ -70,6 +64,4 @@ ssh-add-all() {
     [[ -r $key ]] && ssh-add -K $key
   done
 }
-
-alias aws-actuals="~/src/identity-infrastructure/aws-analysis/rollup-aws-actuals ~/Downloads/ecsv_*.csv | tr '|' ,"
 
