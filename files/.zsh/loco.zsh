@@ -8,15 +8,6 @@ export PATH=/usr/local/opt/asdf/shims:/usr/local/opt/asdf/bin:$PATH:$GOPATH/bin
 # Add Haskell stack to the path
 export PATH=~/.local/bin/:$PATH
 
-# Chruby
-if [[ -e /usr/local/opt/chruby/share/chruby/chruby.sh ]]; then
-  source /usr/local/opt/chruby/share/chruby/chruby.sh
-  source /usr/local/opt/chruby/share/chruby/auto.sh
-  [[ -r ~/.ruby-version ]] && chruby $(cat ~/.ruby-version)
-  [[ -r ./.ruby-version ]] && chruby $(cat ./.ruby-version)
-fi
-
-
 # Remove the need for bundle exec ... or ./bin/...
 # by adding ./bin to path if the current project is trusted
 

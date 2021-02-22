@@ -151,6 +151,12 @@ mkdir -p ~/.tmux/plugins
 [ ! -d $HOME/.tmux/plugins/tpm ] && git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
 ok
 
+step "Install asdf plugins"
+asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
+asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
+ok
+
 step "Install service menu items"
 mkdir -p ~/Library/Services
 SAVEIFS=$IFS

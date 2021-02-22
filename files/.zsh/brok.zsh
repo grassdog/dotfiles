@@ -19,14 +19,6 @@ eval "$(nodenv init -)"
 
 source /usr/local/opt/asdf/asdf.sh
 
-# Chruby
-if [[ -e /usr/local/opt/chruby/share/chruby/chruby.sh ]]; then
-  source /usr/local/opt/chruby/share/chruby/chruby.sh
-  source /usr/local/opt/chruby/share/chruby/auto.sh
-  [[ -r ~/.ruby-version ]] && chruby $(cat ~/.ruby-version)
-  [[ -r ./.ruby-version ]] && chruby $(cat ./.ruby-version)
-fi
-
 # Look for trusted local binaries in path
 export PATH="./.git/safe/../../bin:${PATH}"
 

@@ -7,8 +7,9 @@ Some post-bootstrap steps.
 $ brew bundle -v --file=~/.Brewfile.apps
 
 # Add asdf plugins
-$ asdf plugin-add nodejs
-$ asdf plugin-add elixir
+$ asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
+$ asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+$ asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
 
 $ npm install -g prettier tern jsonlint spaceship-prompt
 
