@@ -163,7 +163,9 @@ if type direnv >/dev/null 2>&1; then
   eval "$(direnv hook zsh)"
 fi
 
-[[ -r /usr/local/opt/asdf/asdf.sh ]] && source /usr/local/opt/asdf/asdf.sh
+ASDF_PATH="$(brew --prefix asdf)/asdf.sh"
+
+[[ -r "$ASDF_PATH" ]] && source "$ASDF_PATH"
 
 # Remove the need for bundle exec ... or ./bin/...
 # by adding ./bin to path if the current project is trusted
