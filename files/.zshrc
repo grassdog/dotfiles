@@ -163,6 +163,9 @@ if type direnv >/dev/null 2>&1; then
   eval "$(direnv hook zsh)"
 fi
 
+# tmuxinator is setting this for some reason so unset it
+unset GEM_HOME
+
 ASDF_PATH="$(brew --prefix asdf)/asdf.sh"
 
 [[ -r "$ASDF_PATH" ]] && source "$ASDF_PATH"
