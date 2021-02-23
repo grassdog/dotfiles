@@ -1,13 +1,3 @@
-# Go
-export GOPATH=$HOME/.golang
-export GOROOT=/usr/local/opt/go/libexec
-
-# Prepend asdf
-export PATH=/usr/local/opt/asdf/shims:/usr/local/opt/asdf/bin:$PATH:$GOPATH/bin
-
-# Add Haskell stack to the path
-export PATH=~/.local/bin/:$PATH
-
 # Remove the need for bundle exec ... or ./bin/...
 # by adding ./bin to path if the current project is trusted
 
