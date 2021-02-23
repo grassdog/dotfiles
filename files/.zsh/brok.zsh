@@ -9,6 +9,9 @@ PROMPT_ORDER=(
   elixir
 )
 
+# Not sure why this is being set by tmuxinator but we need to clear it
+unset GEM_HOME
+
 ##############
 # AWS Helpers
 ##############
