@@ -3,10 +3,7 @@ PROMPT_ORDER=(
   status
   context
   git
-  ruby
-  node
   aws_session
-  elixir
 )
 
 ##############
