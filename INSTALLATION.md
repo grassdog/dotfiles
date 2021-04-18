@@ -44,6 +44,8 @@ Check the status of services via `brew services list`.
     - Keyboard > Shortcuts > Services > OpenPGP: Encrypt Selection to `ctrl-cmd-=`
     - Keyboard > Shortcuts > Services > OpenPGP: Verify Signature Selection to `ctrl-cmd-shift--`
     - Keyboard > Shortcuts > Services > OpenPGP: Sign Selection to `ctrl-cmd-shift-=`
+    - Keyboard > Shortcuts > Services > Copy markdown link into Bear `⌃⌥⇧⌘b`
+    - Keyboard > Shortcuts > Services > Copy current page as markdown link `⌃⌥⇧⌘c`
     - Trackpad > Disable Two finger click
     - Trackpad > Disable Smart zoom and Rotate
     - Trackpad > Disable swipe between pages
