@@ -40,10 +40,6 @@ Check the status of services via `brew services list`.
     - Keyboard > Shortcuts > Spotlight > Change spotlight to `ctrl-option-cmd-space`
     - Keyboard > Shortcuts > Spotlight > Switch off show finder search window
     - Keyboard > Shortcuts > Mission Control > Disable all Mission Control key shortcuts
-    - Keyboard > Shortcuts > Services > OpenPGP: Decrypt Selection to `ctrl-cmd--`
-    - Keyboard > Shortcuts > Services > OpenPGP: Encrypt Selection to `ctrl-cmd-=`
-    - Keyboard > Shortcuts > Services > OpenPGP: Verify Signature Selection to `ctrl-cmd-shift--`
-    - Keyboard > Shortcuts > Services > OpenPGP: Sign Selection to `ctrl-cmd-shift-=`
     - Keyboard > Shortcuts > Services > Copy markdown link into Bear `⌃⌥⇧⌘b`
     - Keyboard > Shortcuts > Services > Copy current page as markdown link `⌃⌥⇧⌘c`
     - Trackpad > Disable Two finger click
@@ -114,8 +110,6 @@ Check the status of services via `brew services list`.
 - Install Lightroom Classic from Adobe CC
     - Copy across Lightroom catalog and masters from USB backup
     - Copy across Lightroom presets from backup into new location `~/Library/Application Support/Adobe/Lightroom/{Develop Preset,Export Presets,Filename Templates}`
-- OpenGPG
-    - Copy across any keys from 1Password
 - VSCode
     - Install command line tools
     - Run `~/dev/scripts/vscode-extensions install`

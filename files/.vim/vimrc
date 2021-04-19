@@ -517,6 +517,7 @@ nnoremap <leader>bk :bdelete<cr>
 nnoremap <leader>bt :Tags<cr>
 nnoremap <leader>fr :FZFMru<cr>
 
+"let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
 
 """"""""""""""""""""""" }}}
 " Git                   {{{
