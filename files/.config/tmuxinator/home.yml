@@ -53,7 +53,8 @@ windows:
       panes:
         - cd ~/.dotfiles
         -
-  - dev:
+  - scripts:
+        - cd ~/dev/scripts
   - mindmaps:
       root: ~/Dropbox/Documents/MindMaps/Envato
 
