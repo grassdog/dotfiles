@@ -3,6 +3,7 @@
 # Basically just keep lints and leave the style ones alone.
 
 AllCops:
+  TargetRubyVersion: 2.7
   DisplayCopNames: true
   Exclude:
     - 'vendor/**/*'
