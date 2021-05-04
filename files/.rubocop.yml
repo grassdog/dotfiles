@@ -5,17 +5,67 @@
 AllCops:
   TargetRubyVersion: 2.7
   DisplayCopNames: true
+  NewCops: enable
   Exclude:
     - 'vendor/**/*'
     - 'spec/fixtures/**/*'
     - 'tmp/**/*'
+    - "node_modules/**/*"
 
-Style:
-  Enabled: false
+# Disabling a bunch of rules so rubocop plays nicely with prettier
+
+# There are the equivalent of
+# inherit_from:
+#  - node_modules/@prettier/plugin-ruby/rubocop.yml
+
+# Disabling all Layout/* rules, as they're unnecessary when the user is using
+# prettier to handle all of the formatting.
 
 Layout:
   Enabled: false
 
+# Disabling all of the following options because they could conflict with a
+# prettier configuration setting.
+
+Style/MultilineIfModifier: # rubyModifier
+  Enabled: false
+
+Style/SymbolArray: # rubyArrayLiteral
+  Enabled: false
+
+Style/WordArray: # rubyArrayLiteral
+  Enabled: false
+
+Style/TrailingCommaInArguments: # trailingComma
+  Enabled: false
+
+Style/TrailingCommaInArrayLiteral: # trailingComma
+  Enabled: false
+
+Style/TrailingCommaInHashLiteral: # trailingComma
+  Enabled: false
+
+Style/Lambda:
+  Enabled: false
+
+
+# Some of my extensions to the above for prettier
+#
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/StringLiteralsInInterpolation:
+  Enabled: false
+
+#
+# I don't generally find the cops below useful
+#
 Metrics:
+  Enabled: false
+
+Style/Documentation:
   Enabled: false
 
