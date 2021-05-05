@@ -19,21 +19,15 @@ call plug#begin('~/.vim/plugged')
 
 " Core
 Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-git'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'godlygeek/tabular'
 " Use a hardwired version for now
 " Plug 'dracula/vim'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'mbbill/undotree'
 Plug 'bogado/file-line'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'vim-airline/vim-airline'
@@ -46,7 +40,6 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'benmills/vimux'
 
 " Text objects and motions
-Plug 'michaeljsmith/vim-indent-object'
 Plug 'bkad/CamelCaseMotion'
 Plug 'kana/vim-textobj-user'
 Plug 'rhysd/vim-textobj-ruby'
@@ -64,19 +57,14 @@ Plug 'vim-scripts/EasyGrep'
 Plug 'jremmen/vim-ripgrep'
 Plug 'henrik/vim-open-url'
 Plug 'grassdog/tagman.vim'
-Plug 'vim-scripts/YankRing.vim'
-Plug 'pelodelfuego/vim-swoop'
-Plug 'janko-m/vim-test'
+Plug 'vim-test/vim-test'
 
 " Languages
 Plug 'sheerun/vim-polyglot'
 Plug 'jceb/vim-orgmode'
-Plug 'tpope/vim-speeddating'
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
 " Ruby
 Plug 'tpope/vim-endwise'
-Plug 'jgdavey/vim-blockle'
 Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'ruby-formatter/rufo-vim'
 
@@ -165,6 +153,10 @@ set nopaste
 
 set cursorline
 
+set nofoldenable
+set foldlevelstart=99
+
+
 """"""""""""""""""""""" }}}
 " Statusline            {{{
 """""""""""""""""""""""
@@ -176,19 +168,6 @@ let g:airline_skip_empty_sections = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_min_count = 2
-
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
-nmap <leader>- <Plug>AirlineSelectPrevTab
-nmap <leader>+ <Plug>AirlineSelectNextTab
 
 set laststatus=2  " always show the status bar
 set showmode
@@ -295,31 +274,6 @@ set noswapfile
 set writebackup
 
 set autoread                  " Just load a changed file
-
-
-""""""""""""""""""""""" }}}
-" Folding               {{{
-"""""""""""""""""""""""
-
-set nofoldenable
-set foldlevelstart=99
-
-function! MyFoldText()
-  let line = getline(v:foldstart)
-
-  let nucolwidth = &fdc + &number * &numberwidth
-  let windowwidth = winwidth(0) - nucolwidth - 3
-  let foldedlinecount = v:foldend - v:foldstart
-
-  " expand tabs into spaces
-  let onetab = strpart('          ', 0, &tabstop)
-  let line = substitute(line, '\t', onetab, 'g')
-
-  let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-  let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-  return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
-endfunction
-set foldtext=MyFoldText()
 
 
 """"""""""""""""""""""" }}}
@@ -432,23 +386,6 @@ nnoremap <leader>ew :StripWhitespace<cr>
 " Format the entire file
 nnoremap <leader>ef m'ggVG=``zzg
 
-" Indent text object
-let g:indentobject_meaningful_indentation = ["haml", "sass", "python", "yaml", "markdown"]
-
-
-""""""""""""""""""""""" }}}
-" Yank-Ring             {{{
-"""""""""""""""""""""""
-
-let g:yankring_clipboard_monitor=0
-let g:yankring_replace_n_pkey = '<leader>['
-let g:yankring_replace_n_nkey = '<leader>]'
-let g:yankring_history_dir = '~/.cache/vim/tmp'
-nmap <leader>Y :YRShow<cr>
-
-function! YRRunAfterMaps()
-  nnoremap <silent> Y  :<C-U>YRYankCount 'y$'<CR>
-endfunction
 
 " Instead of moving lines move lines in quickfix window
 nnoremap <C-P> :cp<cr>
@@ -529,9 +466,6 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 " Search for merge conflict markers
 nnoremap <silent> <leader>sgc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 
-" Grab a github link from current selection
-vmap <leader>g :Gbrowse!<cr>
-
 
 """"""""""""""""""""""" }}}
 " Ctags                 {{{
@@ -556,38 +490,6 @@ nnoremap Q @@
 
 " Only rerender after a macro is run
 set lazyredraw
-
-" Add ability to save and restore macros
-let s:macro_file = $HOME."/Dropbox/Backups/vim/macros.json"
-
-function! s:macro_list(ArgLead, CmdLine, CursorPos)
-  let macros = json_decode(join(readfile(s:macro_file, 'b')))
-  return join(keys(macros), "\n")
-endfunction
-
-function! s:GetMacro(macro_name)
-  let macros = json_decode(join(readfile(s:macro_file, 'b')))
-  echom macros[a:macro_name]
-endfunction
-
-command! -nargs=1 -complete=custom,s:macro_list GetMacro call s:GetMacro(<f-args>)
-
-function! s:SetMacro(macro_name, reg)
-  let macros = json_decode(join(readfile(s:macro_file, 'b')))
-
-  call setreg(a:reg, macros[a:macro_name])
-endfunction
-
-command! -nargs=+ SetMacro call s:SetMacro(<f-args>)
-
-function! s:SaveMacro(macro_name, reg)
-  let macros = json_decode(join(readfile(s:macro_file, 'b')))
-  let macros[a:macro_name] = getreg(a:reg)
-  call writefile([json_encode(macros)], s:macro_file)
-endfunction
-
-command! -nargs=+ SaveMacro call s:SaveMacro(<f-args>)
-
 
 """"""""""""""""""""""" }}}
 " All files             {{{
@@ -867,20 +769,6 @@ let g:UltiSnipsDontReverseSearchPath = "1"
 
 
 """"""""""""""""""""""" }}}
-" Wordy                 {{{
-"""""""""""""""""""""""
-
-let g:wordy#ring = [
-      \ 'weak',
-      \ ['being', 'passive-voice', ],
-      \ 'weasel',
-      \ ['problematic', 'redundant', ],
-      \ ['colloquial', 'idiomatic', 'similies', ],
-      \ ]
-
-nnoremap <silent> <F11> :NextWordy<cr>
-
-""""""""""""""""""""""" }}}
 " Mouse and terminal    {{{
 """""""""""""""""""""""
 
@@ -912,9 +800,6 @@ endif
 """"""""""""""""""""""" }}}
 " GUI                   {{{
 """""""""""""""""""""""
-
-" Toggle indent guides
-noremap <leader>ui :IndentGuidesToggle<cr>
 
 " Show the syntax group in place on the text under the cursor
 nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
