@@ -69,3 +69,6 @@ Metrics:
 Style/Documentation:
   Enabled: false
 
+Style/CommentAnnotation:
+  Enabled: false
+
