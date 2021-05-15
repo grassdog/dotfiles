@@ -72,3 +72,5 @@ Style/Documentation:
 Style/CommentAnnotation:
   Enabled: false
 
+Style/FrozenStringLiteralComment:
+  Enabled: false
