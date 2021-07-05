@@ -134,6 +134,13 @@ function gpuu() {
   git push -u origin $(git-current-branch)
 }
 
+# Reset to the commit at the base of feature branch and master/main so I can craft some nice commits for pushing
+function git-rewind() {
+  local trunk="${1:-master}"
+  git reset --mixed $(git merge-base $(git rev-parse --abbrev-ref HEAD) $trunk)
+}
+
+
 #######
 # Ruby
 #######
