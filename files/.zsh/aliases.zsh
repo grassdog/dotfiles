@@ -31,8 +31,7 @@ function title() {
   fi
 }
 
-alias vi='nvim'
-alias v='vim'
+alias v='nvim'
 alias le='less -SR'
 alias be="bundle exec"
 

@@ -2,7 +2,7 @@
 # Editors
 ##########
 
-export EDITOR='vim'
+export EDITOR='nvim'
 export PAGER='less'
 export VISUAL=$EDITOR
 export SVN_EDITOR=$EDITOR
