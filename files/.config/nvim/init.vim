@@ -18,6 +18,22 @@ Plug 'nvim-treesitter/playground'
 " LSP
 Plug 'neovim/nvim-lspconfig'
 
+" Better file manager via netrw
+Plug 'tpope/vim-vinegar'
+
+" More pairs and surround operations
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-surround'
+
+" Search currently highlighted term
+Plug 'nelstrom/vim-visual-star-search'
+
+" Handle line numbers when opening files
+Plug 'bogado/file-line'
+
+" More robust repeat
+Plug 'tpope/vim-repeat'
+
 " Theme
 Plug 'dracula/vim'
 
@@ -139,6 +155,26 @@ set termguicolors
 
 set splitright
 set splitbelow
+
+""""""""
+" Netrw
+""""""""
+
+" No Netrw menu
+let g:netrw_menu      = 0
+let g:netrw_list_hide = '.DS_Store$'
+let g:netrw_liststyle =0
+
+" Preview in a vertical split
+let g:netrw_preview   = 1
+let g:netrw_winsize   = 30
+" Use the same window for all netrw windows
+" let g:netrw_chgwin=2
+
+" Remove netrw history files
+let g:netrw_dirhistmax = 0
+" Don't change current dir when browsing to different dirs
+let g:netrw_keepdir=1
 
 """""""""""
 " Commands
