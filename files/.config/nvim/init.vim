@@ -23,6 +23,16 @@ Plug 'dracula/vim'
 " Whitespace cleanup
 Plug 'axelf4/vim-strip-trailing-whitespace'
 
+" Comment line
+Plug 'tpope/vim-commentary'
+
+" Tmux and testing
+Plug 'preservim/vimux'
+Plug 'vim-test/vim-test'
+
+" Formatting
+Plug 'sbdchd/neoformat'
+
 call plug#end()
 
 """"""""""
@@ -69,7 +79,7 @@ set list
 set listchars=tab:▸\ ,trail:·,extends:»,precedes:«
 
 " backspace through everything in insert mode
-set backspace=indent,eol,start  
+set backspace=indent,eol,start
 set whichwrap+=<,>,h,l,[,]    " Allow left, right, bs, del to cross lines
 
 set number                    " add line numbers
@@ -152,9 +162,21 @@ function! s:setcwd()
 endfunction
 command! SetProjectDir :call s:setcwd()
 
+""""""""""""""""""""
+" Tmux Test helpers
+""""""""""""""""""""
+
+" make test commands execute using dispatch.vim
+let test#strategy = "vimux"
+map <Leader>tf :w <bar> TestFile<CR>
+map <Leader>tl :w <bar> TestNearest<CR>
+map <Leader>ta :wall <bar> TestSuite<CR>
+
+map <Leader>. :wall <bar> call VimuxRunLastCommand()<CR>
+
 
 """""""""""
-" Movement 
+" Movement
 """""""""""
 
 " Move across display lines, not physical lines
@@ -197,13 +219,25 @@ noremap Y y$
 " Move past the end of lines in visual block edit
 set virtualedit=block
 
-" No whitespace strip in git commit messages
-augroup grass_git
+" Don't need ex-mode. Just rerun a macro thanks
+nnoremap Q @@
+
+augroup GRASS
+  " No whitespace strip in git commit messages
   au FileType gitcommit let b:strip_trailing_whitespace_enabled=0
 augroup END
 
-" Don't need ex-mode. Just rerun a macro thanks
-nnoremap Q @@
+augroup GRASS_FORMAT
+  " autocmd BufWritePre *.js silent! Neoformat
+  " autocmd BufWritePre *.ts silent! Neoformat
+  " autocmd BufWritePre *.html silent! Neoformat
+  " autocmd BufWritePre *.css silent! Neoformat
+  " autocmd BufWritePre *.c silent! Neoformat
+  " autocmd BufWritePre *.h silent! Neoformat
+  autocmd BufWritePre *.js undojoin | Neoformat
+  autocmd BufWritePre *.ts undojoin | Neoformat
+  autocmd BufWritePre *.rb undojoin | Neoformat
+augroup END
 
 
 """"""""""""""""""
