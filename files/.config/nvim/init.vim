@@ -20,6 +20,9 @@ Plug 'neovim/nvim-lspconfig'
 " Theme
 Plug 'dracula/vim'
 
+" Whitespace cleanup
+Plug 'axelf4/vim-strip-trailing-whitespace'
+
 call plug#end()
 
 """"""""""
