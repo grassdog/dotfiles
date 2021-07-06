@@ -197,6 +197,11 @@ noremap Y y$
 " Move past the end of lines in visual block edit
 set virtualedit=block
 
+" No whitespace strip in git commit messages
+augroup grass_git
+  au FileType gitcommit let b:strip_trailing_whitespace_enabled=0
+augroup END
+
 """"""""""""""""""
 " Leader keybinds
 """"""""""""""""""

@@ -721,6 +721,11 @@ augroup ft_vim
   au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
 augroup END
 
+" No whitespace strip in git commit messages
+augroup grass_git
+  au FileType gitcommit let b:strip_trailing_whitespace_enabled=0
+augroup END
+
 
 """"""""""""""""""""""" }}}
 " Misc file types       {{{
