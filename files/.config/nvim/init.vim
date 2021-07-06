@@ -277,6 +277,19 @@ augroup END
 let g:neoformat_enabled_ruby = ['prettier-plugin-ruby', 'rufo', 'rubybeautify', 'rubocop']
 
 
+augroup GRASS
+  autocmd!
+
+  " Remember last location in file, but not for commit messages.
+  " see :help last-position-jump
+  autocmd BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
+        \| exe "normal! g`\"" | endif
+
+  " Write all buffers once I lose focus
+  autocmd FocusLost * :silent! wall
+augroup END
+
+
 " Use Neoformat to automatically format the following filetypes
 augroup GRASS_FORMAT
   autocmd BufWritePre *.html undojoin | Neoformat
