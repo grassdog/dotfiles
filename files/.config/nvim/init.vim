@@ -49,7 +49,7 @@ set shiftround              " round indent to multiples of shiftwidth
 set formatoptions=crql1j
 
 set showmatch               " show matching brackets.
-set mat=3             " Blink matching brackets for 3 tenths of a second
+set mat=3                   " Blink matching brackets for 3 tenths of a second
 
 
 set hlsearch                " Don't highlight matches
@@ -88,21 +88,26 @@ syntax on                     " syntax highlighting
 
 " Tab completion settings
 set wildmode=list:longest     " Wildcard matches show a list, matching the longest first
-set wildignore+=*.swp         " Ignore vim backups
-set wildignore+=.hg,.git,.svn                    " Version control
-set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
-set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
-set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
-set wildignore+=*.spl                            " compiled spelling word lists
-set wildignore+=*.sw?                            " Vim swap files
-set wildignore+=.DS_Store                        " OSX
+
+""""""""""""""""""
+" Files to ignore
+""""""""""""""""""
+
+set wildignore+=*.swp                                   " Ignore vim backups
+set wildignore+=.hg,.git,.svn                           " Version control
+set wildignore+=*.aux,*.out,*.toc                       " LaTeX intermediate files
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg          " binary images
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest        " compiled object files
+set wildignore+=*.spl                                   " compiled spelling word lists
+set wildignore+=*.sw?                                   " Vim swap files
+set wildignore+=.DS_Store                               " OSX
 set wildignore+=*COMMIT_EDITMSG
 
-set wildignore+=*.obj,*.rbc,*.class,*.gem        " Disable output and VCS files
+set wildignore+=*.obj,*.rbc,*.class,*.gem               " Disable output and VCS files
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz " Disable archive files
 
 " Ignore bundler and sass cache
-set wildignore+=**/vendor/gems/*,**/vendor/bundle/*,**/vendor/cache/*,**/.bundle/*,.sass-cache/*,doc/**
+set wildignore+=**/vendor/gems/*,**/vendor/bundle/*,**/vendor/cache/*,**/.bundle/*,.sass-cache/*
 set wildignore+=*/tmp/*
 set wildignore+=*/spec/vcr/*
 set wildignore+=*/coverage/*
@@ -110,10 +115,10 @@ set wildignore+=*.otf,*.woff,*.orig
 
 set wildignore+=node_modules
 
-set wildignore+=*.luac        " Lua byte code
-set wildignore+=*.pyc         " Python byte code
-set wildignore+=*.orig        " Merge resolution files
-set wildignore+=*.6           " Ignore Go compiled files
+set wildignore+=*.luac                                  " Lua byte code
+set wildignore+=*.pyc                                   " Python byte code
+set wildignore+=*.orig                                  " Merge resolution files
+set wildignore+=*.6                                     " Ignore Go compiled files
 
 
 colorscheme dracula
