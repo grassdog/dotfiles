@@ -244,6 +244,10 @@ nnoremap <s-right> <c-w>l
 nnoremap L $
 nnoremap H ^
 
+" Stop page movement on shift arrow
+vnoremap <S-Down> <Down>
+vnoremap <S-Up> <Up>
+
 """"""""""
 " Editing
 """"""""""
