@@ -1,5 +1,6 @@
 let mapleader = "\<Space>"
 let maplocalleader = ","
+let g:italic=1
 
 
 " Plug plugin manager
@@ -162,11 +163,7 @@ function! s:setcwd()
 endfunction
 command! SetProjectDir :call s:setcwd()
 
-""""""""""""""""""""
 " Tmux Test helpers
-""""""""""""""""""""
-
-" make test commands execute using dispatch.vim
 let test#strategy = "vimux"
 map <Leader>tf :w <bar> TestFile<CR>
 map <Leader>tl :w <bar> TestNearest<CR>
@@ -174,6 +171,16 @@ map <Leader>ta :wall <bar> TestSuite<CR>
 
 map <Leader>. :wall <bar> call VimuxRunLastCommand()<CR>
 
+
+function! BufferAdd()
+  let buffer = input("Buffer to add => ")
+  if buffer == ""
+    return 0
+  else
+    exec "badd " . buffer
+    bnext
+  endif
+endfun
 
 """""""""""
 " Movement
@@ -260,8 +267,9 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
-" Kill the current buffer
-nnoremap <leader>bd   :bd<cr>
+" Managing buffers
+nnoremap <silent> <leader>bd :bd!<CR>
+nnoremap <silent> <leader>ba :call BufferAdd()<CR>
 
 " Toggle search highlighting
 noremap <silent><leader>/ :set hlsearch! hlsearch?<CR>
@@ -272,6 +280,6 @@ nmap <leader>lcd :lcd %:h<CR>
 
 nmap <leader>g <Plug>NetrwRefresh
 
-if has("nvim")
-  lua require("vim-misc")
-endif
+
+" Lua config
+lua require("vim-misc")
