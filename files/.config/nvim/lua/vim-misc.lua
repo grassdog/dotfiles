@@ -55,3 +55,12 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
   },
 }
+
+---------------------------------------------------------------------
+-- Telescope
+---------------------------------------------------------------------
+require("telescope").setup {
+  defaults = {
+    file_ignore_patterns = { "vendor/*", "node_modules/*" },
+  }
+}
