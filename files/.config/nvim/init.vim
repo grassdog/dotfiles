@@ -202,6 +202,10 @@ augroup grass_git
   au FileType gitcommit let b:strip_trailing_whitespace_enabled=0
 augroup END
 
+" Don't need ex-mode. Just rerun a macro thanks
+nnoremap Q @@
+
+
 """"""""""""""""""
 " Leader keybinds
 """"""""""""""""""
