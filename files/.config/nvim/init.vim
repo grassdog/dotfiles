@@ -31,7 +31,16 @@ Plug 'tpope/vim-commentary'
 Plug 'preservim/vimux'
 Plug 'vim-test/vim-test'
 
-" Formatting
+" My preferred autoformatter
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+
+" I'd prefer the following config so I can explicitly opt into specific
+" formats instead of implicitly using all the defaults but it doesn't seem to work.
+" Plug 'prettier/vim-prettier', {
+"   \ 'do': 'yarn install',
+"   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'html', 'ruby'] }
+
+" Format other file types manually using neoformat
 Plug 'sbdchd/neoformat'
 
 call plug#end()
@@ -234,17 +243,18 @@ augroup GRASS
   au FileType gitcommit let b:strip_trailing_whitespace_enabled=0
 augroup END
 
-augroup GRASS_FORMAT
-  " autocmd BufWritePre *.js silent! Neoformat
-  " autocmd BufWritePre *.ts silent! Neoformat
-  " autocmd BufWritePre *.html silent! Neoformat
-  " autocmd BufWritePre *.css silent! Neoformat
-  " autocmd BufWritePre *.c silent! Neoformat
-  " autocmd BufWritePre *.h silent! Neoformat
-  autocmd BufWritePre *.js undojoin | Neoformat
-  autocmd BufWritePre *.ts undojoin | Neoformat
-  autocmd BufWritePre *.rb undojoin | Neoformat
-augroup END
+
+" Enable prettier on save
+let g:prettier#autoformat=1
+let g:prettier#autoformat_require_pragma=0
+
+" Can use Neoformat automatically for files by using the patterns below
+" augroup GRASS_FORMAT
+"   " autocmd BufWritePre *.html silent! Neoformat
+"   " autocmd BufWritePre *.js undojoin | Neoformat
+"   " autocmd BufWritePre *.ts undojoin | Neoformat
+"   " autocmd BufWritePre *.rb undojoin | Neoformat
+" augroup END
 
 
 """"""""""""""""""
@@ -259,7 +269,9 @@ map <leader>p "*p
 nnoremap <leader><tab> <c-^>
 
 " Format the entire file
-nnoremap <leader>ef m'ggVG=``zzg
+nnoremap <leader>ei m'ggVG=``zzg
+nnoremap <leader>ef <cmd>Neoformat<cr>
+nnoremap <leader>ep <Plug>(Prettier)
 
 " Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
