@@ -58,7 +58,6 @@ call plug#end()
 
 set nocompatible            " disable compatibility to old-time vi
 
-
 set encoding=utf-8          " Set default encoding to UTF-8
 scriptencoding utf-8
 set hidden                  " Hide buffers, don't nag about them
@@ -79,7 +78,7 @@ set showmatch               " show matching brackets.
 set mat=3                   " Blink matching brackets for 3 tenths of a second
 
 
-set hlsearch                " Don't highlight matches
+set nohlsearch              " Don't highlight matches
 set incsearch               " incremental searching
 set ignorecase              " searches are case insensitive...
 set smartcase               " ... unless they contain at least one capital letter
