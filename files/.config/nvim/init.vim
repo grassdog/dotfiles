@@ -21,6 +21,9 @@ Plug 'neovim/nvim-lspconfig'
 " Better file manager via netrw
 Plug 'tpope/vim-vinegar'
 
+" Some git interaction
+Plug 'airblade/vim-gitgutter'
+
 " More pairs and surround operations
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
@@ -331,8 +334,12 @@ noremap <silent><leader>/ :set hlsearch! hlsearch?<CR>
 nmap <leader>cd :cd %:h<CR>
 nmap <leader>lcd :lcd %:h<CR>
 
-nmap <leader>g <Plug>NetrwRefresh
-
+" Git diff movement
+nmap <leader>gg :GitGutterToggle<cr>
+nmap <leader>gn <Plug>(GitGutterNextHunk)
+nmap <leader>gp <Plug>(GitGutterPrevHunk)
+nmap <leader>gs <Plug>(GitGutterStageHunk)
+nmap <leader>gu <Plug>(GitGutterUndoHunk)
 
 " Lua config
 lua <<EOF
