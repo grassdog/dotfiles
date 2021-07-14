@@ -99,7 +99,7 @@ alias grom='git rebase origin/master'
 alias gnp='git-notpushed'
 alias gs='git status -s'
 alias gl='git ls'
-alias gll='git ll'
+alias gll='git log'
 alias gg='git ls-files | grep'
 alias gac='git add . && git commit --amend'
 # Add, amend, and force push
