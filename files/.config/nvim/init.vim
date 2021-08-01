@@ -255,9 +255,6 @@ vnoremap <S-Up> <Up>
 " Editing
 """"""""""
 
-" Shift-tab in insert mode goes backward
-inoremap <s-tab> <c-d>
-
 " Indent or outdent and maintain selection in visual mode
 vnoremap >> >gv
 vnoremap << <gv
@@ -300,6 +297,30 @@ augroup GRASS_FORMAT
   autocmd BufWritePre *.ts undojoin | Neoformat
   autocmd BufWritePre *.rb undojoin | Neoformat
 augroup END
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MULTIPURPOSE TAB KEY
+" Indent if we're at the beginning of a line. Else, do completion.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! InsertTabWrapper()
+    let col = col('.') - 1
+    if !col
+        return "\<tab>"
+    endif
+
+    let char = getline('.')[col - 1]
+    if char =~ '\k'
+        " There's an identifier before the cursor, so complete the identifier.
+        return "\<c-p>"
+    else
+        return "\<tab>"
+    endif
+endfunction
+inoremap <expr> <tab> InsertTabWrapper()
+inoremap <s-tab> <c-n>
+
+" Shift-tab in insert mode goes backward
+" inoremap <s-tab> <c-d>
 
 
 """"""""""""""""""
