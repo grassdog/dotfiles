@@ -3,6 +3,8 @@
 name: docs
 
 windows:
+  - market:
+      root: ~/src/market-team
   - tech:
       root: ~/src/technology-team-docs
       layout: main-horizontal
