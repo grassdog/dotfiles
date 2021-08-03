@@ -46,15 +46,9 @@ root: ~/
 
 windows:
   - dotfiles:
-      layout: main-horizontal
-      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
-      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
-      # synchronize: after
-      panes:
-        - cd ~/.dotfiles
-        -
+      root: ~/.dotfiles
   - scripts:
-        - cd ~/dev/scripts
+      root: ~/dev/scripts
   - mindmaps:
       root: ~/Dropbox/Documents/MindMaps/Envato
 
