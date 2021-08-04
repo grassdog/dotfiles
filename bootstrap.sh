@@ -39,13 +39,6 @@ log()   { echo -e "$*"; }
 warn()  { echo -e "${YELLOW}*** $*${RESET}"; }
 ok()    { echo -e "${GREEN}<--- OK${RESET}"; }
 
-#
-# Checks
-#
-sw_vers -productVersion | grep $Q -E "^10.(9|10|11|12|13|14)" || {
-  abort "Run bootstrap.sh on macOS 10.9/10/11/12/13/14."
-}
-
 [ "$USER" = "root" ] && abort "Run bootstrap as yourself, not root."
 groups | grep $Q admin || abort "Add $USER to the admin group."
 
@@ -55,7 +48,7 @@ HOSTNAME=$(hostname)
 step "Ensure Homebrew is installed"
 if ! type -t "brew" > /dev/null; then
   log "Installing Homebrew"
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" </dev/null
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 ok
 
@@ -86,8 +79,6 @@ ok
 
 step "Ensure common directories exist"
 mkdir -p ~/dev
-mkdir -p ~/private
-mkdir -p ~/btsync
 mkdir -p ~/.config
 mkdir -p ~/.ssh
 mkdir -p ~/.cache/emacs/saves
@@ -128,10 +119,6 @@ step "Set shell to zsh"
 [[ $(echo $SHELL) != $(which zsh) ]] && sudo dscl . -create /Users/${whoami} UserShell $(which zsh)
 ok
 
-step "Install Kakoune config"
-git clone https://github.com/andreyorst/plug.kak.git $HOME/.config/kak/plugins/plug.kak
-ok
-
 step "Install vim config"
 mkdir -p ~/.cache/vim/tmp/undo
 mkdir -p ~/.cache/vim/tmp/backups
@@ -139,6 +126,10 @@ ln -sf $DOTFILES_FULL_PATH/files/.vim $HOME
 ln -sf $DOTFILES_FULL_PATH/files/.vim/vimrc $HOME/.vimrc
 mkdir -p $HOME/.vim/autoload
 [ ! -f $HOME/.vim/autoload/plug.vim ] && curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+ok
+
+step "Install neovim config"
+~/.config/nvim/setup.sh
 ok
 
 step "Link Karabiner config"
