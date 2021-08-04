@@ -199,7 +199,7 @@ ok
 
 if [ -r ~/.Brewfile ]; then
 step "Install linked Brewfiles"
-brew bundle -v --file=~/.Brewfile
+brew bundle -v --no-upgrade --file=~/.Brewfile
 ok
 fi
 
