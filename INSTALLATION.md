@@ -48,7 +48,6 @@ Check the status of services via `brew services list`.
     - Desktop and ScreenSaver > Add ~/Dropbox/Pictures/Wallpapers folder and change every hour
     - Desktop and ScreenSaver > Arabesque screensaver
     - Security > Accessibility add apps
-        - Dash
         - Fantastical 2
         - Moom
 - Place Chrome, Things.app, Slack, Soulver, MacVim, and iTerm2 into the Dock
@@ -61,7 +60,7 @@ Check the status of services via `brew services list`.
     - Security > Don't lock when screensaver activated
     - Switch on third party integration under advanced settings
 - Moom
--   - Set up left half, right half, and maximise custom shortcuts
+-   - Set up custom shortcuts
     - Run as faceless app
 - Alfred
     - Install Powerpack from 1Password
@@ -74,14 +73,16 @@ Check the status of services via `brew services list`.
     - Appearance > Hide Menu Bar Icon
 - Dash 3
     - Set up synching to `~/Dropbox/Backups/Dash`
+- Mail.app
+    - Disable notifications
 - Calendar.app
-    - Enable notifications
+    - Disable notifications
 - Fantastical 2
     - Menu bar icon date and weekday
     - Defaults to last selected calendar and list
     - Change key shortcut to `shift-f12`
     - General > Start Month on current or selected week
-    - Disable notifications
+    - Enable notifications
 - Things
     - Install the Things Helper application for sharing across apps.
     - Set shortcut for quick entry to `cmd-opt-space`.
@@ -104,12 +105,13 @@ Check the status of services via `brew services list`.
     - Preferences > Install plugin from file > `~/Dropbox/Backups/Calibre DRM plugins/KFX Input.zip`
     - Preferences > Install plugin from file > `~/Dropbox/Backups/Calibre DRM plugins/DeDRM_tools_6.6.1/DeDRM_calibre_plugin/DeDRM_plugin.zip`
 - Copy across or clone projects into `~/dev`
-- Copy across from USB backup
-    - ~/dev/old
-    - ~/dev/scratch
 - Install Lightroom Classic from Adobe CC
     - Copy across Lightroom catalog and masters from USB backup
     - Copy across Lightroom presets from backup into new location `~/Library/Application Support/Adobe/Lightroom/{Develop Preset,Export Presets,Filename Templates}`
 - VSCode
     - Install command line tools
-    - Run `~/dev/scripts/vscode-extensions install`
+- Google Meet Web app via Chrome
+- NotePlan
+    - Use CloudKit for syncing.
+    - Set global shortcut to `⌃⌥⇧⌘j` 
+
