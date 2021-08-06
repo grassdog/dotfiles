@@ -37,6 +37,7 @@ cask 'qlstephen'
 
 # Applications
 #cask 'emacs'
+cask '1password'
 cask 'airbuddy'
 cask 'alfred'
 cask 'aws-vault'
@@ -87,7 +88,6 @@ cask 'vlc'
 # cask 'slack'
 
 tap 'argon/homebrew-mas'
-mas '1Password 7 - Password Manager', id: 1333542190
 mas 'Affinity Photo', id: 824183456
 mas 'Bear', id: 1091189122
 mas 'Clocks', id: 414554506
