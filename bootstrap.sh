@@ -115,6 +115,12 @@ step "Link .config files"
 link_files $DOTFILES_FULL_PATH/files/.config $HOME/.config
 ok
 
+if [ -r ~/.Brewfile ]; then
+step "Install linked Brewfiles"
+brew bundle -v --no-upgrade --file=~/.Brewfile
+ok
+fi
+
 step "Set shell to zsh"
 [[ $(echo $SHELL) != $(which zsh) ]] && sudo dscl . -create /Users/${whoami} UserShell $(which zsh)
 ok
@@ -188,11 +194,6 @@ step "Install spelling files"
 [ -d $HOME/Dropbox/Backups/ ] && ln -sf $HOME/Dropbox/Backups/Spell/aspell.en.prepl "$HOME/.aspell.en.prepl"
 ok
 
-if [ -r ~/.Brewfile ]; then
-step "Install linked Brewfiles"
-brew bundle -v --no-upgrade --file=~/.Brewfile
-ok
-fi
 
 step "Write macOS defaults"
 
