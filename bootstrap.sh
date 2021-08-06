@@ -33,11 +33,11 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 
-abort() { echo -e "${RED}!!! $*${RESET}" >&2; exit 1; }
-step()  { echo -e "\n${GREEN}---> $*${RESET}"; }
+abort() { echo -e "${RED}==❗️ $*${RESET}" >&2; exit 1; }
+step()  { echo -e "\n${GREEN}==🚀  $*${RESET}"; }
 log()   { echo -e "$*"; }
-warn()  { echo -e "${YELLOW}*** $*${RESET}"; }
-ok()    { echo -e "${GREEN}<--- OK${RESET}"; }
+warn()  { echo -e "${YELLOW}==⚠️  $*${RESET}"; }
+ok()    { echo -e "${GREEN}==✅${RESET}"; }
 
 [ "$USER" = "root" ] && abort "Run bootstrap as yourself, not root."
 groups | grep $Q admin || abort "Add $USER to the admin group."
