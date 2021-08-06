@@ -4,11 +4,19 @@ Use the steps below to stand up a macOS box how I like it.
 
 ## Bootstrap up the environment
 
-Sign in and set the hostname. A bunch of Dropbox files will need to be synced before running the script below.
+- Sign in and set the hostname.
+- Enable FileVault.
+- Run a software update on the machine.
+- Sign into iCloud.
+- Sign into the App store
+
+Run the script below.
 
 ```sh
 bash <(curl -s https://raw.githubusercontent.com/grassdog/dotfiles/master/bootstrap.sh)
 ```
+
+You'll likely need to run it multiple times as it symlinks on Dropbox files which need time to be synced.
 
 Restart host to ensure all settings are in effect.
 
