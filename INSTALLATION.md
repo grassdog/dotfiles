@@ -58,6 +58,7 @@ Check the status of services via `brew services list`.
     - Sync preferences ~/Dropbox/Backups/iterm
     - Preferences > Profiles > Colours - Import Dracula theme from ~/Dropbox/Backups/iterm colours
     - Preferences > Profiles > Fonts - Fira code, Retina, 12pt 
+    - Preferences > General > Closing > Don't confirm quit for single or multiple sessions
 - Alfred
     - Install Powerpack from 1Password
     - Set sync folder to ~/Dropbox/Backups/Alfred
@@ -110,8 +111,9 @@ Check the status of services via `brew services list`.
 - Calendar.app
     - Disable notifications
 - Things
-    - Install the Things Helper application for sharing across apps.
-    - Set shortcut for quick entry to `cmd-opt-space`.
+    - Install the Things Helper application for sharing across apps
+    - Set shortcut for quick entry to `cmd-opt-space`
+    - Enable notifications but no badges
 - Flux
     - Set wake up time
 - Toggl
@@ -132,6 +134,8 @@ Check the status of services via `brew services list`.
 - Karabiner Elements
     - Don't show icon in menu bar
     - Set caps lock to control in karabiner virtual keyboard
+- QLStephen
+    - Allow in security settings.
 - DayOne
     - Setup sync
     - No auto title
@@ -142,13 +146,15 @@ Check the status of services via `brew services list`.
     - Install command line tools
 - Google Meet Web app via Chrome
     - Browse to Google Meet and install Chrome app from address bar
+- Spotify
+    - Disable friend feed and notifcation of next song
 - Copy across or clone projects into `~/dev`
-- Install Lightroom Classic from Adobe CC
-    - Copy across Lightroom catalog and masters from USB backup
-    - Copy across Lightroom presets from backup into new location `~/Library/Application Support/Adobe/Lightroom/{Develop Preset,Export Presets,Filename Templates}`
 
 # Optional stuff
 
+- Install Lightroom Classic from Adobe CC
+    - Copy across Lightroom catalog and masters from USB backup
+    - Copy across Lightroom presets from backup into new location `~/Library/Application Support/Adobe/Lightroom/{Develop Preset,Export Presets,Filename Templates}`
 - Dash 3
     - Set up syncing to `~/Dropbox/Backups/Dash`
 - Calibre
