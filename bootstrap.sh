@@ -82,7 +82,7 @@ mkdir -p ~/dev
 mkdir -p ~/.config
 mkdir -p ~/.ssh
 mkdir -p ~/.cache/emacs/saves
-[ ! -r ~/dev/scripts ] && ln -s $HOME/Dropbox/Code/scripts ~/dev
+[ ! -r ~/dev/scripts ] && [ -d $HOME/Dropbox/Code/ ] && ln -s $HOME/Dropbox/Code/scripts ~/dev
 ok
 
 step "Ensuring dotfiles repo is downloaded and up to date"
@@ -134,7 +134,7 @@ ok
 
 step "Link Karabiner config"
 mkdir -p ~/.config/karabiner
-[ ! -f $HOME/.config/karabiner/karabiner.json ] && ln -sf "$HOME/Dropbox/Backups/karabiner/karabiner.json" "$HOME/.config/karabiner"
+[ ! -f $HOME/.config/karabiner/karabiner.json ] && [ -d $HOME/Dropbox/Backups/ ] && ln -sf "$HOME/Dropbox/Backups/karabiner/karabiner.json" "$HOME/.config/karabiner"
 ok
 
 step "Install tmux config"
@@ -178,14 +178,14 @@ ok
 
 step "Install fonts"
 mkdir -p ~/Library/Fonts
-find ~/Dropbox/Backups/Fonts/ToInstall -name '*.ttf' -o -name '*.otf' -exec cp {} ~/Library/Fonts \;
+[ -d $HOME/Dropbox/Backups/ ] && find ~/Dropbox/Backups/Fonts/ToInstall -name '*.ttf' -o -name '*.otf' -exec cp {} ~/Library/Fonts \;
 chmod -x ~/Library/Fonts/*.ttf
 chmod -x ~/Library/Fonts/*.otf
 ok
 
 step "Install spelling files"
-ln -sf $HOME/Dropbox/Backups/Spell/aspell.en.pws "$HOME/.aspell.en.pws"
-ln -sf $HOME/Dropbox/Backups/Spell/aspell.en.prepl "$HOME/.aspell.en.prepl"
+[ -d $HOME/Dropbox/Backups/ ] && ln -sf $HOME/Dropbox/Backups/Spell/aspell.en.pws "$HOME/.aspell.en.pws"
+[ -d $HOME/Dropbox/Backups/ ] && ln -sf $HOME/Dropbox/Backups/Spell/aspell.en.prepl "$HOME/.aspell.en.prepl"
 ok
 
 if [ -r ~/.Brewfile ]; then
