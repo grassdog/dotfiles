@@ -18,6 +18,10 @@ source `brew --prefix`/etc/profile.d/z.sh
 # Prompt
 #########
 
+if [ -d /opt/homebrew/share/zsh/site-functions ]; then
+  fpath=( /opt/homebrew/share/zsh/site-functions $fpath )
+fi
+
 autoload -U promptinit; promptinit
 prompt spaceship
 
@@ -173,3 +177,4 @@ fi
 
 [[ -r "$HOME/.secrets" ]] && source "$HOME/.secrets"
 
+fpath=($fpath "/Users/ray/.zfunctions")
