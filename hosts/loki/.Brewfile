@@ -52,7 +52,6 @@ cask 'expressvpn'
 cask 'fantastical'
 cask 'firefox'
 cask 'flux'
-cask 'google-chrome'
 cask 'grammarly'
 cask 'imageoptim'
 cask 'insomnia'
@@ -82,7 +81,9 @@ cask 'toggl-track'
 cask 'transmission'
 cask 'visual-studio-code'
 cask 'vlc'
-cask 'zoom'
+# These are already installed by JAMF
+# cask 'google-chrome'
+# cask 'zoom'
 
 tap 'argon/homebrew-mas'
 mas '1Password 7 - Password Manager', id: 1333542190
