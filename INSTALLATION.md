@@ -18,9 +18,13 @@ bash <(curl -s https://raw.githubusercontent.com/grassdog/dotfiles/master/bootst
 
 You'll likely need to run it multiple times as it symlinks on Dropbox files which need time to be synced.
 
-Restart host to ensure all settings are in effect.
 
-Look in the [hosts](hosts) directory for host specific steps.
+- Open and sign into 1Password
+    - Security > Don't lock when screensaver activated
+- Open and sign into Dropbox
+    - Notifications > Disable `New files synced` and `Edits to files`
+- Restart host to ensure all settings are in effect.
+- Generate [personal access token on Github](https://github.com/settings/tokens) and input it when pushing up changes from the CLI.
 
 ## Services
 
@@ -28,48 +32,32 @@ Check the status of services via `brew services list`.
 
 ## Manual Steps
 
-- Open and set up 1Password
-- Open and set up Dropbox then pause syncing
-    - Don't show desktop notifications
-    - Optional: Copy across Dropbox and Music files from backup and `chown -R` them to new user. Resume syncing.
-- Log into Chrome and set as default browser
-    - Set global shortcut for Meet Mute extension to `⌘⇧9`
-- Finder
-    - Add ~/Dropbox/Notes and ~/dev into Finder sidebar
-    - New window opens in ~/Dropbox
-    - View options on home folder and "show Library folder"
 - Settings
-    - Users and groups > Change profile picture
+    - Users and groups > Drag a new profile picture across
     - Internet Accounts
-        - Add Google for mail and messages only
-        - Add Work gmail for calendar
-    - Accessibility > Reduce transparency
-    - Keyboard > Set caps lock as control
+        - Add Work Google for email and calendar
+        - Enable everything except keychain for icloud
+    - Accessibility > Display > Reduce transparency
+    - Keyboard > Key repeat max and Delay to minimum
+    - Keyboard > Modifier Keys > Set caps lock as control
     - Keyboard > Shortcuts > Spotlight > Change spotlight to `ctrl-option-cmd-space`
     - Keyboard > Shortcuts > Spotlight > Switch off show finder search window
     - Keyboard > Shortcuts > Mission Control > Disable all Mission Control key shortcuts
-    - Keyboard > Shortcuts > Services > Copy markdown link into Bear `⌃⌥⇧⌘b`
+    - Keyboard > Shortcuts > Services > Paste Chrome link into NotePlan `⌃⌥⇧⌘b`
     - Keyboard > Shortcuts > Services > Copy current page as markdown link `⌃⌥⇧⌘c`
     - Trackpad > Disable Two finger click
     - Trackpad > Disable Smart zoom and Rotate
     - Trackpad > Disable swipe between pages
     - Desktop and ScreenSaver > Add ~/Dropbox/Pictures/Wallpapers folder and change every hour
-    - Desktop and ScreenSaver > Arabesque screensaver
+    - Desktop and ScreenSaver > Drift
     - Security > Accessibility add apps
         - Fantastical 2
         - Moom
-- Place Chrome, Things.app, Slack, Soulver, MacVim, and iTerm2 into the Dock
-- Install Mailplane and add accounts
-- iTerm
-    - Preferences > Set as default terminal
+- iTerm2
+    - iTerm2 > Set as default terminal
     - Sync preferences ~/Dropbox/Backups/iterm
-- Install SSH Keys and config from 1Password
-- 1Password
-    - Security > Don't lock when screensaver activated
-    - Switch on third party integration under advanced settings
-- Moom
--   - Set up custom shortcuts
-    - Run as faceless app
+    - Preferences > Profiles > Colours - Import Dracula theme from ~/Dropbox/Backups/iterm colours
+    - Preferences > Profiles > Fonts - Fira code, Retina, 12pt 
 - Alfred
     - Install Powerpack from 1Password
     - Set sync folder to ~/Dropbox/Backups/Alfred
@@ -79,18 +67,48 @@ Check the status of services via `brew services list`.
     - Disable contacts in Alfred
     - Appearance > Yosemite Light
     - Appearance > Hide Menu Bar Icon
-- Dash 3
-    - Set up synching to `~/Dropbox/Backups/Dash`
+- Choosy
+    - Set default browser
+    - Start at login
+    - Don't show in menu bar
+    - Set browsers Firefox -> Chrome -> Safari
+    - Import settings from ~/Dropbox/Backups/Choosy/behaviours.plist to ~/Library/Application Support/Choosy
+- Moom
+    - Run as faceless app
+    - Launch at login
+    - Import settings: https://manytricks.com/osticket/kb/faq.php?id=53
+    - `defaults export com.manytricks.Moom ~/Desktop/Moom.plist` on source machine
+    - `defaults import com.manytricks.Moom ~/Desktop/Moom.plist` on target machine
+- Firefox
+    - Customise shortcut bar and remove pocket and Firefox account.
+    - Set LeechBlock config.
+- Chrome
+    - Set global shortcut for Meet Mute extension to `⌘⇧9`
+- Finder
+    - Add ~/dev into Finder sidebar
+    - New window opens in ~/Downloads
+- Place Chrome, Things.app, Slack, Soulver, MacVim, and iTerm2 into the Dock
+- Mailplane
+    - Add work and personal accounts
+    - Make App dock only
+    - Disable notifications
+- Fantastical 3
+    - Sign in with Apple
+    - Enter version 2 license key
+    - Add Work account
+    - Add icloud account (with app specific password)
+    - Menu bar icon date and weekday
+    - Defaults to last selected calendar and list
+    - Change key shortcut to `shift-f12`
+    - Enable notifications (no application badge though)
+        - Show shared calendar notifications
+        - Show notifications for all day tasks at 7am
+        - Disable other notifications
+        - Disable drive time notifications
 - Mail.app
     - Disable notifications
 - Calendar.app
     - Disable notifications
-- Fantastical 2
-    - Menu bar icon date and weekday
-    - Defaults to last selected calendar and list
-    - Change key shortcut to `shift-f12`
-    - General > Start Month on current or selected week
-    - Enable notifications
 - Things
     - Install the Things Helper application for sharing across apps.
     - Set shortcut for quick entry to `cmd-opt-space`.
@@ -103,23 +121,37 @@ Check the status of services via `brew services list`.
     - Don't show dock icon
 - Bear
     - Set global shortcut to new note `⌃⌥⇧⌘a` 
+- Install SSH Keys and config from 1Password
+- NotePlan
+    - Use CloudKit for syncing.
+    - Set global shortcut to `⌃⌥⇧⌘j` 
+    - Start week on Monday
+    - Don't recognise `*` as todo
+    - Use `-` as default
+    - Automatically update note links
+- Karabiner Elements
+    - Don't show icon in menu bar
+    - Set caps lock to control in karabiner virtual keyboard
 - DayOne
     - Setup sync
-    - Baskerville 18pt, no auto bold, no twitter names
+    - No auto title
+    - No selected formating menu
     - Disable reminders
-    - Disable popover previews
-    - Disable spelling corrections
-- Calibre
-    - Preferences > Install plugin from file > `~/Dropbox/Backups/Calibre DRM plugins/KFX Input.zip`
-    - Preferences > Install plugin from file > `~/Dropbox/Backups/Calibre DRM plugins/DeDRM_tools_6.6.1/DeDRM_calibre_plugin/DeDRM_plugin.zip`
+- VSCode
+    - Turn on setting sync (sign in via Github)
+    - Install command line tools
+- Google Meet Web app via Chrome
+    - Browse to Google Meet and install Chrome app from address bar
 - Copy across or clone projects into `~/dev`
 - Install Lightroom Classic from Adobe CC
     - Copy across Lightroom catalog and masters from USB backup
     - Copy across Lightroom presets from backup into new location `~/Library/Application Support/Adobe/Lightroom/{Develop Preset,Export Presets,Filename Templates}`
-- VSCode
-    - Install command line tools
-- Google Meet Web app via Chrome
-- NotePlan
-    - Use CloudKit for syncing.
-    - Set global shortcut to `⌃⌥⇧⌘j` 
+
+# Optional stuff
+
+- Dash 3
+    - Set up syncing to `~/Dropbox/Backups/Dash`
+- Calibre
+    - Preferences > Install plugin from file > `~/Dropbox/Backups/Calibre DRM plugins/KFX Input.zip`
+    - Preferences > Install plugin from file > `~/Dropbox/Backups/Calibre DRM plugins/DeDRM_tools_6.6.1/DeDRM_calibre_plugin/DeDRM_plugin.zip`
 
