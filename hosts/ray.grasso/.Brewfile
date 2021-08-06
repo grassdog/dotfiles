@@ -91,7 +91,6 @@ tap 'argon/homebrew-mas'
 mas 'Affinity Photo', id: 824183456
 mas 'Bear', id: 1091189122
 mas 'Clocks', id: 414554506
-mas 'Color Picker', id: 502401013
 mas 'Day One', id: 1055511498
 mas 'MindNode 6', id: 1289197285
 mas 'NotePlan 3: Markdown Planner', id: 150543262
