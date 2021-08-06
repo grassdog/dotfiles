@@ -149,10 +149,10 @@ mkdir -p ~/.tmux/plugins
 ok
 
 step "Install asdf plugins"
-asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
-asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git
+asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
 bash -c '${ASDF_DATA_DIR:=$HOME/.asdf}/plugins/nodejs/bin/import-release-team-keyring'
-asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
+asdf plugin add elixir https://github.com/asdf-vm/asdf-elixir.git
 ok
 
 step "Install service menu items"
@@ -202,9 +202,6 @@ defaults write com.apple.dock autohide -bool true
 
 # Full keyboard access to controls
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
-
-# short key repeat delay
-defaults write NSGlobalDomain InitialKeyRepeat -int 12
 
 # expanded save panel
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
