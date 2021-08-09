@@ -1,7 +1,6 @@
 # /Users/ray/.config/tmuxinator/home.yml
 
 name: home
-root: ~/
 
 # Optional tmux socket
 # socket_name: foo
