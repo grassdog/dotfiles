@@ -71,7 +71,8 @@ cask 'moom'
 cask 'omnigraffle'
 cask 'postico'
 cask 'sequel-pro'
-cask 'sizzy'
+# Failing as of 2021-09-10
+# cask 'sizzy'
 cask 'sketch'
 cask 'soulver'
 cask 'sourcetree'
@@ -94,7 +95,8 @@ mas 'Bear', id: 1091189122
 mas 'Clocks', id: 414554506
 mas 'Day One', id: 1055511498
 mas 'MindNode 6', id: 1289197285
-mas 'NotePlan 3: Markdown Planner', id: 150543262
+# Failing as of 2021-09-10
+# mas 'NotePlan 3: Markdown Planner', id: 150543262
 mas 'TextSniper - OCR simplified', id: 1528890965
 mas 'Things 3', id: 904280696
 mas 'Ulysses', id: 1225570693
