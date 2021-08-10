@@ -99,7 +99,7 @@ function link_files {
 
   log "Linking files in $SOURCE_DIR"
 
-  for f in $(find $SOURCE_DIR -maxdepth 1 -mindepth 1 \( ! -name .DS_Store ! -name README.md ! -name _dontlink \)); do
+  for f in $(find $SOURCE_DIR -maxdepth 1 -mindepth 1 \( ! -name .DS_Store ! -name README.md ! -name _dontlink ! -name .config \)); do
     log "Linking $f to $TARGET_DIR"
     ln -sf "$f" "$TARGET_DIR"
   done
