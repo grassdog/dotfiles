@@ -155,6 +155,12 @@ bash -c '${ASDF_DATA_DIR:=$HOME/.asdf}/plugins/nodejs/bin/import-release-team-ke
 asdf plugin add elixir https://github.com/asdf-vm/asdf-elixir.git
 ok
 
+step "Install default asdf versions"
+while read plugin; do
+  asdf install $plugin
+done < ~/.tool-versions
+ok
+
 step "Install service menu items"
 mkdir -p ~/Library/Services
 SAVEIFS=$IFS
