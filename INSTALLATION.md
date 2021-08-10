@@ -39,6 +39,8 @@ Check the status of services via `brew services list`.
         - Enable everything except keychain for icloud
     - Accessibility > Display > Reduce transparency
     - Keyboard > Key repeat max and Delay to minimum
+    - Keyboard > Use F1 keys as standard function keys on external keyboards
+    - Keyboard > Customise control strip - drag play pause down to far right to replace Siri button
     - Keyboard > Modifier Keys > Set caps lock as control
     - Keyboard > Shortcuts > Spotlight > Change spotlight to `ctrl-option-cmd-space`
     - Keyboard > Shortcuts > Spotlight > Switch off show finder search window
@@ -50,9 +52,6 @@ Check the status of services via `brew services list`.
     - Trackpad > Disable swipe between pages
     - Desktop and ScreenSaver > Add ~/Dropbox/Pictures/Wallpapers folder and change every hour
     - Desktop and ScreenSaver > Drift
-    - Security > Accessibility add apps
-        - Fantastical 2
-        - Moom
 - iTerm2
     - iTerm2 > Set as default terminal
     - Sync preferences ~/Dropbox/Backups/iterm
@@ -100,7 +99,11 @@ Check the status of services via `brew services list`.
     - Add icloud account (with app specific password)
     - Menu bar icon date and weekday
     - Defaults to last selected calendar and list
-    - Change key shortcut to `shift-f12`
+    - Default event is 30 minutes
+    - Start week on Sunday
+    - Show 13 hours at a time
+    - Days per week = 5
+    - Day from 7am - 7pm
     - Enable notifications (no application badge though)
         - Show shared calendar notifications
         - Show notifications for all day tasks at 7am
@@ -145,10 +148,15 @@ Check the status of services via `brew services list`.
     - Turn on setting sync (sign in via Github)
     - Install command line tools
 - Google Meet Web app via Chrome
-    - Browse to Google Meet and install Chrome app from address bar
+    - Browse to Google Meet and install Chrome app from address bar (or copy across from ~/Applications)
 - Spotify
     - Disable friend feed and notifcation of next song
 - Copy across or clone projects into `~/dev`
+- Set up aws-vault (key and secret in 1Password)
+    - `aws-vault add envato-aws-users-ray.grasso`
+- Copy dotfiles
+    - ~/.aws/config
+    - ~/.config/exercism
 
 # Optional stuff
 
