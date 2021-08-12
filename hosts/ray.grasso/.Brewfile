@@ -31,6 +31,10 @@ brew 'z'
 brew 'zsh'
 brew 'zsh-autosuggestions'
 
+# Kicking the tires on these
+brew 'exercism'
+brew 'clojure/tools/clojure'
+
 cask_args appdir: '/Applications'
 
 # Quicklook for plain text files
