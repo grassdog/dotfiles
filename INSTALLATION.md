@@ -104,6 +104,7 @@ Check the status of services via `brew services list`.
     - Show 13 hours at a time
     - Days per week = 5
     - Day from 7am - 7pm
+    - Appearance > App Icon Badge shows > Nothing
     - Enable notifications (no application badge though)
         - Show shared calendar notifications
         - Show notifications for all day tasks at 7am
