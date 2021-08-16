@@ -112,6 +112,7 @@ Check the status of services via `brew services list`.
         - Disable drive time notifications
 - Mail.app
     - Disable notifications
+    - Preferences > New messages Sound > None
 - Calendar.app
     - Disable notifications
 - Things
