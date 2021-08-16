@@ -105,6 +105,7 @@ Check the status of services via `brew services list`.
     - Days per week = 5
     - Day from 7am - 7pm
     - Appearance > App Icon Badge shows > Nothing
+    - Change key shortcut to `shift-f12`
     - Enable notifications (no application badge though)
         - Show shared calendar notifications
         - Show notifications for all day tasks at 7am
@@ -127,7 +128,9 @@ Check the status of services via `brew services list`.
     - Show timer on menu bar
     - Don't show dock icon
 - Bear
-    - Set global shortcut to new note `⌃⌥⇧⌘a` 
+    - Set global shortcut to new note `⌃⌥⇧⌘z` 
+- Airbuddy
+    - Set global shortcut to status page `⌃⌥⇧⌘a` 
 - Install SSH Keys and config from 1Password
 - NotePlan
     - Use CloudKit for syncing.
