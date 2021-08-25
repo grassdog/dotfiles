@@ -234,9 +234,10 @@ function scheme-rl() {
   rlwrap -r -c -f "$HOME/.tools/mit_scheme_bindings.txt" scheme
 }
 
-# Build ruby
+# Build ruby for asdf and reshim
 function build-ruby() {
-  ruby-build $1 ~/.rubies/$1
+  ruby-build $1 ~/.asdf/installs/ruby/$1
+  asdf reshim ruby $1
 }
 
 # Serve up the current directory with webrick
