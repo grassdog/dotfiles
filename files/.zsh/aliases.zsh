@@ -60,8 +60,9 @@ function signal-emacs() {
 
 # tmux
 alias tmux="TERM=screen-256color-bce tmux"
-# New window
-function nw() {
+
+# New window `nw NAME DIRECTORY`
+function tnw() {
   tmux new-window -c ${2:-~/dev} -n $1
 }
 
@@ -146,9 +147,8 @@ function git-rewind() {
 # Ruby
 #######
 
-alias rd="bundle exec rspec -f d"
-alias wip="bundle exec cucumber -p wip"
-alias rca="bundle exec rubocop --auto-correct"
+alias rsp="bundle exec rspec -f d"
+alias cop-correct="bundle exec rubocop --auto-correct"
 
 # Run rubocop on modified files
 function rubo-changed() {
@@ -174,7 +174,8 @@ function install-node-modules() {
 # Processes
 ############
 
-alias psu='ps auxw'         # Wide ps sorted by CPU usage
+# Wide ps sorted by CPU usage
+alias psu='ps auxw'
 
 function psg() {
   emulate -L zsh
@@ -292,21 +293,8 @@ fc() {
 }
 
 
-# v - open files in ~/.viminfo
-fv() {
-  local files
-  files=$(grep '^>' ~/.viminfo | cut -c3- |
-          while read line; do
-            [ -f "${line/\~/$HOME}" ] && echo "$line"
-          done | fzf-tmux -d -m -q "$*" -1) && vim ${files//\~/$HOME}
-}
-
 function notes() {
   "${EDITOR:-vim}" "$(find ~/Dropbox/Notes -type f  -not -path '*/\.*' | fzf)"
-}
-
-function search-work() {
-  rg "$*" ~/Dropbox/Notes/Work/Envato/*
 }
 
 # Look up SSL cert details
@@ -343,17 +331,17 @@ muxp() {
 
 # fkill - kill processes
 fkill() {
-    local pid
-    if [ "$UID" != "0" ]; then
-        pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
-    else
-        pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
-    fi
+  local pid
+  if [ "$UID" != "0" ]; then
+      pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
+  else
+      pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+  fi
 
-    if [ "x$pid" != "x" ]
-    then
-        echo $pid | xargs kill -${1:-9}
-    fi
+  if [ "x$pid" != "x" ]
+  then
+      echo $pid | xargs kill -${1:-9}
+  fi
 }
 
 # ftpane - switch tmux pane
@@ -384,7 +372,7 @@ fh() {
 # fs [FUZZY PATTERN] - Select selected tmux session
 #   - Bypass fuzzy finder if there's only one match (--select-1)
 #   - Exit if there's no match (--exit-0)
-fs() {
+tms() {
   local session
   session=$(tmux list-sessions -F "#{session_name}" | \
     fzf --query="$1" --select-1 --exit-0) &&
