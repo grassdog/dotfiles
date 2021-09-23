@@ -44,10 +44,14 @@ name: home
 # attach: false
 
 windows:
-  - dotfiles:
-      root: ~/.dotfiles
   - scripts:
       root: ~/dev/scripts
-  - mindmaps:
-      root: ~/Dropbox/Documents/MindMaps/Envato
+      # This is a workaround. The root command above doesn't seem to reliably work for some reason
+      # so I've added this here.
+      panes:
+        - cd ~/dev/scripts
+  - dotfiles:
+      root: ~/.dotfiles
+  - dev:
+      root: ~/dev
 
