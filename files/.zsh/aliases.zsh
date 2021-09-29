@@ -162,6 +162,12 @@ function install-gems() {
   gem install bundler pry-byebug pry rufo rubocop solargraph rspotify
 }
 
+# Run prettier on ruby files. Defaults to all .rb files under the current directory
+function pretty-ruby() {
+  local file="${1:-'**/*.rb'}"
+  prettier --ruby-single-quote false --write "$file"
+}
+
 #######
 # Node
 #######
