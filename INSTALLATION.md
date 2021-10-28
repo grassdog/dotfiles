@@ -47,6 +47,9 @@ Check the status of services via `brew services list`.
     - Keyboard > Shortcuts > Mission Control > Disable all Mission Control key shortcuts
     - Keyboard > Shortcuts > Services > Paste Chrome link into NotePlan `⌃⌥⇧⌘b`
     - Keyboard > Shortcuts > Services > Copy current page as markdown link `⌃⌥⇧⌘c`
+    - Keyboard > Shortcuts > Mission Control > Mission Control `⌃⌥⇧⌘<backtick>`
+    - Keyboard > Shortcuts > Mission Control > Move left a space `⌃⌥⇧⌘←`
+    - Keyboard > Shortcuts > Mission Control > Move right a space `⌃⌥⇧⌘→`
     - Trackpad > Disable Two finger click
     - Trackpad > Disable Smart zoom and Rotate
     - Trackpad > Disable swipe between pages
