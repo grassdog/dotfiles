@@ -1,0 +1,12 @@
+# /Users/ray/.config/tmuxinator/lifelog.yml
+
+name: lifelog
+root: ~/dev/lifelog
+
+windows:
+  - lifelog:
+      layout: even-horizontal
+      panes:
+        -
+        - bin/dev
+
