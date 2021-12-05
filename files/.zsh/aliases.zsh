@@ -241,14 +241,6 @@ function scheme-rl() {
   rlwrap -r -c -f "$HOME/.tools/mit_scheme_bindings.txt" scheme
 }
 
-# Update asdf plugins
-function update-asdf-plugins() {
-  for plugin in ~/.asdf/plugins/*; do
-    echo "Updating ${plugin}"
-    cd "$plugin" && git pull && cd -
-  done
-}
-
 # Serve up the current directory with webrick
 function serve-dir() {
   ruby -rwebrick -e"s = WEBrick::HTTPServer.new(:Port => 8888,  :DocumentRoot => Dir.pwd); trap('INT') { s.shutdown }; s.start"
