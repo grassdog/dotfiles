@@ -3,8 +3,6 @@
 name: docs
 
 windows:
-  - market:
-      root: ~/src/market-team
   - tech:
       root: ~/src/technology-team-docs
       layout: main-horizontal
@@ -12,5 +10,9 @@ windows:
         -
         - server:
           - bin/run
+  - market:
+      root: ~/src/market-team
   - arch:
       root: ~/src/architecture-guild
+  - docs.net:
+      root: ~/src/docs.envato.net
