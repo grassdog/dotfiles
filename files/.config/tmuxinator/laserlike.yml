@@ -1,11 +1,8 @@
 # /Users/ray/.config/tmuxinator/laserlike.yml
 
 name: laserlike
-root: ~/dev/laserlike
+root: ~/Dropbox/Code/laserlike
 
 windows:
   - laserlike:
       layout: even-horizontal
-      panes:
-        -
-        - scripts/dev
