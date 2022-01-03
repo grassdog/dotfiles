@@ -44,12 +44,15 @@ name: home
 # attach: false
 
 windows:
-  - scripts:
+  - productivity:
       root: ~/dev/scripts
       # This is a workaround. The root command above doesn't seem to reliably work for some reason
       # so I've added this here.
+      layout: even-horizontal
       panes:
+        - cd ~/Dropbox/Code/laserlike
         - cd ~/dev/scripts
+      startup_pane: 2
   - dotfiles:
       root: ~/.dotfiles
   - dev:
