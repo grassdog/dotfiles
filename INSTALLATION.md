@@ -46,7 +46,8 @@ Check the status of services via `brew services list`.
     - Keyboard > Shortcuts > Spotlight > Switch off show finder search window
     - Keyboard > Shortcuts > Mission Control > Disable all Mission Control key shortcuts
     - Keyboard > Shortcuts > Services > Paste Chrome link into NotePlan `⌃⌥⇧⌘b`
-    - Keyboard > Shortcuts > Services > Copy current page as markdown link `⌃⌥⇧⌘c`
+    - Keyboard > Shortcuts > Services > Copy current page as markdown link in Brave `⌃⌥⇧⌘c`
+    - Keyboard > Shortcuts > Services > Copy current page as markdown link in Chrome `⌃⌥⇧⌘x`
     - Keyboard > Shortcuts > Mission Control > Mission Control `⌃⌥⇧⌘<backtick>`
     - Keyboard > Shortcuts > Mission Control > Move left a space `⌃⌥⇧⌘←`
     - Keyboard > Shortcuts > Mission Control > Move right a space `⌃⌥⇧⌘→`
