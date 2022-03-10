@@ -8,5 +8,5 @@ windows:
       layout: even-horizontal
       panes:
         -
-        - bin/dev
+        - scripts/dev
 
