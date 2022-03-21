@@ -50,7 +50,7 @@ windows:
       # so I've added this here.
       layout: even-vertical
       panes:
-        - cd ~/Dropbox/Code/laserlike
+        - cd ~/Downloads
         - cd ~/dev/scripts
       startup_pane: 2
   - dotfiles:
