@@ -90,6 +90,8 @@ alias gca='git commit -v -a'
 alias gco='git checkout'
 alias gcm='git checkout master'
 alias gdt='git difftool'
+# Git diff syntax
+alias gds='git difftool --tool=difftastic'
 alias gd='git diff'
 alias gdd='git dd'
 alias gdc='git diff --cached'
