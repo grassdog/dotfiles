@@ -1,7 +1,7 @@
 # /Users/ray/.config/tmuxinator/summate.yml
 
 name: summate
-root: ~/Dropbox/Code/summate
+root: ~/Dropbox/Projects/Code/summate
 
 windows:
   - summate:

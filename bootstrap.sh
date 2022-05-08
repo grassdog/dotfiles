@@ -82,7 +82,7 @@ mkdir -p ~/dev
 mkdir -p ~/.config
 mkdir -p ~/.ssh
 mkdir -p ~/.cache/emacs/saves
-[ ! -r ~/dev/scripts ] && [ -d $HOME/Dropbox/Code/ ] && ln -s $HOME/Dropbox/Code/scripts ~/dev
+[ ! -r ~/dev/scripts ] && [ -d $HOME/Dropbox/Projects/Code/ ] && ln -s $HOME/Dropbox/Projects/Code/scripts ~/dev
 ok
 
 step "Ensuring dotfiles repo is downloaded and up to date"

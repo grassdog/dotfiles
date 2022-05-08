@@ -54,7 +54,7 @@ Check the status of services via `brew services list`.
     - Trackpad > Disable Two finger click
     - Trackpad > Disable Smart zoom and Rotate
     - Trackpad > Disable swipe between pages
-    - Desktop and ScreenSaver > Add ~/Dropbox/Pictures/Wallpapers folder and change every hour
+    - Desktop and ScreenSaver > Add ~/Dropbox/Media/Images/Wallpapers folder and change every hour
     - Desktop and ScreenSaver > Drift
 - iTerm2
     - iTerm2 > Set as default terminal
