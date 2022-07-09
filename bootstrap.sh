@@ -108,7 +108,7 @@ function link_files {
 step "Link dotfiles"
 [ -d $DOTFILES_FULL_PATH/files ] && link_files $DOTFILES_FULL_PATH/files
 [ -d $DOTFILES_FULL_PATH/hosts/$HOSTNAME ] && link_files $DOTFILES_FULL_PATH/hosts/$HOSTNAME
-[ -d $HOME/Dropbox/Backups/$HOSTNAME ] && link_files $HOME/Dropbox/Backups/$HOSTNAME
+[ -d $HOME/Dropbox/Backups/hosts/$HOSTNAME ] && link_files $HOME/Dropbox/Backups/hosts/$HOSTNAME
 ok
 
 step "Link .config files"
