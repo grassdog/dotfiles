@@ -1,5 +1,7 @@
 # loco setup
 
+My personal machine since Feb 2015.
+
 Some post-bootstrap steps.
 
 ```sh
