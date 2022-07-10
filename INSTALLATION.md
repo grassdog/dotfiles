@@ -167,6 +167,7 @@ Check the status of services via `brew services list`.
 - Install Lightroom Classic from Adobe CC
     - Copy across Lightroom catalog and masters from USB backup
     - Copy across Lightroom presets from backup into new location `~/Library/Application Support/Adobe/Lightroom/{Develop Preset,Export Presets,Filename Templates}`
+- Install Photoshop from Adobe CC
 - Install Fuji Raw Studio
 - Dash 3
     - Set up syncing to `~/Dropbox/Backups/Dash`
