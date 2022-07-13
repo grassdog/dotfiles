@@ -53,6 +53,9 @@ Plug 'vim-test/vim-test'
 " Format other file types manually using neoformat
 Plug 'sbdchd/neoformat'
 
+" Show keybindings
+Plug 'folke/which-key.nvim'
+
 call plug#end()
 
 """"""""""
@@ -203,11 +206,6 @@ command! SetProjectDir :call s:setcwd()
 
 " Tmux Test helpers
 let test#strategy = "vimux"
-map <Leader>tf :w <bar> TestFile<CR>
-map <Leader>tl :w <bar> TestNearest<CR>
-map <Leader>ta :wall <bar> TestSuite<CR>
-
-map <Leader>. :wall <bar> call VimuxRunLastCommand()<CR>
 
 
 function! BufferAdd()
@@ -322,47 +320,6 @@ inoremap <s-tab> <c-n>
 " Shift-tab in insert mode goes backward
 " inoremap <s-tab> <c-d>
 
-
-""""""""""""""""""
-" Leader keybinds
-""""""""""""""""""
-
-" Yank to system clipboard
-map <leader>y "*y
-map <leader>p "*p
-
-" Switch to last buffer
-nnoremap <leader><tab> <c-^>
-
-" Format the entire file
-nnoremap <leader>ei m'ggVG=``zzg
-nnoremap <leader>ef <cmd>Neoformat<cr>
-
-" Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-nnoremap <leader>fr <cmd>Telescope oldfiles<cr>
-
-" Managing buffers
-nnoremap <silent> <leader>bd :bd!<CR>
-nnoremap <silent> <leader>ba :call BufferAdd()<CR>
-
-" Toggle search highlighting
-noremap <silent><leader>/ :set hlsearch! hlsearch?<CR>
-
-" Change to directory of current file
-nmap <leader>cd :cd %:h<CR>
-nmap <leader>lcd :lcd %:h<CR>
-
-" Git diff movement
-nmap <leader>gg :GitGutterToggle<cr>
-nmap <leader>gn <Plug>(GitGutterNextHunk)
-nmap <leader>gp <Plug>(GitGutterPrevHunk)
-nmap <leader>gs <Plug>(GitGutterStageHunk)
-nmap <leader>gu <Plug>(GitGutterUndoHunk)
-
 " Lua config
 lua <<EOF
 
@@ -383,5 +340,61 @@ require("telescope").setup {
     file_ignore_patterns = { "vendor/*", "node_modules/*" },
   }
 }
+
+-------------
+-- Which key
+-------------
+
+require("which-key").setup {}
+
+local wk = require("which-key")
+wk.register({
+  f = {
+    name = "File",
+    f = { "<cmd>Telescope find_files<cr>", "Find File" },
+    r = { "<cmd>Telescope oldfiles<cr>", "Find recent File" },
+    g = { "<cmd>Telescope live_grep<cr>", "Grep across files" },
+    c = { ":cd %:h<cr>", "Change to directory of current file" },
+    l = { ":lcd %:h<cr>", "Change local window to directory of current file" },
+  },
+  b = {
+    name = "Buffer",
+    b = { "<cmd>Telescope buffers<cr>", "Find buffer" },
+    g = { ":bd!<cr>", "Delete buffer" },
+    a = { ":call BufferAdd()<cr>", "Create buffer" },
+  },
+  m = {
+    name = "Format",
+    f = { "<cmd>Neoformat<cr>", "Format file" },
+    i = { "m'ggVG=``zzg", "Reindent file" },
+  },
+  g = {
+    name = "Git",
+    g = { ":GitGutterToggle<cr>", "Toggle Git Gutter" },
+    n = { "<Plug>(GitGutterNextHunk)", "Next hunk" },
+    p = { "<Plug>(GitGutterPrevHunk)", "Previous hunk" },
+    s = { "<Plug>(GitGutterStageHunk)", "Stage hunk" },
+    u = { "<Plug>(GitGutterUndoHunk)", "Undo hunk" },
+    P = { "<Plug>(GitGutterPreviewHunk)", "Preview hunk" },
+  },
+  h = {
+    name = "Help",
+    h = { "<cmd>Telescope help_tags<cr>", "Search Help tags" },
+  },
+  t = {
+    name = "Test",
+    f = { ":w <bar> TestFile<cr>", "Test file" },
+    l = { ":w <bar> TestNearest<cr>", "Test nearest to current line" },
+    a = { ":wall <bar> TestSuite<cr>", "Test all" },
+  },
+  y = { "\"*y", "Yank into system clipboard" },
+  p = { "\"*p", "Paste from system clipboard" },
+}, { prefix = "<leader>" })
+
+wk.register({
+  ["<leader>."] = { ":wall <bar> call VimuxRunLastCommand()<cr>", "Rerun last command" },
+  ["<leader><tab>"] = { "<c-^>", "Switch to the last buffer" },
+  ["<leader>/"] = { ":set hlsearch! hlsearch?<cr>", "Toggle search highlighting" },
+})
 EOF
 
