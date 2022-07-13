@@ -1,5 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: shell ascii colour escape
-# key: ascii-colour
-# --
-"\033[0;${1:$$(grass/to-ascii-code (yas-choose-value '(\"black\" \"blue\" \"cyan\" \"green\" \"magenta\" \"red\" \"white\" \"yellow\")))`}m${2:MY_TEXT}\033[0m"

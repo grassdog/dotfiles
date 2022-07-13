@@ -1,7 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: date header 2
-# key: dh2
-# --
-## `(grass/today)`
-
-$0

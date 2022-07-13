@@ -81,7 +81,6 @@ step "Ensure common directories exist"
 mkdir -p ~/dev
 mkdir -p ~/.config
 mkdir -p ~/.ssh
-mkdir -p ~/.cache/emacs/saves
 [ ! -r ~/dev/scripts ] && [ -d $HOME/Dropbox/Projects/Code/ ] && ln -s $HOME/Dropbox/Projects/Code/scripts ~/dev
 ok
 
@@ -171,12 +170,6 @@ for f in $(find $DOTFILES_FULL_PATH/services -maxdepth 1 -mindepth 1 ! -name .DS
 done
 IFS=$SAVEIFS
 ok
-
-step "Install Doom emacs"
-if [ ! -d ~/.emacs.d ]; then
-  git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
-  ~/.emacs.d/bin/doom install
-fi
 
 step "Install dev colour picker"
 mkdir -p ~/Library/ColorPickers

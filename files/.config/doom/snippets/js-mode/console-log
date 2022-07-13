@@ -1,5 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: console.log
-# key: cl
-# --
-console.log("${1:value}");

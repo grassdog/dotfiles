@@ -1,7 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: Heading for weekly achievements
-# key: achievements
-# --
-** My Achievements over the last week                                 :achievements:
-
-$0
