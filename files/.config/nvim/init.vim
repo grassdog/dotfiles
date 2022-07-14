@@ -18,6 +18,9 @@ Plug 'nvim-treesitter/playground'
 " LSP
 " Plug 'neovim/nvim-lspconfig'
 
+" Tree file plugin
+Plug 'preservim/nerdtree'
+
 " Better file manager via netrw
 Plug 'tpope/vim-vinegar'
 
@@ -320,6 +323,21 @@ inoremap <s-tab> <c-n>
 " Shift-tab in insert mode goes backward
 " inoremap <s-tab> <c-d>
 
+""""""""""""""""""
+" NERDTree config
+""""""""""""""""""
+let NERDTreeShowHidden = 1
+let NERDTreeAutoDeleteBuffer=1
+let NERDTreeMinimalUI = 1
+let NERDTreeIgnore = ['.DS_Store$', '.git$']
+
+augroup grass_nerdtree
+  autocmd!
+
+  " Exit Vim if NERDTree is the only window remaining in the only tab.
+  autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+augroup END
+
 " Lua config
 lua <<EOF
 
@@ -356,6 +374,8 @@ wk.register({
     g = { "<cmd>Telescope live_grep<cr>", "Grep across files" },
     c = { ":cd %:h<cr>", "Change to directory of current file" },
     l = { ":lcd %:h<cr>", "Change local window to directory of current file" },
+    t = { ":NERDTreeToggle<cr>", "Toggle file tree" },
+    T = { ":NERDTreeFind<cr>", "Find file in file tree" },
   },
   b = {
     name = "Buffer",
