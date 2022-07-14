@@ -24,6 +24,9 @@ Plug 'preservim/nerdtree'
 " Better file manager via netrw
 Plug 'tpope/vim-vinegar'
 
+" Easy search and replace
+Plug 'dkprice/vim-easygrep'
+
 " Some git interaction
 Plug 'airblade/vim-gitgutter'
 
@@ -183,6 +186,9 @@ let g:netrw_winsize   = 30
 let g:netrw_dirhistmax = 0
 " Don't change current dir when browsing to different dirs
 let g:netrw_keepdir=1
+
+" Automatically write all files when replacing
+let g:EasyGrepReplaceWindowMode=2
 
 """""""""""
 " Commands
@@ -417,6 +423,9 @@ wk.register({
     name = "Window",
     w = { "<c-w><c-p>", "Switch to previous window" },
     o = { ":only<cr>", "Show only the current window" },
+  },
+  v = {
+    name = "Grep and Replace",
   },
 }, { prefix = "<leader>" })
 
