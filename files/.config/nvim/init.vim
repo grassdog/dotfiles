@@ -335,11 +335,11 @@ require'nvim-treesitter.configs'.setup {
 -------------
 -- Telescope
 -------------
-require("telescope").setup {
+require("telescope").setup({
   defaults = {
     file_ignore_patterns = { "vendor/*", "node_modules/*" },
   }
-}
+})
 
 -------------
 -- Which key
@@ -389,6 +389,15 @@ wk.register({
   },
   y = { "\"*y", "Yank into system clipboard" },
   p = { "\"*p", "Paste from system clipboard" },
+  s = {
+    name = "Search",
+    w = { "<cmd>Telescope grep_string<cr>", "Search word under cursor" },
+  },
+  w = {
+    name = "Window",
+    w = { "<c-w><c-p>", "Switch to previous window" },
+    o = { ":only<cr>", "Show only the current window" },
+  },
 }, { prefix = "<leader>" })
 
 wk.register({
