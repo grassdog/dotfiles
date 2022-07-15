@@ -11,12 +11,8 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
-" Treesitter
+" Better Syntax parsing
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/playground'
-
-" LSP
-" Plug 'neovim/nvim-lspconfig'
 
 " Tree file plugin
 Plug 'preservim/nerdtree'
@@ -347,14 +343,15 @@ augroup END
 " Lua config
 lua <<EOF
 
---------------
--- Treesitter
---------------
-require'nvim-treesitter.configs'.setup {
+---------------
+--- Treesitter
+---------------
+require'nvim-treesitter.configs'.setup({
   highlight = {
     enable = true,
   },
-}
+})
+
 
 -------------
 -- Telescope
