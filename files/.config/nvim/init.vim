@@ -347,10 +347,37 @@ lua <<EOF
 --- Treesitter
 ---------------
 require'nvim-treesitter.configs'.setup({
+  -- install language parser
+  -- :TSInstallInfo Command to view supported languages
+  ensure_installed = {"ruby", "bash", "html", "css", "vim", "lua", "javascript", "typescript", "tsx"},
+
+  -- Enable code highlighting
   highlight = {
     enable = true,
   },
+
+   -- Enable incremental selection
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = '<CR>',
+      node_incremental = '<CR>',
+      node_decremental = '<BS>',
+      scope_incremental = '<TAB>',
+    }
+  },
+
+  -- Enable based on Treesitter Code formatting for (=).
+  indent = {
+    enable = true,
+  },
 })
+
+-- Turn on Folding for Treesitter
+vim.wo.foldmethod = 'expr'
+vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
+-- Don't collapse by default
+vim.wo.foldlevel = 99
 
 
 -------------
