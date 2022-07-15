@@ -281,7 +281,7 @@ augroup GRASS
 augroup END
 
 
-let g:neoformat_enabled_ruby = ['prettier-plugin-ruby', 'rufo', 'rubybeautify', 'rubocop']
+let g:neoformat_enabled_ruby = ['prettier', 'rufo', 'rubybeautify', 'rubocop']
 
 
 augroup GRASS
