@@ -78,6 +78,7 @@ cask 'postico'
 cask 'sequel-pro'
 # Failing as of 2021-09-10
 # cask 'sizzy'
+cask 'signal'
 cask 'sketch'
 cask 'soulver'
 cask 'sourcetree'
