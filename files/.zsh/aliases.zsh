@@ -40,9 +40,6 @@ alias showerthought="fortune ~/Dropbox/Backups/showerthoughts"
 # Give me context
 alias ag='ag -C'
 
-# Case insensitive by default
-alias rg='rg -i'
-
 # Open emacsclient in terminal
 function et() {
   emacsclient --alternate-editor="" -nw "$@"

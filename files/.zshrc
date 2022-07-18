@@ -135,6 +135,8 @@ source ~/.zsh/aliases.zsh
 # Enable history in iex
 export ERL_AFLAGS="-kernel shell_history enabled"
 
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
 # Source host specific config
 HOSTRC="$HOME/.zsh/$(hostname).zsh"
 [[ -r $HOSTRC ]] && source $HOSTRC
