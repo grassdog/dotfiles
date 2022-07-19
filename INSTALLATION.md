@@ -126,6 +126,11 @@ Check the status of services via `brew services list`.
     - Enable notifications but no badges
 - Flux
     - Set wake up time
+- Toggl Track
+    - Set global shortcut to `⌃⌥⇧⌘t`
+    - Set idle detection to 10 minutes
+    - Show timer on menu bar
+    - Don't show dock icon
 - Bear
     - Set global shortcut to new note `⌃⌥⇧⌘z` 
 - Airbuddy
