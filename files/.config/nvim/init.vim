@@ -58,6 +58,9 @@ Plug 'sbdchd/neoformat'
 " Show keybindings
 Plug 'folke/which-key.nvim'
 
+" Extra text object
+Plug 'bkad/CamelCaseMotion'
+
 call plug#end()
 
 """"""""""
@@ -162,6 +165,11 @@ set termguicolors
 
 set splitright
 set splitbelow
+
+" Place CamelCase motion behind `,`
+" Forward or back or end cc word: ,w or ,b or or ,e or ,ge
+" In or around cc word: i,w or a,w,
+let g:camelcasemotion_key = ','
 
 """"""""
 " Netrw
