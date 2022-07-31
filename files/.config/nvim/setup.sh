@@ -10,3 +10,6 @@ fi
 echo "==> Creating backup and undo cache directories"
 mkdir -p ~/.cache/nvim/undo
 mkdir -p ~/.cache/nvim/backups
+
+echo "==> Installing plugins"
+nvim --headless +PlugInstall +qall
