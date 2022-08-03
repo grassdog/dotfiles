@@ -48,7 +48,6 @@ cask_args appdir: '/Applications'
 cask 'qlstephen'
 
 # Applications
-# cask '1password'
 cask 'sequel-pro'
 cask 'cleanshot'
 cask 'aws-vault'

@@ -8,7 +8,18 @@ Use the steps below to stand up a macOS box how I like it.
 - Enable FileVault.
 - Run a software update on the machine.
 - Sign into iCloud.
-- Sign into the App store
+- Sign into the App store.
+- Install 1Password and sign in.
+    - Security > Don't lock when screensaver activated.
+- Install Dropbo and sign in.
+    - Disable external drive and photo backups.
+    - Notifications > Disable `New files synced` and `Edits to files`.
+    - Go to finder and make the following folders available offline
+        - `Backups`
+        - `Documents`
+        - `Library`
+        - `Media/Images`.
+        - `Projects/Code`.
 
 Run the script below.
 
@@ -18,11 +29,6 @@ bash <(curl -s https://raw.githubusercontent.com/grassdog/dotfiles/master/bootst
 
 You'll likely need to run it multiple times as it symlinks on Dropbox files which need time to be synced.
 
-
-- Open and sign into 1Password
-    - Security > Don't lock when screensaver activated
-- Open and sign into Dropbox
-    - Notifications > Disable `New files synced` and `Edits to files`
 - Restart host to ensure all settings are in effect.
 - Generate [personal access token on Github](https://github.com/settings/tokens) and input it when pushing up changes from the CLI.
 
