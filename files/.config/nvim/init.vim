@@ -393,7 +393,7 @@ vim.wo.foldlevel = 99
 -------------
 require("telescope").setup({
   defaults = {
-    file_ignore_patterns = { "vendor/*", "node_modules/*" },
+    file_ignore_patterns = { "vendor/*", "node_modules/*", ".git/COMMIT_EDITMSG" },
   }
 })
 
