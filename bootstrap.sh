@@ -77,11 +77,12 @@ if ! git config push.default >/dev/null; then
 fi
 ok
 
-step "Ensure common directories exist"
+step "Ensure common directories and file exist"
 mkdir -p ~/dev
 mkdir -p ~/.config
 mkdir -p ~/.ssh
 [ ! -r ~/dev/scripts ] && [ -d $HOME/Dropbox/Projects/Code/ ] && ln -s $HOME/Dropbox/Projects/Code/scripts ~/dev
+touch ~/.z
 ok
 
 step "Ensuring dotfiles repo is downloaded and up to date"
