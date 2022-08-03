@@ -94,15 +94,3 @@ cask 'vlc'
 # cask 'zoom'
 # cask 'slack'
 
-tap 'argon/homebrew-mas'
-mas 'Affinity Photo', id: 824183456
-mas 'Bear', id: 1091189122
-mas 'Clocks', id: 414554506
-mas 'Day One', id: 1055511498
-mas 'MindNode 6', id: 1289197285
-# Failing as of 2021-09-10
-# mas 'NotePlan 3: Markdown Planner', id: 150543262
-mas 'TextSniper - OCR simplified', id: 1528890965
-mas 'Things 3', id: 904280696
-mas 'Ulysses', id: 1225570693
-mas 'White Noise', id: 415139197
