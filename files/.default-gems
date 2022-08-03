@@ -5,3 +5,5 @@ rubocop
 solargraph
 rspotify
 youplot
+sorbet
+sorbet-runtime
