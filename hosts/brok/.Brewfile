@@ -16,6 +16,7 @@ brew 'neovim'
 brew 'pandoc'
 brew 'reattach-to-user-namespace'
 brew 'ripgrep'
+brew 'spaceship'
 brew 'tig'
 brew 'tmux'
 brew 'tmuxinator'
@@ -79,11 +80,3 @@ cask 'visual-studio-code'
 cask 'vlc'
 cask 'zoom'
 
-tap 'argon/homebrew-mas'
-mas 'Bear', id: 1091189122
-mas 'Color Picker', id: 502401013
-mas 'Day One', id: 1055511498
-mas 'MindNode 6', id: 1289197285
-mas 'NotePlan 3: Markdown Planner', id: 150543262
-mas 'Things 3', id: 904280696
-mas 'Ulysses', id: 1225570693

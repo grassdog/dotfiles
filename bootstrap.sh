@@ -43,10 +43,10 @@ ok()    { echo -e "${GREEN}==✅${RESET}"; }
 groups | grep $Q admin || abort "Add $USER to the admin group."
 
 DOTFILES_FULL_PATH="$(cd "$(dirname "$0")" && pwd)"
-HOSTNAME=$(hostname)
+HOSTNAME=$(hostname -f)
 
 step "Ensure Homebrew is installed"
-if ! type -t "brew" > /dev/null; then
+if [[ ! -x /opt/homebrew/bin/brew ]]; then
   log "Installing Homebrew"
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
@@ -107,6 +107,9 @@ function link_files {
 step "Link dotfiles"
 [ -d $DOTFILES_FULL_PATH/files ] && link_files $DOTFILES_FULL_PATH/files
 [ -d $DOTFILES_FULL_PATH/hosts/$HOSTNAME ] && link_files $DOTFILES_FULL_PATH/hosts/$HOSTNAME
+ok
+
+step "Link dotfiles in Dropbox"
 [ -d $HOME/Dropbox/Backups/hosts/$HOSTNAME ] && link_files $HOME/Dropbox/Backups/hosts/$HOSTNAME
 ok
 
@@ -119,6 +122,17 @@ step "Install linked Brewfiles"
 brew bundle -v --no-upgrade --file=~/.Brewfile
 ok
 fi
+
+step "Install apps from the App Store"
+mas install 1091189122 # Bear
+mas install 1055511498 # Day one
+mas install 1289197285 # MindNode 6
+mas install 1505432629 # NotePlan
+mas install 1475387142 # Tailscale
+mas install 904280696  # Things
+mas install 1225570693 # Uylsses
+mas install 1621370168 # WorldWideWeb – Desktop
+ok
 
 step "Set shell to zsh"
 [[ $(echo $SHELL) != $(which zsh) ]] && sudo dscl . -create /Users/${whoami} UserShell $(which zsh)
@@ -169,16 +183,6 @@ for f in $(find $DOTFILES_FULL_PATH/services -maxdepth 1 -mindepth 1 ! -name .DS
   cp -R "$f" ~/Library/Services
 done
 IFS=$SAVEIFS
-ok
-
-step "Install dev colour picker"
-mkdir -p ~/Library/ColorPickers
-if [ ! -d ~/Library/ColorPickers/DeveloperColorPicker.colorPicker ]; then
-curl -sS http://download.panic.com/picker/developercolorpicker.zip > dcp.zip && \
-unzip dcp.zip                                  && \
-mv "Developer Color Picker" ~/Library/ColorPickers/DeveloperColorPicker.colorPicker && \
-rm dcp.zip
-fi
 ok
 
 step "Install fonts"
