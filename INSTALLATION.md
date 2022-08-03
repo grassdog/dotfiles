@@ -82,7 +82,7 @@ Check the status of services via `brew services list`.
 - Safari
     - Enable extensions
         - 1Password
-        - Hush
+        - Adblock Plus
         - Instapaper
         - Matter
         - Bear
