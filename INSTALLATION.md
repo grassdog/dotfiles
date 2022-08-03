@@ -5,6 +5,8 @@ Use the steps below to stand up a macOS box how I like it.
 ## Bootstrap up the environment
 
 - Sign in and set the hostname.
+    - Set hostname in system preferences.
+    - Run `sudo scutil --set HostName hostname` in Terminal.
 - Enable FileVault.
 - Run a software update on the machine.
 - Sign into iCloud.
@@ -42,7 +44,7 @@ Check the status of services via `brew services list`.
     - Users and groups > Drag a new profile picture across
     - Internet Accounts
         - Add Work Google for email and calendar
-        - Enable everything except keychain for icloud
+        - Enable everything except keychain for iCloud
     - Accessibility > Display > Reduce transparency
     - Keyboard > Key repeat max and Delay to minimum
     - Keyboard > Use F1 keys as standard function keys on external keyboards
@@ -66,7 +68,7 @@ Check the status of services via `brew services list`.
     - iTerm2 > Set as default terminal
     - Sync preferences ~/Dropbox/Backups/iterm
     - Preferences > Profiles > Colours - Import Dracula theme from ~/Dropbox/Backups/iterm colours
-    - Preferences > Profiles > Fonts - Fira code, Retina, 12pt 
+    - Preferences > Profiles > Fonts - Fira code, Retina, 12pt
     - Preferences > General > Closing > Don't confirm quit for single or multiple sessions
 - Alfred
     - Install Powerpack from 1Password
@@ -77,27 +79,25 @@ Check the status of services via `brew services list`.
     - Disable contacts in Alfred
     - Appearance > Yosemite Light
     - Appearance > Hide Menu Bar Icon
-- Choosy
-    - Set default browser
-    - Start at login
-    - Don't show in menu bar
-    - Set browsers Firefox -> Chrome -> Safari
-    - Import settings from ~/Dropbox/Backups/Choosy/behaviours.plist to ~/Library/Application Support/Choosy
+- Safari
+    - Install extensions from App Store
+        - 1Password
+        - Instapaper
+        - Matter
+        - Bear
 - Moom
     - Run as faceless app
     - Launch at login
     - Import settings: https://manytricks.com/osticket/kb/faq.php?id=53
     - `defaults export com.manytricks.Moom ~/Desktop/Moom.plist` on source machine
     - `defaults import com.manytricks.Moom ~/Desktop/Moom.plist` on target machine
-- Firefox
-    - Customise shortcut bar and remove pocket and Firefox account.
-    - Set LeechBlock config.
-- Chrome
-    - Set global shortcut for Meet Mute extension to `⌘⇧9`
 - Finder
     - Add ~/dev into Finder sidebar
     - New window opens in ~/Downloads
 - Place Chrome, Things.app, Slack, Soulver, MacVim, and iTerm2 into the Dock
+- Karabiner Elements
+    - Don't show icon in menu bar
+    - Set caps lock to control in `System Preferences > Keyboard` for karabiner virtual keyboard
 - Mailplane
     - Add work and personal accounts
     - Make App dock only
@@ -119,8 +119,9 @@ Check the status of services via `brew services list`.
     - Enable notifications (no application badge though)
         - Show shared calendar notifications
         - Show notifications for all day tasks at 7am
-        - Disable other notifications
+        - Disable Show invitation messages in Notification Center
         - Disable drive time notifications
+- Sign out of iMessages and FaceTime
 - Mail.app
     - Disable notifications
     - Preferences > New messages Sound > None
@@ -130,8 +131,6 @@ Check the status of services via `brew services list`.
     - Install the Things Helper application for sharing across apps
     - Set shortcut for quick entry to `cmd-opt-space`
     - Enable notifications but no badges
-- Flux
-    - Set wake up time
 - Toggl Track
     - Set global shortcut to `⌃⌥⇧⌘t`
     - Set idle detection to 10 minutes
@@ -139,9 +138,6 @@ Check the status of services via `brew services list`.
     - Don't show dock icon
 - Bear
     - Set global shortcut to new note `⌃⌥⇧⌘z` 
-- Airbuddy
-    - Set global shortcut to status page `⌃⌥⇧⌘a` 
-- Install SSH Keys and config from 1Password
 - NotePlan
     - Use CloudKit for syncing.
     - Set global shortcut to `⌃⌥⇧⌘j` 
@@ -149,9 +145,6 @@ Check the status of services via `brew services list`.
     - Don't recognise `*` as todo
     - Use `-` as default
     - Automatically update note links
-- Karabiner Elements
-    - Don't show icon in menu bar
-    - Set caps lock to control in karabiner virtual keyboard
 - QLStephen
     - Allow in security settings.
 - DayOne
@@ -162,27 +155,44 @@ Check the status of services via `brew services list`.
 - VSCode
     - Turn on setting sync (sign in via Github)
     - Install command line tools
-- Google Meet Web app via Chrome
-    - Browse to Google Meet and install Chrome app from address bar (or copy across from ~/Applications)
 - Spotify
     - Disable friend feed and notifcation of next song
 - Copy across or clone projects into `~/dev`
-- Set up aws-vault (key and secret in 1Password)
-    - `aws-vault add envato-aws-users-ray.grasso`
 - Copy dotfiles
     - ~/.aws/config
     - ~/.config/exercism
+- Flux
+    - Set wake up time
+- Nova.app
+    - Install extensions.
+    - Copy over customised key bindings.
+    - Install command line tool.
 
 # Optional stuff
 
+- Chrome
+    - Set global shortcut for Meet Mute extension to `⌘⇧9`
+- Google Meet Web app via Chrome
+    - Browse to Google Meet and install Chrome app from address bar (or copy across from ~/Applications)
+- Choosy
+    - Set default browser
+    - Start at login
+    - Don't show in menu bar
+    - Set browsers Firefox -> Chrome -> Safari
+    - Import settings from ~/Dropbox/Backups/Choosy/behaviours.plist to ~/Library/Application Support/Choosy
+- Airbuddy
+    - Set global shortcut to status page `⌃⌥⇧⌘a` 
 - Install Lightroom Classic from Adobe CC
     - Copy across Lightroom catalog and masters from USB backup
     - Copy across Lightroom presets from backup into new location `~/Library/Application Support/Adobe/Lightroom/{Develop Preset,Export Presets,Filename Templates}`
 - Install Photoshop from Adobe CC
 - Install Fuji Raw Studio
+- Install SSH Keys and config from 1Password
 - Dash 3
     - Set up syncing to `~/Dropbox/Backups/Dash`
 - Calibre
     - Preferences > Install plugin from file > `~/Dropbox/Backups/Calibre DRM plugins/KFX Input.zip`
     - Preferences > Install plugin from file > `~/Dropbox/Backups/Calibre DRM plugins/DeDRM_tools_6.6.1/DeDRM_calibre_plugin/DeDRM_plugin.zip`
+- Set up aws-vault (key and secret in 1Password)
+    - `aws-vault add envato-aws-users-ray.grasso`
 
