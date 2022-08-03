@@ -13,7 +13,7 @@ Use the steps below to stand up a macOS box how I like it.
 - Sign into the App store.
 - Install 1Password and sign in.
     - Security > Don't lock when screensaver activated.
-- Install Dropbo and sign in.
+- Install Dropbox and sign in.
     - Disable external drive and photo backups.
     - Notifications > Disable `New files synced` and `Edits to files`.
     - Go to finder and make the following folders available offline
