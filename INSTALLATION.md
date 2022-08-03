@@ -80,8 +80,9 @@ Check the status of services via `brew services list`.
     - Appearance > Yosemite Light
     - Appearance > Hide Menu Bar Icon
 - Safari
-    - Install extensions from App Store
+    - Enable extensions
         - 1Password
+        - Hush
         - Instapaper
         - Matter
         - Bear
