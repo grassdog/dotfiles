@@ -128,6 +128,7 @@ step "Install apps from the App Store"
 mas install 1569813296 # 1Password for Safari
 mas install 1018301773 # AdBlock Pro for Safari
 mas install 1091189122 # Bear
+mas install 1451400394 # bookmarker for pinboard
 mas install 1055511498 # Day one
 mas install 1481302432 # Instapaper Save
 mas install 1548677272 # Matter

@@ -87,6 +87,7 @@ Check the status of services via `brew services list`.
         - Instapaper
         - Matter
         - Bear
+        - Bookmarker
 - Moom
     - Run as faceless app
     - Launch at login
