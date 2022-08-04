@@ -80,6 +80,7 @@ Check the status of services via `brew services list`.
     - Appearance > Yosemite Light
     - Appearance > Hide Menu Bar Icon
 - Safari
+    - Under AutoFill settings disable usernames, passwords, contacts, and credit cards.
     - Enable extensions
         - 1Password
         - Adblock Plus
