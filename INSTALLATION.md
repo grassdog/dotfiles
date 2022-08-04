@@ -96,6 +96,7 @@ Check the status of services via `brew services list`.
 - Finder
     - Add ~/dev into Finder sidebar
     - New window opens in ~/Downloads
+    - View > Customize toolbar > Add Airdrop icon to toolbar.
 - Place Chrome, Things.app, Slack, Soulver, MacVim, and iTerm2 into the Dock
 - Karabiner Elements
     - Don't show icon in menu bar
@@ -139,10 +140,10 @@ Check the status of services via `brew services list`.
     - Show timer on menu bar
     - Don't show dock icon
 - Bear
-    - Set global shortcut to new note `⌃⌥⇧⌘z` 
+    - Set global shortcut to new note `⌃⌥⇧⌘z`
 - NotePlan
     - Use CloudKit for syncing.
-    - Set global shortcut to `⌃⌥⇧⌘j` 
+    - Set global shortcut to `⌃⌥⇧⌘j`
     - Start week on Monday
     - Don't recognise `*` as todo
     - Use `-` as default
@@ -169,6 +170,8 @@ Check the status of services via `brew services list`.
     - Install extensions.
     - Copy over customised key bindings.
     - Install command line tool.
+- Cleanshot
+    - Use default system key mappings.
 
 # Optional stuff
 
@@ -183,10 +186,14 @@ Check the status of services via `brew services list`.
     - Set browsers Firefox -> Chrome -> Safari
     - Import settings from ~/Dropbox/Backups/Choosy/behaviours.plist to ~/Library/Application Support/Choosy
 - Airbuddy
-    - Set global shortcut to status page `⌃⌥⇧⌘a` 
+    - Set global shortcut to status page `⌃⌥⇧⌘a`
 - Install Lightroom Classic from Adobe CC
     - Copy across Lightroom catalog and masters from USB backup
-    - Copy across Lightroom presets from backup into new location `~/Library/Application Support/Adobe/Lightroom/{Develop Preset,Export Presets,Filename Templates}`
+    - Manually copy across settings from previous install
+    - Copy across Lightroom presets from backup into new location `~/Library/Application Support/Adobe/Lightroom/{Develop Preset,Export Presets,Filename Templates,Metadata Presets}`
+    - Copy across Lightroom presets from backup into new location `~/Library/Application Support/Adobe/CameraRaw/Settings/*`
+    - Restart Lightroom
+    - Map Module > Import My Locations from backup
 - Install Photoshop from Adobe CC
 - Install Fuji Raw Studio
 - Install SSH Keys and config from 1Password
