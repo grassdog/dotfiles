@@ -55,7 +55,6 @@ Plug 'lvht/fzf-mru'
 " Tools
 Plug 'vim-scripts/EasyGrep'
 Plug 'jremmen/vim-ripgrep'
-Plug 'henrik/vim-open-url'
 Plug 'grassdog/tagman.vim'
 Plug 'vim-test/vim-test'
 
