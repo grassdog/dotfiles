@@ -81,6 +81,7 @@ Check the status of services via `brew services list`.
     - Appearance > Hide Menu Bar Icon
 - Safari
     - Under AutoFill settings disable usernames, passwords, contacts, and credit cards.
+    - View > Show status bar.
     - Enable extensions
         - 1Password
         - Adblock Plus
