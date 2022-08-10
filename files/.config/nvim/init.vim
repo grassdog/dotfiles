@@ -301,13 +301,17 @@ augroup GRASS
 augroup END
 
 
-" Use Neoformat to automatically format the following filetypes
-augroup GRASS_FORMAT
-  autocmd BufWritePre *.html undojoin | Neoformat
-  autocmd BufWritePre *.js undojoin | Neoformat
-  autocmd BufWritePre *.ts undojoin | Neoformat
-  autocmd BufWritePre *.rb undojoin | Neoformat
-augroup END
+" Uncomment the following to use Neoformat to automatically format the following filetypes
+"
+" This is disabled as a default for now because performance when calling prettier it pretty
+" rubbish.
+
+" augroup GRASS_FORMAT
+"   autocmd BufWritePre *.html undojoin | Neoformat
+"   autocmd BufWritePre *.js undojoin | Neoformat
+"   autocmd BufWritePre *.ts undojoin | Neoformat
+"   autocmd BufWritePre *.rb undojoin | Neoformat
+" augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MULTIPURPOSE TAB KEY
