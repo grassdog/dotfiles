@@ -126,6 +126,8 @@ Check the status of services via `brew services list`.
         - Show notifications for all day tasks at 7am
         - Disable Show invitation messages in Notification Center
         - Disable drive time notifications
+- Docker for Mac
+    - Preferences > Experimental features > Enable VirtioFS accelerated directory sharing
 - Sign out of iMessages and FaceTime
 - Mail.app
     - Disable notifications
