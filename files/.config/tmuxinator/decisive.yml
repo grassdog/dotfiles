@@ -8,4 +8,3 @@ windows:
       layout: even-horizontal
       panes:
         -
-        - scripts/dev
