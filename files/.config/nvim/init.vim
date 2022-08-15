@@ -171,6 +171,17 @@ set splitbelow
 " In or around cc word: i,w or a,w,
 let g:camelcasemotion_key = ','
 
+if !has("gui_running")
+  " vim hardcodes background color erase even if the terminfo file does
+  " not contain bce (not to mention that libvte based terminals
+  " incorrectly contain bce in their terminfo files). This causes
+  " incorrect background rendering when using a color theme with a
+  " background color.
+  "
+  " see: https://github.com/kovidgoyal/kitty/issues/108
+  let &t_ut=''
+endif
+
 """"""""
 " Netrw
 """"""""
