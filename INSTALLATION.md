@@ -134,6 +134,7 @@ Check the status of services via `brew services list`.
     - Preferences > New messages Sound > None
 - Calendar.app
     - Disable notifications
+    - Preferences > General > Default Calendar App - Set to Fantastical.
 - Things
     - Install the Things Helper application for sharing across apps
     - Set shortcut for quick entry to `cmd-opt-space`
