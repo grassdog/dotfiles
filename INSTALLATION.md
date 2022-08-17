@@ -64,6 +64,7 @@ Check the status of services via `brew services list`.
     - Trackpad > Disable swipe between pages
     - Desktop and ScreenSaver > Add ~/Dropbox/Media/Images/Wallpapers folder and change every hour
     - Desktop and ScreenSaver > Drift
+    - Dock & Menu Bar > Clock > Show the day of the week > Always
 - iTerm2
     - iTerm2 > Set as default terminal
     - Sync preferences ~/Dropbox/Backups/iterm
