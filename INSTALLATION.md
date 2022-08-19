@@ -83,6 +83,7 @@ Check the status of services via `brew services list`.
 - Safari
     - Under AutoFill settings disable usernames, passwords, contacts, and credit cards.
     - View > Show status bar.
+    - Preferences > Advanced > Show full website address.
     - Enable extensions
         - 1Password
         - Adblock Plus
