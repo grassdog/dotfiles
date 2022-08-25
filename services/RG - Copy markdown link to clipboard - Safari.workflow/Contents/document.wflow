@@ -118,17 +118,17 @@ end run</string>
 	<key>workflowMetaData</key>
 	<dict>
 		<key>applicationBundleID</key>
-		<string>com.google.Chrome</string>
+		<string>com.apple.Safari</string>
 		<key>applicationBundleIDsByPath</key>
 		<dict>
-			<key>/Applications/Google Chrome.app</key>
-			<string>com.google.Chrome</string>
+			<key>/Applications/Safari.app</key>
+			<string>com.apple.Safari</string>
 		</dict>
 		<key>applicationPath</key>
-		<string>/Applications/Google Chrome.app</string>
+		<string>/Applications/Safari.app</string>
 		<key>applicationPaths</key>
 		<array>
-			<string>/Applications/Google Chrome.app</string>
+			<string>/Applications/Safari.app</string>
 		</array>
 		<key>inputTypeIdentifier</key>
 		<string>com.apple.Automator.nothing</string>
@@ -139,9 +139,9 @@ end run</string>
 		<key>processesInput</key>
 		<false/>
 		<key>serviceApplicationBundleID</key>
-		<string>com.google.Chrome</string>
+		<string>com.apple.Safari</string>
 		<key>serviceApplicationPath</key>
-		<string>/Applications/Google Chrome.app</string>
+		<string>/Applications/Safari.app</string>
 		<key>serviceInputTypeIdentifier</key>
 		<string>com.apple.Automator.nothing</string>
 		<key>serviceOutputTypeIdentifier</key>

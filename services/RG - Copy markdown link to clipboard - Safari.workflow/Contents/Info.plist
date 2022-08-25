@@ -19,7 +19,7 @@
 			<key>NSRequiredContext</key>
 			<dict>
 				<key>NSApplicationIdentifier</key>
-				<string>com.google.Chrome</string>
+				<string>com.apple.Safari</string>
 			</dict>
 		</dict>
 	</array>
