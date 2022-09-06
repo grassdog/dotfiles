@@ -201,6 +201,7 @@ Check the status of services via `brew services list`.
     - Copy across Lightroom presets from backup into new location `~/Library/Application Support/Adobe/CameraRaw/Settings/*`
     - Restart Lightroom
     - Map Module > Import My Locations from backup
+    - Pick `~/Dropbox/Photos/Lightroom/Backups` path in backup dialog when exiting Lightroom.
 - Install Photoshop from Adobe CC
 - Install Fuji Raw Studio
 - Install SSH Keys and config from 1Password
