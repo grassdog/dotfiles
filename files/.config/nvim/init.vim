@@ -116,6 +116,7 @@ set laststatus=2              " always show the status bar
 set showmode
 set shortmess=atIOT           " Abbrev. of messages (avoids 'hit enter')
 set showcmd
+set signcolumn=number         " Combine sign and number columns
 
 set nofoldenable
 set foldlevelstart=99
