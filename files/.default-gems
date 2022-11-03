@@ -1,5 +1,5 @@
 bundler
-pry-byebug
+debug
 rufo
 rubocop
 solargraph
