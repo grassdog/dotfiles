@@ -1,5 +1,6 @@
 bundler
 debug
+prettier
 rufo
 rubocop
 solargraph
