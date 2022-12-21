@@ -135,6 +135,7 @@ mas install 1481302432 # Instapaper Save
 mas install 1548677272 # Matter
 mas install 1289197285 # MindNode 6
 mas install 1505432629 # NotePlan
+mas install 1606145041 # Sleeve
 mas install 1475387142 # Tailscale
 mas install 904280696  # Things
 mas install 1567751529 # Tweaks for Twitter
