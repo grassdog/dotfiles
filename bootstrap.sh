@@ -138,6 +138,7 @@ mas install 1505432629 # NotePlan
 mas install 1606145041 # Sleeve
 mas install 1475387142 # Tailscale
 mas install 904280696  # Things
+mas install 1291898086 # Toggl Track
 mas install 1567751529 # Tweaks for Twitter
 mas install 1225570693 # Uylsses
 mas install 1621370168 # WorldWideWeb – Desktop
