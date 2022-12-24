@@ -99,7 +99,7 @@ function link_files {
 
   log "Linking files in $SOURCE_DIR"
 
-  for f in $(find $SOURCE_DIR -maxdepth 1 -mindepth 1 \( ! -name .DS_Store ! -name README.md ! -name _dontlink ! -name .config \)); do
+  for f in $(find $SOURCE_DIR -maxdepth 1 -mindepth 1 \( ! -name .DS_Store ! -name README.md ! -name _dontlink ! -name .config ! -name bootstrap.sh \)); do
     log "Linking $f to $TARGET_DIR"
     ln -sf "$f" "$TARGET_DIR"
   done
@@ -138,11 +138,17 @@ mas install 1505432629 # NotePlan
 mas install 1606145041 # Sleeve
 mas install 1475387142 # Tailscale
 mas install 904280696  # Things
-mas install 1291898086 # Toggl Track
 mas install 1567751529 # Tweaks for Twitter
 mas install 1225570693 # Uylsses
 mas install 1621370168 # WorldWideWeb – Desktop
 ok
+
+
+if [ -r $DOTFILES_FULL_PATH/hosts/$HOSTNAME/bootstrap.sh ]; then
+step "Run host specific bootstrap script"
+  "$DOTFILES_FULL_PATH/hosts/$HOSTNAME/bootstrap.sh"
+ok
+fi
 
 step "Set shell to zsh"
 [[ $(echo $SHELL) != $(which zsh) ]] && sudo dscl . -create /Users/${whoami} UserShell $(which zsh)
