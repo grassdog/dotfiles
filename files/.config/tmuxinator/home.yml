@@ -51,6 +51,6 @@ windows:
       startup_pane: 2
   - dotfiles:
       root: ~/.dotfiles
-  - dev:
-      root: ~/dev
+  - downloads:
+      root: ~/Downloads
 
