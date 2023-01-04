@@ -105,10 +105,11 @@ Check the status of services via `brew services list`.
 - Karabiner Elements
     - Don't show icon in menu bar
     - Set caps lock to control in `System Preferences > Keyboard` for karabiner virtual keyboard
-- Mailplane
-    - Add work and personal accounts
-    - Make App dock only
-    - Disable notifications
+- WebCatalog
+    - Install Gmail and Google calendar apps
+    - Add work accounts
+- Mimestream
+    - Add personal email accounts
 - Fantastical 3
     - Sign in with Apple
     - Enter version 2 license key
