@@ -113,14 +113,17 @@ Check the status of services via `brew services list`.
     - Sign in with Apple
     - Enter version 2 license key
     - Add Work account
-    - Add icloud account (with app specific password)
+    - Add iCloud account (with app specific password)
     - Menu bar icon date and weekday
     - Defaults to last selected calendar and list
     - Default event is 30 minutes
     - Start week on Sunday
+    - Start week view on Today or selected day
     - Show 13 hours at a time
     - Days per week = 5
     - Day from 7am - 7pm
+    - Show multi-day events in all-day section
+    - Create three calendar sets: Everything, Work, and Personal
     - Appearance > App Icon Badge shows > Nothing
     - Change key shortcut to `shift-f12`
     - Enable notifications (no application badge though)
