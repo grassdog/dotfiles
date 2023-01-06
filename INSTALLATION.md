@@ -110,6 +110,7 @@ Check the status of services via `brew services list`.
     - Add work accounts
 - Mimestream
     - Add personal email accounts
+    - Enable notifications in system settings and disable everything except app badge
 - Fantastical 3
     - Sign in with Apple
     - Enter version 2 license key
