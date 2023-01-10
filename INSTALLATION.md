@@ -185,6 +185,9 @@ Check the status of services via `brew services list`.
     - Install command line tool.
 - Cleanshot
     - Use default system key mappings.
+- NepTunes
+    - Set play/pause shortcut to `⌃⌥⇧⌘p`
+
 
 # Optional stuff
 
