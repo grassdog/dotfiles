@@ -191,6 +191,8 @@ Check the status of services via `brew services list`.
     - Set global shortcut for Meet Mute extension to `⌘⇧9`
 - Google Meet Web app via Chrome
     - Browse to Google Meet and install Chrome app from address bar (or copy across from ~/Applications)
+- Download and install Webster's 1913 Dictionary
+    - Instructions at https://github.com/cmod/websters-1913
 - Choosy
     - Set default browser
     - Start at login
