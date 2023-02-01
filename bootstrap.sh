@@ -81,7 +81,7 @@ step "Ensure common directories and file exist"
 mkdir -p ~/dev
 mkdir -p ~/.config
 mkdir -p ~/.ssh
-[ ! -r ~/dev/scripts ] && [ -d $HOME/Dropbox/Projects/Code/ ] && ln -s $HOME/Dropbox/Projects/Code/scripts ~/dev
+[ ! -r ~/dev/scripts ] && [ -d $HOME/Library/CloudStorage/Dropbox/Projects/Code/ ] && ln -s $HOME/Library/CloudStorage/Dropbox/Projects/Code/scripts ~/dev
 touch ~/.z
 ok
 
@@ -111,7 +111,7 @@ step "Link dotfiles"
 ok
 
 step "Link dotfiles in Dropbox"
-[ -d $HOME/Dropbox/Backups/hosts/$HOSTNAME ] && link_files $HOME/Dropbox/Backups/hosts/$HOSTNAME
+[ -d $HOME/Library/CloudStorage/Dropbox/Backups/hosts/$HOSTNAME ] && link_files $HOME/Library/CloudStorage/Dropbox/Backups/hosts/$HOSTNAME
 ok
 
 step "Link .config files"
@@ -169,7 +169,7 @@ ok
 
 step "Link Karabiner config"
 mkdir -p ~/.config/karabiner
-[ ! -f $HOME/.config/karabiner/karabiner.json ] && [ -d $HOME/Dropbox/Backups/ ] && ln -sf "$HOME/Dropbox/Backups/karabiner/karabiner.json" "$HOME/.config/karabiner"
+[ ! -f $HOME/.config/karabiner/karabiner.json ] && [ -d $HOME/Library/CloudStorage/Dropbox/Backups/ ] && ln -sf "$HOME/Library/CloudStorage/Dropbox/Backups/karabiner/karabiner.json" "$HOME/.config/karabiner"
 ok
 
 step "Install tmux config"
@@ -203,14 +203,14 @@ ok
 
 step "Install fonts"
 mkdir -p ~/Library/Fonts
-[ -d $HOME/Dropbox/Backups/ ] && find ~/Dropbox/Backups/Fonts/ToInstall -name '*.ttf' -o -name '*.otf' -exec cp {} ~/Library/Fonts \;
+[ -d $HOME/Library/CloudStorage/Dropbox/Backups/ ] && find ~/Library/CloudStorage/Dropbox/Backups/Fonts/ToInstall -name '*.ttf' -o -name '*.otf' -exec cp {} ~/Library/Fonts \;
 chmod -x ~/Library/Fonts/*.ttf
 chmod -x ~/Library/Fonts/*.otf
 ok
 
 step "Install spelling files"
-[ -d $HOME/Dropbox/Backups/ ] && ln -sf $HOME/Dropbox/Backups/Spell/aspell.en.pws "$HOME/.aspell.en.pws"
-[ -d $HOME/Dropbox/Backups/ ] && ln -sf $HOME/Dropbox/Backups/Spell/aspell.en.prepl "$HOME/.aspell.en.prepl"
+[ -d $HOME/Library/CloudStorage/Dropbox/Backups/ ] && ln -sf $HOME/Dropbox/Backups/Spell/aspell.en.pws "$HOME/.aspell.en.pws"
+[ -d $HOME/Library/CloudStorage/Dropbox/Backups/ ] && ln -sf $HOME/Dropbox/Backups/Spell/aspell.en.prepl "$HOME/.aspell.en.prepl"
 ok
 
 
