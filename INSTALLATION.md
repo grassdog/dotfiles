@@ -205,6 +205,8 @@ Check the status of services via `brew services list`.
     - Import settings from ~/Dropbox/Backups/Choosy/behaviours.plist to ~/Library/Application Support/Choosy
 - Airbuddy
     - Set global shortcut to status page `⌃⌥⇧⌘a`
+- Install Photoshop from Adobe CC
+- Install Topaz Photo AI
 - Install Lightroom Classic from Adobe CC
     - Copy across Lightroom catalog and masters from USB backup
     - Manually copy across settings from previous install
@@ -213,7 +215,6 @@ Check the status of services via `brew services list`.
     - Restart Lightroom
     - Map Module > Import My Locations from backup
     - Pick `~/Dropbox/Photos/Lightroom/Backups` path in backup dialog when exiting Lightroom.
-- Install Photoshop from Adobe CC
 - Install Fuji Raw Studio
 - Install SSH Keys and config from 1Password
 - Dash 3
