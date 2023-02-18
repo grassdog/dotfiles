@@ -131,6 +131,7 @@ mas install 1091189122 # Bear
 mas install 1451400394 # bookmarker for pinboard
 mas install 1465439395 # Dark Noise
 mas install 1055511498 # Day one
+mas install 1666139593 # Homecoming for Mastodon
 mas install 1481302432 # Instapaper Save
 mas install 1548677272 # Matter
 mas install 1289197285 # MindNode 6
