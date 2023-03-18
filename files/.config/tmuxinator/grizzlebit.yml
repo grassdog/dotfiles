@@ -1,10 +1,10 @@
-# /Users/ray/.config/tmuxinator/grizzle.yml
+# /Users/ray/.config/tmuxinator/grizzlebit.yml
 
-name: grizzle
+name: grizzlebit
 root: ~/dev/grizzlebit.com
 
 windows:
-  - strange:
+  - grizzlebit:
       layout: even-horizontal
       panes:
         -
