@@ -26,7 +26,7 @@ Use the steps below to stand up a macOS box how I like it.
 Run the script below.
 
 ```sh
-bash <(curl -s https://raw.githubusercontent.com/grassdog/dotfiles/master/bootstrap.sh)
+bash <(curl -s https://raw.githubusercontent.com/grassdog/dotfiles/main/bootstrap.sh)
 ```
 
 You'll likely need to run it multiple times as it symlinks on Dropbox files which need time to be synced.

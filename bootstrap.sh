@@ -89,7 +89,7 @@ step "Ensuring dotfiles repo is downloaded and up to date"
 if [ ! -d $HOME/.dotfiles ]; then
   git clone https://github.com/grassdog/dotfiles.git $HOME/.dotfiles
 else
-  cd $HOME/.dotfiles && git pull origin master --autostash
+  cd $HOME/.dotfiles && git pull origin main --autostash
 fi
 ok
 
