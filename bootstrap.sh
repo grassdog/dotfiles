@@ -133,10 +133,9 @@ mas install 1465439395 # Dark Noise
 mas install 1055511498 # Day one
 mas install 1666139593 # Homecoming for Mastodon
 mas install 1481302432 # Instapaper Save
-mas install 1548677272 # Matter
+mas install 1006739057 # NepTunes
 mas install 1289197285 # MindNode 6
 mas install 1505432629 # NotePlan
-mas install 1606145041 # Sleeve
 mas install 1475387142 # Tailscale
 mas install 904280696  # Things
 mas install 1567751529 # Tweaks for Twitter
