@@ -153,7 +153,7 @@ fi
 # tmuxinator is setting this for some reason so unset it
 unset GEM_HOME
 
-ASDF_PATH="$(brew --prefix asdf)/asdf.sh"
+ASDF_PATH="$(brew --prefix asdf)/libexec/asdf.sh"
 
 [[ -r "$ASDF_PATH" ]] && source "$ASDF_PATH"
 
