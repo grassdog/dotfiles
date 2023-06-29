@@ -146,6 +146,7 @@ Check the status of services via `brew services list`.
 - Things
     - Install the Things Helper application for sharing across apps
     - Set shortcut for quick entry to `cmd-opt-space`
+    - Set shortcut for quick entry with autofill to `⌃⌥⇧⌘space`.
     - Enable notifications but no badges
 - Toggl Track
     - Set global shortcut to `⌃⌥⇧⌘t`
