@@ -168,9 +168,10 @@ step "Install neovim config"
 ~/.config/nvim/setup.sh
 ok
 
-step "Link Karabiner config"
+# Have to copy this as a symlink doesn't seem to work
+step "Copy Karabiner config"
 mkdir -p ~/.config/karabiner
-[ ! -f $HOME/.config/karabiner/karabiner.json ] && [ -d $HOME/Library/CloudStorage/Dropbox/Backups/ ] && ln -sf "$HOME/Library/CloudStorage/Dropbox/Backups/karabiner/karabiner.json" "$HOME/.config/karabiner"
+[ ! -f $HOME/.config/karabiner/karabiner.json ] && [ -d $HOME/Library/CloudStorage/Dropbox/Backups/ ] && cp "$HOME/Library/CloudStorage/Dropbox/Backups/karabiner/karabiner.json" "$HOME/.config/karabiner"
 ok
 
 step "Install tmux config"
