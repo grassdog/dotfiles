@@ -192,6 +192,7 @@ Check the status of services via `brew services list`.
 
 # Optional stuff
 
+- Download Elgato Control centre and Stream Deck from https://www.elgato.com/ww/en/s/downloads
 - Chrome
     - Set global shortcut for Meet Mute extension to `⌘⇧9`
 - Google Meet Web app via Chrome
