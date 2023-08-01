@@ -50,7 +50,7 @@ Check the status of services via `brew services list`.
     - Keyboard > Use F1 keys as standard function keys on external keyboards
     - Keyboard > Customise control strip - drag play pause down to far right to replace Siri button
     - Keyboard > Modifier Keys > Set caps lock as control
-    - Keyboard > Shortcuts > Spotlight > Change spotlight to `ctrl-option-cmd-space`
+    - Keyboard > Shortcuts > Spotlight > Change spotlight to `option-space`
     - Keyboard > Shortcuts > Spotlight > Switch off show finder search window
     - Keyboard > Shortcuts > Mission Control > Disable all Mission Control key shortcuts
     - Keyboard > Shortcuts > Services > Paste Chrome link into NotePlan `⌃⌥⇧⌘b`
