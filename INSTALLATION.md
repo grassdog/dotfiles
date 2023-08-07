@@ -192,7 +192,9 @@ Check the status of services via `brew services list`.
 
 # Optional stuff
 
-- Download Elgato Control centre and Stream Deck from https://www.elgato.com/ww/en/s/downloads
+- Download Elgato Control Centre and Stream Deck from https://www.elgato.com/ww/en/s/downloads
+    - Import profile backup into Stream Deck from `~/Dropbox/Backups/StreamDeck`.
+        - Instructions at https://help.elgato.com/hc/en-us/articles/360048424432-Elgato-Stream-Deck-How-to-Back-Up-and-Restore-Profiles-
 - Chrome
     - Set global shortcut for Meet Mute extension to `⌘⇧9`
 - Google Meet Web app via Chrome
