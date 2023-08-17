@@ -21,7 +21,7 @@ Use the steps below to stand up a macOS box how I like it.
         - `Documents`
         - `Library`
         - `Media/Images`.
-        - `Projects/Code`.
+        - `Code`.
 
 Run the script below.
 

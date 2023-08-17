@@ -81,7 +81,7 @@ step "Ensure common directories and file exist"
 mkdir -p ~/dev
 mkdir -p ~/.config
 mkdir -p ~/.ssh
-[ ! -r ~/dev/scripts ] && [ -d $HOME/Library/CloudStorage/Dropbox/Projects/Code/ ] && ln -s $HOME/Library/CloudStorage/Dropbox/Projects/Code/scripts ~/dev
+[ ! -r ~/dev/scripts ] && [ -d $HOME/Library/CloudStorage/Dropbox/Code/ ] && ln -s $HOME/Library/CloudStorage/Dropbox/Code/scripts ~/dev
 touch ~/.z
 ok
 
