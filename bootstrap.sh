@@ -137,6 +137,7 @@ mas install 1006739057 # NepTunes
 mas install 1289197285 # MindNode 6
 mas install 1505432629 # NotePlan
 mas install 1376402589 # StopTheMadness
+mas install 1568262835 # Super Agent for Safari
 mas install 1475387142 # Tailscale
 mas install 904280696  # Things
 mas install 1591303229 # Vinegar - Tube Cleaner
