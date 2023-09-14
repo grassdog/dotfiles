@@ -1,11 +1,13 @@
 tap 'homebrew/bundle'
 tap 'homebrew/services'
+tap 'oven-sh/bun'
 
 brew 'asdf'
 brew 'aspell'
 brew 'awscli'
 brew 'bat'
 brew 'bkt'
+brew 'bun'
 brew 'cmake'
 brew 'difftastic'
 brew 'ffmpeg'
