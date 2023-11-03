@@ -41,44 +41,15 @@ alias update-asdf="brew upgrade asdf && asdf asdf update plugin --all"
 # Update the version of bundler in Gemfile
 alias update-bundler="bundle update --bundler"
 
-alias showerthought="fortune ~/Dropbox/Backups/showerthoughts"
-
-# Give me context
-alias ag='ag -C'
-
-# Open emacsclient in terminal
-function et() {
-  emacsclient --alternate-editor="" -nw "$@"
-}
-
-# Open emacsclient in a GUI frame
-function eg() {
-  emacsclient --alternate-editor="" -n "$@"
-}
-
-# Stop emacs hanging
-function signal-emacs() {
-  kill -USR2 $(pgrep Emacs)
-}
-
 # tmux
 alias tmux="TERM=screen-256color-bce tmux"
-
-# New window `nw NAME DIRECTORY`
-function tnw() {
-  tmux new-window -c ${2:-~/dev} -n $1
-}
 
 ###############
 # OSX Specific
 ###############
 
 if [[ $(uname) == Darwin ]]; then
-  alias gv='mvim'
   alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
-
-  # Open via Emacs.app
-  alias e="~/.bin/emacs-start"
 fi
 
 #######
@@ -199,14 +170,6 @@ function psg() {
   fi
 }
 
-#######
-# AWS #
-#######
-
-function aws-db-versions {
-  aws rds describe-db-instances --region us-east-1 --query 'DBInstances[].[DBInstanceIdentifier,AutoMinorVersionUpgrade,EngineVersion]' --output text
-}
-
 ##########
 # Elixir #
 ##########
@@ -226,15 +189,6 @@ alias netlisteners='lsof -i -P | grep LISTEN'
 
 # Print some stats on my shell commands
 alias profileme="history 1 | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -nr | head -n 20"
-
-# Fuzzyish find
-function ffind() {
-  find "${2-.}" -name "*$1*"
-}
-
-function g() {
-  grep -ri $1 ${2-.}
-}
 
 # Syntax highlight a file and copy onto clipboard
 function hl() {
@@ -259,27 +213,13 @@ function serve-dir() {
 # Modified version where you can press
 #   - CTRL-O to open with `open` command,
 #   - CTRL-E or Enter key to open with the $EDITOR
-f() {
+ff() {
   local out file key
   IFS=$'\n' out=($(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
   key=$(head -1 <<< "$out")
   file=$(head -2 <<< "$out" | tail -1)
   if [ -n "$file" ]; then
     [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
-  fi
-}
-
-# fe [FUZZY PATTERN] - Open the selected file with emacs
-# Modified version where you can press
-#   - CTRL-O to open with `open` command,
-#   - CTRL-E or Enter key to open with Emacs
-fe() {
-  local out file key
-  IFS=$'\n' out=($(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
-  key=$(head -1 <<< "$out")
-  file=$(head -2 <<< "$out" | tail -1)
-  if [ -n "$file" ]; then
-    [ "$key" = ctrl-o ] && open "$file" || ~/.bin/emacs-start "$file"
   fi
 }
 
@@ -295,11 +235,6 @@ fc() {
   if [ -n "$file" ]; then
     [ "$key" = ctrl-o ] && open "$file" || code "$file"
   fi
-}
-
-
-function notes() {
-  "${EDITOR:-vim}" "$(find ~/Dropbox/Notes -type f  -not -path '*/\.*' | fzf)"
 }
 
 # Look up SSL cert details
@@ -374,12 +309,3 @@ fh() {
   print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
 }
 
-# fs [FUZZY PATTERN] - Select selected tmux session
-#   - Bypass fuzzy finder if there's only one match (--select-1)
-#   - Exit if there's no match (--exit-0)
-tms() {
-  local session
-  session=$(tmux list-sessions -F "#{session_name}" | \
-    fzf --query="$1" --select-1 --exit-0) &&
-  tmux switch-client -t "$session"
-}
