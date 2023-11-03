@@ -44,6 +44,9 @@ alias update-bundler="bundle update --bundler"
 # tmux
 alias tmux="TERM=screen-256color-bce tmux"
 
+# Find conflicted file copies in Dropbox folders (useful for .git directories)
+alias find-dropbox-conflicts="find . -name '*conflicted*'"
+
 ###############
 # OSX Specific
 ###############
