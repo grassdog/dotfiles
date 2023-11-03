@@ -35,6 +35,12 @@ alias v='nvim'
 alias le='less -SR'
 alias be="bundle exec"
 
+# Update asdf and its plugins
+alias update-asdf="brew upgrade asdf && asdf asdf update plugin --all"
+
+# Update the version of bundler in Gemfile
+alias update-bundler="bundle update --bundler"
+
 alias showerthought="fortune ~/Dropbox/Backups/showerthoughts"
 
 # Give me context
