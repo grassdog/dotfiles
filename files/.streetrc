@@ -1,0 +1,4 @@
+--print-width=120
+--plugins=plugin/trailing_comma
+--ignore-files='**/node_modules/**'
+--ignore-files='vendor/**'
