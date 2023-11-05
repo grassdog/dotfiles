@@ -1,10 +1,7 @@
 bundler
 debug
-prettier
-rufo
 rubocop
-solargraph
+syntax_tree
 rspotify
-youplot
 sorbet
 sorbet-runtime
