@@ -36,7 +36,7 @@ alias le='less -SR'
 alias be="bundle exec"
 
 # Update asdf and its plugins
-alias update-asdf="brew upgrade asdf && asdf asdf update plugin --all"
+alias update-asdf="brew upgrade asdf && asdf plugin update --all"
 
 # Update the version of bundler in Gemfile
 alias update-bundler="bundle update --bundler"
