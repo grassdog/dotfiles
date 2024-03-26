@@ -66,10 +66,11 @@ if ! git config github.user >/dev/null; then
 fi
 
 # Setup GitHub HTTPS credentials.
-if [ "$(git config --global credential.helper)" != "osxkeychain" ]
-then
-  git config --global credential.helper osxkeychain
-fi
+# TODO: replace this with git-credential-manager
+# if [ "$(git config --global credential.helper)" != "osxkeychain" ]
+# then
+#   git config --global credential.helper osxkeychain
+# fi
 
 # No git 2.x warning message when pushing
 if ! git config push.default >/dev/null; then
