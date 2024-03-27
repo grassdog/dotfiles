@@ -192,6 +192,7 @@ Check the status of services via `brew services list`.
 
 # Optional stuff
 
+- Install Okta Verify from the App Store for work computer
 - Download Elgato Control Centre and Stream Deck from https://www.elgato.com/ww/en/s/downloads
     - Install plugins
         - Audio Switcher, Audio Mute, Zoom, Spotify, Slack status, Run OSA Script, Shortcuts, Apple Music, VSCode, XCode.
