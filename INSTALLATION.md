@@ -32,7 +32,7 @@ bash <(curl -s https://raw.githubusercontent.com/grassdog/dotfiles/main/bootstra
 You'll likely need to run it multiple times as it symlinks on Dropbox files which need time to be synced.
 
 - Restart host to ensure all settings are in effect.
-- Generate [personal access token on Github](https://github.com/settings/tokens) and input it when pushing up changes from the CLI.
+- Auth via `git-credentials-manager`.
 
 ## Services
 
@@ -76,7 +76,6 @@ Check the status of services via `brew services list`.
     - Install Powerpack from 1Password
     - Set sync folder to ~/Dropbox/Backups/Alfred
     - General > Set shortcut to `cmd-space`
-    - Enable 1Password
     - Enable Clipboard history
     - Disable contacts in Alfred
     - Appearance > Yosemite Light
@@ -148,11 +147,6 @@ Check the status of services via `brew services list`.
     - Set shortcut for quick entry to `cmd-opt-space`
     - Set shortcut for quick entry with autofill to `⌃⌥⇧⌘space`.
     - Enable notifications but no badges
-- Toggl Track
-    - Set global shortcut to `⌃⌥⇧⌘t`
-    - Set idle detection to 10 minutes
-    - Show timer on menu bar
-    - Don't show dock icon
 - Bear
     - Set global shortcut to new note `⌃⌥⇧⌘z`
 - NotePlan
@@ -178,8 +172,6 @@ Check the status of services via `brew services list`.
 - Copy dotfiles
     - ~/.aws/config
     - ~/.config/exercism
-- Flux
-    - Set wake up time
 - Nova.app
     - Install extensions.
     - Copy over customised key bindings.
@@ -188,6 +180,7 @@ Check the status of services via `brew services list`.
     - Use default system key mappings.
 - NepTunes
     - Set play/pause shortcut to `⌃⌥⇧⌘p`
+    - Scrobble from Spotify is unchecked
 
 
 # Optional stuff
@@ -200,18 +193,20 @@ Check the status of services via `brew services list`.
         - Instructions at https://help.elgato.com/hc/en-us/articles/360048424432-Elgato-Stream-Deck-How-to-Back-Up-and-Restore-Profiles-
 - Chrome
     - Set global shortcut for Meet Mute extension to `⌘⇧9`
+- Arc browser
+    - Sign in.
+    - Install extensions.
 - Google Meet Web app via Chrome
     - Browse to Google Meet and install Chrome app from address bar (or copy across from ~/Applications)
 - Download and install Webster's 1913 Dictionary
     - Instructions at https://github.com/cmod/websters-1913
+- Create Lifelog, Last.fm, and ChatGPT web desktop apps.
 - Choosy
     - Set default browser
     - Start at login
     - Don't show in menu bar
-    - Set browsers Firefox -> Chrome -> Safari
+    - Set browsers Chrome -> Arc -> Safari -> Google Meet
     - Import settings from ~/Dropbox/Backups/Choosy/behaviours.plist to ~/Library/Application Support/Choosy
-- Airbuddy
-    - Set global shortcut to status page `⌃⌥⇧⌘a`
 - Install Photoshop from Adobe CC
 - Install Topaz Photo AI
 - Install Lightroom Classic from Adobe CC
