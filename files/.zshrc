@@ -22,8 +22,10 @@ if [ -d /opt/homebrew/share/zsh/site-functions ]; then
   fpath=( /opt/homebrew/share/zsh/site-functions $fpath )
 fi
 
+[[ -r /opt/homebrew/opt/spaceship/spaceship.zsh ]] && source "/opt/homebrew/opt/spaceship/spaceship.zsh"
+
 autoload -U promptinit; promptinit
-prompt spaceship
+# prompt -s spaceship
 
 SPACESHIP_PROMPT_ORDER=(
   time          # Time stamps section
