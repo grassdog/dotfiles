@@ -78,6 +78,7 @@ Check the status of services via `brew services list`.
     - General > Set shortcut to `cmd-space`
     - Enable Clipboard history
     - Disable contacts in Alfred
+    - Snippets > Automatically expand snippets by keyword
     - Appearance > Yosemite Light
     - Appearance > Hide Menu Bar Icon
 - Safari
