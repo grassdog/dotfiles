@@ -78,8 +78,8 @@ cask 'tableplus'
 cask 'visual-studio-code'
 cask 'vlc'
 cask 'webcatalog'
+cask 'zoom'
 # These are already installed by JAMF
 # cask 'google-chrome'
-# cask 'zoom'
 # cask 'slack'
 
