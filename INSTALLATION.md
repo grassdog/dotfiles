@@ -199,6 +199,7 @@ Check the status of services via `brew services list`.
     - Install extensions.
     - Switch Instapaper shortcut to `ctrl-s`.
     - Disable Arc shortcut for `new little Arc window`.
+- Microsoft Teams
 - Google Meet Web app via Chrome
     - Browse to Google Meet and install Chrome app from address bar (or copy across from ~/Applications)
 - Download and install Webster's 1913 Dictionary
