@@ -1,10 +1,28 @@
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
 if [[ -o interactive ]]; then
-  if [ "$TERM" != "screen" -a "$ITERM_SHELL_INTEGRATION_INSTALLED" = "" ]; then
+  if [ "${ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX-}""$TERM" != "tmux-256color" -a "${ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX-}""$TERM" != "screen" -a "${ITERM_SHELL_INTEGRATION_INSTALLED-}" = "" -a "$TERM" != linux -a "$TERM" != dumb ]; then
     ITERM_SHELL_INTEGRATION_INSTALLED=Yes
     ITERM2_SHOULD_DECORATE_PROMPT="1"
     # Indicates start of command output. Runs just before command executes.
     iterm2_before_cmd_executes() {
-      printf "\033]133;C;\007"
+      if [ "$TERM_PROGRAM" = "iTerm.app" ]; then
+        printf "\033]133;C;\r\007"
+      else
+        printf "\033]133;C;\007"
+      fi
     }
 
     iterm2_set_user_var() {
@@ -19,11 +37,16 @@ if [[ -o interactive ]]; then
     whence -v iterm2_print_user_vars > /dev/null 2>&1
     if [ $? -ne 0 ]; then
       iterm2_print_user_vars() {
+          true
       }
     fi
 
     iterm2_print_state_data() {
-      printf "\033]1337;RemoteHost=%s@%s\007" "$USER" "$iterm2_hostname"
+      local _iterm2_hostname="${iterm2_hostname-}"
+      if [ -z "${iterm2_hostname:-}" ]; then
+        _iterm2_hostname=$(hostname -f 2>/dev/null)
+      fi
+      printf "\033]1337;RemoteHost=%s@%s\007" "$USER" "${_iterm2_hostname-}"
       printf "\033]1337;CurrentDir=%s\007" "$PWD"
       iterm2_print_user_vars
     }
@@ -89,19 +112,29 @@ if [[ -o interactive ]]; then
       ITERM2_SHOULD_DECORATE_PROMPT=""
 
       # Add our escape sequences just before the prompt is shown.
-      if [[ $PS1 == *'$(iterm2_prompt_mark)'* ]]
-      then
-        PS1="$PS1%{$(iterm2_prompt_end)%}"
+      # Use ITERM2_SQUELCH_MARK for people who can't mdoify PS1 directly, like powerlevel9k users.
+      # This is gross but I had a heck of a time writing a correct if statetment for zsh 5.0.2.
+      local PREFIX=""
+      if [[ $PS1 == *"$(iterm2_prompt_mark)"* ]]; then
+        PREFIX=""
+      elif [[ "${ITERM2_SQUELCH_MARK-}" != "" ]]; then
+        PREFIX=""
       else
-        PS1="%{$(iterm2_prompt_mark)%}$PS1%{$(iterm2_prompt_end)%}"
+        PREFIX="%{$(iterm2_prompt_mark)%}"
       fi
+      PS1="$PREFIX$PS1%{$(iterm2_prompt_end)%}"
+      ITERM2_DECORATED_PS1="$PS1"
     }
 
     iterm2_precmd() {
       local STATUS="$?"
-      if [ -z "$ITERM2_SHOULD_DECORATE_PROMPT" ]; then
+      if [ -z "${ITERM2_SHOULD_DECORATE_PROMPT-}" ]; then
         # You pressed ^C while entering a command (iterm2_preexec did not run)
         iterm2_before_cmd_executes
+        if [ "$PS1" != "${ITERM2_DECORATED_PS1-}" ]; then
+          # PS1 changed, perhaps in another precmd. See issue 9938.
+          ITERM2_SHOULD_DECORATE_PROMPT="1"
+        fi
       fi
 
       iterm2_after_cmd_executes "$STATUS"
@@ -119,21 +152,28 @@ if [[ -o interactive ]]; then
       iterm2_before_cmd_executes
     }
 
-    # If hostname -f is slow on your system, set iterm2_hostname prior to sourcing this script.
-    [[ -z "$iterm2_hostname" ]] && iterm2_hostname=`hostname -f 2>/dev/null`
-    # some flavors of BSD (i.e. NetBSD and OpenBSD) don't have the -f option
-    if [ $? -ne 0 ]; then
-      iterm2_hostname=`hostname`
+    # If hostname -f is slow on your system set iterm2_hostname prior to
+    # sourcing this script. We know it is fast on macOS so we don't cache
+    # it. That lets us handle the hostname changing like when you attach
+    # to a VPN.
+    if [ -z "${iterm2_hostname-}" ]; then
+      if [ "$(uname)" != "Darwin" ]; then
+        iterm2_hostname=`hostname -f 2>/dev/null`
+        # Some flavors of BSD (i.e. NetBSD and OpenBSD) don't have the -f option.
+        if [ $? -ne 0 ]; then
+          iterm2_hostname=`hostname`
+        fi
+      fi
     fi
 
-    [[ -z $precmd_functions ]] && precmd_functions=()
+    [[ -z ${precmd_functions-} ]] && precmd_functions=()
     precmd_functions=($precmd_functions iterm2_precmd)
 
-    [[ -z $preexec_functions ]] && preexec_functions=()
+    [[ -z ${preexec_functions-} ]] && preexec_functions=()
     preexec_functions=($preexec_functions iterm2_preexec)
 
     iterm2_print_state_data
-    printf "\033]1337;ShellIntegrationVersion=6;shell=zsh\007"
+    printf "\033]1337;ShellIntegrationVersion=14;shell=zsh\007"
   fi
 fi
-alias imgcat=~/.iterm2/imgcat;alias imgls=~/.iterm2/imgls;alias it2attention=~/.iterm2/it2attention;alias it2check=~/.iterm2/it2check;alias it2copy=~/.iterm2/it2copy;alias it2dl=~/.iterm2/it2dl;alias it2getvar=~/.iterm2/it2getvar;alias it2setcolor=~/.iterm2/it2setcolor;alias it2setkeylabel=~/.iterm2/it2setkeylabel;alias it2ul=~/.iterm2/it2ul;alias it2universion=~/.iterm2/it2universion
+alias imgcat=${HOME}/.iterm2/imgcat;alias imgls=${HOME}/.iterm2/imgls;alias it2api=${HOME}/.iterm2/it2api;alias it2attention=${HOME}/.iterm2/it2attention;alias it2check=${HOME}/.iterm2/it2check;alias it2copy=${HOME}/.iterm2/it2copy;alias it2dl=${HOME}/.iterm2/it2dl;alias it2getvar=${HOME}/.iterm2/it2getvar;alias it2git=${HOME}/.iterm2/it2git;alias it2setcolor=${HOME}/.iterm2/it2setcolor;alias it2setkeylabel=${HOME}/.iterm2/it2setkeylabel;alias it2tip=${HOME}/.iterm2/it2tip;alias it2ul=${HOME}/.iterm2/it2ul;alias it2universion=${HOME}/.iterm2/it2universion;alias it2profile=${HOME}/.iterm2/it2profile
