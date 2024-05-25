@@ -86,12 +86,8 @@ Check the status of services via `brew services list`.
     - View > Show status bar.
     - Preferences > Advanced > Show full website address.
     - Enable extensions
-        - 1Password
-        - Adblock Plus
-        - Instapaper
-        - Matter
-        - Bear
-        - Bookmarker
+    - Configure Kagi search to replace Yahoo
+    - Set Yahoo as the default search engine
 - Moom
     - Run as faceless app
     - Launch at login
