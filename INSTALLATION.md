@@ -207,6 +207,8 @@ Check the status of services via `brew services list`.
     - Don't show in menu bar
     - Set browsers Chrome -> Arc -> Safari -> Google Meet
     - Import settings from ~/Dropbox/Backups/Choosy/behaviours.plist to ~/Library/Application Support/Choosy
+- Seconds Pro
+    - Set up periodic reminders while I'm in meetings.
 - Install Photoshop from Adobe CC
 - Install Topaz Photo AI
 - Install Lightroom Classic from Adobe CC
