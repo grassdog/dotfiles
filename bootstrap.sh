@@ -125,7 +125,7 @@ mas install 1091189122 # Bear
 mas install 1451400394 # bookmarker for pinboard
 mas install 1465439395 # Dark Noise
 mas install 1055511498 # Day one
-mas install 1481302432 # Instapaper Save
+mas install 288545208  # Instapaper
 # mas install 2145332318 # Ivory for Mastodon
 mas install 1622835804 # Kagi Search for Safari
 mas install 1614730313 # MusicBox: Save Music for Later
