@@ -88,6 +88,7 @@ Check the status of services via `brew services list`.
     - Enable extensions
     - Configure Kagi search to replace Yahoo
     - Set Yahoo as the default search engine
+    - Customise toolbar and remove cruft
 - Moom
     - Run as faceless app
     - Launch at login
