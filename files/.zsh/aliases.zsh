@@ -208,38 +208,6 @@ function serve-dir() {
   ruby -rwebrick -e"s = WEBrick::HTTPServer.new(:Port => 8888,  :DocumentRoot => Dir.pwd); trap('INT') { s.shutdown }; s.start"
 }
 
-######
-# fzf
-######
-
-# f [FUZZY PATTERN] - Open the selected file with the default editor
-# Modified version where you can press
-#   - CTRL-O to open with `open` command,
-#   - CTRL-E or Enter key to open with the $EDITOR
-ff() {
-  local out file key
-  IFS=$'\n' out=($(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
-  key=$(head -1 <<< "$out")
-  file=$(head -2 <<< "$out" | tail -1)
-  if [ -n "$file" ]; then
-    [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
-  fi
-}
-
-# fc [FUZZY PATTERN] - Open the selected file with code
-# Modified version where you can press
-#   - CTRL-O to open with `open` command,
-#   - CTRL-E or Enter key to open with Emacs
-fc() {
-  local out file key
-  IFS=$'\n' out=($(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
-  key=$(head -1 <<< "$out")
-  file=$(head -2 <<< "$out" | tail -1)
-  if [ -n "$file" ]; then
-    [ "$key" = ctrl-o ] && open "$file" || code "$file"
-  fi
-}
-
 # Look up SSL cert details
 function ssl-details() {
   echo | openssl s_client -connect $1:443 2>/dev/null | openssl x509 -noout -issuer -subject -dates
@@ -272,22 +240,7 @@ muxp() {
   tmuxinator start project -n $1 $1
 }
 
-# fkill - kill processes
-fkill() {
-  local pid
-  if [ "$UID" != "0" ]; then
-      pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
-  else
-      pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
-  fi
-
-  if [ "x$pid" != "x" ]
-  then
-      echo $pid | xargs kill -${1:-9}
-  fi
-}
-
-# ftpane - switch tmux pane
+# ftpane - switch tmux pane with fzf
 ftpane() {
   local panes current_window current_pane target target_window target_pane
   panes=$(tmux list-panes -s -F '#I:#P - #{pane_current_path} #{pane_current_command}')
@@ -307,7 +260,7 @@ ftpane() {
   fi
 }
 
-# fh - repeat history
+# fh - repeat history with fzf search
 fh() {
   print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
 }

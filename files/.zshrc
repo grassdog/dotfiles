@@ -159,6 +159,9 @@ ASDF_PATH="$(brew --prefix asdf)/libexec/asdf.sh"
 
 [[ -r "$ASDF_PATH" ]] && source "$ASDF_PATH"
 
+# Integrate fzf into my shell
+source <(fzf --zsh)
+
 # Remove the need for bundle exec ... or ./bin/...
 # by adding ./bin to path if the current project is trusted
 
