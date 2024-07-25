@@ -138,13 +138,12 @@ function rubo-changed() {
 }
 
 function install-gems() {
-  gem install bundler pry-byebug pry rufo rubocop solargraph rspotify
+  gem install syntax_tree rubocop solargraph rspotify
 }
 
-# Run prettier on ruby files. Defaults to all .rb files under the current directory
-function pretty-ruby() {
-  local file="${1:-'**/*.rb'}"
-  prettier --ruby-single-quote false --write "$file"
+# Format a ruby file with syntax_tree
+function format-ruby() {
+  stree write --print-width=120 --plugins=plugin/trailing_comma "$1"
 }
 
 #######
