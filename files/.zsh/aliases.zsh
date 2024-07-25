@@ -127,7 +127,7 @@ function git-rewind() {
 #######
 
 alias rsp="bundle exec rspec -f d"
-alias cop-correct="bundle exec rubocop --auto-correct"
+alias rubo-correct="bundle exec rubocop --auto-correct"
 
 # Run rubocop on modified files
 function rubo-changed() {
@@ -137,22 +137,11 @@ function rubo-changed() {
   git diff-tree -r --no-commit-id --name-only head origin/master | xargs rubocop
 }
 
-function install-gems() {
-  gem install syntax_tree rubocop solargraph rspotify
-}
-
 # Format a ruby file with syntax_tree
 function format-ruby() {
   stree write --print-width=120 --plugins=plugin/trailing_comma "$1"
 }
 
-#######
-# Node
-#######
-
-function install-node-modules() {
-  npm install -g prettier tern jsonlint spaceship-prompt
-}
 
 ############
 # Processes
