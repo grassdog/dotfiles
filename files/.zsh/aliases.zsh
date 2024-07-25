@@ -126,7 +126,7 @@ function git-rewind() {
 # Ruby
 #######
 
-alias rsp="bundle exec rspec -f d"
+alias spec="bundle exec rspec -f d"
 alias rubo-correct="bundle exec rubocop --auto-correct"
 
 # Run rubocop on modified files
@@ -150,16 +150,6 @@ function format-ruby() {
 # Wide ps sorted by CPU usage
 alias psu='ps auxw'
 
-function psg() {
-  emulate -L zsh
-  unsetopt KSH_ARRAYS
-  if [[ -z "$1" ]] ; then
-    echo "any - grep for process(es) by keyword" >&2
-    echo "Usage: any " >&2 ; return 1
-  else
-    ps xauwww | grep -i --color=auto "[${1[1]}]${1[2,-1]}"
-  fi
-}
 
 ##########
 # Elixir #
@@ -167,24 +157,13 @@ function psg() {
 
 alias exc="iex -S mix"
 
+
 #########
 # Utils
 #########
 
-function portgrep {
-  lsof -n -i4TCP:${1-8000} | grep LISTEN
-}
-
-alias wifi="networksetup -setairportpower en0"
-alias netlisteners='lsof -i -P | grep LISTEN'
-
 # Print some stats on my shell commands
 alias profileme="history 1 | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -nr | head -n 20"
-
-# Syntax highlight a file and copy onto clipboard
-function hl() {
-  highlight -O rtf -t 2 -K 40 -k 'Source Code Pro' --style twilight $1 | pbcopy
-}
 
 # Readline wrapped scheme
 function scheme-rl() {
@@ -194,11 +173,6 @@ function scheme-rl() {
 # Serve up the current directory with webrick
 function serve-dir() {
   ruby -rwebrick -e"s = WEBrick::HTTPServer.new(:Port => 8888,  :DocumentRoot => Dir.pwd); trap('INT') { s.shutdown }; s.start"
-}
-
-# Look up SSL cert details
-function ssl-details() {
-  echo | openssl s_client -connect $1:443 2>/dev/null | openssl x509 -noout -issuer -subject -dates
 }
 
 function extract() {
@@ -228,7 +202,7 @@ muxp() {
   tmuxinator start project -n $1 $1
 }
 
-# ftpane - switch tmux pane with fzf
+# Switch tmux pane with fzf
 ftpane() {
   local panes current_window current_pane target target_window target_pane
   panes=$(tmux list-panes -s -F '#I:#P - #{pane_current_path} #{pane_current_command}')
@@ -246,10 +220,5 @@ ftpane() {
     tmux select-pane -t ${target_window}.${target_pane} &&
     tmux select-window -t $target_window
   fi
-}
-
-# fh - repeat history with fzf search
-fh() {
-  print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
 }
 
