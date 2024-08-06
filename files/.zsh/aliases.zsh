@@ -47,6 +47,9 @@ alias tmux="TERM=screen-256color-bce tmux"
 # Find conflicted file copies in Dropbox folders (useful for .git directories)
 alias find-dropbox-conflicts="find . -name '*conflicted*'"
 
+# Use Dracula theme so it's properly visible in iTerm
+alias bat='bat --theme Dracula'
+
 ###############
 # OSX Specific
 ###############
