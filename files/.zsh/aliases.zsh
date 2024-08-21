@@ -48,7 +48,7 @@ alias tmux="TERM=screen-256color-bce tmux"
 alias find-dropbox-conflicts="find . -name '*conflicted*'"
 
 # Use Dracula theme so it's properly visible in iTerm
-alias bat='bat --theme Dracula'
+alias bat='bat --theme Dracula --pager "less -RFi"'
 
 ###############
 # OSX Specific
