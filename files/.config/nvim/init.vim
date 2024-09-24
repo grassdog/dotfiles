@@ -55,8 +55,9 @@ Plug 'vim-test/vim-test'
 " Format other file types manually using neoformat
 Plug 'sbdchd/neoformat'
 
-" Show keybindings
+" Show keybindings (with icons)
 Plug 'folke/which-key.nvim'
+Plug 'echasnovski/mini.icons'
 
 " Extra text object
 Plug 'bkad/CamelCaseMotion'
@@ -417,70 +418,51 @@ require("telescope").setup({
 -- Which key
 -------------
 
+-- Initialise icons. Icons rely on a NerdFont (https://www.nerdfonts.com) being used in terminal
+require('mini.icons').setup()
 require("which-key").setup {}
 
 local wk = require("which-key")
-wk.register({
-  f = {
-    name = "File",
-    f = { "<cmd>Telescope find_files<cr>", "Find File" },
-    r = { "<cmd>Telescope oldfiles<cr>", "Find recent File" },
-    g = { "<cmd>Telescope live_grep<cr>", "Grep across files" },
-    c = { ":cd %:h<cr>", "Change to directory of current file" },
-    l = { ":lcd %:h<cr>", "Change local window to directory of current file" },
-    t = { ":NERDTreeToggle<cr>", "Toggle file tree" },
-    T = { ":NERDTreeFind<cr>", "Find file in file tree" },
-  },
-  b = {
-    name = "Buffer",
-    b = { "<cmd>Telescope buffers<cr>", "Find buffer" },
-    g = { ":bd!<cr>", "Delete buffer" },
-    a = { ":call BufferAdd()<cr>", "Create buffer" },
-  },
-  m = {
-    name = "Format",
-    f = { "<cmd>Neoformat<cr>", "Format file" },
-    i = { "m'ggVG=``zzg", "Reindent file" },
-  },
-  g = {
-    name = "Git",
-    g = { ":GitGutterToggle<cr>", "Toggle Git Gutter" },
-    n = { "<Plug>(GitGutterNextHunk)", "Next hunk" },
-    p = { "<Plug>(GitGutterPrevHunk)", "Previous hunk" },
-    s = { "<Plug>(GitGutterStageHunk)", "Stage hunk" },
-    u = { "<Plug>(GitGutterUndoHunk)", "Undo hunk" },
-    P = { "<Plug>(GitGutterPreviewHunk)", "Preview hunk" },
-  },
-  h = {
-    name = "Help",
-    h = { "<cmd>Telescope help_tags<cr>", "Search Help tags" },
-  },
-  t = {
-    name = "Test",
-    f = { ":w <bar> TestFile<cr>", "Test file" },
-    l = { ":w <bar> TestNearest<cr>", "Test nearest to current line" },
-    a = { ":wall <bar> TestSuite<cr>", "Test all" },
-  },
-  y = { "\"*y", "Yank into system clipboard" },
-  p = { "\"*p", "Paste from system clipboard" },
-  s = {
-    name = "Search",
-    w = { "<cmd>Telescope grep_string<cr>", "Search word under cursor" },
-  },
-  w = {
-    name = "Window",
-    w = { "<c-w><c-p>", "Switch to previous window" },
-    o = { ":only<cr>", "Show only the current window" },
-  },
-  v = {
-    name = "Grep and Replace",
-  },
-}, { prefix = "<leader>" })
-
-wk.register({
-  ["<leader>."] = { ":wall <bar> call VimuxRunLastCommand()<cr>", "Rerun last command" },
-  ["<leader><tab>"] = { "<c-^>", "Switch to the last buffer" },
-  ["<leader>/"] = { ":set hlsearch! hlsearch?<cr>", "Toggle search highlighting" },
+wk.add({
+  { "<leader>b", group = "Buffer" },
+  { "<leader>ba", ":call BufferAdd()<cr>", desc = "Create buffer" },
+  { "<leader>bb", "<cmd>Telescope buffers<cr>", desc = "Find buffer" },
+  { "<leader>bg", ":bd!<cr>", desc = "Delete buffer" },
+  { "<leader>f", group = "File" },
+  { "<leader>fT", ":NERDTreeFind<cr>", desc = "Find file in file tree" },
+  { "<leader>fc", ":cd %:h<cr>", desc = "Change to directory of current file" },
+  { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File" },
+  { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Grep across files" },
+  { "<leader>fl", ":lcd %:h<cr>", desc = "Change local window to directory of current file" },
+  { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Find recent File" },
+  { "<leader>ft", ":NERDTreeToggle<cr>", desc = "Toggle file tree" },
+  { "<leader>g", group = "Git" },
+  { "<leader>gP", "<Plug>(GitGutterPreviewHunk)", desc = "Preview hunk" },
+  { "<leader>gg", ":GitGutterToggle<cr>", desc = "Toggle Git Gutter" },
+  { "<leader>gn", "<Plug>(GitGutterNextHunk)", desc = "Next hunk" },
+  { "<leader>gp", "<Plug>(GitGutterPrevHunk)", desc = "Previous hunk" },
+  { "<leader>gs", "<Plug>(GitGutterStageHunk)", desc = "Stage hunk" },
+  { "<leader>gu", "<Plug>(GitGutterUndoHunk)", desc = "Undo hunk" },
+  { "<leader>h", group = "Help" },
+  { "<leader>hh", "<cmd>Telescope help_tags<cr>", desc = "Search Help tags" },
+  { "<leader>m", group = "Format" },
+  { "<leader>mf", "<cmd>Neoformat<cr>", desc = "Format file" },
+  { "<leader>mi", "m'ggVG=``zzg", desc = "Reindent file" },
+  { "<leader>p", '"*p', desc = "Paste from system clipboard" },
+  { "<leader>s", group = "Search" },
+  { "<leader>sw", "<cmd>Telescope grep_string<cr>", desc = "Search word under cursor" },
+  { "<leader>t", group = "Test" },
+  { "<leader>ta", ":wall <bar> TestSuite<cr>", desc = "Test all" },
+  { "<leader>tf", ":w <bar> TestFile<cr>", desc = "Test file" },
+  { "<leader>tl", ":w <bar> TestNearest<cr>", desc = "Test nearest to current line" },
+  { "<leader>v", group = "Grep and Replace" },
+  { "<leader>w", group = "Window" },
+  { "<leader>wo", ":only<cr>", desc = "Show only the current window" },
+  { "<leader>ww", "<c-w><c-p>", desc = "Switch to previous window" },
+  { "<leader>y", '"*y', desc = "Yank into system clipboard" },
+  { "<leader>.", ":wall <bar> call VimuxRunLastCommand()<cr>", desc = "Rerun last command" },
+  { "<leader>/", ":set hlsearch! hlsearch?<cr>", desc = "Toggle search highlighting" },
+  { "<leader><tab>", "<c-^>", desc = "Switch to the last buffer" },
 })
 EOF
 
