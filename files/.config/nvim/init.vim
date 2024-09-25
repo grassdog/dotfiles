@@ -448,7 +448,6 @@ wk.add({
   { "<leader>m", group = "Format" },
   { "<leader>mf", "<cmd>Neoformat<cr>", desc = "Format file" },
   { "<leader>mi", "m'ggVG=``zzg", desc = "Reindent file" },
-  { "<leader>p", '"*p', desc = "Paste from system clipboard" },
   { "<leader>s", group = "Search" },
   { "<leader>sw", "<cmd>Telescope grep_string<cr>", desc = "Search word under cursor" },
   { "<leader>t", group = "Test" },
@@ -459,10 +458,15 @@ wk.add({
   { "<leader>w", group = "Window" },
   { "<leader>wo", ":only<cr>", desc = "Show only the current window" },
   { "<leader>ww", "<c-w><c-p>", desc = "Switch to previous window" },
-  { "<leader>y", '"*y', desc = "Yank into system clipboard" },
   { "<leader>.", ":wall <bar> call VimuxRunLastCommand()<cr>", desc = "Rerun last command" },
   { "<leader>/", ":set hlsearch! hlsearch?<cr>", desc = "Toggle search highlighting" },
   { "<leader><tab>", "<c-^>", desc = "Switch to the last buffer" },
+  {
+    -- Normal and visual mode
+    mode = { "n", "v" },
+    { "<leader>p", '"+p', desc = "Paste from system clipboard" },
+    { "<leader>y", '"+y', desc = "Yank into system clipboard" },
+  },
 })
 EOF
 
