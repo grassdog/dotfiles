@@ -31,7 +31,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 
 " Search currently highlighted term
-Plug 'nelstrom/vim-visual-star-search'
+Plug 'bronson/vim-visual-star-search'
 
 " Handle line numbers when opening files
 Plug 'bogado/file-line'
@@ -449,7 +449,6 @@ wk.add({
   { "<leader>mf", "<cmd>Neoformat<cr>", desc = "Format file" },
   { "<leader>mi", "m'ggVG=``zzg", desc = "Reindent file" },
   { "<leader>s", group = "Search" },
-  { "<leader>sw", "<cmd>Telescope grep_string<cr>", desc = "Search word under cursor" },
   { "<leader>t", group = "Test" },
   { "<leader>ta", ":wall <bar> TestSuite<cr>", desc = "Test all" },
   { "<leader>tf", ":w <bar> TestFile<cr>", desc = "Test file" },
@@ -461,11 +460,15 @@ wk.add({
   { "<leader>.", ":wall <bar> call VimuxRunLastCommand()<cr>", desc = "Rerun last command" },
   { "<leader>/", ":set hlsearch! hlsearch?<cr>", desc = "Toggle search highlighting" },
   { "<leader><tab>", "<c-^>", desc = "Switch to the last buffer" },
+  -- Cleaning up the docs for these but `<leader>sw` is the better command to use
+  { "<leader>*", ":execute 'noautocmd vimgrep /\\V' . substitute(escape(expand(\"<cword>\"), '\\'), '\\n', '\\n', 'g') . '/ **'<CR>", desc = "Recursive search work under cursor" },
+  { "<leader>*", ":<C-u>call VisualStarSearchSet('/')<CR>:execute 'noautocmd vimgrep /' . @/ . '/ **'<CR>", desc = "Search for visual selection", mode = "v" },
   {
     -- Normal and visual mode
     mode = { "n", "v" },
     { "<leader>p", '"+p', desc = "Paste from system clipboard" },
     { "<leader>y", '"+y', desc = "Yank into system clipboard" },
+    { "<leader>sw", "<cmd>Telescope grep_string<cr>", desc = "Search word under cursor" },
   },
 })
 EOF
