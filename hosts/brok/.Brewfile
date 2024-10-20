@@ -78,5 +78,6 @@ cask 'textbuddy'
 cask 'transmission'
 cask 'visual-studio-code'
 cask 'vlc'
+cask 'warp'
 cask 'zoom'
 
