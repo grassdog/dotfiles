@@ -29,20 +29,24 @@ windows:
           cwd: /Users/ray/Downloads
       - layout:
           cwd: /Users/ray/.dotfiles
-      - layout:
+      - title: Grizzlebit
+        layout:
           split_direction: horizontal
           panes:
             - cwd: /Users/ray/dev/grizzlebit.com
             - cwd: /Users/ray/dev/grizzlebit.com
-      - layout:
+      - title: Lifelog
+        layout:
           split_direction: horizontal
           panes:
             - cwd: /Users/ray/dev/lifelog
             - cwd: /Users/ray/dev/lifelog
-      - layout:
+      - title: Photos
+        layout:
           split_direction: horizontal
           panes:
             - cwd: /Users/ray/dev/photos.raygrasso.com
             - cwd: /Users/ray/dev/photos.raygrasso.com
-      - layout:
+      - title: Summate
+        layout:
           cwd: /Users/ray/Library/CloudStorage/Dropbox/Code/summate
