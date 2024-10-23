@@ -138,8 +138,14 @@ Check the status of services via `brew services list`.
     - Disable notifications
     - Preferences > New messages Sound > None
 - Calendar.app
-    - Disable notifications
+    - Notifications
+        - Switch off badge.
+        - Leave sound enabled.
     - Preferences > General > Default Calendar App - Set to Fantastical.
+    - General > Days per week > 5
+    - Alerts > Time to leave > off
+    - Alerts > Show invitation messages > off
+    - Alerts > Show shared calendar messages in notification centre > off
 - Things
     - Install the Things Helper application for sharing across apps
     - Set shortcut for quick entry to `cmd-opt-space`
