@@ -242,9 +242,6 @@ defaults write com.apple.finder QLEnableTextSelection -bool true
 # full path in window titles
 defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 
-# debug menu in safari enabled
-defaults write com.apple.Safari IncludeDebugMenu -bool true
-
 # increase window resize speed
 defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 
