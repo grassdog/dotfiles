@@ -66,6 +66,7 @@ cask 'moom'
 cask 'omnigraffle'
 cask 'orbstack'  # Docker
 cask 'postico'
+cask 'raycast'
 cask 'retcon'
 cask 'sabnzbd'
 cask 'signal'

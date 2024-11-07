@@ -81,6 +81,12 @@ Check the status of services via `brew services list`.
     - Snippets > Automatically expand snippets by keyword
     - Appearance > Yosemite Light
     - Appearance > Hide Menu Bar Icon
+- Raycast
+    - Sign in and enable sync
+    - Set shortcut to `cmd-space`
+    - Add Kagi and Spotify and Github API keys
+    - Install local extensions
+        - Download my Github repo and run `./scripts/dev` while Raycast is running in each of the local plugins to install them.
 - Safari
     - Under AutoFill settings disable usernames, passwords, contacts, and credit cards.
     - View > Show status bar.
