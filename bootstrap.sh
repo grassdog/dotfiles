@@ -133,6 +133,7 @@ mas install 1289197285 # MindNode 6
 mas install 1006739057 # NepTunes
 mas install 1505432629 # NotePlan
 mas install 1596506190 # Play: Save Videos Watch Later
+mas install 1851660095 # Raycast Companion
 mas install 1640236961 # Save to Reader
 mas install 1376402589 # StopTheMadness
 # mas install 2112214276 # Supercopy for Safari (1.0)
