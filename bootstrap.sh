@@ -119,7 +119,6 @@ ok
 fi
 
 step "Install apps from the App Store"
-mas install 1365531024 # 1Blocker - Ad Blocker
 mas install 1569813296 # 1Password for Safari
 mas install 1091189122 # Bear
 mas install 1451400394 # bookmarker for pinboard
@@ -140,6 +139,7 @@ mas install 1376402589 # StopTheMadness
 mas install 1475387142 # Tailscale
 mas install 904280696  # Things
 mas install 1225570693 # Uylsses
+mas install 1662217862 # Wipr 2 
 mas install 1621370168 # WorldWideWeb – Desktop
 ok
 
