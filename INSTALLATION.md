@@ -67,6 +67,7 @@ Check the status of services via `brew services list`.
     - Desktop and ScreenSaver > Drift
     - Dock & Menu Bar > Clock > Show the day of the week > Always
     - Desktop and Dock > Disable window tiling
+    - Apple Intelligence and Siri > Keyboard shortcut > `⌃⌥⇧⌘;`
 - iTerm2
     - iTerm2 > Set as default terminal
     - Sync preferences ~/Dropbox/Backups/iterm
