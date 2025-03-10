@@ -1,7 +1,6 @@
 tap 'homebrew/bundle'
 tap 'homebrew/services'
 
-brew '1password-cli'
 brew 'asdf'
 brew 'aspell'
 brew 'bat'
@@ -40,6 +39,7 @@ cask_args appdir: '/Applications'
 cask 'qlstephen'
 
 # Applications
+cask '1password-cli'
 cask 'alfred'
 cask 'arc'
 cask 'aws-vault'
