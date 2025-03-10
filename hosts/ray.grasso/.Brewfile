@@ -39,6 +39,7 @@ cask_args appdir: '/Applications'
 cask 'qlstephen'
 
 # Applications
+cask '1password-cli'
 cask 'alfred'
 cask 'arc'
 cask 'aws-vault'
