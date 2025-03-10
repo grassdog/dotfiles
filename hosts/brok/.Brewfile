@@ -3,6 +3,7 @@ tap 'homebrew/services'
 tap 'oven-sh/bun'
 tap 'jesseduffield/lazygit'
 
+brew '1password-cli'
 brew 'asdf'
 brew 'aspell'
 brew 'awscli'

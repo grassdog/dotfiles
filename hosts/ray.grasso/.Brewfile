@@ -1,6 +1,7 @@
 tap 'homebrew/bundle'
 tap 'homebrew/services'
 
+brew '1password-cli'
 brew 'asdf'
 brew 'aspell'
 brew 'bat'
