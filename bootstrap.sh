@@ -131,6 +131,7 @@ mas install 1614730313 # MusicBox: Save Music for Later
 mas install 1289197285 # MindNode 6
 mas install 1006739057 # NepTunes
 mas install 1505432629 # NotePlan
+# mas install 1869226229 # Obsidian Web Clipper (0.11.1)
 mas install 1596506190 # Play: Save Videos Watch Later
 # mas install 1851660095 # Raycast Companion
 mas install 1640236961 # Save to Reader
