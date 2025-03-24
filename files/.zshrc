@@ -155,9 +155,9 @@ fi
 # tmuxinator is setting this for some reason so unset it
 unset GEM_HOME
 
-ASDF_PATH="$(brew --prefix asdf)/libexec/asdf.sh"
-
-[[ -r "$ASDF_PATH" ]] && source "$ASDF_PATH"
+# Set up asdf
+export ASDF_DATA_DIR="$HOME/.asdf"
+export PATH="$ASDF_DATA_DIR/shims:$PATH"
 
 # Integrate fzf into my shell
 source <(fzf --zsh)
