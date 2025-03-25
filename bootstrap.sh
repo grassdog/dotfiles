@@ -155,15 +155,6 @@ step "Set shell to zsh"
 [[ $(echo $SHELL) != $(which zsh) ]] && sudo dscl . -create /Users/${whoami} UserShell $(which zsh)
 ok
 
-step "Install vim config"
-mkdir -p ~/.cache/vim/tmp/undo
-mkdir -p ~/.cache/vim/tmp/backups
-ln -sf $DOTFILES_FULL_PATH/files/.vim $HOME
-ln -sf $DOTFILES_FULL_PATH/files/.vim/vimrc $HOME/.vimrc
-mkdir -p $HOME/.vim/autoload
-[ ! -f $HOME/.vim/autoload/plug.vim ] && curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-ok
-
 step "Install neovim config"
 ~/.config/nvim/setup.sh
 ok
