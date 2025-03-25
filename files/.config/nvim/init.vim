@@ -96,7 +96,13 @@ set ignorecase              " searches are case insensitive...
 set smartcase               " ... unless they contain at least one capital letter
 
 set autoread                " Reload files that have not been modified
+
+" Use persistent undo
+set undofile
+set undolevels=1000         " Maximum number of changes that can be undone
+set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
 set undodir=~/.cache/nvim/undo/
+
 set backup
 set backupdir=~/.cache/nvim/backups
 set noswapfile
