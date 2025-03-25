@@ -380,7 +380,20 @@ lua <<EOF
 require'nvim-treesitter.configs'.setup({
   -- install language parser
   -- :TSInstallInfo Command to view supported languages
-  ensure_installed = {"ruby", "bash", "html", "css", "vim", "lua", "javascript", "typescript", "tsx"},
+  ensure_installed = {
+    "ruby",
+    "bash",
+    "html",
+    "css",
+    "vim",
+    "vimdoc",
+    "lua",
+    "luadoc",
+    "markdown",
+    "javascript",
+    "typescript",
+    "tsx"
+  },
 
   -- Enable code highlighting
   highlight = {
