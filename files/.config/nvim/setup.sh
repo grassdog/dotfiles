@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
 
+echo "==> Setting up nvim"
 
 if [[ ! -f ~/.config/nvim/autoload/plug.vim ]]; then
-  echo "==> Installing Plug"
+  echo "===> Installing Plug"
   curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
-echo "==> Creating backup and undo cache directories"
+echo "===> Creating backup and undo cache directories"
 mkdir -p ~/.cache/nvim/undo
 mkdir -p ~/.cache/nvim/backups
 
-echo "==> Installing plugins"
+echo "===> Installing plugins"
 nvim --headless +PlugInstall +qall
