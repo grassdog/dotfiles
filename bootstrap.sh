@@ -139,7 +139,6 @@ mas install 1376402589 # StopTheMadness
 # mas install 2112214276 # Supercopy for Safari (1.0)
 mas install 1475387142 # Tailscale
 mas install 904280696  # Things
-mas install 1225570693 # Uylsses
 mas install 1662217862 # Wipr 2 
 mas install 1621370168 # WorldWideWeb – Desktop
 ok
