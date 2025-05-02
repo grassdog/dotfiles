@@ -214,11 +214,6 @@ Host *
         - Instructions at https://help.elgato.com/hc/en-us/articles/360048424432-Elgato-Stream-Deck-How-to-Back-Up-and-Restore-Profiles-
 - Chrome
     - Set global shortcut for Meet Mute extension to `⌘⇧9`
-- Arc browser
-    - Sign in.
-    - Install extensions.
-    - Switch Instapaper shortcut to `ctrl-s`.
-    - Disable Arc shortcut for `new little Arc window`.
 - Microsoft Teams
 - Google Meet Web app via Chrome
     - Browse to Google Meet and install Chrome app from address bar (or copy across from ~/Applications)
@@ -244,12 +239,9 @@ Host *
     - Map Module > Import My Locations from backup
     - Pick `~/Dropbox/Photos/Lightroom/Backups` path in backup dialog when exiting Lightroom.
 - Install Fuji Raw Studio
-- Install SSH Keys and config from 1Password
 - Dash 3
     - Set up syncing to `~/Dropbox/Backups/Dash`
 - Calibre
     - Preferences > Install plugin from file > `~/Dropbox/Backups/Calibre DRM plugins/KFX Input.zip`
     - Preferences > Install plugin from file > `~/Dropbox/Backups/Calibre DRM plugins/DeDRM_tools_6.6.1/DeDRM_calibre_plugin/DeDRM_plugin.zip`
-- Set up aws-vault (key and secret in 1Password)
-    - `aws-vault add envato-aws-users-ray.grasso`
 
