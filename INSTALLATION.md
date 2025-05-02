@@ -189,7 +189,20 @@ Check the status of services via `brew services list`.
     - Set play/pause shortcut to `⌃⌥⇧⌘p`
     - Scrobble from Spotify is unchecked
     - Disable widget
+- 1Password
+    - Settings > Developer > Use the SSH Agent
+    - Settings > Developer > Ask approval for each new Application
+    - Settings > Developer > Remember key approval until 1Password quits
+    - Settings > Developer > Display key names when authorizing connections
+    - Settings > Developer > Open SSH URLs with Ghostty
 
+Add the following to ~/.ssh/config
+
+```
+# Use 1Password SSH agent
+Host *
+  IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+```
 
 # Optional stuff
 
