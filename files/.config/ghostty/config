@@ -1,2 +1,3 @@
 theme = Dracula
 font-family = "FiraCode Nerd Font Mono"
+keybind = shift+enter=text:\n
