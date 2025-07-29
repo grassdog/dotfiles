@@ -176,6 +176,9 @@ Host *
 - Microsoft Teams
 - Google Meet Web app via Chrome
     - Browse to Google Meet and install Chrome app from address bar (or copy across from ~/Applications)
+- MuteDeck
+    - Set global shortcut for Mute to `⌘⇧9`
+    - Enable Browser extension.
 - Download and install Webster's 1913 Dictionary
     - Instructions at https://github.com/cmod/websters-1913
 - Create Lifelog, Last.fm, and ChatGPT web desktop apps.
