@@ -95,9 +95,6 @@ Check the status of services via `brew services list`.
 - Karabiner Elements
     - Don't show icon in menu bar
     - Set caps lock to control in `System Preferences > Keyboard` for karabiner virtual keyboard
-- WebCatalog
-    - Install Gmail and Google calendar apps
-    - Add work accounts
 - Mimestream
     - Add personal email accounts
     - Enable notifications in system settings and disable everything except app badge
@@ -121,13 +118,6 @@ Check the status of services via `brew services list`.
     - Enable notifications but no badges
 - Bear
     - Set global shortcut to new note `⌃⌥⇧⌘z`
-- NotePlan
-    - Use CloudKit for syncing.
-    - Set global shortcut to `⌃⌥⇧⌘j`
-    - Start week on Monday
-    - Don't recognise `*` as todo
-    - Use `-` as default
-    - Automatically update note links
 - QLStephen
     - Allow in security settings.
 - DayOne
@@ -168,6 +158,16 @@ Host *
 # Optional stuff
 
 - Install Okta Verify from the App Store for work computer
+- NotePlan
+    - Use CloudKit for syncing.
+    - Set global shortcut to `⌃⌥⇧⌘j`
+    - Start week on Monday
+    - Don't recognise `*` as todo
+    - Use `-` as default
+    - Automatically update note links
+- WebCatalog
+    - Install Gmail and Google calendar apps
+    - Add work accounts
 - Download Elgato Control Centre and Stream Deck from https://www.elgato.com/ww/en/s/downloads
     - Install plugins
         - Audio Switcher, Audio Mute, Zoom, Spotify, Slack status, Run OSA Script, Shortcuts, Apple Music, VSCode, XCode.
