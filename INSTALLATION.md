@@ -165,6 +165,7 @@ Host *
     - Don't recognise `*` as todo
     - Use `-` as default
     - Automatically update note links
+    - Edit > Spelling and Grammar > Disable automatically correct spelling
 - WebCatalog
     - Install Gmail and Google calendar apps
     - Add work accounts
