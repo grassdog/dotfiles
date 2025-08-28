@@ -45,9 +45,6 @@ Plug 'dracula/vim'
 " Whitespace cleanup
 Plug 'axelf4/vim-strip-trailing-whitespace'
 
-" Comment line
-Plug 'tpope/vim-commentary'
-
 " Tmux and testing
 Plug 'preservim/vimux'
 Plug 'vim-test/vim-test'
