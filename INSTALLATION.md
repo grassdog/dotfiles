@@ -174,6 +174,26 @@ Host *
         - Audio Switcher, Audio Mute, Zoom, Spotify, Slack status, Run OSA Script, Shortcuts, Apple Music, VSCode, XCode.
     - Import profile backup into Stream Deck from `~/Dropbox/Backups/StreamDeck`.
         - Instructions at https://help.elgato.com/hc/en-us/articles/360048424432-Elgato-Stream-Deck-How-to-Back-Up-and-Restore-Profiles-
+- Fantastical 3
+    - Sign in with Apple
+    - Add Work account
+    - Add iCloud account (with app specific password)
+    - Menu bar icon date and weekday
+    - Defaults to last selected calendar and list
+    - Default event is 30 minutes
+    - Start week on Monday
+    - Start week view on Today or selected day
+    - Show 13 hours at a time
+    - Days per week = 5
+    - Day from 6am - 5pm
+    - Show multi-day events in all-day section
+    - Create three calendar sets: Everything, Work, and Personal
+    - Appearance > App Icon Badge shows > Nothing
+    - Enable notifications (no application badge though)
+        - Show shared calendar notifications
+        - Show notifications for all day tasks at 7am
+        - Disable Show invitation messages in Notification Center
+        - Disable drive time notifications
 - Microsoft Teams
 - Google Meet Web app via Chrome
     - Browse to Google Meet and install Chrome app from address bar (or copy across from ~/Applications)
