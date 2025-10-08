@@ -5,6 +5,8 @@ brew 'asdf'
 brew 'aspell'
 brew 'bat'
 brew 'cmake'
+# Needed for building native ruby gems occasionally
+brew 'coreutils'
 brew 'difftastic'
 brew 'fzf'
 brew 'gpg'

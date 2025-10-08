@@ -10,6 +10,8 @@ brew 'bat'
 brew 'bkt'
 brew 'bun'
 brew 'cmake'
+# Needed for building native ruby gems occasionally
+brew 'coreutils'
 brew 'difftastic'
 brew 'ffmpeg'
 brew 'flyctl'
