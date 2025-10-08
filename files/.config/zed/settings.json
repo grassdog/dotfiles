@@ -10,7 +10,7 @@
   "base_keymap": "VSCode",
   "theme": "One Dark",
   "ui_font_size": 16,
-  "buffer_font_size": 16,
+  "buffer_font_size": 14,
   "languages": {
     "JSON": {
       "prettier": { "allowed": true, "parser": "json" }
