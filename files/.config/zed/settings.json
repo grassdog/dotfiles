@@ -33,5 +33,8 @@
         "require_root_steepfile": false
       }
     }
+  },
+  "file_types": {
+    "Dockerfile": ["Dockerfile*"]
   }
 }
