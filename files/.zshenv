@@ -3,6 +3,7 @@
 ##########
 
 export EDITOR='nvim'
+export GUI_EDITOR='zed'
 export PAGER='less'
 export VISUAL=$EDITOR
 export SVN_EDITOR=$EDITOR
