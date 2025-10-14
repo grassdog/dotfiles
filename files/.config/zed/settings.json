@@ -36,5 +36,8 @@
   },
   "file_types": {
     "Dockerfile": ["Dockerfile*"]
+  },
+  "agent": {
+    "use_modifier_to_send": true
   }
 }
