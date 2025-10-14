@@ -2,6 +2,5 @@ bundler
 debug
 rubocop
 syntax_tree
-rspotify
 sorbet
 sorbet-runtime
