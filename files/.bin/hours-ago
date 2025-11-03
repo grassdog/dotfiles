@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-unixts=`date +%s`
-echo `expr ${unixts} - 3600 \* $1`

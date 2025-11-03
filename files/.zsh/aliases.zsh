@@ -165,6 +165,17 @@ alias exc="iex -S mix"
 # Utils
 #########
 
+# Create me a temporary directoy to play in
+tempe () {
+  cd "$(mktemp -d)"
+  chmod -R 0700 .
+  if [[ $# -eq 1 ]]; then
+    mkdir -p "$1"
+    cd "$1"
+    chmod -R 0700 .
+  fi
+}
+
 # Print some stats on my shell commands
 alias profileme="history 1 | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -nr | head -n 20"
 
