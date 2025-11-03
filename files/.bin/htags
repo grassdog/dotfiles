@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-# Generate Ctags for haskell files
-# requires: cabal install hasktags
-tagfile=${1-.git/tags}
-hasktags -L -c --ignore-close-implementation -R -f $tagfile .
-
