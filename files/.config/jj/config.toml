@@ -1,7 +1,22 @@
 [ui]
 diff-editor = ":builtin"
 pager = ["less", "-FRX"]
+diff.diff-formatter = "difft"
 
 [user]
 name = "Ray Grasso"
 email = "ray.grasso@gmail.com"
+
+# Difftastic
+[merge-tools.difft]
+diff-args = ["--color=always", "$left", "$right"]
+
+# Kaleidosope
+[merge-tools.kaleid]
+program = "ksdiff"
+diff-args = ["--partial-changeset", "$left", "$right"]
+edit-args = ["$left", "$right"]
+merge-args = ["$left", "$base", "$right", "-o", "$output"]
+
+[aliases]
+diffk = ["diff", "--tool", "kaleid"]
