@@ -195,12 +195,6 @@ function extract() {
   fi
 }
 
-alias mux="tmuxinator"
-# Start a new tmux session using the project template
-muxp() {
-  tmuxinator start project -n $1 $1
-}
-
 # Switch tmux pane with fzf
 ftpane() {
   local panes current_window current_pane target target_window target_pane
