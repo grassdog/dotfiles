@@ -146,8 +146,6 @@ export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 HOSTRC="$HOME/.zsh/$(hostname).zsh"
 [[ -r $HOSTRC ]] && source $HOSTRC
 
-[[ -r ~/.iterm2_shell_integration.zsh ]] && source ~/.iterm2_shell_integration.zsh
-
 if type direnv >/dev/null 2>&1; then
   eval "$(direnv hook zsh)"
 fi
