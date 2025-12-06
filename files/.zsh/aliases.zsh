@@ -154,13 +154,6 @@ function format-ruby() {
 alias psu='ps auxw'
 
 
-##########
-# Elixir #
-##########
-
-alias exc="iex -S mix"
-
-
 #########
 # Utils
 #########
@@ -174,14 +167,6 @@ tempe () {
     cd "$1"
     chmod -R 0700 .
   fi
-}
-
-# Print some stats on my shell commands
-alias profileme="history 1 | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -nr | head -n 20"
-
-# Readline wrapped scheme
-function scheme-rl() {
-  rlwrap -r -c -f "$HOME/.tools/mit_scheme_bindings.txt" scheme
 }
 
 # Serve up the current directory with webrick
