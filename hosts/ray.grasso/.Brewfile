@@ -1,6 +1,9 @@
 tap 'homebrew/bundle'
 tap 'homebrew/services'
 
+tap 'oven-sh/bun'
+brew 'bun'
+
 brew 'asdf'
 brew 'aspell'
 brew 'bat'
