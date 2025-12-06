@@ -81,9 +81,6 @@ spaceship_awsvault() {
 
 [[ -r /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# For older brew installs
-[[ -r /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
 ###############
 # Corrections
 ###############
