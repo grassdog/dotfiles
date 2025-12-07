@@ -17,6 +17,7 @@ brew 'gum'
 brew 'jj'
 brew 'jjui'
 brew 'lazygit'
+brew 'libyaml' # Needed for building ruby with asdf
 brew 'mas'
 brew 'neovim'
 brew 'pandoc'
