@@ -50,6 +50,9 @@ alias find-dropbox-conflicts="find . -name '*conflicted*'"
 # Use Dracula theme so it's properly visible in iTerm
 alias bat='bat --theme Dracula --pager "less -RFi"'
 
+alias obsidian-vaults='cd ~/Library/Mobile\ Documents/iCloud~md~obsidian/Documents'
+alias edit-obsidian="${GUI_EDITOR} ~/Library/Mobile\\ Documents/iCloud~md~obsidian/Documents/Envato"
+
 ###############
 # OSX Specific
 ###############
