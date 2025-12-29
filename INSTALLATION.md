@@ -171,9 +171,10 @@ Host *
     - Add work accounts
 - Download Elgato Control Centre and Stream Deck from https://www.elgato.com/ww/en/s/downloads
     - Install plugins
-        - Audio Switcher, Audio Mute, Zoom, Spotify, Slack status, Run OSA Script, Shortcuts, Apple Music, VSCode, XCode.
+        - Apple Music, Audio Mute, Audio Switcher, Control Center, MuteDeck, OSAScript, Shortcuts, Spotify, Volume Controller, Zoom
     - Import profile backup into Stream Deck from `~/Dropbox/Backups/StreamDeck`.
-        - Instructions at https://help.elgato.com/hc/en-us/articles/360048424432-Elgato-Stream-Deck-How-to-Back-Up-and-Restore-Profiles-
+        - Find latest backup file and click it
+        - (Or follow Instructions at https://help.elgato.com/hc/en-us/articles/360048424432-Elgato-Stream-Deck-How-to-Back-Up-and-Restore-Profiles-)
 - Fantastical 3
     - Sign in with Apple
     - Add Work account
