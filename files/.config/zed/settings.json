@@ -7,6 +7,7 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "show_completions_on_input": false,
   "base_keymap": "VSCode",
   "theme": "Alabaster Dark",
   "ui_font_size": 16,
@@ -38,6 +39,7 @@
     "Dockerfile": ["Dockerfile*"]
   },
   "agent": {
+    "play_sound_when_agent_done": true,
     "use_modifier_to_send": true
   }
 }
