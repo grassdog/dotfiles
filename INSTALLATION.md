@@ -92,6 +92,7 @@ Check the status of services via `brew services list`.
     - Add ~/dev into Finder sidebar
     - New window opens in ~/Downloads
     - View > Customize toolbar > Add Airdrop icon to toolbar.
+    - View > Show View Options > Resize columns to fit filenames.
 - Karabiner Elements
     - Don't show icon in menu bar
     - Set caps lock to control in `System Preferences > Keyboard` for karabiner virtual keyboard
