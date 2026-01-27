@@ -154,6 +154,9 @@ unset GEM_HOME
 export ASDF_DATA_DIR="$HOME/.asdf"
 export PATH="$ASDF_DATA_DIR/shims:$PATH"
 
+# Add bun to path
+export PATH="$HOME/.bun/bin:$PATH"
+
 # Integrate fzf into my shell
 source <(fzf --zsh)
 
