@@ -204,7 +204,9 @@ Host *
     - Enable Browser extension.
 - Download and install Webster's 1913 Dictionary
     - Instructions at https://github.com/cmod/websters-1913
-- Create Lifelog, Last.fm, and ChatGPT web desktop apps.
+- Create Last.fm web desktop app.
+- ChatGPT
+    - Set global shortcut to `⌥space`.
 - Choosy
     - Set default browser
     - Start at login
