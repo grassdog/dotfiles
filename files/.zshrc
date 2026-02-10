@@ -41,39 +41,10 @@ SPACESHIP_PROMPT_ORDER=(
   char          # Prompt character
 )
 
+
 SPACESHIP_TIME_SHOW=true
 SPACESHIP_EXIT_CODE_SHOW=true
 
-# AWS Vault
-
-# ------------------------------------------------------------------------------
-# Configuration
-# ------------------------------------------------------------------------------
-
-SPACESHIP_AWSVAULT_SHOW="${SPACESHIP_AWSVAULT_SHOW=true}"
-SPACESHIP_AWSVAULT_PREFIX="${SPACESHIP_AWSVAULT_PREFIX=""}"
-SPACESHIP_AWSVAULT_SUFFIX="${SPACESHIP_AWSVAULT_SUFFIX="$SPACESHIP_PROMPT_DEFAULT_SUFFIX"}"
-SPACESHIP_AWSVAULT_SYMBOL="${SPACESHIP_AWSVAULT_SYMBOL="☁️ "}"
-SPACESHIP_AWSVAULT_COLOR="${SPACESHIP_AWSVAULT_COLOR="208"}"
-
-# ------------------------------------------------------------------------------
-# Section
-# ------------------------------------------------------------------------------
-
-# Shows selected AWS-cli profile.
-spaceship_awsvault() {
-  [[ $SPACESHIP_AWSVAULT_SHOW == false ]] && return
-
-  # Check to see if we're in an AWS VAULT section
-  [[ -z $AWS_VAULT ]] && return
-
-  # Show prompt section
-  spaceship::section \
-    "$SPACESHIP_AWSVAULT_COLOR" \
-    "$SPACESHIP_AWSVAULT_PREFIX" \
-    "${SPACESHIP_AWSVAULT_SYMBOL}$AWS_VAULT" \
-    "$SPACESHIP_AWSVAULT_SUFFIX"
-}
 
 ##########
 # Plugins
@@ -138,10 +109,6 @@ source ~/.zsh/aliases.zsh
 export ERL_AFLAGS="-kernel shell_history enabled"
 
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-
-# Source host specific config
-HOSTRC="$HOME/.zsh/$(hostname).zsh"
-[[ -r $HOSTRC ]] && source $HOSTRC
 
 if type direnv >/dev/null 2>&1; then
   eval "$(direnv hook zsh)"
