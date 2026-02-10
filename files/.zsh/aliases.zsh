@@ -8,7 +8,6 @@ if [[ $(uname) == Darwin ]]; then
   LSC='-G'
 fi
 
-alias l.="ls $LSC -d .[^.]*"
 alias l="ls $LSC -ohF"
 alias lt="ls $LSC -lt"   # sort with recently modified first
 alias la="ls $LSC -Al"
@@ -21,15 +20,6 @@ function take() {
 }
 
 alias ea='nvim ~/.zsh/aliases.zsh'
-
-# Set iterm title
-function title() {
-  if [ "$TMUX" == "" ]; then
-    echo -ne "\e]0;$1\a"
-  else
-    echo -ne "\033k$1\033\\"
-  fi
-}
 
 alias v='nvim'
 alias le='less -SR'
@@ -47,19 +37,11 @@ alias tmux="TERM=screen-256color-bce tmux"
 # Find conflicted file copies in Dropbox folders (useful for .git directories)
 alias find-dropbox-conflicts="find . -name '*conflicted*'"
 
-# Use Dracula theme so it's properly visible in iTerm
+# Use Dracula theme so it's properly visible in terminal
 alias bat='bat --theme Dracula --pager "less -RFi"'
 
 alias obsidian-vaults='cd ~/Library/Mobile\ Documents/iCloud~md~obsidian/Documents'
-alias edit-obsidian="${GUI_EDITOR} ~/Library/Mobile\\ Documents/iCloud~md~obsidian/Documents/Envato"
 
-###############
-# OSX Specific
-###############
-
-if [[ $(uname) == Darwin ]]; then
-  alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
-fi
 
 #######
 # Git
@@ -67,7 +49,6 @@ fi
 
 alias gap='git add -p'
 alias gb='git branch'
-alias gbr='git branch --remote'
 alias gc='git commit -v'
 alias gca='git commit -v -a'
 alias gco='git checkout'
@@ -76,26 +57,18 @@ alias gdt='git difftool'
 # Git diff syntax
 alias gds='git difftool --tool=difftastic'
 alias gd='git diff'
-alias gdd='git dd'
 alias gdc='git diff --cached'
-alias gdw='git diff --word-diff'
 alias gpu='git push'
 alias gpl='git update'
 alias gro='git reset --hard origin/main'
 alias gnp='git-notpushed'
 alias gs='git status -s'
 alias gl='git ls'
-alias gll='git ll'
-alias gls='git lls'
 alias glp='git lp'
-alias gg='git ls-files | grep'
+alias gg='git grep-log'
 alias gac='git add . && git commit --amend'
-# Add, amend, and force push
-alias gaf='git add . && git commit --amend --no-edit && gpu -f'
 
 alias git-update-modules='git submodule foreach git pull'
-
-alias git-most-changed='git log --pretty=format: --name-only | sort | uniq -c | sort -rg | head -10'
 
 # Show the revision at a certain date on current branch
 function git-rev() {
@@ -161,8 +134,8 @@ alias psu='ps auxw'
 # Utils
 #########
 
-# Create me a temporary directoy to play in
-tempe () {
+# Create me a temporary directory to play in
+tempd () {
   cd "$(mktemp -d)"
   chmod -R 0700 .
   if [[ $# -eq 1 ]]; then
