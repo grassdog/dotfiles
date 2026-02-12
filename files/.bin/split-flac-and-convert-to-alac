@@ -1,0 +1,83 @@
+#!/usr/bin/env ruby
+#/ Usage: split-flac-and-convert-to-alac [options] <cue_file>
+#/
+#/ Split a flac file based upon a cue file and convert the tracks into ALAC for Apple music.
+#/
+$stderr.sync = true
+require "optparse"
+
+trap("INT") do
+  exit
+end
+
+ARGV.options do |opts|
+  opts.banner = "#{`grep ^#/<'#{__FILE__}'|cut -c4-`}Options:\n"
+  opts.on_tail("-h", "--help", "Show help") {
+    puts opts
+    exit
+  }
+  opts.parse!
+end
+
+cue_file = ARGV[0]
+
+unless cue_file
+  puts "Please provide a cue file."
+  exit 1
+end
+
+cue_content = File.read(cue_file)
+flac_path = cue_file.gsub(".cue", "")
+
+artist = cue_content.scan(/PERFORMER "(.+)"/).first.first
+album = cue_content.scan(/TITLE "(.+)"/).first.first
+
+current_track = nil
+
+tracks = cue_content.lines.each_with_object([]) do |line, result|
+
+  if line.match?(/\s+TRACK/)
+    result << current_track if current_track
+    number = line.scan(/TRACK (\d+) AUDIO/).first.first.to_i
+    current_track = {number: number}
+  end
+
+  if line.match?((/\s+TITLE/))
+    current_track[:title] = line.scan(/TITLE "(.+)"/).first.first
+  end
+
+  if line.match?((/\s+INDEX/))
+    start_time = line.scan(/INDEX \d+ ([\d:]+)/).first.first
+
+    mins, secs, _micro = start_time.split(":")
+
+    current_track[:start_time] = (mins.to_i * 60) + secs.to_i
+  end
+end
+
+tracks.each_with_index do |track, index|
+  if (index + 1) == tracks.length
+    track[:end_time] = nil
+  else
+    track[:end_time] = tracks[index+1][:start_time]
+  end
+end
+
+commands = tracks.map do |track|
+
+  output_path = "#{track[:number]} - " + track[:title].gsub(/\[,\./, "_") + ".m4a"
+
+  metadata = "-metadata title=\"#{track[:title]}\" -metadata album=\"#{album}\" -metadata  artist=\"#{artist}\" -metadata track=#{track[:number]}"
+
+  if track[:end_time]
+
+    "ffmpeg -i \"#{flac_path}\" -ss #{track[:start_time]} -to #{track[:end_time]} #{metadata} -y -vcodec copy -acodec alac \"#{output_path}\""
+  else
+    "ffmpeg -i \"#{flac_path}\" -ss #{track[:start_time]} #{metadata} -y -vcodec copy -acodec alac \"#{output_path}\""
+  end
+end
+
+commands.each do |command|
+  puts "Running ==> #{command}"
+  system command
+end

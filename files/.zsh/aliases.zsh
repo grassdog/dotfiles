@@ -145,11 +145,6 @@ tempd () {
   fi
 }
 
-# Serve up the current directory with webrick
-function serve-dir() {
-  ruby -rwebrick -e"s = WEBrick::HTTPServer.new(:Port => 8888,  :DocumentRoot => Dir.pwd); trap('INT') { s.shutdown }; s.start"
-}
-
 function extract() {
   if [ -f $1 ] ; then
     case $1 in
@@ -190,4 +185,3 @@ ftpane() {
     tmux select-window -t $target_window
   fi
 }
-

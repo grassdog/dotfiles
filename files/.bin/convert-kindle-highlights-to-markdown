@@ -1,0 +1,147 @@
+#!/usr/bin/env ruby
+# Usage:
+#   cat highlights.txt | ruby kindle_highlights_to_md.rb B0CHHY2PS4
+#   ruby kindle_highlights_to_md.rb B0CHHY2PS4 < highlights.txt
+#
+# How to use
+# Go to the kindle edition on Amazon and look up the book's ASIN
+# Go to Kindle notebook and copy the highlights block under the heading.
+# It'll look like the following:
+#
+# Yellow highlight | Location: 308 Options
+# Now humans have access to a tool that can emulate how we think and write, acting as a co-intelligence to improve (or replace) our work. But many of the companies developing AI are going further, hoping to create a sentient machine, a truly new form of co-intelligence that would coexist with us on Earth. To get a handle on what this means, we need to start from the beginning, with a very basic question: What is AI?
+# Yellow highlight | Location: 341 Options
+# Many of these applications used a technique called supervised learning, which means these forms of AI needed labeled data to learn from. Labeled data is data that has been annotated with the correct answers or outputs for a given task.
+#
+# Then call the script.
+# $ pbpaste | ~/dev/scripts/convert-kindle-highlights-to-markdown B08K88TZM4 | pbcopy
+#
+
+# Pattern constants
+HIGHLIGHT_HEADER = /highlight\s*\|/i
+LOCATION_PATTERN = /Location:\s*([0-9][0-9,]*)/i
+PAGE_PATTERN = /Page:\s*([0-9][0-9,]*)/i
+NOTE_PATTERN = /^Note:/i
+
+class KindleHighlightParser
+  def initialize(asin, lines)
+    @asin = asin
+    @lines = lines
+    @index = 0
+    @output = []
+  end
+
+  def parse
+    while @index < @lines.length
+      line = @lines[@index]
+
+      if highlight_header?(line)
+        process_highlight(line)
+      else
+        # Pass through any stray lines that aren't part of a recognised highlight header
+        @output << line
+        @index += 1
+      end
+    end
+
+    trim_trailing_blank_lines
+    @output.join("\n")
+  end
+
+  private
+
+  def highlight_header?(line)
+    line =~ HIGHLIGHT_HEADER && (line =~ /Location:/i || line =~ /Page:/i)
+  end
+
+  def parse_ref(header_line)
+    # Returns either:
+    #   [:location, "3202"]
+    #   [:page, "13"]
+    #   nil
+    if m = header_line.match(LOCATION_PATTERN)
+      return [:location, m[1].delete(',')]
+    end
+    if m = header_line.match(PAGE_PATTERN)
+      return [:page, m[1].delete(',')]
+    end
+    nil
+  end
+
+  def quote_block(text, ref)
+    clean = text.strip.gsub(/\s+/, ' ')
+
+    return "> #{clean}" if ref.nil?
+
+    kind, value = ref
+    if kind == :location && value && !value.empty?
+      link_text = "L#{value}"
+      link = "[#{link_text}](kindle://book?action=open&asin=#{@asin}&location=#{value})"
+      "> #{clean} #{link}"
+    elsif kind == :page && value && !value.empty?
+      link_text = "P#{value}"
+      link = "[#{link_text}](kindle://book?action=open&asin=#{@asin}&page=#{value})"
+      "> #{clean} #{link}"
+    else
+      "> #{clean}"
+    end
+  end
+
+  def process_highlight(line)
+    ref = parse_ref(line)
+    @index += 1
+
+    # Collect highlight text until next header OR note line OR EOF
+    highlight_lines = []
+    while @index < @lines.length
+      l = @lines[@index]
+      break if highlight_header?(l)
+      break if l =~ NOTE_PATTERN
+      highlight_lines << l
+      @index += 1
+    end
+
+    highlight_text = highlight_lines.join("\n").strip
+    unless highlight_text.empty?
+      @output << quote_block(highlight_text, ref)
+      @output << ""
+      @output << ""
+    end
+
+    process_note if @index < @lines.length && @lines[@index] =~ NOTE_PATTERN
+  end
+
+  def process_note
+    note_text = @lines[@index].sub(NOTE_PATTERN, '').strip
+    @output << note_text unless note_text.empty?
+    @index += 1
+
+    # Preserve any following non-header lines as part of the note until next header/EOF
+    while @index < @lines.length
+      l = @lines[@index]
+      break if highlight_header?(l)
+      @output << l
+      @index += 1
+    end
+
+    # Ensure an extra blank line between a note block and the next highlight
+    @output << "" unless @output.last.to_s.strip.empty?
+    @output << ""
+  end
+
+  def trim_trailing_blank_lines
+    @output.pop while @output.any? && @output.last.to_s.strip.empty?
+  end
+end
+
+# Main script
+asin = ARGV[0]
+if asin.nil? || asin.strip.empty?
+  warn "Usage: ruby #{File.basename($PROGRAM_NAME)} <ASIN>\nReads raw highlights from STDIN."
+  exit 1
+end
+asin = asin.strip
+
+lines = STDIN.read.split(/\r?\n/)
+parser = KindleHighlightParser.new(asin, lines)
+puts parser.parse

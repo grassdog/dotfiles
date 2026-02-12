@@ -1,0 +1,225 @@
+#!/usr/bin/env ruby
+
+require "json"
+
+advice = JSON.parse(DATA.read)
+
+advice.sample(1).each do |e|
+  puts "#{e["prompt"]}"
+  puts ""
+  puts " " + e["descriptions"].sample(1).first
+end
+
+__END__
+[{"id": 1,
+  "prompt": "Look for a HACK",
+  "descriptions": ["Can you short-circuit a complex problem?",
+                   "Probably you could build a hacky Page Rank without knowing anything at all about linear algebra.",
+                   "What kind of shortcuts did you look for when you were first learning to program?",
+                   "Hacks often become excellent long-term solutions."
+                  ]},
+
+ {"id": 2,
+  "prompt": "Look for a good enough approximation",
+  "descriptions": ["Remove any inessential requirements you can find.",
+                   "Don't shy away from informal solutions like hacks and approximations if the formal solution is heavy work."]},
+
+ {"id": 3,
+  "prompt": "Have faith in sound-looking abstractions",
+  "descriptions": ["Novel combinations of known high-level strategies almost always work.",
+                   "There's no guarantee to the newcomer that using regexes won't lead to an inescapable problem, and yet, with a little mortar, regexes work great."]},
+
+ {"id": 4,
+  "prompt": "Forget about optimizing your code",
+  "descriptions": ["Most of the time unoptimized code is fine.",
+                   "If you can't break the habit of chasing optimizations, then leave a comment like POTENTIAL_OPTIMIZATION_POINT with a description of how to go about your optimization."]},
+
+ {"id": 5,
+  "prompt": "Solve the problem directly",
+  "descriptions": ["Pierce right to the center.",
+                   "Avoid theory building."]},
+ {"id": 6,
+  "prompt": "Feats are fragile",
+  "descriptions": ["How complicated is the solution you have? It is probably too fragile.",
+                   "The trickier a solution is, the smaller the pool of people able to maintain it."]},
+ {"id": 7,
+  "prompt": "Board up rabbit holes",
+  "descriptions": ["Boarding over a rabbit hole always involves some sacrifice of functionality.",
+                   "Figure out what you cansacrifice and how much of it.",
+                   "It's cheap."]},
+ {"id": 8,
+  "prompt": "Build the theory of the problem",
+  "descriptions": ["Simplify the problem in layers like an onion."]},
+
+ {"id": 9,
+  "prompt": "Shear off a layer",
+  "descriptions": ["Many problems have separable layers."]},
+
+ {"id": 10,
+  "prompt": "Get red and green right before mixing yellow",
+  "descriptions": ["If you have to combine two separates pieces into some bigger conglomeration, it can be tempting to build the entire thing.",
+                   "The reasoning, and it is naive reasoning, is that building everything together saves time.",
+                   "The 'now it's easy' phenomenon is why mathematicians call everything they already know trivial."]},
+
+ {"id": 11,
+  "prompt": "Blink lasts 300 milliseconds",
+  "descriptions": ["For most computing applications this is an eternity.",
+                   "Even the worst strategies will produce execution times orders of magnitude below the measurable perception limit."]},
+
+ {"id": 12,
+  "prompt": "Zoom in",
+  "descriptions": ["If a tricky piece is causing issues, focus on it exclusively.",
+                   "Let it take up the whole frame."]},
+ {"id": 13,
+  "prompt": "Add constraints",
+  "descriptions": ["Artificial limits turn exhausting problems into simple ones.",
+                   "A user may need five shipping addresses. They don't need one million."]},
+
+ {"id": 14,
+  "prompt": "Mark it WONTFIX",
+  "descriptions": ["The best solution to any problem is to avoid having to solve it in the first place.",
+                   "This is one of your most important tools.",
+                   "All the work you cut is energy saved.",
+                   "Pure gain.",
+                   "Is is possible to just drop the task?",
+                   "Will your world explode? If not, you probably can drop it."]},
+
+ {"id": 15,
+  "prompt": "Verify your fears, explicity",
+  "descriptions": ["Are you stuck becuse you're worried something will run too slow, and you don't know how to get around it?\nVerify that the case actually runs slow.\n\nIt might not.",
+                   "Don't allow yourself to create a ridge of inflatable mountains."]},
+
+ {"id": 16,
+  "prompt": "Keep calm",
+  "descriptions": ["If your fears are real, don't panic.",
+                   "Terrible problems often have simple solutions."]},
+
+ {"id": 17,
+  "prompt": "Take a closer look",
+  "descriptions": ["When was the last time you looked concretely at the abstract thing you are working with?.",
+                   "Add more debugging output.",
+                   "Gather more data."]},
+
+ {"id": 18,
+  "prompt": "Is it the bug you think it is?",
+  "descriptions": ["'Something else' that's broken can make something that works look broken.",
+                   "'Something else' that's broken can make something broken more broken."]},
+
+ {"id": 19,
+  "prompt": "Is it a typo?",
+  "descriptions": ["The wrong variable name is otherwise working code can trigger a hunt far from where the problem is."]},
+
+ {"id": 20,
+  "prompt": "Stop and think",
+  "descriptions": ["Many problems need to be solved on paper first."]},
+
+ {"id": 21,
+  "prompt": "If you lack motivation",
+  "descriptions": ["Find the most interesting thing in the project, start on that."]},
+
+ {"id": 22,
+  "prompt": "Work append only",
+  "descriptions": ["Don't worry about mistakes.",
+                   "Don't worry about revising.",
+                   "Later on is when you can go back and edit.",
+                   "Keep you focused on your destination."]},
+
+ {"id": 23,
+  "prompt": "Change your mind",
+  "descriptions": ["If something seems wrong, maybe it is."]},
+
+ {"id": 24,
+  "prompt": "Power through",
+  "descriptions": ["Building a staircase out of sugarcubes is draining."]},
+
+ {"id": 25,
+  "prompt": "Look for ways to chain tools",
+  "descriptions": ["Can I reuse any of my tools that I built?",
+                   "Can I combine them in novel ways to solve the problem?",
+                   "Sometimes a series of hacks can bootstrap a superior solution."]},
+
+ {"id": 26,
+  "prompt": "Backtrack",
+  "descriptions": ["Your assumption must be wrong.",
+                   "Change your assumption.",
+                   "Go up a level of abstraction and try a different approach."]},
+
+ {"id": 27,
+  "prompt": "Flip the problem around",
+  "descriptions": ["Look at it from a different perspective.",
+                   "You cannot dig a hole in a different place by digging the same hole deeper. \n\n by Edward de Bono, who coined the term lateral thinking."]},
+
+ {"id": 28,
+  "prompt": "Work forward from where the unfinished part of the code suggests you should",
+  "descriptions": ["Just do it."]},
+
+ {"id": 29,
+  "prompt": "List dependencies to determine order of completion",
+  "descriptions": ["Order work by most likely to inform later work."]},
+
+ {"id": 30,
+  "prompt": "Escape the usage vacuum",
+  "descriptions": ["Don't go too long without witnessing an example of the feature you are implementing.",
+                   "Examine the real-world use case and build to it."]},
+
+ {"id": 31,
+  "prompt": "Try the naive method first",
+  "descriptions": ["In general, it is faster to try all the easy methods in order of easiness.",
+                   "Sometimes attempts on a problem push back for a reason."]},
+
+ {"id": 32,
+  "prompt": "Do it both ways",
+  "descriptions": ["Very often doing it both ways is faster than analyzing which is best.",
+                   "Add a toggle if possible",
+                   "Some mistakes are cheaper to make than to avoid."]},
+
+ {"id": 33,
+  "prompt": "Verify that your assumptions about the outside world are correct",
+  "descriptions": ["Hallucinations aren't the problem, whatever is causing the hallucinations is.",
+                   "See if you can trust what you're being told."]},
+
+ {"id": 34,
+  "prompt": "Get water flowing through the pipe",
+  "descriptions": ["Connect the system end-to-end, using dummy sections where necessary."]},
+
+ {"id": 35,
+  "prompt": "Every bug hunt is at worst a log time search through the code base",
+  "descriptions": ["Google the error message.",
+                   "Tweak, google the new error."]},
+
+ {"id": 36,
+  "prompt": "Write down everything you know about the problem",
+  "descriptions": ["The terminal points of this process are questions to be answered."]},
+
+ {"id": 37,
+  "prompt": "Form hypothesis, test hypothesis, repeat.",
+  "descriptions": ["This is the process you use when you are seemingly out of possibilities."]},
+
+ {"id": 38,
+  "prompt": "Have opinions",
+  "descriptions": ["It is generally better to guess wrong and check than to sit pondering what might be correct.",
+                   "At any frontier intuition beats proof.",
+                   "Opinion heralds fact."]},
+
+ {"id": 39,
+  "prompt": "Have goals and subdivide them",
+  "descriptions": ["Test-driven development is one implementation of this strategy."]},
+
+ {"id": 40,
+  "prompt": "Do it the wrong way",
+  "descriptions": ["If you have an idea, but know that it's wrong, build it the wrong way anyway.",
+                   "Build it, then throw it out.",
+                   "Truth will sooner come out of error than from confusion.\n\nFrancis Bacon, 1620."]},
+
+ {"id": 41,
+  "prompt": "Do something",
+  "descriptions": ["Work on the wrong thing.",
+                   "Make something up.",
+                   "Start even if you don't have all the information.",
+                   "Inaction won't solve the problem."]},
+
+ {"id": 42,
+  "prompt": "Put the problem aside and work on something else",
+  "descriptions": ["Thrashing won't solve the problem."]}
+
+]

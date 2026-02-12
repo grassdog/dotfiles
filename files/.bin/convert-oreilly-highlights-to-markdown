@@ -1,0 +1,97 @@
+#!/usr/bin/env ruby
+#/ Usage: convert-safari-highlights-to-markdown [options] highlight.csv
+#/
+#/ Take a CSV export of highlight from Safari books online and convert them to Markdown
+#/ fit for pasting into Bear notes.
+#/
+$stderr.sync = true
+require "optparse"
+require "csv"
+require "ostruct"
+
+trap("INT") do
+  exit
+end
+
+title_filter = nil
+
+ARGV.options do |opts|
+  opts.banner = "#{`grep ^#/<'#{__FILE__}'|cut -c4-`}Options:\n"
+  opts.on("-t", "--title=val", String, "Filter by title")   { |val| title_filter = val.downcase }
+  opts.on_tail("-h", "--help", "Show help") {
+    puts opts
+    exit
+  }
+  opts.parse!
+end
+
+Book = Struct.new(:title, :authors, :chapters) do
+  def self.from_hash(hash, rows)
+    new(
+        "📚 #{hash["Book Title"]}",
+        hash["Authors"],
+        rows
+          .group_by {|row| row["Chapter Title"]}
+          .map {|k,v| Chapter.from_hash(v.first, v.reverse)}
+          .reverse
+    )
+  end
+
+  def to_markdown
+  <<~BOOK
+  # #{title}
+
+  _by #{authors || "INSERT AUTHORS"}_
+
+  #{chapters.map(&:to_markdown).join("\n\n")}
+BOOK
+  end
+end
+
+Chapter = Struct.new(:title, :url, :highlights) do
+  def self.from_hash(hash, rows)
+    new(hash["Chapter Title"], hash["Chapter URL"], rows.map {|r| Highlight.from_hash(r) })
+  end
+
+  def to_markdown
+  <<~CHAPTER
+  ## [#{title}](#{url})
+
+  #{highlights.map(&:to_markdown).join("\n\n")}
+CHAPTER
+  end
+end
+
+Highlight = Struct.new(:text, :notes, :date, :url) do
+  def self.from_hash(hash)
+    new(hash["Highlight"], hash["Personal Note"], hash["Date of Highlight"], hash["Annotation URL"])
+  end
+
+  def to_markdown
+    "#{text}#{notes_markdown}#{url_markdown}"
+  end
+
+  def notes_markdown
+    if notes
+      "\n==[" + notes + "]=="
+    else
+      ""
+    end
+  end
+
+  def url_markdown
+    " [🔗](#{url})"
+  end
+end
+
+def parse_csv(rows)
+  rows
+    .group_by {|row| row["Book Title"]}
+    .map {|k,v| Book.from_hash(v.first, v)}
+end
+
+books = parse_csv(CSV.parse(ARGF.read, headers: true))
+
+books = books.select {|book| book.title.downcase.include?(title_filter)} if title_filter
+
+puts books.map(&:to_markdown).join("\n---\n\n")

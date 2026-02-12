@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+# Take a JSON export of Kindle highlights from Braincision
+# and turn it into markdown
+
+require "json"
+
+raw_highlights = JSON.parse(ARGF.read)
+
+result = []
+
+result << "# #{raw_highlights["title"]}"
+result << ""
+result << "_by #{raw_highlights["authors"]}_"
+result << ""
+
+raw_highlights["highlights"].each do |highlight|
+  result << highlight["text"]
+  if highlight["note"]
+    result << ""
+    result << "_" + highlight["note"] + "_"
+  end
+  result.last << " [∞](#{highlight["location"]["url"]})"
+  result << ""
+end
+
+puts result.join("\n")

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Set copyright on all jpgs beneath the current directory
+
+for f in **/*.jpg; do
+  # exiftool "-copyright=© Ray Grasso" "-copyright notice=© Ray Grasso" "-Copyright Flag=true"  -overwrite_original $f
+  exiftool "-copyright=© Ray Grasso" -overwrite_original $f
+done
+

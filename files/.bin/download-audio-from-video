@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Usage: download-audio-from-video <video-url>
+#
+# Download audio from videos using yt-dlp
+
+if [ $# -ne 1 ]; then
+  echo "Please include the video URL"
+  exit 1
+fi
+
+yt-dlp -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 "$1"

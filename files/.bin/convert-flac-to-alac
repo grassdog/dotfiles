@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Convert all FLAC files in a directory to Apple Lossless format aka. ALAC using ffmpeg
+
+for i in *.flac; do echo $i; ffmpeg -i "$i" -y -v 0 -vcodec copy -acodec alac  "${i%.flac}".m4a && trash "$i"; done

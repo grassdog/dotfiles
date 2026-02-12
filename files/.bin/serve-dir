@@ -1,0 +1,20 @@
+#!/bin/sh
+
+dir=${1-"public"}
+port=${2-1919}
+
+# 1. Navigate to the built folder & start a server in it
+cd "$dir"
+python -m SimpleHTTPServer "$port" &
+server_pid=$!
+
+# 2. Trap any killing of this process so that we kill the backgrounded server
+function kill_server {
+  kill $server_pid
+}
+trap kill_server EXIT
+
+# 3. Wait a tiny bit for the server to boot, then open a browser window
+sleep 0.1
+open "http://localhost:$port"
+wait $server_pid
