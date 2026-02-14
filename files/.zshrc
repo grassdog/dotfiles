@@ -117,6 +117,9 @@ export PATH="$ASDF_DATA_DIR/shims:$PATH"
 # Add bun to path
 export PATH="$HOME/.bun/bin:$PATH"
 
+# Add local bin as well
+export PATH="$HOME/.local/bin:$PATH"
+
 # Integrate fzf into my shell
 source <(fzf --zsh)
 
