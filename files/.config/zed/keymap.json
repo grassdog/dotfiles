@@ -10,7 +10,7 @@
     "context": "Workspace",
     "bindings": {
       // "shift shift": "file_finder::Toggle"
-    }
+    },
   },
   {
     "context": "Editor",
@@ -19,9 +19,16 @@
         "task::Spawn",
         {
           "task_name": "Toggle Test and Target",
-          "reevaluate_context": true
-        }
-      ]
-    }
-  }
+          "reevaluate_context": true,
+        },
+      ],
+    },
+  },
+  // Give me a new tab when I do a project search
+  {
+    "context": "Pane",
+    "bindings": {
+      "cmd-shift-f": "workspace::NewSearch",
+    },
+  },
 ]
