@@ -1,0 +1,67 @@
+#!/bin/bash
+
+osascript <<'EOF'
+  set dotsDir to POSIX path of (path to home folder) & ".dotfiles"
+  set downloadsDir to POSIX path of (path to home folder) & "Downloads"
+  set summateDir to POSIX path of (path to home folder) & "dev/summate"
+  set grizzleDir to POSIX path of (path to home folder) & "dev/grizzlebit.com"
+  set photosDir to POSIX path of (path to home folder) & "dev/rays.photos"
+  set cyberDir to POSIX path of (path to home folder) & "dev/cyberdeck"
+
+
+  tell application "Ghostty"
+    activate
+
+    set cfg to new surface configuration
+    set initial working directory of cfg to dotsDir
+
+    -- Our window
+    set win to new window with configuration cfg
+
+    -- Create our tabs
+    set dotsTab to selected tab of win
+
+    -- Downloads and dots
+    set paneDots to terminal 1 of dotsTab
+
+    set initial working directory of cfg to downloadsDir
+    set paneDownloads to split paneDots direction right with configuration cfg
+
+
+    -- Cyberdeck
+    set initial working directory of cfg to cyberDir
+    set cyberTab to new tab in win with configuration cfg
+    set paneCyber to terminal 1 of cyberTab
+    set paneCyber2 to split paneCyber direction right with configuration cfg
+
+    input text "claude" to paneCyber2
+    send key "enter" to paneCyber2
+
+    -- Summate
+    set initial working directory of cfg to summateDir
+    set summateTab to new tab in win with configuration cfg
+    set paneSummate to terminal 1 of summateTab
+    set paneSummate2 to split paneSummate direction right with configuration cfg
+
+    -- Grizzlebit
+    set initial working directory of cfg to grizzleDir
+    set grizzleTab to new tab in win with configuration cfg
+    set paneGrizzle to terminal 1 of grizzleTab
+    set paneGrizzleBuild to split paneGrizzle direction right with configuration cfg
+
+    input text "./scripts/dev" to paneGrizzleBuild
+    send key "enter" to paneGrizzleBuild
+
+    -- Photos
+    set initial working directory of cfg to photosDir
+    set photosTab to new tab in win with configuration cfg
+    set panePhotos to terminal 1 of photosTab
+    set panePhotosBuild to split panePhotos direction right with configuration cfg
+
+    input text "./scripts/dev" to panePhotosBuild
+    send key "enter" to panePhotosBuild
+
+
+    focus paneDots
+  end tell
+EOF
