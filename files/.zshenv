@@ -11,7 +11,7 @@ export BUNDLER_EDITOR=$EDITOR
 
 [ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
-export PATH="${HOME}/.bin:${HOME}/dev/scripts:/usr/local/bin:/usr/local/sbin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:${PATH}"
+export PATH="${HOME}/.bin:${HOME}/dev/scripts:/usr/local/bin:/usr/local/sbin:/Applications/Obsidian.app/Contents/MacOS:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:${PATH}"
 
 # Adding Homebrew man path
 export MANPATH="/usr/local/share/man:${MANPATH}"
