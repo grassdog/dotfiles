@@ -114,11 +114,8 @@ unset GEM_HOME
 export ASDF_DATA_DIR="$HOME/.asdf"
 export PATH="$ASDF_DATA_DIR/shims:$PATH"
 
-# Add bun to path
-export PATH="$HOME/.bun/bin:$PATH"
-
-# Add local bin as well
-export PATH="$HOME/.local/bin:$PATH"
+# Add local bin, bun, and Matter CLI to path
+export PATH="$HOME/.local/bin:$HOME/.bun/bin:$HOME/.matter/bin:$PATH"
 
 # Integrate fzf into my shell
 source <(fzf --zsh)
