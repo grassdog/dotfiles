@@ -7,6 +7,15 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "agent_servers": {
+    "codex-acp": {
+      "type": "registry"
+    },
+    "claude-acp": {
+      "type": "registry"
+    }
+  },
+  "cli_default_open_behavior": "new_window",
   "show_completions_on_input": false,
   "show_edit_predictions": false,
   "base_keymap": "VSCode",
@@ -40,6 +49,10 @@
     "Dockerfile": ["Dockerfile*"],
   },
   "agent": {
+    "default_model": {
+      "provider": "anthropic",
+      "model": "claude-opus-4-6-1m-context-latest"
+    },
     "play_sound_when_agent_done": true,
     "use_modifier_to_send": true,
   },
