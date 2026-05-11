@@ -41,7 +41,7 @@ Book = Struct.new(:title, :authors, :chapters) do
   <<~BOOK
   # #{title}
 
-  _by #{authors || "INSERT AUTHORS"}_
+  _By #{authors || "INSERT AUTHORS"}_
 
   #{chapters.map(&:to_markdown).join("\n\n")}
 BOOK
