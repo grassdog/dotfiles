@@ -1,0 +1,5 @@
+{
+  "permissions": {
+    "allow": ["Bash(/Applications/Bear.app/Contents/MacOS/bearcli:*)"]
+  }
+}

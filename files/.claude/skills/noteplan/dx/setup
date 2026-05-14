@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+echo "Ensuring bun is available"
+if brew ls --versions bun > /dev/null; then
+  echo "bun is installed"
+else
+  brew tap oven-sh/bun
+  brew install bun
+fi
+
+echo "Installing dependencies"
+bun install
