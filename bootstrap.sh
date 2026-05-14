@@ -93,10 +93,23 @@ function link_files {
 
   log "Linking files in $SOURCE_DIR"
 
-  for f in $(find $SOURCE_DIR -maxdepth 1 -mindepth 1 \( ! -name .DS_Store ! -name README.md ! -name _dontlink ! -name .config ! -name bootstrap.sh \)); do
+  for f in $(find $SOURCE_DIR -maxdepth 1 -mindepth 1 \( ! -name .DS_Store ! -name .gitkeep ! -name README.md ! -name _dontlink ! -name .config ! -name .claude ! -name bootstrap.sh \)); do
     log "Linking $f to $TARGET_DIR"
     ln -sf "$f" "$TARGET_DIR"
   done
+}
+
+function clone_or_pull {
+  local url=$1
+  local dest=$2
+
+  if [ ! -d "$dest/.git" ]; then
+    log "Cloning $url to $dest"
+    git clone "$url" "$dest"
+  else
+    log "Updating $dest"
+    git -C "$dest" pull --autostash --ff-only
+  fi
 }
 
 step "Link dotfiles"
@@ -111,6 +124,22 @@ ok
 step "Link .config files"
 link_files $DOTFILES_FULL_PATH/files/.config $HOME/.config
 ok
+
+step "Install Claude Code skills, agents, and commands"
+mkdir -p $HOME/.claude/skills $HOME/.claude/agents $HOME/.claude/commands
+link_files $DOTFILES_FULL_PATH/files/.claude/skills   $HOME/.claude/skills
+link_files $DOTFILES_FULL_PATH/files/.claude/agents   $HOME/.claude/agents
+link_files $DOTFILES_FULL_PATH/files/.claude/commands $HOME/.claude/commands
+
+mkdir -p $DOTFILES_FULL_PATH/vendor
+clone_or_pull https://github.com/kepano/obsidian-skills "$DOTFILES_FULL_PATH/vendor/obsidian-skills"
+for skill in defuddle json-canvas obsidian-bases obsidian-cli obsidian-markdown; do
+  ln -sf "$DOTFILES_FULL_PATH/vendor/obsidian-skills/skills/$skill" "$HOME/.claude/skills/$skill"
+done
+ok
+
+clone_or_pull https://github.com/ossianhempel/things3-cli "$DOTFILES_FULL_PATH/vendor/things3-cli"
+ln -sf "$DOTFILES_FULL_PATH/vendor/things3-cli/skills/things" "$HOME/.claude/skills/things"
 
 if [ -r ~/.Brewfile ]; then
 step "Install linked Brewfiles"
