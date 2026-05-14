@@ -125,21 +125,27 @@ step "Link .config files"
 link_files $DOTFILES_FULL_PATH/files/.config $HOME/.config
 ok
 
-step "Install Claude Code skills, agents, and commands"
-mkdir -p $HOME/.claude/skills $HOME/.claude/agents $HOME/.claude/commands
-link_files $DOTFILES_FULL_PATH/files/.claude/skills   $HOME/.claude/skills
-link_files $DOTFILES_FULL_PATH/files/.claude/agents   $HOME/.claude/agents
-link_files $DOTFILES_FULL_PATH/files/.claude/commands $HOME/.claude/commands
+step "Install AI skills"
+mkdir -p $HOME/.claude/skills $HOME/.codex/skills
+link_files $DOTFILES_FULL_PATH/ai/skills   $HOME/.claude/skills
+link_files $DOTFILES_FULL_PATH/ai/skills   $HOME/.codex/skills
 
 mkdir -p $DOTFILES_FULL_PATH/vendor
 clone_or_pull https://github.com/kepano/obsidian-skills "$DOTFILES_FULL_PATH/vendor/obsidian-skills"
 for skill in defuddle json-canvas obsidian-bases obsidian-cli obsidian-markdown; do
-  ln -sf "$DOTFILES_FULL_PATH/vendor/obsidian-skills/skills/$skill" "$HOME/.claude/skills/$skill"
+  ln -sf "$DOTFILES_FULL_PATH/vendor/obsidian-skills/skills/$skill" "$HOME/.codex/skills/$skill"
 done
-ok
 
 clone_or_pull https://github.com/ossianhempel/things3-cli "$DOTFILES_FULL_PATH/vendor/things3-cli"
 ln -sf "$DOTFILES_FULL_PATH/vendor/things3-cli/skills/things" "$HOME/.claude/skills/things"
+ln -sf "$DOTFILES_FULL_PATH/vendor/things3-cli/skills/things" "$HOME/.codex/skills/things"
+ok
+
+step "Install Claude Code agents and commands"
+mkdir -p $HOME/.claude/agents $HOME/.claude/commands
+link_files $DOTFILES_FULL_PATH/files/.claude/agents   $HOME/.claude/agents
+link_files $DOTFILES_FULL_PATH/files/.claude/commands $HOME/.claude/commands
+ok
 
 if [ -r ~/.Brewfile ]; then
 step "Install linked Brewfiles"
