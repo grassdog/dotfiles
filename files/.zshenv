@@ -17,3 +17,6 @@ export PATH="${HOME}/.bin:${HOME}/dev/scripts:/usr/local/bin:/usr/local/sbin:/Ap
 export MANPATH="/usr/local/share/man:${MANPATH}"
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+
+alias bearcli=/Applications/Bear.app/Contents/MacOS/bearcli
+
