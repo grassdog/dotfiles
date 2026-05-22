@@ -1,3 +1,5 @@
+# Config for interactive zsh shells
+
 ##########
 # History
 ##########
@@ -101,22 +103,6 @@ source ~/.zsh/aliases.zsh
 # Enable history in iex
 export ERL_AFLAGS="-kernel shell_history enabled"
 
-export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-
-if type direnv >/dev/null 2>&1; then
-  eval "$(direnv hook zsh)"
-fi
-
-# tmuxinator is setting this for some reason so unset it
-unset GEM_HOME
-
-# Set up asdf
-export ASDF_DATA_DIR="$HOME/.asdf"
-export PATH="$ASDF_DATA_DIR/shims:$PATH"
-
-# Add local bin, bun, and Matter CLI to path
-export PATH="$HOME/.local/bin:$HOME/.bun/bin:$HOME/.matter/bin:$PATH"
-
 # Integrate fzf into my shell
 source <(fzf --zsh)
 
@@ -142,7 +128,5 @@ if [[ -n "$ZSH_VERSION" ]]; then
     preexec_functions+=("add_trusted_local_bin_to_path")
   fi
 fi
-
-[[ -r "$HOME/.secrets" ]] && source "$HOME/.secrets"
 
 fpath=($fpath "/Users/ray/.zfunctions")

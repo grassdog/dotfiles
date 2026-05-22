@@ -42,6 +42,7 @@ alias bat='bat --theme Dracula --pager "less -RFi"'
 
 alias obsidian-vaults='cd ~/Library/Mobile\ Documents/iCloud~md~obsidian/Documents'
 
+alias bearcli="/Applications/Bear.app/Contents/MacOS/bearcli"
 
 #######
 # Git
