@@ -17,10 +17,6 @@ export BUNDLER_EDITOR=$EDITOR
 # Add local scripts, Obsidian, and VSCode to my path
 export PATH="${HOME}/.bin:${HOME}/dev/scripts:/usr/local/bin:/usr/local/sbin:/Applications/Obsidian.app/Contents/MacOS:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:${PATH}"
 
-# Set up asdf for all sessions
-export ASDF_DATA_DIR="$HOME/.asdf"
-export PATH="$ASDF_DATA_DIR/shims:$PATH"
-
 # Add local bin, bun, and Matter CLI to path
 export PATH="$HOME/.local/bin:$HOME/.bun/bin:$HOME/.matter/bin:$PATH"
 
@@ -28,6 +24,9 @@ export PATH="$HOME/.local/bin:$HOME/.bun/bin:$HOME/.matter/bin:$PATH"
 if type direnv >/dev/null 2>&1; then
   eval "$(direnv hook zsh)"
 fi
+
+# Add asdf
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 # Adding Homebrew man path
 export MANPATH="/usr/local/share/man:${MANPATH}"
