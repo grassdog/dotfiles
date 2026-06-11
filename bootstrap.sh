@@ -171,6 +171,7 @@ fi
 # mas install 1640236961 # Save to Reader
 # mas install 1376402589 # StopTheMadness
 # # mas install 2112214276 # Supercopy for Safari (1.0)
+# mas install 961632517  # Be Focused Pro: Pomodoro Timer
 # mas install 1475387142 # Tailscale
 # mas install 904280696  # Things
 # mas install 1662217862 # Wipr 2
