@@ -51,3 +51,6 @@ TAGS
 
 # Direnv files
 .envrc
+
+# Claude local settings files
+**/.claude/settings.local.json
