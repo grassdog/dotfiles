@@ -20,3 +20,4 @@ merge-args = ["$left", "$base", "$right", "-o", "$output"]
 
 [aliases]
 diffk = ["diff", "--tool", "kaleid"]
+tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
