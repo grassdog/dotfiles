@@ -3,6 +3,7 @@ tap 'homebrew/services'
 tap 'oven-sh/bun'            # bun
 tap 'jesseduffield/lazygit'  # lazygit
 tap 'ossianhempel/tap'       # things3-cli
+tap 'modem-dev/tap'          # hunk
 tap 'anomalyco/tap'          # opencode
 
 brew 'asdf'
@@ -23,10 +24,12 @@ brew 'fd'
 brew 'fzf'
 brew 'gh'
 brew 'gum'
+brew 'hunk'
 brew 'jj'
 brew 'jjui'
 brew 'lazygit'
-brew 'libyaml' # Needed for building ruby with asdf
+# Needed for building ruby with asdf
+brew 'libyaml' 
 brew 'mas'
 brew 'neovim'
 brew 'pandoc'
