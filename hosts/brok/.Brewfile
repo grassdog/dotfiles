@@ -1,8 +1,9 @@
 tap 'homebrew/bundle'
 tap 'homebrew/services'
-tap 'oven-sh/bun'
-tap 'jesseduffield/lazygit'
-tap 'ossianhempel/tap'
+tap 'oven-sh/bun'            # bun
+tap 'jesseduffield/lazygit'  # lazygit
+tap 'ossianhempel/tap'       # things3-cli
+tap 'anomalyco/tap'          # opencode
 
 brew 'asdf'
 brew 'aspell'
@@ -17,7 +18,7 @@ brew 'difftastic'
 brew 'duckdb'
 brew 'ffmpeg'
 brew 'flyctl'
-brew 'anomalyco/tap/opencode'
+brew 'opencode'
 brew 'fd'
 brew 'fzf'
 brew 'gh'
