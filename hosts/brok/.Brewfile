@@ -6,7 +6,6 @@ tap 'ossianhempel/tap'       # things3-cli
 tap 'modem-dev/tap'          # hunk
 tap 'anomalyco/tap'          # opencode
 
-brew 'asdf'
 brew 'aspell'
 brew 'awscli'
 brew 'bat'
@@ -31,6 +30,7 @@ brew 'lazygit'
 # Needed for building ruby with asdf
 brew 'libyaml' 
 brew 'mas'
+brew 'mise'
 brew 'neovim'
 brew 'pandoc'
 brew 'reattach-to-user-namespace'

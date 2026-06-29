@@ -25,10 +25,6 @@ if type direnv >/dev/null 2>&1; then
   eval "$(direnv hook zsh)"
 fi
 
-# Add asdf here for headless sessions (e.g. agents)
-# This is also setup in .zshrc
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
-
 # Adding Homebrew man path
 export MANPATH="/usr/local/share/man:${MANPATH}"
 

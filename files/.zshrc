@@ -55,8 +55,17 @@ SPACESHIP_EXIT_CODE_SHOW=true
 
 [[ -r /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# Setup asdf
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+
+###################
+# Version managers
+###################
+
+# Setup mise
+eval "$(/opt/homebrew/bin/mise activate zsh)"
+
+# Install rv in my shell
+eval "$(/opt/homebrew/bin/rv shell init zsh)"
+eval "$(/opt/homebrew/bin/rv shell completions zsh)"
 
 ###############
 # Corrections
