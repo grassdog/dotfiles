@@ -14,6 +14,7 @@ brew 'bun'
 brew 'cmake'
 # Needed for building native ruby gems occasionally
 brew 'coreutils'
+brew 'devcontainer'
 brew 'difftastic'
 brew 'duckdb'
 brew 'ffmpeg'
