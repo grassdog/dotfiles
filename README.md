@@ -9,3 +9,5 @@ The bulk of my dotfiles live under the `files` directory.
 ## Installation
 
 Run `bootstrap.sh` to bootstrap up an OSX machine how I like it. This script relies on Bash and [Homebrew](http://brew.sh/) and are safe to rerun. More details in [INSTALLATION.md](INSTALLATION.md).
+
+Mac App Store installations can be unreliable. Can install them via `install-mas-apps.sh`.

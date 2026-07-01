@@ -153,31 +153,6 @@ brew bundle -v --no-upgrade --file=~/.Brewfile
 ok
 fi
 
-# step "Install apps from the App Store"
-# mas install 1569813296 # 1Password for Safari
-# mas install 1091189122 # Bear
-# mas install 1451400394 # bookmarker for pinboard
-# mas install 1465439395 # Dark Noise
-# mas install 1055511498 # Day one
-# mas install 288545208  # Instapaper
-# # mas install 2145332318 # Ivory for Mastodon
-# mas install 1622835804 # Kagi Search for Safari
-# mas install 1614730313 # MusicBox: Save Music for Later
-# mas install 1289197285 # MindNode 6
-# mas install 1006739057 # NepTunes
-# # mas install 1869226229 # Obsidian Web Clipper (0.11.1)
-# mas install 1596506190 # Play: Save Videos Watch Later
-# # mas install 1851660095 # Raycast Companion
-# mas install 1640236961 # Save to Reader
-# mas install 1376402589 # StopTheMadness
-# # mas install 2112214276 # Supercopy for Safari (1.0)
-# mas install 961632517  # Be Focused Pro: Pomodoro Timer
-# mas install 1475387142 # Tailscale
-# mas install 904280696  # Things
-# mas install 1662217862 # Wipr 2
-# mas install 1621370168 # WorldWideWeb – Desktop
-# ok
-
 if [ -r $DOTFILES_FULL_PATH/hosts/$HOSTNAME/bootstrap.sh ]; then
 step "Run host specific bootstrap script"
   "$DOTFILES_FULL_PATH/hosts/$HOSTNAME/bootstrap.sh"
