@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ 
+# Creates a git repo on my local NAS
+# 
+# Usage: ./create-git-repo.sh <repo-name> [nas-host] [git-root-path]
+# Example: ./create-git-repo.sh myproject nas /volume1/git
+ 
+REPO_NAME="${1:?Usage: $0 <repo-name> [nas-host] [git-root-path]}"
+NAS_HOST="${2:-ray@knox.grasso.home}"
+GIT_ROOT="${3:-/volume1/Code/git}"
+ 
+REPO_PATH="${GIT_ROOT}/${REPO_NAME}.git"
+ 
+echo "Creating bare repo at ${NAS_HOST}:${REPO_PATH}"
+ 
+ssh "${NAS_HOST}" bash -s <<EOF
+set -euo pipefail
+mkdir -p "${REPO_PATH}"
+cd "${REPO_PATH}"
+git init --bare --shared
+git symbolic-ref HEAD refs/heads/main
+git config --local receive.denyNonFastforwards false
+git update-server-info
+EOF
+
+echo "Done. Add this remote locally:"
+echo "  git remote add origin ${NAS_HOST}:${REPO_PATH}"
