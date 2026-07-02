@@ -30,6 +30,7 @@ fi
 
 echo "Install apps from the App Store"
 mas install 1569813296 # 1Password for Safari
+mas install 302584613  # Amazon Kindle
 mas install 937984704  # Amphetamine
 mas install 1091189122 # Bear
 mas install 1451400394 # bookmarker for pinboard
@@ -45,6 +46,7 @@ mas install 1869226229 # Obsidian Web Clipper
 mas install 1596506190 # Play: Save Videos Watch Later
 mas install 1851660095 # Raycast Companion
 mas install 1640236961 # Save to Reader
+mas install 1508732804 # Soulver 4
 mas install 1376402589 # StopTheMadness
 mas install 2112214276 # Supercopy for Safari
 mas install 961632517  # Be Focused Pro: Pomodoro Timer
