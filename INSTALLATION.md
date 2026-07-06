@@ -131,6 +131,9 @@ Check the status of services via `brew services list`.
     - Install command line tools
 - Spotify
     - Disable friend feed and notifcation of next song
+- Keyboard Maestro
+    - Import macro group from Backups
+    - Disable Switcher macro group
 - Copy across or clone projects into `~/dev`
 - Copy dotfiles
     - ~/.aws/config
