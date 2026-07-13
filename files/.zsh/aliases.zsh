@@ -106,8 +106,8 @@ function git-rewind() {
 # Ruby
 #######
 
-alias spec="bundle exec rspec -f d"
-alias rubo-correct="bundle exec rubocop --auto-correct"
+alias spec="rv run rspec -f d"
+alias rubo-correct="rv run rubocop --auto-correct"
 
 # Run rubocop on modified files
 function rubo-changed() {
@@ -119,7 +119,7 @@ function rubo-changed() {
 
 # Format a ruby file with syntax_tree
 function format-ruby() {
-  stree write --print-width=120 --plugins=plugin/trailing_comma "$1"
+  rv run stree write --print-width=120 --plugins=plugin/trailing_comma "$1"
 }
 
 
