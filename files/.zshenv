@@ -17,8 +17,8 @@ export BUNDLER_EDITOR=$EDITOR
 # Add local scripts, Obsidian, and VSCode to my path
 export PATH="${HOME}/.bin:${HOME}/dev/scripts:/usr/local/bin:/usr/local/sbin:/Applications/Obsidian.app/Contents/MacOS:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:${PATH}"
 
-# Add local bin, bun, and Matter CLI to path
-export PATH="$HOME/.local/bin:$HOME/.bun/bin:$HOME/.matter/bin:$PATH"
+# Add local bin, bun, cargo, and Matter CLI to path
+export PATH="$HOME/.local/bin:$HOME/.bun/bin:$HOME/.matter/bin:$HOME/.cargo/bin:$PATH"
 
 # Enable direnv for all sessions
 if type direnv >/dev/null 2>&1; then
