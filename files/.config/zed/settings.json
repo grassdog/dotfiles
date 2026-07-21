@@ -9,11 +9,11 @@
 {
   "agent_servers": {
     "codex-acp": {
-      "type": "registry"
+      "type": "registry",
     },
     "claude-acp": {
-      "type": "registry"
-    }
+      "type": "registry",
+    },
   },
   "cli_default_open_behavior": "new_window",
   "show_completions_on_input": false,
@@ -51,9 +51,13 @@
   "agent": {
     "default_model": {
       "provider": "anthropic",
-      "model": "claude-opus-4-6-1m-context-latest"
+      "model": "claude-opus-4-6-1m-context-latest",
     },
-    "play_sound_when_agent_done": true,
     "use_modifier_to_send": true,
+    "play_sound_when_agent_done": "always",
+    "notify_when_agent_waiting": "primary_screen",
+  },
+  "terminal": {
+    "bell": "system",
   },
 }
