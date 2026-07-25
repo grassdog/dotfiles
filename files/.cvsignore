@@ -41,8 +41,8 @@ dontgitify
 # Ctags files
 .tags
 .gems.tags
-tags
-TAGS
+#tags
+#TAGS
 
 # Compiled Python
 *.pyc
