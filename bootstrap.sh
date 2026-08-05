@@ -173,25 +173,6 @@ mkdir -p ~/.config/karabiner
 [ ! -f $HOME/.config/karabiner/karabiner.json ] && [ -d $HOME/Library/CloudStorage/Dropbox/Backups/ ] && cp "$HOME/Library/CloudStorage/Dropbox/Backups/karabiner/karabiner.json" "$HOME/.config/karabiner"
 ok
 
-step "Install tmux config"
-mkdir -p ~/.tmux/plugins
-[ ! -d $HOME/.tmux/plugins/tpm ] && git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
-ok
-
-
-step "Install fonts"
-mkdir -p ~/Library/Fonts
-[ -d $HOME/Library/CloudStorage/Dropbox/Backups/ ] && find ~/Library/CloudStorage/Dropbox/Backups/Fonts/ToInstall -name '*.ttf' -o -name '*.otf' -exec cp {} ~/Library/Fonts \;
-chmod -x ~/Library/Fonts/*.ttf
-chmod -x ~/Library/Fonts/*.otf
-ok
-
-step "Install spelling files"
-[ -d $HOME/Library/CloudStorage/Dropbox/Backups/ ] && ln -sf $HOME/Dropbox/Backups/Spell/aspell.en.pws "$HOME/.aspell.en.pws"
-[ -d $HOME/Library/CloudStorage/Dropbox/Backups/ ] && ln -sf $HOME/Dropbox/Backups/Spell/aspell.en.prepl "$HOME/.aspell.en.prepl"
-ok
-
-
 step "Write macOS defaults"
 
 # Autohide the dock
@@ -275,10 +256,3 @@ defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 # no feedback sound when changing volume.defaults
 defaults write NSGlobalDomain com.apple.sound.beep.feedback -bool false
 ok
-
-step "Check FileVault is enabled"
-if fdesetup status | grep $Q "FileVault is Off"; then
-  warn "Please run 'sudo fdesetup enable -user \"$USER\"' to enable full-disk encryption."
-else
-  ok
-fi
