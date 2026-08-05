@@ -5,23 +5,22 @@ Use the steps below to stand up a macOS box how I like it.
 ## Bootstrap up the environment
 
 - Sign in and set the hostname.
-    - Set hostname in system preferences.
-    - Run `sudo scutil --set HostName hostname` in Terminal.
-- Enable FileVault.
+  - Set hostname in system preferences.
+  - Run `sudo scutil --set HostName hostname` in Terminal.
 - Run a software update on the machine.
 - Sign into iCloud.
 - Sign into the App store.
 - Install 1Password and sign in.
-    - Security > Don't lock when screensaver activated.
+  - Security > Don't lock when screensaver activated.
 - Install Dropbox and sign in.
-    - Disable external drive and photo backups.
-    - Notifications > Disable `New files synced` and `Edits to files`.
-    - Go to finder and make the following folders available offline
-        - `Backups`
-        - `Documents`
-        - `Library`
-        - `Media/Images`.
-        - `Code`.
+  - Disable external drive and photo backups.
+  - Notifications > Disable `New files synced` and `Edits to files`.
+  - Go to finder and make the following folders available offline
+    - `Backups`
+    - `Documents`
+    - `Library`
+    - `Media/Images`.
+    - `Code`.
 
 Run the script below.
 
@@ -41,197 +40,155 @@ Check the status of services via `brew services list`.
 ## Manual Steps
 
 - Settings
-    - Users and groups > Drag a new profile picture across
-    - Internet Accounts
-        - Add Work Google for email and calendar
-        - Enable everything except keychain for iCloud
-    - Accessibility > Display > Reduce transparency
-    - Keyboard > Key repeat max and Delay to minimum
-    - Keyboard > Use F1 keys as standard function keys on external keyboards
-    - Keyboard > Customise control strip - drag play pause down to far right to replace Siri button
-    - Keyboard > Modifier Keys > Set caps lock as control
-    - Keyboard > Shortcuts > Spotlight > Change spotlight to `ctrl-space`
-    - Keyboard > Shortcuts > Spotlight > Switch off show finder search window
-    - Keyboard > Shortcuts > Mission Control > Disable all Mission Control key shortcuts
-    - Keyboard > Shortcuts > Services > Paste Chrome link into NotePlan `⌃⌥⇧⌘b`
-    - Keyboard > Shortcuts > Services > Copy current page as markdown link in Brave `⌃⌥⇧⌘c`
-    - Keyboard > Shortcuts > Services > Copy current page as markdown link in Chrome `⌃⌥⇧⌘x`
-    - Keyboard > Shortcuts > Mission Control > Mission Control `⌃⌥⇧⌘<backtick>`
-    - Keyboard > Shortcuts > Mission Control > Move left a space `⌃⌥⇧⌘←`
-    - Keyboard > Shortcuts > Mission Control > Move right a space `⌃⌥⇧⌘→`
-    - Keyboard > Shortcuts > Mission Control > Show desktop  `⌃⌥⇧⌘d`
-    - Trackpad > Disable Two finger click
-    - Trackpad > Disable Smart zoom and Rotate
-    - Trackpad > Disable swipe between pages
-    - Desktop and ScreenSaver > Add ~/Dropbox/Media/Images/Wallpapers folder and change every hour
-    - Desktop and ScreenSaver > Drift
-    - Dock & Menu Bar > Clock > Show the day of the week > Always
-    - Desktop and Dock > Disable window tiling
-    - Apple Intelligence and Siri > Keyboard shortcut > `⌃⌥⇧⌘;`
+  - Users and groups > Drag a new profile picture across
+  - Internet Accounts
+    - Add Work Google for email and calendar
+    - Enable everything except keychain for iCloud
+  - Accessibility > Display > Reduce transparency
+  - Keyboard > Key repeat max and Delay to minimum
+  - Keyboard > Modifier Keys > Set caps lock as control
+  - Keyboard > Shortcuts > Spotlight > Change spotlight to `ctrl-space`
+  - Keyboard > Shortcuts > Spotlight > Switch off show finder search window
+  - Keyboard > Shortcuts > Mission Control > Disable all Mission Control key shortcuts
+  - Desktop and Dock > Disable window tiling
 - Raycast
-    - Sign in and enable sync
-    - Set shortcut to `cmd-space`
-    - Add Kagi and Spotify and Github API keys
-    - Install local extensions
-        - Download my Github repo and run `./scripts/dev` while Raycast is running in each of the local plugins to install them.
+  - Sign in and enable sync
+  - Set shortcut to `cmd-space`
+  - Install local extensions
+    - Download my Github repo and run `./scripts/dev` while Raycast is running in each of the local plugins to install them.
 - Safari
-    - Under AutoFill settings disable usernames, passwords, contacts, and credit cards.
-    - View > Show status bar.
-    - Preferences > Advanced > Show full website address.
-    - Enable extensions
-    - Configure Kagi search to replace Yahoo
-    - Set Yahoo as the default search engine
-    - Customise toolbar and remove cruft
+  - Under AutoFill settings disable usernames, passwords, contacts, and credit cards.
+  - View > Show status bar.
+  - Preferences > Advanced > Show full website address.
+  - Enable extensions
+  - Customise toolbar and remove cruft
 - Moom
-    - Run as faceless app
-    - Launch at login
-    - Import settings: https://manytricks.com/osticket/kb/faq.php?id=53
-    - `defaults export com.manytricks.Moom ~/Desktop/Moom.plist` on source machine
-    - `defaults import com.manytricks.Moom ~/Desktop/Moom.plist` on target machine
+  - Run as faceless app
+  - Launch at login
+  - Import settings: https://manytricks.com/osticket/kb/faq.php?id=53
+  - `defaults export com.manytricks.Moom ~/Desktop/Moom.plist` on source machine
+  - `defaults import com.manytricks.Moom ~/Desktop/Moom.plist` on target machine
 - Finder
-    - Add ~/dev into Finder sidebar
-    - New window opens in ~/Downloads
-    - View > Customize toolbar > Add Airdrop icon to toolbar.
-    - View > Show View Options > Resize columns to fit filenames.
+  - Add ~/dev into Finder sidebar
+  - New window opens in ~/Downloads
+  - View > Customize toolbar > Add Airdrop icon to toolbar.
+  - View > Show View Options > Resize columns to fit filenames.
 - Karabiner Elements
-    - Don't show icon in menu bar
-    - Set caps lock to control in `System Preferences > Keyboard` for karabiner virtual keyboard
+  - Don't show icon in menu bar
+  - Set caps lock to control in `System Preferences > Keyboard` for karabiner virtual keyboard
 - Mimestream
-    - Add personal email accounts
-    - Enable notifications in system settings and disable everything except app badge
+  - Add personal email accounts
+  - Enable notifications in system settings and disable everything except app badge
 - Sign out of iMessages and FaceTime
 - Mail.app
-    - Disable notifications
-    - Preferences > New messages Sound > None
+  - Disable notifications
+  - Preferences > New messages Sound > None
 - Calendar.app
-    - Notifications
-        - Switch off badge.
-        - Leave sound enabled.
-    - Preferences > General > Default Calendar App - Set to Fantastical.
-    - General > Days per week > 5
-    - Alerts > Time to leave > off
-    - Alerts > Show invitation messages > off
-    - Alerts > Show shared calendar messages in notification centre > off
+  - Notifications
+    - Switch off badge.
+    - Leave sound enabled.
+  - Preferences > General > Default Calendar App - Set to Fantastical.
+  - General > Days per week > 5
+  - Alerts > Time to leave > off
+  - Alerts > Show invitation messages > off
+  - Alerts > Show shared calendar messages in notification centre > off
 - Things
-    - Install the Things Helper application for sharing across apps
-    - Set shortcut for quick entry to `cmd-opt-space`
-    - Set shortcut for quick entry with autofill to `⌃⌥⇧⌘space`.
-    - Enable notifications but no badges
-- Bear
-    - Set global shortcut to new note `⌃⌥⇧⌘z`
-- QLStephen
-    - Allow in security settings.
+  - Install the Things Helper application for sharing across apps
+  - Set shortcut for quick entry to `cmd-opt-space`
+  - Set shortcut for quick entry with autofill to `⌃⌥⇧⌘space`.
+  - Enable notifications but no badges
 - DayOne
-    - Setup sync
-    - No auto title
-    - No selected formating menu
-    - Disable reminders
+  - Setup sync
+  - No auto title
+  - No selected formating menu
+  - Disable reminders
 - VSCode
-    - Turn on setting sync (sign in via Github)
-    - Install command line tools
+  - Turn on setting sync (sign in via Github)
+  - Install command line tools
+- Zed
+  - Install extensions: Alabaster, Alabaster Dark, Ruby, Dockerfile, HTML
 - Spotify
-    - Disable friend feed and notifcation of next song
+  - Disable friend feed and notifcation of next song
 - Keyboard Maestro
-    - Import macro group from Backups
-    - Disable Switcher macro group
+  - Import macro group from Backups
+  - Disable Switcher macro group
 - Copy across or clone projects into `~/dev`
-- Copy dotfiles
-    - ~/.aws/config
-    - ~/.config/exercism
 - Cleanshot
-    - Use default system key mappings.
+  - Use default system key mappings.
 - NepTunes
-    - Set play/pause shortcut to `⌃⌥⇧⌘p`
-    - Scrobble from Spotify is unchecked
-    - Disable widget
+  - Set play/pause shortcut to `⌃⌥⇧⌘p`
+  - Scrobble from Spotify is unchecked
+  - Disable widget
 - 1Password
-    - Settings > Developer > Use the SSH Agent
-    - Settings > Developer > Ask approval for each new Application
-    - Settings > Developer > Remember key approval until 1Password quits
-    - Settings > Developer > Display key names when authorizing connections
-    - Settings > Developer > Open SSH URLs with Ghostty
-
-Add the following to ~/.ssh/config
-
-```
-# Use 1Password SSH agent
-Host *
-  IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
-```
+  - Settings > Developer > Use the SSH Agent
+  - Settings > Developer > Ask approval for each new Application
+  - Settings > Developer > Remember key approval until 1Password quits
+  - Settings > Developer > Display key names when authorizing connections
+  - Settings > Developer > Open SSH URLs with Ghostty
 
 # Optional stuff
 
-- Install Okta Verify from the App Store for work computer
-- NotePlan
-    - Use CloudKit for syncing.
-    - Set global shortcut to `⌃⌥⇧⌘j`
-    - Start week on Monday
-    - Don't recognise `*` as todo
-    - Use `-` as default
-    - Automatically update note links
-    - Edit > Spelling and Grammar > Disable automatically correct spelling
+- Install fonts from `~/Dropbox/Backups/Fonts/`
 - WebCatalog
-    - Install Gmail and Google calendar apps
-    - Add work accounts
+  - Install Gmail and Google calendar apps
+  - Add work accounts
 - Download Elgato Control Centre and Stream Deck from https://www.elgato.com/ww/en/s/downloads
-    - Install plugins
-        - Apple Music, Audio Mute, Audio Switcher, Control Center, MuteDeck, OSAScript, Shortcuts, Spotify, Volume Controller, Zoom
-    - Import profile backup into Stream Deck from `~/Dropbox/Backups/StreamDeck`.
-        - Find latest backup file and click it
-        - (Or follow Instructions at https://help.elgato.com/hc/en-us/articles/360048424432-Elgato-Stream-Deck-How-to-Back-Up-and-Restore-Profiles-)
+  - Install plugins
+    - Apple Music, Audio Mute, Audio Switcher, Control Center, MuteDeck, OSAScript, Shortcuts, Spotify, Volume Controller, Zoom
+  - Import profile backup into Stream Deck from `~/Dropbox/Backups/StreamDeck`.
+    - Find latest backup file and click it
+    - (Or follow Instructions at https://help.elgato.com/hc/en-us/articles/360048424432-Elgato-Stream-Deck-How-to-Back-Up-and-Restore-Profiles-)
 - Fantastical 3
-    - Sign in with Apple
-    - Add Work account
-    - Add iCloud account (with app specific password)
-    - Menu bar icon date and weekday
-    - Defaults to last selected calendar and list
-    - Default event is 30 minutes
-    - Start week on Monday
-    - Start week view on Today or selected day
-    - Show 13 hours at a time
-    - Days per week = 5
-    - Day from 6am - 5pm
-    - Show multi-day events in all-day section
-    - Create three calendar sets: Everything, Work, and Personal
-    - Appearance > App Icon Badge shows > Nothing
-    - Enable notifications (no application badge though)
-        - Show shared calendar notifications
-        - Show notifications for all day tasks at 7am
-        - Disable Show invitation messages in Notification Center
-        - Disable drive time notifications
-- Microsoft Teams
+  - Sign in with Apple
+  - Add Work account
+  - Add iCloud account (with app specific password)
+  - Menu bar icon date and weekday
+  - Defaults to last selected calendar and list
+  - Default event is 30 minutes
+  - Start week on Monday
+  - Start week view on Today or selected day
+  - Show 13 hours at a time
+  - Days per week = 5
+  - Day from 6am - 5pm
+  - Show multi-day events in all-day section
+  - Create three calendar sets: Everything, Work, and Personal
+  - Appearance > App Icon Badge shows > Nothing
+  - Enable notifications (no application badge though)
+    - Show shared calendar notifications
+    - Show notifications for all day tasks at 7am
+    - Disable Show invitation messages in Notification Center
+    - Disable drive time notifications
 - Google Meet Web app via Chrome
-    - Browse to Google Meet and install Chrome app from address bar (or copy across from ~/Applications)
+  - Browse to Google Meet and install Chrome app from address bar (or copy across from ~/Applications)
 - MuteDeck
-    - Set global shortcut for Mute to `⌘⇧9`
-    - Enable Browser extension.
+  - Set global shortcut for Mute to `⌘⇧9`
+  - Enable Browser extension.
 - Download and install Webster's 1913 Dictionary
-    - Instructions at https://github.com/cmod/websters-1913
+  - Instructions at https://github.com/cmod/websters-1913
 - Create Last.fm web desktop app.
 - ChatGPT
-    - Set global shortcut to `⌥space`.
+  - Set global shortcut to `⌥space`.
 - Choosy
-    - Set default browser
-    - Start at login
-    - Don't show in menu bar
-    - Set browsers Chrome -> Arc -> Safari -> Google Meet
-    - Import settings from ~/Dropbox/Backups/Choosy/behaviours.plist to ~/Library/Application Support/Choosy
+  - Set default browser
+  - Start at login
+  - Don't show in menu bar
+  - Set browsers Chrome -> Arc -> Safari -> Google Meet
+  - Import settings from ~/Dropbox/Backups/Choosy/behaviours.plist to ~/Library/Application Support/Choosy
 - Seconds Pro
-    - Set up periodic reminders while I'm in meetings.
+  - Set up periodic reminders while I'm in meetings.
 - Install Photoshop from Adobe CC
 - Install Topaz Photo AI
 - Install Lightroom Classic from Adobe CC
-    - Copy across Lightroom catalog and masters from USB backup
-    - Manually copy across settings from previous install
-    - Copy across Lightroom presets from backup into new location `~/Library/Application Support/Adobe/Lightroom/{Develop Preset,Export Presets,Filename Templates,Metadata Presets}`
-    - Copy across Lightroom presets from backup into new location `~/Library/Application Support/Adobe/CameraRaw/Settings/*`
-    - Restart Lightroom
-    - Map Module > Import My Locations from backup
-    - Pick `~/Dropbox/Photos/Lightroom/Backups` path in backup dialog when exiting Lightroom.
+  - Copy across Lightroom catalog and masters from USB backup
+  - Manually copy across settings from previous install
+  - Copy across Lightroom presets from backup into new location `~/Library/Application Support/Adobe/Lightroom/{Develop Preset,Export Presets,Filename Templates,Metadata Presets}`
+  - Copy across Lightroom presets from backup into new location `~/Library/Application Support/Adobe/CameraRaw/Settings/*`
+  - Restart Lightroom
+  - Map Module > Import My Locations from backup
+  - Pick `~/Dropbox/Photos/Lightroom/Backups` path in backup dialog when exiting Lightroom.
 - Install Fuji Raw Studio
 - Dash 3
-    - Set up syncing to `~/Dropbox/Backups/Dash`
+  - Set up syncing to `~/Dropbox/Backups/Dash`
 - Calibre
-    - Preferences > Install plugin from file > `~/Dropbox/Backups/Calibre DRM plugins/KFX Input.zip`
-    - Preferences > Install plugin from file > `~/Dropbox/Backups/Calibre DRM plugins/DeDRM_tools_6.6.1/DeDRM_calibre_plugin/DeDRM_plugin.zip`
-
+  - Preferences > Install plugin from file > `~/Dropbox/Backups/Calibre DRM plugins/KFX Input.zip`
+  - Preferences > Install plugin from file > `~/Dropbox/Backups/Calibre DRM plugins/DeDRM_tools_6.6.1/DeDRM_calibre_plugin/DeDRM_plugin.zip`
