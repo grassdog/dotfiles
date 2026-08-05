@@ -387,7 +387,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 ---------------
 --- Treesitter
 ---------------
-require'nvim-treesitter.configs'.setup({
+require'nvim-treesitter.config'.setup({
   -- install language parser
   -- :TSInstallInfo Command to view supported languages
   ensure_installed = {
