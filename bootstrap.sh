@@ -178,16 +178,6 @@ mkdir -p ~/.tmux/plugins
 [ ! -d $HOME/.tmux/plugins/tpm ] && git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
 ok
 
-step "Install service menu items"
-mkdir -p ~/Library/Services
-SAVEIFS=$IFS
-IFS=$(echo -en "\n\b")
-for f in $(find $DOTFILES_FULL_PATH/services -maxdepth 1 -mindepth 1 ! -name .DS_Store); do
-  log "Copying $f to ~/Library/Services"
-  cp -R "$f" ~/Library/Services
-done
-IFS=$SAVEIFS
-ok
 
 step "Install fonts"
 mkdir -p ~/Library/Fonts
