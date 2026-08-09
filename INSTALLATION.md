@@ -76,6 +76,7 @@ Check the status of services via `brew services list`.
 - Karabiner Elements
   - Don't show icon in menu bar
   - Set caps lock to control in `System Preferences > Keyboard` for karabiner virtual keyboard
+  - Map Fn keys on external keyboard to be Fn keys rather than media keys
 - Mimestream
   - Add personal email accounts
   - Enable notifications in system settings and disable everything except app badge
