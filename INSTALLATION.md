@@ -130,6 +130,7 @@ Check the status of services via `brew services list`.
 # Optional stuff
 
 - Install fonts from `~/Dropbox/Backups/Fonts/`
+  - FiraCode Nerd Font Mono for Ghostty and IDEs at a minimum.
 - WebCatalog
   - Install Gmail and Google calendar apps
   - Add work accounts
