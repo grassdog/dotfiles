@@ -55,6 +55,11 @@ SPACESHIP_EXIT_CODE_SHOW=true
 
 [[ -r /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+# Enable direnv (hooks precmd/chpwd, so only useful in interactive shells)
+if type direnv >/dev/null 2>&1; then
+  eval "$(direnv hook zsh)"
+fi
+
 
 ###################
 # Version managers
