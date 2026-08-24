@@ -16,6 +16,7 @@ brew 'gh'
 
 # Needed for building ruby with asdf
 brew 'libyaml'
+brew 'poppler'
 brew 'mas'
 brew 'mise'
 brew 'neovim'
