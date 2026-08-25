@@ -117,9 +117,9 @@ function rubo-changed() {
   git diff-tree -r --no-commit-id --name-only head origin/master | xargs rubocop
 }
 
-# Format a ruby file with syntax_tree
+# Format a ruby file
 function format-ruby() {
-  rv run stree write --print-width=120 --plugins=plugin/trailing_comma "$1"
+  rubyfmt -i "$1"
 }
 
 
