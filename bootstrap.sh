@@ -157,10 +157,6 @@ step "Run host specific bootstrap script"
 ok
 fi
 
-#step "Set shell to zsh"
-#[[ $(echo $SHELL) != $(which zsh) ]] && sudo dscl . -create /Users/${whoami} UserShell $(which zsh)
-#ok
-
 step "Install neovim config"
 ~/.config/nvim/setup.sh
 ok

@@ -29,7 +29,6 @@ brew 'trash'
 brew 'tree'
 brew 'tmux'
 brew 'z'
-brew 'zsh'
 brew 'zsh-autosuggestions'
 
 

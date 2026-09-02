@@ -45,7 +45,6 @@ brew 'tree'
 brew 'yarn'
 brew 'yt-dlp'
 brew 'z'
-brew 'zsh'
 brew 'zsh-autosuggestions'
 
 cask_args appdir: '/Applications'
