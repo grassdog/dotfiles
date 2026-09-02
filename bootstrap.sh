@@ -126,20 +126,18 @@ link_files $DOTFILES_FULL_PATH/files/.config $HOME/.config
 ok
 
 step "Install AI skills"
-mkdir -p $HOME/.claude/skills $HOME/.codex/skills
+mkdir -p $HOME/.claude/skills $HOME/.agents/skills
+npx skills add ossianhempel/things3-cli@things -g -a claude-code codex -y
+npx skills add kepano/obsidian-skills@obsidian-markdown -g -a claude-code codex -y
+npx skills add kepano/obsidian-skills@obsidian-cli -g -a claude-code codex -y
+npx skills add kepano/obsidian-skills@obsidian-bases -g -a claude-code codex -y
+npx skills add kepano/obsidian-skills@json-canvas -g -a claude-code codex -y
+npx skills add kepano/obsidian-skills@defuddle -g -a claude-code codex -y
+npx skills update -g
+
+# Link my own home made skills
 link_files $DOTFILES_FULL_PATH/ai/skills   $HOME/.claude/skills
-link_files $DOTFILES_FULL_PATH/ai/skills   $HOME/.codex/skills
-
-mkdir -p $DOTFILES_FULL_PATH/vendor
-clone_or_pull https://github.com/kepano/obsidian-skills "$DOTFILES_FULL_PATH/vendor/obsidian-skills"
-for skill in defuddle json-canvas obsidian-bases obsidian-cli obsidian-markdown; do
-  ln -sf "$DOTFILES_FULL_PATH/vendor/obsidian-skills/skills/$skill" "$HOME/.codex/skills/$skill"
-done
-
-clone_or_pull https://github.com/ossianhempel/things3-cli "$DOTFILES_FULL_PATH/vendor/things3-cli"
-ln -sf "$DOTFILES_FULL_PATH/vendor/things3-cli/skills/things" "$HOME/.claude/skills/things"
-ln -sf "$DOTFILES_FULL_PATH/vendor/things3-cli/skills/things" "$HOME/.codex/skills/things"
-ok
+link_files $DOTFILES_FULL_PATH/ai/skills   $HOME/.agents/skills
 
 step "Install Claude Code agents and commands"
 mkdir -p $HOME/.claude/agents $HOME/.claude/commands
@@ -159,9 +157,9 @@ step "Run host specific bootstrap script"
 ok
 fi
 
-step "Set shell to zsh"
-[[ $(echo $SHELL) != $(which zsh) ]] && sudo dscl . -create /Users/${whoami} UserShell $(which zsh)
-ok
+#step "Set shell to zsh"
+#[[ $(echo $SHELL) != $(which zsh) ]] && sudo dscl . -create /Users/${whoami} UserShell $(which zsh)
+#ok
 
 step "Install neovim config"
 ~/.config/nvim/setup.sh
