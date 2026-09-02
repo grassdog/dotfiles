@@ -13,3 +13,7 @@ export PATH="$HOME/.local/bin:$HOME/.bun/bin:$HOME/.matter/bin:$HOME/.cargo/bin:
 
 # Adding Homebrew man path
 export MANPATH="/usr/local/share/man:${MANPATH}"
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init.zsh 2>/dev/null || :
