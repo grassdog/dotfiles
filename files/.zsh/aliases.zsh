@@ -119,7 +119,7 @@ function rubo-changed() {
 
 # Format a ruby file
 function format-ruby() {
-  rubyfmt -i "$1"
+  rv fmt "$1"
 }
 
 
