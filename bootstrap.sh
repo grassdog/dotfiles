@@ -134,6 +134,7 @@ npx skills add kepano/obsidian-skills@obsidian-bases -g -a claude-code codex -y
 npx skills add kepano/obsidian-skills@json-canvas -g -a claude-code codex -y
 npx skills add kepano/obsidian-skills@defuddle -g -a claude-code codex -y
 npx skills add mattpocock/skills -g -a claude-code codex -y
+npx skills add addyosmani/agent-skills -g -a claude-code codex -y
 
 npx skills update -g
 
