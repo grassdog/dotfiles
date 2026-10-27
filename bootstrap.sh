@@ -127,14 +127,8 @@ ok
 
 step "Install AI skills"
 mkdir -p $HOME/.claude/skills $HOME/.agents/skills
-npx skills add ossianhempel/things3-cli@things -g -a claude-code codex -y
-npx skills add kepano/obsidian-skills@obsidian-markdown -g -a claude-code codex -y
-npx skills add kepano/obsidian-skills@obsidian-cli -g -a claude-code codex -y
-npx skills add kepano/obsidian-skills@obsidian-bases -g -a claude-code codex -y
-npx skills add kepano/obsidian-skills@json-canvas -g -a claude-code codex -y
-npx skills add kepano/obsidian-skills@defuddle -g -a claude-code codex -y
-npx skills add mattpocock/skills -g -a claude-code codex -y
-npx skills add addyosmani/agent-skills -g -a claude-code codex -y
+npx skills add mattpocock/skills@grill-me -g -a claude-code codex -y
+npx skills add addyosmani/agent-skills@interview-me -g -a claude-code codex -y
 
 npx skills update -g
 
