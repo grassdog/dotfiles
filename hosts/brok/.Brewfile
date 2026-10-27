@@ -1,6 +1,5 @@
 tap 'homebrew/bundle'
 tap 'homebrew/services'
-tap 'oven-sh/bun'            # bun
 tap 'ossianhempel/tap'       # things3-cli
 tap 'modem-dev/tap'          # hunk
 tap 'anomalyco/tap'          # opencode
