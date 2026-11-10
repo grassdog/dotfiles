@@ -128,6 +128,9 @@ ok
 step "Install AI skills"
 mkdir -p $HOME/.claude/skills $HOME/.agents/skills
 npx skills add mattpocock/skills@grill-me -g -a claude-code codex -y
+npx skills add mattpocock/skills@grilling -g -a claude-code codex -y
+npx skills add mattpocock/skills@grill-with-docs -g -a claude-code codex -y
+npx skills add mattpocock/skills@domain-modeling -g -a claude-code codex -y
 
 npx skills update -g
 
